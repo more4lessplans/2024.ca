@@ -1324,7 +1324,7 @@
                         <div class="result-container" id="result-container">
                             <div class="result" id="result"></div>
                             <div class="more-info" id="more-info">
-                                <a href="/speedestimate">↪ Get a Speed Estimate</a>
+                                <a href="/speedestimate">Get a Speed Estimate &rarr;</a>
                             </div>
                         </div>
                     </div>
@@ -1352,7 +1352,7 @@
                                 if (status === 'OK') {
                                     const result = results[0];
                                     const country = result.address_components.find(component => component.types.includes('country')).short_name;
-                                    const resultText = country === 'CA' ? '<span class="checkmark">&#10004;</span> Service Available' : '<span class="crossmark">&#10006;</span> Service Not Available';
+                                    const resultText = country === 'CA' ? '<span class="checkmark">&#x2713;</span> Service Available' : '<span class="crossmark">&#x2715;</span> Service Not Available';
                     
                                     // Display the result
                                     resultElement.innerHTML = resultText;
