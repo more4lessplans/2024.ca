@@ -31,7 +31,7 @@
   <!-- Custom CSS -->
   <style>
     .navbar, .navbar-nav .nav-link, .dropdown-menu, .dropdown-item, .nav-item {
-      background-color: black !important;
+      background-color: #313C59 !important;
     }
 
     .nav-link, .nav-item {
@@ -72,203 +72,234 @@
     </div>
 </nav>
  
-   <style>
-    body {
-      margin: 0px;
-      padding-top: 100px; /* Adjust spacing as needed */
-      display: flex;
-      justify-content: center;
-      align-items: top;
-      height: 100vh;
-      background-color: #ffffff00;
-    }
-
-    ul {
-      list-style-type: none; /* Remove bullet points */
-      padding: 0;
+  <!-- Custom CSS -->
+  <style>
+    /* Basic reset */
+    * {
       margin: 0;
-    }
-
-    .full-width-section {
-      width: 100%;
-      max-width: 900px; /* Max width of 500px */
-      /* Remove background color, padding, box-shadow, and border-radius */
-      text-align: center; /* Center align content */
-      margin: 0 auto; /* Center align section */
-    }
-
-    .center-title {
-      text-align: center;
-      margin-bottom: 20px; /* Adjust spacing below title */
-    }
-
-    .form-textbox,
-    .form-textarea,
-    .form-sub-label-container input,
-    .form-buttons-wrapper button {
-      width: 75%; /* 75% width */
-      padding: 10px;
-      border: 0.5px solid #bdbdbd;
-      border-radius: 5px;
+      padding: 0;
       box-sizing: border-box;
-      margin-bottom: 10px; /* Adjust spacing between fields */
     }
 
-    .form-textarea {
-      height: 100px;
+    /* Ensure the body takes up the full height */
+    html, body {
+      height: 100%;
     }
 
-    .grecaptcha-badge {
-      visibility: hidden;
+    /* Make the container flexible to take up remaining height */
+    .content-wrapper {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
+
+    /* Main content area should grow to fill the space */
+    .main-content {
+      flex: 1;
+      padding: 20px;
+    }
+
+    /* Footer Styling */
+    footer {
+      background-color: #f8f9fa;
+      padding: 40px 0;
+      text-align: center;
+    }
+
+    .footer-section {
+      margin-bottom: 30px;
+    }
+
+    .footer-section p {
+      font-weight: bold;
+    }
+
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-section ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-section ul li a {
+      color: #333;
+      text-decoration: none;
+    }
+
+    .footer-section ul li a:hover {
+      text-decoration: underline;
+    }
+
+    /* Ensure footer is at the bottom of the page */
+    footer p {
+      margin: 10px 0;
+      font-size: 14px;
+    }
+
+    /* Ensure consistent padding and look on different screen sizes */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+</style>
   </style>
 </head>
 
 <body>
   <section class="full-width-section">
-    <h3 class="fs-4 fs-lg-3 fw-bold text-center mb-2 mb-lg-x1"> Speed Estimate</h3>
-
-    <form class="jotform-form" action="https://submit.jotform.com/submit/223076752019051/" method="post" name="form_223076752019051" id="223076752019051" accept-charset="utf-8" autocomplete="on">
+    <h3 class="fs-4 fs-lg-3 fw-bold text-center mb-2 mb-lg-x1" style="margin-top: 120px;">Speed Estimate</h3>
+  
+    <p class="form-223076752019051-p" style="padding-left: 20px; padding-right: 20px;">Our service uses the networks of Canada’s “Big 3” providers. While we can’t guarantee exact speeds due to factors like location and network traffic, we aim to provide a clear picture of real-world performance for a reliable connection wherever you are.</p>
+    <style>
+      .form-223076752019051 .form-container {
+        width: calc(100% - 40px); /* Ensure 20px margin on both sides */
+        max-width: 600px;
+        margin: 0 auto;
+      }
+  
+      .form-223076752019051 .form-group {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+      }
+  
+      .form-223076752019051 .form-group-full {
+        width: 100%;
+        margin-bottom: 15px;
+      }
+  
+      .form-223076752019051 input {
+        width: 48%;
+        padding: 12px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+  
+      .form-223076752019051 input.full-width {
+        width: 100%;
+      }
+  
+      .form-223076752019051 button {
+        width: 100%;
+        padding: 12px;
+        background-color: #313C59;
+        color: white;
+        font-size: 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+  
+      .form-223076752019051 button:hover {
+        background-color: #313C59;
+      }
+  
+      /* Paragraph styling to match form width */
+      .form-223076752019051-p {
+        max-width: 600px;
+        margin: 20px auto;
+        font-size: 16px;
+        line-height: 1.6;
+        text-align: center;
+        color: #666;
+      }
+    </style>
+  
+    <form class="jotform-form form-223076752019051" action="https://submit.jotform.com/submit/223076752019051/" method="post" name="form_223076752019051" id="223076752019051" accept-charset="utf-8" autocomplete="on">
       <input type="hidden" name="formID" value="223076752019051" />
-      <input type="hidden" id="JWTContainer" value="" />
-      <input type="hidden" id="cardinalOrderNumber" value="" />
-
-      <div role="main" class="form-all">
-        <ul class="form-section page-section">
-          <li class="form-line jf-required" data-type="control_fullname" id="id_3">
-            <label class="form-label form-label-top form-label-auto" id="label_3" for="first_3">
-              <span class="form-required"></span>
-            </label>
-            <div id="cid_3" class="form-input-wide jf-required" data-layout="full">
-              <div data-wrapper-react="true">
-                <span class="form-sub-label-container" style="vertical-align:top" data-input-type="first">
-                  <input placeholder="First Name" type="text" id="first_3" name="q3_name[first]" class="form-textbox validate[required]" data-defaultvalue="" autoComplete="section-input_3 given-name" size="5" value="" data-component="first" aria-labelledby="label_3 sublabel_3_first" required />
-                  <label class="form-sub-label" for="first_3" id="sublabel_3_first" style="min-height:13px" aria-hidden="false"></label>
-                </span>
-                <span class="form-sub-label-container" style="vertical-align:top" data-input-type="last">
-                  <input placeholder="Last Name" type="text" id="last_3" name="q3_name[last]" class="form-textbox validate[required]" data-defaultvalue="" autoComplete="section-input_3 family-name" size="15" value="" data-component="last" aria-labelledby="label_3 sublabel_3_last" required />
-                  <label class="form-sub-label" for="last_3" id="sublabel_3_last" style="min-height:13px" aria-hidden="false"></label>
-                </span>
-              </div>
-            </div>
-          </li>
-
-          <li class="form-line jf-required" data-type="control_email" id="id_4">
-            <label class="form-label form-label-top" id="label_4" for="input_4">
-              <span class="form-required"></span>
-            </label>
-            <div id="cid_4" class="form-input-wide jf-required" data-layout="half">
-              <span class="form-sub-label-container" style="vertical-align:top">
-                <input placeholder="Email" type="email" id="input_4" name="q4_email" class="form-textbox validate[required, Email]" data-defaultvalue="" size="310" value="" data-component="email" aria-labelledby="label_4 sublabel_input_4" required />
-                <label class="form-sub-label" for="input_4" id="sublabel_input_4" style="min-height:13px" aria-hidden="false"></label>
-              </span>
-            </div>
-          </li>
-
-          <li class="form-line jf-required" data-type="control_address" id="id_5">
-            <label class="form-label form-label-top form-label-auto" id="label_5" for="input_5_addr_line1">
-              <span class="form-required"></span>
-            </label>
-            <div id="cid_5" class="form-input-wide jf-required" data-layout="full">
-              <div summary="" class="form-address-table jsTest-addressField">
-                <div class="form-address-line-wrapper jsTest-address-line-wrapperField">
-                  <span class="form-address-line form-address-street-line jsTest-address-lineField">
-                    <span class="form-sub-label-container" style="vertical-align:top">
-                      <input placeholder="Street Address" type="text" id="input_5_addr_line1" name="q5_address[addr_line1]" class="form-textbox validate[required] form-address-line" data-defaultvalue="" autoComplete="section-input_5 address-line1" value="" data-component="address_line_1" aria-labelledby="label_5 sublabel_5_addr_line1" required />
-                      <label class="form-sub-label" for="input_5_addr_line1" id="sublabel_5_addr_line1" style="min-height:13px" aria-hidden="false"></label>
-                    </span>
-                  </span>
-                </div>
-
-                <div class="form-address-line-wrapper jsTest-address-line-wrapperField">
-                  <span class="form-address-line form-address-city-line jsTest-address-lineField">
-                    <span class="form-sub-label-container" style="vertical-align:top">
-                      <input placeholder="City" type="text" id="input_5_city" name="q5_address[city]" class="form-textbox validate[required] form-address-city" data-defaultvalue="" autoComplete="section-input_5 address-level2" value="" data-component="city" aria-labelledby="label_5 sublabel_5_city" required />
-                      <label class="form-sub-label" for="input_5_city" id="sublabel_5_city" style="min-height:13px" aria-hidden="false"></label>
-                    </span>
-                  </span>
-                  <span class="form-address-line form-address-state-line jsTest-address-lineField">
-                    <span class="form-sub-label-container" style="vertical-align:top">
-                      <input placeholder="Province" type="text" id="input_5_state" name="q5_address[state]" class="form-textbox validate[required] form-address-state" data-defaultvalue="" autoComplete="section-input_5 address-level1" value="" data-component="state" aria-labelledby="label_5 sublabel_5_state" required />
-                      <label class="form-sub-label" for="input_5_state" id="sublabel_5_state" style="min-height:13px" aria-hidden="false"></label>
-                    </span>
-                  </span>
-                </div>
-
-                <div class="form-address-line-wrapper jsTest-address-line-wrapperField">
-                  <span class="form-address-line form-address-zip-line jsTest-address-lineField">
-                    <span class="form-sub-label-container" style="vertical-align:top">
-                      <input placeholder="Postal Code" type="text" id="input_5_postal" name="q5_address[postal]" class="form-textbox validate[required] form-address-postal" data-defaultvalue="" autoComplete="section-input_5 postal-code" value="" data-component="zip" aria-labelledby="label_5 sublabel_5_postal" required />
-                      <label class="form-sub-label" for="input_5_postal" id="sublabel_5_postal" style="min-height:13px" aria-hidden="false"></label>
-                    </span>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </li>
-
-          <li class="form-line" data-type="control_button" id="id_2">
-            <div id="cid_2" class="form-input-wide" data-layout="full">
-              <div data-align="auto" class="form-buttons-wrapper form-buttons-auto jsTest-button-wrapperField">
-                <br><br>
-                <button id="input_2" type="submit" class="form-submit-button submit-button jf-form-buttons jsTest-submitField" data-component="button" style="background-color: #c4d5c4; color: white; border: none;">
-                      Get Results
-                    </button>
-                  </div>
-                </div>
-              </li>
-      
-              <li style="display:none;">
-                Should be Empty:
-                <input type="text" name="website" value="">
-              </li>
-            </ul>
-          </div>
-        </form>
-      
-        <script type="text/javascript">
-          JotForm.ownerView = true;
-        </script>
-        <script src="https://cdn.jotfor.ms/js/vendor/smoothscroll.min.js?v=3.3.36916"></script>
-        <script src="https://cdn.jotfor.ms/js/errorNavigation.js?v=3.3.36916"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  
+      <div class="form-container">
+        <!-- Full Name Fields -->
+        <div class="form-group">
+          <input type="text" id="first_3" name="q3_name[first]" placeholder="First Name" required>
+          <input type="text" id="last_3" name="q3_name[last]" placeholder="Last Name" required>
+        </div>
+  
+        <!-- Phone Number Field -->
+        <div class="form-group-full">
+          <input type="tel" id="input_6_full" name="q6_phoneNumber[full]" class="full-width" placeholder="Phone Number" required>
+        </div>
+  
+        <!-- Email Field -->
+        <div class="form-group-full">
+          <input type="email" id="input_4" name="q4_email" class="full-width" placeholder="Email" required>
+        </div>
+  
+        <!-- Address Fields -->
+        <div class="form-group-full">
+          <input type="text" id="input_5_addr_line1" name="q5_address[addr_line1]" class="full-width" placeholder="Street Address" required>
+        </div>
+        <div class="form-group">
+          <input type="text" id="input_5_city" name="q5_address[city]" placeholder="City" required>
+          <input type="text" id="input_5_state" name="q5_address[state]" placeholder="Province" required>
+        </div>
+        <div class="form-group-full">
+          <input type="text" id="input_5_postal" name="q5_address[postal]" class="full-width" placeholder="Postal Code" required>
+        </div>
+  
+        <!-- Submit Button -->
+        <button type="submit">Get Estimate</button>
       </div>
-    </section>
+    </form>
+  
+    <script type="text/javascript">
+      JotForm.ownerView = true;
+    </script>
+    <script src="https://cdn.jotfor.ms/js/vendor/smoothscroll.min.js?v=3.3.36916"></script>
+    <script src="https://cdn.jotfor.ms/js/errorNavigation.js?v=3.3.36916"></script>
+  </section>
+<br><br><br>
 
-    
+  <!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row gy-4 g-md-3 border-bottom pb-8 pb-lg-9 justify-content-center text-center text-md-left">
+      <div class="col-12 col-sm-6 col-md-3">
+        <p class="mb-2 lh-lg ls-1 fw-bold">Company</p>
+        <ul class="list-unstyled text-1100">
+          <li class="mb-1"><a class="ls-1 lh-xl" href="/about">About</a></li>
+          <li class="mb-1"><a class="ls-1 lh-xl" href="/contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="col-12 col-sm-6 col-md-3">
+        <p class="mb-2 lh-lg fw-bold">Product</p>
+        <ul class="list-unstyled text-1100">
+          <li class="mb-1"><a class="ls-1 lh-xl" href="/index#pricing">Pricing</a></li>
+          <li class="mb-1"><a class="ls-1 lh-xl" href="/support">Technical Support</a></li>
+          <li class="mb-1"><a class="ls-1 lh-xl" href="/activate">Activate</a></li>
+        </ul>
+      </div>
+
+      <div class="col-12 col-sm-6 col-md-3">
+        <p class="mb-2 lh-lg fw-bold">Legal</p>
+        <ul class="list-unstyled text-1100">
+          <li class="mb-1"><a class="ls-1 lh-xl" href="/privacypolicy">Privacy</a></li>
+          <li class="mb-1"><a class="ls-1 lh-xl" href="/terms">Terms & Conditions</a></li>
+          <li class="mb-1"><a class="ls-1 lh-xl" href="/terms#pricing">Return Policy</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="row gy-2 py-3 justify-content-center">
+      <div class="col-auto">
+        <p class="text-center lh-xl text-1100">© 2024 Copyright, All Rights Reserved</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+
+
+
+
+
 
 
     <!-- Bootstrap Bundle with Popper.js -->
