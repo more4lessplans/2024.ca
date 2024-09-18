@@ -71,11 +71,170 @@
           <section class="hero-section overflow-hidden position-top z-0 mb-4 mb-lg-0" id="home">
             <div class="hero-background">
               <div class="container">
-  <div class="row">
-    <div class="col-lg-7 text-center text-lg-start align-self-start">
-      <h1 class="fs-1 fs-lg-1 text-white fw-bold mb-2 mb-lg-x1 lh-base mt-3 mt-lg-0">High-Speed Wireless Internet Solutions</h1>
-      <p class="fs-8 text-white mb-3 mb-lg-4 lh-lg">Blazing fast, unlimited internet with no slowdowns for just $110/month and a one-time hardware fee.</p>
-      <a class="btn btn-primary btn-lg lh-xl mb-4 mb-md-5 mb-lg-7" href="#pricing" style="background-color: #C4D5C4;">Get Started</a>
+                
+                <div class="row">
+                  <div class="col-lg-7 text-center text-lg-start align-self-start">
+                    <h1 class="fs-1 fs-lg-1 text-white fw-bold mb-2 mb-lg-x1 lh-base mt-3 mt-lg-0">High-Speed Wireless Internet Solutions</h1>
+                    <p class="fs-8 text-white mb-3 mb-lg-4 lh-lg">Blazing fast, unlimited internet with no slowdowns for just $110/month and a one-time hardware fee.</p>
+                
+                    <!-- Coverage Checker Form -->
+                    <form id="address-form" class="text-center text-lg-start">
+                      <input class="form-control email-input mb-2" type="text" id="address" name="address" placeholder="Enter Address" required>
+                      <div class="d-grid" id="button-container">
+                        <button class="btn btn-lg btn-primary lh-xl" type="submit" id="check-coverage-btn">Check Coverage</button>
+                      </div>
+                    </form>
+                
+                    <div class="result-container" id="result-container" style="margin-top: 10px;">
+                      <!-- Speed Estimate Link (Initially Hidden) -->
+                      <div class="more-info" id="more-info" style="display: none; margin-top: 10px;">
+                        <a href="speedestimate.html" class="btn btn-link speed-estimate-link" style="text-decoration: none; font-style: italic;">Get a Speed Estimate &rarr;</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- CSS to Center on Mobile and Left-Align on Larger Screens -->
+                <style>
+                  .form-container {
+                    max-width: 400px;
+                  }
+                
+                  @media (min-width: 992px) {
+                    #address-form, .result-container {
+                      max-width: 400px;
+                    }
+                  }
+                
+                  /* Initial button styles */
+                  #check-coverage-btn {
+                    background-color: #313C59 !important; /* Initial button color (dark blue-gray) */
+                    border-color: #313C59 !important; /* Matching border color */
+                    color: white;
+                  }
+                
+                  /* Eligible button styles */
+                  .btn-get-started {
+                    background-color: #C4D5C4 !important; /* Eligible button color (light green) */
+                    border-color: #C4D5C4 !important; /* Matching border color */
+                    color: white !important; /* Ensure text is white */
+                  }
+                
+                  /* Subtle pulse emphasis animation */
+                  @keyframes pulse {
+                    0% {
+                      transform: scale(1);
+                    }
+                    50% {
+                      transform: scale(1.1); /* Scale up slightly */
+                    }
+                    100% {
+                      transform: scale(1);
+                    }
+                  }
+                
+                  /* Apply the animation */
+                  .emphasize {
+                    animation: pulse 0.5s ease-out 1; /* Single pulse lasting 0.5s */
+                  }
+                
+                  /* Style for Speed Estimate link */
+                  .speed-estimate-link {
+                    color: white !important;
+                    font-weight: bold;
+                    font-size: 16px;
+                    margin-top: 20px; /* Add 20px margin above the text */
+                    display: inline-block;
+                    font-style: italic; /* Italicize the text */
+                  }
+                
+                  /* Styling for Service Not Available Text */
+                  .service-unavailable-text {
+                    color: white;
+                    font-weight: bold;
+                    font-size: 18px;
+                  }
+                
+                  /* Styling for the Try Another Address link */
+                  .try-again {
+                    color: white;
+                    font-size: 16px;
+                    margin-top: 10px;
+                    cursor: pointer;
+                  }
+                
+                  /* Refresh icon */
+                  .refresh-icon {
+                    margin-right: 5px;
+                  }
+                </style>
+                
+                <!-- JavaScript for Address Coverage Check and Emphasis Animation -->
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNt4XeQ5roadq0L-IpadA6s9e4CPm9FwI&libraries=places"></script>
+                <script>
+                  document.addEventListener('DOMContentLoaded', function() {
+                    const input = document.getElementById('address');
+                    const autocomplete = new google.maps.places.Autocomplete(input);
+                
+                    document.getElementById('address-form').addEventListener('submit', function(event) {
+                      event.preventDefault();
+                      const address = input.value;
+                      checkAddressCoverage(address);
+                    });
+                  });
+                
+                  function checkAddressCoverage(address) {
+                    const geocoder = new google.maps.Geocoder();
+                    geocoder.geocode({ 'address': address }, function(results, status) {
+                      const moreInfoContainer = document.getElementById('more-info');
+                      const buttonContainer = document.getElementById('button-container');
+                
+                      if (status === 'OK' && results.length > 0) {
+                        const result = results[0];
+                        const country = result.address_components.find(component => component.types.includes('country')).short_name;
+                
+                        // If service is available in Canada, show the eligible button and link
+                        if (country === 'CA') {
+                          showEligibleState(buttonContainer, moreInfoContainer);
+                        } else {
+                          showUnavailableState(buttonContainer, moreInfoContainer); // Show Service Not Available if not in Canada
+                        }
+                      } else {
+                        showUnavailableState(buttonContainer, moreInfoContainer); // Show Service Not Available if invalid address
+                      }
+                    });
+                  }
+                
+                  function showEligibleState(buttonContainer, moreInfoContainer) {
+                    // Restore the Check Coverage button and show the speed estimate text under it
+                    buttonContainer.innerHTML = `
+                      <button class="btn btn-lg btn-primary lh-xl btn-get-started emphasize" type="submit" id="check-coverage-btn" onclick="window.location.href='#pricing'">Eligible! - Order Now</button>
+                      <a href="speedestimate.html" class="speed-estimate-link">Get a Speed Estimate &rarr;</a>
+                    `;
+                  }
+                
+                  function showUnavailableState(buttonContainer, moreInfoContainer) {
+                    // Replace the button with "Service Not Available" text and try again option
+                    buttonContainer.innerHTML = `
+                      <div class="service-unavailable-text">Service Not Available</div>
+                      <div class="try-again" onclick="resetForm()">
+                        <span class="refresh-icon">↻</span> Try Another Address
+                      </div>
+                    `;
+                
+                    // Hide the Speed Estimate link
+                    moreInfoContainer.style.display = 'none';
+                  }
+                
+                  function resetForm() {
+                    // Restore the original Check Coverage button
+                    const buttonContainer = document.getElementById('button-container');
+                    buttonContainer.innerHTML = `
+                      <button class="btn btn-lg btn-primary lh-xl" type="submit" id="check-coverage-btn">Check Coverage</button>
+                    `;
+                  }
+                </script>
+      
     </div>
   
   </div>
@@ -100,7 +259,7 @@
                   <div class="col-12 col-lg-4 d-flex flex-row flex-lg-column justify-content-center gap-2 gap-sm-x1 gap-md-4 gap-lg-0">
                     <div class="timeline-step-1 w-25 w-lg-100 mb-4 mb-lg-5 mb-xl-6">
                       <div class="timeline-item d-flex justify-content-center">
-                        <a href="/select-hardware">
+                        <a href="#pricing">
                           <div class="timeline-icon bg-primary rounded-circle d-flex justify-content-center align-items-center">
                               <span class="fs-6 fs-lg-5 fs-xl-4 text-white">1</span>
                           </div>
@@ -585,7 +744,7 @@
                     <p class="fs-10 text-uppercase mb-3 fw-bold ls-2" style="color: #D73C59;">LB2R0</p>
                     <h2 class="mb-3"><span class="fs-6 fs-md-7 fw-bold">$</span><span class="fs-2 fs-md-1 fw-bold">349</span><span class="fs-9 lh-xl font-sans-serif pricing-info"></span></h2>
                     <ul class="list-unstyled fs-8 lh-xl fw-light text-1100 ls-1 flex-grow-1">
-                      <li class="py-x1 px-1 border-top">75-150 Mbps↓ <br> 5-15 Mbps↑</li>
+                      <li class="py-x1 px-1 border-top">50-250 Mbps↓ <br> 5-30 Mbps↑</li>
                     </ul>
                     <div id='product-component-1726059423351'></div>
                     <script type="text/javascript">
@@ -886,7 +1045,7 @@
                       <span class="fs-9 lh-xl font-sans-serif pricing-info"></span>
                     </h2>
                     <ul class="list-unstyled fs-8 lh-xl fw-light text-1100 ls-1 flex-grow-1">
-                      <li class="py-x1 px-1 border-top">100-500 Mbps↓ <br> 5-50 Mbps↑</li>
+                      <li class="py-x1 px-1 border-top">50-300 Mbps↓ <br> 5-35 Mbps↑</li>
                     </ul>
                     <div id='product-component-1726059477777'></div>
 <script type="text/javascript">
@@ -1243,153 +1402,28 @@
 
 
 
-    <!-- ===============================================--><!--    Coverage Checker--><!-- ===============================================-->
 
 
 
-          <section class="bg-300 position-relative z-0" id="contact">
-            <div class="container py-8 py-lg-9">
-              <div class="row justify-content-center">
-                <div class="col-md-8 col-lg-8">
+    <section class="bg-300 position-relative z-0" id="contact">
+      <div class="container py-8 py-lg-9">
+          <div class="row justify-content-center">
+              <div class="col-md-8 col-lg-8">
                   <div class="row justify-content-center">
-                    <div class="col-12 col-lg-10">
-                      <h2 class="fs-4 fs-lg-3 fw-bold text-center mb-2 lh-sm">Wireless Service Eligibility</h2>
-                      <p class="fs-8 mb-5 mb-lg-6 text-center lh-lg fw-normal"> Check The Availability in Your Area</p>
-                    </div>
-                    <div class="col-10 col-lg-7">
+                      <div class="col-12 col-lg-10">
+                          <p class="fs-8 text-center lh-lg fw-normal" style="margin-bottom: 10px;">
+                            
+                            We understand that choosing the right internet service can feel overwhelming, especially in rural areas. That’s why we’re dedicated to providing you with reliable, high-speed wireless internet tailored to your needs. Our easy setup process and friendly customer support ensure that you’ll have the assistance you need every step of the way. Join our community of satisfied customers and experience seamless connectivity, whether you’re at home, on the road, or off-grid. Give us a try and discover how effortless internet can be!</p>
+                      </div>
                   
-                      
-
-
-
-                      <style>
-                        /* CSS for spacing and centering */
-                        .form-container {
-                            max-width: 400px; /* Adjust max-width as per your design */
-                            margin: 0 auto; /* Center the form horizontally */
-                            text-align: center; /* Center text inside the container */
-                            padding: 20px; /* Add padding for spacing */
-                        }
-                    
-                        .form-container form {
-                            margin-bottom: 20px; /* Add space below the form */
-                        }
-                    
-                        .result-container {
-                            display: none; /* Initially hide the result container */
-                            margin-top: 10px; /* Add margin on top of the result text */
-                        }
-                    
-                        .result {
-                            font-weight: bold; /* Make the result text bold */
-                            color: #313C59; /* Adjust link color */
-                            font-size: 1.5rem; /* Adjust the font size as needed */
-                        }
-                    
-                        .more-info {
-                            margin-top: 10px; /* Add spacing above the link */
-                            display: none; /* Initially hide the more info link */
-                        }
-                    
-                        .more-info a {
-                            color: #313c597b; /* Adjust link color */
-                            font-style: italic;
-                            text-decoration: none; /* Remove underline */
-                            cursor: pointer;
-                        }
-                    
-                        .checkmark {
-                            color: green;
-                            margin-right: 10px; /* Space between the icon and the text */
-                        }
-                    
-                        .crossmark {
-                            color: red;
-                            margin-right: 10px; /* Space between the icon and the text */
-                        }
-                    
-                        .errormark {
-                            color: red;
-                            margin-right: 10px; /* Space between the icon and the text */
-                        }
-                    </style>
-                    
-                    <div class="form-container">
-                        <form id="address-form">
-                            <input class="form-control email-input mb-2" type="text" id="address" name="address" placeholder="Enter Address" required>
-                            <div class="d-grid">
-                                <button class="btn btn-lg btn-primary lh-xl" type="submit">Check Coverage</button>
-                            </div>
-                        </form>
-                        <div class="result-container" id="result-container">
-                            <div class="result" id="result"></div>
-                            <div class="more-info" id="more-info">
-                                <a href="/speedestimate">Get a Speed Estimate &rarr;</a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNt4XeQ5roadq0L-IpadA6s9e4CPm9FwI&libraries=places"></script>
-                    <script>
-                        document.addEventListener('DOMContentLoaded', function() {
-                            const input = document.getElementById('address');
-                            const autocomplete = new google.maps.places.Autocomplete(input);
-                    
-                            document.getElementById('address-form').addEventListener('submit', function(event) {
-                                event.preventDefault();
-                                const address = input.value;
-                                checkAddressCoverage(address);
-                            });
-                        });
-                    
-                        function checkAddressCoverage(address) {
-                            const geocoder = new google.maps.Geocoder();
-                            geocoder.geocode({ 'address': address }, function(results, status) {
-                                const resultContainer = document.getElementById('result-container');
-                                const resultElement = document.getElementById('result');
-                                const moreInfoContainer = document.getElementById('more-info');
-                    
-                                if (status === 'OK') {
-                                    const result = results[0];
-                                    const country = result.address_components.find(component => component.types.includes('country')).short_name;
-                                    const resultText = country === 'CA' ? '<span class="checkmark">&#x2713;</span> Service Available' : '<span class="crossmark">&#x2715;</span> Service Not Available';
-                    
-                                    // Display the result
-                                    resultElement.innerHTML = resultText;
-                                    resultContainer.style.display = 'block';
-                    
-                                    // Show more info link only if service is available
-                                    if (country === 'CA') {
-                                        moreInfoContainer.style.display = 'block';
-                                    } else {
-                                        moreInfoContainer.style.display = 'none';
-                                    }
-                                } else {
-                                    resultElement.innerHTML = '<span class="errormark">&#9888;</span> Invalid Address';
-                                    resultContainer.style.display = 'block';
-                                    
-                                    // Hide more info link on error
-                                    moreInfoContainer.style.display = 'none';
-                                }
-                            });
-                        }
-                    </script>
-
-
-
-
-
-                    </div>
-                    <div class="col-10 col-lg-7">
-                  
-                    </div>
+                      <div class="col-10 col-lg-7"></div>
                   </div>
-                </div>
               </div>
-            </div>
-          
-            <div class="position-relative bottom-0 start-0 z-1"><img class="img-fluid w-100" src="assets/img/illustrations/Wave_3.svg" alt="" /></div>
-          </section>
+          </div>
+      </div>
+  
+      <div class="position-relative bottom-0 start-0 z-1"><img class="img-fluid w-100" src="assets/img/illustrations/Wave_3.svg" alt="" /></div>
+  </section>
         </div>
 
 
