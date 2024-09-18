@@ -79,9 +79,9 @@
                 
                     <!-- Coverage Checker Form -->
                     <form id="address-form" class="text-center text-lg-start">
-                      <input class="form-control email-input mb-2" type="text" id="address" name="address" placeholder="Enter Address" required>
+                      <input class="form-control email-input mb-2" type="text" id="address" name="address" placeholder="Enter Your Address" required>
                       <div class="d-grid" id="button-container">
-                        <button class="btn btn-lg btn-primary lh-xl" type="submit" id="check-coverage-btn">Check Coverage</button>
+                        <button class="btn btn-lg btn-primary lh-xl" type="submit" id="check-coverage-btn">Check Availability</button>
                       </div>
                     </form>
                 
@@ -108,15 +108,15 @@
                 
                   /* Initial button styles */
                   #check-coverage-btn {
-                    background-color: #313C59 !important; /* Initial button color (dark blue-gray) */
-                    border-color: #313C59 !important; /* Matching border color */
+                    background-color: #C4D5C4 !important; /* Initial button color (dark blue-gray) */
+                    border-color: #C4D5C4 !important; /* Matching border color */
                     color: white;
                   }
                 
                   /* Eligible button styles */
                   .btn-get-started {
-                    background-color: #C4D5C4 !important; /* Eligible button color (light green) */
-                    border-color: #C4D5C4 !important; /* Matching border color */
+                    background-color: #313C59 !important; /* Eligible button color (light green) */
+                    border-color: #313C59 !important; /* Matching border color */
                     color: white !important; /* Ensure text is white */
                   }
                 
@@ -208,7 +208,7 @@
                   function showEligibleState(buttonContainer, moreInfoContainer) {
                     // Restore the Check Coverage button and show the speed estimate text under it
                     buttonContainer.innerHTML = `
-                      <button class="btn btn-lg btn-primary lh-xl btn-get-started emphasize" type="submit" id="check-coverage-btn" onclick="window.location.href='#pricing'">Eligible! - Order Now</button>
+                      <button class="btn btn-lg btn-primary lh-xl btn-get-started emphasize" type="submit" id="check-coverage-btn" onclick="window.location.href='#pricing'">Service Available! - Order Now ↓ </button>
                       <a href="speedestimate.html" class="speed-estimate-link">Get a Speed Estimate &rarr;</a>
                     `;
                   }
