@@ -177,16 +177,13 @@
                 
                 <!-- JavaScript for Address Coverage Check and Emphasis Animation -->
                 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNt4XeQ5roadq0L-IpadA6s9e4CPm9FwI&libraries=places"></script>
-                <!-- Include confetti script -->
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-<!-- Include confetti script -->
+              <!-- Include confetti script -->
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   const input = document.getElementById('address');
   const checkCoverageBtn = document.getElementById('check-coverage-btn');
-  let confettiLaunched = false;  // Flag to track confetti launch
   const autocomplete = new google.maps.places.Autocomplete(input);
 
   checkCoverageBtn.addEventListener('click', function() {
@@ -199,68 +196,62 @@ document.addEventListener('DOMContentLoaded', function() {
     const address = input.value;
     checkAddressCoverage(address);
   });
+});
 
-  function checkAddressCoverage(address) {
-    const geocoder = new google.maps.Geocoder();
-    geocoder.geocode({ 'address': address }, function(results, status) {
-      const moreInfoContainer = document.getElementById('more-info');
-      const buttonContainer = document.getElementById('button-container');
+function checkAddressCoverage(address) {
+  const geocoder = new google.maps.Geocoder();
+  geocoder.geocode({ 'address': address }, function(results, status) {
+    const moreInfoContainer = document.getElementById('more-info');
+    const buttonContainer = document.getElementById('button-container');
 
-      if (status === 'OK' && results.length > 0) {
-        const result = results[0];
-        const country = result.address_components.find(component => component.types.includes('country')).short_name;
+    if (status === 'OK' && results.length > 0) {
+      const result = results[0];
+      const country = result.address_components.find(component => component.types.includes('country')).short_name;
 
-        if (country === 'CA') {
-          showEligibleState(buttonContainer, moreInfoContainer);
-
-          // Launch confetti only the first time
-          if (!confettiLaunched) {
-            launchConfetti();
-            confettiLaunched = true;  // Set flag to true to prevent future launches
-          }
-        } else {
-          showUnavailableState(buttonContainer, moreInfoContainer);
-        }
+      if (country === 'CA') {
+        showEligibleState(buttonContainer, moreInfoContainer);
+        launchConfetti();  // Trigger confetti when service is available
       } else {
         showUnavailableState(buttonContainer, moreInfoContainer);
       }
-    });
-  }
+    } else {
+      showUnavailableState(buttonContainer, moreInfoContainer);
+    }
+  });
+}
 
-  function showEligibleState(buttonContainer, moreInfoContainer) {
-    buttonContainer.innerHTML = `
-      <button class="btn btn-lg btn-primary lh-xl btn-get-started emphasize" type="submit" id="check-coverage-btn" onclick="window.location.href='#pricing'">Service Available! - Order Now ↓ </button>
-      <a href="speedestimate.html" class="speed-estimate-link">Get a Speed Estimate &rarr;</a>
-    `;
-  }
+function showEligibleState(buttonContainer, moreInfoContainer) {
+  buttonContainer.innerHTML = `
+    <button class="btn btn-lg btn-primary lh-xl btn-get-started emphasize" type="submit" id="check-coverage-btn" onclick="window.location.href='#pricing'">Service Available! - Order Now ↓ </button>
+    <a href="speedestimate.html" class="speed-estimate-link">Get a Speed Estimate &rarr;</a>
+  `;
+}
 
-  function showUnavailableState(buttonContainer, moreInfoContainer) {
-    buttonContainer.innerHTML = `
-      <div class="service-unavailable-text">Service Not Available</div>
-      <div class="try-again" onclick="resetForm()">
-        <span class="refresh-icon">↻</span> Try Another Address
-      </div>
-    `;
-    moreInfoContainer.style.display = 'none';
-  }
+function showUnavailableState(buttonContainer, moreInfoContainer) {
+  buttonContainer.innerHTML = `
+    <div class="service-unavailable-text">Service Not Available</div>
+    <div class="try-again" onclick="resetForm()">
+      <span class="refresh-icon">↻</span> Try Another Address
+    </div>
+  `;
+  moreInfoContainer.style.display = 'none';
+}
 
-  function resetForm() {
-    const buttonContainer = document.getElementById('button-container');
-    buttonContainer.innerHTML = `
-      <button class="btn btn-lg btn-primary lh-xl" type="submit" id="check-coverage-btn">Check Coverage</button>
-    `;
-    confettiLaunched = false;  // Reset confetti flag when form is reset
-  }
+function resetForm() {
+  const buttonContainer = document.getElementById('button-container');
+  buttonContainer.innerHTML = `
+    <button class="btn btn-lg btn-primary lh-xl" type="submit" id="check-coverage-btn">Check Coverage</button>
+  `;
+}
 
-  // Confetti function
-  function launchConfetti() {
-    confetti({
-      particleCount: 100,
-      spread: 70,
-      origin: { y: 0.6 }
-    });
-  }
-});
+// Confetti function
+function launchConfetti() {
+  confetti({
+    particleCount: 100,
+    spread: 70,
+    origin: { y: 0.6 }
+  });
+}
 </script>
       
     </div>
