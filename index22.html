@@ -71,81 +71,87 @@
           <section class="hero-section overflow-hidden position-top z-0 mb-4 mb-lg-0" id="home">
             <div class="hero-background">
               <div class="container">
-                <div class="row">
-                  <div class="col-lg-7 text-center text-lg-start align-self-start">
-                    <h1 class="fs-1 fs-lg-1 text-white fw-bold mb-2 mb-lg-x1 lh-base mt-3 mt-lg-0">High-Speed Wireless Internet Solutions</h1>
-                    <p class="fs-8 text-white mb-3 mb-lg-4 lh-lg">Blazing fast, unlimited internet with no slowdowns for just $110/month and a one-time hardware fee.</p>
                 
-                    <!-- Coverage Checker Form -->
-                    <form id="address-form" class="text-center text-lg-start">
-                      <input class="form-control email-input mb-2" type="text" id="address" name="address" placeholder="Enter Address" required>
-                      <button class="btn btn-lg btn-primary lh-xl" type="submit">Check Coverage</button>
-                    </form>
                 
-                    <div class="result-container" id="result-container" style="display: none; margin-top: 10px;">
-                      <div class="result" id="result"></div>
-                      <div class="more-info" id="more-info" style="margin-top: 10px; display: none;">
-                        <a href="/speedestimate">Get a Speed Estimate &rarr;</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
-                <!-- CSS to Center on Mobile and Left-Align on Larger Screens -->
-                <style>
-                  .form-container {
-                    max-width: 400px;
-                  }
-                
-                  @media (min-width: 992px) {
-                    #address-form, .result-container {
-                      max-width: 400px;
-                    }
-                  }
-                </style>
-                
-                <!-- JavaScript for Address Coverage Check -->
-                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNt4XeQ5roadq0L-IpadA6s9e4CPm9FwI&libraries=places"></script>
-                <script>
-                  document.addEventListener('DOMContentLoaded', function() {
-                    const input = document.getElementById('address');
-                    const autocomplete = new google.maps.places.Autocomplete(input);
-                
-                    document.getElementById('address-form').addEventListener('submit', function(event) {
-                      event.preventDefault();
-                      const address = input.value;
-                      checkAddressCoverage(address);
-                    });
-                  });
-                
-                  function checkAddressCoverage(address) {
-                    const geocoder = new google.maps.Geocoder();
-                    geocoder.geocode({ 'address': address }, function(results, status) {
-                      const resultContainer = document.getElementById('result-container');
-                      const resultElement = document.getElementById('result');
-                      const moreInfoContainer = document.getElementById('more-info');
-                
-                      if (status === 'OK') {
-                        const result = results[0];
-                        const country = result.address_components.find(component => component.types.includes('country')).short_name;
-                        const resultText = country === 'CA' ? '<span class="checkmark">&#x2713;</span> Service Available' : '<span class="crossmark">&#x2715;</span> Service Not Available';
-                
-                        resultElement.innerHTML = resultText;
-                        resultContainer.style.display = 'block';
-                
-                        if (country === 'CA') {
-                          moreInfoContainer.style.display = 'block';
-                        } else {
-                          moreInfoContainer.style.display = 'none';
-                        }
-                      } else {
-                        resultElement.innerHTML = '<span class="errormark">&#9888;</span> Invalid Address';
-                        resultContainer.style.display = 'block';
-                        moreInfoContainer.style.display = 'none';
-                      }
-                    });
-                  }
-                </script>
+
+
+              <div class="row">
+  <div class="col-lg-7 text-center text-lg-start align-self-start">
+    <h1 class="fs-1 fs-lg-1 text-white fw-bold mb-2 mb-lg-x1 lh-base mt-3 mt-lg-0">High-Speed Wireless Internet Solutions</h1>
+    <p class="fs-8 text-white mb-3 mb-lg-4 lh-lg">Blazing fast, unlimited internet with no slowdowns for just $110/month and a one-time hardware fee.</p>
+
+    <!-- Coverage Checker Form -->
+    <form id="address-form" class="text-center text-lg-start">
+      <input class="form-control email-input mb-2" type="text" id="address" name="address" placeholder="Enter Address" required>
+      <button class="btn btn-lg btn-primary lh-xl" type="submit">Check Coverage</button>
+    </form>
+
+    <div class="result-container" id="result-container" style="display: none; margin-top: 10px;">
+      <div class="result" id="result" style="color: white;"></div>
+      <div class="more-info" id="more-info" style="margin-top: 10px; display: none;">
+        <a href="#pricing" class="btn btn-light" style="text-decoration: none;">Get Started Now</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CSS to Center on Mobile and Left-Align on Larger Screens -->
+<style>
+  .form-container {
+    max-width: 400px;
+  }
+
+  @media (min-width: 992px) {
+    #address-form, .result-container {
+      max-width: 400px;
+    }
+  }
+</style>
+
+<!-- JavaScript for Address Coverage Check -->
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const input = document.getElementById('address');
+    const autocomplete = new google.maps.places.Autocomplete(input);
+
+    document.getElementById('address-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const address = input.value;
+      checkAddressCoverage(address);
+    });
+  });
+
+  function checkAddressCoverage(address) {
+    const geocoder = new google.maps.Geocoder();
+    geocoder.geocode({ 'address': address }, function(results, status) {
+      const resultContainer = document.getElementById('result-container');
+      const resultElement = document.getElementById('result');
+      const moreInfoContainer = document.getElementById('more-info');
+
+      if (status === 'OK') {
+        const result = results[0];
+        const country = result.address_components.find(component => component.types.includes('country')).short_name;
+        const resultText = country === 'CA' ? 'Service Available' : 'Service Not Available';
+
+        // Display the result in white text without checkmark/cross mark
+        resultElement.innerHTML = resultText;
+        resultContainer.style.display = 'block';
+
+        // Show the "Get Started Now" button if service is available
+        if (country === 'CA') {
+          moreInfoContainer.style.display = 'block';
+        } else {
+          moreInfoContainer.style.display = 'none';
+        }
+      } else {
+        resultElement.innerHTML = 'Invalid Address';
+        resultContainer.style.display = 'block';
+        moreInfoContainer.style.display = 'none';
+      }
+    });
+  }
+</script>
 
 
 
