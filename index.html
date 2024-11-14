@@ -103,8 +103,8 @@
                     <div class="result-container" id="result-container" style="margin-top: 10px;">
                       <!-- Speed Estimate Link (Initially Hidden) -->
                       <div class="more-info" id="more-info" style="display: none; margin-top: 10px;">
-                        <a>Service Available!</a>
-                        <a href="speedestimate.html" class="btn btn-link speed-estimate-link" style="text-decoration: none; font-style: italic;">Get a Speed Estimate &rarr;</a>
+                       
+                        <a href="speedestimate.html" class="btn btn-link speed-estimate-link" style="text-decoration: none; font-style: italic;">Service Available! | Get a Speed Estimate &rarr;</a>
                       </div>
                     </div>
                   </div>
@@ -240,6 +240,7 @@ function showEligibleState(buttonContainer, moreInfoContainer) {
   buttonContainer.innerHTML = `
     <button class="btn btn-lg btn-primary lh-xl btn-get-started emphasize" type="submit" id="check-coverage-btn" onclick="window.location.href='#pricing'">Service Available! - Order Now ↓ </button>
     <a href="speedestimate.html" class="speed-estimate-link">Get a Speed Estimate &rarr;</a>
+     <span class="refresh-icon">↻</span> Try Another Address
   `;
 }
 
