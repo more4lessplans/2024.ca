@@ -103,57 +103,51 @@
        
       </head>
       <br><br>
-    <!-- Card Header -->
-<section class="bg-300" id="pricing">
+    
+<!-- Pricing Section with Enhanced Header and Cards -->
+<section id="pricing" style="background-color: #ffffff;">
   <div class="container py-8 py-lg-10">
-    <div class="row justify-content-center">
-      <div class="col-md-8 col-lg-7">
-        <div style="text-align: center;">
-          <h3 class="fs-4 fs-lg-3 fw-bold mb-3 lh-sm">Hardware Kits:</h3>
-          <h4 class="fs-9 fw-semibold mb-2">One-Time Hardware Cost + $110/month for Unlimited Service</h4>
-          <p class="fs-10 mb-4 lh-lg fw-normal">
-            Everything you need to get started is included in each kit.<br>
-          </p>
-        </div>
-        <div class="button-container d-flex justify-content-center align-items-center">
-          <a class="btn btn-primary btn-lg lh-xl mb-3" href="/select-hardware#blog" style="background-color: #C4D5C4;">
-            Compare Routers &rarr;
-          </a>
-        </div>
-      </div>
-    </div>
+<!-- Header -->
+<div class="row justify-content-center text-center py-5" style="background: linear-gradient(to right, #FFFFFF, #FFFFFF); border-radius: 10px;">
+  <div class="col-md-8 col-lg-7">
+    <h1 class="fs-2 fs-lg-1 fw-bold mb-3 lh-sm" style="color: #222831;">
+    Find the Right Device For You
+    </h1>
+    <p class="fw-medium mb-2 lh-sm text-secondary" style="max-width: 600px; margin-left: auto; margin-right: auto; text-align: center; font-size: 1.35rem;">
+      One-Time Hardware Purchase
+    </p>
+    <hr style="width: 200px; border: 0.5px solid #ccc; margin: 8px auto; padding: 0;">
+    <p class="fw-medium mb-2 lh-sm text-secondary" style="max-width: 600px; margin-left: auto; margin-right: auto; text-align: center; font-size: 1.25rem; white-space: nowrap;">
+      Unlimited Internet for $110 Each Month
+    </p>
+    <br>
+   
+  </div>
+</div>
 
     <!-- Card Section -->
     <div class="row justify-content-center g-4">
       <!-- MR1100 Card -->
-      <div class="col-12 col-md-6 col-lg-3 d-flex justify-content-center">
-        <div class="p-x1 text-center bg-white border shadow-sm rounded-2 pricing-card d-flex flex-column align-items-center">
+      <div class="col-12 col-md-6 col-lg-4 pricing-col">
+        <div class="pricing-card text-center border shadow-sm rounded-2 p-3 d-flex flex-column align-items-center">
           <div class="mb-3">
-            <p style="color: #D73C59; margin: 0; font-weight: bold; font-size: 1.2em;">On-the-Go:</p><br>
-            <p style="color: #565656; margin: 0;">Ultimate Mobile Connectivity</p>
+            <p class="category text-danger fw-bold fs-6">On-the-Go</p>
+            <p class="description text-muted">Ultimate Mobile Connectivity</p>
           </div>
-          <div class="d-flex justify-content-center">
-            <img src="assets/img/products/mr1100.png" alt="MR1100" width="225" height="225" class="mb-3">
-          </div>
-          <p class="fs-10 text-uppercase mb-3 fw-bold ls-2" style="color: #D73C59;">MR1100</p>
-          <h2 class="mb-3"><span class="fs-6 fs-md-7 fw-bold">$</span><span class="fs-2 fs-md-1 fw-bold">149</span></h2>
-          <ul class="list-unstyled fs-8 lh-xl fw-light text-1100 ls-1 flex-grow-1">
-            <li class="py-x1 px-1 border-top">50-100 Mbps↓ <br> 5-10 Mbps↑</li>
+          <img src="assets/img/products/mr1100.png" alt="MR1100" class="mb-3" width="225" height="225">
+          <p class="model text-danger text-uppercase fw-bold fs-10 mb-3">MR1100</p>
+          <h2 class="mb-3"><span class="fs-6 fw-bold">$</span><span class="fs-2 fw-bold">149</span></h2>
+          <ul class="list-unstyled fs-8 lh-xl fw-light text-muted mb-3">
+            <li class="py-2 px-1 border-top">50-100 Mbps↓ <br> 5-10 Mbps↑</li>
           </ul>
-          <div id="product-component-1726059350817"></div>
+          <div id="product-component-1742510942591" class="mt-auto button-container"></div>
           <script type="text/javascript">
             (function () {
               var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
               if (window.ShopifyBuy) {
-                if (window.ShopifyBuy.UI) {
-                  ShopifyBuyInit();
-                } else {
-                  loadScript();
-                }
-              } else {
-                loadScript();
-              }
-          
+                if (window.ShopifyBuy.UI) ShopifyBuyInit(); else loadScript();
+              } else loadScript();
+
               function loadScript() {
                 var script = document.createElement('script');
                 script.async = true;
@@ -161,44 +155,51 @@
                 (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(script);
                 script.onload = ShopifyBuyInit;
               }
-          
+
               function ShopifyBuyInit() {
                 var client = ShopifyBuy.buildClient({
                   domain: 'more4less-plans.myshopify.com',
                   storefrontAccessToken: '8919363113a077a0d17cd850b89265f4',
                 });
-
-                
-          
                 ShopifyBuy.UI.onReady(client).then(function (ui) {
                   ui.createComponent('product', {
                     id: '7304977416372',
-                    node: document.getElementById('product-component-1726059350817'),
+                    node: document.getElementById('product-component-1742510942591'),
                     moneyFormat: '%24%7B%7Bamount%7D%7D',
                     options: {
-                      product: {
-                        contents: {
-                          img: false,
-                          title: false,
-                          price: false,
+                      "product": {
+                        "contents": { 
+                          "img": false, 
+                          "title": false, 
+                          "price": false 
                         },
-                        text: {
-                          button: "Add to Cart",
+                        "buttonDestination": "checkout",
+                        "text": { 
+                          "button": "Buy Now" 
                         },
-                        styles: {
-                          button: {
-                            "background-color": "#c4d5c3",
-                            "border-radius": "9px",
-                            ":hover": {
-                              "background-color": "#b0c0b0",
-                            },
-                            ":focus": {
-                              "background-color": "#b0c0b0",
-                            },
-                          },
-                        },
-                      },
-                    },
+            "styles": {
+  "button": {
+    "border": "2px solid #2E2F33", 
+    "background-color": "#2E2F33",
+    "color": "#fff",
+    "font-weight": "600",
+    "border-radius": "9px",
+    "padding": "15px 45px",
+    "transition": "all 0.3s ease",
+    ":hover": {
+      "background-color": "transparent",
+      "color": "#000",
+      "border": "2px solid #000"
+    },
+    ":focus": {
+      "background-color": "transparent",
+      "color": "#000",
+      "border": "2px solid #000"
+    }
+  }
+}
+                      }
+                    }
                   });
                 });
               }
@@ -208,34 +209,26 @@
       </div>
 
       <!-- LBR20 Card -->
-      <div class="col-12 col-md-6 col-lg-3 d-flex justify-content-center">
-        <div class="p-x1 text-center bg-white border shadow-sm rounded-2 pricing-card d-flex flex-column align-items-center">
+      <div class="col-12 col-md-6 col-lg-4 pricing-col">
+        <div class="pricing-card text-center border shadow-sm rounded-2 p-3 d-flex flex-column align-items-center">
           <div class="mb-3">
-            <p style="color: #D73C59; margin: 0; font-weight: bold; font-size: 1.2em;">Fixed Location:</p><br>
-            <p style="color: #565656; margin: 0;">Reliable Connection for Everyday Use</p>
+            <p class="category text-danger fw-bold fs-6">Fixed Location</p>
+            <p class="description text-muted">Reliable Connection for Everyday Use</p>
           </div>
-          <div class="d-flex justify-content-center">
-            <img src="assets/img/products/LBR20.png" alt="LBR1100" width="225" height="225" class="mb-3">
-          </div>
-          <p class="fs-10 text-uppercase mb-3 fw-bold ls-2" style="color: #D73C59;">LBR20</p>
-          <h2 class="mb-3"><span class="fs-6 fs-md-7 fw-bold">$</span><span class="fs-2 fs-md-1 fw-bold">249</span></h2>
-          <ul class="list-unstyled fs-8 lh-xl fw-light text-1100 ls-1 flex-grow-1">
-            <li class="py-x1 px-1 border-top">50-250 Mbps↓ <br> 5-30 Mbps↑</li>
+          <img src="assets/img/products/LBR20.png" alt="LBR20" class="mb-3" width="225" height="225">
+          <p class="model text-danger text-uppercase fw-bold fs-10 mb-3">LBR20</p>
+          <h2 class="mb-3"><span class="fs-6 fw-bold">$</span><span class="fs-2 fw-bold">249</span></h2>
+          <ul class="list-unstyled fs-8 lh-xl fw-light text-muted mb-3">
+            <li class="py-2 px-1 border-top">50-250 Mbps↓ <br> 5-30 Mbps↑</li>
           </ul>
-          <div id="product-component-1726059423351"></div>
+          <div id="product-component-1726059423351" class="mt-auto button-container"></div>
           <script type="text/javascript">
             (function () {
               var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
               if (window.ShopifyBuy) {
-                if (window.ShopifyBuy.UI) {
-                  ShopifyBuyInit();
-                } else {
-                  loadScript();
-                }
-              } else {
-                loadScript();
-              }
-          
+                if (window.ShopifyBuy.UI) ShopifyBuyInit(); else loadScript();
+              } else loadScript();
+
               function loadScript() {
                 var script = document.createElement('script');
                 script.async = true;
@@ -243,42 +236,51 @@
                 (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(script);
                 script.onload = ShopifyBuyInit;
               }
-          
+
               function ShopifyBuyInit() {
                 var client = ShopifyBuy.buildClient({
                   domain: 'more4less-plans.myshopify.com',
                   storefrontAccessToken: '8919363113a077a0d17cd850b89265f4',
                 });
-          
                 ShopifyBuy.UI.onReady(client).then(function (ui) {
                   ui.createComponent('product', {
                     id: '7337501720756',
                     node: document.getElementById('product-component-1726059423351'),
                     moneyFormat: '%24%7B%7Bamount%7D%7D',
                     options: {
-                      product: {
-                        contents: {
-                          img: false,
-                          title: false,
-                          price: false,
+                      "product": {
+                        "contents": { 
+                          "img": false, 
+                          "title": false, 
+                          "price": false 
                         },
-                        text: {
-                          button: "Add to Cart",
+                        "buttonDestination": "checkout",
+                        "text": { 
+                          "button": "Buy Now" 
                         },
-                        styles: {
-                          button: {
-                            "background-color": "#c4d5c3",
-                            "border-radius": "9px",
-                            ":hover": {
-                              "background-color": "#b0c0b0",
-                            },
-                            ":focus": {
-                              "background-color": "#b0c0b0",
-                            },
-                          },
-                        },
-                      },
-                    },
+                        "styles": {
+  "button": {
+    "border": "2px solid #2E2F33", 
+    "background-color": "#2E2F33",
+    "color": "#fff",
+    "font-weight": "600",
+    "border-radius": "9px",
+    "padding": "15px 45px",
+    "transition": "all 0.3s ease",
+    ":hover": {
+      "background-color": "transparent",
+      "color": "#000",
+      "border": "2px solid #000"
+    },
+    ":focus": {
+      "background-color": "transparent",
+      "color": "#000",
+      "border": "2px solid #000"
+    }
+  }
+}
+                      }
+                    }
                   });
                 });
               }
@@ -287,83 +289,157 @@
         </div>
       </div>
 
-      <!-- MR5100 Card -->
-      <div class="col-12 col-md-6 col-lg-3 d-flex justify-content-center">
-        <div class="p-x1 text-center bg-white border shadow-sm rounded-2 pricing-card d-flex flex-column align-items-center">
+      <!-- MR6500 Card -->
+      <div class="col-12 col-md-6 col-lg-4 pricing-col">
+        <div class="pricing-card text-center border shadow-sm rounded-2 p-3 d-flex flex-column align-items-center">
           <div class="mb-3">
-            <p style="color: #D73C59; margin: 0; font-weight: bold; font-size: 1.2em;">On-the-Go:</p><br>
-            <p style="color: #565656; margin: 0;">High-Performance Mobile Hotspot</p>
+            <p class="category text-danger fw-bold fs-6">On-the-Go</p>
+            <p class="description text-muted">High-Performance Mobile Hotspot</p>
           </div>
-          <div class="d-flex justify-content-center">
-            <img src="assets/img/products/MR6500.png" alt="MR6500" width="225" height="225" class="mb-3">
-          </div>
-          <p class="fs-10 text-uppercase mb-3 fw-bold ls-2" style="color: #D73C59;">MR6500</p>
-          <h2 class="mb-3"><span class="fs-6 fs-md-7 fw-bold">$</span><span class="fs-2 fs-md-1 fw-bold">349</span></h2>
-          <ul class="list-unstyled fs-8 lh-xl fw-light text-1100 ls-1 flex-grow-1">
-            <li class="py-x1 px-1 border-top">50-300 Mbps↓ <br> 5-35 Mbps↑</li>
+          <img src="assets/img/products/MR6500.png" alt="MR6500" class="mb-3" width="225" height="225">
+          <p class="model text-danger text-uppercase fw-bold fs-10 mb-3">MR6500</p>
+          <h2 class="mb-3"><span class="fs-6 fw-bold">$</span><span class="fs-2 fw-bold">349</span></h2>
+          <ul class="list-unstyled fs-8 lh-xl fw-light text-muted mb-3">
+            <li class="py-2 px-1 border-top">50-300 Mbps↓ <br> 5-35 Mbps↑</li>
           </ul>
-          <div id="product-component-1736017271841"></div>
-                    <script type="text/javascript">
-                      (function () {
-                        var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
-                        if (window.ShopifyBuy) {
-                          if (window.ShopifyBuy.UI) {
-                            ShopifyBuyInit();
-                          } else {
-                            loadScript();
-                          }
-                        } else {
-                          loadScript();
-                        }
-                        function loadScript() {
-                          var script = document.createElement('script');
-                          script.async = true;
-                          script.src = scriptURL;
-                          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(script);
-                          script.onload = ShopifyBuyInit;
-                        }
-                        function ShopifyBuyInit() {
-                          var client = ShopifyBuy.buildClient({
-                            domain: 'more4less-plans.myshopify.com',
-                            storefrontAccessToken: '8919363113a077a0d17cd850b89265f4',
-                          });
-                          ShopifyBuy.UI.onReady(client).then(function (ui) {
-                            ui.createComponent('product', {
-                              id: '7906799452340',
-                              node: document.getElementById('product-component-1736017271841'),
-                              moneyFormat: '%24%7B%7Bamount%7D%7D',
-                              options: {
-                                "product": {
-                                  "contents": {
-                                    "img": false,
-                                    "title": false,
-                                    "price": false,
-                                  },
-                                  "text": {
-                                    "button": "Add to Cart"
-                                  },
-                                  "styles": {
-                                    "button": {
-                                      "background-color": "#c4d5c3",
-                                      "border-radius": "9px",
-                                      ":hover": {
-                                        "background-color": "#b0c0b0"
-                                      },
-                                      ":focus": {
-                                        "background-color": "#b0c0b0"
-                                      }
-                                    }
-                                  }
-                                }
-                              },
-                            });
-                          });
-                        }
-                      })();
-                    </script>
+          <div id="product-component-1736017271841" class="mt-auto button-container"></div>
+          <script type="text/javascript">
+            (function () {
+              var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
+              if (window.ShopifyBuy) {
+                if (window.ShopifyBuy.UI) ShopifyBuyInit(); else loadScript();
+              } else loadScript();
+
+              function loadScript() {
+                var script = document.createElement('script');
+                script.async = true;
+                script.src = scriptURL;
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(script);
+                script.onload = ShopifyBuyInit;
+              }
+
+              function ShopifyBuyInit() {
+                var client = ShopifyBuy.buildClient({
+                  domain: 'more4less-plans.myshopify.com',
+                  storefrontAccessToken: '8919363113a077a0d17cd850b89265f4',
+                });
+                ShopifyBuy.UI.onReady(client).then(function (ui) {
+                  ui.createComponent('product', {
+                    id: '7906799452340',
+                    node: document.getElementById('product-component-1736017271841'),
+                    moneyFormat: '%24%7B%7Bamount%7D%7D',
+                    options: {
+                      "product": {
+                        "contents": { 
+                          "img": false, 
+                          "title": false, 
+                          "price": false 
+                        },
+                        "buttonDestination": "checkout",
+                        "text": { 
+                          "button": "Buy Now" 
+                        },
+                        "styles": {
+  "button": {
+    "border": "2px solid #2E2F33", 
+    "background-color": "#2E2F33",
+    "color": "#fff",
+    "font-weight": "600",
+    "border-radius": "9px",
+    "padding": "15px 45px",
+    "transition": "all 0.3s ease",
+    ":hover": {
+      "background-color": "transparent",
+      "color": "#000",
+      "border": "2px solid #000"
+    },
+    ":focus": {
+      "background-color": "transparent",
+      "color": "#000",
+      "border": "2px solid #000"
+    }
+  }
+}
+                      }
+                    }
+                  });
+                });
+              }
+            })();
+          </script>
+        </div>
       </div>
     </div>
   </div>
+
+  <!-- CSS for Header, Symmetry, and Centering -->
+  <style>
+
+    
+    .pricing-card {
+      background-color: #f9f9f9; /* Subtle off-white for cards */
+      height: 570px;
+      padding: 1.5rem;
+      transition: transform 0.3s ease;
+      box-sizing: border-box;
+    }
+    .pricing-card:hover {
+      transform: translateY(-5px);
+    }
+    .category {
+      color: #D73C59;
+      margin: 0;
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+    .description {
+      color: #565656;
+      margin: 0;
+    }
+    .model {
+      color: #D73C59;
+      letter-spacing: 2px;
+    }
+    .text-muted {
+      color: #565656 !important;
+    }
+    img {
+      max-width: 225px;
+      height: auto;
+    }
+    .d-flex {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .mt-auto {
+      margin-top: auto;
+    }
+    .button-container {
+      min-height: 50px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+    }
+    @media (min-width: 992px) {
+      .pricing-card {
+        max-width: 350px;
+      }
+    }
+    @media (max-width: 767px) {
+      .pricing-col {
+        display: flex;
+        justify-content: center;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .pricing-card {
+        width: 90%;
+        max-width: 350px;
+      }
+    }
+  </style>
 </section>
 
 
@@ -377,65 +453,6 @@
 
 
 
-            <section class="container mb-8 mb-lg-11">
-              <div class="row justify-content-center">
-                <div class="col-md-8 col-lg-7">
-                  <br>  <br>  <br>
-                  <h3 class="fs-4 fs-lg-3 fw-bold text-center mb-2 mb-lg-x1"> How Does <span class="text-nowrap">It Work?</span></h3>
-                  <p class="fs-8 mb-7 mb-lg-8 text-center lh-lg">Fast Internet in 3 Simple Steps – It’s That Easy! </p>
-                </div>
-                <div class="col-12">
-                  <div class="row g-sm-2 g-lg-3 align-items-center timeline">
-                    <div class="col-12 col-lg-4 d-flex flex-row flex-lg-column justify-content-center gap-2 gap-sm-x1 gap-md-4 gap-lg-0">
-                      <div class="timeline-step-1 w-25 w-lg-100 mb-4 mb-lg-5 mb-xl-6">
-                        <div class="timeline-item d-flex justify-content-center">
-                          <a href="#top">
-                            <div class="timeline-icon bg-primary rounded-circle d-flex justify-content-center align-items-center">
-                                <span class="fs-6 fs-lg-5 fs-xl-4 text-white">1</span>
-                            </div>
-                        </a>
-                        </div>
-                      </div>
-                      <div class="py-1 py-lg-0 px-lg-5 w-75 w-sm-50 w-lg-100 timeline-content">
-                        <h6 class="fs-8 fw-bold text-lg-center lh-lg mb-2">Select Your Hardware</h6>
-                        <p class="text-lg-center lh-xl mb-0">Choose the device that best fits your needs. We have three options!</p>
-                      </div>
-                    </div>
-                    <div class="col-12 col-lg-4 d-flex flex-row flex-lg-column justify-content-center gap-2 gap-sm-x1 gap-md-4 gap-lg-0">
-                      <div class="timeline-step-2 w-25 w-lg-100 mb-4 mb-lg-5 mb-xl-6">
-                        <div class="timeline-item d-flex justify-content-center">
-                          <a href="#top">
-                            <div class="timeline-icon bg-primary rounded-circle d-flex justify-content-center align-items-center">
-                                <span class="fs-6 fs-lg-5 fs-xl-4 text-white">2</span>
-                            </div>
-                        </a>
-                        </div>
-                      </div>
-                      <div class="py-1 py-lg-0 px-lg-5 w-75 w-sm-50 w-lg-100 timeline-content">
-                        <h6 class="fs-8 fw-bold text-lg-center lh-lg mb-2">Activate Your Service</h6>
-                        <p class="text-lg-center lh-xl mb-0">We ship everything you need to your door. No installation needed. Just activate the device.  </span></p>
-                      </div>
-                    </div>
-                    <div class="col-12 col-lg-4 d-flex flex-row flex-lg-column justify-content-center gap-2 gap-sm-x1 gap-md-4 gap-lg-0">
-                      <div class="timeline-step-3 position-relative z-1 overflow-hidden w-25 w-lg-100 mb-4 mb-lg-5 mb-xl-6">
-                        <div class="timeline-item d-flex justify-content-center">
-                          <a href="#top">
-                            <div class="timeline-icon bg-primary rounded-circle d-flex justify-content-center align-items-center">
-                                <span class="fs-6 fs-lg-5 fs-xl-4 text-white">3</span>
-                            </div>
-                        </a>
-                        </div>
-                      </div>
-                      <div class="py-1 py-lg-0 px-lg-5 w-75 w-sm-50 w-lg-100 timeline-content">
-                        <h6 class="fs-8 fw-bold text-lg-center lh-lg mb-2">Enjoy</h6>
-                        <p class="text-lg-center lh-xl mb-0">Your monthly subscription will continue autmatically, until you cancel. </span></p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-  
 
 
 
@@ -443,69 +460,99 @@
 
 
 
+<section class="container mb-8 mb-lg-11 fade-up-section" id="blog">
+  <style>
+    /* Fade-up effect */
+    .fade-up-section {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.8s forwards;
+    }
 
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
+    /* Delay animation for each section */
+    .timeline-step-1, .timeline-step-2, .timeline-step-3 {
+      animation: fadeUp 0.8s forwards;
+      animation-delay: 0.2s;
+    }
 
+    .timeline-step-2 {
+      animation-delay: 0.4s;
+    }
 
+    .timeline-step-3 {
+      animation-delay: 0.6s;
+    }
+  </style>
 
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h3 class="fs-4 fs-lg-3 fw-bold text-left mb-2 mb-lg-1 fade-up-section">Choosing the Right Hardware</h3>
+        <p class="fs-8 mb-4 mb-lg-5 lh-lg text-left text-lg-start fw-normal fade-up-section">
+          In today's interconnected world, having a reliable experience can make all the difference in staying connected wherever you go. We offer several impressive options, each catering to different needs and preferences. Let’s take a closer look at the options, to help you decide which one suits you best.
+        </p>
+      </div>
 
+      <div class="col-12 timeline-step-1">
+        <div class="mb-4 mb-lg-5">
+          <h5 class="fs-8 fw-bold lh-lg mb-1">MR1100: Mobility at an Affordable Price</h5>
+          <p class="b-0 lh-xl">
+            The MR1100 is a standout for its affordability and robust mobility features. It supports LTE connections and is designed to deliver fast internet speeds on the go. With its sleek, portable design, the MR1100 is perfect for travelers or anyone who needs reliable internet outside of traditional Wi-Fi networks.
+          </p>
+          <p class="b-0 lh-xl">
+            Pro-Tip: Many users opt to pair the MR1100 with their existing home router to extend their internet connection throughout their entire household, making it a versatile choice for both mobility and home use.
+          </p>
+        </div>
+      </div>
 
+      <div class="col-12 timeline-step-2">
+        <div class="mb-4 mb-lg-5">
+          <h5 class="fs-8 fw-bold lh-lg mb-1">LBR20: Tried and True Reliability</h5>
+          <p class="b-0 lh-xl">
+            Priced mid-range, the LBR20 is known for its reliability and performance. It provides more than enough speed and capability for most users' needs, making it an excellent choice for homes or small offices. The LBR20 supports LTE connections and is designed to handle multiple devices simultaneously without compromising on speed.
+          </p>
+        </div>
+      </div>
 
+      <div class="col-12 timeline-step-3">
+        <div class="mb-4 mb-lg-5">
+          <h5 class="fs-8 fw-bold lh-lg mb-1">MR6500: High-Performance Mobile Hotspot</h5>
+          <p class="b-0 lh-xl">
+            For those seeking cutting-edge technology and exceptional performance on the go, the MR6500 is a top choice. This device supports advanced 5G connectivity, delivering blazing-fast speeds and seamless internet access even in high-demand situations. Its compact and sleek design ensures portability without compromising power or reliability.
+          </p>
+          <p class="b-0 lh-xl">
+            Pro-Tip: The MR6500 is perfect for professionals and tech enthusiasts who need a reliable and high-speed connection while traveling or working remotely. With its ability to handle multiple devices simultaneously, it’s an ideal solution for staying connected with minimal hassle.
+          </p>
+        </div>
+      </div>
 
+      <div class="col-12 timeline-step-4">
+        <div class="mb-4 mb-lg-5">
+          <h5 class="fs-8 fw-bold lh-lg mb-1">Making the Choice: What Hardware is Right for You?</h5>
+          <p class="b-0 lh-xl">
+            When deciding on your hardware, consider your specific needs for speed, reliability, and future-proofing. Whether you opt for the affordability and mobility of the MR1100, the tried and true reliability of the LBR20, or the advanced 5G capabilities of the MR6500, there is a solution that meets your requirements. Make sure to assess your usage patterns and budget to select the router that best fits your lifestyle and internet demands.
+          </p>
+        </div>
+      </div>
 
-
-
-
-            <section class="container mb-8 mb-lg-11" id="blog">
-
-
-            <div class="container">
-              <div class="row">
-                <div class="col-12">
-                  <h3 class="fs-4 fs-lg-3 fw-bold text-left mb-2 mb-lg-x1">Choosing the Right Hardware</h3>
-                  <p class="fs-8 mb-4 mb-lg-5 lh-lg text-left text-lg-start fw-normal">In today's interconnected world, having a reliable experience can make all the difference in staying connected wherever you go. We offer several impressive options, each catering to different needs and preferences. Let’s take a closer look at the options, to help you decide which one suits you best.</p>
-                </div>
-                <div class="col-12">
-                  <div class="mb-x1 mb-lg-3">
-                    <h5 class="fs-8 fw-bold lh-lg mb-1"> MR1100: Mobility at an Affordable Price</h5>
-                    <p class="b-0 lh-xl">The MR1100 is a standout for its affordability and robust mobility features. It supports LTE connections and is designed to deliver fast internet speeds on the go. With its sleek, portable design, the MR1100 is perfect for travelers or anyone who needs reliable internet outside of traditional Wi-Fi networks.</p>
-                    <p class="b-0 lh-xl">Pro-Tip: Many users opt to pair the MR1100 with their existing home router to extend their internet connection throughout their entire household, making it a versatile choice for both mobility and home use.</p>
-                  </div>
-                </div>
-                <div class="col-12">
-                  <div class="mb-x1 mb-lg-3">
-                    <h5 class="fs-8 fw-bold lh-lg mb-1"> LBR20: Tried and True Reliability</h5>
-                    <p class="b-0 lh-xl">Priced mid-range, the LBR20 is known for its reliability and performance. It provides more than enough speed and capability for most users' needs, making it an excellent choice for homes or small offices. The LBR20 supports LTE connections and is designed to handle multiple devices simultaneously without compromising on speed.</p>
-                  </div>
-                </div>
-
-                <div class="col-12">
-                  <div class="mb-x1 mb-lg-3">
-                    <h5 class="fs-8 fw-bold lh-lg mb-1">MR6500: High-Performance Mobile Hotspot</h5>
-                    <p class="b-0 lh-xl">For those seeking cutting-edge technology and exceptional performance on the go, the MR6500 is a top choice. This device supports advanced 5G connectivity, delivering blazing-fast speeds and seamless internet access even in high-demand situations. Its compact and sleek design ensures portability without compromising power or reliability.</p>
-                    <p class="b-0 lh-xl">Pro-Tip: The MR6500 is perfect for professionals and tech enthusiasts who need a reliable and high-speed connection while traveling or working remotely. With its ability to handle multiple devices simultaneously, it’s an ideal solution for staying connected with minimal hassle.</p>
-                  </div>
-                </div>
-
-
-              
-                <div class="col-12">
-                  <div class="mb-x1 mb-lg-3">
-                    <h5 class="fs-8 fw-bold lh-lg mb-1">Making the Choice: What Hardware is Right for You?</h5>
-                    <p class="b-0 lh-xl">When deciding on your hardware, consider your specific needs for speed, reliability, and future-proofing. Whether you opt for the affordability and mobility of the MR1100, the tried and true reliability of the LBR20, or the advanced 5G capabilities of the MR6500, there is a solution that meets your requirements. Make sure to assess your usage patterns and budget to select the router that best fits your lifestyle and internet demands.</p>
-                  </div>
-                </div>
-                <div class="col-12">
-                  <div class="mb-x1 mb-lg-3">
-                    <h5 class="fs-8 fw-bold lh-lg mb-1">Conclusion</h5>
-                    <p class="b-0 lh-xl">With any of these  devices, you can rest assured that you’re investing in quality, performance, and connectivity that keeps you seamlessly connected, whether you’re at home, at work, or on the move.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-
-</sections>
+      <div class="col-12 timeline-step-5">
+        <div class="mb-4 mb-lg-5">
+          <h5 class="fs-8 fw-bold lh-lg mb-1">Conclusion</h5>
+          <p class="b-0 lh-xl">
+            With any of these devices, you can rest assured that you’re investing in quality, performance, and connectivity that keeps you seamlessly connected, whether you’re at home, at work, or on the move.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 
 
