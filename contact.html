@@ -80,7 +80,7 @@
                   </ul>
                 </li>
                
-                <li class="nav-item"><a class="nav-link lh-xl" href="/contact">Contact</a></li>
+          
                 <li class="nav-item"><a class="nav-link lh-xl" href="/mobility">Mobility</a></li>
                 <li class="nav-item"><a class="nav-link lh-xl" href="/question">FAQ</a></li>
               </ul>
@@ -93,197 +93,182 @@
 
       </head>
       <body>
-        <section class="bg-300" id="pricing">
-          <div class="container py-8 py-lg-10">
-            <div class="row justify-content-center">
-              <div class="col-md-8 col-lg-7">
-                <div style="text-align: center;"><br>
-                  <div style="text-align: center;">
-                    <div style="text-align: center;">
-                      <h1 class="fs-3 fs-lg-2 fw-bold mb-1" style="color: #2c3e50; line-height: 1.3;">Talk to Our Team</h1>
-                    
-                      <h4 class="fs-8 fw-normal mb-2 text-muted" style="line-height: 1;">Contact us for quick, helpful assistance.</h4>
-                      
-                     
-                    </div>
-                  </div>
-                </div>
-                <div class="button-container d-flex justify-content-center align-items-center">
-                 
-                </div>
-              </div>
-            </div>
 
-<br>
-
- <!-- Contact Form -->
-
-          <form
-            action="https://submit.jotform.com/submit/211765043197154/"
-            method="post"
-            name="form_211765043197154"
-            id="211765043197154"
-            accept-charset="utf-8"
-            autocomplete="on"
-            style="width: 100%; max-width: 600px; margin: 0 auto; text-align: left;"
-          >
-            <input type="hidden" name="formID" value="211765043197154" />
-            <input type="hidden" id="JWTContainer" value="" />
-            <input type="hidden" id="cardinalOrderNumber" value="" />
-            <div class="form-group">
-              <input type="text" name="q28_name[first]" placeholder="First Name" required />
-            </div>
-            <div class="form-group">
-              <input type="text" name="q28_name[last]" placeholder="Last Name" required />
-            </div>
-            <div class="form-group">
-              <input type="email" name="q2_email" placeholder="Email" required />
-            </div>
-            <div class="form-group">
-              <input type="tel" name="q11_phone[full]" placeholder="Phone Number" />
-            </div>
-            <div class="form-group">
-              <textarea
-                name="q24_commentsQuestions"
-                placeholder="Your Message"
-                style="resize: vertical;"
-                required
-              ></textarea>
-            </div>
-            <button type="submit">Submit</button>
-          </form>
-        </div>
-      </section>
+<!-- Contact Section with Stylized Header -->
+<section id="pricing" style="background-color: #ffffff;">
+  <div class="container py-8 py-lg-10">
+    <!-- Header -->
+    <div class="row justify-content-center text-center py-5" style="background: linear-gradient(to right, #FFFFFF, #FFFFFF); border-radius: 10px;">
+      <div class="col-md-8 col-lg-7">
+        <h1 class="fs-2 fs-lg-1 fw-bold mb-3 lh-sm" style="color: #2E2F33; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', Arial, sans-serif;">
+          Contact Us
+        </h1>
+        
+        <p class="fw-medium mb-2 lh-sm text-secondary" style="max-width: 600px; margin-left: auto; margin-right: auto; text-align: center; font-size: 1.25rem; white-space: nowrap; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', Arial, sans-serif;">
+          Support Available <span style="font-weight: 600;">24/7</span>
+        </p>
+       
+      </div>
     </div>
-  </main>
-  
-  <!-- Scoped CSS for the Form -->
-  <style>
+
+    <!-- Contact Form -->
+    <form
+      action="https://submit.jotform.com/submit/211765043197154/"
+      method="post"
+      name="form_211765043197154"
+      id="211765043197154"
+      accept-charset="utf-8"
+      autocomplete="on"
+      style="width: 100%; max-width: 600px; margin: 0 auto; padding: 0 15px; box-sizing: border-box;"
+    >
+      <input type="hidden" name="formID" value="211765043197154" />
+      <input type="hidden" id="JWTContainer" value="" />
+      <input type="hidden" id="cardinalOrderNumber" value="" />
+      <div class="form-group">
+        <input
+          type="text"
+          name="q28_name[first]"
+          placeholder="First Name"
+          required
+          style="background-color: #F5F5F5;"
+        />
+      </div>
+      <div class="form-group">
+        <input
+          type="text"
+          name="q28_name[last]"
+          placeholder="Last Name"
+          required
+          style="background-color: #F5F5F5;"
+        />
+      </div>
+      <div class="form-group">
+        <input
+          type="email"
+          name="q2_email"
+          placeholder="Email"
+          required
+          style="background-color: #F5F5F5;"
+        />
+      </div>
+      <div class="form-group">
+        <input
+          type="tel"
+          name="q11_phone[full]"
+          placeholder="Phone Number"
+          style="background-color: #F5F5F5;"
+        />
+      </div>
+      <div class="form-group">
+        <textarea
+          name="q24_commentsQuestions"
+          placeholder="Your Message"
+          required
+          style="background-color: #F5F5F5;"
+        ></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary btn-lg lh-xl mt-3" style="background-color: #2E2F33; font-size: 0.9rem;">
+        Submit
+      </button>
+    </form>
+  </div>
+</section>
+
+<!-- Scoped CSS for the Form -->
+<style>
+  form {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", Arial, sans-serif;
+  }
+
+  form input,
+  form textarea {
+    width: 100%;
+    padding: 14px 16px; /* Larger padding for touch targets */
+    margin-bottom: 12px;
+    border: none;
+    border-radius: 12px; /* Softer, iOS-like corners */
+    background-color: #F5F5F5; /* Light gray background like iOS fields */
+    font-size: 1rem;
+    color: #1C2526; /* Darker text for contrast */
+    box-sizing: border-box;
+    -webkit-appearance: none; /* Removes default iOS styling */
+    appearance: none;
+  }
+
+  form textarea {
+    height: 120px;
+    resize: vertical;
+  }
+
+  form input:focus,
+  form textarea:focus {
+    outline: none;
+    background-color: #FFFFFF; /* White background on focus */
+    box-shadow: 0 0 0 2px #007AFF; /* iOS blue outline */
+  }
+
+  form input::placeholder,
+  form textarea::placeholder {
+    color: #8E8E93; /* iOS placeholder gray */
+  }
+
+  form button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    background-color: #007AFF; /* Apple’s signature blue */
+    color: #FFFFFF;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    -webkit-tap-highlight-color: transparent; /* Removes tap highlight on mobile */
+  }
+
+  form button:hover,
+  form button:active {
+    background-color: #005BB5; /* Darker blue on hover/active */
+  }
+
+  @media (max-width: 767px) {
+    form {
+      padding: 0 10px; /* Slightly less padding on smaller screens */
+    }
     form input,
     form textarea,
     form button {
-      font-family: Arial, sans-serif;
+      font-size: 1.05rem; /* Slightly larger text for mobile readability */
     }
-  
-    form input,
-    form textarea {
-      width: 100%;
-      padding: 10px; /* Reduced padding */
-      margin-bottom: 10px; /* Reduced margin for less spacing */
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      font-size: 1rem;
-      box-sizing: border-box;
-    }
-  
-    form textarea {
-      height: 100px;
-      resize: vertical; /* Allows the user to resize vertically */
-    }
-  
-    form input:focus,
-    form textarea:focus {
-      outline: none;
-      border-color: #313c59;
-      box-shadow: 0 0 5px rgba(49, 60, 89, 0.5);
-    }
-  
-    form button {
-      width: 100%;
-      padding: 12px;
-      border: none;
-      border-radius: 8px;
-      background-color: #313c59;
-      color: white;
-      font-size: 1.2rem;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-  
-    form button:hover {
-      background-color: #47527a;
-    }
-  </style>
-
-
-
-      <title>Hours of Operation</title>
-      <style>
-          .hours-section {
-              width: 85%;
-              margin: 0 auto;
-          }
-          .hours-table {
-              width: 100%;
-              border-collapse: collapse;
-              margin: 20px 0;
-          }
-          .hours-table th, .hours-table td {
-              border: 1px solid #ddd;
-              padding: 12px;
-              text-align: center;
-          }
-          .hours-table th {
-              background-color: #313C59;
-              color: white;
-          }
-          .hours-table tr:nth-child(even) {
-              background-color: #f2f2f2;
-          }
-          .hours-table tr:hover {
-              background-color: #ddd;
-          }
-      </style>
-  </head>
-
-  <body style="background-color: #F4F7FA;">
+  }
+</style>
    
-  
-    <h4 class="fs-6 fw-bold text-center mb-1" style="color: #6C757D;">Operational Hours</h4>
-    <p class="fs-8 mb-4 text-center" style="color: #ADB5BD;">Support is 24/7, with immediate attention given during these hours.</p>
-  
-    <section style="max-width: 600px; margin: 0 auto; font-family: Arial, sans-serif; font-size: 0.9rem; color: #6C757D; width: 85%; box-sizing: border-box;">
-      <div style="border-bottom: 1px solid #D6D8DB; padding: 10px 0; display: flex; justify-content: space-between;">
-        <span>Monday</span>
-        <span>9:00 AM - 11:00 PM</span>
+
+
+
+
+<!-- ===============================================--><!--    Footer--><!-- ===============================================-->
+<footer class="pt-7 pt-lg-8">
+  <div class="container">
+    <div class="row gy-2 py-3 justify-content-center">
+      <div class="col-auto ps-0 text-center">
+        <p class="lh-xl text-1100">
+          <hr class="my-4"> <!-- Horizontal line with some margin -->
+          © <span id="currentYear"></span> Copyright, All Rights Reserved
+        </p>
       </div>
-      <div style="border-bottom: 1px solid #D6D8DB; padding: 10px 0; display: flex; justify-content: space-between;">
-        <span>Tuesday</span>
-        <span>9:00 AM - 11:00 PM</span>
-      </div>
-      <div style="border-bottom: 1px solid #D6D8DB; padding: 10px 0; display: flex; justify-content: space-between;">
-        <span>Wednesday</span>
-        <span>9:00 AM - 11:00 PM</span>
-      </div>
-      <div style="border-bottom: 1px solid #D6D8DB; padding: 10px 0; display: flex; justify-content: space-between;">
-        <span>Thursday</span>
-        <span>9:00 AM - 11:00 PM</span>
-      </div>
-      <div style="border-bottom: 1px solid #D6D8DB; padding: 10px 0; display: flex; justify-content: space-between;">
-        <span>Friday</span>
-        <span>9:00 AM - 11:00 PM</span>
-      </div>
-      <div style="border-bottom: 1px solid #D6D8DB; padding: 10px 0; display: flex; justify-content: space-between;">
-        <span>Saturday</span>
-        <span>9:00 AM - 11:00 PM</span>
-      </div>
-      <div style="padding: 10px 0; display: flex; justify-content: space-between;">
-        <span>Sunday</span>
-        <span>9:00 AM - 11:00 PM</span>
-      </div>
-    </section>
-  
-    <footer class="py-4" style="background-color: #F4F7FA;">
-      <div class="container text-center">
-        <hr style="border-top: 1px solid #D6D8DB; margin-bottom: 15px;">
-        <p class="lh-xl mb-0" style="color: #6C757D;">© <span id="currentYear"></span> Copyright, All Rights Reserved</p>
-      </div>
-      <script>
-        document.getElementById("currentYear").textContent = new Date().getFullYear();
-      </script>
-    </footer>
-  </body>
+    </div>
+
+  </div>
+</footer>
+
+<script>
+  // JavaScript to dynamically update the year
+  document.getElementById("currentYear").textContent = new Date().getFullYear();
+</script>
+
+
+
                 <!-- Bootstrap Bundle with Popper.js -->
  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
