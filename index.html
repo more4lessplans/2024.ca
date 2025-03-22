@@ -63,7 +63,6 @@
   gtag('config', 'AW-10988139493');
 </script>
 </head>
-
 <!-- ===============================================-->
 <!--    Main Content                              -->
 <!-- ===============================================-->
@@ -136,51 +135,83 @@
 
                 /* Input field styling */
                 #address-form .form-control {
-                  border-radius: 12px; /* Rounded corners for mobile */
-                  border: 1px solid #e3e3e3; /* Subtle gray border */
-                  padding: 12px 16px; /* More padding for touch */
-                  font-size: 16px; /* Standard mobile size */
+                  border-radius: 12px;
+                  border: 1px solid #e3e3e3;
+                  padding: 12px 16px;
+                  font-size: 16px;
                   color: #222831;
                   background-color: #ffffff;
-                  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05); /* Subtle inner shadow */
+                  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
                 }
 
                 #address-form .form-control::placeholder {
-                  color: #565656; /* Muted placeholder */
+                  color: #565656;
                   opacity: 0.7;
                 }
 
                 #address-form .form-control:focus {
-                  border-color: #D73C59; /* Red accent on focus */
-                  box-shadow: 0 0 0 3px rgba(215, 60, 89, 0.2); /* Focus ring */
+                  border-color: #D73C59;
+                  box-shadow: 0 0 0 3px rgba(215, 60, 89, 0.2);
                   outline: none;
                 }
 
                 /* Button styles */
                 #check-coverage-btn {
-                  background-color: #C4D5C4; /* Light green */
-                  border: none; /* No border for cleaner look */
-                  border-radius: 12px; /* Match input rounding */
-                  padding: 12px 24px; /* Larger touch target */
-                  font-size: 16px; /* Consistent with input */
-                  font-weight: 500; /* Slightly bold */
+                  background-color: #C4D5C4;
+                  border: none;
+                  border-radius: 12px;
+                  padding: 12px 24px;
+                  font-size: 16px;
+                  font-weight: 500;
                   color: #222831;
                   transition: background-color 0.3s ease;
                 }
 
                 .btn-clicked {
-                  background-color: #313C59; /* Dark blue after click */
+                  background-color: #313C59;
                   color: white;
                 }
 
                 .btn-get-started {
-                  background-color: #313C59; /* Dark blue for eligible */
+                  background-color: #313C59;
                   color: white;
+                  position: relative; /* For pseudo-element */
+                  overflow: hidden; /* Contain the shine */
+                }
+
+                /* Success visual cue: subtle shine effect */
+                .btn-get-started::after {
+                  content: '';
+                  position: absolute;
+                  top: -50%;
+                  left: -50%;
+                  width: 200%;
+                  height: 200%;
+                  background: linear-gradient(
+                    to right,
+                    rgba(255, 255, 255, 0) 0%,
+                    rgba(255, 255, 255, 0.3) 50%,
+                    rgba(255, 255, 255, 0) 100%
+                  );
+                  transform: rotate(30deg);
+                  animation: shine 1.5s ease-in-out 1;
+                }
+
+                @keyframes shine {
+                  0% { left: -50%; }
+                  100% { left: 150%; }
+                }
+
+                /* Success container styling */
+                .result-container.success {
+                  border-left: 4px solid #C4D5C4; /* Light green border */
+                  padding-left: 12px;
+                  transition: border-left 0.3s ease;
                 }
 
                 /* Speed Estimate link */
                 .speed-estimate-link {
-                  color: #D73C59; /* Red accent */
+                  color: white;
                   font-weight: bold;
                   font-size: 16px;
                 }
@@ -194,7 +225,7 @@
 
                 /* Try Another Address link */
                 .try-again {
-                  color: #D73C59; /* Red accent */
+                  color: white;
                   font-size: 16px;
                   margin-top: 10px;
                   cursor: pointer;
@@ -230,30 +261,32 @@
                   geocoder.geocode({ 'address': address }, function(results, status) {
                     const moreInfoContainer = document.getElementById('more-info');
                     const buttonContainer = document.getElementById('button-container');
+                    const resultContainer = document.getElementById('result-container');
 
                     if (status === 'OK' && results.length > 0) {
                       const result = results[0];
                       const country = result.address_components.find(component => component.types.includes('country')).short_name;
 
                       if (country === 'CA') {
-                        showEligibleState(buttonContainer, moreInfoContainer);
+                        showEligibleState(buttonContainer, moreInfoContainer, resultContainer);
                       } else {
-                        showUnavailableState(buttonContainer, moreInfoContainer);
+                        showUnavailableState(buttonContainer, moreInfoContainer, resultContainer);
                       }
                     } else {
-                      showUnavailableState(buttonContainer, moreInfoContainer);
+                      showUnavailableState(buttonContainer, moreInfoContainer, resultContainer);
                     }
                   });
                 }
 
-                function showEligibleState(buttonContainer, moreInfoContainer) {
+                function showEligibleState(buttonContainer, moreInfoContainer, resultContainer) {
                   buttonContainer.innerHTML = `
                     <button class="btn btn-primary lh-xl btn-get-started" type="submit" id="check-coverage-btn" onclick="window.location.href='#pricing'">Service Available - Order Now</button>
                   `;
                   moreInfoContainer.style.display = 'block';
+                  resultContainer.classList.add('success'); /* Add success styling */
                 }
 
-                function showUnavailableState(buttonContainer, moreInfoContainer) {
+                function showUnavailableState(buttonContainer, moreInfoContainer, resultContainer) {
                   buttonContainer.innerHTML = `
                     <div class="service-unavailable-text">Service Not Available</div>
                     <div class="try-again" onclick="resetForm()">
@@ -261,13 +294,16 @@
                     </div>
                   `;
                   moreInfoContainer.style.display = 'none';
+                  resultContainer.classList.remove('success'); /* Remove success styling */
                 }
 
                 function resetForm() {
                   const buttonContainer = document.getElementById('button-container');
+                  const resultContainer = document.getElementById('result-container');
                   buttonContainer.innerHTML = `
                     <button class="btn btn-primary lh-xl" type="submit" id="check-coverage-btn">Check Availability</button>
                   `;
+                  resultContainer.classList.remove('success');
                 }
               </script>
             </div>
