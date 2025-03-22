@@ -71,145 +71,177 @@
         </div>
     </div>
 </nav>
- 
-  <!-- Custom CSS -->
-  <style>
-    /* Basic reset */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+ <!-- Custom CSS -->
+<style>
+  /* Basic reset */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
-    /* Ensure the body takes up the full height */
-    html, body {
-      height: 100%;
-    }
+  /* Ensure the body takes up the full height */
+  html, body {
+    height: 100%;
+  }
 
-    /* Make the container flexible to take up remaining height */
-    .content-wrapper {
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
+  /* Make the container flexible to take up remaining height */
+  .content-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
 
-    /* Main content area should grow to fill the space */
-    .main-content {
-      flex: 1;
-      padding: 20px;
-    }
+  /* Main content area should grow to fill the space */
+  .main-content {
+    flex: 1;
+    padding: 20px;
+  }
 
-    /* Footer Styling */
-    footer {
-      background-color: #f8f9fa;
-      padding: 40px 0;
-      text-align: center;
-    }
+  /* Footer Styling */
+  footer {
+    background-color: #f8f9fa;
+    padding: 40px 0;
+    text-align: center;
+  }
 
-    .footer-section {
-      margin-bottom: 30px;
-    }
+  .footer-section {
+    margin-bottom: 30px;
+  }
 
-    .footer-section p {
-      font-weight: bold;
-    }
+  .footer-section p {
+    font-weight: bold;
+  }
 
-    .footer-section ul {
-      list-style: none;
-      padding: 0;
-    }
+  .footer-section ul {
+    list-style: none;
+    padding: 0;
+  }
 
-    .footer-section ul li {
-      margin-bottom: 10px;
-    }
+  .footer-section ul li {
+    margin-bottom: 10px;
+  }
 
-    .footer-section ul li a {
-      color: #333;
-      text-decoration: none;
-    }
+  .footer-section ul li a {
+    color: #333;
+    text-decoration: none;
+  }
 
-    .footer-section ul li a:hover {
-      text-decoration: underline;
-    }
+  .footer-section ul li a:hover {
+    text-decoration: underline;
+  }
 
-    /* Ensure footer is at the bottom of the page */
-    footer p {
-      margin: 10px 0;
-      font-size: 14px;
-    }
+  /* Ensure footer is at the bottom of the page */
+  footer p {
+    margin: 10px 0;
+    font-size: 14px;
+  }
 
-    /* Ensure consistent padding and look on different screen sizes */
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
+  /* Ensure consistent padding and look on different screen sizes */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
 
+  /* Form-specific styling */
+  .form-223076752019051 .form-container {
+    width: calc(100% - 40px); /* 20px margin on both sides */
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .form-223076752019051 .form-group,
+  .form-223076752019051 .form-group-full {
+    margin-bottom: 15px;
+  }
+
+  .form-223076752019051 input {
+    width: 100%; /* Full width for consistency */
+    padding: 12px 16px;
+    font-size: 16px;
+    border: 1px solid #e3e3e3;
+    border-radius: 12px; /* Rounded corners like coverage checker */
+    color: #222831;
+    background-color: #ffffff;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05); /* Subtle depth */
+  }
+
+  .form-223076752019051 input::placeholder {
+    color: #565656; /* Muted gray */
+    opacity: 0.7;
+  }
+
+  .form-223076752019051 input:focus {
+    border-color: #D73C59; /* Red accent on focus */
+    box-shadow: 0 0 0 3px rgba(215, 60, 89, 0.2); /* Focus ring */
+    outline: none;
+  }
+
+  .form-223076752019051 .form-group {
+    display: flex;
+    gap: 15px; /* Space between first/last name fields */
+  }
+
+  .form-223076752019051 .form-group input {
+    width: 50%; /* Split for first/last name */
+  }
+
+  .form-223076752019051 {
+    text-align: center; /* Ensures inline elements like buttons are centered */
+}
+
+.form-223076752019051 button {
+    width: 50%;
+    max-width: 400px; /* Prevents the button from stretching too wide */
+    padding: 12px 24px;
+    background-color: #2E2F33;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 500;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block; /* Ensures block-level behavior */
+    margin: 0 auto; /* Centers the button horizontally */
+}
+
+  .form-223076752019051 button:hover {
+    background-color: #313C59; /* Dark blue on hover */
+    color: white;
+  }
+
+  /* Paragraph styling to match form width */
+  .form-223076752019051-p {
+    max-width: 600px;
+    margin: 20px auto;
+    font-size: 16px;
+    line-height: 1.6;
+    text-align: center;
+    color: #666;
+  }
 </style>
-  </style>
 </head>
 
-<body>
-  <section class="full-width-section">
-    <h3 class="fs-4 fs-lg-3 fw-bold text-center mb-2 mb-lg-x1" style="margin-top: 120px;">Speed Estimate</h3>
-  
-    <p class="form-223076752019051-p" style="padding-left: 20px; padding-right: 20px;">Our service uses the networks of Canada’s “Big 3” providers. While we can’t guarantee exact speeds due to factors like location and network traffic, we aim to provide a clear picture of real-world performance for a reliable connection wherever you are.</p>
-    <style>
-      .form-223076752019051 .form-container {
-        width: calc(100% - 40px); /* Ensure 20px margin on both sides */
-        max-width: 600px;
-        margin: 0 auto;
-      }
-  
-      .form-223076752019051 .form-group {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 15px;
-      }
-  
-      .form-223076752019051 .form-group-full {
-        width: 100%;
-        margin-bottom: 15px;
-      }
-  
-      .form-223076752019051 input {
-        width: 48%;
-        padding: 12px;
-        font-size: 16px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        box-sizing: border-box;
-      }
-  
-      .form-223076752019051 input.full-width {
-        width: 100%;
-      }
-  
-      .form-223076752019051 button {
-        width: 100%;
-        padding: 12px;
-        background-color: #313C59;
-        color: white;
-        font-size: 16px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-      }
-  
-      .form-223076752019051 button:hover {
-        background-color: #313C59;
-      }
-  
-      /* Paragraph styling to match form width */
-      .form-223076752019051-p {
-        max-width: 600px;
-        margin: 20px auto;
-        font-size: 16px;
-        line-height: 1.6;
-        text-align: center;
-        color: #666;
-      }
-    </style>
-  
+<!-- Contact Section with Stylized Header -->
+<section id="pricing" style="background-color: #ffffff;">
+  <div class="container py-8 py-lg-10">
+    <!-- Header -->
+    <div class="row justify-content-center text-center py-5" style="background: linear-gradient(to right, #FFFFFF, #FFFFFF); border-radius: 10px;">
+      <div class="col-md-8 col-lg-7">
+        <h1 class="fs-2 fs-lg-1 fw-bold mb-3 lh-sm" style="color: #2E2F33; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', Arial, sans-serif;">
+          Speed Estimate
+        </h1>
+        
+        <p class="fw-medium mb-2 lh-sm text-secondary" 
+   style="max-width: 600px; margin-left: auto; margin-right: auto; text-align: center; font-size: 1.25rem; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', Arial, sans-serif;">
+   We use major Canadian networks. Speeds vary by location and traffic, but we provide a realistic view of performance for a reliable connection anywhere.
+</p>
+       
+      </div>
+    </div>
+
+
     <form class="jotform-form form-223076752019051" action="https://submit.jotform.com/submit/223076752019051/" method="post" name="form_223076752019051" id="223076752019051" accept-charset="utf-8" autocomplete="on">
       <input type="hidden" name="formID" value="223076752019051" />
   
@@ -222,25 +254,27 @@
   
         <!-- Phone Number Field -->
         <div class="form-group-full">
-          <input type="tel" id="input_6_full" name="q6_phoneNumber[full]" class="full-width" placeholder="Phone Number" required>
+          <input type="tel" id="input_6_full" name="q6_phoneNumber[full]" placeholder="Phone Number" required>
         </div>
   
         <!-- Email Field -->
         <div class="form-group-full">
-          <input type="email" id="input_4" name="q4_email" class="full-width" placeholder="Email" required>
+          <input type="email" id="input_4" name="q4_email" placeholder="Email" required>
         </div>
   
         <!-- Address Fields -->
         <div class="form-group-full">
-          <input type="text" id="input_5_addr_line1" name="q5_address[addr_line1]" class="full-width" placeholder="Street Address" required>
+          <input type="text" id="input_5_addr_line1" name="q5_address[addr_line1]" placeholder="Street Address" required>
         </div>
         <div class="form-group">
           <input type="text" id="input_5_city" name="q5_address[city]" placeholder="City" required>
           <input type="text" id="input_5_state" name="q5_address[state]" placeholder="Province" required>
         </div>
         <div class="form-group-full">
-          <input type="text" id="input_5_postal" name="q5_address[postal]" class="full-width" placeholder="Postal Code" required>
+          <input type="text" id="input_5_postal" name="q5_address[postal]" placeholder="Postal Code" required>
         </div>
+
+        <br>  <br>
   
         <!-- Submit Button -->
         <button type="submit">Get Estimate</button>
@@ -253,53 +287,29 @@
     <script src="https://cdn.jotfor.ms/js/vendor/smoothscroll.min.js?v=3.3.36916"></script>
     <script src="https://cdn.jotfor.ms/js/errorNavigation.js?v=3.3.36916"></script>
   </section>
-<br><br><br>
+  <br><br><br>
 
-  <!-- Footer -->
-<footer>
+
+<!-- ===============================================-->
+<!--    Footer-->
+<!-- ===============================================-->
+<footer class="pt-7 pt-lg-8" style="background-color: #ffffff;">
   <div class="container">
-    <div class="row gy-4 g-md-3 border-bottom pb-8 pb-lg-9 justify-content-center text-center text-md-left">
-      <div class="col-12 col-sm-6 col-md-3">
-        <p class="mb-2 lh-lg ls-1 fw-bold">Company</p>
-        <ul class="list-unstyled text-1100">
-          <li class="mb-1"><a class="ls-1 lh-xl" href="/about">About</a></li>
-          <li class="mb-1"><a class="ls-1 lh-xl" href="/contact">Contact</a></li>
-        </ul>
-      </div>
-
-      <div class="col-12 col-sm-6 col-md-3">
-        <p class="mb-2 lh-lg fw-bold">Product</p>
-        <ul class="list-unstyled text-1100">
-          <li class="mb-1"><a class="ls-1 lh-xl" href="/index#pricing">Pricing</a></li>
-          <li class="mb-1"><a class="ls-1 lh-xl" href="/support">Technical Support</a></li>
-          <li class="mb-1"><a class="ls-1 lh-xl" href="/activate">Activate</a></li>
-        </ul>
-      </div>
-
-      <div class="col-12 col-sm-6 col-md-3">
-        <p class="mb-2 lh-lg fw-bold">Legal</p>
-        <ul class="list-unstyled text-1100">
-          <li class="mb-1"><a class="ls-1 lh-xl" href="/privacypolicy">Privacy</a></li>
-          <li class="mb-1"><a class="ls-1 lh-xl" href="/terms">Terms & Conditions</a></li>
-          <li class="mb-1"><a class="ls-1 lh-xl" href="/terms#pricing">Return Policy</a></li>
-        </ul>
-      </div>
-    </div>
-
     <div class="row gy-2 py-3 justify-content-center">
-      <div class="col-auto">
-        <p class="text-center lh-xl text-1100">© 2024 Copyright, All Rights Reserved</p>
+      <div class="col-auto ps-0 text-center">
+        <p class="lh-xl text-1100">
+          <hr class="my-4"> <!-- Horizontal line with some margin -->
+          © <span id="currentYear"></span> Copyright, All Rights Reserved
+        </p>
       </div>
     </div>
   </div>
 </footer>
 
-
-
-
-
-
-
+<script>
+  // JavaScript to dynamically update the year
+  document.getElementById("currentYear").textContent = new Date().getFullYear();
+</script>
 
 
     <!-- Bootstrap Bundle with Popper.js -->
