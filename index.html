@@ -63,6 +63,9 @@
   gtag('config', 'AW-10988139493');
 </script>
 </head>
+
+
+
 <!-- ===============================================-->
 <!--    Main Content                              -->
 <!-- ===============================================-->
@@ -113,8 +116,9 @@
                   </form>
 
                   <div class="result-container" id="result-container" style="margin-top: 10px;">
-                    <!-- Speed Estimate Link (Initially Hidden) -->
-                    <div class="more-info" id="more-info" style="display: none; margin-top: 10px;">
+                    <!-- Speed Estimate Link and Checkmark (Initially Hidden) -->
+                    <div class="more-info" id="more-info" style="display: none; margin-top: 10px; position: relative;">
+                      <span class="success-checkmark" style="display: none; position: absolute; top: -40px; left: 50%; transform: translateX(-50%); width: 32px; height: 32px; background-color: #C4D5C4; border-radius: 50%; text-align: center; line-height: 32px; font-size: 20px; color: #222831;">✓</span>
                       <a href="speedestimate.html" class="btn btn-link speed-estimate-link" style="text-decoration: none;">Get a Speed Estimate →</a>
                     </div>
                   </div>
@@ -175,36 +179,18 @@
                 .btn-get-started {
                   background-color: #313C59;
                   color: white;
-                  position: relative; /* For pseudo-element */
-                  overflow: hidden; /* Contain the shine */
+                  animation: pulse 0.8s ease-in-out 1; /* Subtle pulse animation */
                 }
 
-                /* Success visual cue: subtle shine effect */
-                .btn-get-started::after {
-                  content: '';
-                  position: absolute;
-                  top: -50%;
-                  left: -50%;
-                  width: 200%;
-                  height: 200%;
-                  background: linear-gradient(
-                    to right,
-                    rgba(255, 255, 255, 0) 0%,
-                    rgba(255, 255, 255, 0.3) 50%,
-                    rgba(255, 255, 255, 0) 100%
-                  );
-                  transform: rotate(30deg);
-                  animation: shine 1.5s ease-in-out 1;
-                }
-
-                @keyframes shine {
-                  0% { left: -50%; }
-                  100% { left: 150%; }
+                @keyframes pulse {
+                  0% { transform: scale(1); }
+                  50% { transform: scale(1.05); } /* Slight scale up */
+                  100% { transform: scale(1); }
                 }
 
                 /* Success container styling */
                 .result-container.success {
-                  border-left: 4px solid #C4D5C4; /* Light green border */
+                  border-left: 4px solid #C4D5C4;
                   padding-left: 12px;
                   transition: border-left 0.3s ease;
                 }
@@ -262,31 +248,33 @@
                     const moreInfoContainer = document.getElementById('more-info');
                     const buttonContainer = document.getElementById('button-container');
                     const resultContainer = document.getElementById('result-container');
+                    const successCheckmark = moreInfoContainer.querySelector('.success-checkmark');
 
                     if (status === 'OK' && results.length > 0) {
                       const result = results[0];
                       const country = result.address_components.find(component => component.types.includes('country')).short_name;
 
                       if (country === 'CA') {
-                        showEligibleState(buttonContainer, moreInfoContainer, resultContainer);
+                        showEligibleState(buttonContainer, moreInfoContainer, resultContainer, successCheckmark);
                       } else {
-                        showUnavailableState(buttonContainer, moreInfoContainer, resultContainer);
+                        showUnavailableState(buttonContainer, moreInfoContainer, resultContainer, successCheckmark);
                       }
                     } else {
-                      showUnavailableState(buttonContainer, moreInfoContainer, resultContainer);
+                      showUnavailableState(buttonContainer, moreInfoContainer, resultContainer, successCheckmark);
                     }
                   });
                 }
 
-                function showEligibleState(buttonContainer, moreInfoContainer, resultContainer) {
+                function showEligibleState(buttonContainer, moreInfoContainer, resultContainer, successCheckmark) {
                   buttonContainer.innerHTML = `
-                    <button class="btn btn-primary lh-xl btn-get-started" type="submit" id="check-coverage-btn" onclick="window.location.href='#pricing'">Service Available - Order Now</button>
+                    <button class="btn btn-primary lh-xl btn-get-started" type="submit" id="check-coverage-btn" onclick="window.location.href='#pricing'">Service Available - Order Now ↓</button>
                   `;
                   moreInfoContainer.style.display = 'block';
-                  resultContainer.classList.add('success'); /* Add success styling */
+                  successCheckmark.style.display = 'inline-block';
+                  resultContainer.classList.add('success');
                 }
 
-                function showUnavailableState(buttonContainer, moreInfoContainer, resultContainer) {
+                function showUnavailableState(buttonContainer, moreInfoContainer, resultContainer, successCheckmark) {
                   buttonContainer.innerHTML = `
                     <div class="service-unavailable-text">Service Not Available</div>
                     <div class="try-again" onclick="resetForm()">
@@ -294,16 +282,19 @@
                     </div>
                   `;
                   moreInfoContainer.style.display = 'none';
-                  resultContainer.classList.remove('success'); /* Remove success styling */
+                  successCheckmark.style.display = 'none';
+                  resultContainer.classList.remove('success');
                 }
 
                 function resetForm() {
                   const buttonContainer = document.getElementById('button-container');
                   const resultContainer = document.getElementById('result-container');
+                  const successCheckmark = document.getElementById('more-info').querySelector('.success-checkmark');
                   buttonContainer.innerHTML = `
                     <button class="btn btn-primary lh-xl" type="submit" id="check-coverage-btn">Check Availability</button>
                   `;
                   resultContainer.classList.remove('success');
+                  successCheckmark.style.display = 'none';
                 }
               </script>
             </div>
@@ -312,7 +303,6 @@
       </div>
     </main>
   </body>
-         
 
 
 <!-- Pricing Section with Enhanced Header and Clickable Cards -->
