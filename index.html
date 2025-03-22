@@ -109,7 +109,11 @@
                   <!-- Coverage Checker Form -->
                   <form id="address-form" class="text-center text-lg-start">
                     <div class="position-relative mb-3">
-                      <input class="form-control search-input" type="text" id="address" name="address" placeholder="Search for Your Address" required>
+                      <input class="form-control" type="text" id="address" name="address" placeholder="Search for Your Address" required>
+                      <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#565656" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%);">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                      </svg>
                     </div>
                     <div class="d-grid" id="button-container">
                       <button class="btn btn-primary lh-xl" type="submit" id="check-coverage-btn">Check Availability</button>
@@ -119,7 +123,7 @@
                   <div class="result-container" id="result-container" style="margin-top: 10px;">
                     <!-- Speed Estimate Link and Checkmark (Initially Hidden) -->
                     <div class="more-info" id="more-info" style="display: none; margin-top: 10px; text-align: center;">
-                      <span class="success-checkmark" style="display: none; width: 40px; height: 40px; background-color: #C4D5C4; border-radius: 50%; text-align: center; line-height: 40px; font-size: 24px; color: #222831; margin: 0 auto 8px;">✓</span>
+                      <span class="success-checkmark" style="display: none; width: 48px; height: 48px; background-color: #C4D5C4; border-radius: 50%; text-align: center; line-height: 48px; font-size: 28px; color: white; margin: 0 auto 8px;">✓</span>
                       <a href="speedestimate.html" class="btn btn-link speed-estimate-link" style="text-decoration: none;">Get a Speed Estimate →</a>
                     </div>
                   </div>
@@ -160,34 +164,6 @@
                   outline: none;
                 }
 
-                /* Search icon */
-                .search-input {
-                  position: relative;
-                }
-
-                .search-input::after {
-                  content: '';
-                  position: absolute;
-                  width: 14px;
-                  height: 14px;
-                  border: 2px solid #565656;
-                  border-radius: 50%;
-                  right: 18px;
-                  top: 50%;
-                  transform: translateY(-50%);
-                }
-
-                .search-input::before {
-                  content: '';
-                  position: absolute;
-                  width: 8px;
-                  height: 2px;
-                  background-color: #565656;
-                  right: 12px;
-                  top: 62%;
-                  transform: rotate(45deg);
-                }
-
                 /* Button styles */
                 #check-coverage-btn {
                   background-color: #C4D5C4;
@@ -215,13 +191,6 @@
                   0% { transform: scale(1); }
                   50% { transform: scale(1.05); }
                   100% { transform: scale(1); }
-                }
-
-                /* Success container styling */
-                .result-container.success {
-                  border-left: 4px solid #C4D5C4;
-                  padding-left: 12px;
-                  transition: border-left 0.3s ease;
                 }
 
                 /* Speed Estimate link */
@@ -300,7 +269,7 @@
                   `;
                   moreInfoContainer.style.display = 'block';
                   successCheckmark.style.display = 'block';
-                  resultContainer.classList.add('success');
+                  resultContainer.classList.remove('success'); // Remove vertical line
                 }
 
                 function showUnavailableState(buttonContainer, moreInfoContainer, resultContainer, successCheckmark) {
@@ -332,7 +301,6 @@
       </div>
     </main>
   </body>
-
 <!-- Pricing Section with Enhanced Header and Clickable Cards -->
 <section id="pricing" style="background-color: #ffffff;">
   <div class="container py-8 py-lg-10">
