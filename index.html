@@ -106,122 +106,154 @@
                   <h1 class="fs-1 fs-lg-1 text-white fw-bold mb-2 mb-lg-x1 lh-base mt-3 mt-lg-0">High-Speed Wireless Internet Solutions</h1>
                   <p class="fs-8 text-white mb-3 mb-lg-4 lh-lg">Blazing fast, unlimited internet with no slowdowns for just $110/month and a one-time hardware fee.</p>
 
-                  <!-- Coverage Checker Form -->
-                  <form id="address-form" class="text-center text-lg-start">
-                    <div class="position-relative mb-3">
-                      <input class="form-control" type="text" id="address" name="address" placeholder="Search for Your Address" required>
-                      <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#565656" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%);">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                      </svg>
-                    </div>
-                    <div class="d-grid" id="button-container">
-                      <button class="btn btn-primary lh-xl" type="submit" id="check-coverage-btn">Check Availability</button>
-                    </div>
-                  </form>
+<!-- Coverage Checker Form -->
+<form id="address-form" class="text-center text-lg-start">
+  <div class="position-relative mb-3">
+    <input class="form-control" type="text" id="address" name="address" placeholder="Search for Your Address" required>
+    <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#565656" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%);">
+      <circle cx="11" cy="11" r="8"></circle>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+    </svg>
+  </div>
+  <div class="d-grid" id="button-container">
+    <button class="btn btn-primary lh-xl" type="submit" id="check-coverage-btn">Check Availability</button>
+  </div>
 
-                  <div class="result-container" id="result-container" style="margin-top: 10px;">
-                    <!-- Speed Estimate Link and Checkmark (Initially Hidden) -->
-                    <div class="more-info" id="more-info" style="display: none; margin-top: 10px; text-align: center;">
-                      <span class="success-checkmark" style="display: none; width: 48px; height: 48px; background-color: #FFFFFF; border-radius: 50%; text-align: center; line-height: 48px; font-size: 28px; color: black; margin: 0 auto 8px;">✓</span>
-                      <a href="speedestimate.html" class="btn btn-link speed-estimate-link" style="text-decoration: none;">Get a Speed Estimate →</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
+  <div class="result-container" id="result-container" style="margin-top: 10px;">
+    <!-- Success State Elements (Initially Hidden) -->
+    <div class="more-info" id="more-info" style="display: none; margin-top: 10px; text-align: center;">
+      <a href="#pricing" class="success-link" style="text-decoration: none;">
+        <div class="success-text">
+          <span class="success-checkmark" style="display: none; width: 64px; height: 64px; background-color: #FFFFFF; border-radius: 50%; text-align: center; line-height: 64px; font-size: 36px; color: black; margin: 0 auto 12px;">✓</span>
+          <p class="availability-text" style="display: none; color: #FFFFFF; font-size: 18px; font-weight: bold; margin-bottom: 8px;">High-Speed Internet is Available</p>
+          <span class="proceed-to-order" style="display: none; font-size: 20px; font-weight: bold; color: #FFFFFF;">Sign Up Now ↓</span>
+        </div>
+      </a>
+      <hr class="divider" style="display: none; width: 50%; margin: 12px auto; border: 0; border-top: 1px solid rgba(255, 255, 255, 0.3);">
+      <a href="#" class="speed-estimate-link" style="display: none; color: #FFFFFF; font-size: 16px; font-weight: normal; text-decoration: none;" onclick="redirectToSpeedEstimate()">Get a Speed Estimate →</a>
+    </div>
+  </div>
+</form>
+            
+            
+            
+            
+<!-- Coverage Checker CSS Styling Start -->
 
-              <!-- CSS for Mobile-Friendly Form Styling -->
-              <style>
-                .form-container {
-                  max-width: 400px;
-                
-                }
+<style>
 
-                @media (min-width: 992px) {
-                  #address-form, .result-container {
-                    max-width: 400px;
-                  }
-                }
+/* CSS for Mobile-Friendly Form Styling */
+.form-container {
+  max-width: 400px;
+}
 
-                /* Input field styling */
-                #address-form .form-control {
-                  border-radius: 12px;
-                  border: 1px solid #e3e3e3;
-                  padding: 12px 36px 12px 16px; /* Extra right padding for icon */
-                  font-size: 16px;
-                  color: #222831;
-                  background-color: #ffffff;
-                  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
-                  min-height: 45px;
-                }
+@media (min-width: 992px) {
+  #address-form, .result-container {
+    max-width: 400px;
+  }
+}
 
-                #address-form .form-control::placeholder {
-                  color: #565656;
-                  opacity: 0.7;
-                }
+/* Input field styling */
+#address-form .form-control {
+  border-radius: 12px;
+  border: 1px solid #e3e3e3;
+  padding: 12px 36px 12px 16px; /* Extra right padding for icon */
+  font-size: 16px;
+  color: #222831;
+  background-color: #ffffff;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+  min-height: 45px;
+}
 
-                #address-form .form-control:focus {
-                  border-color: #D73C59;
-                  box-shadow: 0 0 0 3px rgba(215, 60, 89, 0.2);
-                  outline: none;
-                }
+#address-form .form-control::placeholder {
+  color: #565656;
+  opacity: 0.7;
+}
 
-                /* Button styles */
-                #check-coverage-btn {
-                  background-color: #C4D5C4;
-                  border: none;
-                  border-radius: 12px;
-                  padding: 12px 24px;
-                  font-size: 16px;
-                  font-weight: 500;
-                  color: #222831;
-                  transition: background-color 0.3s ease;
-                }
+#address-form .form-control:focus {
+  border-color: #D73C59;
+  box-shadow: 0 0 0 3px rgba(215, 60, 89, 0.2);
+  outline: none;
+}
 
-                .btn-clicked {
-                  background-color: #313C59;
-                  color: white;
-                }
+/* Button styles */
+#check-coverage-btn {
+  background-color: #C4D5C4;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #222831;
+  transition: background-color 0.3s ease;
+}
 
-                .btn-get-started {
-                  background-color: #313C59;
-                  color: white;
-                  animation: pulse 0.8s ease-in-out 1;
-                }
+/* Animation for emphasis */
+@keyframes pulse {
+  0% { transform: scale(0.95); opacity: 0.7; }
+  50% { transform: scale(1.05); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
 
-                @keyframes pulse {
-                  0% { transform: scale(1); }
-                  50% { transform: scale(1.05); }
-                  100% { transform: scale(1); }
-                }
+.success-checkmark.success-animation {
+  animation: pulse 0.8s ease-in-out 1;
+}
 
-                /* Speed Estimate link */
-                .speed-estimate-link {
-                  color: white;
-                  font-weight: bold;
-                  font-size: 16px;
-                }
+.availability-text.success-animation {
+  animation: pulse 0.8s ease-in-out 1;
+}
 
-                /* Service Not Available text */
-                .service-unavailable-text {
-                  color: white;
-                  font-weight: bold;
-                  font-size: 18px;
-                }
+.proceed-to-order.success-animation {
+  animation: pulse 0.8s ease-in-out 1;
+}
 
-                /* Try Another Address link */
-                .try-again {
-                  color: white;
-                  font-size: 16px;
-                  margin-top: 10px;
-                  cursor: pointer;
-                  text-decoration: underline;
-                }
+/* Success link hover effect */
+.success-link:hover .proceed-to-order {
+  color: #C4D5C4; /* Light green on hover, no underline */
+}
 
-                .refresh-icon {
-                  margin-right: 5px;
-                }
+/* Speed estimate link */
+.speed-estimate-link {
+  color: #FFFFFF;
+  font-size: 16px;
+  font-weight: normal;
+  text-decoration: none;
+}
+
+.speed-estimate-link:hover {
+  color: #C4D5C4; /* Light green on hover */
+  text-decoration: underline;
+}
+
+/* Service Not Available text */
+.service-unavailable-text {
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+/* Try Another Address link */
+.try-again {
+  color: white;
+  font-size: 16px;
+  margin-top: 10px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.refresh-icon {
+  margin-right: 5px;
+}
               </style>
+
+
+<!-- Coverage Checker CSS Styling End -->
+
+
+
+
+
+
 
               <!-- JavaScript for Address Coverage Check -->
               <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNt4XeQ5roadq0L-IpadA6s9e4CPm9FwI&libraries=places"></script>
@@ -230,18 +262,18 @@
                   const input = document.getElementById('address');
                   const checkCoverageBtn = document.getElementById('check-coverage-btn');
                   const autocomplete = new google.maps.places.Autocomplete(input);
-
+              
                   checkCoverageBtn.addEventListener('click', function() {
                     this.classList.add('btn-clicked');
                   });
-
+              
                   document.getElementById('address-form').addEventListener('submit', function(event) {
                     event.preventDefault();
                     const address = input.value;
                     checkAddressCoverage(address);
                   });
                 });
-
+              
                 function checkAddressCoverage(address) {
                   const geocoder = new google.maps.Geocoder();
                   geocoder.geocode({ 'address': address }, function(results, status) {
@@ -249,32 +281,42 @@
                     const buttonContainer = document.getElementById('button-container');
                     const resultContainer = document.getElementById('result-container');
                     const successCheckmark = moreInfoContainer.querySelector('.success-checkmark');
-
+                    const availabilityText = moreInfoContainer.querySelector('.availability-text');
+                    const proceedLink = moreInfoContainer.querySelector('.proceed-to-order');
+                    const divider = moreInfoContainer.querySelector('.divider');
+                    const speedEstimateLink = moreInfoContainer.querySelector('.speed-estimate-link');
+              
                     if (status === 'OK' && results.length > 0) {
                       const result = results[0];
                       const country = result.address_components.find(component => component.types.includes('country')).short_name;
-
+              
                       if (country === 'CA') {
-                        showEligibleState(buttonContainer, moreInfoContainer, resultContainer, successCheckmark);
+                        showEligibleState(buttonContainer, moreInfoContainer, resultContainer, successCheckmark, availabilityText, proceedLink, divider, speedEstimateLink, address);
                       } else {
-                        showUnavailableState(buttonContainer, moreInfoContainer, resultContainer, successCheckmark);
+                        showUnavailableState(buttonContainer, moreInfoContainer, resultContainer, successCheckmark, availabilityText, proceedLink, divider, speedEstimateLink);
                       }
                     } else {
-                      showUnavailableState(buttonContainer, moreInfoContainer, resultContainer, successCheckmark);
+                      showUnavailableState(buttonContainer, moreInfoContainer, resultContainer, successCheckmark, availabilityText, proceedLink, divider, speedEstimateLink);
                     }
                   });
                 }
-
-                function showEligibleState(buttonContainer, moreInfoContainer, resultContainer, successCheckmark) {
-                  buttonContainer.innerHTML = `
-                    <button class="btn btn-primary lh-xl btn-get-started" type="submit" id="check-coverage-btn" onclick="window.location.href='#pricing'">Service Available - Order Now ↓</button>
-                  `;
+              
+                function showEligibleState(buttonContainer, moreInfoContainer, resultContainer, successCheckmark, availabilityText, proceedLink, divider, speedEstimateLink, address) {
+                  buttonContainer.innerHTML = ''; // Remove the button entirely
                   moreInfoContainer.style.display = 'block';
                   successCheckmark.style.display = 'block';
-                  resultContainer.classList.remove('success'); // Remove vertical line
+                  successCheckmark.classList.add('success-animation');
+                  availabilityText.style.display = 'block';
+                  availabilityText.classList.add('success-animation');
+                  proceedLink.style.display = 'block';
+                  proceedLink.classList.add('success-animation');
+                  divider.style.display = 'block';
+                  speedEstimateLink.style.display = 'block';
+                  speedEstimateLink.setAttribute('onclick', `redirectToSpeedEstimate('${encodeURIComponent(address)}')`);
+                  resultContainer.classList.remove('success');
                 }
-
-                function showUnavailableState(buttonContainer, moreInfoContainer, resultContainer, successCheckmark) {
+              
+                function showUnavailableState(buttonContainer, moreInfoContainer, resultContainer, successCheckmark, availabilityText, proceedLink, divider, speedEstimateLink) {
                   buttonContainer.innerHTML = `
                     <div class="service-unavailable-text">Service Not Available</div>
                     <div class="try-again" onclick="resetForm()">
@@ -283,18 +325,43 @@
                   `;
                   moreInfoContainer.style.display = 'none';
                   successCheckmark.style.display = 'none';
+                  successCheckmark.classList.remove('success-animation');
+                  availabilityText.style.display = 'none';
+                  availabilityText.classList.remove('success-animation');
+                  proceedLink.style.display = 'none';
+                  proceedLink.classList.remove('success-animation');
+                  divider.style.display = 'none';
+                  speedEstimateLink.style.display = 'none';
                   resultContainer.classList.remove('success');
                 }
-
+              
                 function resetForm() {
                   const buttonContainer = document.getElementById('button-container');
                   const resultContainer = document.getElementById('result-container');
-                  const successCheckmark = document.getElementById('more-info').querySelector('.success-checkmark');
+                  const moreInfoContainer = document.getElementById('more-info');
+                  const successCheckmark = moreInfoContainer.querySelector('.success-checkmark');
+                  const availabilityText = moreInfoContainer.querySelector('.availability-text');
+                  const proceedLink = moreInfoContainer.querySelector('.proceed-to-order');
+                  const divider = moreInfoContainer.querySelector('.divider');
+                  const speedEstimateLink = moreInfoContainer.querySelector('.speed-estimate-link');
+                  
                   buttonContainer.innerHTML = `
                     <button class="btn btn-primary lh-xl" type="submit" id="check-coverage-btn">Check Availability</button>
                   `;
                   resultContainer.classList.remove('success');
+                  moreInfoContainer.style.display = 'none';
                   successCheckmark.style.display = 'none';
+                  successCheckmark.classList.remove('success-animation');
+                  availabilityText.style.display = 'none';
+                  availabilityText.classList.remove('success-animation');
+                  proceedLink.style.display = 'none';
+                  proceedLink.classList.remove('success-animation');
+                  divider.style.display = 'none';
+                  speedEstimateLink.style.display = 'none';
+                }
+              
+                function redirectToSpeedEstimate(address) {
+                  window.location.href = `/speedestimate.html?address=${address}`;
                 }
               </script>
             </div>
@@ -370,7 +437,7 @@
                   "product": {
                     "contents": { "img": false, "title": false, "price": false },
                     "buttonDestination": "checkout",
-                    "text": { "button": "Buy Now →" },
+                    "text": { "button": "Sign Up →" },
                     "styles": {
                       "button": {
                         "border": "2px solid #2E2F33",
@@ -439,7 +506,7 @@
                   "product": {
                     "contents": { "img": false, "title": false, "price": false },
                     "buttonDestination": "checkout",
-                    "text": { "button": "Buy Now →" },
+                    "text": { "button": "Sign Up →" },
                     "styles": {
                       "button": {
                         "border": "2px solid #2E2F33",
@@ -508,7 +575,7 @@
                   "product": {
                     "contents": { "img": false, "title": false, "price": false },
                     "buttonDestination": "checkout",
-                    "text": { "button": "Buy Now →" },
+                    "text": { "button": "Sign Up →" },
                     "styles": {
                       "button": {
                         "border": "2px solid #2E2F33",

@@ -229,14 +229,11 @@
     <!-- Header -->
     <div class="row justify-content-center text-center py-5" style="background: linear-gradient(to right, #FFFFFF, #FFFFFF); border-radius: 10px;">
       <div class="col-md-8 col-lg-7">
-        <h1 class="fs-2 fs-lg-1 fw-bold mb-3 lh-sm" style="color: #2E2F33; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', Arial, sans-serif;">
-          Speed Estimate
-        </h1>
+     
         
         <p class="fw-medium mb-2 lh-sm text-secondary" 
    style="max-width: 600px; margin-left: auto; margin-right: auto; text-align: center; font-size: 1.25rem; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', Arial, sans-serif;">
-   We use major Canadian networks. Speeds vary by location and traffic, but we provide a realistic view of performance for a reliable connection anywhere.
-</p>
+   Complete this form, and we’ll provide an estimate of the internet speeds you can expect with our service, powered by major Canadian cellular networks.
        
       </div>
     </div>
@@ -287,7 +284,7 @@
     <script src="https://cdn.jotfor.ms/js/vendor/smoothscroll.min.js?v=3.3.36916"></script>
     <script src="https://cdn.jotfor.ms/js/errorNavigation.js?v=3.3.36916"></script>
   </section>
-  <br><br><br>
+
 
 
 <!-- ===============================================-->
@@ -320,6 +317,36 @@
 
     <!-- ===============================================--><!--    JavaScripts--><!-- ===============================================-->
 
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Get URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const address = urlParams.get('address');
+    
+        if (address) {
+          // Decode the address and populate the form fields
+          const decodedAddress = decodeURIComponent(address);
+          
+          // Attempt to split the address into components (this is basic; you might want a more robust parser)
+          const addressParts = decodedAddress.split(', ');
+          if (addressParts.length >= 3) {
+            document.getElementById('input_5_addr_line1').value = addressParts[0] || '';
+            document.getElementById('input_5_city').value = addressParts[1] || '';
+            document.getElementById('input_5_state').value = addressParts[2] || '';
+            // Postal code might not always be present, so leave it blank if not found
+            if (addressParts[3]) {
+              document.getElementById('input_5_postal').value = addressParts[3] || '';
+            }
+          } else {
+            // If splitting fails, just put the whole address in the street field
+            document.getElementById('input_5_addr_line1').value = decodedAddress;
+          }
+        }
+      });
+    </script>
+
+    
 
     <script src="https://js.chargebee.com/v2/chargebee.js" data-cb-site="more4lessplans" ></script>
     <script src="vendors/popper/popper.min.js"></script>
