@@ -65,7 +65,6 @@
 </head>
 
 
-
 <!-- ===============================================-->
 <!--    Main Content                              -->
 <!-- ===============================================-->
@@ -109,7 +108,9 @@
 
                   <!-- Coverage Checker Form -->
                   <form id="address-form" class="text-center text-lg-start">
-                    <input class="form-control mb-3" type="text" id="address" name="address" placeholder="Enter Your Address" required>
+                    <div class="position-relative mb-3">
+                      <input class="form-control search-input" type="text" id="address" name="address" placeholder="Search for Your Address" required>
+                    </div>
                     <div class="d-grid" id="button-container">
                       <button class="btn btn-primary lh-xl" type="submit" id="check-coverage-btn">Check Availability</button>
                     </div>
@@ -117,8 +118,8 @@
 
                   <div class="result-container" id="result-container" style="margin-top: 10px;">
                     <!-- Speed Estimate Link and Checkmark (Initially Hidden) -->
-                    <div class="more-info" id="more-info" style="display: none; margin-top: 10px; position: relative;">
-                      <span class="success-checkmark" style="display: none; position: absolute; top: -40px; left: 50%; transform: translateX(-50%); width: 32px; height: 32px; background-color: #C4D5C4; border-radius: 50%; text-align: center; line-height: 32px; font-size: 20px; color: #222831;">✓</span>
+                    <div class="more-info" id="more-info" style="display: none; margin-top: 10px; text-align: center;">
+                      <span class="success-checkmark" style="display: none; width: 40px; height: 40px; background-color: #C4D5C4; border-radius: 50%; text-align: center; line-height: 40px; font-size: 24px; color: #222831; margin: 0 auto 8px;">✓</span>
                       <a href="speedestimate.html" class="btn btn-link speed-estimate-link" style="text-decoration: none;">Get a Speed Estimate →</a>
                     </div>
                   </div>
@@ -141,7 +142,7 @@
                 #address-form .form-control {
                   border-radius: 12px;
                   border: 1px solid #e3e3e3;
-                  padding: 12px 16px;
+                  padding: 12px 36px 12px 16px; /* Extra right padding for icon */
                   font-size: 16px;
                   color: #222831;
                   background-color: #ffffff;
@@ -157,6 +158,34 @@
                   border-color: #D73C59;
                   box-shadow: 0 0 0 3px rgba(215, 60, 89, 0.2);
                   outline: none;
+                }
+
+                /* Search icon */
+                .search-input {
+                  position: relative;
+                }
+
+                .search-input::after {
+                  content: '';
+                  position: absolute;
+                  width: 14px;
+                  height: 14px;
+                  border: 2px solid #565656;
+                  border-radius: 50%;
+                  right: 18px;
+                  top: 50%;
+                  transform: translateY(-50%);
+                }
+
+                .search-input::before {
+                  content: '';
+                  position: absolute;
+                  width: 8px;
+                  height: 2px;
+                  background-color: #565656;
+                  right: 12px;
+                  top: 62%;
+                  transform: rotate(45deg);
                 }
 
                 /* Button styles */
@@ -179,12 +208,12 @@
                 .btn-get-started {
                   background-color: #313C59;
                   color: white;
-                  animation: pulse 0.8s ease-in-out 1; /* Subtle pulse animation */
+                  animation: pulse 0.8s ease-in-out 1;
                 }
 
                 @keyframes pulse {
                   0% { transform: scale(1); }
-                  50% { transform: scale(1.05); } /* Slight scale up */
+                  50% { transform: scale(1.05); }
                   100% { transform: scale(1); }
                 }
 
@@ -270,7 +299,7 @@
                     <button class="btn btn-primary lh-xl btn-get-started" type="submit" id="check-coverage-btn" onclick="window.location.href='#pricing'">Service Available - Order Now ↓</button>
                   `;
                   moreInfoContainer.style.display = 'block';
-                  successCheckmark.style.display = 'inline-block';
+                  successCheckmark.style.display = 'block';
                   resultContainer.classList.add('success');
                 }
 
@@ -303,7 +332,6 @@
       </div>
     </main>
   </body>
-
 
 <!-- Pricing Section with Enhanced Header and Clickable Cards -->
 <section id="pricing" style="background-color: #ffffff;">
