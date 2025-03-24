@@ -57,6 +57,24 @@
     .content-section ul li {
       margin-bottom: 0.5rem;
     }
+    /* Add padding below the fixed navbar to prevent content overlap */
+    body {
+      padding-top: 70px; /* Adjust based on your navbar height */
+    }
+    /* Style for the return button */
+    .btn-return {
+      background-color: #313C59;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border-radius: 5px;
+      margin-top: 1rem;
+    }
+    .btn-return:hover {
+      background-color: #252f47;
+      color: white;
+    }
   </style>
 </head>
 
@@ -83,8 +101,6 @@
       </div>
     </div>
   </nav>
-
-  <br> <br> <br>
 
   <!-- Terms of Service Content -->
   <section class="content-section">
@@ -157,7 +173,7 @@
         <li><strong>Post-Termination Obligations</strong>: Upon termination, you must return all leased equipment within 30 days, as outlined in the Equipment Lease Terms section. Failure to return the equipment will result in a non-return fee. Any outstanding fees, including subscription fees, late fees, or equipment-related charges, remain due and payable after termination.</li>
       </ul>
 
-      <h2>Refunds and Returns</h2>
+      <h2 id="returns">Refunds and Returns</h2>
       <p>We strive to ensure customer satisfaction, but our refund and return policies are limited due to the nature of our service:</p>
       <ul>
         <li><strong>Service Fees</strong>: All prepaid service fees are non-refundable, even if you cancel mid-cycle. For example, if you cancel 10 days into your billing cycle, you will not receive a refund for the remaining 20 days of that month.</li>
@@ -165,6 +181,8 @@
         <li><strong>Return Shipping</strong>: You are responsible for the cost of return shipping unless otherwise specified. We recommend using a trackable shipping method, as we are not liable for items lost or damaged during return shipping.</li>
         <li><strong>Non-Returnable Items</strong>: Equipment that is damaged beyond repair, missing components, or not in its original packaging may not be accepted for return, and you may be charged a non-return fee.</li>
       </ul>
+      <p>To initiate a return, please visit our returns portal:</p>
+      <a href="http://orders.more4lessplans.ca/" class="btn btn-return">Initiate a Return</a>
 
       <h2>Limitation of Liability</h2>
       <p>To the fullest extent permitted by law, the following terms limit our liability for issues arising from your use of the service:</p>
@@ -199,13 +217,8 @@
       </ul>
 
       <h2>Contact Us</h2>
-      <p>If you have any questions about these Terms of Service or our services, please contact us at:</p>
-      <p>
-        <strong>The More4Less Team</strong><br>
-        
-        Email: terms@more4lessplans.com<br>
-       
-      </p>
+      <p>If you have any questions about these Terms of Service or our services, please contact us <a href="/contact">here</a>.</p>
+  
     </div>
   </section>
 
@@ -216,7 +229,7 @@
         <div class="col-auto ps-0 text-center">
           <p class="lh-xl text-1100">
             <hr class="my-4">
-            © <span id="currentYear"></span> Copyright, All Rights Reserved | <a href="/privacy-policy.html">Privacy Policy</a> | <a href="/terms-of-service.html">Terms of Service</a>
+            © <span id="currentYear"></span> Copyright, All Rights Reserved </a>
           </p>
         </div>
       </div>
