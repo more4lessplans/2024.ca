@@ -65,9 +65,7 @@
 </head>
 
 
-<!-- ===============================================-->
-<!--    Main Content                              -->
-<!-- ===============================================-->
+  <!-- Navbar -->
 
 <body>
   <main class="main" id="top">
@@ -120,12 +118,13 @@
   </div>
 
   <div class="result-container" id="result-container" style="margin-top: 10px;">
+  
     <!-- Success State Elements (Initially Hidden) -->
     <div class="more-info" id="more-info" style="display: none; margin-top: 10px; text-align: center;">
       <a href="#pricing" class="success-link" style="text-decoration: none;">
         <div class="success-text">
           <span class="success-checkmark" style="display: none; width: 64px; height: 64px; background-color: #FFFFFF; border-radius: 50%; text-align: center; line-height: 64px; font-size: 36px; color: black; margin: 0 auto 12px;">✓</span>
-          <p class="availability-text" style="display: none; color: #FFFFFF; font-size: 18px; font-weight: bold; margin-bottom: 8px;">High-Speed Internet is Available</p>
+          <p class="availability-text" style="display: none; color: #FFFFFF; font-size: 22px; font-weight: bold; margin-bottom: 8px;">High-Speed Internet is Available</p>
           <span class="proceed-to-order" style="display: none; font-size: 20px; font-weight: bold; color: #FFFFFF;">Sign Up Now ↓</span>
         </div>
       </a>
@@ -370,6 +369,10 @@
       </div>
     </main>
   </body>
+
+
+
+
 <!-- Pricing Section with Enhanced Header and Clickable Cards -->
 <section id="pricing" style="background-color: #ffffff;">
   <div class="container py-8 py-lg-10">
@@ -425,7 +428,7 @@
           }
           function ShopifyBuyInit() {
             var client = ShopifyBuy.buildClient({
-              domain: 'more4less-plans.myshopify.com',
+              domain: 'checkout.more4lessplans.ca',
               storefrontAccessToken: '8919363113a077a0d17cd850b89265f4',
             });
             ShopifyBuy.UI.onReady(client).then(function (ui) {
@@ -494,7 +497,7 @@
           }
           function ShopifyBuyInit() {
             var client = ShopifyBuy.buildClient({
-              domain: 'more4less-plans.myshopify.com',
+              domain: 'checkout.more4lessplans.ca',
               storefrontAccessToken: '8919363113a077a0d17cd850b89265f4',
             });
             ShopifyBuy.UI.onReady(client).then(function (ui) {
@@ -563,7 +566,7 @@
           }
           function ShopifyBuyInit() {
             var client = ShopifyBuy.buildClient({
-              domain: 'more4less-plans.myshopify.com',
+              domain: 'checkout.more4lessplans.ca',
               storefrontAccessToken: '8919363113a077a0d17cd850b89265f4',
             });
             ShopifyBuy.UI.onReady(client).then(function (ui) {
