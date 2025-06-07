@@ -17,7 +17,7 @@
   --brainwaveio-red: #c4d5c4;
   --brainwaveio-orange: #E3A476;
   --brainwaveio-yellow: #FFDA91;
-  --brainwaveio-green: #68D585;
+  --brainwaveio-green: #D73C59;
   --brainwaveio-teal: #02a8b5;
   --brainwaveio-cyan: #27bcfd;
   --brainwaveio-black: #000;
@@ -37,7 +37,7 @@
   --brainwaveio-gray-1100: #161C2D;
   --brainwaveio-primary: #313C59;
   --brainwaveio-secondary: #2E2F33;
-  --brainwaveio-success: #68D585;
+  --brainwaveio-success: #D73C59;
   --brainwaveio-info: #473BF0;
   --brainwaveio-warning: #FFDA91;
   --brainwaveio-danger: #f71C1C;
@@ -125,8 +125,8 @@
   --brainwaveio-focus-ring-width: 0.25rem;
   --brainwaveio-focus-ring-opacity: 0.25;
   --brainwaveio-focus-ring-color: rgba(247, 77, 77, 0.25);
-  --brainwaveio-form-valid-color: #68D585;
-  --brainwaveio-form-valid-border-color: #68D585;
+  --brainwaveio-form-valid-color: #D73C59;
+  --brainwaveio-form-valid-border-color: #D73C59;
   --brainwaveio-form-invalid-color: #f71C1C;
   --brainwaveio-form-invalid-border-color: #f71C1C;
 }
@@ -204,6 +204,7 @@
   --brainwaveio-gray-900-rgb: 83, 83, 83;
   --brainwaveio-gray-1000-rgb: 46, 47, 51;
   --brainwaveio-gray-1100-rgb: 22, 28, 45;
+  --brainwaveio-gray-1110-rgb: 21, 28, 45;
   --brainwaveio-facebook-rgb: 60, 90, 153;
   --brainwaveio-google-plus-rgb: 221, 75, 57;
   --brainwaveio-twitter-rgb: 29, 161, 242;
@@ -3608,7 +3609,7 @@ textarea.form-control-lg {
 .was-validated .form-control:valid, .form-control.is-valid {
   border-color: var(--brainwaveio-form-valid-border-color);
   padding-right: calc(1.084em + 0.625rem);
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%2368D585' d='M2.3 6.73.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23D73C59' d='M2.3 6.73.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
   background-repeat: no-repeat;
   background-position: right calc(0.271em + 0.15625rem) center;
   background-size: calc(0.542em + 0.3125rem) calc(0.542em + 0.3125rem);
@@ -3628,7 +3629,7 @@ textarea.form-control-lg {
   border-color: var(--brainwaveio-form-valid-border-color);
 }
 .was-validated .form-select:valid:not([multiple]):not([size]), .was-validated .form-select:valid:not([multiple])[size="1"], .form-select.is-valid:not([multiple]):not([size]), .form-select.is-valid:not([multiple])[size="1"] {
-  --brainwaveio-form-select-bg-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%2368D585' d='M2.3 6.73.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
+  --brainwaveio-form-select-bg-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23D73C59' d='M2.3 6.73.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
   padding-right: 5.5rem;
   background-position: right 1rem center, center right 3rem;
   background-size: 16px 12px, calc(0.542em + 0.3125rem) calc(0.542em + 0.3125rem);
@@ -3892,8 +3893,8 @@ textarea.form-control-lg {
 
 .btn-success {
   --brainwaveio-btn-color: #4d5969;
-  --brainwaveio-btn-bg: #68D585;
-  --brainwaveio-btn-border-color: #68D585;
+  --brainwaveio-btn-bg: #D73C59;
+  --brainwaveio-btn-border-color: #D73C59;
   --brainwaveio-btn-hover-color: #4d5969;
   --brainwaveio-btn-hover-bg: #7fdb97;
   --brainwaveio-btn-hover-border-color: #77d991;
@@ -3903,8 +3904,8 @@ textarea.form-control-lg {
   --brainwaveio-btn-active-border-color: #77d991;
   --brainwaveio-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   --brainwaveio-btn-disabled-color: #4d5969;
-  --brainwaveio-btn-disabled-bg: #68D585;
-  --brainwaveio-btn-disabled-border-color: #68D585;
+  --brainwaveio-btn-disabled-bg: #D73C59;
+  --brainwaveio-btn-disabled-border-color: #D73C59;
 }
 
 .btn-info {
@@ -4027,19 +4028,19 @@ textarea.form-control-lg {
 }
 
 .btn-outline-success {
-  --brainwaveio-btn-color: #68D585;
-  --brainwaveio-btn-border-color: #68D585;
+  --brainwaveio-btn-color: #D73C59;
+  --brainwaveio-btn-border-color: #D73C59;
   --brainwaveio-btn-hover-color: #4d5969;
-  --brainwaveio-btn-hover-bg: #68D585;
-  --brainwaveio-btn-hover-border-color: #68D585;
+  --brainwaveio-btn-hover-bg: #D73C59;
+  --brainwaveio-btn-hover-border-color: #D73C59;
   --brainwaveio-btn-focus-shadow-rgb: 104, 213, 133;
   --brainwaveio-btn-active-color: #4d5969;
-  --brainwaveio-btn-active-bg: #68D585;
-  --brainwaveio-btn-active-border-color: #68D585;
+  --brainwaveio-btn-active-bg: #D73C59;
+  --brainwaveio-btn-active-border-color: #D73C59;
   --brainwaveio-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --brainwaveio-btn-disabled-color: #68D585;
+  --brainwaveio-btn-disabled-color: #D73C59;
   --brainwaveio-btn-disabled-bg: transparent;
-  --brainwaveio-btn-disabled-border-color: #68D585;
+  --brainwaveio-btn-disabled-border-color: #D73C59;
   --brainwaveio-gradient: none;
 }
 
@@ -8154,8 +8155,8 @@ textarea.form-control-lg {
 }
 
 .text-bg-success {
-  color: #4d5969 !important;
-  background-color: RGBA(var(--brainwaveio-success-rgb), var(--brainwaveio-bg-opacity, 1)) !important;
+  color: #D73C59 !important;
+  background-color: #D73C59 !important;
 }
 
 .text-bg-info {
@@ -11338,7 +11339,7 @@ textarea.form-control-lg {
 
 .bg-success {
   --brainwaveio-bg-opacity: 1;
-  background-color: rgba(var(--brainwaveio-success-rgb), var(--brainwaveio-bg-opacity)) !important;
+  background-color: #D73C59 !important;
 }
 
 .bg-info {
@@ -11490,7 +11491,7 @@ textarea.form-control-lg {
 }
 
 .bg-success-subtle {
-  background-color: var(--brainwaveio-success-bg-subtle) !important;
+  background-color: #D73C59 !important;
 }
 
 .bg-info-subtle {
@@ -20939,7 +20940,7 @@ h5, .h5, h6, .h6 {
 .hero-section .hero-background {
   background-image: url("../img/illustrations/BG.webp");
   background-position: center;
-  background-size: cover;
+  background-size: contain;
   background-repeat: no-repeat;
   min-height: 60rem;
   display: -webkit-box;
@@ -21110,7 +21111,7 @@ h5, .h5, h6, .h6 {
   right: 0;
   left: -5px;
   bottom: 20%;
-  background-color: #68D585;
+  background-color: #D73C59;
   z-index: -1;
 }
 
@@ -21118,6 +21119,37 @@ h5, .h5, h6, .h6 {
   width: 100%;
   max-width: 21.875rem;
 }
+
+
+
+.shopify-buy__cart-wrapper {
+  background-color: #000000 !important; /* Black background */
+  color: #ffffff !important; /* White text */
+}
+
+.shopify-buy__btn {
+  background-color: #000000 !important; /* Black button */
+  color: #ffffff !important; /* White text */
+  border-radius: 9px !important; /* Rounded corners */
+}
+
+.shopify-buy__btn:hover {
+  background-color: #444444 !important; /* Dark grey on hover */
+}
+
+.shopify-buy__btn:focus {
+  background-color: #222222 !important; /* Darker grey on focus */
+}
+
+.shopify-buy__cart-header, 
+.shopify-buy__cart-line-item,
+.shopify-buy__cart-subtotal,
+.shopify-buy__cart-footer {
+  color: #ffffff !important; /* Ensure all text inside the cart is white */
+}
+
+
+
 
 .check-icon {
   height: 1.875rem;
@@ -21232,4 +21264,8 @@ footer .icons {
   -webkit-transition: color 0.2s ease-in-out;
   -o-transition: color 0.2s ease-in-out;
   transition: color 0.2s ease-in-out;
+}
+
+.shopify-checkout-sidebar-tab {
+  background-color: #C4D5C4 !important;
 }
