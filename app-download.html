@@ -1,261 +1,274 @@
 <!DOCTYPE html>
 <html data-bs-theme="light" lang="en-US" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=0.85">
+  <!-- SEO and Meta Tags -->
+  <title>Manage Your LTE Router - More4Less Plans</title>
+  <meta name="description" content="Easily manage your More4Less LTE router with the Nighthawk or Orbi app. Download now to access settings, monitor usage, and optimize your high-speed internet connection.">
+  <meta name="keywords" content="More4Less router management, LTE router app, Nighthawk app, Orbi app, wireless internet settings, high-speed internet Canada">
+  <meta property="og:title" content="Manage Your LTE Router - More4Less Plans">
+  <meta property="og:description" content="Easily manage your More4Less LTE router with the Nighthawk or Orbi app. Download now to access settings, monitor usage, and optimize your high-speed internet connection.">
+  <meta property="og:image" content="https://more4lessplans.ca/main.jpg">
+  <meta property="og:url" content="https://more4lessplans.ca/manage-router">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Manage Your LTE Router - More4Less Plans">
+  <meta name="twitter:description" content="Easily manage your More4Less LTE router with the Nighthawk or Orbi app. Download now to access settings, monitor usage, and optimize your high-speed internet connection.">
+  <meta name="twitter:image" content="https://more4lessplans.ca/main.jpg">
 
-    <!-- ===============================================--><!--    Document Title--><!-- ===============================================-->
-    <title>More4Less | Wireless Internet</title>
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicons/favicon-16x16.png">
+  <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicons/favicon.ico">
+  <link rel="manifest" href="assets/img/favicons/manifest.json">
+  <meta name="msapplication-TileImage" content="assets/img/favicons/mstile-150x150.png">
+  <meta name="theme-color" content="#ffffff">
 
-    <!-- ===============================================--><!--    Favicons--><!-- ===============================================-->
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicons/favicon-16x16.png">
-    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicons/favicon.ico">
-    <link rel="manifest" href="assets/img/favicons/manifest.json">
-    <meta name="msapplication-TileImage" content="assets/img/favicons/mstile-150x150.png">
-    <meta name="theme-color" content="#ffffff">
+  <!-- Bootstrap CSS -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="/navbar.css">
+  <link rel="stylesheet" href="/footer.css">
+  <link rel="stylesheet" href="vendors/swiper/swiper-bundle.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+  <link href="assets/css/theme.min.css" rel="stylesheet" id="style-default">
+  <link href="assets/css/user-rtl.min.css" rel="stylesheet" id="user-style-rtl">
+  <link href="assets/css/user.min.css" rel="stylesheet" id="user-style-default">
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
 
-            <!-- Bootstrap CSS -->
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">      
+  <!-- Page-Specific CSS -->
+  <style>
+    body {
+      padding-top: 70px;
+    }
+    @media (max-width: 576px) {
+      body { padding-top: 60px; }
+    }
+    .text-danger { color: #2E2F33 !important; }
+    .text-muted { color: #565656 !important; }
+    .btn-primary {
+      border: 2px solid #2E2F33;
+      background-color: #2E2F33;
+      color: #fff;
+      font-weight: 600;
+      border-radius: 9px;
+      padding: 15px 45px;
+      transition: all 0.3s ease;
+      text-transform: none;
+    }
+    .btn-primary:hover, .btn-primary:focus {
+      background-color: transparent;
+      color: #000;
+      border: 2px solid #000;
+    }
+    .activation-card {
+      background: #F9F9F9;
+      border: none;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      transition: box-shadow 0.3s ease;
+    }
+    .activation-card:hover { box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); }
+    .activation-tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid #E5E7EB;
+    }
+    .activation-tab {
+      padding: 10px 20px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #565656;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-bottom: 3px solid transparent;
+    }
+    .activation-tab.active { color: #2E2F33; border-bottom: 3px solid #2E2F33; }
+    .activation-tab:hover { color: #2E2F33; }
+    .tab-content { display: none; text-align: center; }
+    .tab-content.active { display: block; }
+    .tab-content img { max-width: 200px; height: auto; margin: 1rem auto; }
+    .tab-content p { font-size: 1rem; line-height: 1.6; color: #565656; margin-bottom: 2rem; }
+    .tab-content .credentials { font-size: 0.9rem; color: #565656; margin-bottom: 1rem; }
+    .tab-content .credentials strong { color: #2E2F33; }
+    .tab-content .credentials em { font-style: italic; }
+    .section-title h3 {
+      position: relative;
+      display: inline-block;
+      padding-bottom: 10px;
+      color: #2E2F33;
+    }
+    .section-title h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 250px;
+      height: 3px;
+      background: linear-gradient(90deg, #313C59, #2E2F33);
+      border-radius: 2px;
+    }
+    .section-title p { font-family: 'Rubik', sans-serif; font-weight: 400; letter-spacing: 0.5px; }
+    @media (max-width: 991.98px) {
+      #activation-section { padding-top: 120px; }
+      .section-title { padding-top: 20px; }
+    }
+    .reactivate-text {
+      font-size: 0.9rem;
+      color: #9CA3AF;
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+    .reactivate-text a {
+      color: #2E2F33;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    .reactivate-text a:hover {
+      color: #D73C59;
+    }
+  </style>
+</head>
 
+<body>
+  <div id="navbar-container"></div>
 
-    <!-- ===============================================--><!--    Stylesheets--><!-- ===============================================-->
-    <link rel="stylesheet" href="vendors/swiper/swiper-bundle.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Rubik:ital,wght@0,300..900;1,300..900family=Rubik:ital,wght@0,300..900;1,300..900&amp;display=swap" rel="stylesheet">
-    <link href="assets/css/theme.min.css" rel="stylesheet" id="style-default">
-    <link href="assets/css/user-rtl.min.css" rel="stylesheet" id="user-style-rtl">
-    <link href="assets/css/user.min.css" rel="stylesheet" id="user-style-default">
-    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
-  </head>
-
-  <body>
-    <!-- ===============================================--><!--    Main Content--><!-- ===============================================-->
-    <!-- ===============================================--><!--    Main Content--><!-- ===============================================-->
-    <main class="main" id="top">
-      <div class="content">
-        
-   
-      
-    
-        <style>
-          .navbar,
-          .navbar-nav .nav-link,
-          .dropdown-menu,
-          .dropdown-item,
-          .nav-item {
-            background-color: #313C59 !important;
-          }
-      
-          .nav-link,
-          .nav-item {
-            color: rgba(255, 255, 255, 0.7) !important;
-            transition: color 0.3s ease;
-          }
-      
-          .nav-link:hover,
-          .nav-item:hover {
-            color: white !important;
-          }
-      
-          .pricing-card {
-            width: 260px;
-            white-space: nowrap;
-          }
-      
-          .pricing-card .pricing-info {
-            white-space: nowrap;
-          }
-      
-          @media (min-width: 992px) {
-            .pricing-card {
-              width: 290px;
-            }
-          }
-        </style>
-      </head>
-      
-      <body>
-      
-        <!-- Navbar -->
-        <nav class="navbar navbar-expand-md fixed-top" id="navbar">
-          <div class="container-fluid px-0">
-            <a href="/" class="navbar-brand"><img src="assets/img/logos/logo.png" style="width: 80px; height: 35px;" alt="logo" /></a>
-            <button class="navbar-toggler border-0 pe-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-md-end" id="navbar-content">
-              <ul class="navbar-nav gap-md-2 gap-lg-3 pt-x1 pb-1 pt-md-0 pb-md-0">
-                <li class="nav-item dropdown">
-                  <a class="nav-link lh-xl dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Existing Customers</a>
-                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="javascript:void(0)" data-cb-type="portal"><strong>Account Login</strong></a></li>
-                    <li><a class="dropdown-item" href="/contact"><strong>Technical Support</strong></a></li>
-                   
-                  </ul>
-                </li>
-               
-                <li class="nav-item"><a class="nav-link lh-xl" href="/contact">Contact</a></li>
-                <li class="nav-item"><a class="nav-link lh-xl" href="/mobility">Mobility</a></li>
-                <li class="nav-item"><a class="nav-link lh-xl" href="/question">FAQ</a></li>
-              </ul>
+  <main class="main" id="top">
+    <div class="content">
+      <section class="bg-white py-8 py-lg-10" id="activation-section">
+        <div class="container">
+          <div class="row justify-content-center text-center mb-5 section-title">
+            <div class="col-md-8 col-lg-7">
+              <h3 class="fs-4 fs-lg-3 fw-bold mb-2 lh-sm">Manage Your LTE Router</h3>
+              <p class="fs-8 lh-lg text-muted">Select your device to download the app and manage your connection.</p>
             </div>
           </div>
-        </nav>
-      
-
-
-
-        <style>
-          /* Custom CSS for Pricing Cards */
-          .pricing-card {
-            width: 100%;
-            max-width: 100%;
-            margin-bottom: 20px; /* Adjust as needed */
-          }
-      
-          .pricing-card img {
-            max-width: 100%;
-            height: auto;
-          }
-      
-          .pricing-card p,
-          .pricing-card h2,
-          .pricing-card ul {
-            max-width: 80%;
-            margin-left: auto;
-            margin-right: auto;
-          }
-      
-          @media (min-width: 992px) {
-            .pricing-card {
-              width: 100%; /* Cards are full width on medium screens */
-            }
-          }
-      
-          
-        </style>
-      </head>
-      <body>
-        <!-- Main Content -->
-        <main class="main" id="top">
-          <div class="content">
-            <section class="container mb-8 mb-lg-11" id="top">
-              <br><br><br><br><br><br><br>
-              <h1 class="fs-4 fs-lg-3 fw-bold text-center mb-2 mb-lg-1">Manage Your LTE Router with Ease</h1>
-              <p class="fs-8 mb-7 mb-lg-8 text-center lh-lg">Download the app for your device below to access settings, monitor usage, and optimize your connection:</p>
-             
-        
-              
-
-               
-
-
-              <div class="container mt-5">
-                <div class="row justify-content-center">
-                  <div class="col-12 col-md-6 col-lg-4 mb-4 d-flex justify-content-center">
-                    <div class="px-3 py-4 text-center bg-white border shadow-sm rounded-2 pricing-card d-flex flex-column align-items-center">
-                      <div class="d-flex justify-content-center">
-                        <img src="assets/img/products/mr1100.png" alt="MR1100" width="225" height="225" class="mb-3">
-                      </div>
-                      <p class="fs-10 text-uppercase mb-3 fw-bold ls-2" style="color: #D73C59;">MR1100</p>
-                      <p class="text-muted small mb-3 text-center" style="line-height: 1.5;">
-                        <strong>Username:</strong> <em>admin</em><br>
-                        <strong>Password:</strong> <em>attadmin</em> <br>
-                       
-                      </p>
-                      <a href="https://www.netgear.com/support/product/netgear-mobile-app/" class="btn btn-primary btn-lg lh-xl mt-auto">Download App</a>
-                    </div>
+          <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+              <div class="activation-card">
+                <div class="activation-tabs">
+                  <div class="activation-tab active" data-tab="nighthawk">Nighthawk</div>
+                  <div class="activation-tab" data-tab="orbi">Orbi</div>
+                </div>
+                <div class="tab-content active" id="nighthawk-content">
+                  <img src="assets/img/products/mr1100.png" alt="Nighthawk" class="mb-3">
+                  <p>Download the Nighthawk app to manage your Nighthawk router, access settings, and monitor usage.</p>
+                  <div class="credentials">
+                    <p><strong>Username:</strong> <em>admin</em><br>
+                    <strong>Password:</strong> <em>attadmin</em></p>
                   </div>
-                  <div class="col-12 col-md-6 col-lg-4 mb-4 d-flex justify-content-center">
-                    <div class="px-3 py-4 text-center bg-white border shadow-sm rounded-2 pricing-card d-flex flex-column align-items-center">
-                      <div class="d-flex justify-content-center">
-                        <img src="assets/img/products/LBR20.png" alt="LBR20" width="225" height="225" class="mb-3">
-                      </div>
-                      <p class="fs-10 text-uppercase mb-3 fw-bold ls-2" style="color: #D73C59;">LBR20</p>
-                      <p class="text-muted small mb-3 text-center" style="line-height: 1.5;">
-                        <strong>Username:</strong> <em>admin</em><br>
-                        <strong>Password:</strong> <em>more4less</em> <br>
-                        <span style="font-size: 0.9em; color: #999;">or</span> <br>
-                        <em>More4LessPlans</em>
-                      </p>
-                      <a href="https://www.netgear.com/home/services/orbi-app/" class="btn btn-primary btn-lg lh-xl mt-auto">Download App</a>
-                    </div>
+                  <a href="https://www.netgear.com/support/product/netgear-mobile-app/" class="btn btn-primary">Download App</a>
+                </div>
+                <div class="tab-content" id="orbi-content">
+                  <img src="assets/img/products/LBR20.png" alt="Orbi" class="mb-3">
+                  <p>Download the Orbi app to manage your device, optimize your connection, and monitor usage.</p>
+                  <div class="credentials">
+                    <p><strong>Username:</strong> <em>admin</em><br>
+                    <strong>Password:</strong> <em>more4less</em> or <em>More4LessPlans</em></p>
                   </div>
-                  <div class="col-12 col-md-6 col-lg-4 mb-4 d-flex justify-content-center">
-                    <div class="px-3 py-4 text-center bg-white border shadow-sm rounded-2 pricing-card d-flex flex-column align-items-center">
-                      <div class="d-flex justify-content-center">
-                        <img src="assets/img/products/NBR70.png" alt="MR1100" width="225" height="225" class="mb-3">
-                      </div>
-                      <p class="fs-10 text-uppercase mb-3 fw-bold ls-2" style="color: #D73C59;">NBR750</p>
-                      <p class="text-muted small mb-3 text-center" style="line-height: 1.5;">
-                        <strong>Username:</strong> <em>admin</em><br>
-                        <strong>Password:</strong> <em>more4less</em> <br>
-                        <span style="font-size: 0.9em; color: #999;">or</span> <br>
-                        <em>More4LessPlans</em>
-                      </p>
-                      <a href="https://www.netgear.com/home/services/orbi-app/" class="btn btn-primary btn-lg lh-xl mt-auto">Download App</a>
-                    </div>
-                  </div>
+                  <a href="https://www.netgear.com/home/services/orbi-app/" class="btn btn-primary">Download App</a>
                 </div>
               </div>
+              <p class="reactivate-text">Need more help? <a href="/contact">Contact Support →</a></p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
 
+  <div id="footer-container"></div>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://js.chargebee.com/v2/chargebee.js" data-cb-site="more4lessplans"></script>
+  <script src="vendors/is/is.min.js"></script>
+  <script src="vendors/countup/countUp.umd.js"></script>
+  <script src="vendors/swiper/swiper-bundle.min.js"></script>
+  <script src="vendors/lodash/lodash.min.js"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
+  <script src="assets/js/theme.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Load navbar
+      fetch('/navbar.html')
+        .then(response => {
+          if (!response.ok) throw new Error('Failed to load navbar.html: ' + response.status);
+          return response.text();
+        })
+        .then(data => {
+          document.getElementById('navbar-container').innerHTML = data;
+          const navbarScript = document.createElement('script');
+          navbarScript.src = '/navbar.js';
+          navbarScript.onload = function() {
+            initializeNavbar(); // Assumes this function exists in navbar.js
+          };
+          document.body.appendChild(navbarScript);
+        })
+        .catch(error => console.error('Error loading navbar:', error));
 
-            </section>
+      // Load footer
+      fetch('/footer.html')
+        .then(response => {
+          if (!response.ok) throw new Error('Failed to load footer.html: ' + response.status);
+          return response.text();
+        })
+        .then(data => {
+          document.getElementById('footer-container').innerHTML = data;
+          document.getElementById('currentYear').textContent = new Date().getFullYear();
+        })
+        .catch(error => console.error('Error loading footer:', error));
 
+      // Tab switching
+      const tabs = document.querySelectorAll('.activation-tab');
+      const contents = document.querySelectorAll('.tab-content');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          contents.forEach(c => c.classList.remove('active'));
+          tab.classList.add('active');
+          document.getElementById(`${tab.getAttribute('data-tab')}-content`).classList.add('active');
+        });
+      });
 
+      // Initialize Chargebee
+      if (typeof Chargebee !== 'undefined') {
+        Chargebee.init({
+          site: "more4lessplans",
+          publishableKey: 'live_9xoL0GUAJyfaZddNn5cdFhI4hrLAGhyIh' // Replace with actual Chargebee publishable key
+        });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <!-- Bootstrap Bundle with Popper.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-
-
-    <!-- ===============================================--><!--    JavaScripts--><!-- ===============================================-->
-
-
-    <script src="https://js.chargebee.com/v2/chargebee.js" data-cb-site="more4lessplans" ></script>
-    <script src="vendors/popper/popper.min.js"></script>
-    <script src="vendors/bootstrap/bootstrap.min.js"></script>
-    <script src="vendors/is/is.min.js"></script>
-    <script src="vendors/countup/countUp.umd.js"></script>
-    <script src="vendors/swiper/swiper-bundle.min.js"></script>
-    <script src="vendors/lodash/lodash.min.js"></script>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
-    <script src="assets/js/theme.js"></script>
-
-
-  </body>
-
+        // Add event listener for Account Login links
+        const accountLoginLinks = document.querySelectorAll('.account-login-link');
+        accountLoginLinks.forEach(link => {
+          link.addEventListener('click', function(event) {
+            event.preventDefault();
+            Chargebee.getInstance().openPortal({
+              onLoad: function() {
+                console.log("Chargebee portal loaded");
+              },
+              onClose: function() {
+                console.log("Chargebee portal closed");
+              }
+            });
+          });
+        });
+      } else {
+        console.error("Chargebee script not loaded. Please ensure the Chargebee script is included.");
+      }
+    });
+  </script>
+</body>
 </html>

@@ -1,28 +1,19 @@
 <!DOCTYPE html>
 <html data-bs-theme="light" lang="en-US" dir="ltr">
-
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- SEO Title -->
+  <!-- SEO and Meta Tags -->
   <title>Activate Your Service | More4Less Wireless Internet & SIM Plans</title>
-
-  <!-- SEO Keywords -->
   <meta name="keywords" content="activate router, activate SIM, More4Less activation, wireless internet activation, SIM card activation, high-speed internet setup, Canada internet activation, LTE 5G activation, mobile data plans, router setup">
-
-  <!-- SEO Description -->
   <meta name="description" content="Activate your More4Less router or SIM card quickly and easily. Get high-speed wireless internet or mobile data plans with straightforward setup. Start enjoying reliable connectivity today!">
-
-  <!-- Open Graph Meta Tags for Social Sharing -->
   <meta property="og:title" content="Activate Your Service | More4Less Wireless Internet & SIM Plans">
   <meta property="og:description" content="Activate your More4Less router or SIM card quickly and easily. Get high-speed wireless internet or mobile data plans with straightforward setup. Start enjoying reliable connectivity today!">
   <meta property="og:image" content="https://more4lessplans.ca/main.jpg">
   <meta property="og:url" content="https://more4lessplans.ca/activate">
   <meta property="og:type" content="website">
-
-  <!-- Twitter Card Meta Tags -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Activate Your Service | More4Less Wireless Internet & SIM Plans">
   <meta name="twitter:description" content="Activate your More4Less router or SIM card quickly and easily. Get high-speed wireless internet or mobile data plans with straightforward setup. Start enjoying reliable connectivity today!">
@@ -41,6 +32,8 @@
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Stylesheets -->
+  <link rel="stylesheet" href="/navbar.css">
+  <link rel="stylesheet" href="/footer.css">
   <link rel="stylesheet" href="vendors/swiper/swiper-bundle.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -50,51 +43,16 @@
   <link href="assets/css/user.min.css" rel="stylesheet" id="user-style-default">
   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
 
-  <!-- Updated Custom CSS -->
+  <!-- Page-Specific CSS -->
   <style>
-    /* General Styling */
-    .text-danger {
-      color: #2E2F33 !important;
+    body {
+      padding-top: 70px;
     }
-    .text-muted {
-      color: #565656 !important;
+    @media (max-width: 576px) {
+      body { padding-top: 60px; }
     }
-
-    /* Navbar Styling */
-    .navbar {
-      background: linear-gradient(135deg, #313C59 0%, #2E2F33 100%) !important; /* Gradient navbar */
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-    .nav-link, .nav-item {
-      color: rgba(255, 255, 255, 0.7) !important;
-      transition: color 0.3s ease;
-    }
-    .nav-link:hover, .nav-item:hover {
-      color: white !important;
-    }
-    .navbar .dropdown-menu {
-      background: linear-gradient(135deg, #3A4565 0%, #35363A 100%) !important; /* Slightly lighter gradient for dropdown */
-      border: none;
-      opacity: 1 !important;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    }
-    .navbar .dropdown-menu .dropdown-item {
-      color: rgba(255, 255, 255, 0.7) !important;
-      transition: color 0.3s ease, background-color 0.3s ease;
-    }
-    .navbar .dropdown-menu .dropdown-item:hover,
-    .navbar .dropdown-menu .dropdown-item:focus {
-      color: white !important;
-      background-color: rgba(255, 255, 255, 0.1) !important;
-    }
-    @media (max-width: 991.98px) {
-      .navbar .dropdown-menu {
-        background: linear-gradient(135deg, #3A4565 0%, #35363A 100%) !important; /* Ensure gradient on mobile */
-        opacity: 1 !important;
-      }
-    }
-
-    /* Buttons */
+    .text-danger { color: #2E2F33 !important; }
+    .text-muted { color: #565656 !important; }
     .btn-primary {
       border: 2px solid #2E2F33;
       background-color: #2E2F33;
@@ -103,15 +61,13 @@
       border-radius: 9px;
       padding: 15px 45px;
       transition: all 0.3s ease;
-      text-transform: none; /* Remove all caps */
+      text-transform: none;
     }
     .btn-primary:hover, .btn-primary:focus {
       background-color: transparent;
       color: #000;
       border: 2px solid #000;
     }
-
-    /* Activation Card */
     .activation-card {
       background: #F9F9F9;
       border: none;
@@ -120,11 +76,7 @@
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
       transition: box-shadow 0.3s ease;
     }
-    .activation-card:hover {
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    }
-
-    /* Tabbed Navigation */
+    .activation-card:hover { box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); }
     .activation-tabs {
       display: flex;
       justify-content: center;
@@ -140,39 +92,17 @@
       transition: all 0.3s ease;
       border-bottom: 3px solid transparent;
     }
-    .activation-tab.active {
-      color: #2E2F33;
-      border-bottom: 3px solid #2E2F33;
-    }
-    .activation-tab:hover {
-      color: #2E2F33;
-    }
-
-    /* Tab Content */
-    .tab-content {
-      display: none;
-      text-align: center;
-    }
-    .tab-content.active {
-      display: block;
-    }
-    .tab-content img {
-      max-width: 200px;
-      height: auto;
-      margin: 1rem auto;
-    }
-    .tab-content p {
-      font-size: 1rem;
-      line-height: 1.6;
-      color: #565656;
-      margin-bottom: 2rem;
-    }
-
-    /* Premium Title and Subtitle */
+    .activation-tab.active { color: #2E2F33; border-bottom: 3px solid #2E2F33; }
+    .activation-tab:hover { color: #2E2F33; }
+    .tab-content { display: none; text-align: center; }
+    .tab-content.active { display: block; }
+    .tab-content img { max-width: 200px; height: auto; margin: 1rem auto; }
+    .tab-content p { font-size: 1rem; line-height: 1.6; color: #565656; margin-bottom: 2rem; }
     .section-title h3 {
       position: relative;
       display: inline-block;
       padding-bottom: 10px;
+      color: #2E2F33;
     }
     .section-title h3::after {
       content: '';
@@ -180,122 +110,58 @@
       bottom: 0;
       left: 50%;
       transform: translateX(-50%);
-      width: 50px;
+      width: 250px;
       height: 3px;
       background: linear-gradient(90deg, #313C59, #2E2F33);
       border-radius: 2px;
     }
-    .section-title p {
-      font-family: 'Rubik', sans-serif;
-      font-weight: 400;
-      letter-spacing: 0.5px;
-    }
-
-    /* Section Styling */
+    .section-title p { font-family: 'Rubik', sans-serif; font-weight: 400; letter-spacing: 0.5px; }
     @media (max-width: 991.98px) {
-      #activation-section {
-        padding-top: 120px; /* Ensure enough space for navbar */
-      }
-      .section-title {
-        padding-top: 20px; /* Additional padding for the title on mobile */
-      }
+      #activation-section { padding-top: 120px; }
+      .section-title { padding-top: 20px; }
     }
-
-    /* Footer */
-    footer {
-      padding: 3rem 0;
-      background: #ffffff;
+    .reactivate-text {
+      font-size: 0.9rem;
+      color: #9CA3AF;
       text-align: center;
+      margin-top: 1.5rem;
     }
-    .footer-links {
-      margin-bottom: 1.5rem;
-    }
-    .footer-links a {
-      color: #A1A8B3; /* Lighter gray for minimal look */
-      font-size: 0.95rem;
+    .reactivate-text a {
+      color: #2E2F33;
       text-decoration: none;
+      font-weight: 500;
       transition: color 0.3s ease;
-      padding: 0 1rem;
-      position: relative;
     }
-    .footer-links a:hover {
-      color: #565656; /* Slightly darker gray on hover */
-    }
-    .footer-links a:not(:last-child)::after {
-      content: '';
-      position: absolute;
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 1px;
-      height: 50%;
-      background: #D1D5DB;
-    }
-    .footer-divider {
-      width: 50%;
-      margin: 0 auto 1.5rem auto;
-      border: 0;
-      border-top: 1px solid #E5E7EB; /* Very light gray for seamless blend */
-    }
-    .footer-copyright {
-      color: #9CA3AF; /* Subtle, readable gray */
-      font-size: 1rem;
-      margin: 0;
+    .reactivate-text a:hover {
+      color: #D73C59;
     }
   </style>
 </head>
 
 <body>
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-md fixed-top" id="navbar">
-    <div class="container-fluid px-0">
-      <a href="/" class="navbar-brand"><img src="assets/img/logos/logo.png" style="width: 80px; height: 35px;" alt="logo" /></a>
-      <button class="navbar-toggler border-0 pe-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse justify-content-md-end" id="navbar-content" data-navbar-collapse="data-navbar-collapse">
-        <ul class="navbar-nav gap-md-2 gap-lg-3 pt-x1 pb-1 pt-md-0 pb-md-0" data-navbar-nav="data-navbar-nav">
-          <li class="nav-item dropdown">
-            <a class="nav-link lh-xl dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Existing Customers</a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="javascript:void(0)" data-cb-type="portal"><strong>Account Login</strong></a></li>
-              <li><a class="dropdown-item" href="/contact"><strong>Technical Support</strong></a></li>
-              <li><a class="dropdown-item" href="/tutorials"><strong>Tutorials</strong></a></li>
-            </ul>
-          </li>
-          <li class="nav-item"><a class="nav-link lh-xl" href="/contact">Contact</a></li>
-          <li class="nav-item"><a class="nav-link lh-xl" href="/mobility">Mobility</a></li>
-          <li class="nav-item"><a class="nav-link lh-xl" href="/question">FAQ</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+  <div id="navbar-container"></div>
 
-  <!-- Main Content -->
   <main class="main" id="top">
     <div class="content">
-      <!-- Activation Options Section -->
       <section class="bg-white py-8 py-lg-10" id="activation-section">
         <div class="container">
           <div class="row justify-content-center text-center mb-5 section-title">
             <div class="col-md-8 col-lg-7">
-              <h3 class="fs-4 fs-lg-3 fw-bold mb-2 lh-sm" style="color: #2E2F33;">Activate Your Service</h3>
+              <h3 class="fs-4 fs-lg-3 fw-bold mb-2 lh-sm">Activate Your Service</h3>
               <p class="fs-8 lh-lg text-muted">Select your service type to begin the activation process.</p>
             </div>
           </div>
           <div class="row justify-content-center">
             <div class="col-md-8 col-lg-6">
               <div class="activation-card">
-                <!-- Tab Navigation -->
                 <div class="activation-tabs">
                   <div class="activation-tab active" data-tab="router">Wireless Internet</div>
                   <div class="activation-tab" data-tab="sim">Talk, Text & Data</div>
                 </div>
-                <!-- Tab Content -->
                 <div class="tab-content active" id="router-content">
                   <img src="assets/img/Hero/active.png" alt="Router Activation" class="mb-3">
                   <p>Activate your Wireless Internet service for high-speed connectivity at home or on the go. Have your credit card and router details ready.</p>
-                  <button class="btn btn-primary" onclick="window.location.href='javascript:void(0)'" data-cb-type="checkout" data-cb-plan-id="home-internet">Activate</button>
+                    <button class="btn btn-primary" onclick="window.location.href='javascript:void(0)'" data-cb-type="checkout" data-cb-plan-id="home-internet">Activate</button>
                 </div>
                 <div class="tab-content" id="sim-content">
                   <img src="assets/img/Hero/sim.png" alt="SIM Activation" class="mb-3">
@@ -303,6 +169,7 @@
                   <button class="btn btn-primary" onclick="window.location.href='/activate-sim'">Activate</button>
                 </div>
               </div>
+              <p class="reactivate-text">Returning Customer? <a href="/reactivate-service">Re-Activate Your Service →</a></p>
             </div>
           </div>
         </div>
@@ -310,51 +177,97 @@
     </div>
   </main>
 
-  <!-- Footer -->
-  <footer>
-    <div class="footer-links">
-      <a href="/terms">Service Terms</a>
-      <a href="/contact">Contact</a>
-      <a href="/privacy-policy">Privacy Policy</a>
-    </div>
-    <hr class="footer-divider">
-    <p class="footer-copyright">© <span id="currentYear"></span> Copyright, All Rights Reserved</p>
-  </footer>
+  <div id="footer-container"></div>
 
-  <!-- JavaScript -->
-  <script>
-    document.getElementById("currentYear").textContent = new Date().getFullYear();
-
-    // Tabbed navigation functionality
-    const tabs = document.querySelectorAll('.activation-tab');
-    const contents = document.querySelectorAll('.tab-content');
-
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        // Remove active class from all tabs and contents
-        tabs.forEach(t => t.classList.remove('active'));
-        contents.forEach(c => c.classList.remove('active'));
-
-        // Add active class to clicked tab and corresponding content
-        tab.classList.add('active');
-        const tabId = tab.getAttribute('data-tab');
-        document.getElementById(`${tabId}-content`).classList.add('active');
-      });
-    });
-  </script>
-
-  <!-- Bootstrap and Dependencies -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script src="https://js.chargebee.com/v2/chargebee.js" data-cb-site="more4lessplans"></script>
-  <script src="vendors/popper/popper.min.js"></script>
-  <script src="vendors/bootstrap/bootstrap.min.js"></script>
   <script src="vendors/is/is.min.js"></script>
   <script src="vendors/countup/countUp.umd.js"></script>
   <script src="vendors/swiper/swiper-bundle.min.js"></script>
   <script src="vendors/lodash/lodash.min.js"></script>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
   <script src="assets/js/theme.js"></script>
-</body>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Load navbar
+      fetch('/navbar.html')
+        .then(response => {
+          if (!response.ok) throw new Error('Failed to load navbar.html: ' + response.status);
+          return response.text();
+        })
+        .then(data => {
+          document.getElementById('navbar-container').innerHTML = data;
+          const navbarScript = document.createElement('script');
+          navbarScript.src = '/navbar.js';
+          navbarScript.onload = function() {
+            initializeNavbar(); // Assumes this function exists in navbar.js
+          };
+          document.body.appendChild(navbarScript);
+        })
+        .catch(error => console.error('Error loading navbar:', error));
 
+      // Load footer
+      fetch('/footer.html')
+        .then(response => {
+          if (!response.ok) throw new Error('Failed to load footer.html: ' + response.status);
+          return response.text();
+        })
+        .then(data => {
+          document.getElementById('footer-container').innerHTML = data;
+          document.getElementById('currentYear').textContent = new Date().getFullYear();
+        })
+        .catch(error => console.error('Error loading footer:', error));
+
+      // Tab switching
+      const tabs = document.querySelectorAll('.activation-tab');
+      const contents = document.querySelectorAll('.tab-content');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          contents.forEach(c => c.classList.remove('active'));
+          tab.classList.add('active');
+          document.getElementById(`${tab.getAttribute('data-tab')}-content`).classList.add('active');
+        });
+      });
+
+      // Chargebee activation button
+      const activateBtn = document.querySelector('.activate-btn');
+      activateBtn.addEventListener('click', () => {
+        if (typeof Chargebee === 'undefined') {
+          console.error('Chargebee library not loaded');
+          window.location.href = '/error.html'; // Fallback URL
+          return;
+        }
+
+        const cbInstance = Chargebee.init({
+          site: 'more4lessplans',
+          publishableKey: 'live_9xoL0GUAJyfaZddNn5cdFhI4hrLAGhyIh' // Replace with actual Chargebee publishable key
+        });
+
+        // Simulate fetching a hosted checkout session (replace with actual server-side call)
+        const hostedPage = {
+          id: 'hosted-page-id',
+          url: 'https://more4lessplans.chargebee.com/hosted_pages/plans/home-internet' // Replace with actual hosted page URL
+        };
+
+        cbInstance.openCheckout({
+          hostedPage: () => Promise.resolve(hostedPage),
+          success: (hostedPageId) => {
+            console.log('Checkout successful:', hostedPageId);
+            window.location.href = '/activation-success.html'; // Redirect after successful checkout
+          },
+          close: () => {
+            console.log('Checkout closed');
+          },
+          error: (err) => {
+            console.error('Checkout error:', err);
+            window.location.href = '/error.html'; // Fallback URL
+          }
+        });
+      });
+    });
+  </script>
+</body>
 </html>

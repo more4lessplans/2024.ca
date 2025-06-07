@@ -22,26 +22,34 @@
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Stylesheets -->
+  <link rel="stylesheet" href="/navbar.css"> <!-- Navbar styles -->
+  <link rel="stylesheet" href="/footer.css"> <!-- Footer styles -->
   <link rel="stylesheet" href="vendors/swiper/swiper-bundle.min.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
   <link href="assets/css/theme.min.css" rel="stylesheet" id="style-default">
   <link href="assets/css/user-rtl.min.css" rel="stylesheet" id="user-style-rtl">
   <link href="assets/css/user.min.css" rel="stylesheet" id="user-style-default">
   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
 
-  <!-- Custom CSS -->
+  <!-- Page-Specific CSS -->
   <style>
+    /* Body padding for fixed navbar */
+    body {
+      padding-top: 70px; /* Adjust based on navbar height */
+    }
     .content-section {
       padding: 60px 0;
     }
     .content-section h1 {
       font-size: 2.5rem;
-      color: #313C59;
+      color: #2E2F33;
       margin-bottom: 1.5rem;
     }
     .content-section h2 {
       font-size: 1.5rem;
-      color: #313C59;
+      color: #2E2F33;
       margin-top: 2rem;
       margin-bottom: 1rem;
     }
@@ -61,36 +69,16 @@
 </head>
 
 <body>
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-md fixed-top" id="navbar" style="background-color: #313C59;">
-    <div class="container-fluid px-0">
-      <a href="/" class="navbar-brand"><img src="assets/img/logos/logo.png" style="width: 80px; height: 35px;" alt="logo" /></a>
-      <button class="navbar-toggler border-0 pe-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse justify-content-md-end" id="navbar-content">
-        <ul class="navbar-nav gap-md-2 gap-lg-3 pt-x1 pb-1 pt-md-0 pb-md-0">
-          <li class="nav-item dropdown">
-            <a class="nav-link lh-xl dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Existing Customers</a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="javascript:void(0)" data-cb-type="portal"><strong>Account Login</strong></a></li>
-              <li><a class="dropdown-item" href="/contact"><strong>Technical Support</strong></a></li>
-            </ul>
-          </li>
-          <li class="nav-item"><a class="nav-link lh-xl" href="/mobility">Mobility</a></li>
-          <li class="nav-item"><a class="nav-link lh-xl" href="/question">FAQ</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-<br><br><br><br>
+  <!-- Navbar Container -->
+  <div id="navbar-container"></div>
+
   <!-- Privacy Policy Content -->
   <section class="content-section">
     <div class="container">
       <h1>Privacy Policy</h1>
       <p><strong>Last Updated: March 23, 2025</strong></p>
-      <p>At More4Less Plans, we are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy outlines how we collect, use, disclose, and safeguard your information when you visit this website or use our wireless internet services. We operate in compliance with the <strong>Personal Information Protection and Electronic Documents Act (PIPEDA)</strong> and other applicable Canadian laws.</p>
-      <p>More4Less Plans is a sole proprietorship based in Ontario, Canada, owned and operated by [Your Full Name]. By using this website or our services, you consent to the practices described in this policy.</p>
+      <p>At The More4Less Plans Group, we are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy outlines how we collect, use, disclose, and safeguard your information when you visit this website or use our wireless internet services. We operate in compliance with the <strong>Personal Information Protection and Electronic Documents Act (PIPEDA)</strong> and other applicable Canadian laws.</p>
+      <p>By using this website or our services, you consent to the practices described in this policy.</p>
 
       <h2>1. Information We Collect</h2>
       <p>We may collect the following types of information:</p>
@@ -219,35 +207,59 @@
       <p>If you have questions about this Privacy Policy or our privacy practices, please contact us at:</p>
       <p>
         <strong>The More4Less Team</strong><br>
-       
         Email: privacy@more4lessplans.com<br>
-      
       </p>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="pt-7 pt-lg-8">
-    <div class="container">
-      <div class="row gy-2 py-3 justify-content-center">
-        <div class="col-auto ps-0 text-center">
-          <p class="lh-xl text-1100">
-            <hr class="my-4">
-            © <span id="currentYear"></span> Copyright, All Rights Reserved | <a href="/privacy-policy.html">Privacy Policy</a>
-          </p>
-        </div>
-      </div>
-    </div>
-  </footer>
+  <!-- Footer Container -->
+  <div id="footer-container"></div>
 
   <!-- JavaScripts -->
   <script>
-    document.getElementById("currentYear").textContent = new Date().getFullYear();
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('DOM fully loaded');
+
+      // Load navbar
+      fetch('/navbar.html')
+        .then(response => {
+          if (!response.ok) throw new Error('Failed to load navbar.html: ' + response.status);
+          return response.text();
+        })
+        .then(data => {
+          console.log('Navbar fetched successfully');
+          document.getElementById('navbar-container').innerHTML = data;
+          const navbarScript = document.createElement('script');
+          navbarScript.src = '/navbar.js';
+          navbarScript.onload = function() {
+            console.log('navbar.js loaded');
+            initializeNavbar();
+          };
+          document.body.appendChild(navbarScript);
+        })
+        .catch(error => {
+          console.error('Error loading navbar:', error);
+        });
+
+      // Load footer
+      fetch('/footer.html')
+        .then(response => {
+          if (!response.ok) throw new Error('Failed to load footer.html: ' + response.status);
+          return response.text();
+        })
+        .then(data => {
+          console.log('Footer fetched successfully');
+          document.getElementById('footer-container').innerHTML = data;
+          document.getElementById('currentYear').textContent = new Date().getFullYear();
+        })
+        .catch(error => {
+          console.error('Error loading footer:', error);
+        });
+    });
   </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script src="vendors/popper/popper.min.js"></script>
-  <script src="vendors/bootstrap/bootstrap.min.js"></script>
   <script src="vendors/is/is.min.js"></script>
   <script src="vendors/countup/countUp.umd.js"></script>
   <script src="vendors/swiper/swiper-bundle.min.js"></script>

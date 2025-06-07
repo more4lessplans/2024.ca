@@ -1,385 +1,679 @@
 <!DOCTYPE html>
 <html data-bs-theme="light" lang="en-US" dir="ltr">
 
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=0.85">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=0.85">
 
-    <!-- ===============================================--><!--    Document Title--><!-- ===============================================-->
-    <title>More4Less | Wireless Internet</title>
+  <!-- Document Title -->
+  <title>FAQ | Common Questions</title>
 
-    <!-- ===============================================--><!--    Favicons--><!-- ===============================================-->
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicons/favicon-16x16.png">
-    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicons/favicon.ico">
-    <link rel="manifest" href="assets/img/favicons/manifest.json">
-    <meta name="msapplication-TileImage" content="assets/img/favicons/mstile-150x150.png">
-    <meta name="theme-color" content="#ffffff">
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicons/favicon-16x16.png">
+  <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicons/favicon.ico">
+  <link rel="manifest" href="assets/img/favicons/manifest.json">
+  <meta name="msapplication-TileImage" content="assets/img/favicons/mstile-150x150.png">
+  <meta name="theme-color" content="#ffffff">
 
+  <!-- Bootstrap CSS -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
-            <!-- Bootstrap CSS -->
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">      
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="/navbar.css">
+  <link rel="stylesheet" href="/footer.css">
+  <link rel="stylesheet" href="vendors/swiper/swiper-bundle.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+  <link href="assets/css/theme.min.css" rel="stylesheet" id="style-default">
+  <link href="assets/css/user-rtl.min.css" rel="stylesheet" id="user-style-rtl">
+  <link href="assets/css/user.min.css" rel="stylesheet" id="user-style-default">
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
+  <style>
+    /* Navbar Styles */
+    .navbar-solid {
+      background: #171C2D !important;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    .navbar-solid .nav-link {
+      color: rgba(255, 255, 255, 0.7) !important;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    .navbar-solid .nav-link:hover {
+      color: white !important;
+    }
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+    .nav-link-existing::after {
+      content: " →";
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.9rem;
+      margin-left: 2px;
+    }
+    .nav-link-existing:hover::after {
+      color: white;
+    }
 
-    <!-- ===============================================--><!--    Stylesheets--><!-- ===============================================-->
-    <link rel="stylesheet" href="vendors/swiper/swiper-bundle.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Rubik:ital,wght@0,300..900;1,300..900family=Rubik:ital,wght@0,300..900;1,300..900&amp;display=swap" rel="stylesheet">
-    <link href="assets/css/theme.min.css" rel="stylesheet" id="style-default">
-    <link href="assets/css/user-rtl.min.css" rel="stylesheet" id="user-style-rtl">
-    <link href="assets/css/user.min.css" rel="stylesheet" id="user-style-default">
-    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
-  </head>
+    /* Mobile Menu Styles */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 1050;
+      justify-content: center;
+      align-items: center;
+    }
+    .mobile-menu.active {
+      display: flex;
+    }
+    .mobile-menu-content {
+      background: #ffffff;
+      width: 80%;
+      max-width: 350px;
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+    .mobile-menu-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    .mobile-menu-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #171C2D;
+    }
+    .mobile-menu-body ul li {
+      border-bottom: 1px solid #e3e3e3;
+    }
+    .mobile-menu-body ul li:last-child {
+      border-bottom: none;
+    }
+    .mobile-menu-body .nav-link {
+      color: #171C2D;
+      font-size: 1.1rem;
+      font-weight: 500;
+      padding: 0.5rem 0;
+      display: block;
+    }
+    .mobile-menu-body .nav-link:hover {
+      color: #D73C59;
+      background-color: rgba(215, 60, 89, 0.1);
+      border-radius: 5px;
+    }
+    .nav-link-existing-mobile::after {
+      content: " →";
+      color: #171C2D;
+      font-size: 0.9rem;
+      margin-left: 4px;
+    }
+    .nav-link-existing-mobile:hover::after {
+      color: #D73C59;
+    }
 
-  <body>
-    <!-- ===============================================--><!--    Main Content--><!-- ===============================================-->
-    <!-- ===============================================--><!--    Main Content--><!-- ===============================================-->
-    <main class="main" id="top">
-      <div class="content">
-        
-   
-      
-     
-        <style>
-          .navbar, .navbar-nav .nav-link, .dropdown-menu, .dropdown-item, .nav-item {
-              background-color: #171C2D !important;
-          }
-  
-          .nav-link, .nav-item {
-              color: rgba(255, 255, 255, 0.7) !important; /* Initial text is slightly transparent */
-              transition: color 0.3s ease; /* Smooth transition for color change */
-          }
-  
-          .nav-link:hover, .nav-item:hover {
-              color: white !important; /* Fully opaque on hover */
-          }
-  
-      
-      </style>
-  </head>
-  <body>
-      <nav class="navbar navbar-expand-md fixed-top" id="navbar" data-navbar-soft-on-scroll="data-navbar-soft-on-scroll">
-          <div class="container-fluid px-0">
-              <a href="/" class="navbar-brand"><img src="assets/img/logos/logo.png" style="width: 80px; height: 35px;" alt="logo" /></a>
-              <button class="navbar-toggler border-0 pe-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse justify-content-md-end" id="navbar-content" data-navbar-collapse="data-navbar-collapse">
-                  <ul class="navbar-nav gap-md-2 gap-lg-3 pt-x1 pb-1 pt-md-0 pb-md-0" data-navbar-nav="data-navbar-nav">
-                      <li class="nav-item dropdown">
-                          <a class="nav-link lh-xl dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Existing Customers</a>
-                          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                              <li><a class="dropdown-item" href="javascript:void(0)" data-cb-type="portal"><strong>Account Login</strong></a></li>
-                              <li><a class="dropdown-item" href="/contact"><strong>Technical Support</strong></a></li>
-                              <li><a class="dropdown-item" href="/tutorials"><strong>Tutorials</strong></a></li>
-                          </ul>
-                      </li>
-                      <li class="nav-item"><a class="nav-link lh-xl" href="/pricing">Pricing</a></li>
-                      <li class="nav-item"><a class="nav-link lh-xl" href="/contact">Contact</a></li>
-                      <li class="nav-item"><a class="nav-link lh-xl" href="/mobility">Mobility</a></li>
-                      <li class="nav-item"><a class="nav-link lh-xl" href="/question">FAQ</a></li>
-                  </ul>
-              </div>
-          </div>
-      </nav>
-      
-        
-
-
-
-        <div data-bs-target="#navbar" data-bs-spy="scroll" tabindex="0"></div>
-      </div>
-    </main>
-  
-  
-    <style>
-      /* Custom CSS for centering the title and adding space above */
-      body, html {
-        margin: 0;
-        padding: 0;
+    /* Modal Styles */
+    .modal-content {
+      background: linear-gradient(135deg, #f9f9f9 0%, #ffffff 100%);
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+      border: none;
+      padding: 1.5rem;
+    }
+    .modal-header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      padding: 0 0 1rem 0;
+    }
+    .modal-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #171C2D;
+      padding: 0.5rem 1rem;
+      width: 100%;
+      text-align: center;
+      border-radius: 8px;
+      position: relative;
+    }
+    .modal-title::after {
+      content: "";
+      display: block;
+      width: 50%;
+      height: 1px;
+      background-color: #e3e3e3;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .btn-close {
+      position: absolute;
+      right: 1rem;
+      top: 1rem;
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      opacity: 0.7;
+      transition: opacity 0.3s ease;
+    }
+    .btn-close:hover {
+      opacity: 1;
+    }
+    .modal-body {
+      padding: 1rem 0;
+    }
+    .modal-body ul {
+      margin: 0;
+      padding: 0;
+    }
+    .modal-body .nav-link {
+      color: #171C2D;
+      font-size: 1.1rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      padding: 0.5rem 0;
+      transition: all 0.3s ease;
+      display: block;
+    }
+    .modal-body .nav-link:hover {
+      color: #D73C59;
+      background-color: rgba(215, 60, 89, 0.1);
+      transform: scale(1.02);
+      border-radius: 5px;
+    }
+    .modal-body ul li {
+      margin-bottom: 0;
+      border-bottom: 1px solid #e3e3e3;
+    }
+    .modal-body ul li:last-child {
+      border-bottom: none;
+    }
+    .modal-dialog {
+      max-width: 350px;
+    }
+    @media (max-width: 576px) {
+      .modal-dialog {
+        max-width: 90%;
+        margin: 1.75rem auto;
       }
+    }
+
+    /* Main Content Styles */
+    body {
+      padding-top: 0;
+    }
+    .main {
+      padding-top: 70px;
+    }
+    @media (max-width: 576px) {
+      .main {
+        padding-top: 60px;
+      }
+    }
+    .content {
+      background-color: #ffffff;
+    }
+    .center-title {
+      text-align: center;
+      margin-top: 160px;
+    }
+    @media (max-width: 991.98px) {
       .center-title {
-        text-align: center;
-        margin-top: 160px; /* Adjust the top margin as needed */
+        margin-top: 120px;
       }
-  
-      @media (max-width: 991.98px) {
-        .center-title {
-          margin-top: 120px; /* Adjust margin for smaller screens */
-        }
-      }
-  
-      /* Ensure full-width content */
-      .full-width-section {
-        
-        padding: 80px 0; /* Example padding */
-      }
-      .full-width-content {
-        max-width: 100%;
-        padding: 0 20px; /* Example padding */
-        margin: 0 auto;
-      }
-    </style>
+    }
+    .full-width-section {
+      padding: 80px 0;
+    }
+    .full-width-content {
+      max-width: 100%;
+      padding: 0 20px;
+      margin: 0 auto;
+    }
 
+    /* Footer Styles */
+    footer {
+      padding: 3rem 0;
+      background: #ffffff;
+      text-align: center;
+    }
+    .footer-links {
+      margin-bottom: 1.5rem;
+    }
+    .footer-links a {
+      color: #A1A8B3;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: color 0.3s ease;
+      padding: 0 1rem;
+      position: relative;
+    }
+    .footer-links a:hover {
+      color: #565656;
+    }
+    .footer-links a:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1px;
+      height: 50%;
+      background: #D1D5DB;
+    }
+    .footer-divider {
+      width: 50%;
+      margin: 0 auto 1.5rem auto;
+      border: 0;
+      border-top: 1px solid #E5E7EB;
+    }
+    .footer-copyright {
+      color: #9CA3AF;
+      font-size: 1rem;
+      margin: 0;
+    }
 
+    /* Accordion Styles */
+    .accordion-button:not(.collapsed) {
+      color: #171C2D;
+      background-color: transparent;
+    }
+  </style>
+</head>
 
-  
-    <section class="bg-1100"id="question">
-      <div class="container">
-        <div class="row py-8 py-md-10 py-lg-11">
-          <div class="col-lg-6">
-            <div class="row justify-content-center justify-content-lg-start">
-              <div class="col-md-8 col-lg-12 col-xl-11">
-                <h2 class="text-white fs-4 fs-lg-3 lh-sm mb-2 text-center text-lg-start fw-bold">Peace of Mind: Common Questions</h2>
-                <p class="fs-8 text-white text-opacity-65 mb-4 mb-md-6 mb-lg-7 lh-lg mb-6 mb-lg-7 text-center text-lg-start"> Reach out to us with any of your questions!</p>
-              </div>
-              <div class="col-lg-10">
-                <div class="d-flex gap-2 gap-lg-x1 mb-4 mb-lg-5">
-                  
-                 
+<body>
+  <main class="main" id="top">
+    <div class="content">
+      <!-- Inline Navbar as Fallback -->
+      <nav class="navbar navbar-expand-lg fixed-top navbar-solid">
+        <div class="container-fluid">
+          <a href="/" class="navbar-brand"><img src="assets/img/logos/logo.png" style="width: 80px; height: auto;" alt="logo"/></a>
+          <button class="navbar-toggler border-0 pe-0" type="button" id="mobileMenuToggle" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end" id="navbar-content">
+            <ul class="navbar-nav gap-md-5 pt-x1 pb-1 pt-lg-0 pb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link lh-lg nav-link-existing fw-bold" href="#" data-toggle="modal" data-target="#existingCustomersModal">Existing Customers</a>
+              </li>
+              
+              <li class="nav-item"><a class="nav-link lh-lg fw-bold" href="/contact">Contact</a></li>
+              <li class="nav-item"><a class="nav-link lh-lg fw-bold" href="/mobility">Mobility</a></li>
+              <li class="nav-item"><a class="nav-link lh-lg fw-bold" href="/#pricing">Order Internet</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Mobile Menu -->
+      <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-content">
+          <div class="mobile-menu-header">
+            <h5 class="mobile-menu-title">Menu</h5>
+            <button type="button" class="close-mobile-menu" aria-label="Close">×</button>
+          </div>
+          <div class="mobile-menu-body">
+            <ul class="list-unstyled">
+              <li><a class="nav-link lh-2 fw-bold nav-link-existing-mobile" href="#" data-toggle="modal" data-target="#mobile-menu-modal">Existing Customers</a></li>
+           
+              <li><a class="nav-link lh-2 fw-bold mobile-nav-link" href="/contact">Contact</a></li>
+              <li><a class="nav-link lh-2 fw-bold mobile-nav-link" href="/mobility">Mobility</a></li>
+               <li class="nav-item"><a class="nav-link lh-lg fw-bold" href="/#pricing">Order Internet</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Existing Customers Modal (Desktop) -->
+      <div class="modal fade" id="existingCustomersModal" tabindex="-1" role="dialog" aria-labelledby="existingCustomersModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="existingCustomersModalLabel">Existing Customers</h5>
+              <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+              <ul class="list-unstyled">
+                <li><a class="nav-link lh-xl fw-bold" href="javascript:void(0)" data-cb-type="portal">Account Login</a></li>
+                <li><a class="nav-link lh-xl fw-bold" href="/tutorials">Tutorials</a></li>
+                <li><a class="nav-link lh-xl fw-bold" href="/support">Technical Support</a></li>
+                <li><a class="nav-link lh-xl fw-bold" href="/terms#returns">Return Equipment</a></li>
+
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Existing Customers Modal (Mobile) -->
+      <div class="modal fade" id="mobile-menu-modal" tabindex="-1" role="dialog" aria-labelledby="mobileMenuModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="mobileMenuModalLabel">Existing Customers</h5>
+              <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+              <ul class="list-unstyled">
+                <li><a class="nav-link lh-xl fw-bold" href="javascript:void(0)" data-cb-type="portal">Account Login</a></li>
+                <li><a class="nav-link lh-xl fw-bold" href="/tutorials.html">Tutorials</a></li>
+                <li><a class="nav-link lh-xl fw-bold" href="/support.html">Technical Support</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section class="bg-1100" id="question">
+        <div class="container">
+          <div class="row py-8 py-md-10 py-lg-11">
+            <div class="col-lg-6">
+              <div class="row justify-content-center justify-content-lg-start">
+                <div class="col-md-8 col-lg-12 col-xl-11">
+                  <h2 class="text-white fs-4 fs-lg-3 lh-sm mb-2 text-center text-lg-start fw-bold">Peace of Mind: Common Questions</h2>
+                  <p class="fs-8 text-white text-opacity-65 mb-4 mb-md-6 mb-lg-7 lh-lg text-center text-lg-start">Reach out to us with any of your questions!</p>
                 </div>
-                <div class="d-flex gap-2 gap-lg-x1 mb-4 mb-lg-5">
-                  <div>
-                    <div class="check-icon bg-success mb-1 rounded-circle d-flex align-items-center justify-content-center"> <span class="uil uil-check text-white"></span></div>
-                  </div>
-                  <div>
-                    <h5 class="fs-8 fw-bold lh-lg mb-1 text-white">24/7 Hour Support</h5>
-                    <p class="lh-xl text-white text-opacity-70 mb-0">Get support from our efficient customer support team, 24/7, all year round.</p>
+                <div class="col-lg-10">
+                  <div class="d-flex gap-2 gap-lg-x1 mb-4 mb-lg-5">
+                    <div>
+                      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 0.5rem;">
+                        <div style="background-color: #D73D59; color: white; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;">
+                          <span class="uil uil-check" style="font-size: 14px;"></span>
+                        </div>
+                        <h5 style="margin: 0; font-size: 1rem; font-weight: bold; line-height: 1.5; color: white;">24/7 Hour Support</h5>
+                      </div>
+                      <p class="lh-xl text-white text-opacity-70 mb-0">Get support from our efficient customer support team, 24/7, all year round.</p>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="accordion mt-lg-4 ps-3 pe-x1 bg-white" id="accordion">
+            <div class="col-lg-6">
+              <div class="accordion mt-lg-4 ps-3 pe-x1 bg-white" id="accordion">
                 <!-- Question 1 -->
                 <div class="accordion-item">
-                    <h2 class="accordion-header" id="heading1">
-                        <button class="accordion-button fs-8 lh-lg fw-bold pt-x1 pb-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
-                            Can I Bring My Own Router?
-                        </button>
-                    </h2>
-                    <div id="collapse1" class="accordion-collapse collapse show" aria-labelledby="heading1" data-bs-parent="#accordion">
-                        <div class="accordion-body lh-xl pt-0 pb-x1">
-                            Please note that our Wireless Internet service is distinct from our mobile phone plans. SIM cards designed for mobile phones are not suitable for use in routers. To access our Wireless Internet service, you must use devices that are exclusively available for purchase on this website.
-                        </div>
+                  <h2 class="accordion-header" id="heading1">
+                    <button class="accordion-button fs-8 lh-lg fw-bold pt-x1 pb-2" type="button" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+                      Can I Bring My Own Router?
+                    </button>
+                  </h2>
+                  <div id="collapse1" class="accordion-collapse collapse show" aria-labelledby="heading1" data-parent="#accordion">
+                    <div class="accordion-body lh-xl pt-0 pb-x1">
+                      Please note that our Wireless Internet service is distinct from our mobile phone plans. SIM cards designed for mobile phones are not suitable for use in routers. To access our Wireless Internet service, you must use devices that are exclusively available for purchase on this website.
                     </div>
+                  </div>
                 </div>
                 <!-- Question 2 -->
                 <div class="accordion-item">
-                    <h2 class="accordion-header" id="heading2">
-                        <button class="accordion-button fs-8 lh-lg fw-bold pt-x1 pb-2 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
-                            What Is Wireless Internet?
-                        </button>
-                    </h2>
-                    <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading2" data-bs-parent="#accordion">
-                        <div class="accordion-body lh-xl pt-0 pb-x1">
-                            Experience the convenience of our Wireless Internet service, harnessing the robust 4G LTE or 5G network - depending on signal availability at your eligible location. It is delivered through a versatile cellular gateway device, offering the combined functionalities of a router and a modem. This device seamlessly converts the cellular signal into a Wi-Fi network, enabling all your home devices to connect effortlessly. Installation is a breeze, and you can do it yourself in just about 5 minutes.
-                        </div>
+                  <h2 class="accordion-header" id="heading2">
+                    <button class="accordion-button fs-8 lh-lg fw-bold pt-x1 pb-2 collapsed" type="button" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                      What Is Wireless Internet?
+                    </button>
+                  </h2>
+                  <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading2" data-parent="#accordion">
+                    <div class="accordion-body lh-xl pt-0 pb-x1">
+                      Experience the convenience of our Wireless Internet service, harnessing the robust 4G LTE or 5G network - depending on signal availability at your eligible location. It is delivered through a versatile cellular gateway device, offering the combined functionalities of a router and a modem. This device seamlessly converts the cellular signal into a Wi-Fi network, enabling all your home devices to connect effortlessly. Installation is a breeze, and you can do it yourself in just about 5 minutes.
                     </div>
+                  </div>
                 </div>
                 <!-- Question 3 -->
                 <div class="accordion-item">
-                    <h2 class="accordion-header" id="heading3">
-                        <button class="accordion-button fs-8 lh-lg fw-bold pt-x1 pb-2 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
-                            How Much Does More4Less Wireless Internet Cost?
-                        </button>
-                    </h2>
-                    <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="heading3" data-bs-parent="#accordion">
-                        <div class="accordion-body lh-xl pt-0 pb-x1">
-                            The cost of More4Less Wireless Internet can be found on our Pricing page. We take pride in offering transparent pricing with no annual service contracts and no hidden fees. Additionally, our exceptional Customer Care Team is available to assist you throughout the day. For detailed pricing information, please visit this page.
-                        </div>
+                  <h2 class="accordion-header" id="heading3">
+                    <button class="accordion-button fs-8 lh-lg fw-bold pt-x1 pb-2 collapsed" type="button" data-toggle="collapse" data-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+                      How Much Does More4Less Wireless Internet Cost?
+                    </button>
+                  </h2>
+                  <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="heading3" data-parent="#accordion">
+                    <div class="accordion-body lh-xl pt-0 pb-x1">
+                      The cost of More4Less Wireless Internet can be found on our Pricing page. We take pride in offering transparent pricing with no annual service contracts and no hidden fees. Additionally, our exceptional Customer Care Team is available to assist you throughout the day. For detailed pricing information, please visit this page.
                     </div>
+                  </div>
                 </div>
                 <!-- Question 4 -->
                 <div class="accordion-item">
-                    <h2 class="accordion-header" id="heading4">
-                        <button class="accordion-button fs-8 lh-lg fw-bold pt-x1 pb-2 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
-                            Does The Wireless Internet Need a Scheduled Installation?
-                        </button>
-                    </h2>
-                    <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading4" data-bs-parent="#accordion">
-                        <div class="accordion-body lh-xl pt-0 pb-x1">
-                            No! The Wireless Internet service is plug-n-play and fully portable. You are not restricted to using it at one location. You can even connect a dedicated router to our modem using an ethernet cable.
-                        </div>
+                  <h2 class="accordion-header" id="heading4">
+                    <button class="accordion-button fs-8 lh-lg fw-bold pt-x1 pb-2 collapsed" type="button" data-toggle="collapse" data-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+                      Does The Wireless Internet Need a Scheduled Installation?
+                    </button>
+                  </h2>
+                  <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading4" data-parent="#accordion">
+                    <div class="accordion-body lh-xl pt-0 pb-x1">
+                      No! The Wireless Internet service is plug-n-play and fully portable. You are not restricted to using it at one location. You can even connect a dedicated router to our modem using an ethernet cable.
                     </div>
+                  </div>
                 </div>
                 <!-- Question 5 -->
                 <div class="accordion-item">
-                    <h2 class="accordion-header" id="heading5">
-                        <button class="accordion-button fs-8 lh-lg fw-bold pt-x1 pb-2 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
-                            Is It Actually Unlimited Wi-Fi?
-                        </button>
-                    </h2>
-                    <div id="collapse5" class="accordion-collapse collapse" aria-labelledby="heading5" data-bs-parent="#accordion">
-                        <div class="accordion-body lh-xl pt-0 pb-x1">
-                            We don't have data limits. Period. There is no throttling or cap to the amount of Wi-Fi you use.
-                        </div>
+                  <h2 class="accordion-header" id="heading5">
+                    <button class="accordion-button fs-8 lh-lg fw-bold pt-x1 pb-2 collapsed" type="button" data-toggle="collapse" data-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
+                      Is It Actually Unlimited Wi-Fi?
+                    </button>
+                  </h2>
+                  <div id="collapse5" class="accordion-collapse collapse" aria-labelledby="heading5" data-parent="#accordion">
+                    <div class="accordion-body lh-xl pt-0 pb-x1">
+                      We don't have data limits. Period. There is no throttling or cap to the amount of Wi-Fi you use.
                     </div>
+                  </div>
                 </div>
                 <!-- Question 6 -->
                 <div class="accordion-item">
-                    <h2 class="accordion-header" id="heading6">
-                        <button class="accordion-button fs-8 lh-lg fw-bold pt-x1 pb-2 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6" aria-expanded="false" aria-controls="collapse6">
-                            Can I Cancel When Not Using The Service?
-                        </button>
-                    </h2>
-                    <div id="collapse6" class="accordion-collapse collapse" aria-labelledby="heading6" data-bs-parent="#accordion">
-                        <div class="accordion-body lh-xl pt-0 pb-x1">
-                            Yes! This is a common request. There is no fee to cancel. Cancellations can be made 24/7 using our self-serve portal! Depending on the length of time that your service was inactive, you may need to purchase a new SIM card to reactivate your router. To restore a service that you've previously canceled, please contact us.
-                        </div>
+                  <h2 class="accordion-header" id="heading6">
+                    <button class="accordion-button fs-8 lh-lg fw-bold pt-x1 pb-2 collapsed" type="button" data-toggle="collapse" data-target="#collapse6" aria-expanded="false" aria-controls="collapse6">
+                      Can I Cancel When Not Using The Service?
+                    </button>
+                  </h2>
+                  <div id="collapse6" class="accordion-collapse collapse" aria-labelledby="heading6" data-parent="#accordion">
+                    <div class="accordion-body lh-xl pt-0 pb-x1">
+                      Yes! This is a common request. There is no fee to cancel. Cancellations can be made 24/7 using our self-serve portal! Depending on the length of time that your service was inactive, you may need to purchase a new SIM card to reactivate your router. To restore a service that you've previously canceled, please contact us.
                     </div>
+                  </div>
                 </div>
                 <!-- Question 7 -->
                 <div class="accordion-item">
-                    <h2 class="accordion-header" id="heading7">
-                        <button class="accordion-button fs-8 lh-lg fw-bold pt-x1 pb-2 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7" aria-expanded="false" aria-controls="collapse7">
-                            Can I Take My Router To The USA?
-                        </button>
-                    </h2>
-                    <div id="collapse7" class="accordion-collapse collapse" aria-labelledby="heading7" data-bs-parent="#accordion">
-                        <div class="accordion-body lh-xl pt-0 pb-x1">
-                            We offer an addon that can be added upon activation to allow you to have access to the USA network.
-                        </div>
+                  <h2 class="accordion-header" id="heading7">
+                    <button class="accordion-button fs-8 lh-lg fw-bold pt-x1 pb-2 collapsed" type="button" data-toggle="collapse" data-target="#collapse7" aria-expanded="false" aria-controls="collapse7">
+                      Can I Take My Router To The USA?
+                    </button>
+                  </h2>
+                  <div id="collapse7" class="accordion-collapse collapse" aria-labelledby="heading7" data-parent="#accordion">
+                    <div class="accordion-body lh-xl pt-0 pb-x1">
+                      We offer an addon that can be added upon activation to allow you to have access to the USA network.
                     </div>
+                  </div>
                 </div>
                 <!-- Question 8 -->
                 <div class="accordion-item">
-                    <h2 class="accordion-header" id="heading8">
-                        <button class="accordion-button fs-8 lh-lg fw-bold pt-x1 pb-2 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8" aria-expanded="false" aria-controls="collapse8">
-                            How Long Does It Take To Receive The Hardware After Placing An Order?
-                        </button>
-                    </h2>
-                    <div id="collapse8" class="accordion-collapse collapse" aria-labelledby="heading8" data-bs-parent="#accordion">
-                        <div class="accordion-body lh-xl pt-0 pb-x1">
-                            Please allow 1-2 days for order processing. Shipping itself takes only 2-6 days. Express shipping is available at checkout with 1-2 day delivery.
-                        </div>
+                  <h2 class="accordion-header" id="heading8">
+                    <button class="accordion-button fs-8 lh-lg fw-bold pt-x1 pb-2 collapsed" type="button" data-toggle="collapse" data-target="#collapse8" aria-expanded="false" aria-controls="collapse8">
+                      How Long Does It Take To Receive The Hardware After Placing An Order?
+                    </button>
+                  </h2>
+                  <div id="collapse8" class="accordion-collapse collapse" aria-labelledby="heading8" data-parent="#accordion">
+                    <div class="accordion-body lh-xl pt-0 pb-x1">
+                      Please allow 1-2 days for order processing. Shipping itself takes only 2-6 days. Express shipping is available at checkout with 1-2 day delivery.
                     </div>
+                  </div>
                 </div>
-                  <!-- Question 10 -->
-                  <div class="accordion-item">
-                    <h2 class="accordion-header" id="heading10">
-                        <button class="accordion-button fs-8 lh-lg fw-bold pt-x1 pb-2 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10" aria-expanded="false" aria-controls="collapse10">
-                            Is There A Refund Policy?
-                        </button>
-                    </h2>
-                    <div id="collapse10" class="accordion-collapse collapse" aria-labelledby="heading10" data-bs-parent="#accordion">
-                        <div class="accordion-body lh-xl pt-0 pb-x1">
-                            We offer a full 7-day money-back guarantee where you can return your equipment for a full refund!
-                        </div>
+                <!-- Question 10 -->
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="heading10">
+                    <button class="accordion-button fs-8 lh-lg fw-bold pt-x1 pb-2 collapsed" type="button" data-toggle="collapse" data-target="#collapse10" aria-expanded="false" aria-controls="collapse10">
+                      Is There A Refund Policy?
+                    </button>
+                  </h2>
+                  <div id="collapse10" class="accordion-collapse collapse" aria-labelledby="heading10" data-parent="#accordion">
+                    <div class="accordion-body lh-xl pt-0 pb-x1">
+                      We offer a full 7-day money-back guarantee where you can return your equipment for a full refund!
                     </div>
+                  </div>
                 </div>
                 <!-- Question 11 -->
                 <div class="accordion-item">
-                    <h2 class="accordion-header" id="heading11">
-                        <button class="accordion-button fs-8 lh-lg fw-bold pt-x1 pb-2 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11" aria-expanded="false" aria-controls="collapse11">
-                            Are There Any Extras/Hidden Fees?
-                        </button>
-                    </h2>
-                    <div id="collapse11" class="accordion-collapse collapse" aria-labelledby="heading11" data-bs-parent="#accordion">
-                        <div class="accordion-body lh-xl pt-0 pb-x1">
-                            No contracts. You can cancel for the winter or anytime you wish with no cancellation fees.
-                        </div>
+                  <h2 class="accordion-header" id="heading11">
+                    <button class="accordion-button fs-8 lh-lg fw-bold pt-x1 pb-2 collapsed" type="button" data-toggle="collapse" data-target="#collapse11" aria-expanded="false" aria-controls="collapse11">
+                      Are There Any Extras/Hidden Fees?
+                    </button>
+                  </h2>
+                  <div id="collapse11" class="accordion-collapse collapse" aria-labelledby="heading11" data-parent="#accordion">
+                    <div class="accordion-body lh-xl pt-0 pb-x1">
+                      No contracts. You can cancel for the winter or anytime you wish with no cancellation fees.
                     </div>
+                  </div>
                 </div>
                 <!-- Question 12 -->
                 <div class="accordion-item">
-                    <h2 class="accordion-header" id="heading12">
-                        <button class="accordion-button fs-8 lh-lg fw-bold pt-x1 pb-2 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12" aria-expanded="false" aria-controls="collapse12">
-                            Will My Price Increase Unexpectedly?
-                        </button>
-                    </h2>
-                    <div id="collapse12" class="accordion-collapse collapse" aria-labelledby="heading12" data-bs-parent="#accordion">
-                        <div class="accordion-body lh-xl pt-0 pb-x1">
-                            Your price is locked in. No exploding bills. No hidden fees. The price you sign up will not increase for as long as you keep your service active!
-                        </div>
+                  <h2 class="accordion-header" id="heading12">
+                    <button class="accordion-button fs-8 lh-lg fw-bold pt-x1 pb-2 collapsed" type="button" data-toggle="collapse" data-target="#collapse12" aria-expanded="false" aria-controls="collapse12">
+                      Will My Price Increase Unexpectedly?
+                    </button>
+                  </h2>
+                  <div id="collapse12" class="accordion-collapse collapse" aria-labelledby="heading12" data-parent="#accordion">
+                    <div class="accordion-body lh-xl pt-0 pb-x1">
+                      Your price is locked in. No exploding bills. No hidden fees. The price you sign up will not increase for as long as you keep your service active!
                     </div>
+                  </div>
                 </div>
-               
-
-
-
-    </section>
-
-
-
-
-
-
-    <footer class="pt-7 pt-lg-8">
-        <div class="container">
-          <div class="row gy-4 g-md-3 border-bottom pb-8 pb-lg-9 justify-content-center">
-            <div class="col-6 col-md-3">
-              <p class="mb-2 lh-lg ls-1">Company</p>
-              <ul class="list-unstyled text-1100">
-                <li class="mb-1"> <a class="ls-1 lh-xl" href="/about">About</a></li>
-                <li class="mb-1"> <a class="ls-1 lh-xl" href="/contact"> Contact</a></li>
-            
-              </ul>
-            </div>
-            <div class="col-6 col-md-3">
-              <p class="mb-2 lh-lg">Product</p>
-              <ul class="list-unstyled text-1100">
-               
-                <li class="mb-1"> <a class="ls-1 lh-xl" href="#pricing"> Pricing</a></li>
-                 <li class="mb-1"><a class="ls-1 lh-xl" href="/support"> Technical Support</a></li>
-        <li class="mb-1"><a class="ls-1 lh-xl" href="/activate"> Activate</a></li>
-        
-        
-              </ul>
-            </div>
-            <div class="col-6 col-md-3">
-              <p class="mb-2 lh-lg"> Legal</p>
-              <ul class="list-unstyled text-1100">
-                <li class="mb-1"> <a class="ls-1 lh-xl" href="/privacypolicy">Privacy</a></li>
-                <li class="mb-1"> <a class="ls-1 lh-xl" href="/terms"> Terms & Conditions</a></li>
-                <li class="mb-1"> <a class="ls-1 lh-xl" href="/terms#pricing"> Return Policy</a></li>
-              </ul>
-            </div>
-            <div class="col-6 col-md-3 d-md-flex flex-column align-items-md-end pe-md-0">
-              
+              </div>
             </div>
           </div>
-          <div class="row gy-2 py-3 justify-content-center justify-content-md-between">
-            <div class="col-auto ps-0">
-              <p class="text-center text-md-start lh-xl text-1100">
-  © <span id="currentYear"></span> Copyright, All Rights Reserved
-</p>
-
-<script>
-  // JavaScript to dynamically update the year
-  document.getElementById("currentYear").textContent = new Date().getFullYear();
-</script>
-            </div>
-            
         </div>
-      </footer>
-    
+      </section>
 
+      <!-- Footer -->
+      <div id="footer-container"></div>
+    </div>
+  </main>
 
-    <!-- Bootstrap Bundle with Popper.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- JavaScripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://js.chargebee.com/v2/chargebee.js" data-cb-site="more4lessplans"></script>
+  <script src="vendors/is/is.min.js"></script>
+  <script src="vendors/countup/countUp.umd.js"></script>
+  <script src="vendors/swiper/swiper-bundle.min.js"></script>
+  <script src="vendors/lodash/lodash.min.js"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
+  <script src="assets/js/theme.js"></script>
+  <script>
+    function initializeNavbar() {
+      const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const closeMobileMenu = document.querySelector('.close-mobile-menu');
+      const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
 
+      if (mobileMenuToggle && mobileMenu) {
+        mobileMenuToggle.addEventListener('click', function() {
+          mobileMenu.classList.toggle('active');
+        });
+      }
 
+      if (closeMobileMenu) {
+        closeMobileMenu.addEventListener('click', function() {
+          mobileMenu.classList.remove('active');
+        });
+      }
 
-    <!-- ===============================================--><!--    JavaScripts--><!-- ===============================================-->
+      mobileNavLinks.forEach(link => {
+        link.addEventListener('click', function() {
+          mobileMenu.classList.remove('active');
+        });
+      });
 
+      // Smooth scroll for FAQ link
+      document.querySelectorAll('a[href="#question"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          const targetElement = document.querySelector('#question');
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop - 70,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+    }
 
-    <script src="https://js.chargebee.com/v2/chargebee.js" data-cb-site="more4lessplans" ></script>
-    <script src="vendors/popper/popper.min.js"></script>
-    <script src="vendors/bootstrap/bootstrap.min.js"></script>
-    <script src="vendors/is/is.min.js"></script>
-    <script src="vendors/countup/countUp.umd.js"></script>
-    <script src="vendors/swiper/swiper-bundle.min.js"></script>
-    <script src="vendors/lodash/lodash.min.js"></script>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
-    <script src="assets/js/theme.js"></script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize Chargebee
+      if (typeof Chargebee !== 'undefined') {
+        Chargebee.init({
+          site: "more4lessplans"
+        });
+        const accountLoginLinks = document.querySelectorAll('[data-cb-type="portal"]');
+        accountLoginLinks.forEach(link => {
+          link.addEventListener('click', function(event) {
+            event.preventDefault();
+            Chargebee.getInstance().openPortal({
+              onLoad: function() { console.log("Chargebee portal loaded"); },
+              onClose: function() { console.log("Chargebee portal closed"); }
+            });
+          });
+        });
+      } else {
+        console.error("Chargebee script not loaded.");
+      }
 
+      // Initialize inline navbar
+      initializeNavbar();
 
-  </body>
+      // Load navbar
+      fetch('/navbar.html')
+        .then(response => {
+          if (!response.ok) throw new Error('Failed to load navbar.html: ' + response.status);
+          return response.text();
+        })
+        .then(data => {
+          console.log('Navbar fetched successfully');
+          document.getElementById('navbar-container').innerHTML = data;
+          const navbarScript = document.createElement('script');
+          navbarScript.src = '/navbar.js';
+          navbarScript.onload = function() {
+            console.log('navbar.js loaded');
+            initializeNavbar(); // Reinitialize after fetch
+          };
+          document.body.appendChild(navbarScript);
+        })
+        .catch(error => {
+          console.error('Error loading navbar:', error);
+          // Inline navbar serves as fallback
+        });
 
+      // Load footer
+      fetch('/footer.html')
+        .then(response => {
+          if (!response.ok) throw new Error('Failed to load footer.html: ' + response.status);
+          return response.text();
+        })
+        .then(data => {
+          console.log('Footer fetched successfully');
+          document.getElementById('footer-container').innerHTML = data;
+          const currentYear = document.getElementById('currentYear');
+          if (currentYear) {
+            currentYear.textContent = new Date().getFullYear();
+          }
+        })
+        .catch(error => {
+          console.error('Error loading footer:', error);
+        });
+
+      // Ensure Bootstrap collapse is initialized
+      $('.accordion-button').collapse();
+    });
+  </script>
+</body>
 </html>

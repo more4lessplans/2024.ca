@@ -1,0 +1,63 @@
+<!-- navbar.html -->
+<nav class="navbar navbar-expand-md fixed-top navbar-solid" id="navbar">
+  <div class="container-fluid px-0">
+    <a href="/" class="navbar-brand"><img src="assets/img/logos/logo.png" style="width: 80px; height: 35px;" alt="More4Less Logo" /></a>
+    <button class="navbar-toggler border-0 pe-0 d-md-none" type="button" data-toggle="modal" data-target="#mobileMenuModal" aria-controls="mobileMenuModal" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-md-end d-none d-md-flex" id="navbar-content">
+      <ul class="navbar-nav gap-md-2 gap-lg-3 pt-x1 pb-1 pt-md-0 pb-md-0">
+        <li class="nav-item">
+          <a class="nav-link lh-xl nav-link-existing" href="#" role="button" data-toggle="modal" data-target="#existingCustomersModal">Existing Customers</a>
+        </li>
+        <li class="nav-item"><a class="nav-link lh-xl" href="/contact">Contact</a></li>
+        <li class="nav-item"><a class="nav-link lh-xl" href="/mobility">Mobility</a></li>
+        <li class="nav-item"><a class="nav-link lh-xl" href="/question">FAQ</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="modal fade" id="mobileMenuModal" tabindex="-1" role="dialog" aria-labelledby="mobileMenuModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <h5 class="modal-title" id="mobileMenuModalLabel">Menu</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center">
+        <ul class="list-unstyled">
+          <li><a class="nav-link lh-xl fw-bold nav-link-existing-mobile" href="#" data-toggle="modal" data-target="#existingCustomersModal" data-dismiss="modal">Existing Customers</a></li>
+          <li><a class="nav-link lh-xl fw-bold" href="/contact" data-dismiss="modal">Contact</a></li>
+          <li><a class="nav-link lh-xl fw-bold" href="/mobility" data-dismiss="modal">Mobility</a></li>
+          <li><a class="nav-link lh-xl fw-bold" href="/question" data-dismiss="modal">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="existingCustomersModal" tabindex="-1" role="dialog" aria-labelledby="existingCustomersModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <h5 class="modal-title" id="existingCustomersModalLabel">Existing Customers</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center">
+        <ul class="list-unstyled">
+          <li><a class="nav-link lh-xl fw-bold existing-customer-link" href="javascript:void(0)" data-cb-type="portal">Account Login</a></li>
+          <li><a class="nav-link lh-xl fw-bold existing-customer-link" href="/tutorials">Tutorials</a></li>
+          <li><a class="nav-link lh-xl fw-bold existing-customer-link" href="/support">Technical Support</a></li>
+          <li><a class="nav-link lh-xl fw-bold existing-customer-link" href="/activate">Activate</a></li>
+            <li><a class="nav-link lh-xl fw-bold" href="/terms#returns">Return Equipment</a></li>
+          
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

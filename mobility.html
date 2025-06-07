@@ -1,106 +1,610 @@
 <!DOCTYPE html>
 <html data-bs-theme="light" lang="en-US" dir="ltr">
-
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=0.85">
 
-    <!-- ===============================================--><!--    Document Title--><!-- ===============================================-->
-    <title>More4Less | Mobility</title>
+    <!-- SEO Title -->
+    <title>Prepaid Mobile Plans | Unlimted High-Speed LTE & 5G Data</title>
 
-    <!-- ===============================================--><!--    Favicons--><!-- ===============================================-->
+    <!-- SEO Keywords -->
+    <meta name="keywords" content="wireless internet, affordable internet, high-speed LTE, 5G internet, Canada-wide internet service, rural internet, internet for RVers, campers internet, LTE internet for travelers, mobile internet plans, home internet solutions, unlimited data, wireless internet Canada, more4less wireless, best wireless internet, internet for remote areas, internet without contracts, Canadian internet provider, fast internet in rural Canada, reliable internet for travelers">
+
+    <!-- SEO Description -->
+    <meta name="description" content="More4Less Wireless Internet provides affordable, high-speed LTE and 5G internet across Canada, catering to rural homes, RVers, campers, and travelers. Enjoy reliable wireless internet anywhere in Canada with flexible, no-contract plans.">
+
+    <!-- Open Graph Meta Tags for Social Sharing -->
+    <meta property="og:title" content="More4Less Wireless Internet | High-Speed LTE & 5G Internet Across Canada">
+    <meta property="og:description" content="Get affordable high-speed LTE and 5G internet for rural homes, RVers, campers, and travelers with More4Less. Canada-wide coverage, no contracts, and reliable service anywhere in Canada.">
+    <meta property="og:image" content="https://more4lessplans.ca/main.jpg">
+    <meta property="og:url" content="https://more4lessplans.ca">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="More4Less Wireless Internet | Affordable LTE & 5G Internet in Canada">
+    <meta name="twitter:description" content="More4Less offers high-speed LTE and 5G wireless internet plans for homes, RVers, campers, and travelers across Canada. Reliable internet with no contracts and flexible options.">
+    <meta name="twitter:image" content="https://more4lessplans.ca/main.jpg">
+
+    <!-- Favicons -->
     <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicons/favicon-16x16.png">
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicons/favicon.ico">
-    <link rel="manifest" href="assets/img/favicons/manifest.json">
-    <meta name="msapplication-TileImage" content="assets/img/favicons/mstile-150x150.png">
+    <link rel="manifest" href="/img/favi/manifest.json">
+    <meta name="msapplication-TileImage" content="/img/favi/mstile-150x150.png">
     <meta name="theme-color" content="#ffffff">
 
-    <!-- ===============================================--><!--    Stylesheets--><!-- ===============================================-->
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="vendors/swiper/swiper-bundle.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Rubik:ital,wght@0,300..900;1,300..900family=Rubik:ital,wght@0,300..900;1,300..900&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Rubik:ital,wght@0,300..900;1,300..900family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
     <link href="assets/css/theme.min.css" rel="stylesheet" id="style-default">
     <link href="assets/css/user-rtl.min.css" rel="stylesheet" id="user-style-rtl">
     <link href="assets/css/user.min.css" rel="stylesheet" id="user-style-default">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
-   
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-10988139493"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'AW-10988139493');
+    </script>
+
+    <!-- Updated CSS including footer styles -->
+    <style>
+      /* Existing Styles */
+      .pricing-card {
+        background-color: #f9f9f9;
+        height: 570px;
+        padding: 0.5rem;
+        transition: transform 0.3s ease;
+        box-sizing: border-box;
+      }
+      .pricing-card-link {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+        width: 100%;
+      }
+      .pricing-card-link:hover .pricing-card {
+        transform: translateY(-10px);
+      }
+      .category {
+        color: #D73C59;
+        margin: 0;
+        font-weight: bold;
+        font-size: 1.2em;
+      }
+      .description {
+        color: #565656;
+        margin: 0;
+      }
+      .model {
+        color: #D73C59;
+        letter-spacing: 2px;
+      }
+      .text-muted {
+        color: #565656 !important;
+      }
+      img {
+        max-width: 225px;
+        height: auto;
+      }
+      .d-flex {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      }
+      .mt-auto {
+        margin-top: auto;
+      }
+      .button-container {
+        min-height: 50px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+      }
+      @media (max-width: 767px) {
+        #pricing .pricing-subtitle {
+          font-size: 1.3rem !important;
+        }
+        .pricing-col {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          margin-left: 0;
+          margin-right: 0;
+        }
+        .pricing-card-link {
+          width: 100%;
+        }
+        .pricing-card {
+          width: 100%;
+          max-width: none;
+          min-width: 0;
+        }
+      }
+      @media (min-width: 992px) {
+        .pricing-card {
+          min-width: 310px;
+          max-width: 500px;
+        }
+        .pricing-col {
+          display: flex;
+          justify-content: center;
+        }
+      }
+
+      /* Updated Footer Styles */
+      footer {
+        padding: 2rem 0;
+        background-color: #ffffff;
+        text-align: center;
+      }
+      .footer-copyright {
+        color: #565656;
+        font-size: 1rem;
+        font-weight: 400;
+        margin: 1rem 0 0 0;
+      }
+      .footer-divider {
+        width: 50px;
+        margin: 1rem auto;
+        border: 0;
+        border-top: 1px solid #e3e3e3;
+      }
+      .footer-links {
+        margin: 0;
+      }
+      .footer-links a {
+        color: #565656;
+        font-size: 0.9rem;
+        text-decoration: none;
+        transition: color 0.3s ease;
+        margin: 0 0.5rem;
+      }
+      .footer-links a:hover {
+        color: #2E2F33;
+      }
+      .footer-links span {
+        color: #565656;
+        font-size: 0.9rem;
+        margin: 0 0.25rem;
+      }
+
+      /* Nav Bar Styles (Solid Color) */
+      .navbar-solid {
+        background: #2E2F33;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      .navbar-solid .nav-link {
+        color: #ffffff !important;
+        font-weight: 500;
+        transition: color 0.3s ease;
+      }
+      .navbar-solid .nav-link:hover {
+        color: #D73C59 !important;
+      }
+      .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+      }
+
+      /* Add Arrow to Existing Customers Link in Desktop Nav */
+      .nav-link-existing::after {
+        content: " →";
+        color: #ffffff;
+        font-size: 0.9rem;
+        margin-left: 2px;
+      }
+      .nav-link-existing:hover::after {
+        color: #D73C59;
+      }
+
+      /* Modal Styles for Mobile Menu and Existing Customers */
+      .modal-content {
+        background: linear-gradient(135deg, #f9f9f9 0%, #ffffff 100%);
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        border: none;
+        padding: 1.5rem;
+      }
+      .modal-header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        padding: 0 0 1rem 0;
+      }
+      .modal-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #222831;
+        margin: 0;
+      }
+      #mobileMenuModalLabel, #existingCustomersModalLabel {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #2E2F33;
+        padding: 0.5rem 1rem;
+        width: 100%;
+        text-align: center;
+        border-radius: 8px;
+        position: relative;
+      }
+      #mobileMenuModalLabel::after, #existingCustomersModalLabel::after {
+        content: "";
+        display: block;
+        width: 50%;
+        height: 1px;
+        background-color: #e3e3e3;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .close {
+        position: absolute;
+        right: 1rem;
+        top: 1rem;
+        font-size: 1.2rem;
+        opacity: 0.7;
+        transition: opacity 0.3s ease;
+      }
+      .close:hover {
+        opacity: 1;
+      }
+      .modal-body {
+        padding: 1rem 0;
+      }
+      .modal-body ul {
+        margin: 0;
+        padding: 0;
+      }
+      .modal-body .nav-link {
+        color: #2E2F33;
+        font-size: 1.1rem;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        padding: 0.5rem 0;
+        transition: all 0.3s ease;
+        display: block;
+      }
+      .modal-body .nav-link:hover {
+        color: #D73C59;
+        background-color: rgba(215, 60, 89, 0.1);
+        transform: scale(1.02);
+        border-radius: 5px;
+      }
+      #mobileMenuModal .modal-body ul li, #existingCustomersModal .modal-body ul li {
+        margin-bottom: 0;
+        border-bottom: 1px solid #e3e3e3;
+      }
+      #mobileMenuModal .modal-body ul li:last-child, #existingCustomersModal .modal-body ul li:last-child {
+        border-bottom: none;
+      }
+      .nav-link-existing-mobile::after {
+        content: " →";
+        color: #2E2F33;
+        font-size: 0.9rem;
+        margin-left: 4px;
+      }
+      .nav-link-existing-mobile:hover::after {
+        color: #D73C59;
+      }
+      .modal-dialog {
+        max-width: 350px;
+      }
+      @media (max-width: 576px) {
+        .modal-dialog {
+          max-width: 90%;
+          margin: 1.75rem auto;
+        }
+      }
+
+      /* Check Availability Button Styling */
+      #check-coverage-btn {
+        font-weight: 400;
+        color: #ffffff;
+        background-color: transparent;
+        border: 2px solid #ffffff;
+        border-radius: 8px;
+        padding: 0.75rem 1.5rem;
+        transition: all 0.3s ease;
+      }
+      #check-coverage-btn:hover {
+        color: #2E2F33;
+        background-color: #ffffff;
+        border-color: #ffffff;
+        transform: scale(1.05);
+      }
+
+      /* How To Get Started Section Styles */
+      .text-guide-section {
+        padding: 4rem 0;
+        background-color: #ffffff;
+      }
+      .text-guide-title {
+        font-size: 2.25rem;
+        font-weight: 700;
+        color: #2E2F33;
+        margin-bottom: 0.75rem;
+        line-height: 1.2;
+      }
+      @media (min-width: 992px) {
+        .text-guide-title {
+          font-size: 2.75rem;
+        }
+      }
+      .text-guide-subtitle {
+        font-size: 1rem;
+        line-height: 1.5;
+        color: #565656;
+        margin-bottom: 2.5rem;
+      }
+      @media (min-width: 992px) {
+        .text-guide-subtitle {
+          margin-bottom: 3rem;
+        }
+      }
+      .text-guide-list {
+        margin: 0;
+        padding: 0;
+        counter-reset: step-counter;
+      }
+      .text-guide-item {
+        position: relative;
+        padding-left: 3.5rem;
+        margin-bottom: 2rem !important;
+        text-align: left;
+      }
+      .text-guide-item::before {
+        counter-increment: step-counter;
+        content: counter(step-counter);
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 2.5rem;
+        height: 2.5rem;
+        background-color: #D73C59;
+        color: #ffffff;
+        font-size: 1.25rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+      .text-guide-item h6 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #2E2F33;
+        margin-bottom: 0.75rem;
+        line-height: 1.4;
+      }
+      .text-guide-item .step-number {
+        display: none;
+      }
+      .text-guide-item p {
+        font-size: 1rem;
+        line-height: 1.6;
+        color: #565656;
+        margin-bottom: 0;
+      }
+      .text-guide-item p a {
+        color: #D73C59;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+      .text-guide-item p a:hover {
+        color: #2E2F33;
+        text-decoration: underline;
+      }
+
+      /* Pricing Section Styles */
+      #pricing {
+        padding: 4rem 0;
+        background-color: #f5f5f5;
+      }
+      #pricing .pricing-title {
+        font-size: 2.25rem;
+        font-weight: 700;
+        color: #2E2F33;
+        margin-bottom: 0.75rem;
+        line-height: 1.2;
+      }
+      @media (min-width: 992px) {
+        #pricing .pricing-title {
+          font-size: 2.75rem;
+        }
+      }
+      #pricing .pricing-subtitle {
+        font-size: 1rem;
+        line-height: 1.5;
+        color: #565656;
+        margin-bottom: 3rem;
+      }
+      .pricing-card {
+        background-color: #ffffff;
+        border: 1px solid #e3e3e3;
+        border-radius: 12px;
+        padding: 2rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        height: auto;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      }
+      .pricing-card.recommended {
+        border: 2px solid #D73C59;
+        position: relative;
+      }
+      .pricing-card.recommended::before {
+        content: "Recommended";
+        position: absolute;
+        top: -12px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #D73C59;
+        color: #ffffff;
+        font-size: 0.875rem;
+        font-weight: 600;
+        padding: 0.25rem 1rem;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+      .pricing-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      }
+      .pricing-card .plan-name {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #D73C59;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 1rem;
+      }
+      .pricing-card .price {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #2E2F33;
+        margin-bottom: 1.5rem;
+        line-height: 1;
+      }
+      .pricing-card .price .currency {
+        font-size: 1.5rem;
+        vertical-align: top;
+      }
+      .pricing-card .price .period {
+        font-size: 1rem;
+        font-weight: 400;
+        color: #565656;
+      }
+      .pricing-card ul {
+        list-style: none;
+        padding: 0;
+        margin-bottom: 2rem;
+      }
+      .pricing-card ul li {
+        font-size: 1rem;
+        color: #565656;
+        padding: 0.75rem 0;
+        border-top: 1px solid #e3e3e3;
+        text-align: center;
+      }
+      .pricing-card ul li:first-child {
+        border-top: none;
+      }
+      .pricing-card .btn {
+        width: 100%;
+        padding: 0.75rem;
+        font-size: 1rem;
+        font-weight: 500;
+        border-radius: 8px;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+      }
+      .pricing-card .btn-secondary {
+        background-color: #565656;
+        border-color: #565656;
+      }
+      .pricing-card .btn-secondary:hover {
+        background-color: #4a4a4a;
+        border-color: #4a4a4a;
+        transform: scale(1.05);
+      }
+      .pricing-card .btn-primary {
+        background-color: #D73C59;
+        border-color: #D73C59;
+      }
+      .pricing-card .btn-primary:hover {
+        background-color: #c12e4b;
+        border-color: #c12e4b;
+        transform: scale(1.05);
+      }
+      @media (max-width: 767px) {
+        #pricing .pricing-card {
+          width: 100%;
+          max-width: 350px;
+        }
+      }
+      @media (min-width: 992px) {
+        #pricing .pricing-card {
+          min-width: 300px;
+          max-width: 350px;
+        }
+      }
+    </style>
   </head>
 
-
-
-      <!-- ===============================================--><!--    Navbar --><!-- ===============================================-->
-      <body>
-        <main class="main" id="top">
-          <div class="content">
-            <nav
-              class="navbar navbar-expand-md fixed-top"
-              id="navbar"
-              data-bs-theme="light"
-              data-navbar-soft-on-scroll="data-navbar-soft-on-scroll"
-            >
-              <div class="container-fluid px-0">
-                <a href="/" class="navbar-brand">
-                  <img src="assets/img/logos/logo.png" style="width: 80px; height: 35px;" alt="logo" />
-                </a>
-                <button
-                  class="navbar-toggler border-0 pe-0"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#navbar-content"
-                  aria-controls="navbar-content"
-                  aria-expanded="false"
-                  aria-label="Toggle navigation"
-                >
-                  <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse justify-content-md-end" id="navbar-content">
-                  <ul class="navbar-nav gap-md-2 gap-lg-3">
-                    <li class="nav-item dropdown w-100">
-                      <a
-                        class="nav-link dropdown-toggle"
-                        href="#"
-                        role="button"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                      >
-                        Existing Customers
-                      </a>
-                      <ul class="dropdown-menu w-100">
-                        <li>
-                          <a class="dropdown-item" href="javascript:void(0)" data-cb-type="portal">
-                            <strong>Account Login</strong>
-                          </a>
-                        </li>
-                        <li><a class="dropdown-item" href="/tutorials"><strong>Tutorials</strong></a></li>
-                        <li><a class="dropdown-item" href="/support"><strong>Technical Support</strong></a></li>
-                      </ul>
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/mobility">Mobility</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/question">FAQ</a></li>
-                  </ul>
-                </div>
-              </div>
-            </nav>
+  <body data-spy="scroll" data-target="#navbar">
+    <main class="main" id="top">
+      <div class="content">
+        <nav class="navbar navbar-expand-md fixed-top navbar-solid" id="navbar" data-navbar-soft-on-scroll="data-navbar-soft-on-scroll">
+          <div class="container-fluid px-0">
+            <a href="/" class="navbar-brand"><img src="assets/img/logos/logo.png" style="width: 80px; height: 36;" alt="logo" /></a>
+            <button class="navbar-toggler border-0 pe-0 d-md-none" type="button" data-toggle="modal" data-target="#mobileMenuModal" aria-controls="mobileMenuModal" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-md-end d-md-flex" id="navbar-content" data-navbar-collapse="data-navbar-collapse">
+              <ul class="navbar-nav gap-md-2 gap-lg-3 pt-x1 pb-1 pt-md-0 pb-md-0" data-navbar-nav="data-navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link lh-xl nav-link-existing" href="#" data-toggle="modal" data-target="#existingCustomersModal">Existing Customers</a>
+                </li>
+                <li class="nav-item"><a class="nav-link lh-xl desktop-nav-link" href="#pricing" data-scroll-target="pricing">Pricing</a></li>
+                <li class="nav-item"><a class="nav-link lh-xl desktop-nav-link" href="/contact">Contact</a></li>
+              
+                <li class="nav-item"><a class="nav-link lh-xl desktop-nav-link" href="#accordion" data-scroll-target="accordion">FAQ</a></li>
+              </ul>
+            </div>
           </div>
-        </main>
-      </body>
-      
-      <style>
-        /* Force dropdown to span full screen width */
-        .dropdown-menu {
-          width: 100% !important;
-          left: 0 !important;
-          right: 0 !important;
-          text-align: right;
-        }
-      </style>
+        </nav>
 
-    <!-- ===============================================--><!--    Header --><!-- ===============================================-->
+        <!-- Mobile Menu Modal -->
+        <div class="modal fade" id="mobileMenuModal" tabindex="-1" role="dialog" aria-labelledby="mobileMenuModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header border-0">
+                <h5 class="modal-title" id="mobileMenuModalLabel">Menu</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              </div>
+              <div class="modal-body text-center">
+                <ul class="list-unstyled">
+                  <li><a class="nav-link lh-xl fw-bold nav-link-existing-mobile" href="#" data-toggle="modal" data-target="#existingCustomersModal" data-dismiss="modal">Existing Customers</a></li>
+                  <li><a class="nav-link lh-xl fw-bold mobile-nav-link" href="#pricing" data-scroll-target="pricing">Pricing</a></li>
+                  <li><a class="nav-link lh-xl fw-bold mobile-nav-link" href="/contact">Contact</a></li>
+                  
+                  <li><a class="nav-link lh-xl fw-bold mobile-nav-link" href="#accordion" data-scroll-target="accordion">FAQ</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Existing Customers Modal -->
+        <div class="modal fade" id="existingCustomersModal" tabindex="-1" role="dialog" aria-labelledby="existingCustomersModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="existingCustomersModalLabel">Existing Customers</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              </div>
+              <div class="modal-body text-center">
+                <ul class="list-unstyled">
+                  <li><a class="nav-link lh-xl fw-bold existing-customer-link" href="javascript:void(0)" data-cb-type="portal">Account Login</a></li>
+                
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <section class="hero-section overflow-hidden position-relative z-0 mb-4 mb-lg-0" id="home">
           <div class="hero-background">
@@ -116,666 +620,647 @@
           </div>
         </section>
       </div>
-    </main>
-  </body>
 
-
-
-
-    <!-- ===============================================--><!--    Section 1 --><!-- ===============================================-->
-
-
-          <section class="container mb-8 mb-lg-11">
-            <div class="row justify-content-center">
-              <div class="col-md-8 col-lg-7">
-				  <br><br><br><br><br><br><br>
-                <h3 class="fs-4 fs-lg-3 fw-bold text-center mb-2 mb-lg-x1"> How To Get Started?</h3>
-                <p class="fs-8 mb-7 mb-lg-8 text-center lh-lg">Simple Three Step Process</p>
-              </div>
-              <div class="col-12">
-                <div class="row g-sm-2 g-lg-3 align-items-center timeline">
-                  <div class="col-12 col-lg-4 d-flex flex-row flex-lg-column justify-content-center gap-2 gap-sm-x1 gap-md-4 gap-lg-0">
-                    <div class="timeline-step-1 w-25 w-lg-100 mb-4 mb-lg-5 mb-xl-6">
-                      <div class="timeline-item d-flex justify-content-center">
-                        <div class="timeline-icon bg-primary rounded-circle d-flex justify-content-center align-items-center"><span class="fs-6 fs-lg-5 fs-xl-4 text-white"> 1</span></div>
-                      </div>
-                    </div>
-                    <div class="py-1 py-lg-0 px-lg-5 w-75 w-sm-50 w-lg-100 timeline-content">
-                      <h6 class="fs-8 fw-bold text-lg-center lh-lg mb-2">Purchase an SIM Card</h6>
-                      <p class="text-lg-center lh-xl mb-0">All SIM Cards include an activation kit with instructions.</p>
-                    </div>
-                  </div>
-                  <div class="col-12 col-lg-4 d-flex flex-row flex-lg-column justify-content-center gap-2 gap-sm-x1 gap-md-4 gap-lg-0">
-                    <div class="timeline-step-2 w-25 w-lg-100 mb-4 mb-lg-5 mb-xl-6">
-                      <div class="timeline-item d-flex justify-content-center">
-                        <div class="timeline-icon bg-primary rounded-circle d-flex justify-content-center align-items-center"><span class="fs-6 fs-lg-5 fs-xl-4 text-white"> 2</span></div>
-                      </div>
-                    </div>
-                    <div class="py-1 py-lg-0 px-lg-5 w-75 w-sm-50 w-lg-100 timeline-content">
-                      <h6 class="fs-8 fw-bold text-lg-center lh-lg mb-2">Activate Your Service</h6>
-                      <p class="text-lg-center lh-xl mb-0">This service is BYOD only. Check your device compatibility <a href="compatibility.html">here</a>. </span></p>
-                    </div>
-                  </div>
-                  <div class="col-12 col-lg-4 d-flex flex-row flex-lg-column justify-content-center gap-2 gap-sm-x1 gap-md-4 gap-lg-0">
-                    <div class="timeline-step-3 position-relative z-1 overflow-hidden w-25 w-lg-100 mb-4 mb-lg-5 mb-xl-6">
-                      <div class="timeline-item d-flex justify-content-center">
-                        <div class="timeline-icon bg-primary rounded-circle d-flex justify-content-center align-items-center"><span class="fs-6 fs-lg-5 fs-xl-4 text-white"> 3</span></div>
-                      </div>
-                    </div>
-                    <div class="py-1 py-lg-0 px-lg-5 w-75 w-sm-50 w-lg-100 timeline-content">
-                      <h6 class="fs-8 fw-bold text-lg-center lh-lg mb-2">Done</h6>
-                      <p class="text-lg-center lh-xl mb-0">Talk Text &amp; Surf! <br> You'll be autobilled every 30 days. </span></p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+      <!-- How To Get Started Section -->
+      <section class="text-guide-section" id="get-started">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-7 text-center">
+              <h3 class="text-guide-title mb-2">Get Started in 3 Easy Steps</h3>
+              <p class="text-guide-subtitle mb-7">Follow these simple steps to start enjoying your prepaid mobile service.</p>
             </div>
-          </section>
-          <section class="experience position-relative overflow-hidden" id="service">
-            <div class="container">
-              <div class="row justify-content-center">
-                <div class="col-12">
-                  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                </div>
-
-
-                    <!-- ===============================================--><!--    Section 2 --><!-- ===============================================-->
-                <div class="col-md-8 col-lg-7">
-                  <h2 class="fs-4 fs-lg-3 fw-bold text-center text-white mb-5 mb-lg-9 lh-sm">Is This For You?</h2>
-                </div>
-                <div class="col-12">
-                  <div class="row gy-4 g-md-3 pb-8 pb-lg-11 px-1">
-                    <div class="col-12 col-md-6 col-lg-4 d-flex align-items-start gap-2"><img src="assets/img/icons/roadmap.svg" alt="" />
-                      <div>
-                        <h5 class="fs-8 text-white lh-lg fw-bold">No Credit Checks</h5>
-                        <p class="text-white text-opacity-50 lh-xl mb-0">Our services are accessible to everyone, regardless of credit history. Enjoy hassle-free signup without the need for credit checks.</p>
-                      </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4 d-flex align-items-start gap-2"><img src="assets/img/icons/users-wm.svg" alt="" />
-                      <div>
-                        <h5 class="fs-8 text-white lh-lg fw-bold">Family Discounts</h5>
-                        <p class="text-white text-opacity-50 lh-xl mb-0">Save more with our exclusive family discounts. Whether you’re adding lines or upgrading plans, everyone in your family benefits from reduced rates.</p>
-                      </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4 d-flex align-items-start gap-2"><img src="assets/img/icons/share-91.svg" alt="" />
-                      <div>
-                        <h5 class="fs-8 text-white lh-lg fw-bold">Easy Roaming</h5>
-                        <p class="text-white text-opacity-50 lh-xl mb-0">Stay connected seamlessly wherever you go with our easy roaming feature. Add our USA Roaming Package!</p>
-                      </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4 d-flex align-items-start gap-2"><img src="assets/img/icons/video_meeting.svg" alt="" />
-                      <div>
-                        <h5 class="fs-8 text-white lh-lg fw-bold">Unlimited Streaming</h5>
-                        <p class="text-white text-opacity-50 lh-xl mb-0">Stream without limits with our unlimited streaming option. Enjoy endless hours of entertainment and stay connected with your favorite content.</p>
-                      </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4 d-flex align-items-start gap-2"><img src="assets/img/icons/opening-times.svg" alt="" />
-                      <div>
-                        <h5 class="fs-8 text-white lh-lg fw-bold">Easy Contract-Free AutoPay</h5>
-                        <p class="text-white text-opacity-50 lh-xl mb-0">Manage your payments effortlessly with our contract-free AutoPay option. Never miss a payment and enjoy the convenience of automated billing.</p>
-                      </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4 d-flex align-items-start gap-2"><img src="assets/img/icons/card-favorite.svg" alt="" />
-                      <div>
-                        <h5 class="fs-8 text-white lh-lg fw-bold">Moneyback Guarantee</h5>
-                        <p class="text-white text-opacity-50 lh-xl mb-0">Experience peace of mind with our money-back guarantee. If you’re not satisfied with our service, we’ll refund your money, no questions asked.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div class="col-12 col-lg-8">
+              <ol class="text-guide-list list-unstyled">
+                <li class="text-guide-item">
+                  <h6 class="mb-2"><span class="step-number">Step 1:</span> Order Your SIM Card</h6>
+                  <p>Your SIM card comes with an activation kit and easy-to-follow instructions.</p>
+                </li>
+                <li class="text-guide-item">
+                  <h6 class="mb-2"><span class="step-number">Step 2:</span> Activate Your Plan</h6>
+                  <p>Bring your own device (BYOD) and activate your service. </p>
+                </li>
+                <li class="text-guide-item">
+                  <h6 class="mb-2"><span class="step-number">Step 3:</span> Start Using Your Service</h6>
+                  <p>Enjoy unlimited talk, text, and data! You'll be auto-billed every 30 days.</p>
+                </li>
+              </ol>
             </div>
-            <div class="position-absolute top-0 start-0 end-0">
-              <div class="bg-white py-3 py-md-9 py-xl-10"> </div><img class="wave" src="assets/img/illustrations/Wave_2.svg" alt="" />
-            </div>
-          </section>
-         
-          <section class="bg-300" id="pricing">
-            <div class="container py-8 py-lg-10">
-              <div class="row justify-content-center">
-                <div class="col-md-8 col-lg-7">
-                  <h3 class="fs-4 fs-lg-3 fw-bold text-center mb-2 mb-lg-x1 lh-sm">Pricing made easy</h3>
-                  <p class="fs-8 mb-7 mb-lg-8 text-center lh-lg fw-normal">Monthly Subscriptions </p>
-                </div>
-                <div class="col-12">
-                  <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-3">
-                    <div class="p-x1 text-center price-card-1 bg-transparent border mb-3 mb-md-0 rounded-2 pricing-card">
-                      <p class="fs-10 text-uppercase mb-3 fw-bold text-primary ls-2"> Bronze</p>
-                      <h2 class="mb-3"><span class="fs-6 fs-md-7 fw-bold">$</span><span class="fs-2 fs-md-1 fw-bold">69</span><span class="fs-9 lh-xl font-sans-serif">/ mo</span></h2>
-                      <ul class="list-unstyled fs-8 lh-xl fw-light text-1100 ls-1">
-                        <li class="py-x1 px-1 border-top"> 50GB High-Speed Usage </li>
-                        <li class="py-x1 px-1 border-top"> LTE Speeds </li>
-                        <li class="py-x1 px-1 border-top"> No Overages </li>
-                        <li class="py-x1 px-1 border-top"> USA Access Option </li>
-                        <li class="mt-1 d-grid">
-                          <a href="#start" class="btn btn-secondary btn-lg lh-xl">Get Started Now</a>
-                        </li>
-                      </ul>
-                    </div>
-                    <div class="p-x1 text-center bg-white border shadow-sm rounded-2 pricing-card">
-                      <p class="fs-10 text-uppercase mb-3 fw-bold text-primary ls-2"> Platinum</p>
-                      <h2 class="mb-3"><span class="fs-6 fs-md-7 fw-bold">$</span><span class="fs-2 fs-md-1 fw-bold">99</span><span class="fs-9 lh-xl font-sans-serif">/ mo</span></h2>
-                      <ul class="list-unstyled fs-8 lh-xl fw-light text-1100 ls-1">
-                        <li class="py-x1 px-1 border-top"> Unlimited High-Speed Usage </li>
-                        <li class="py-x1 px-1 border-top"> 5G Speeds </li>
-                        <li class="py-x1 px-1 border-top"> No Overages </li>
-                        <li class="py-x1 px-1 border-top"> USA Access Option </li>
-                        <li class="mt-1 d-grid">
-                          <a href="#start" class="btn btn-primary btn-lg lh-xl">Get Started Now</a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-          <section class="bg-1100" id="start">
-            <div class="container">
-				
-				<br><br><br><br>
-	
-        <div style="text-align: center;">
-          <h1 style="color: white;"><strong>Ready To Join?</strong></h1><br>
-          <p style="color: white;">Order a SIM Card Now!</p>
+          </div>
         </div>
-        
+      </section>
+
+  
+    <section class="experience position-relative overflow-hidden" id="service">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-8 col-lg-7">
+            <br><br><br>
+            <h2 class="fs-4 fs-lg-3 fw-bold text-center text-white mb-5 mb-lg-9 lh-sm">Is This For You?</h2>
+          </div>
+          <div class="col-12">
+            <div class="row gy-4 g-md-3 pb-8 pb-lg-11 px-1">
+              <div class="col-12 col-md-6 col-lg-4 d-flex align-items-start gap-2"><img src="assets/img/icons/roadmap.svg" alt="" />
+                <div>
+                  <h5 class="fs-8 text-white lh-lg fw-bold">No Credit Checks</h5>
+                  <p class="text-white text-opacity-50 lh-xl mb-0">Our services are accessible to everyone, regardless of credit history. Enjoy hassle-free signup without the need for credit checks.</p>
+                </div>
+              </div>
+              <div class="col-12 col-md-6 col-lg-4 d-flex align-items-start gap-2"><img src="assets/img/icons/users-wm.svg" alt="" />
+                <div>
+                  <h5 class="fs-8 text-white lh-lg fw-bold">Family Discounts</h5>
+                  <p class="text-white text-opacity-50 lh-xl mb-0">Save more with our exclusive family discounts. Whether you’re adding lines or upgrading plans, everyone in your family benefits from reduced rates.</p>
+                </div>
+              </div>
+              <div class="col-12 col-md-6 col-lg-4 d-flex align-items-start gap-2"><img src="assets/img/icons/share-91.svg" alt="" />
+                <div>
+                  <h5 class="fs-8 text-white lh-lg fw-bold">Easy Roaming</h5>
+                  <p class="text-white text-opacity-50 lh-xl mb-0">Stay connected seamlessly wherever you go with our easy roaming feature. Add our USA Roaming Package!</p>
+                </div>
+              </div>
+              <div class="col-12 col-md-6 col-lg-4 d-flex align-items-start gap-2"><img src="assets/img/icons/video_meeting.svg" alt="" />
+                <div>
+                  <h5 class="fs-8 text-white lh-lg fw-bold">Unlimited Streaming</h5>
+                  <p class="text-white text-opacity-50 lh-xl mb-0">Stream without limits with our unlimited streaming option. Enjoy endless hours of entertainment and stay connected with your favorite content.</p>
+                </div>
+              </div>
+              <div class="col-12 col-md-6 col-lg-4 d-flex align-items-start gap-2"><img src="assets/img/icons/opening-times.svg" alt="" />
+                <div>
+                  <h5 class="fs-8 text-white lh-lg fw-bold">Easy Contract-Free AutoPay</h5>
+                  <p class="text-white text-opacity-50 lh-xl mb-0">Manage your payments effortlessly with our contract-free AutoPay option. Never miss a payment and enjoy the convenience of automated billing.</p>
+                </div>
+              </div>
+              <div class="col-12 col-md-6 col-lg-4 d-flex align-items-start gap-2"><img src="assets/img/icons/card-favorite.svg" alt="" />
+                <div>
+                  <h5 class="fs-8 text-white lh-lg fw-bold">Moneyback Guarantee</h5>
+                  <p class="text-white text-opacity-50 lh-xl mb-0">Experience peace of mind with our money-back guarantee. If you’re not satisfied with our service, we’ll refund your money, no questions asked.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+      <!-- Pricing Section -->
+      <section class="bg-300" id="pricing">
+        <div class="container py-8 py-lg-10">
+          <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-7">
+              <h3 class="pricing-title text-center mb-2">Choose Your Plan</h3>
+              <p class="pricing-subtitle text-center mb-7">Flexible monthly subscriptions with no contracts.</p>
+            </div>
+            <div class="col-12">
+              <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-4">
+                <!-- Bronze Plan -->
+                <div class="pricing-card">
+                  <p class="plan-name">Bronze</p>
+                  <h2 class="price">
+                    <span class="currency">$</span>69<span class="period">/mo</span>
+                  </h2>
+                  <ul>
+                    <li>50GB High-Speed Data</li>
+                    <li>LTE Speeds</li>
+                    <li>No Overages</li>
+                    <li>USA Roaming Option</li>
+                  </ul>
+                  <a href="#start" class="btn btn-secondary btn-lg">Get Started</a>
+                </div>
+                <!-- Platinum Plan (Recommended) -->
+                <div class="pricing-card recommended">
+                  <p class="plan-name">Platinum</p>
+                  <h2 class="price">
+                    <span class="currency">$</span>99<span class="period">/mo</span>
+                  </h2>
+                  <ul>
+                    <li>Unlimited Data</li>
+                    <li>5G Speeds</li>
+                    <li>No Overages</li>
+                    <li>USA Roaming Option</li>
+                  </ul>
+                  <a href="#start" class="btn btn-primary btn-lg">Start Now</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+     <section class="bg-1100" id="start">
+      <div class="container">
+        <div style="text-align: center; padding: 4rem 0;">
+          <h1 style="color: white;"><strong>Ready To Join?</strong></h1>
+          <p style="color: white; margin-top: 1rem;">Order a SIM Card Now!</p>
+        </div>
         <div class="row" style="padding-top: 0; padding-bottom: 0;">
           <div class="col-lg-6 d-flex align-items-center justify-content-center justify-content-lg-start">
             <div class="row">
-              <div class="col-md-6 col-lg-18 col-xl-11">
-                <!-- Content here -->
+              <div class="col-12">
+                <!-- Shopify Insert Start -->
+                <div id='product-component-1735940649322'></div>
+                <script type="text/javascript">
+                  /*<![CDATA[*/
+                  (function () {
+                    var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
+                    if (window.ShopifyBuy) {
+                      if (window.ShopifyBuy.UI) {
+                        ShopifyBuyInit();
+                      } else {
+                        loadScript();
+                      }
+                    } else {
+                      loadScript();
+                    }
+                    function loadScript() {
+                      var script = document.createElement('script');
+                      script.async = true;
+                      script.src = scriptURL;
+                      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(script);
+                      script.onload = ShopifyBuyInit;
+                    }
+                    function ShopifyBuyInit() {
+                      var client = ShopifyBuy.buildClient({
+                        domain: 'more4less-plans.myshopify.com',
+                        storefrontAccessToken: '8919363113a077a0d17cd850b89265f4',
+                      });
+                      ShopifyBuy.UI.onReady(client).then(function (ui) {
+                        ui.createComponent('product', {
+                          id: '6586919616692',
+                          node: document.getElementById('product-component-1735940649322'),
+                          moneyFormat: '%24%7B%7Bamount%7D%7D',
+                          options: {
+                            "product": {
+                              "styles": {
+                                "product": {
+                                  "@media (min-width: 601px)": {
+                                    "max-width": "calc(25% - 20px)",
+                                    "margin-left": "20px",
+                                    "margin-bottom": "50px"
+                                  }
+                                },
+                                "title": {
+                                  "font-family": "Oxygen, sans-serif",
+                                  "color": "#ffffff"
+                                },
+                                "button": {
+                                  "font-family": "Oxygen, sans-serif",
+                                  ":hover": {
+                                    "background-color": "#b0c0b0"
+                                  },
+                                  "background-color": "#c4d5c3",
+                                  ":focus": {
+                                    "background-color": "#b0c0b0"
+                                  },
+                                  "border-radius": "9px",
+                                  "padding-left": "59px",
+                                  "padding-right": "59px"
+                                },
+                                "price": {
+                                  "font-family": "Oxygen, sans-serif",
+                                  "color": "#ffffff"
+                                },
+                                "compareAt": {
+                                  "font-family": "Oxygen, sans-serif",
+                                  "color": "#ffffff"
+                                },
+                                "unitPrice": {
+                                  "font-family": "Oxygen, sans-serif",
+                                  "color": "#ffffff"
+                                }
+                              },
+                              "text": {
+                                "button": "Get Started"
+                              },
+                              "googleFonts": [
+                                "Oxygen"
+                              ]
+                            },
+                            "productSet": {
+                              "styles": {
+                                "products": {
+                                  "@media (min-width: 601px)": {
+                                    "margin-left": "-20px"
+                                  }
+                                }
+                              }
+                            },
+                            "modalProduct": {
+                              "contents": {
+                                "img": false,
+                                "imgWithCarousel": true
+                              },
+                              "styles": {
+                                "product": {
+                                  "@media (min-width: 601px)": {
+                                    "max-width": "100%",
+                                    "margin-left": "0px",
+                                    "margin-bottom": "0px"
+                                  }
+                                },
+                                "button": {
+                                  "font-family": "Oxygen, sans-serif" ,
+                                  ":hover": {
+                                    "background-color": "#b0c0b0"
+                                  },
+                                  "background-color": "#c4d5c3",
+                                  ":focus": {
+                                    "background-color": "#b0c0b0"
+                                  },
+                                  "border-radius": "9px",
+                                  "padding-left": "59px",
+                                  "padding-right": "59px"
+                                },
+                                "title": {
+                                  "font-family": "Open Sans, sans-serif",
+                                  "font-weight": "bold",
+                                  "font-size": "30px",
+                                  "color": "#4c4c4c"
+                                },
+                                "price": {
+                                  "font-family": "Open Sans, sans-serif",
+                                  "font-weight": "normal",
+                                  "font-size": "18px",
+                                  "color": "#4c4c4c"
+                                },
+                                "compareAt": {
+                                  "font-family": "Open Sans, sans-serif",
+                                  "font-weight": "normal",
+                                  "font-size": "15.299999999999999px",
+                                  "color": "#4c4c4c"
+                                },
+                                "unitPrice": {
+                                  "font-family": "Open Sans, sans-serif",
+                                  "font-weight": "normal",
+                                  "font-size": "15.299999999999999px",
+                                  "color": "#4c4c4c"
+                                },
+                                "description": {
+                                  "font-family": "Open Sans, sans-serif"
+                                }
+                              },
+                              "googleFonts": [
+                                "Open Sans",
+                                "Oxygen"
+                              ],
+                              "text": {
+                                "button": "Order Now"
+                              }
+                            },
+                            "option": {},
+                            "cart": {
+                              "styles": {
+                                "button": {
+                                  "font-family": "Oxygen, sans-serif",
+                                  ":hover": {
+                                    "background-color": "#b0c0b0"
+                                  },
+                                  "background-color": "#c4d5c3",
+                                  ":focus": {
+                                    "background-color": "#b0c0b0"
+                                  },
+                                  "border-radius": "9px"
+                                },
+                                "title": {
+                                  "color": "#000000"
+                                },
+                                "header": {
+                                  "color": "#000000"
+                                },
+                                "lineItems": {
+                                  "color": "#000000"
+                                },
+                                "subtotalText": {
+                                  "color": "#000000"
+                                },
+                                "subtotal": {
+                                  "color": "#000000"
+                                },
+                                "notice": {
+                                  "color": "#000000"
+                                },
+                                "currency": {
+                                  "color": "#000000"
+                                },
+                                "close": {
+                                  "color": "#000000",
+                                  ":hover": {
+                                    "color": "#000000"
+                                  }
+                                },
+                                "empty": {
+                                  "color": "#000000"
+                                },
+                                "noteDescription": {
+                                  "color": "#000000"
+                                },
+                                "discountText": {
+                                  "color": "#000000"
+                                },
+                                "discountIcon": {
+                                  "fill": "#000000"
+                                },
+                                "discountAmount": {
+                                  "color": "#000000"
+                                }
+                              },
+                              "text": {
+                                "title": "Shopping Cart",
+                                "total": "Subtotal",
+                                "notice": "",
+                                "button": "Checkout"
+                              },
+                              "googleFonts": [
+                                "Oxygen"
+                              ]
+                            },
+                            "toggle": {
+                              "styles": {
+                                "toggle": {
+                                  "font-family": "Oxygen, sans-serif",
+                                  "background-color": "#c4d5c3",
+                                  ":hover": {
+                                    "background-color": "#b0c0b0"
+                                  },
+                                  ":focus": {
+                                    "background-color": "#b0c0b0"
+                                  }
+                                }
+                              },
+                              "googleFonts": [
+                                "Oxygen"
+                              ]
+                            },
+                            "lineItem": {
+                              "styles": {
+                                "variantTitle": {
+                                  "color": "#000000"
+                                },
+                                "title": {
+                                  "color": "#000000"
+                                },
+                                "price": {
+                                  "color": "#000000"
+                                },
+                                "fullPrice": {
+                                  "color": "#000000"
+                                },
+                                "discount": {
+                                  "color": "#000000"
+                                },
+                                "discountIcon": {
+                                  "fill": "#000000"
+                                },
+                                "quantity": {
+                                  "color": "#000000"
+                                },
+                                "quantityIncrement": {
+                                  "color": "#000000",
+                                  "border-color": "#000000"
+                                },
+                                "quantityDecrement": {
+                                  "color": "#000000",
+                                  "border-color": "#000000"
+                                },
+                                "quantityInput": {
+                                  "color": "#000000",
+                                  "border-color": "#000000"
+                                }
+                              }
+                            }
+                          },
+                        });
+                      });
+                    }
+                  })();
+                  /*]]>*/
+                </script>
+                <!-- Add this div to create space under the "Buy Now" button -->
+                <div style="height: 200px;"></div>
+                <style>
+.accordion-item {
+  border-bottom: 1px solid #e3e3e3 !important}
+
+.accordion-item:last-child {
+  border-bottom: none !important;
+}
+
+.accordion-button {
+  padding-top: 0.75rem !important;
+  padding-bottom: 0.75rem !important;
+}
+</style>
+                <!-- Shopify Insert End -->
               </div>
-              <div class="col-lg-12 d-flex justify-content-center">
-                      
-                      
-
-                      
-  <!-- Shopify Insert Start -->
-
-  <div id='product-component-1735940649322'></div>
-  <script type="text/javascript">
-  /*<![CDATA[*/
-  (function () {
-    var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
-    if (window.ShopifyBuy) {
-      if (window.ShopifyBuy.UI) {
-        ShopifyBuyInit();
-      } else {
-        loadScript();
-      }
-    } else {
-      loadScript();
-    }
-    function loadScript() {
-      var script = document.createElement('script');
-      script.async = true;
-      script.src = scriptURL;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(script);
-      script.onload = ShopifyBuyInit;
-    }
-    function ShopifyBuyInit() {
-      var client = ShopifyBuy.buildClient({
-        domain: 'more4less-plans.myshopify.com',
-        storefrontAccessToken: '8919363113a077a0d17cd850b89265f4',
-      });
-      ShopifyBuy.UI.onReady(client).then(function (ui) {
-        ui.createComponent('product', {
-          id: '6586919616692',
-          node: document.getElementById('product-component-1735940649322'),
-          moneyFormat: '%24%7B%7Bamount%7D%7D',
-          options: {
-    "product": {
-      "styles": {
-        "product": {
-          "@media (min-width: 601px)": {
-            "max-width": "calc(25% - 20px)",
-            "margin-left": "20px",
-            "margin-bottom": "50px"
-          }
-        },
-        "title": {
-          "font-family": "Oxygen, sans-serif",
-          "color": "#ffffff"
-        },
-        "button": {
-          "font-family": "Oxygen, sans-serif",
-          ":hover": {
-            "background-color": "#b0c0b0"
-          },
-          "background-color": "#c4d5c3",
-          ":focus": {
-            "background-color": "#b0c0b0"
-          },
-          "border-radius": "9px",
-          "padding-left": "59px",
-          "padding-right": "59px"
-        },
-        "price": {
-          "font-family": "Oxygen, sans-serif",
-          "color": "#ffffff"
-        },
-        "compareAt": {
-          "font-family": "Oxygen, sans-serif",
-          "color": "#ffffff"
-        },
-        "unitPrice": {
-          "font-family": "Oxygen, sans-serif",
-          "color": "#ffffff"
-        }
-      },
-      "text": {
-        "button": "Add to cart"
-      },
-      "googleFonts": [
-        "Oxygen"
-      ]
-    },
-    "productSet": {
-      "styles": {
-        "products": {
-          "@media (min-width: 601px)": {
-            "margin-left": "-20px"
-          }
-        }
-      }
-    },
-    "modalProduct": {
-      "contents": {
-        "img": false,
-        "imgWithCarousel": true
-      },
-      "styles": {
-        "product": {
-          "@media (min-width: 601px)": {
-            "max-width": "100%",
-            "margin-left": "0px",
-            "margin-bottom": "0px"
-          }
-        },
-        "button": {
-          "font-family": "Oxygen, sans-serif",
-          ":hover": {
-            "background-color": "#b0c0b0"
-          },
-          "background-color": "#c4d5c3",
-          ":focus": {
-            "background-color": "#b0c0b0"
-          },
-          "border-radius": "9px",
-          "padding-left": "59px",
-          "padding-right": "59px"
-        },
-        "title": {
-          "font-family": "Open Sans, sans-serif",
-          "font-weight": "bold",
-          "font-size": "30px",
-          "color": "#4c4c4c"
-        },
-        "price": {
-          "font-family": "Open Sans, sans-serif",
-          "font-weight": "normal",
-          "font-size": "18px",
-          "color": "#4c4c4c"
-        },
-        "compareAt": {
-          "font-family": "Open Sans, sans-serif",
-          "font-weight": "normal",
-          "font-size": "15.299999999999999px",
-          "color": "#4c4c4c"
-        },
-        "unitPrice": {
-          "font-family": "Open Sans, sans-serif",
-          "font-weight": "normal",
-          "font-size": "15.299999999999999px",
-          "color": "#4c4c4c"
-        },
-        "description": {
-          "font-family": "Open Sans, sans-serif"
-        }
-      },
-      "googleFonts": [
-        "Open Sans",
-        "Oxygen"
-      ],
-      "text": {
-        "button": "Order Now"
-      }
-    },
-    "option": {},
-    "cart": {
-      "styles": {
-        "button": {
-          "font-family": "Oxygen, sans-serif",
-          ":hover": {
-            "background-color": "#b0c0b0"
-          },
-          "background-color": "#c4d5c3",
-          ":focus": {
-            "background-color": "#b0c0b0"
-          },
-          "border-radius": "9px"
-        },
-        "title": {
-          "color": "#000000"
-        },
-        "header": {
-          "color": "#000000"
-        },
-        "lineItems": {
-          "color": "#000000"
-        },
-        "subtotalText": {
-          "color": "#000000"
-        },
-        "subtotal": {
-          "color": "#000000"
-        },
-        "notice": {
-          "color": "#000000"
-        },
-        "currency": {
-          "color": "#000000"
-        },
-        "close": {
-          "color": "#000000",
-          ":hover": {
-            "color": "#000000"
-          }
-        },
-        "empty": {
-          "color": "#000000"
-        },
-        "noteDescription": {
-          "color": "#000000"
-        },
-        "discountText": {
-          "color": "#000000"
-        },
-        "discountIcon": {
-          "fill": "#000000"
-        },
-        "discountAmount": {
-          "color": "#000000"
-        }
-      },
-      "text": {
-        "title": "Shopping Cart",
-        "total": "Subtotal",
-        "notice": "",
-        "button": "Checkout"
-      },
-      "googleFonts": [
-        "Oxygen"
-      ]
-    },
-    "toggle": {
-      "styles": {
-        "toggle": {
-          "font-family": "Oxygen, sans-serif",
-          "background-color": "#c4d5c3",
-          ":hover": {
-            "background-color": "#b0c0b0"
-          },
-          ":focus": {
-            "background-color": "#b0c0b0"
-          }
-        }
-      },
-      "googleFonts": [
-        "Oxygen"
-      ]
-    },
-    "lineItem": {
-      "styles": {
-        "variantTitle": {
-          "color": "#000000"
-        },
-        "title": {
-          "color": "#000000"
-        },
-        "price": {
-          "color": "#000000"
-        },
-        "fullPrice": {
-          "color": "#000000"
-        },
-        "discount": {
-          "color": "#000000"
-        },
-        "discountIcon": {
-          "fill": "#000000"
-        },
-        "quantity": {
-          "color": "#000000"
-        },
-        "quantityIncrement": {
-          "color": "#000000",
-          "border-color": "#000000"
-        },
-        "quantityDecrement": {
-          "color": "#000000",
-          "border-color": "#000000"
-        },
-        "quantityInput": {
-          "color": "#000000",
-          "border-color": "#000000"
-        }
-      }
-    }
-  },
-        });
-      });
-    }
-  })();
-  /*]]>*/
-  </script>
-  
-  <!-- Add this div to create space under the "Buy Now" button -->
-  <div style="height: 200px;"></div>
-
-
-
-    <!-- Shopify Insert End -->
-
-
-
-
-
-
-
-
-
-
-
-                      </script>
-                    </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="accordion mt-lg-4 ps-3 pe-3 bg-white" id="accordion">
+              <!-- Question 13 -->
+              <div class="accordion-item border-0">
+                <h2 class="accordion-header" id="heading13">
+                  <button class="accordion-button fs-8 lh-lg fw-bold pt-3 pb-3 collapsed" type="button" data-toggle="collapse" data-target="#collapse13" aria-expanded="false" aria-controls="collapse13">
+                    Will This Plan Work for Me?
+                  </button>
+                </h2>
+                <div id="collapse13" class="accordion-collapse collapse" aria-labelledby="heading13" data-parent="#accordion">
+                  <div class="accordion-body lh-xl pt-0 pb-3">
+                    We can guarantee service for all Canadians who sign up and bring a <a href="compatibility">compatible device!</a>
                   </div>
                 </div>
-                <br> <br>
-                <div class="col-lg-6">
-                  <br> <br>
-                  <div class="accordion mt-lg-4 ps-3 pe-x1 bg-white" id="accordion">
-                   
-                        <!-- Question 13 -->
-                <div class="accordion-item">
-                  <h2 class="accordion-header" id="heading13">
-                      <button class="accordion-button fs-8 lh-lg fw-bold pt-x1 pb-2 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13" aria-expanded="false" aria-controls="collapse13">
-                         Will This Plan Work for Me?
-                      </button>
-                  </h2>
-                  <div id="collapse13" class="accordion-collapse collapse" aria-labelledby="heading13" data-bs-parent="#accordion">
-                      <div class="accordion-body lh-xl pt-0 pb-x1">
-                          We can guarantee service for all Canadians who sign up and bring a <a href="compatibility">compatible device!</a>
-                      </div>
-                  </div>
               </div>
               <!-- Question 14 -->
-              <div class="accordion-item">
-                  <h2 class="accordion-header" id="heading14">
-                      <button class="accordion-button fs-8 lh-lg fw-bold pt-x1 pb-2 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14" aria-expanded="false" aria-controls="collapse14">
-                          Is It Really Unlimited?
-                      </button>
-                  </h2>
-                  <div id="collapse14" class="accordion-collapse collapse" aria-labelledby="heading14" data-bs-parent="#accordion">
-                      <div class="accordion-body lh-xl pt-0 pb-x1">
-                          Yes! No data caps or restrictions. Many customers use mind-boggling amounts of blazing fast data every month!
-                      </div>
+              <div class="accordion-item border-0">
+                <h2 class="accordion-header" id="heading14">
+                  <button class="accordion-button fs-8 lh-lg fw-bold pt-3 pb-3 collapsed" type="button" data-toggle="collapse" data-target="#collapse14" aria-expanded="false" aria-controls="collapse14">
+                    Is It Really Unlimited?
+                  </button>
+                </h2>
+                <div id="collapse14" class="accordion-collapse collapse" aria-labelledby="heading14" data-parent="#accordion">
+                  <div class="accordion-body lh-xl pt-0 pb-3">
+                    Yes! No data caps or restrictions. Many customers use mind-boggling amounts of blazing fast data every month!
                   </div>
+                </div>
               </div>
               <!-- Question 15 -->
-              <div class="accordion-item">
-                  <h2 class="accordion-header" id="heading15">
-                      <button class="accordion-button fs-8 lh-lg fw-bold pt-x1 pb-2 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15" aria-expanded="false" aria-controls="collapse15">
-                          What Are The Speeds and Coverage Like?
-                      </button>
-                  </h2>
-                  <div id="collapse15" class="accordion-collapse collapse" aria-labelledby="heading15" data-bs-parent="#accordion">
-                      <div class="accordion-body lh-xl pt-0 pb-x1">
-                        The Bottomless Data Plan provides top-tier LTE/5G service across Canada. We offer add-ons for USA roaming. Although we don’t own infrastructure, we manage access to major carrier networks, ensuring premium speeds and coverage from “The Big Three.”
-                      </div>
+              <div class="accordion-item border-0">
+                <h2 class="accordion-header" id="heading15">
+                  <button class="accordion-button fs-8 lh-lg fw-bold pt-3 pb-3 collapsed" type="button" data-toggle="collapse" data-target="#collapse15" aria-expanded="false" aria-controls="collapse15">
+                    What Are The Speeds and Coverage Like?
+                  </button>
+                </h2>
+                <div id="collapse15" class="accordion-collapse collapse" aria-labelledby="heading15" data-parent="#accordion">
+                  <div class="accordion-body lh-xl pt-0 pb-3">
+                    The Bottomless Data Plan provides top-tier LTE/5G service across Canada. We offer add-ons for USA roaming. Although we don’t own infrastructure, we manage access to major carrier networks, ensuring premium speeds and coverage from “The Big Three.”
                   </div>
+                </div>
               </div>
               <!-- Question 16 -->
-              <div class="accordion-item">
-                  <h2 class="accordion-header" id="heading16">
-                      <button class="accordion-button fs-8 lh-lg fw-bold pt-x1 pb-2 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16" aria-expanded="false" aria-controls="collapse16">
-                          Can I Get a New Phone?
-                      </button>
-                  </h2>
-                  <div id="collapse16" class="accordion-collapse collapse" aria-labelledby="heading16" data-bs-parent="#accordion">
-                      <div class="accordion-body lh-xl pt-0 pb-x1">
-                          Not with us. Bring Your own device only. This will actually save you money.
-                      </div>
+              <div class="accordion-item border-0">
+                <h2 class="accordion-header" id="heading16">
+                  <button class="accordion-button fs-8 lh-lg fw-bold pt-3 pb-3 collapsed" type="button" data-toggle="collapse" data-target="#collapse16" aria-expanded="false" aria-controls="collapse16">
+                    Can I Get a New Phone?
+                  </button>
+                </h2>
+                <div id="collapse16" class="accordion-collapse collapse" aria-labelledby="heading16" data-parent="#accordion">
+                  <div class="accordion-body lh-xl pt-0 pb-3">
+                    Not with us. Bring Your own device only. This will actually save you money.
                   </div>
+                </div>
               </div>
-              <!-- Question 17 -->
-              <div class="accordion-item">
-                  <h2 class="accordion-header" id="heading17">
-                      <button class="accordion-button fs-8 lh-lg fw-bold pt-x1 pb-2 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17" aria-expanded="false" aria-controls="collapse17">
-                          Can I Sign Up If I Already Have A Phone Plan?
-                      </button>
-                  </h2>
-                  <div id="collapse17" class="accordion-collapse collapse" aria-labelledby="heading17" data-bs-parent="#accordion">
-                      <div class="accordion-body lh-xl pt-0 pb-x1">
-                          Yes. This plan is available to all who bring their own device! Just check with your current provider to see if you are in a contract.
-                      </div>
-                  </div>
-              </div>
+           
               <!-- Question 18 -->
-              <div class="accordion-item">
-                  <h2 class="accordion-header" id="heading18">
-                      <button class="accordion-button fs-8 lh-lg fw-bold pt-x1 pb-2 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse18" aria-expanded="false" aria-controls="collapse18">
-                          Can I Keep My Number?
-                      </button>
-                  </h2>
-                  <div id="collapse18" class="accordion-collapse collapse" aria-labelledby="heading18" data-bs-parent="#accordion">
-                      <div class="accordion-body lh-xl pt-0 pb-x1">
-                          Our service comes with a new phone number. Depending on your plan it may be a Canadian number, or even a USA number. Contact us if you'd like to pick a specific area code.
-                      </div>
+              <div class="accordion-item border-0">
+                <h2 class="accordion-header" id="heading18">
+                  <button class="accordion-button fs-8 lh-lg fw-bold pt-3 pb-3 collapsed" type="button" data-toggle="collapse" data-target="#collapse18" aria-expanded="false" aria-controls="collapse18">
+                    Can I Keep My Number?
+                  </button>
+                </h2>
+                <div id="collapse18" class="accordion-collapse collapse" aria-labelledby="heading18" data-parent="#accordion">
+                  <div class="accordion-body lh-xl pt-0 pb-3">
+                    Our service comes with a new phone number. Depending on your plan it may be a Canadian number, or even a USA number. Contact us if you'd like to pick a specific area code.
                   </div>
+                </div>
               </div>
               <!-- Question 19 -->
-              <div class="accordion-item">
-                  <h2 class="accordion-header" id="heading19">
-                      <button class="accordion-button fs-8 lh-lg fw-bold pt-x1 pb-2 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19" aria-expanded="false" aria-controls="collapse19">
-                          How Do I Make Payments?
-                      </button>
-                  </h2>
-                  <div id="collapse19" class="accordion-collapse collapse" aria-labelledby="heading19" data-bs-parent="#accordion">
-                      <div class="accordion-body lh-xl pt-0 pb-x1">
-                          When you activate you will be walked through how to set up autopay! We accept all major credit cards.
-                      </div>
+              <div class="accordion-item border-0">
+                <h2 class="accordion-header" id="heading19">
+                  <button class="accordion-button fs-8 lh-lg fw-bold pt-3 pb-3 collapsed" type="button" data-toggle="collapse" data-target="#collapse19" aria-expanded="false" aria-controls="collapse19">
+                    How Do I Make Payments?
+                  </button>
+                </h2>
+                <div id="collapse19" class="accordion-collapse collapse" aria-labelledby="heading19" data-parent="#accordion">
+                  <div class="accordion-body lh-xl pt-0 pb-3">
+                    When you activate you will be walked through how to set up autopay! We accept all major credit cards.
                   </div>
+                </div>
               </div>
               <!-- Question 20 -->
-              <div class="accordion-item">
-                  <h2 class="accordion-header" id="heading20">
-                      <button class="accordion-button fs-8 lh-lg fw-bold pt-x1 pb-2 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20" aria-expanded="false" aria-controls="collapse20">
-                          Will This Work With My Router?
-                      </button>
-                  </h2>
-                  <div id="collapse20" class="accordion-collapse collapse" aria-labelledby="heading20" data-bs-parent="#accordion">
-                    <div class="accordion-body lh-xl pt-0 pb-x1">
-                      We do not offer any guarantee that this will work in a device that is not a mobile phone. To find out if your cellular phone is compatible with the network, <a href="compatibility">click here</a>.
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div style="margin: 50px 0;">
-                <!-- Your content here -->
-              </div>
-            
-              </section>
-            
+              <div class="accordion-item border-0">
+                <h2 class="accordion-header" id="heading20">
+                  <button class="accordion-button fs-8 lh-lg fw-bold pt-3 pb-3 collapsed" type="button" data-toggle="collapse" data-target="#collapse20" aria-expanded="false" aria-controls="collapse20">
+                    Will This Work With My Router?
+                  </button>
+                </h2>
+                <div id="collapse20" class="accordion-collapse collapse" aria-labelledby="heading20" data-parent="#accordion">
+                  <div class="accordion-body lh-xl pt-0 pb-3">
+                    We do not offer any guarantee that this will work in a device that is not a mobile phone. To find out if your cellular phone is compatible with the network, 
+                    <a href="compatibility" style="color: #44546C; text-decoration: none;">click here</a>.
                   </div>
                 </div>
               </div>
             </div>
-          </section>
-          <footer class="pt-7 pt-lg-8">
-            <div class="container">
-              <div class="row gy-4 g-md-3 border-bottom pb-8 pb-lg-9 justify-content-center">
-                <div class="col-6 col-md-3">
-                  <p class="mb-2 lh-lg ls-1">Company</p>
-                  <ul class="list-unstyled text-1100">
-                    <li class="mb-1"> <a class="ls-1 lh-xl" href="/about">About</a></li>
-                    <li class="mb-1"> <a class="ls-1 lh-xl" href="/contact"> Contact</a></li>
-                
-                  </ul>
-                </div>
-                <div class="col-6 col-md-3">
-                  <p class="mb-2 lh-lg">Product</p>
-                  <ul class="list-unstyled text-1100">
-                   
-                    <li class="mb-1"> <a class="ls-1 lh-xl" href="#pricing"> Pricing</a></li>
-                     <li class="mb-1"><a class="ls-1 lh-xl" href="/support"> Technical Support</a></li>
-            <li class="mb-1"><a class="ls-1 lh-xl" href="/activate"> Activate</a></li>
-            
-            
-                  </ul>
-                </div>
-                <div class="col-6 col-md-3">
-                  <p class="mb-2 lh-lg"> Legal</p>
-                  <ul class="list-unstyled text-1100">
-                    <li class="mb-1"> <a class="ls-1 lh-xl" href="/privacypolicy">Privacy</a></li>
-                    <li class="mb-1"> <a class="ls-1 lh-xl" href="/terms"> Terms & Conditions</a></li>
-                    <li class="mb-1"> <a class="ls-1 lh-xl" href="/terms#pricing"> Return Policy</a></li>
-                  </ul>
-                </div>
-                <div class="col-6 col-md-3 d-md-flex flex-column align-items-md-end pe-md-0">
-                  
-                </div>
-              </div>
-              <div class="row gy-2 py-3 justify-content-center justify-content-md-between">
-                <div class="col-auto ps-0">
-                <p class="text-center text-md-start lh-xl text-1100">
-  © <span id="currentYear"></span> Copyright, All Rights Reserved
-</p>
-
-<script>
-  // JavaScript to dynamically update the year
-  document.getElementById("currentYear").textContent = new Date().getFullYear();
-</script>
-                </div>
-                
-            </div>
-          </footer>
+            <div style="margin: 50px 0;"></div>
+          </div>
+        </div>
       </div>
-    </main><!-- ===============================================--><!--    End of Main Content--><!-- ===============================================-->
+</section>
 
+      <!-- Updated Footer -->
+      <footer>
+        <p class="footer-links">
+          <a href="/privacy-policy">Privacy</a>
+          <a href="/terms">Terms</a>
+        </p>
+        <hr class="footer-divider">
+        <p class="footer-copyright">© <span id="currentYear"></span> Copyright, All Rights Reserved</p>
+      </footer>
+    </main>
 
+    <!-- JavaScripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="https://js.chargebee.com/v2/chargebee.js" data-cb-site="more4lessplans"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNt4XeQ5roadq0L-IpadA6s9e4CPm9FwI&libraries=places"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Set current year in footer
+        document.getElementById("currentYear").textContent = new Date().getFullYear();
 
-    <!-- ===============================================--><!--    JavaScripts--><!-- ===============================================-->
-    <script src="vendors/popper/popper.min.js"></script>
-    <script src="vendors/bootstrap/bootstrap.min.js"></script>
+        // Initialize Chargebee safely
+        try {
+          Chargebee.init({
+            site: "more4lessplans",
+            publishableKey: "your-chargebee-publishable-key" // Replace with actual Chargebee key
+          });
+        } catch (e) {
+          console.warn('Chargebee initialization failed:', e);
+        }
+
+        const navbar = document.getElementById('navbar');
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+          navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Handle Navigation Links
+        const navLinks = document.querySelectorAll('.desktop-nav-link, .mobile-nav-link');
+        navLinks.forEach(link => {
+          link.addEventListener('click', (event) => {
+            const scrollTarget = link.getAttribute('data-scroll-target');
+            if (scrollTarget) {
+              event.preventDefault();
+              const targetElement = document.getElementById(scrollTarget);
+              if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth' });
+                if (link.classList.contains('mobile-nav-link')) {
+                  $('#mobileMenuModal').modal('hide');
+                }
+              }
+            }
+          });
+        });
+
+        // Handle Existing Customers Modal Links
+        document.querySelectorAll('.existing-customer-link').forEach(link => {
+          link.addEventListener('click', (event) => {
+            event.preventDefault();
+            const href = link.getAttribute('href');
+            const cbType = link.getAttribute('data-cb-type');
+
+            $('#existingCustomersModal').modal('hide');
+            $('#existingCustomersModal').on('hidden.bs.modal', function() {
+              if (cbType === 'portal') {
+                try {
+                  const cbInstance = Chargebee.getInstance();
+                  cbInstance.openPortal({
+                    portalSession: () => Promise.resolve({
+                      id: 'portal-session-id',
+                      access_url: 'https://more4lessplans.chargebeeportal.com/portal', // Replace with actual URL
+                      token: 'portal-session-token'
+                    }),
+                    success: () => console.log('Chargebee portal opened'),
+                    close: () => console.log('Chargebee portal closed'),
+                    error: (err) => {
+                      console.error('Error opening Chargebee portal:', err);
+                      window.location.href = '/login';
+                    }
+                  });
+                } catch (e) {
+                  console.error('Chargebee library not loaded or failed:', e);
+                  window.location.href = '/login';
+                }
+              } else {
+                window.location.href = href;
+              }
+            }, { once: true });
+          });
+        });
+
+        // Handle Mobile Existing Customers Link
+        document.querySelector('.nav-link-existing-mobile').addEventListener('click', () => {
+          $('#mobileMenuModal').modal('hide');
+        });
+
+        // Test Bootstrap initialization
+        console.log('Bootstrap Modal available:', typeof bootstrap.Modal !== 'undefined');
+      });
+    </script>
     <script src="vendors/is/is.min.js"></script>
     <script src="vendors/countup/countUp.umd.js"></script>
     <script src="vendors/swiper/swiper-bundle.min.js"></script>
     <script src="vendors/lodash/lodash.min.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
     <script src="assets/js/theme.js"></script>
-    <script src="https://js.chargebee.com/v2/chargebee.js" data-cb-site="more4lessplans" ></script>
   </body>
-
 </html>
