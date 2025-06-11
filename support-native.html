@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Technical Support | Flowchart</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <style>
+    body {
+      background-color: #f8f9fa;
+      padding-top: 20px;
+    }
+    .support-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .support-card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      margin-bottom: 20px;
+      transition: transform 0.3s ease;
+    }
+    .support-card:hover {
+      transform: translateY(-5px);
+    }
+    .support-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .support-header h1 {
+      font-size: 2.5rem;
+      color: #222831;
+      font-weight: 700;
+    }
+    .support-header p {
+      font-size: 1.1rem;
+      color: #6b7280;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-control {
+      border-radius: 8px;
+    }
+    .btn-primary {
+      background-color: #2E2F33;
+      border-color: #2E2F33;
+      border-radius: 8px;
+      padding: 10px 20px;
+      font-weight: 600;
+    }
+    .btn-primary:hover {
+      background-color: transparent;
+      color: #2E2F33;
+      border-color: #2E2F33;
+    }
+    .btn-secondary {
+      border-radius: 8px;
+      padding: 10px 20px;
+    }
+    .troubleshooting-section {
+      display: none;
+    }
+    .troubleshooting-section.active {
+      display: block;
+      animation: fadeIn 0.5s ease;
+    }
+    .file-upload-label {
+      display: block;
+      background: #f1f3f5;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+    .file-upload-label:hover {
+      background: #e9ecef;
+    }
+    .confirmation-message {
+      display: none;
+      text-align: center;
+      padding: 20px;
+      background: #d4edda;
+      border-radius: 8px;
+      color: #155724;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @media (max-width: 576px) {
+      .support-card {
+        padding: 20px;
+      }
+      .support-header h1 {
+        font-size: 2rem;
+      }
+      .btn-primary, .btn-secondary {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="support-container">
+    <!-- Header -->
+    <div class="support-header">
+      <h1>Technical Support</h1>
+      <p>A service representative will assist you within a few business hours.</p>
+    </div>
+
+    <!-- Initial Form -->
+    <div class="support-card" id="initial-form">
+      <form id="support-form">
+        <div class="form-group">
+          <label for="name">Name <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" id="name" required placeholder="First Last">
+        </div>
+        <div class="form-group">
+          <label for="email">Email Associated With Your Account <span class="text-danger">*</span></label>
+          <input type="email" class="form-control" id="email" required placeholder="example@example.com">
+        </div>
+        <div class="form-group">
+          <label for="issue">What Issue Applies To You? <span class="text-danger">*</span></label>
+          <select class="form-control" id="issue" required>
+            <option value="">Please Select</option>
+            <option value="no-service">I Have No Service</option>
+            <option value="calling-texting">Calling/Texting Issue</option>
+            <option value="voicemail">Voicemail Problems</option>
+            <option value="data-not-working">Data Is Not Working</option>
+            <option value="data-slow">My Data is Too Slow</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <button type="button" class="btn btn-primary" onclick="showTroubleshooting()">Next</button>
+      </form>
+    </div>
+
+    <!-- No Service / Calling-Texting / Data Not Working -->
+    <div class="support-card troubleshooting-section" id="no-service">
+      <h3>Let's Get Your Service Back!</h3>
+      <p>When an unauthorized device tries to access the network, the carrier may put a suspension on your SIM card. Please insert your SIM card back into a <a href="https://more4lessplans.ca/compatibility" target="_blank" rel="nofollow">compatible</a> mobile phone.</p>
+      <p><strong>Quick Fixes:</strong></p>
+      <ul>
+        <li>Reboot your device.</li>
+        <li>Check to make sure LTE is enabled and roaming is on.</li>
+        <li>Reset your network settings.</li>
+        <li>Make sure your device is <a href="https://more4lessplans.ca/compatibility" target="_blank" rel="nofollow">compatible</a>.</li>
+      </ul>
+      <form id="no-service-form">
+        <div class="form-group">
+          <label for="no-service-message">Leave our Technical Team a Message:</label>
+          <textarea class="form-control" id="no-service-message" rows="5" placeholder="We will respond in a timely manner."></textarea>
+        </div>
+        <div class="form-group">
+          <label class="file-upload-label" for="no-service-file">Upload Files (e.g., screenshots)</label>
+          <input type="file" class="form-control" id="no-service-file" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.gif">
+        </div>
+        <button type="button" class="btn btn-secondary" onclick="goBack('initial-form')">Back</button>
+        <button type="button" class="btn btn-primary" onclick="submitForm('no-service')">Submit</button>
+      </form>
+    </div>
+
+    <!-- Voicemail Problems -->
+    <div class="support-card troubleshooting-section" id="voicemail">
+      <h3>Voicemail Troubleshooting</h3>
+      <p>Access your voicemail by selecting and holding <em>"1"</em> from the call screen. Follow the prompts to create a new 7-15 digit voicemail password. If it is asking for a password, the default password is the last seven digits of your phone number.</p>
+      <p>If you successfully called and set up the voicemail system, press the # key and hang up. If unsuccessful, turn your wireless device off and back on and attempt to access your voicemail again.</p>
+      <p>If you're unable to access Visual Voicemail, try calling your voicemail box by selecting and holding "1" from the call screen.</p>
+      <p><strong>Troubleshooting Help:</strong></p>
+      <p>Verify your wireless coverage: To verify that you have enough signal strength to connect to voicemail, view wireless coverage maps. Visual Voicemail requires a wireless cellular data connection. Some smartphones require a 4G LTE data connection to access and manage Visual Voicemail.</p>
+      <form id="voicemail-form">
+        <div class="form-group">
+          <label for="voicemail-message">Still Experiencing Issues?</label>
+          <textarea class="form-control" id="voicemail-message" rows="5" placeholder="Leave our moderators a message and they will respond in a timely manner."></textarea>
+        </div>
+        <div class="form-group">
+          <label class="file-upload-label" for="voicemail-file">Upload Files (e.g., screenshots)</label>
+          <input type="file" class="form-control" id="voicemail-file" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.gif">
+        </div>
+        <button type="button" class="btn btn-secondary" onclick="goBack('initial-form')">Back</button>
+        <button type="button" class="btn btn-primary" onclick="submitForm('voicemail')">Submit</button>
+      </form>
+    </div>
+
+    <!-- Data is Too Slow -->
+    <div class="support-card troubleshooting-section" id="data-slow">
+      <h3>Data Usage Support</h3>
+      <p><strong>Have You Reached Your Data Cap?</strong> Our plans give you data that can only be used with a <a href="https://more4lessplans.ca/compatibility" target="_blank" rel="nofollow">listed device</a>. If an unlisted device is being used, data may be slowed. Some of our wireless plans come with a set amount of data. Please ensure you have not used more than the allotted high-speed data available to you with your plan.</p>
+      <p><strong>Have an Unlimited Plan?</strong> If many devices in your area are using mobile data at once, it can put a strain on the network. This is called network congestion, and data speeds may be a little slower during these times due to network traffic. Similar symptoms can be caused by an excess of devices using a singular hotspot. This could be due to hardware limitations or bandwidth limitations.</p>
+      <p><strong>What Is Your Signal?</strong> Another common reason for data slower than you'd expect is determined by your location in regards to a tower. Check <a href="https://www.cellmapper.net/map?MCC=302&MNC=720&type=LTE&latitude=0&longitude=0&zoom=11&showTowers=true&showTowerLabels=true&clusterEnabled=true&tilesEnabled=true&showOrphans=false&showNoFrequencyOnly=false&showFrequencyOnly=false&showBandwidthOnly=false&DateFilterType=Last&showHex=false&showVerifiedOnly=false&showUnverifiedOnly=false&showLTECAOnly=false&showENDCOnly=false&showBand=0&showSectorColours=true&mapType=roadmap" target="_blank" rel="nofollow">this tower map</a> to confirm you are within the network map.</p>
+      <p><strong>Quick Fixes:</strong></p>
+      <ul>
+        <li>Reboot your device.</li>
+        <li>Check to make sure LTE is enabled and roaming is on.</li>
+        <li>Reset your network settings.</li>
+        <li>Make sure your device is <a href="https://more4lessplans.ca/compatibility" target="_blank" rel="nofollow">compatible</a>.</li>
+      </ul>
+      <form id="data-slow-form">
+        <div class="form-group">
+          <label for="data-slow-message">Still Need Help?</label>
+          <textarea class="form-control" id="data-slow-message" rows="5" placeholder="Leave us your inquiry and an agent will respond."></textarea>
+        </div>
+        <div class="form-group">
+          <label class="file-upload-label" for="data-slow-file">Upload Files (e.g., screenshots)</label>
+          <input type="file" class="form-control" id="data-slow-file" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.gif">
+        </div>
+        <button type="button" class="btn btn-secondary" onclick="goBack('initial-form')">Back</button>
+        <button type="button" class="btn btn-primary" onclick="submitForm('data-slow')">Submit</button>
+      </form>
+    </div>
+
+    <!-- Other -->
+    <div class="support-card troubleshooting-section" id="other">
+      <h3>Leave us a Support Request</h3>
+      <form id="other-form">
+        <div class="form-group">
+          <label for="other-message">Please describe your issue:</label>
+          <textarea class="form-control" id="other-message" rows="5" required></textarea>
+        </div>
+        <div class="form-group">
+          <label class="file-upload-label" for="other-file">Upload Files (e.g., screenshots)</label>
+          <input type="file" class="form-control" id="other-file" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.gif">
+        </div>
+        <button type="button" class="btn btn-secondary" onclick="goBack('initial-form')">Back</button>
+        <button type="button" class="btn btn-primary" onclick="submitForm('other')">Submit</button>
+      </form>
+    </div>
+
+    <!-- Confirmation Message -->
+    <div class="confirmation-message" id="confirmation">
+      <h4>Thanks!</h4>
+      <p>Once your request is submitted, please allow some time for our agents to get back to you. During peak times, this may take up to 12 hours. We appreciate your patience!</p>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS and Dependencies -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Custom JavaScript -->
+  <script>
+    function showTroubleshooting() {
+      const form = document.getElementById('support-form');
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      const issue = document.getElementById('issue').value;
+      const sections = document.querySelectorAll('.troubleshooting-section');
+      sections.forEach(section => section.classList.remove('active'));
+      document.getElementById('initial-form').style.display = 'none';
+      document.getElementById(issue).classList.add('active');
+    }
+
+    function goBack(sectionId) {
+      const sections = document.querySelectorAll('.troubleshooting-section');
+      sections.forEach(section => section.classList.remove('active'));
+      document.getElementById(sectionId).style.display = 'block';
+    }
+
+    async function submitForm(sectionId) {
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const issue = document.getElementById('issue').value;
+      const message = document.getElementById(`${sectionId}-message`)?.value || '';
+      const files = document.getElementById(`${sectionId}-file`)?.files;
+
+      const formData = new FormData();
+      formData.append('name', name);
+      formData.append('email', email);
+      formData.append('issue', issue);
+      formData.append('message', message);
+      if (files) {
+        for (let file of files) {
+          formData.append('files', file);
+        }
+      }
+
+      // Placeholder for form submission (e.g., to Formspree or your backend)
+      try {
+        // Example with Formspree (replace with your endpoint)
+        const response = await fetch('https://formspree.io/f/your_form_id', {
+          method: 'POST',
+          body: formData,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+          const sections = document.querySelectorAll('.troubleshooting-section');
+          sections.forEach(section => section.classList.remove('active'));
+          document.getElementById('confirmation').style.display = 'block';
+        } else {
+          alert('Submission failed. Please try again.');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred. Please try again.');
+      }
+    }
+  </script>
+</body>
+</html>
