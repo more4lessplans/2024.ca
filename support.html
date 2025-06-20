@@ -1,1078 +1,436 @@
 <!DOCTYPE html>
-<html data-bs-theme="light" lang="en-US" dir="ltr">
-
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- Document Title -->
-  <title>Technical Support | Wireless Internet</title>
-
-  <!-- Favicons -->
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicons/favicon-16x16.png">
-  <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicons/favicon.ico">
-  <link rel="manifest" href="assets/img/favicons/manifest.json">
-  <meta name="msapplication-TileImage" content="assets/img/favicons/mstile-150x150.png">
-  <meta name="theme-color" content="#ffffff">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Technical Support | Flowchart</title>
   <!-- Bootstrap CSS -->
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="vendors/swiper/swiper-bundle.min.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap">
-  <link href="assets/css/theme.min.css" rel="stylesheet" id="style-default">
-  <link href="assets/css/user-rtl.min.css" rel="stylesheet" id="user-style-rtl">
-  <link href="assets/css/user.min.css" rel="stylesheet" id="user-style-default">
-  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
-
-  <!-- External Navbar and Footer Styles -->
-  <link rel="stylesheet" href="/navbar.css">
-  <link rel="stylesheet" href="/footer.css">
-
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom CSS -->
   <style>
-    /* Adjust padding for content under fixed navbar */
-    .main {
-      padding-top: 100px;
+    body {
+      background-color: #f8f9fa;
+      padding-top: 20px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     }
-
+    .support-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .support-card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      margin-bottom: 30px;
+      transition: transform 0.3s ease;
+    }
+    .support-card:hover {
+      transform: translateY(-5px);
+    }
+    .support-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .support-header h1 {
+      font-size: 2.5rem;
+      color: #000000;
+      font-weight: 700;
+    }
+    .support-header p {
+      font-size: 1.1rem;
+      color: #333333;
+    }
+    .form-group {
+      margin-bottom: 25px;
+    }
+    .form-control {
+      border-radius: 8px;
+      background-color: #ffffff;
+      border: 1px solid #d1d5db;
+      padding: 12px;
+    }
+    .form-control::placeholder {
+      color: #9ca3af;
+    }
+    .custom-select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 9l-4-4h8z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 12px;
+      padding-right: 30px;
+    }
+    .custom-select option:disabled {
+      color: #9ca3af !important;
+    }
+    .btn-primary {
+      background-color: #2E2F33;
+      border-color: #2E2F33;
+      border-radius: 8px;
+      padding: 10px 20px;
+      font-weight: 600;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      font-size: 0.875rem;
+      white-space: nowrap;
+    }
+    .btn-primary:hover {
+      background-color: transparent;
+      color: #2E2F33;
+      border-color: #2E2F33;
+    }
+    .btn-primary::after {
+      content: ' →';
+      margin-left: 5px;
+    }
+    .btn-secondary {
+      background-color: #2E2F33;
+      border-color: #2E2F33;
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-weight: 600;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      font-size: 0.875rem;
+    }
+    .btn-secondary:hover {
+      background-color: transparent;
+      color: #2E2F33;
+      border-color: #2E2F33;
+    }
+    .btn-secondary::before {
+      content: '← ';
+      margin-right: 5px;
+    }
+    .button-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+    .troubleshooting-section {
+      display: none !important;
+    }
+    .troubleshooting-section.active {
+      display: block !important;
+      animation: fadeIn 0.5s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
     @media (max-width: 576px) {
-      .main {
-        padding-top: 120px;
+      .support-card {
+        padding: 20px;
+      }
+      .support-header h1 {
+        font-size: 2rem;
+      }
+      .btn-primary {
+        flex: 1;
+        max-width: 52%;
+        text-align: center;
+      }
+      .btn-secondary {
+        flex: 1;
+        max-width: 44%;
+        text-align: center;
+      }
+      .button-group {
+        flex-direction: row;
+        justify-content: space-between;
       }
     }
-
-    /* Responsive Title Size */
-    h2.fs-lg-3 {
-      font-size: 3rem;
+    ol, ul {
+      margin-bottom: 1rem;
     }
-
-    @media (max-width: 576px) {
-      h2.fs-lg-3 {
-        font-size: 4rem;
-      }
+    ol > li {
+      margin-top: 1rem;
+    }
+    h3, h4 {
+      margin-bottom: 1.25rem;
+      color: #000000;
     }
   </style>
 </head>
-
 <body>
-  <!-- Navbar -->
-  <div id="navbar-container"></div>
-
-  <!-- Main Content -->
-  <main class="main" id="top">
-    <div class="content">
-      <section class="container mb-8 mb-lg-13 mx-auto text-center">
-        <div class="row align-items-center">
-          <!-- Form Integration -->
-          <html class="supernova">
-            <head>
-              <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-              <link rel="alternate" type="application/json+oembed" href="https://www.jotform.com/oembed/?format=json&url=https%3A%2F%2Fform.jotform.com%2F221048399513155" title="oEmbed Form">
-              <link rel="alternate" type="text/xml+oembed" href="https://www.jotform.com/oembed/?format=xml&url=https%3A%2F%2Fform.jotform.com%2F221048399513155" title="oEmbed Form">
-              <meta property="og:title" content="Technical Support">
-              <meta property="og:url" content="https://form.jotform.com/221048399513155">
-              <meta property="og:description" content="Please click the link to complete this form.">
-              <meta name="slack-app-id" content="AHNMASS8M">
-              <link rel="apple-touch-icon" sizes="180x180" href="images/favi/apple-touch-icon.png">
-              <link rel="icon" type="image/png" sizes="32x32" href="images/favi/favicon-32x32.png">
-              <link rel="icon" type="image/png" sizes="16x16" href="images/favi/favicon-16x16.png">
-              <link rel="manifest" href="images/favi/site.webmanifest">
-              <meta name="msapplication-TileColor" content="#da532c">
-              <meta name="theme-color" content="#ffffff">
-              <link rel="canonical" href="https://form.jotform.com/221048399513155">
-              <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=1">
-              <meta name="HandheldFriendly" content="true">
-              <title>Technical Support</title>
-              <style type="text/css">
-                @media print {
-                  .form-section { display: inline !important; }
-                  .form-pagebreak { display: none !important; }
-                  .form-section-closed { height: auto !important; }
-                  .page-section { position: initial !important; }
-                }
-              </style>
-              <link type="text/css" rel="stylesheet" href="https://cdn01.jotfor.ms/themes/CSS/5e6b428acc8c4e222d1beb91.css?themeRevisionID=5f30e2a790832f3e96009402">
-              <link type="text/css" rel="stylesheet" href="https://cdn02.jotfor.ms/css/styles/payment/payment_styles.css?3.3.32642">
-              <link type="text/css" rel="stylesheet" href="https://cdn03.jotfor.ms/css/styles/payment/payment_feature.css?3.3.32642">
-              <style type="text/css" id="form-designer-style">
-                /* Resetting styles for .main */
-                .main {
-                  width: 100%;
-                  margin: 0;
-                  padding: 0;
-                  box-shadow: none !important;
-                  border: none !important;
-                }
-
-                /* Injected CSS Code */
-                *, *:after, *:before {
-                  box-sizing: border-box;
-                }
-                .form-all {
-                  font-family: "Inter", sans-serif;
-                  display: flex;
-                  flex-direction: column;
-                  width: 100%;
-                  max-width: 752px;
-                }
-                .form-line-active {
-                  background-color: #ffffff;
-                }
-                .form-all {
-                  font-size: 16px;
-                }
-                li.form-line {
-                  margin-top: 12px;
-                  margin-bottom: 12px;
-                }
-                .form-line {
-                  padding: 12px 10px;
-                }
-                .form-section {
-                  padding: 0px 38px;
-                }
-                .form-textbox, .form-textarea, .form-radio-other-input, .form-checkbox-other-input, .form-captcha input, .form-spinner input {
-                  background-color: #ffffff;
-                }
-                .form-label {
-                  font-family: "Inter", sans-serif;
-                }
-                .form-line-column {
-                  width: calc(50% - 8px);
-                }
-                .form-checkbox-item label, .form-checkbox-item span, .form-radio-item label, .form-radio-item span {
-                  color: #404a64;
-                }
-                .form-radio-item, .form-checkbox-item {
-                  padding-bottom: 0px !important;
-                }
-                .form-radio-item:last-child, .form-checkbox-item:last-child {
-                  padding-bottom: 0;
-                }
-                .form-single-column .form-checkbox-item, .form-single-column .form-radio-item {
-                  width: 100%;
-                }
-                .form-checkbox-item .editor-container div, .form-radio-item .editor-container div {
-                  position: relative;
-                }
-                .form-checkbox-item .editor-container div:before, .form-radio-item .editor-container div:before {
-                  display: inline-block;
-                  vertical-align: middle;
-                  left: 0;
-                  width: 20px;
-                  height: 20px;
-                }
-                .form-checkbox-item input, .form-radio-item input {
-                  margin-top: 2px;
-                }
-                .form-checkbox-item .form-checkbox:checked + label:before, .form-checkbox-item .form-checkbox:checked + span:before {
-                  background-color: #2e69ff;
-                  border-color: #2e69ff;
-                }
-                .form-radio-item .form-radio:checked + label:before, .form-radio-item .form-radio:checked + span:before {
-                  border-color: #2e69ff;
-                }
-                .form-radio-item .form-radio:checked + label:after, .form-radio-item .form-radio:checked + span:after {
-                  background-color: #2e69ff;
-                }
-                .form-all .form-submit-button, .form-all .form-submit-print {
-                  font-size: 16px;
-                  font-weight: normal;
-                  font-family: "Inter", sans-serif;
-                  border-color: #c4d5c4;
-                }
-                .form-all .form-submit-button {
-                  min-width: 180px;
-                  color: #2c3345;
-                  background: #c4d5c4;
-                  box-shadow: none;
-                  text-shadow: none;
-                }
-                .form-all .form-submit-button.js-new-sacl-button, .form-all .form-submit-print {
-                  min-width: 98px;
-                }
-                .form-all .form-pagebreak-back, .form-all .form-pagebreak-next {
-                  font-family: "Inter", sans-serif;
-                  font-size: 16px;
-                  font-weight: normal;
-                  min-width: 128px;
-                  box-shadow: none;
-                }
-                li[data-type="control_image"] div {
-                  text-align: left;
-                }
-                li[data-type="control_image"] img {
-                  border: none;
-                  border-width: 0px !important;
-                  border-style: solid !important;
-                  border-color: false !important;
-                }
-                .supernova {
-                  height: 100%;
-                  background-repeat: no-repeat;
-                  background-attachment: scroll;
-                  background-position: center top;
-                  background-repeat: repeat;
-                  background-image: none;
-                }
-                .supernova body {
-                  background-color: transparent;
-                }
-                .supernova .form-all, .form-all {
-                  background-color: #ffffff;
-                }
-                .form-textbox, .form-textarea, .form-radio-other-input, .form-checkbox-other-input, .form-captcha input, .form-spinner input {
-                  background-color: #ffffff;
-                }
-                .form-matrix-table tr {
-                  border-color: #e6e6e6;
-                }
-                .form-matrix-table tr:nth-child(2n) {
-                  background-color: #f2f2f2;
-                }
-                .form-all {
-                  color: #2c3345;
-                }
-                .form-label-top, .form-label-left, .form-label-right, .form-html {
-                  color: #2c3345;
-                }
-                .form-line-error {
-                  overflow: hidden;
-                  -webkit-transition-property: none;
-                  -moz-transition-property: none;
-                  -ms-transition-property: none;
-                  -o-transition-property: none;
-                  transition-property: none;
-                  -webkit-transition-duration: 0.3s;
-                  -moz-transition-duration: 0.3s;
-                  -ms-transition-duration: 0.3s;
-                  -o-transition-duration: 0.3s;
-                  transition-duration: 0.3s;
-                  -webkit-transition-timing-function: ease;
-                  -moz-transition-timing-function: ease;
-                  -ms-transition-timing-function: ease;
-                  -o-transition-timing-function: ease;
-                  transition-timing-function: ease;
-                  background-color: #fff4f4;
-                }
-                .form-line-error .form-error-message {
-                  background-color: #f23a3c;
-                  clear: both;
-                  float: none;
-                }
-                .form-line-error .form-error-message .form-error-arrow {
-                  border-bottom-color: #f23a3c;
-                }
-                .form-line-error input:not(#coupon-input), .form-line-error textarea, .form-line-error .form-validation-error {
-                  border: 1px solid #f23a3c;
-                  box-shadow: 0 0 3px #f23a3c;
-                }
-                .form-header-group {
-                  background-repeat: no-repeat;
-                  background-attachment: scroll;
-                  background-position: center top;
-                  font-family: "Inter", sans-serif;
-                }
-                .header-large h1.form-header {
-                  font-size: 2em;
-                }
-                .header-large h2.form-header {
-                  font-size: 1.5em;
-                }
-                .header-large h3.form-header {
-                  font-size: 1.17em;
-                }
-                .header-large h1 + .form-subHeader {
-                  font-size: 1em;
-                }
-                .header-large h2 + .form-subHeader {
-                  font-size: .875em;
-                }
-                .header-large h3 + .form-subHeader {
-                  font-size: .75em;
-                }
-                .header-default h1.form-header {
-                  font-size: 2em;
-                }
-                .header-default h2.form-header {
-                  font-size: 1.5em;
-                }
-                .header-default h3.form-header {
-                  font-size: 1.17em;
-                }
-                .header-default h1 + .form-subHeader {
-                  font-size: 1em;
-                }
-                .header-default h2 + .form-subHeader {
-                  font-size: .875em;
-                }
-                .header-default h3 + .form-subHeader {
-                  font-size: .75em;
-                }
-                .header-small h1.form-header {
-                  font-size: 2em;
-                }
-                .header-small h2.form-header {
-                  font-size: 1.5em;
-                }
-                .header-small h3.form-header {
-                  font-size: 1.17em;
-                }
-                .header-small h1 + .form-subHeader {
-                  font-size: 1em;
-                }
-                .header-small h2 + .form-subHeader {
-                  font-size: .875em;
-                }
-                .header-small h3 + .form-subHeader {
-                  font-size: .75em;
-                }
-                .form-header-group {
-                  text-align: left;
-                }
-                .form-header-group .form-header,
-                .form-header-group .form-subHeader {
-                  color: 0;
-                }
-              </style>
-            </head>
-          </html>
-        </div>
-      </section>
+  <div class="support-container">
+    <!-- Header -->
+    <div class="support-header">
+      <h1>Technical Support</h1>
+      <p>We're here to help you get back online quickly!</p>
     </div>
-  </main>
 
-
-<script src="https://cdn01.jotfor.ms/static/prototype.forms.js" type="text/javascript"></script>
-<script src="https://cdn02.jotfor.ms/static/jotform.forms.js?3.3.32642" type="text/javascript"></script>
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/punycode/1.4.1/punycode.js"></script>
-<script src="https://cdn03.jotfor.ms/js/vendor/jquery-1.8.0.min.js?v=3.3.32642" type="text/javascript"></script>
-<script defer src="https://cdn01.jotfor.ms/js/vendor/maskedinput.min.js?v=3.3.32642" type="text/javascript"></script>
-<script defer src="https://cdn02.jotfor.ms/js/vendor/jquery.maskedinput.min.js?v=3.3.32642" type="text/javascript"></script>
-<script src="https://cdn03.jotfor.ms/js/vendor/imageinfo.js?v=3.3.32642" type="text/javascript"></script>
-<script src="https://cdn01.jotfor.ms/file-uploader/fileuploader.js?v=3.3.32642"></script>
-<script type="text/javascript">	JotForm.newDefaultTheme = true;
-	JotForm.extendsNewTheme = false;
-	JotForm.newPaymentUIForNewCreatedForms = false;
-	JotForm.newPaymentUI = true;
-
-   JotForm.setConditions([{"action":[{"id":"action_1624723514793","skipTo":"page-5","isError":false}],"id":"1624723525486","index":"1","link":"Any","priority":"1","terms":[{"id":"term_1624723514793","field":"68","operator":"equals","value":"Other","isError":false}],"type":"page"},{"action":[{"id":"action_1624723500248","skipTo":"page-4","isError":false}],"id":"1624723510939","index":"2","link":"Any","priority":"2","terms":[{"id":"term_1624723500248","field":"68","operator":"equals","value":"My Data is Too Slow","isError":false}],"type":"page"},{"action":[{"id":"action_1624723483040","skipTo":"page-3","isError":false}],"id":"1624723496528","index":"3","link":"Any","priority":"3","terms":[{"id":"term_1624723483040","field":"68","operator":"equals","value":"Voicemail Problems","isError":false}],"type":"page"},{"action":[{"id":"action_0_1650075622411","visibility":"Show","isError":false,"field":"68"}],"id":"1624717737741","index":"4","link":"Any","priority":"4","terms":[{"id":"term_0_1650075622411","field":"51","operator":"greaterThan","value":"100000000000000","isError":false}],"type":"field"},{"action":[{"id":"action_0_1624723407336","skipTo":"page-2","isError":false}],"id":"1624717694605","index":"5","link":"Any","priority":"5","terms":[{"id":"term_0_1624723407336","field":"68","operator":"equals","value":"I Have No Service","isError":false}],"type":"page"},{"action":[{"id":"action_0_1624723431298","skipTo":"page-2","isError":false}],"id":"1624717680888","index":"6","link":"Any","priority":"6","terms":[{"id":"term_0_1624723431298","field":"68","operator":"equals","value":"Data Is Not Working","isError":false}],"type":"page"},{"action":[{"id":"action_0_1624723451264","skipTo":"page-2","isError":false}],"id":"1624717662128","index":"7","link":"Any","priority":"7","terms":[{"id":"term_0_1624723451264","field":"68","operator":"equals","value":"Calling\u002FTexting Issue","isError":false}],"type":"page"},{"action":[{"id":"action_0_1650075542716","visibility":"ShowMultiple","isError":false,"fields":["72","51"]}],"id":"1624714020867","index":"10","link":"Any","priority":"10","terms":[{"id":"term_0_1650075542716","field":"10","operator":"isFilled","value":"","isError":false}],"type":"field"},{"action":[{"id":"action_0_1650075609646","visibility":"ShowMultiple","isError":false,"fields":["10"]}],"id":"1624714003762","index":"11","link":"Any","priority":"11","terms":[{"id":"term_0_1650075609646","field":"9","operator":"isFilled","value":"","isError":false}],"type":"field"}]);	JotForm.clearFieldOnHide="disable";
-
-	JotForm.init(function(){
-	/*INIT-START*/
-      setTimeout(function() {
-          $('input_9').hint('example@example.com');
-       }, 20);
-if (window.JotForm && JotForm.accessible) $('input_10').setAttribute('tabindex',0);
-      setTimeout(function() {
-          $('input_10').hint('ex. iPhone 6s');
-       }, 20);
-      JotForm.setPhoneMaskingValidator( 'input_72_full', '(###) ###-####' );
-      setTimeout(function() {
-          $('input_51').hint('ex: 356705084287113');
-       }, 20);
-      JotForm.autoNext(30);
-if (window.JotForm && JotForm.accessible) $('input_37').setAttribute('tabindex',0);
-      JotForm.setCustomHint( 'input_37', 'How can we help?' );
-if (window.JotForm && JotForm.accessible) $('input_44').setAttribute('tabindex',0);
-      JotForm.setCustomHint( 'input_44', 'How can we help?' );
-if (window.JotForm && JotForm.accessible) $('input_28').setAttribute('tabindex',0);
-if (window.JotForm && JotForm.accessible) $('input_50').setAttribute('tabindex',0);
-      JotForm.setCustomHint( 'input_50', 'How can we help?' );
-      setTimeout(function() {
-          JotForm.initMultipleUploads();
-      }, 2);
-	/*INIT-END*/
-	});
-
-   JotForm.prepareCalculationsOnTheFly([null,{"name":"technicalSupport","qid":"1","text":"Technical Support ","type":"control_head"},{"name":"submit","qid":"2","text":"Submit","type":"control_button"},null,null,null,null,null,null,{"description":"","name":"emailAssociated","qid":"9","subLabel":"","text":"Email Associated With Your Account","type":"control_email"},{"description":"","name":"deviceMake10","qid":"10","subLabel":"","text":"Device Make & Model","type":"control_textbox"},null,null,null,null,null,null,null,null,null,null,null,null,null,{"name":"dataUsage","qid":"24","text":"Data Usage Support","type":"control_head"},{"name":"input25","qid":"25","text":"On an unlimited plan? If many devices in your area are using mobile data at once, it can put a strain on the network. This is called network congestion, data speeds may be a little slower during these times due to the network traffic. ","type":"control_text"},{"name":"input26","qid":"26","text":"Have you reached your data cap? Some of our wireless plans come with a set amount of data. Our olans give you data that can only be used for a specific line or device. Please ensure you have not used more than the allotted highspeed data available to you with your plan.","type":"control_text"},{"name":"input27","qid":"27","text":"What is your signal? Another common reason for data slower than you'd expect is determined by your location in regards to a tower. Check this tower map to confirm you are within the network map.","type":"control_text"},{"description":"","name":"stillNeed","qid":"28","subLabel":"Leave us your inquiry and an agent will respond.","text":"Still Need Help?","type":"control_textbox"},{"name":"pageBreak","qid":"29","text":"Page Break","type":"control_pagebreak"},{"name":"pageBreak30","qid":"30","text":"Page Break","type":"control_pagebreak"},{"name":"letsGet","qid":"31","text":"Let's Get Your Service Back!","type":"control_head"},{"name":"input32","qid":"32","text":"When an unauthorized device tries to access the network, the carrier may put a suspension on your SIM card. Please insert your SIM card back into a compatible mobile phone.","type":"control_text"},null,null,null,null,{"description":"","name":"leaveOur37","qid":"37","subLabel":"We will respond in a timely manner.","text":"Leave our Technical Team a Message:","type":"control_textarea"},{"name":"pageBreak38","qid":"38","text":"Page Break","type":"control_pagebreak"},{"name":"voicemailTroubleshooting","qid":"39","text":"Voicemail Troubleshooting ","type":"control_head"},{"name":"input40","qid":"40","text":"Access your voicemail by selecting and holding &quot;1&quot; from the call screen.Follow the prompts to create a new 7-15 digit voicemail password.If you called the voicemail system, press the # key and hang up.Turn your wireless device off and back on.Attempt to access your voicemail again.\nIf you're unable to access Visual Voicemail, try calling your voicemail box by selecting and holding 1 from the call screen.\nVerify wireless coverageTo verify that you have enough signal strength to connect to voicemail, view wireless coverage maps:Visual Voicemail requires a wireless cellular data connection.Some smartphones require a 4G LTE data connection in order to access and manage Visual Voicemail.","type":"control_text"},null,null,null,{"description":"","name":"stillExperiencing","qid":"44","subLabel":"Leave our moderators a message and they will respond in a timely manner.","text":"Still Experiencing Issues?","type":"control_textarea"},null,null,{"name":"pageBreak47","qid":"47","text":"Page Break","type":"control_pagebreak"},{"name":"leaveUs","qid":"48","text":"Leave us a Support Request","type":"control_head"},null,{"description":"","name":"input50","qid":"50","subLabel":"","text":"","type":"control_textarea"},{"description":"","name":"deviceImei51","qid":"51","subLabel":"Dial *#06# from your device dialpad.","text":"Device IMEI","type":"control_number"},{"name":"pageBreak52","qid":"52","text":"Page Break","type":"control_pagebreak"},null,{"name":"thanks","qid":"54","text":"Thanks!","type":"control_head"},null,null,{"name":"input57","qid":"57","text":"Once your request is submitted please allow some time for our agents to get back to you. During peak times this may take up to 12 hours.\n \nWe appreciate your patience!","type":"control_text"},{"description":"","name":"fileUpload","qid":"58","subLabel":"","text":"File Upload","type":"control_fileupload"},{"description":"","name":"fileUpload59","qid":"59","subLabel":"","text":"File Upload","type":"control_fileupload"},{"description":"","name":"fileUpload60","qid":"60","subLabel":"","text":"File Upload","type":"control_fileupload"},{"description":"","name":"fileUpload61","qid":"61","subLabel":"","text":"File Upload","type":"control_fileupload"},null,{"name":"submit63","qid":"63","text":"Submit","type":"control_button"},null,{"name":"submit65","qid":"65","text":"Submit","type":"control_button"},{"name":"submit66","qid":"66","text":"Submit","type":"control_button"},{"name":"submit67","qid":"67","text":"Submit","type":"control_button"},{"description":"","name":"whatIssue","qid":"68","subLabel":"","text":"What Issue Applies To You?","type":"control_dropdown"},{"name":"input69","qid":"69","text":"Here are some quick fixes that commonly work:\n1. Reboot your device.\n2. Check to make sure LTE is enabled and roaming is on.\n3. Reset your network settings.\n4. Make sure your device is compatible","type":"control_text"},{"name":"input70","qid":"70","text":"Here are some quick fixes that commonly work:\n1. Reboot your device.\n2. Check to make sure LTE is enabled and roaming is on.\n3. Reset your network settings.\n4. Make sure your device is compatible","type":"control_text"},{"description":"","name":"name","qid":"71","text":"Name","type":"control_fullname"},{"description":"","name":"phoneNumber","qid":"72","text":"Phone Number","type":"control_phone"}]);
-   setTimeout(function() {
-JotForm.paymentExtrasOnTheFly([null,{"name":"technicalSupport","qid":"1","text":"Technical Support ","type":"control_head"},{"name":"submit","qid":"2","text":"Submit","type":"control_button"},null,null,null,null,null,null,{"description":"","name":"emailAssociated","qid":"9","subLabel":"","text":"Email Associated With Your Account","type":"control_email"},{"description":"","name":"deviceMake10","qid":"10","subLabel":"","text":"Device Make & Model","type":"control_textbox"},null,null,null,null,null,null,null,null,null,null,null,null,null,{"name":"dataUsage","qid":"24","text":"Data Usage Support","type":"control_head"},{"name":"input25","qid":"25","text":"On an unlimited plan? If many devices in your area are using mobile data at once, it can put a strain on the network. This is called network congestion, data speeds may be a little slower during these times due to the network traffic. ","type":"control_text"},{"name":"input26","qid":"26","text":"Have you reached your data cap? Some of our wireless plans come with a set amount of data. Our olans give you data that can only be used for a specific line or device. Please ensure you have not used more than the allotted highspeed data available to you with your plan.","type":"control_text"},{"name":"input27","qid":"27","text":"What is your signal? Another common reason for data slower than you'd expect is determined by your location in regards to a tower. Check this tower map to confirm you are within the network map.","type":"control_text"},{"description":"","name":"stillNeed","qid":"28","subLabel":"Leave us your inquiry and an agent will respond.","text":"Still Need Help?","type":"control_textbox"},{"name":"pageBreak","qid":"29","text":"Page Break","type":"control_pagebreak"},{"name":"pageBreak30","qid":"30","text":"Page Break","type":"control_pagebreak"},{"name":"letsGet","qid":"31","text":"Let's Get Your Service Back!","type":"control_head"},{"name":"input32","qid":"32","text":"When an unauthorized device tries to access the network, the carrier may put a suspension on your SIM card. Please insert your SIM card back into a compatible mobile phone.","type":"control_text"},null,null,null,null,{"description":"","name":"leaveOur37","qid":"37","subLabel":"We will respond in a timely manner.","text":"Leave our Technical Team a Message:","type":"control_textarea"},{"name":"pageBreak38","qid":"38","text":"Page Break","type":"control_pagebreak"},{"name":"voicemailTroubleshooting","qid":"39","text":"Voicemail Troubleshooting ","type":"control_head"},{"name":"input40","qid":"40","text":"Access your voicemail by selecting and holding &quot;1&quot; from the call screen.Follow the prompts to create a new 7-15 digit voicemail password.If you called the voicemail system, press the # key and hang up.Turn your wireless device off and back on.Attempt to access your voicemail again.\nIf you're unable to access Visual Voicemail, try calling your voicemail box by selecting and holding 1 from the call screen.\nVerify wireless coverageTo verify that you have enough signal strength to connect to voicemail, view wireless coverage maps:Visual Voicemail requires a wireless cellular data connection.Some smartphones require a 4G LTE data connection in order to access and manage Visual Voicemail.","type":"control_text"},null,null,null,{"description":"","name":"stillExperiencing","qid":"44","subLabel":"Leave our moderators a message and they will respond in a timely manner.","text":"Still Experiencing Issues?","type":"control_textarea"},null,null,{"name":"pageBreak47","qid":"47","text":"Page Break","type":"control_pagebreak"},{"name":"leaveUs","qid":"48","text":"Leave us a Support Request","type":"control_head"},null,{"description":"","name":"input50","qid":"50","subLabel":"","text":"","type":"control_textarea"},{"description":"","name":"deviceImei51","qid":"51","subLabel":"Dial *#06# from your device dialpad.","text":"Device IMEI","type":"control_number"},{"name":"pageBreak52","qid":"52","text":"Page Break","type":"control_pagebreak"},null,{"name":"thanks","qid":"54","text":"Thanks!","type":"control_head"},null,null,{"name":"input57","qid":"57","text":"Once your request is submitted please allow some time for our agents to get back to you. During peak times this may take up to 12 hours.\n \nWe appreciate your patience!","type":"control_text"},{"description":"","name":"fileUpload","qid":"58","subLabel":"","text":"File Upload","type":"control_fileupload"},{"description":"","name":"fileUpload59","qid":"59","subLabel":"","text":"File Upload","type":"control_fileupload"},{"description":"","name":"fileUpload60","qid":"60","subLabel":"","text":"File Upload","type":"control_fileupload"},{"description":"","name":"fileUpload61","qid":"61","subLabel":"","text":"File Upload","type":"control_fileupload"},null,{"name":"submit63","qid":"63","text":"Submit","type":"control_button"},null,{"name":"submit65","qid":"65","text":"Submit","type":"control_button"},{"name":"submit66","qid":"66","text":"Submit","type":"control_button"},{"name":"submit67","qid":"67","text":"Submit","type":"control_button"},{"description":"","name":"whatIssue","qid":"68","subLabel":"","text":"What Issue Applies To You?","type":"control_dropdown"},{"name":"input69","qid":"69","text":"Here are some quick fixes that commonly work:\n1. Reboot your device.\n2. Check to make sure LTE is enabled and roaming is on.\n3. Reset your network settings.\n4. Make sure your device is compatible","type":"control_text"},{"name":"input70","qid":"70","text":"Here are some quick fixes that commonly work:\n1. Reboot your device.\n2. Check to make sure LTE is enabled and roaming is on.\n3. Reset your network settings.\n4. Make sure your device is compatible","type":"control_text"},{"description":"","name":"name","qid":"71","text":"Name","type":"control_fullname"},{"description":"","name":"phoneNumber","qid":"72","text":"Phone Number","type":"control_phone"}]);}, 20); 
-</script>
-</head>
-<body>
-<form class="jotform-form" action="https://submit.jotform.com/submit/221048399513155/" method="post" enctype="multipart/form-data" name="form_221048399513155" id="221048399513155" accept-charset="utf-8" autocomplete="on">
-  <input type="hidden" name="formID" value="221048399513155" />
-  <input type="hidden" id="JWTContainer" value="" />
-  <input type="hidden" id="cardinalOrderNumber" value="" />
-  <div role="main" class="form-all">
-    <style>
-      .form-all:before { background: none;}
-    </style>
-    <ul class="form-section page-section">
-      <li id="cid_1" class="form-input-wide" data-type="control_head">
-        <div class="form-header-group  header-large">
-          <div class="header-text httal htvam">
-           <h3> <strong> Technical Support</strong></h3>
-            <div id="subHeader_1" class="form-subHeader">
-              A service representative will help you out within a few business hours.
-            </div>
-          </div>
+    <!-- Initial Form -->
+    <div class="support-card" id="initial-form">
+      <form id="support-form">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" class="form-control" id="name" required placeholder="Enter Your Full Name">
         </div>
-      </li>
-      <li class="form-line jf-required" data-type="control_fullname" id="id_71">
-        <label class="form-label form-label-top form-label-auto" id="label_71" for="first_71">
-          Name
-          <span class="form-required">
-            
-          </span>
-        </label>
-        <div id="cid_71" class="form-input-wide jf-required" data-layout="full">
-          <div data-wrapper-react="true">
-            <span class="form-sub-label-container" style="vertical-align:top" data-input-type="first">
-              <input type="text" id="first_71" name="q71_name[first]" class="form-textbox validate[required]" data-defaultvalue="" autoComplete="section-input_71 given-name" size="10" value="" data-component="first" aria-labelledby="label_71 sublabel_71_first" required="" />
-              <label class="form-sub-label" for="first_71" id="sublabel_71_first" style="min-height:13px" aria-hidden="false"> First Name </label>
-            </span>
-            <span class="form-sub-label-container" style="vertical-align:top" data-input-type="last">
-              <input type="text" id="last_71" name="q71_name[last]" class="form-textbox validate[required]" data-defaultvalue="" autoComplete="section-input_71 family-name" size="15" value="" data-component="last" aria-labelledby="label_71 sublabel_71_last" required="" />
-              <label class="form-sub-label" for="last_71" id="sublabel_71_last" style="min-height:13px" aria-hidden="false"> Last Name </label>
-            </span>
-          </div>
+        <div class="form-group">
+          <label for="email">Account Email</label>
+          <input type="email" class="form-control" id="email" required placeholder="Enter Email Associated With Your Account">
         </div>
-      </li>
-      <li class="form-line jf-required" data-type="control_email" id="id_9">
-        <label class="form-label form-label-top form-label-auto" id="label_9" for="input_9">
-          Email Associated With Your Account
-          <span class="form-required">
-            
-          </span>
-        </label>
-        <div id="cid_9" class="form-input-wide jf-required" data-layout="half">
-          <input type="email" id="input_9" name="q9_emailAssociated" class="form-textbox validate[required, Email]" data-defaultvalue="" style="width:310px" size="310" value="" placeholder="example@example.com" data-component="email" aria-labelledby="label_9" required="" />
-        </div>
-      </li>
-      <li class="form-line jf-required form-field-hidden" style="display:none;" data-type="control_textbox" id="id_10">
-        <label class="form-label form-label-top form-label-auto" id="label_10" for="input_10">
-          Device Make &amp; Model
-          <span class="form-required">
-            
-          </span>
-        </label>
-        <div id="cid_10" class="form-input-wide jf-required" data-layout="half">
-          <input type="text" id="input_10" name="q10_deviceMake10" data-type="input-textbox" class="form-textbox validate[required, AlphaNumeric]" data-defaultvalue="" style="width:310px" size="310" value="" placeholder="ex. iPhone 6s" data-component="textbox" aria-labelledby="label_10" required="" />
-        </div>
-      </li>
-      <li class="form-line jf-required form-field-hidden" style="display:none;" data-type="control_phone" id="id_72">
-        <label class="form-label form-label-top form-label-auto" id="label_72" for="input_72_full">
-          Phone Number
-          <span class="form-required">
-            
-          </span>
-        </label>
-        <div id="cid_72" class="form-input-wide jf-required" data-layout="half">
-          <span class="form-sub-label-container" style="vertical-align:top">
-            <input type="tel" id="input_72_full" name="q72_phoneNumber[full]" data-type="mask-number" class="mask-phone-number form-textbox validate[required, Fill Mask]" data-defaultvalue="" autoComplete="section-input_72 tel-national" style="width:310px" data-masked="true" value="" placeholder="(000) 000-0000" data-component="phone" aria-labelledby="label_72 sublabel_72_masked" required="" />
-            <label class="form-sub-label" for="input_72_full" id="sublabel_72_masked" style="min-height:13px" aria-hidden="false"> Please enter the phone number we assigned you. </label>
-          </span>
-        </div>
-      </li>
-      <li class="form-line jf-required form-field-hidden" style="display:none;" data-type="control_number" id="id_51">
-        <label class="form-label form-label-top form-label-auto" id="label_51" for="input_51">
-          Device IMEI
-          <span class="form-required">
-            
-          </span>
-        </label>
-        <div id="cid_51" class="form-input-wide jf-required" data-layout="half">
-          <span class="form-sub-label-container" style="vertical-align:top">
-            <input type="number" id="input_51" name="q51_deviceImei51" data-type="input-number" class=" form-number-input form-textbox validate[required]" data-defaultvalue="" style="width:310px" size="310" value="" placeholder="ex: 356705084287113" data-component="number" aria-labelledby="label_51 sublabel_input_51" required="" step="any" />
-            <label class="form-sub-label" for="input_51" id="sublabel_input_51" style="min-height:13px" aria-hidden="false"> Dial *#06# from your device dialpad. </label>
-          </span>
-        </div>
-      </li>
-      <li class="form-line jf-required form-field-hidden" style="display:none;" data-type="control_dropdown" id="id_68">
-        <label class="form-label form-label-top form-label-auto" id="label_68" for="input_68">
-          What Issue Applies To You?
-          <span class="form-required">
-            
-          </span>
-        </label>
-        <div id="cid_68" class="form-input-wide jf-required" data-layout="half">
-          <select class="form-dropdown validate[required]" id="input_68" name="q68_whatIssue" style="width:310px" data-component="dropdown" required="">
-            <option value=""> Please Select </option>
-            <option value="I Have No Service"> I Have No Service </option>
-            <option value="Calling/Texting Issue"> Calling/Texting Issue </option>
-            <option value="Voicemail Problems"> Voicemail Problems </option>
-            <option value="Data Is Not Working"> Data Is Not Working </option>
-            <option value="My Data is Too Slow"> My Data is Too Slow </option>
-            <option value="Other"> Other </option>
+        <div class="form-group">
+          <label for="issue">Select Your Issue</label>
+          <select class="form-control custom-select" id="issue" required>
+            <option value="" disabled selected>Choose An Option</option>
+            <option value="internet-not-working">Internet Not Working</option>
+            <option value="internet-too-slow">Internet Too Slow</option>
+            <option value="router-not-turning-on">Router Not Turning On</option>
+            <option value="change-wifi-name">Change Wi-Fi Name or Password</option>
+            <option value="streaming-services">Streaming Services Issues</option>
+            <option value="paused-service">Pause or Resume Service</option>
+            <option value="other">Other</option>
           </select>
         </div>
-      </li>
-      <li id="cid_30" class="form-input-wide" data-type="control_pagebreak">
-        <div class="form-pagebreak" data-component="pagebreak">
-          <div class="form-pagebreak-back-container">
-            <button id="form-pagebreak-back_30" type="button" class="form-pagebreak-back  jf-form-buttons" data-component="pagebreak-back">
-              Back
-            </button>
-          </div>
-          <div class="form-pagebreak-next-container">
-            <button id="form-pagebreak-next_30" type="button" class="form-pagebreak-next  button-hidden jf-form-buttons" data-component="pagebreak-next">
-              Next
-            </button>
-          </div>
-          <div style="clear:both" class="pageInfo form-sub-label" id="pageInfo_30">
-          </div>
-        </div>
-      </li>
-    </ul>
-    <ul class="form-section page-section" style="display:none;">
-      <li id="cid_31" class="form-input-wide" data-type="control_head">
-        <div class="form-header-group  header-default">
-          <div class="header-text httal htvam">
-            <h3 id="header_31" class="form-header" data-component="header">
-              Let&#x27;s Get Your Service Back!
-            </h3>
-          </div>
-        </div>
-      </li>
-      <li class="form-line" data-type="control_text" id="id_32">
-        <div id="cid_32" class="form-input-wide" data-layout="full">
-          <div id="text_32" class="form-html" data-component="text">
-            <p>When an unauthorized device tries to access the network, the carrier may put a suspension on your SIM card. Please insert your SIM card back into a <a href="https://more4lessplans.ca/compatibility" target="_blank" rel="nofollow">compatible</a> mobile phone.</p>
-			  
-			  <p><em><strong>Here are some quick fixes that commonly work:</strong></em><br><br>
-            1. Reboot your device.<br>
-            2. Check to make sure LTE is enabled and roaming is on.<br>
-            3. Reset your network settings.<br>
-            4. Make sure your device is <a href="more4lessplans.ca/compatibility" target="_blank" rel="nofollow">compatible.</a></p>
-			  
-          </div>
-        </div>
-      </li>
-      <li class="form-line" data-type="control_text" id="id_70">
-        <div id="cid_70" class="form-input-wide" data-layout="full">
-          <div id="text_70" class="form-html" data-component="text">
-            
-          </div>
-        </div>
-      </li>
-      <li class="form-line" data-type="control_textarea" id="id_37">
-        <label class="form-label form-label-top form-label-auto" id="label_37" for="input_37"> Leave our Technical Team a Message: </label>
-        <div id="cid_37" class="form-input-wide" data-layout="full">
-          <span class="form-sub-label-container" style="vertical-align:top">
-            <textarea id="input_37" class="form-textarea" name="q37_leaveOur37" style="width:648px;height:163px" data-component="textarea" aria-labelledby="label_37 sublabel_input_37"></textarea>
-            <label class="form-sub-label" for="input_37" id="sublabel_input_37" style="min-height:13px" aria-hidden="false"> We will respond in a timely manner. </label>
-          </span>
-        </div>
-      </li>
-      <li class="form-line" data-type="control_fileupload" id="id_61">
-        <label class="form-label form-label-top form-label-auto" id="label_61" for="input_61"> File Upload </label>
-        <div id="cid_61" class="form-input-wide" data-layout="full">
-          <div class="jfQuestion-fields" data-wrapper-react="true">
-            <div class="jfField isFilled">
-              <div class="jfUpload-wrapper">
-                <div class="jfUpload-container">
-                  <div class="jfUpload-text-container">
-                    <div class="jfUpload-icon forDesktop">
-                      <span class="iconSvg  dhtupload ">
-                        <svg viewBox="0 0 54 47" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                          <g stroke="none" strokeWidth="1" fill="none">
-                            <g transform="translate(-1506.000000, -2713.000000)">
-                              <g transform="translate(1421.000000, 2713.000000)">
-                                <path d="M125.212886,10.1718048 C127.110227,10.3826204 128.89335,10.9096517 130.562307,11.7529143 C132.231264,12.596177 133.689384,13.676591 134.93671,14.9941889 C136.184036,16.3117868 137.167828,17.8226097 137.888114,19.5267029 C138.608401,21.2307962 138.968539,23.049054 138.968539,24.9815309 C138.968539,26.8086 138.687456,28.6356416 138.125281,30.4627107 C137.563106,32.2897797 136.746207,33.9323605 135.674561,35.3905021 C134.602915,36.8486438 133.267769,38.0520318 131.669084,39.0007022 C130.070398,39.9493727 128.217005,40.4588363 126.108848,40.5291081 L122.261482,40.5291081 C121.804714,40.5291081 121.409441,40.3622149 121.07565,40.0284235 C120.741858,39.694632 120.574965,39.2993586 120.574965,38.8425913 C120.574965,38.385824 120.741858,37.9905506 121.07565,37.6567591 C121.409441,37.3229677 121.804714,37.1560744 122.261482,37.1560744 L126.108848,37.1560744 C127.549422,37.1560744 128.858216,36.7871526 130.03527,36.0492978 C131.212324,35.3114429 132.222468,34.3627867 133.06573,33.2033006 C133.908993,32.0438144 134.558998,30.743804 135.015765,29.3032303 C135.472533,27.8626567 135.700913,26.4221046 135.700913,24.9815309 C135.700913,23.4004134 135.384694,21.9159421 134.752247,20.5280723 C134.1198,19.1402026 133.258983,17.9280307 132.169768,16.8915204 C131.080554,15.85501 129.833247,15.0293277 128.427809,14.4144487 C127.022371,13.7995697 125.529116,13.4921348 123.947999,13.4921348 L122.735815,13.4394312 L122.366889,12.2799508 C121.48849,9.46907537 120.07429,7.28189569 118.124245,5.71834621 C116.1742,4.15479672 113.53026,3.37303371 110.192346,3.37303371 C108.084189,3.37303371 106.186876,3.73317173 104.500351,4.45345857 C102.813826,5.17374541 101.36449,6.17510478 100.1523,7.45756671 C98.9401098,8.74002865 98.0090213,10.2684193 97.3590063,12.0427844 C96.7089914,13.8171496 96.3839888,15.7232459 96.3839888,17.7611306 L96.4366924,17.7611306 L96.5420997,19.3422402 L95.0136938,19.6057584 C93.1514888,19.9219819 91.5703951,20.9233413 90.2703652,22.6098666 C88.9703353,24.2963919 88.3203301,26.1937043 88.3203301,28.301861 C88.3203301,30.6911051 89.1196608,32.7640947 90.7183462,34.5208919 C92.3170316,36.277689 94.2055603,37.1560744 96.3839888,37.1560744 L101.232725,37.1560744 C101.724628,37.1560744 102.128685,37.3229677 102.444909,37.6567591 C102.761132,37.9905506 102.919242,38.385824 102.919242,38.8425913 C102.919242,39.2993586 102.761132,39.694632 102.444909,40.0284235 C102.128685,40.3622149 101.724628,40.5291081 101.232725,40.5291081 L96.3839888,40.5291081 C94.8380073,40.5291081 93.3798875,40.2041055 92.0095857,39.5540906 C90.6392839,38.9040756 89.4358959,38.0169064 88.3993855,36.8925562 C87.3628752,35.768206 86.5371929,34.4681956 85.9223139,32.992486 C85.3074349,31.5167763 85,29.9532503 85,28.301861 C85,25.5963933 85.7554115,23.1544819 87.266257,20.9760534 C88.7771026,18.7976249 90.7095505,17.3395051 93.0636587,16.6016503 C93.2042025,14.2475421 93.7224499,12.0603624 94.6184164,10.0400456 C95.514383,8.0197289 96.7089871,6.26295807 98.2022647,4.76968048 C99.6955423,3.27640288 101.452313,2.10815028 103.47263,1.26488764 C105.492947,0.421624997 107.732829,0 110.192346,0 C112.089686,0 113.82889,0.237164061 115.410007,0.711499298 C116.991124,1.18583453 118.414109,1.8621913 119.679003,2.74058989 C120.943897,3.61898847 122.033095,4.69061868 122.946629,5.95551264 C123.860164,7.22040661 124.615575,8.62582326 125.212886,10.1718048 Z M113.249157,23.611236 L119.468188,30.4627107 C119.71414,30.7086623 119.837114,30.9985295 119.837114,31.3323209 C119.837114,31.6661124 119.71414,31.9735473 119.468188,32.2546348 L119.046559,32.5181531 C118.835743,32.7641047 118.563444,32.8607271 118.229652,32.8080232 C117.895861,32.7553193 117.605994,32.6059937 117.360042,32.3600421 L113.670787,28.2491573 L113.670787,45.2197331 C113.670787,45.7116364 113.503893,46.1156936 113.170102,46.4319171 C112.83631,46.7481406 112.441037,46.90625 111.98427,46.90625 C111.492366,46.90625 111.088309,46.7481406 110.772086,46.4319171 C110.455862,46.1156936 110.297753,45.7116364 110.297753,45.2197331 L110.297753,28.2491573 L106.713904,32.2546348 C106.467953,32.5005864 106.178086,32.649912 105.844294,32.7026159 C105.510503,32.7553198 105.220636,32.6586974 104.974684,32.4127458 L104.553055,32.1492275 C104.307103,31.86814 104.184129,31.5607051 104.184129,31.2269136 C104.184129,30.8931222 104.307103,30.603255 104.553055,30.3573034 L110.666678,23.611236 L110.666678,23.5585323 L111.088308,23.1369031 C111.193715,22.9963593 111.325473,22.8997369 111.483585,22.847033 C111.641697,22.7943291 111.791022,22.7679775 111.931566,22.7679775 C112.107246,22.7679775 112.265355,22.7943291 112.405899,22.847033 C112.546443,22.8997369 112.686984,22.9963593 112.827528,23.1369031 L113.249157,23.5585323 L113.249157,23.611236 Z">
-                                </path>
-                              </g>
-                            </g>
-                          </g>
-                        </svg>
-                      </span>
-                    </div>
-                  </div>
-                  <div class="jfUpload-button-container">
-                    <div class="jfUpload-button" aria-hidden="true" tabindex="0" style="display:none" data-version="v2">
-                      Browse Files
-                      <div class="jfUpload-heading forDesktop">
-                        Drag and drop files here
-                      </div>
-                      <div class="jfUpload-heading forMobile">
-                        Choose a file
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="jfUpload-files-container">
-                  <input type="file" id="input_61" name="q61_fileUpload61[]" multiple="" class="form-upload-multiple" data-imagevalidate="yes" data-file-accept="pdf, doc, docx, xls, xlsx, csv, txt, rtf, html, zip, mp3, wma, mpg, flv, avi, jpg, jpeg, png, gif" data-limit-file-size="Yes" data-file-maxsize="10854" data-file-minsize="0" data-file-limit="" data-component="fileupload" aria-label="Browse Files" />
-                </div>
-              </div>
-              <div data-wrapper-react="true">
-              </div>
-            </div>
-            <span style="display:none" class="cancelText">
-              Cancel
-            </span>
-            <span style="display:none" class="ofText">
-              of
-            </span>
-          </div>
-        </div>
-      </li>
-      <li id="cid_63" class="form-input-wide" data-type="control_button">
-        <div data-align="auto" class="form-buttons-wrapper form-buttons-auto  form-pagebreak jsTest-button-wrapperField">
-          <div class="form-pagebreak-back-container">
-            <button id="form-pagebreak-back_38" type="button" class="form-pagebreak-back  jf-form-buttons" data-component="pagebreak-back">
-              Back
-            </button>
-          </div>
-          <button id="input_63" type="submit" class="form-submit-button submit-button jf-form-buttons jsTest-submitField" data-component="button" data-content="">
-            Submit
-          </button>
-          <div class="form-pagebreak-next-container">
-            <button id="form-pagebreak-next_38" type="button" class="form-pagebreak-next  button-hidden jf-form-buttons" data-component="pagebreak-next">
-              Next
-            </button>
-          </div>
-        </div>
-      </li>
-    </ul>
-    <ul class="form-section page-section" style="display:none;">
-      <li id="cid_39" class="form-input-wide" data-type="control_head">
-        <div class="form-header-group  header-default">
-          <div class="header-text httal htvam">
-            <h3 id="header_39" class="form-header" data-component="header">
-              Voicemail Troubleshooting
-            </h3>
-          </div>
-        </div>
-      </li>
-      <li class="form-line" data-type="control_text" id="id_40">
-        <div id="cid_40" class="form-input-wide" data-layout="full">
-          <div id="text_40" class="form-html" data-component="text">
-            <p>Access your voicemail by selecting and holding <em>&quot;1&quot;</em> from the call screen.<br />Follow the prompts to create a new 7-15 digit voicemail password. If it is asking for a password the default password is the last seven digits of your phone number. <br />
-				<br>
-				If you successfully called and setup the voicemail system, press the # key and hang up.<br />If you were unsuccessful, turn your wireless device off and back on and attempt to access your voicemail again.</p>
-            <p>If you're unable to access Visual Voicemail, try calling your voicemail box by selecting and holding "1" from the call screen.</p>
-            <p><strong>Troubleshooting Help</strong> <br><br>Please verify your wireless coverage:<br />To verify that you have enough signal strength to connect to voicemail, view wireless coverage maps.<br />Visual Voicemail requires a wireless cellular data connection. Some smartphones require a 4G LTE data connection in order to access and manage Visual Voicemail.</p>
-          </div>
-        </div>
-      </li>
-      <li class="form-line" data-type="control_textarea" id="id_44">
-        <label class="form-label form-label-top form-label-auto" id="label_44" for="input_44"> Still Experiencing Issues? </label>
-        <div id="cid_44" class="form-input-wide" data-layout="full">
-          <span class="form-sub-label-container" style="vertical-align:top">
-            <textarea id="input_44" class="form-textarea" name="q44_stillExperiencing" style="width:648px;height:163px" data-component="textarea" aria-labelledby="label_44 sublabel_input_44"></textarea>
-            <label class="form-sub-label" for="input_44" id="sublabel_input_44" style="min-height:13px" aria-hidden="false"> Leave our moderators a message and they will respond in a timely manner. </label>
-          </span>
-        </div>
-      </li>
-      <li class="form-line" data-type="control_fileupload" id="id_60">
-        <label class="form-label form-label-top form-label-auto" id="label_60" for="input_60"> File Upload </label>
-        <div id="cid_60" class="form-input-wide" data-layout="full">
-          <div class="jfQuestion-fields" data-wrapper-react="true">
-            <div class="jfField isFilled">
-              <div class="jfUpload-wrapper">
-                <div class="jfUpload-container">
-                  <div class="jfUpload-text-container">
-                    <div class="jfUpload-icon forDesktop">
-                      <span class="iconSvg  dhtupload ">
-                        <svg viewBox="0 0 54 47" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                          <g stroke="none" strokeWidth="1" fill="none">
-                            <g transform="translate(-1506.000000, -2713.000000)">
-                              <g transform="translate(1421.000000, 2713.000000)">
-                                <path d="M125.212886,10.1718048 C127.110227,10.3826204 128.89335,10.9096517 130.562307,11.7529143 C132.231264,12.596177 133.689384,13.676591 134.93671,14.9941889 C136.184036,16.3117868 137.167828,17.8226097 137.888114,19.5267029 C138.608401,21.2307962 138.968539,23.049054 138.968539,24.9815309 C138.968539,26.8086 138.687456,28.6356416 138.125281,30.4627107 C137.563106,32.2897797 136.746207,33.9323605 135.674561,35.3905021 C134.602915,36.8486438 133.267769,38.0520318 131.669084,39.0007022 C130.070398,39.9493727 128.217005,40.4588363 126.108848,40.5291081 L122.261482,40.5291081 C121.804714,40.5291081 121.409441,40.3622149 121.07565,40.0284235 C120.741858,39.694632 120.574965,39.2993586 120.574965,38.8425913 C120.574965,38.385824 120.741858,37.9905506 121.07565,37.6567591 C121.409441,37.3229677 121.804714,37.1560744 122.261482,37.1560744 L126.108848,37.1560744 C127.549422,37.1560744 128.858216,36.7871526 130.03527,36.0492978 C131.212324,35.3114429 132.222468,34.3627867 133.06573,33.2033006 C133.908993,32.0438144 134.558998,30.743804 135.015765,29.3032303 C135.472533,27.8626567 135.700913,26.4221046 135.700913,24.9815309 C135.700913,23.4004134 135.384694,21.9159421 134.752247,20.5280723 C134.1198,19.1402026 133.258983,17.9280307 132.169768,16.8915204 C131.080554,15.85501 129.833247,15.0293277 128.427809,14.4144487 C127.022371,13.7995697 125.529116,13.4921348 123.947999,13.4921348 L122.735815,13.4394312 L122.366889,12.2799508 C121.48849,9.46907537 120.07429,7.28189569 118.124245,5.71834621 C116.1742,4.15479672 113.53026,3.37303371 110.192346,3.37303371 C108.084189,3.37303371 106.186876,3.73317173 104.500351,4.45345857 C102.813826,5.17374541 101.36449,6.17510478 100.1523,7.45756671 C98.9401098,8.74002865 98.0090213,10.2684193 97.3590063,12.0427844 C96.7089914,13.8171496 96.3839888,15.7232459 96.3839888,17.7611306 L96.4366924,17.7611306 L96.5420997,19.3422402 L95.0136938,19.6057584 C93.1514888,19.9219819 91.5703951,20.9233413 90.2703652,22.6098666 C88.9703353,24.2963919 88.3203301,26.1937043 88.3203301,28.301861 C88.3203301,30.6911051 89.1196608,32.7640947 90.7183462,34.5208919 C92.3170316,36.277689 94.2055603,37.1560744 96.3839888,37.1560744 L101.232725,37.1560744 C101.724628,37.1560744 102.128685,37.3229677 102.444909,37.6567591 C102.761132,37.9905506 102.919242,38.385824 102.919242,38.8425913 C102.919242,39.2993586 102.761132,39.694632 102.444909,40.0284235 C102.128685,40.3622149 101.724628,40.5291081 101.232725,40.5291081 L96.3839888,40.5291081 C94.8380073,40.5291081 93.3798875,40.2041055 92.0095857,39.5540906 C90.6392839,38.9040756 89.4358959,38.0169064 88.3993855,36.8925562 C87.3628752,35.768206 86.5371929,34.4681956 85.9223139,32.992486 C85.3074349,31.5167763 85,29.9532503 85,28.301861 C85,25.5963933 85.7554115,23.1544819 87.266257,20.9760534 C88.7771026,18.7976249 90.7095505,17.3395051 93.0636587,16.6016503 C93.2042025,14.2475421 93.7224499,12.0603624 94.6184164,10.0400456 C95.514383,8.0197289 96.7089871,6.26295807 98.2022647,4.76968048 C99.6955423,3.27640288 101.452313,2.10815028 103.47263,1.26488764 C105.492947,0.421624997 107.732829,0 110.192346,0 C112.089686,0 113.82889,0.237164061 115.410007,0.711499298 C116.991124,1.18583453 118.414109,1.8621913 119.679003,2.74058989 C120.943897,3.61898847 122.033095,4.69061868 122.946629,5.95551264 C123.860164,7.22040661 124.615575,8.62582326 125.212886,10.1718048 Z M113.249157,23.611236 L119.468188,30.4627107 C119.71414,30.7086623 119.837114,30.9985295 119.837114,31.3323209 C119.837114,31.6661124 119.71414,31.9735473 119.468188,32.2546348 L119.046559,32.5181531 C118.835743,32.7641047 118.563444,32.8607271 118.229652,32.8080232 C117.895861,32.7553193 117.605994,32.6059937 117.360042,32.3600421 L113.670787,28.2491573 L113.670787,45.2197331 C113.670787,45.7116364 113.503893,46.1156936 113.170102,46.4319171 C112.83631,46.7481406 112.441037,46.90625 111.98427,46.90625 C111.492366,46.90625 111.088309,46.7481406 110.772086,46.4319171 C110.455862,46.1156936 110.297753,45.7116364 110.297753,45.2197331 L110.297753,28.2491573 L106.713904,32.2546348 C106.467953,32.5005864 106.178086,32.649912 105.844294,32.7026159 C105.510503,32.7553198 105.220636,32.6586974 104.974684,32.4127458 L104.553055,32.1492275 C104.307103,31.86814 104.184129,31.5607051 104.184129,31.2269136 C104.184129,30.8931222 104.307103,30.603255 104.553055,30.3573034 L110.666678,23.611236 L110.666678,23.5585323 L111.088308,23.1369031 C111.193715,22.9963593 111.325473,22.8997369 111.483585,22.847033 C111.641697,22.7943291 111.791022,22.7679775 111.931566,22.7679775 C112.107246,22.7679775 112.265355,22.7943291 112.405899,22.847033 C112.546443,22.8997369 112.686984,22.9963593 112.827528,23.1369031 L113.249157,23.5585323 L113.249157,23.611236 Z">
-                                </path>
-                              </g>
-                            </g>
-                          </g>
-                        </svg>
-                      </span>
-                    </div>
-                  </div>
-                  <div class="jfUpload-button-container">
-                    <div class="jfUpload-button" aria-hidden="true" tabindex="0" style="display:none" data-version="v2">
-                      Browse Files
-                      <div class="jfUpload-heading forDesktop">
-                        Drag and drop files here
-                      </div>
-                      <div class="jfUpload-heading forMobile">
-                        Choose a file
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="jfUpload-files-container">
-                  <input type="file" id="input_60" name="q60_fileUpload60[]" multiple="" class="form-upload-multiple" data-imagevalidate="yes" data-file-accept="pdf, doc, docx, xls, xlsx, csv, txt, rtf, html, zip, mp3, wma, mpg, flv, avi, jpg, jpeg, png, gif" data-limit-file-size="Yes" data-file-maxsize="10854" data-file-minsize="0" data-file-limit="" data-component="fileupload" aria-label="Browse Files" />
-                </div>
-              </div>
-              <div data-wrapper-react="true">
-              </div>
-            </div>
-            <span style="display:none" class="cancelText">
-              Cancel
-            </span>
-            <span style="display:none" class="ofText">
-              of
-            </span>
-          </div>
-        </div>
-      </li>
-      <li id="cid_65" class="form-input-wide" data-type="control_button">
-        <div data-align="auto" class="form-buttons-wrapper form-buttons-auto  form-pagebreak jsTest-button-wrapperField">
-          <div class="form-pagebreak-back-container">
-            <button id="form-pagebreak-back_29" type="button" class="form-pagebreak-back  jf-form-buttons" data-component="pagebreak-back">
-              Back
-            </button>
-          </div>
-          <button id="input_65" type="submit" class="form-submit-button submit-button jf-form-buttons jsTest-submitField" data-component="button" data-content="">
-            Submit
-          </button>
-          <div class="form-pagebreak-next-container">
-            <button id="form-pagebreak-next_29" type="button" class="form-pagebreak-next  button-hidden jf-form-buttons" data-component="pagebreak-next">
-              Next
-            </button>
-          </div>
-        </div>
-      </li>
-    </ul>
-    <ul class="form-section page-section" style="display:none;">
-      <li id="cid_24" class="form-input-wide" data-type="control_head">
-        <div class="form-header-group  header-default">
-          <div class="header-text httal htvam">
-            <h3 id="header_24" class="form-header" data-component="header">
-              Data Usage Support
-            </h3>
-            <div id="subHeader_24" class="form-subHeader">
-              Get info on high-speed data and your wireless plan.
-            </div>
-          </div>
-        </div>
-      </li>
-      <li class="form-line" data-type="control_text" id="id_26">
-        <div id="cid_26" class="form-input-wide" data-layout="full">
-          <div id="text_26" class="form-html" data-component="text">
-            <p><em><strong>Have You Reached Your Data Cap?</strong> </em> Our plans give you data that can only be used with a <a href="https://more4lessplans.ca/compatibility" target="_blank" rel="nofollow">listed device,</a> if an unlisted device is being used, data may be slowed. Some of our wireless plans come with a set amount of data. Please ensure you have not used more than the allotted highspeed data available to you with your plan.
-			  
-			  
-			  <br>
-				<br>
-				
-			  <em><strong>Have an Unlimited Plan?</strong></em> If many devices in your area are using mobile data at once, it can put a strain on the network. This is called network congestion, data speeds may be a little slower during these times due to the network traffic. Similar symptoms can be caused by an excess of devices using a singular hotspot. This could be due to hardware limitations or just bandwidth limitations.
-			  
-				<br>
-				<br>
-				
-				<em><strong>What Is Your Signal?</strong></em> Another common reason for data slower than you'd expect is determined by your location in regards to a tower. Check <a href="https://www.cellmapper.net/map?MCC=302&amp;MNC=720&amp;type=LTE&amp;latitude=0&amp;longitude=0&amp;zoom=11&amp;showTowers=true&amp;showTowerLabels=true&amp;clusterEnabled=true&amp;tilesEnabled=true&amp;showOrphans=false&amp;showNoFrequencyOnly=false&amp;showFrequencyOnly=false&amp;showBandwidthOnly=false&amp;DateFilterType=Last&amp;showHex=false&amp;showVerifiedOnly=false&amp;showUnverifiedOnly=false&amp;showLTECAOnly=false&amp;showENDCOnly=false&amp;showBand=0&amp;showSectorColours=true&amp;mapType=roadmap" target="_blank" rel="nofollow">this tower map</a> to confirm you are within the network map.
-				
-				<br>
-				<br>
-				
-				<br>
-				<br>
-				
-				<strong>Here are some quick fixes that commonly work:</strong></em><br><br>
-            1. Reboot your device.<br>
-            2. Check to make sure LTE is enabled and roaming is on.<br>
-            3. Reset your network settings.<br>
-            4. Make sure your device is <a href="more4lessplans.ca/compatibility" target="_blank" rel="nofollow">compatible.</a><br /><br />
-				
-			  
-			  </p>
-          </div>
-        
-      </li>
-     
-    
-      <li class="form-line" data-type="control_text" id="id_69">
-        <div id="cid_69" class="form-input-wide" data-layout="full">
-          <div id="text_69" class="form-html" data-component="text">
-            
-          </div>
-        </div>
-      </li>
-      <li class="form-line" data-type="control_textbox" id="id_28">
-        <label class="form-label form-label-top form-label-auto" id="label_28" for="input_28"> Still Need Help? </label>
-        <div id="cid_28" class="form-input-wide" data-layout="full">
-          <span class="form-sub-label-container" style="vertical-align:top">
-            <input type="text" id="input_28" name="q28_stillNeed" data-type="input-textbox" class="form-textbox" data-defaultvalue="" style="width:310px" size="310" value="" data-component="textbox" aria-labelledby="label_28 sublabel_input_28" />
-            <label class="form-sub-label" for="input_28" id="sublabel_input_28" style="min-height:13px" aria-hidden="false"> Leave us your inquiry and an agent will respond. </label>
-          </span>
-        </div>
-      </li>
-      <li class="form-line" data-type="control_fileupload" id="id_59">
-        <label class="form-label form-label-top form-label-auto" id="label_59" for="input_59"> File Upload </label>
-        <div id="cid_59" class="form-input-wide" data-layout="full">
-          <div class="jfQuestion-fields" data-wrapper-react="true">
-            <div class="jfField isFilled">
-              <div class="jfUpload-wrapper">
-                <div class="jfUpload-container">
-                  <div class="jfUpload-text-container">
-                    <div class="jfUpload-icon forDesktop">
-                      <span class="iconSvg  dhtupload ">
-                        <svg viewBox="0 0 54 47" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                          <g stroke="none" strokeWidth="1" fill="none">
-                            <g transform="translate(-1506.000000, -2713.000000)">
-                              <g transform="translate(1421.000000, 2713.000000)">
-                                <path d="M125.212886,10.1718048 C127.110227,10.3826204 128.89335,10.9096517 130.562307,11.7529143 C132.231264,12.596177 133.689384,13.676591 134.93671,14.9941889 C136.184036,16.3117868 137.167828,17.8226097 137.888114,19.5267029 C138.608401,21.2307962 138.968539,23.049054 138.968539,24.9815309 C138.968539,26.8086 138.687456,28.6356416 138.125281,30.4627107 C137.563106,32.2897797 136.746207,33.9323605 135.674561,35.3905021 C134.602915,36.8486438 133.267769,38.0520318 131.669084,39.0007022 C130.070398,39.9493727 128.217005,40.4588363 126.108848,40.5291081 L122.261482,40.5291081 C121.804714,40.5291081 121.409441,40.3622149 121.07565,40.0284235 C120.741858,39.694632 120.574965,39.2993586 120.574965,38.8425913 C120.574965,38.385824 120.741858,37.9905506 121.07565,37.6567591 C121.409441,37.3229677 121.804714,37.1560744 122.261482,37.1560744 L126.108848,37.1560744 C127.549422,37.1560744 128.858216,36.7871526 130.03527,36.0492978 C131.212324,35.3114429 132.222468,34.3627867 133.06573,33.2033006 C133.908993,32.0438144 134.558998,30.743804 135.015765,29.3032303 C135.472533,27.8626567 135.700913,26.4221046 135.700913,24.9815309 C135.700913,23.4004134 135.384694,21.9159421 134.752247,20.5280723 C134.1198,19.1402026 133.258983,17.9280307 132.169768,16.8915204 C131.080554,15.85501 129.833247,15.0293277 128.427809,14.4144487 C127.022371,13.7995697 125.529116,13.4921348 123.947999,13.4921348 L122.735815,13.4394312 L122.366889,12.2799508 C121.48849,9.46907537 120.07429,7.28189569 118.124245,5.71834621 C116.1742,4.15479672 113.53026,3.37303371 110.192346,3.37303371 C108.084189,3.37303371 106.186876,3.73317173 104.500351,4.45345857 C102.813826,5.17374541 101.36449,6.17510478 100.1523,7.45756671 C98.9401098,8.74002865 98.0090213,10.2684193 97.3590063,12.0427844 C96.7089914,13.8171496 96.3839888,15.7232459 96.3839888,17.7611306 L96.4366924,17.7611306 L96.5420997,19.3422402 L95.0136938,19.6057584 C93.1514888,19.9219819 91.5703951,20.9233413 90.2703652,22.6098666 C88.9703353,24.2963919 88.3203301,26.1937043 88.3203301,28.301861 C88.3203301,30.6911051 89.1196608,32.7640947 90.7183462,34.5208919 C92.3170316,36.277689 94.2055603,37.1560744 96.3839888,37.1560744 L101.232725,37.1560744 C101.724628,37.1560744 102.128685,37.3229677 102.444909,37.6567591 C102.761132,37.9905506 102.919242,38.385824 102.919242,38.8425913 C102.919242,39.2993586 102.761132,39.694632 102.444909,40.0284235 C102.128685,40.3622149 101.724628,40.5291081 101.232725,40.5291081 L96.3839888,40.5291081 C94.8380073,40.5291081 93.3798875,40.2041055 92.0095857,39.5540906 C90.6392839,38.9040756 89.4358959,38.0169064 88.3993855,36.8925562 C87.3628752,35.768206 86.5371929,34.4681956 85.9223139,32.992486 C85.3074349,31.5167763 85,29.9532503 85,28.301861 C85,25.5963933 85.7554115,23.1544819 87.266257,20.9760534 C88.7771026,18.7976249 90.7095505,17.3395051 93.0636587,16.6016503 C93.2042025,14.2475421 93.7224499,12.0603624 94.6184164,10.0400456 C95.514383,8.0197289 96.7089871,6.26295807 98.2022647,4.76968048 C99.6955423,3.27640288 101.452313,2.10815028 103.47263,1.26488764 C105.492947,0.421624997 107.732829,0 110.192346,0 C112.089686,0 113.82889,0.237164061 115.410007,0.711499298 C116.991124,1.18583453 118.414109,1.8621913 119.679003,2.74058989 C120.943897,3.61898847 122.033095,4.69061868 122.946629,5.95551264 C123.860164,7.22040661 124.615575,8.62582326 125.212886,10.1718048 Z M113.249157,23.611236 L119.468188,30.4627107 C119.71414,30.7086623 119.837114,30.9985295 119.837114,31.3323209 C119.837114,31.6661124 119.71414,31.9735473 119.468188,32.2546348 L119.046559,32.5181531 C118.835743,32.7641047 118.563444,32.8607271 118.229652,32.8080232 C117.895861,32.7553193 117.605994,32.6059937 117.360042,32.3600421 L113.670787,28.2491573 L113.670787,45.2197331 C113.670787,45.7116364 113.503893,46.1156936 113.170102,46.4319171 C112.83631,46.7481406 112.441037,46.90625 111.98427,46.90625 C111.492366,46.90625 111.088309,46.7481406 110.772086,46.4319171 C110.455862,46.1156936 110.297753,45.7116364 110.297753,45.2197331 L110.297753,28.2491573 L106.713904,32.2546348 C106.467953,32.5005864 106.178086,32.649912 105.844294,32.7026159 C105.510503,32.7553198 105.220636,32.6586974 104.974684,32.4127458 L104.553055,32.1492275 C104.307103,31.86814 104.184129,31.5607051 104.184129,31.2269136 C104.184129,30.8931222 104.307103,30.603255 104.553055,30.3573034 L110.666678,23.611236 L110.666678,23.5585323 L111.088308,23.1369031 C111.193715,22.9963593 111.325473,22.8997369 111.483585,22.847033 C111.641697,22.7943291 111.791022,22.7679775 111.931566,22.7679775 C112.107246,22.7679775 112.265355,22.7943291 112.405899,22.847033 C112.546443,22.8997369 112.686984,22.9963593 112.827528,23.1369031 L113.249157,23.5585323 L113.249157,23.611236 Z">
-                                </path>
-                              </g>
-                            </g>
-                          </g>
-                        </svg>
-                      </span>
-                    </div>
-                  </div>
-                  <div class="jfUpload-button-container">
-                    <div class="jfUpload-button" aria-hidden="true" tabindex="0" style="display:none" data-version="v2">
-                      Browse Files
-                      <div class="jfUpload-heading forDesktop">
-                        Drag and drop files here
-                      </div>
-                      <div class="jfUpload-heading forMobile">
-                        Choose a file
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="jfUpload-files-container">
-                  <input type="file" id="input_59" name="q59_fileUpload59[]" multiple="" class="form-upload-multiple" data-imagevalidate="yes" data-file-accept="pdf, doc, docx, xls, xlsx, csv, txt, rtf, html, zip, mp3, wma, mpg, flv, avi, jpg, jpeg, png, gif" data-limit-file-size="Yes" data-file-maxsize="10854" data-file-minsize="0" data-file-limit="" data-component="fileupload" aria-label="Browse Files" />
-                </div>
-              </div>
-              <div data-wrapper-react="true">
-              </div>
-            </div>
-            <span style="display:none" class="cancelText">
-              Cancel
-            </span>
-            <span style="display:none" class="ofText">
-              of
-            </span>
-          </div>
-        </div>
-      </li>
-      <li id="cid_66" class="form-input-wide" data-type="control_button">
-        <div data-align="auto" class="form-buttons-wrapper form-buttons-auto  form-pagebreak jsTest-button-wrapperField">
-          <div class="form-pagebreak-back-container">
-            <button id="form-pagebreak-back_47" type="button" class="form-pagebreak-back  jf-form-buttons" data-component="pagebreak-back">
-              Back
-            </button>
-          </div>
-          <button id="input_66" type="submit" class="form-submit-button submit-button jf-form-buttons jsTest-submitField" data-component="button" data-content="">
-            Submit
-          </button>
-          <div class="form-pagebreak-next-container">
-            <button id="form-pagebreak-next_47" type="button" class="form-pagebreak-next  button-hidden jf-form-buttons" data-component="pagebreak-next">
-              Next
-            </button>
-          </div>
-        </div>
-      </li>
-    </ul>
-    <ul class="form-section page-section" style="display:none;">
-      <li id="cid_48" class="form-input-wide" data-type="control_head">
-        <div class="form-header-group  header-default">
-          <div class="header-text httal htvam">
-            <h3 id="header_48" class="form-header" data-component="header">
-              Leave us a Support Request
-            </h3>
-          </div>
-        </div>
-      </li>
-      <li class="form-line" data-type="control_textarea" id="id_50">
-        <label class="form-label form-label-top form-label-auto" id="label_50" for="input_50">  </label>
-        <div id="cid_50" class="form-input-wide" data-layout="full">
-          <textarea id="input_50" class="form-textarea" name="q50_input50" style="width:648px;height:163px" data-component="textarea" aria-labelledby="label_50"></textarea>
-        </div>
-      </li>
-      <li class="form-line" data-type="control_fileupload" id="id_58">
-        <label class="form-label form-label-top form-label-auto" id="label_58" for="input_58"> File Upload </label>
-        <div id="cid_58" class="form-input-wide" data-layout="full">
-          <div class="jfQuestion-fields" data-wrapper-react="true">
-            <div class="jfField isFilled">
-              <div class="jfUpload-wrapper">
-                <div class="jfUpload-container">
-                  <div class="jfUpload-text-container">
-                    <div class="jfUpload-icon forDesktop">
-                      <span class="iconSvg  dhtupload ">
-                        <svg viewBox="0 0 54 47" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                          <g stroke="none" strokeWidth="1" fill="none">
-                            <g transform="translate(-1506.000000, -2713.000000)">
-                              <g transform="translate(1421.000000, 2713.000000)">
-                                <path d="M125.212886,10.1718048 C127.110227,10.3826204 128.89335,10.9096517 130.562307,11.7529143 C132.231264,12.596177 133.689384,13.676591 134.93671,14.9941889 C136.184036,16.3117868 137.167828,17.8226097 137.888114,19.5267029 C138.608401,21.2307962 138.968539,23.049054 138.968539,24.9815309 C138.968539,26.8086 138.687456,28.6356416 138.125281,30.4627107 C137.563106,32.2897797 136.746207,33.9323605 135.674561,35.3905021 C134.602915,36.8486438 133.267769,38.0520318 131.669084,39.0007022 C130.070398,39.9493727 128.217005,40.4588363 126.108848,40.5291081 L122.261482,40.5291081 C121.804714,40.5291081 121.409441,40.3622149 121.07565,40.0284235 C120.741858,39.694632 120.574965,39.2993586 120.574965,38.8425913 C120.574965,38.385824 120.741858,37.9905506 121.07565,37.6567591 C121.409441,37.3229677 121.804714,37.1560744 122.261482,37.1560744 L126.108848,37.1560744 C127.549422,37.1560744 128.858216,36.7871526 130.03527,36.0492978 C131.212324,35.3114429 132.222468,34.3627867 133.06573,33.2033006 C133.908993,32.0438144 134.558998,30.743804 135.015765,29.3032303 C135.472533,27.8626567 135.700913,26.4221046 135.700913,24.9815309 C135.700913,23.4004134 135.384694,21.9159421 134.752247,20.5280723 C134.1198,19.1402026 133.258983,17.9280307 132.169768,16.8915204 C131.080554,15.85501 129.833247,15.0293277 128.427809,14.4144487 C127.022371,13.7995697 125.529116,13.4921348 123.947999,13.4921348 L122.735815,13.4394312 L122.366889,12.2799508 C121.48849,9.46907537 120.07429,7.28189569 118.124245,5.71834621 C116.1742,4.15479672 113.53026,3.37303371 110.192346,3.37303371 C108.084189,3.37303371 106.186876,3.73317173 104.500351,4.45345857 C102.813826,5.17374541 101.36449,6.17510478 100.1523,7.45756671 C98.9401098,8.74002865 98.0090213,10.2684193 97.3590063,12.0427844 C96.7089914,13.8171496 96.3839888,15.7232459 96.3839888,17.7611306 L96.4366924,17.7611306 L96.5420997,19.3422402 L95.0136938,19.6057584 C93.1514888,19.9219819 91.5703951,20.9233413 90.2703652,22.6098666 C88.9703353,24.2963919 88.3203301,26.1937043 88.3203301,28.301861 C88.3203301,30.6911051 89.1196608,32.7640947 90.7183462,34.5208919 C92.3170316,36.277689 94.2055603,37.1560744 96.3839888,37.1560744 L101.232725,37.1560744 C101.724628,37.1560744 102.128685,37.3229677 102.444909,37.6567591 C102.761132,37.9905506 102.919242,38.385824 102.919242,38.8425913 C102.919242,39.2993586 102.761132,39.694632 102.444909,40.0284235 C102.128685,40.3622149 101.724628,40.5291081 101.232725,40.5291081 L96.3839888,40.5291081 C94.8380073,40.5291081 93.3798875,40.2041055 92.0095857,39.5540906 C90.6392839,38.9040756 89.4358959,38.0169064 88.3993855,36.8925562 C87.3628752,35.768206 86.5371929,34.4681956 85.9223139,32.992486 C85.3074349,31.5167763 85,29.9532503 85,28.301861 C85,25.5963933 85.7554115,23.1544819 87.266257,20.9760534 C88.7771026,18.7976249 90.7095505,17.3395051 93.0636587,16.6016503 C93.2042025,14.2475421 93.7224499,12.0603624 94.6184164,10.0400456 C95.514383,8.0197289 96.7089871,6.26295807 98.2022647,4.76968048 C99.6955423,3.27640288 101.452313,2.10815028 103.47263,1.26488764 C105.492947,0.421624997 107.732829,0 110.192346,0 C112.089686,0 113.82889,0.237164061 115.410007,0.711499298 C116.991124,1.18583453 118.414109,1.8621913 119.679003,2.74058989 C120.943897,3.61898847 122.033095,4.69061868 122.946629,5.95551264 C123.860164,7.22040661 124.615575,8.62582326 125.212886,10.1718048 Z M113.249157,23.611236 L119.468188,30.4627107 C119.71414,30.7086623 119.837114,30.9985295 119.837114,31.3323209 C119.837114,31.6661124 119.71414,31.9735473 119.468188,32.2546348 L119.046559,32.5181531 C118.835743,32.7641047 118.563444,32.8607271 118.229652,32.8080232 C117.895861,32.7553193 117.605994,32.6059937 117.360042,32.3600421 L113.670787,28.2491573 L113.670787,45.2197331 C113.670787,45.7116364 113.503893,46.1156936 113.170102,46.4319171 C112.83631,46.7481406 112.441037,46.90625 111.98427,46.90625 C111.492366,46.90625 111.088309,46.7481406 110.772086,46.4319171 C110.455862,46.1156936 110.297753,45.7116364 110.297753,45.2197331 L110.297753,28.2491573 L106.713904,32.2546348 C106.467953,32.5005864 106.178086,32.649912 105.844294,32.7026159 C105.510503,32.7553198 105.220636,32.6586974 104.974684,32.4127458 L104.553055,32.1492275 C104.307103,31.86814 104.184129,31.5607051 104.184129,31.2269136 C104.184129,30.8931222 104.307103,30.603255 104.553055,30.3573034 L110.666678,23.611236 L110.666678,23.5585323 L111.088308,23.1369031 C111.193715,22.9963593 111.325473,22.8997369 111.483585,22.847033 C111.641697,22.7943291 111.791022,22.7679775 111.931566,22.7679775 C112.107246,22.7679775 112.265355,22.7943291 112.405899,22.847033 C112.546443,22.8997369 112.686984,22.9963593 112.827528,23.1369031 L113.249157,23.5585323 L113.249157,23.611236 Z">
-                                </path>
-                              </g>
-                            </g>
-                          </g>
-                        </svg>
-                      </span>
-                    </div>
-                  </div>
-                  <div class="jfUpload-button-container">
-                    <div class="jfUpload-button" aria-hidden="true" tabindex="0" style="display:none" data-version="v2">
-                      Browse Files
-                      <div class="jfUpload-heading forDesktop">
-                        Drag and drop files here
-                      </div>
-                      <div class="jfUpload-heading forMobile">
-                        Choose a file
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="jfUpload-files-container">
-                  <input type="file" id="input_58" name="q58_fileUpload[]" multiple="" class="form-upload-multiple" data-imagevalidate="yes" data-file-accept="pdf, doc, docx, xls, xlsx, csv, txt, rtf, html, zip, mp3, wma, mpg, flv, avi, jpg, jpeg, png, gif" data-limit-file-size="Yes" data-file-maxsize="10854" data-file-minsize="0" data-file-limit="" data-component="fileupload" aria-label="Browse Files" />
-                </div>
-              </div>
-              <div data-wrapper-react="true">
-              </div>
-            </div>
-            <span style="display:none" class="cancelText">
-              Cancel
-            </span>
-            <span style="display:none" class="ofText">
-              of
-            </span>
-          </div>
-        </div>
-      </li>
-      <li id="cid_67" class="form-input-wide" data-type="control_button">
-        <div data-align="auto" class="form-buttons-wrapper form-buttons-auto  form-pagebreak jsTest-button-wrapperField">
-          <div class="form-pagebreak-back-container">
-            <button id="form-pagebreak-back_52" type="button" class="form-pagebreak-back  jf-form-buttons" data-component="pagebreak-back">
-              Back
-            </button>
-          </div>
-          <button id="input_67" type="submit" class="form-submit-button submit-button jf-form-buttons jsTest-submitField" data-component="button" data-content="">
-            Submit
-          </button>
-          <div class="form-pagebreak-next-container">
-            <button id="form-pagebreak-next_52" type="button" class="form-pagebreak-next  button-hidden jf-form-buttons" data-component="pagebreak-next">
-              Next
-            </button>
-          </div>
-        </div>
-      </li>
-    </ul>
-    <ul class="form-section page-section" style="display:none;">
-      <li class="form-line" data-type="control_text" id="id_57">
-        <div id="cid_57" class="form-input-wide" data-layout="full">
-          <div id="text_57" class="form-html" data-component="text">
-            <p>Once your request is submitted please allow some time for our agents to get back to you. During peak times this may take up to 12 hours.</p>
-            <p> </p>
-            <p>We appreciate your patience!</p>
-          </div>
-        </div>
-      </li>
-      <li id="cid_54" class="form-input-wide" data-type="control_head">
-        <div class="form-header-group  header-default">
-          <div class="header-text httal htvam">
-            <h2 id="header_54" class="form-header" data-component="header">
-              Thanks!
-            </h2>
-          </div>
-        </div>
-      </li>
-      <li class="form-line" data-type="control_button" id="id_2">
-        <div id="cid_2" class="form-input-wide" data-layout="full">
-          <div data-align="auto" class="form-buttons-wrapper form-buttons-auto   jsTest-button-wrapperField">
-            <button id="input_2" type="submit" class="form-submit-button submit-button jf-form-buttons jsTest-submitField" data-component="button" data-content="">
-              Submit
-            </button>
-          </div>
-        </div>
-      </li>
-      <li style="display:none">
-        Should be Empty:
-        <input type="text" name="website" value="" />
-      </li>
-    </ul>
-  </div>
-  <script>
-  JotForm.showJotFormPowered = "new_footer";
-  </script>
-  <script>
-  JotForm.poweredByText = "Powered by Jotform";
-  </script>
-  <input type="hidden" class="simple_spc" id="simple_spc" name="simple_spc" value="221048399513155" />
-  <script type="text/javascript">
-  var all_spc = document.querySelectorAll("form[id='221048399513155'] .si" + "mple" + "_spc");
-for (var i = 0; i < all_spc.length; i++)
-{
-  all_spc[i].value = "221048399513155-221048399513155";
-}
-  </script>
-  
-      
+        <button type="button" class="btn btn-primary" onclick="showTroubleshooting()">Next</button>
+      </form>
     </div>
-    
-    
-      
+
+    <!-- Internet Not Working -->
+    <div class="support-card troubleshooting-section" id="internet-not-working">
+      <h3>Fix Your 5G/LTE Internet Connection</h3>
+      <ol>
+        <li><strong>Restart Your Device</strong>
+          <ul>
+            <li>Unplug the device or turn it off for 10 seconds.</li>
+            <li>Plug it back in or turn it on, wait for a full restart, then try connecting again.</li>
+          </ul>
+        </li>
+        <li><strong>Improve Signal Strength</strong>
+          <ul>
+            <li>Place the hub near a window or outside wall, ideally toward the nearest cell tower.</li>
+            <li>Avoid basements, cabinets, or metal objects.</li>
+            <li>Elevate the hub (e.g., on a shelf) for better signal.</li>
+            <li>Check the hub’s LEDs or app for signal strength. Aim for at least 3/5 bars.</li>
+          </ul>
+        </li>
+        <li><strong>Know About Network Issues</strong>
+          <ul>
+            <li>Cell tower maintenance may cause temporary outages or slowdowns.</li>
+            <li>Peak hours (evenings/weekends) can slow speeds due to high network use.</li>
+          </ul>
+        </li>
+        <li><strong>Adjust Network Settings</strong>
+          <ul>
+            <li>Log into your router’s settings via its app or web interface.</li>
+            <li>Select a 5G/LTE band available in your area or set to “Auto” for best results.</li>
+            <li>Try switching to another major Canadian network provider for a stronger signal.</li>
+          </ul>
+        </li>
+        <li><strong>Inspect the SIM Card</strong>
+          <ul>
+            <li>Turn off and unplug the device.</li>
+            <li>Remove the SIM card, clean it gently with a soft cloth, and reinsert it securely.</li>
+            <li>Turn the device back on and check the connection.</li>
+          </ul>
+        </li>
+        <li><strong>Test Your Speed</strong>
+          <ul>
+            <li>Measure your internet speed using a speed test tool.</li>
+            <li>Test at different times (morning, afternoon, evening).</li>
+            <li>Try moving the hub to different spots in your home.</li>
+          </ul>
+          <a href="https://speedtest.net" class="btn btn-primary" target="_blank" rel="nofollow">Run Speed Test</a>
+        </li>
+      </ol>
+      <h4>Need More Help With Your Connection?</h4>
+      <div class="button-group">
+        <button type="button" class="btn btn-secondary" onclick="showInitialForm()">Back</button>
+        <a href="/contact" class="btn btn-primary" target="_blank" rel="nofollow">Contact Support</a>
+      </div>
     </div>
-  </div>
-</form></body>
-</html>
-<script type="text/javascript">JotForm.ownerView=true;</script><script src="https://cdn.jotfor.ms//js/vendor/smoothscroll.min.js?v=3.3.32642"></script>
-<script src="https://cdn.jotfor.ms//js/errorNavigation.js?v=3.3.32642"></script>
 
-		
+    <!-- Internet Too Slow -->
+    <div class="support-card troubleshooting-section" id="internet-too-slow">
+      <h3>Internet Too Slow?</h3>
+      <ol>
+        <li><strong>Choose a Stronger Network</strong>
+          <ul>
+            <li>Log into your router’s settings via its app or web interface.</li>
+            <li>Find “Network Selection” or “Band Selection.”</li>
+            <li>Select the strongest band or set to “Auto” for best performance.</li>
+            <li>Follow our guide for detailed steps.</li>
+          </ul>
+          <a href="tutorials" class="btn btn-primary" target="_blank" rel="nofollow">View Guide</a>
+        </li>
+        <li><strong>Optimize Hub Placement</strong>
+          <ul>
+            <li>Place the hub near a window or outside wall, toward the nearest cell tower.</li>
+            <li>Avoid thick walls, metal objects, or appliances.</li>
+            <li>Elevate the hub (e.g., on a shelf) away from other electronics.</li>
+            <li>Test different locations with a speed test tool.</li>
+          </ul>
+          <a href="https://speedtest.net" class="btn btn-primary" target="_blank" rel="nofollow">Run Speed Test</a>
+        </li>
+        <li><strong>Use a MIMO Antenna</strong>
+          <ul>
+            <li>Consider a 2x2 MIMO antenna from retailers like Amazon.</li>
+            <li>Aim it toward the nearest cell tower or strongest signal direction.</li>
+            <li>This can improve signal strength and speed.</li>
+          </ul>
+        </li>
+        <li><strong>Avoid Peak Usage Times</strong>
+          <ul>
+            <li>Switch to another network (see step 1) if speeds are slow.</li>
+            <li>Use the internet during off-peak hours for better performance.</li>
+          </ul>
+        </li>
+      </ol>
+      <h4>Need More Help With Slow Speeds?</h4>
+      <div class="button-group">
+        <button type="button" class="btn btn-secondary" onclick="showInitialForm()">Back</button>
+        <a href="/contact" class="btn btn-primary" target="_blank" rel="nofollow">Contact Support</a>
+      </div>
+    </div>
 
+    <!-- Router Not Turning On -->
+    <div class="support-card troubleshooting-section" id="router-not-turning-on">
+      <h3>Troubleshoot a Router That Won’t Power On</h3>
+      <ol>
+        <li><strong>For Mobile Devices with a Battery</strong>
+          <ul>
+            <li>Remove the battery from the device.</li>
+            <li>Connect it to a power source using a USB-C cable and 3.0A power adapter (without the battery).</li>
+            <li>Wait 1–2 minutes and check for indicator lights or error codes on the screen.</li>
+          </ul>
+        </li>
+        <li><strong>For Home Devices with a Power Adapter</strong>
+          <ul>
+            <li>Ensure the power adapter is securely connected to the router and a working outlet.</li>
+            <li>Try a different outlet to rule out power issues.</li>
+            <li>Use a compatible adapter with the same voltage if available.</li>
+            <li>Check for any indicator lights on the device.</li>
+          </ul>
+        </li>
+        <li><strong>Reset the Device (Caution)</strong>
+          <ul>
+            <li>Do not reset mobile devices unless instructed, as it may disconnect service.</li>
+            <li>For home devices, find the reset pinhole and press it with a paperclip while powered on.</li>
+          </ul>
+        </li>
+        <li><strong>Check for Other Issues</strong>
+          <ul>
+            <li>Inspect cables and replace if possible.</li>
+            <li>Confirm other devices work on the same outlet.</li>
+            <li>Look for damage, burn marks, or unusual smells on the device.</li>
+          </ul>
+        </li>
+      </ol>
+      <h4>Need More Help With Your Router?</h4>
+      <div class="button-group">
+        <button type="button" class="btn btn-secondary" onclick="showInitialForm()">Back</button>
+        <a href="/contact" class="btn btn-primary" target="_blank" rel="nofollow">Contact Support</a>
+      </div>
+    </div>
 
-
-
-
-
-
-
+    <!-- Change Wi-Fi Name -->
+    <div class="support-card troubleshooting-section" id="change-wifi-name">
+      <h3>Change Your Wi-Fi Name or Password</h3>
+      <h4>Option 1: Use the NETGEAR App (Recommended)</h4>
+      <ul>
+        <li>For Nighthawk M1/M6, use the NETGEAR Mobile app.</li>
+        <li>For Orbi, use the NETGEAR Orbi app.</li>
+        <li>Download the app from the App Store or Google Play.</li>
+        <li>Open the app, connect to your device, and go to Wi-Fi Settings to update the name (SSID) or password.</li>
+        <li>Save changes, which apply immediately.</li>
+      </ul>
+      <a href="app-download" class="btn btn-primary" target="_blank" rel="nofollow">Download App</a>
+      <h4>Option 2: Use a Web Browser</h4>
+      <ol>
+        <li>Connect to your device’s Wi-Fi network.</li>
+        <li>Open a browser and visit the device settings page by tyoing the following in the address bar:
+          <ul>
+            <li>192.168.1.1</a></li>
           
-      </section>
+          </ul>
+        </li>
+        <li>Log in with default credentials (check device label or manual):
+          <ul>
+            <li>Nighthawk: Default credentials are username: <em>admin</em>; password <em>attadmin</em>.</li>
+            <li>Orbi: username is <em>admin</em>; password is <em>more4less</em>.</li>
+          </ul>
+        </li>
+        <li>Go to Wireless or Wi-Fi Settings (menu varies by device).</li>
+        <li>Update the Network Name (SSID) or Password, then save. Devices may need to reconnect.</li>
+      </ol>
+      <h4>Need More Help Changing Wi-Fi Settings?</h4>
+      <div class="button-group">
+        <button type="button" class="btn btn-secondary" onclick="showInitialForm()">Back</button>
+        <a href="/contact" class="btn btn-primary" target="_blank" rel="nofollow">Contact Support</a>
+      </div>
+    </div>
 
-      <div id="footer-container"></div>
- 
-                <!-- Bootstrap Bundle with Popper.js -->
- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
- 
- 
- 
-     <!-- ===============================================--><!--    JavaScripts--><!-- ===============================================-->
- 
- 
-     <script src="https://js.chargebee.com/v2/chargebee.js" data-cb-site="more4lessplans" ></script>
-     <script src="vendors/popper/popper.min.js"></script>
-     <script src="vendors/bootstrap/bootstrap.min.js"></script>
-     <script src="vendors/is/is.min.js"></script>
-     <script src="vendors/countup/countUp.umd.js"></script>
-     <script src="vendors/swiper/swiper-bundle.min.js"></script>
-     <script src="vendors/lodash/lodash.min.js"></script>
-     <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
-     <script src="assets/js/theme.js"></script>
-     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Load navbar
-      fetch('/navbar.html')
-        .then(response => {
-          if (!response.ok) throw new Error('Failed to load navbar.html: ' + response.status);
-          return response.text();
-        })
-        .then(data => {
-          document.getElementById('navbar-container').innerHTML = data;
-          const navbarScript = document.createElement('script');
-          navbarScript.src = '/navbar.js';
-          navbarScript.onload = function() {
-            initializeNavbar(); // Assumes this function exists in navbar.js
-          };
-          document.body.appendChild(navbarScript);
-        })
-        .catch(error => console.error('Error loading navbar:', error));
+    <!-- Streaming Services -->
+    <div class="support-card troubleshooting-section" id="streaming-services">
+      <h3>Troubleshoot Website Access Issues</h3>
+      <h4>Why This Happens</h4>
+      <ul>
+        <li><strong>Canadian Content Limits:</strong> Some Canadian apps or websites may not load or show restricted content.</li>
+        <li><strong>U.S. Content Access:</strong> You may access U.S.-exclusive platforms (e.g., Hulu, Peacock shows) as a benefit.</li>
+      </ul>
+      <h4>Solution: Use a VPN</h4>
+      <ul>
+        <li>Set your IP address to appear in Canada.</li>
+        <li>Improve online privacy and security.</li>
+        <li>Access both Canadian and U.S. content easily.</li>
+      </ul>
+      <h4>Need More Help With Streaming?</h4>
+      <div class="button-group">
+        <button type="button" class="btn btn-secondary" onclick="showInitialForm()">Back</button>
+        <a href="/contact" class="btn btn-primary" target="_blank" rel="nofollow">Contact Support</a>
+      </div>
+    </div>
 
-      // Load footer
-      fetch('/footer.html')
-        .then(response => {
-          if (!response.ok) throw new Error('Failed to load footer.html: ' + response.status);
-          return response.text();
-        })
-        .then(data => {
-          document.getElementById('footer-container').innerHTML = data;
-          document.getElementById('currentYear').textContent = new Date().getFullYear();
-        })
-        .catch(error => console.error('Error loading footer:', error));
-             }
-        );
+    <!-- Pause Service -->
+    <div class="support-card troubleshooting-section" id="paused-service">
+      <h3>Pause or Reactivate Your Service</h3>
+      <p>Our service is 100% contract-free. While there is no option to pause your service, you’re free to cancel at any time without penalty. When you’re ready to return, you can reactivate the service at any time. We recommend reaching out at least one week in advance of your preferred restart date to ensure a smooth reactivation process. A new SIM card is required to resume service, which costs $10.</p>
+      <a href="/reactivate-service" class="btn btn-primary" target="_blank" rel="nofollow">Re-Activate Service</a>
+      <h4>Need More Help With Service Status?</h4>
+      <div class="button-group">
+        <button type="button" class="btn btn-secondary" onclick="showInitialForm()">Back</button>
+        <a href="/contact" class="btn btn-primary" target="_blank" rel="nofollow">Contact Support</a>
+      </div>
+    </div>
 
- </script>
-   </body>
- 
+    <!-- Other -->
+    <div class="support-card troubleshooting-section" id="other">
+      <h3>Submit a Support Request</h3>
+      <h4>Need Help With Something Else?</h4>
+      <div class="button-group">
+        <button type="button" class="btn btn-secondary" onclick="showInitialForm()">Back</button>
+        <a href="/contact" class="btn btn-primary" target="_blank" rel="nofollow">Contact Support</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS and Dependencies -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Custom JavaScript -->
+  <script>
+    function showTroubleshooting() {
+      const form = document.getElementById('support-form');
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+      const issue = document.getElementById('issue').value;
+      const sections = document.querySelectorAll('.troubleshooting-section');
+      sections.forEach(section => section.classList.remove('active'));
+      document.getElementById('initial-form').style.display = 'none';
+      document.getElementById(issue).classList.add('active');
+    }
+    function showInitialForm() {
+      const sections = document.querySelectorAll('.troubleshooting-section');
+      sections.forEach(section => section.classList.remove('active'));
+      document.getElementById('initial-form').style.display = 'block';
+    }
+  </script>
+</body>
 </html>
