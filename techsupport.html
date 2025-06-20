@@ -73,6 +73,8 @@
       font-weight: 600;
       margin-top: 20px;
       margin-bottom: 20px;
+      font-size: 0.875rem;
+      white-space: nowrap;
     }
     .btn-primary:hover {
       background-color: transparent;
@@ -87,10 +89,11 @@
       background-color: #2E2F33;
       border-color: #2E2F33;
       border-radius: 8px;
-      padding: 10px 20px;
+      padding: 8px 16px;
       font-weight: 600;
       margin-top: 20px;
       margin-bottom: 20px;
+      font-size: 0.875rem;
     }
     .btn-secondary:hover {
       background-color: transparent;
@@ -108,10 +111,10 @@
       flex-wrap: wrap;
     }
     .troubleshooting-section {
-      display: none !important; /* Ensure hidden by default */
+      display: none !important;
     }
     .troubleshooting-section.active {
-      display: block !important; /* Show when active */
+      display: block !important;
       animation: fadeIn 0.5s ease;
     }
     @keyframes fadeIn {
@@ -125,12 +128,19 @@
       .support-header h1 {
         font-size: 2rem;
       }
-      .btn-primary, .btn-secondary {
-        width: 100%;
-        margin-bottom: 10px;
+      .btn-primary {
+        flex: 1;
+        max-width: 52%;
+        text-align: center;
+      }
+      .btn-secondary {
+        flex: 1;
+        max-width: 44%;
+        text-align: center;
       }
       .button-group {
-        flex-direction: column;
+        flex-direction: row;
+        justify-content: space-between;
       }
     }
     ol, ul {
@@ -157,23 +167,23 @@
     <div class="support-card" id="initial-form">
       <form id="support-form">
         <div class="form-group">
-          <label for="name">Full Name</label>
-          <input type="text" class="form-control" id="name" required placeholder="Enter your full name">
+          <label for="name">Name</label>
+          <input type="text" class="form-control" id="name" required placeholder="Enter Your Full Name">
         </div>
         <div class="form-group">
           <label for="email">Account Email</label>
-          <input type="email" class="form-control" id="email" required placeholder="Enter your email">
+          <input type="email" class="form-control" id="email" required placeholder="Enter Email Associated With Your Account">
         </div>
         <div class="form-group">
           <label for="issue">Select Your Issue</label>
           <select class="form-control custom-select" id="issue" required>
-            <option value="" disabled selected>Choose an option</option>
+            <option value="" disabled selected>Choose An Option</option>
             <option value="internet-not-working">Internet Not Working</option>
             <option value="internet-too-slow">Internet Too Slow</option>
             <option value="router-not-turning-on">Router Not Turning On</option>
             <option value="change-wifi-name">Change Wi-Fi Name or Password</option>
             <option value="streaming-services">Streaming Services Issues</option>
-            <option value="pause-service">Pause or Resume Service</option>
+            <option value="paused-service">Pause or Resume Service</option>
             <option value="other">Other</option>
           </select>
         </div>
@@ -227,13 +237,12 @@
           </ul>
           <a href="https://speedtest.net" class="btn btn-primary" target="_blank" rel="nofollow">Run Speed Test</a>
         </li>
-        <li><strong>Need More Help?</strong>
-          <div class="button-group">
-            <button type="button" class="btn btn-secondary" onclick="showInitialForm()">Back</button>
-            <a href="https://more4lessplans.ca/contact" class="btn btn-primary" target="_blank" rel="nofollow">Contact Support</a>
-          </div>
-        </li>
       </ol>
+      <h4>Need More Help With Your Connection?</h4>
+      <div class="button-group">
+        <button type="button" class="btn btn-secondary" onclick="showInitialForm()">Back</button>
+        <a href="/contact" class="btn btn-primary" target="_blank" rel="nofollow">Contact Support</a>
+      </div>
     </div>
 
     <!-- Internet Too Slow -->
@@ -271,13 +280,12 @@
             <li>Use the internet during off-peak hours for better performance.</li>
           </ul>
         </li>
-        <li><strong>Need More Help?</strong>
-          <div class="button-group">
-            <button type="button" class="btn btn-secondary" onclick="showInitialForm()">Back</button>
-            <a href="https://more4lessplans.ca/contact" class="btn btn-primary" target="_blank" rel="nofollow">Contact Support</a>
-          </div>
-        </li>
       </ol>
+      <h4>Need More Help With Slow Speeds?</h4>
+      <div class="button-group">
+        <button type="button" class="btn btn-secondary" onclick="showInitialForm()">Back</button>
+        <a href="/contact" class="btn btn-primary" target="_blank" rel="nofollow">Contact Support</a>
+      </div>
     </div>
 
     <!-- Router Not Turning On -->
@@ -312,13 +320,12 @@
             <li>Look for damage, burn marks, or unusual smells on the device.</li>
           </ul>
         </li>
-        <li><strong>Need More Help?</strong>
-          <div class="button-group">
-            <button type="button" class="btn btn-secondary" onclick="showInitialForm()">Back</button>
-            <a href="https://more4lessplans.ca/contact" class="btn btn-primary" target="_blank" rel="nofollow">Contact Support</a>
-          </div>
-        </li>
       </ol>
+      <h4>Need More Help With Your Router?</h4>
+      <div class="button-group">
+        <button type="button" class="btn btn-secondary" onclick="showInitialForm()">Back</button>
+        <a href="/contact" class="btn btn-primary" target="_blank" rel="nofollow">Contact Support</a>
+      </div>
     </div>
 
     <!-- Change Wi-Fi Name -->
@@ -336,27 +343,26 @@
       <h4>Option 2: Use a Web Browser</h4>
       <ol>
         <li>Connect to your device’s Wi-Fi network.</li>
-        <li>Open a browser and visit the device settings page.
+        <li>Open a browser and visit the device settings page by tyoing the following in the address bar:
           <ul>
-            <li>Nighthawk: <a href="http://192.168.1.1" class="btn btn-primary" target="_blank" rel="nofollow">Access Nighthawk Settings</a></li>
-            <li>Orbi: <a href="http://192.168.1.1" class="btn btn-primary" target="_blank" rel="nofollow">Access Orbi Settings</a></li>
+            <li>192.168.1.1</a></li>
+          
           </ul>
         </li>
         <li>Log in with default credentials (check device label or manual):
           <ul>
-            <li>Nighthawk M1/M6: Username is usually <em>admin</em>; password is <em>attadmin</em>.</li>
-            <li>Orbi: Username is <em>admin</em>; password is <em>more4less</em>.</li>
+            <li>Nighthawk: Default credentials are username: <em>admin</em>; password <em>attadmin</em>.</li>
+            <li>Orbi: username is <em>admin</em>; password is <em>more4less</em>.</li>
           </ul>
         </li>
         <li>Go to Wireless or Wi-Fi Settings (menu varies by device).</li>
         <li>Update the Network Name (SSID) or Password, then save. Devices may need to reconnect.</li>
-        <li><strong>Need More Help?</strong>
-          <div class="button-group">
-            <button type="button" class="btn btn-secondary" onclick="showInitialForm()">Back</button>
-            <a href="https://more4lessplans.ca/contact" class="btn btn-primary" target="_blank" rel="nofollow">Contact Support</a>
-          </div>
-        </li>
       </ol>
+      <h4>Need More Help Changing Wi-Fi Settings?</h4>
+      <div class="button-group">
+        <button type="button" class="btn btn-secondary" onclick="showInitialForm()">Back</button>
+        <a href="/contact" class="btn btn-primary" target="_blank" rel="nofollow">Contact Support</a>
+      </div>
     </div>
 
     <!-- Streaming Services -->
@@ -373,29 +379,32 @@
         <li>Improve online privacy and security.</li>
         <li>Access both Canadian and U.S. content easily.</li>
       </ul>
+      <h4>Need More Help With Streaming?</h4>
       <div class="button-group">
         <button type="button" class="btn btn-secondary" onclick="showInitialForm()">Back</button>
-        <a href="https://more4lessplans.ca/contact" class="btn btn-primary" target="_blank" rel="nofollow">Contact Support</a>
+        <a href="/contact" class="btn btn-primary" target="_blank" rel="nofollow">Contact Support</a>
       </div>
     </div>
 
     <!-- Pause Service -->
-    <div class="support-card troubleshooting-section" id="pause-service">
-      <h3>Pause or Resume Your Service</h3>
-      <p>Your service is paused. To resume, visit our activation page and use promo code <strong>SUB80FOR12</strong> to save.</p>
-      <a href="https://more4lessplans.ca/activate" class="btn btn-primary" target="_blank" rel="nofollow">Activate Service</a>
+    <div class="support-card troubleshooting-section" id="paused-service">
+      <h3>Pause or Reactivate Your Service</h3>
+      <p>Our service is 100% contract-free. While there is no option to pause your service, you’re free to cancel at any time without penalty. When you’re ready to return, you can reactivate the service at any time. We recommend reaching out at least one week in advance of your preferred restart date to ensure a smooth reactivation process. A new SIM card is required to resume service, which costs $10.</p>
+      <a href="/reactivate-service" class="btn btn-primary" target="_blank" rel="nofollow">Re-Activate Service</a>
+      <h4>Need More Help With Service Status?</h4>
       <div class="button-group">
         <button type="button" class="btn btn-secondary" onclick="showInitialForm()">Back</button>
-        <a href="https://more4lessplans.ca/contact" class="btn btn-primary" target="_blank" rel="nofollow">Contact Support</a>
+        <a href="/contact" class="btn btn-primary" target="_blank" rel="nofollow">Contact Support</a>
       </div>
     </div>
 
     <!-- Other -->
     <div class="support-card troubleshooting-section" id="other">
       <h3>Submit a Support Request</h3>
+      <h4>Need Help With Something Else?</h4>
       <div class="button-group">
         <button type="button" class="btn btn-secondary" onclick="showInitialForm()">Back</button>
-        <a href="https://more4lessplans.ca/contact" class="btn btn-primary" target="_blank" rel="nofollow">Contact Support</a>
+        <a href="/contact" class="btn btn-primary" target="_blank" rel="nofollow">Contact Support</a>
       </div>
     </div>
   </div>
