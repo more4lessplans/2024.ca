@@ -126,6 +126,11 @@
     .more-info-text a:hover {
       color: #D73C59;
     }
+    @media (max-width: 576px) {
+      .promotion-card {
+        max-width: 98% !important;
+      }
+    }
   </style>
 </head>
 
@@ -139,7 +144,7 @@
           <div class="row justify-content-center text-center mb-4 section-title">
             <div class="col-md-10 col-lg-8">
               <h3 class="fs-3 fs-lg-2 fw-bold mb-3 lh-sm" style="font-family: 'Rubik', sans-serif; color: #1A1A1A; letter-spacing: -0.5px;">Your Exclusive Welcome Gift</h3>
-              <p class="fs-7 lh-lg text-muted" style="font-family: 'Figtree', sans-serif; color: #4B4B4B;">Thank you for choosing More4Less!</p>
+              <p class="fs-7 lh-lg text-muted" style="font-family: 'Figtree', sans-serif; color: #4B4B4B;">Thanks For Your Purchase!</p>
             </div>
           </div>
           <div class="row justify-content-center">
@@ -147,8 +152,8 @@
               <div class="promotion-card" style="background: #FFFFFF; border-radius: 16px; padding: 40px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); transition: transform 0.3s ease, box-shadow 0.3s ease; max-width: 90%; width: 100%; margin: 0 auto;">
                 <div class="promotion-content">
                   <h4 class="mb-4" style="font-family: 'Rubik', sans-serif; font-size: 1.75rem; font-weight: 600; color: #1A1A1A;">Experience Seamless Connectivity</h4>
-                  <p style="font-family: 'Figtree', sans-serif; font-size: 1.1rem; color: #4B4B4B; margin-bottom: 1.2rem;">Your router includes a <strong>pre-activated SIM card</strong>.</p>
-                  <p style="font-family: 'Figtree', sans-serif; font-size: 1.1rem; color: #4B4B4B; margin-bottom: 1.2rem;"><strong style="color: #E53E3E;">7 days of FREE unlimited high-speed internet</strong>.</p>
+                  <p style="font-family: 'Figtree', sans-serif; font-size: 1.1rem; color: #4B4B4B; margin-bottom: 1.2rem;">Your router includes a <strong>pre-activated SIM card</strong> with: <strong style="color: #E53E3E;">7 days of FREE unlimited high-speed internet</strong>.</p>
+                
                   <p style="font-family: 'Figtree', sans-serif; font-size: 1.1rem; color: #4B4B4B; margin-bottom: 1.2rem;">Explore our service with zero commitment.</p>
                   <p style="font-family: 'Figtree', sans-serif; font-size: 1.1rem; color: #4B4B4B; margin-bottom: 1.2rem;">Love it? Continue for just <strong style="color: #E53E3E;">$80/month</strong>, no contract.</p>
                   <p style="font-family: 'Figtree', sans-serif; font-size: 1.1rem; color: #4B4B4B; margin-bottom: 2rem;">Apply promo code <strong style="color: #E53E3E;">SAVE30FOR12</strong> at checkout.</p>
@@ -175,30 +180,20 @@
     document.addEventListener('DOMContentLoaded', () => {
       // Load navbar
       fetch('/navbar.html')
-        .then(response => {
-          if (!response.ok) throw new Error(`Failed to load navbar.html: ${response.status}`);
-          return response.text();
-        })
+        .then(response => response.ok ? response.text() : Promise.reject(`Failed to load navbar.html: ${response.status}`))
         .then(data => {
           document.getElementById('navbar-container').innerHTML = data;
           const navbarScript = document.createElement('script');
           navbarScript.src = '/navbar.js';
           navbarScript.async = true;
-          navbarScript.onload = () => {
-            if (typeof initializeNavbar === 'function') initializeNavbar();
-            else console.warn('initializeNavbar function not found');
-          };
-          navbarScript.onerror = () => console.error('Failed to load navbar.js');
+          navbarScript.onload = () => typeof initializeNavbar === 'function' ? initializeNavbar() : console.warn('initializeNavbar not found');
           document.body.appendChild(navbarScript);
         })
         .catch(error => console.error('Error loading navbar:', error));
 
       // Load footer
       fetch('/footer.html')
-        .then(response => {
-          if (!response.ok) throw new Error(`Failed to load footer.html: ${response.status}`);
-          return response.text();
-        })
+        .then(response => response.ok ? response.text() : Promise.reject(`Failed to load footer.html: ${response.status}`))
         .then(data => {
           document.getElementById('footer-container').innerHTML = data;
           const currentYearElement = document.getElementById('currentYear');
@@ -209,33 +204,16 @@
       // Chargebee subscription button
       const subscribeBtn = document.querySelector('.btn-dark');
       if (subscribeBtn) {
+        Chargebee.init({ site: 'more4lessplans', publishableKey: 'live_9xoL0GUAJyfaZddNn5cdFhI4hrLAGhyIh' });
         subscribeBtn.addEventListener('click', () => {
-          if (typeof Chargebee === 'undefined') {
-            console.error('Chargebee library not loaded');
-            window.location.href = '/error.html';
-            return;
-          }
-
-          const cbInstance = Chargebee.getInstance() || Chargebee.init({
-            site: 'more4lessplans',
-            publishableKey: 'live_9xoL0GUAJyfaZddNn5cdFhI4hrLAGhyIh' // Replace with actual Chargebee key
-          });
-
+          const cbInstance = Chargebee.getInstance();
           const coupon = subscribeBtn.getAttribute('data-cb-coupon');
           cbInstance.openCheckout({
             hostedPage: () => Promise.resolve({
-              id: 'hosted-page-id',
               url: `https://more4lessplans.chargebee.com/hosted_pages/plans/home-internet${coupon ? '?coupon=' + coupon : ''}`
             }),
-            success: (hostedPageId) => {
-              console.log('Checkout successful:', hostedPageId);
-              window.location.href = '/subscription-success.html';
-            },
-            close: () => console.log('Checkout closed'),
-            error: (err) => {
-              console.error('Checkout error:', err);
-              window.location.href = '/error.html';
-            }
+            success: () => window.location.href = '/subscription-success.html',
+            close: () => console.log('Checkout closed')
           });
         });
       }
