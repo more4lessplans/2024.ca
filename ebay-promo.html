@@ -34,7 +34,6 @@
   <!-- Stylesheets -->
   <link rel="stylesheet" href="/navbar.css">
   <link rel="stylesheet" href="/footer.css">
-  <link rel="stylesheet" href="vendors/swiper/swiper-bundle.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
@@ -144,7 +143,7 @@
           <div class="row justify-content-center text-center mb-4 section-title">
             <div class="col-md-10 col-lg-8">
               <h3 class="fs-3 fs-lg-2 fw-bold mb-3 lh-sm" style="font-family: 'Rubik', sans-serif; color: #1A1A1A; letter-spacing: -0.5px;">Your Exclusive Welcome Gift</h3>
-              <p class="fs-7 lh-lg text-muted" style="font-family: 'Figtree', sans-serif; color: #4B4B4B;">Thanks For Your Purchase!</p>
+              <p class="fs-7 lh-lg text-muted" style="font-family: 'Figtree', sans-serif; color: #4B4B4B;">Thank you for choosing More4Less!</p>
             </div>
           </div>
           <div class="row justify-content-center">
@@ -152,12 +151,12 @@
               <div class="promotion-card" style="background: #FFFFFF; border-radius: 16px; padding: 40px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); transition: transform 0.3s ease, box-shadow 0.3s ease; max-width: 90%; width: 100%; margin: 0 auto;">
                 <div class="promotion-content">
                   <h4 class="mb-4" style="font-family: 'Rubik', sans-serif; font-size: 1.75rem; font-weight: 600; color: #1A1A1A;">Experience Seamless Connectivity</h4>
-                  <p style="font-family: 'Figtree', sans-serif; font-size: 1.1rem; color: #4B4B4B; margin-bottom: 1.2rem;">Your router includes a <strong>pre-activated SIM card</strong> with: <strong style="color: #E53E3E;">7 days of FREE unlimited high-speed internet</strong>.</p>
-                
+                  <p style="font-family: 'Figtree', sans-serif; font-size: 1.1rem; color: #4B4B4B; margin-bottom: 1.2rem;">Your router includes a <strong>pre-activated SIM card</strong>.</p>
+                  <p style="font-family: 'Figtree', sans-serif; font-size: 1.1rem; color: #4B4B4B; margin-bottom: 1.2rem;"><strong style="color: #E53E3E;">7 days of FREE unlimited high-speed internet</strong>.</p>
                   <p style="font-family: 'Figtree', sans-serif; font-size: 1.1rem; color: #4B4B4B; margin-bottom: 1.2rem;">Explore our service with zero commitment.</p>
                   <p style="font-family: 'Figtree', sans-serif; font-size: 1.1rem; color: #4B4B4B; margin-bottom: 1.2rem;">Love it? Continue for just <strong style="color: #E53E3E;">$80/month</strong>, no contract.</p>
                   <p style="font-family: 'Figtree', sans-serif; font-size: 1.1rem; color: #4B4B4B; margin-bottom: 2rem;">Apply promo code <strong style="color: #E53E3E;">SAVE30FOR12</strong> at checkout.</p>
-                  <button class="btn btn-dark mt-4" data-cb-type="checkout" data-cb-plan-id="home-internet" data-cb-coupon="SAVE30FOR12" style="font-family: 'Rubik', sans-serif; font-size: 1rem; font-weight: 500; background: #1A1A1A; border: none; border-radius: 12px; padding: 14px 48px; transition: background 0.3s ease, transform 0.2s ease;">Subscribe Now</button>
+                  <a href="https://more4lessplans.chargebee.com/hosted_pages/plans/home-internet?coupon=SAVE30FOR12" class="btn btn-dark mt-4" style="font-family: 'Rubik', sans-serif; font-size: 1rem; font-weight: 500; background: #1A1A1A; border: none; border-radius: 12px; padding: 14px 48px; transition: background 0.3s ease, transform 0.2s ease;">Subscribe Now</a>
                 </div>
               </div>
               <p class="more-info-text mt-4" style="font-family: 'Figtree', sans-serif; font-size: 0.9rem; color: #6B7280;">Got Questions? <a href="/contact" style="color: #1A1A1A; text-decoration: none; font-weight: 500; transition: color 0.3s ease;">Contact Us →</a></p>
@@ -173,8 +172,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script src="https://js.chargebee.com/v2/chargebee.js" data-cb-site="more4lessplans"></script>
-  <script src="vendors/swiper/swiper-bundle.min.js"></script>
   <script src="assets/js/theme.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -200,23 +197,6 @@
           if (currentYearElement) currentYearElement.textContent = new Date().getFullYear();
         })
         .catch(error => console.error('Error loading footer:', error));
-
-      // Chargebee subscription button
-      const subscribeBtn = document.querySelector('.btn-dark');
-      if (subscribeBtn) {
-        Chargebee.init({ site: 'more4lessplans', publishableKey: 'live_9xoL0GUAJyfaZddNn5cdFhI4hrLAGhyIh' });
-        subscribeBtn.addEventListener('click', () => {
-          const cbInstance = Chargebee.getInstance();
-          const coupon = subscribeBtn.getAttribute('data-cb-coupon');
-          cbInstance.openCheckout({
-            hostedPage: () => Promise.resolve({
-              url: `https://more4lessplans.chargebee.com/hosted_pages/plans/home-internet${coupon ? '?coupon=' + coupon : ''}`
-            }),
-            success: () => window.location.href = '/subscription-success.html',
-            close: () => console.log('Checkout closed')
-          });
-        });
-      }
     });
   </script>
 </body>
