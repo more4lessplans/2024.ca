@@ -88,7 +88,6 @@
     }
     .checkout-button:hover { background-color: #D73C59; color: white; text-decoration: none; }
 
-    /* Polished Accordion & Grid */
     .terms-wrapper { max-width: 850px; margin: 4rem auto 0; padding: 0 15px; }
     .accordion-item { border: none; border-top: 1px solid #f1f1f1; padding: 18px 0; }
     .accordion-header { display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: 700; color: #374151; font-size: 1rem; }
@@ -110,7 +109,7 @@
     <section class="pricing-section">
       <div class="container">
         <div class="pricing-header">
-          <div class="promo-badge">Exclusive Promotion</div>
+          <div class="promo-badge">Exclusive Promo</div>
           <h1 class="pricing-title">High-Speed Wireless Internet</h1>
           <div class="price-hero-container">
             <span class="old-price-strike">$110</span>
@@ -130,7 +129,7 @@
               <p class="pricing-card-category">On-the-Go</p>
               <img src="assets/img/products/mr1100.png" alt="Mobile Wireless Unit" class="pricing-card-image">
               <p class="pricing-card-model">Mobile Wireless Unit</p>
-              <p class="text-muted small mb-4">Portable high-performance connectivity for RVers and travelers.</p>
+              <p class="text-muted small mb-4">Portable high-performance connectivity for on the go.</p>
               <a class="checkout-button" href="javascript:void(0)" data-cb-type="checkout" data-cb-plan-id="Velocity-Go">Sign Up Today →</a>
             </div>
           </div>
@@ -139,7 +138,7 @@
               <p class="pricing-card-category">Home Use</p>
               <img src="assets/img/products/LBR20.png" alt="Fixed Wireless Unit" class="pricing-card-image">
               <p class="pricing-card-model">Fixed Wireless Unit</p>
-              <p class="text-muted small mb-4">Powerful whole-home coverage. The reliable landline alternative.</p>
+              <p class="text-muted small mb-4">Powerful whole-home coverage.</p>
               <a class="checkout-button" href="javascript:void(0)" data-cb-type="checkout" data-cb-plan-id="Ultra-Home">Sign Up Today →</a>
             </div>
           </div>
@@ -147,30 +146,16 @@
 
         <div class="terms-wrapper">
           <div class="accordion-item">
-            <div class="accordion-header" onclick="toggleAccordion(this)">
-              Lease Agreement Details <i class="uil uil-angle-right"></i>
-            </div>
-            <div class="accordion-content">
-              Offers are subject to change without notice. Taxes are additional. You may cancel your Wireless Internet service at any time. Equipment must be returned within 30 days of cancellation to avoid a $250 charge. If you cancel within the first 30 days, we will refund the monthly service fee in full.
-            </div>
+            <div class="accordion-header" onclick="toggleAccordion(this)">Lease Agreement Details <i class="uil uil-angle-right"></i></div>
+            <div class="accordion-content">Offers are subject to change without notice. Taxes are additional. Equipment must be returned within 30 days of cancellation to avoid a $250 charge.</div>
           </div>
-
           <div class="accordion-item">
-            <div class="accordion-header" onclick="toggleAccordion(this)">
-              Coverage and Speed <i class="uil uil-angle-right"></i>
-            </div>
-            <div class="accordion-content">
-              Powered by major Canadian carriers. A strong cellular signal on your mobile phone generally indicates reliable coverage. Request a speed estimate <a href="speedestimate" style="color: #D73C59; font-weight: 700; text-decoration: none;">here</a> and try us risk-free with our 30-day money-back guarantee.
-            </div>
+            <div class="accordion-header" onclick="toggleAccordion(this)">Coverage and Speed <i class="uil uil-angle-right"></i></div>
+            <div class="accordion-content">Powered by major Canadian carriers. Try us risk-free with our 30-day money-back guarantee.</div>
           </div>
-
           <div class="accordion-item" style="border-bottom: 1px solid #f1f1f1;">
-            <div class="accordion-header" onclick="toggleAccordion(this)">
-              Shipping Details <i class="uil uil-angle-right"></i>
-            </div>
-            <div class="accordion-content">
-              Your equipment ships within 1-2 business days with tracking included. Your subscription begins only once the device has been delivered.
-            </div>
+            <div class="accordion-header" onclick="toggleAccordion(this)">Shipping Details <i class="uil uil-angle-right"></i></div>
+            <div class="accordion-content">Your equipment ships within 1-2 business days with tracking included.</div>
           </div>
 
           <div class="benefits-grid">
@@ -187,17 +172,16 @@
   <div id="footer-container"></div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script src="https://js.chargebee.com/v2/chargebee.js" data-cb-site="more4lessplans"></script>
   
   <script>
     function toggleAccordion(element) {
       const content = element.nextElementSibling;
       const isActive = element.classList.contains('active');
-      
-      // Close others
       document.querySelectorAll('.accordion-content').forEach(c => c.style.display = 'none');
       document.querySelectorAll('.accordion-header').forEach(h => h.classList.remove('active'));
-
       if (!isActive) {
         content.style.display = 'block';
         element.classList.add('active');
@@ -209,16 +193,24 @@
         Chargebee.init({ site: "more4lessplans", publishableKey: 'live_9xoL0GUAJyfaZddNn5cdFhI4hrLAGhyIh' });
       }
 
+      // LOAD NAVBAR
       fetch('/navbar.html')
         .then(res => res.text())
         .then(html => {
           document.getElementById('navbar-container').innerHTML = html;
+          
+          // Re-trigger Bootstrap dropdowns for the newly injected HTML
+          if (typeof $ !== 'undefined') {
+            $('.dropdown-toggle').dropdown(); 
+          }
+
           const navScript = document.createElement('script');
           navScript.src = '/navbar.js';
           navScript.onload = () => { if(typeof initializeNavbar === 'function') initializeNavbar(); };
           document.body.appendChild(navScript);
         });
 
+      // LOAD FOOTER
       fetch('/footer.html')
         .then(res => res.text())
         .then(html => {
