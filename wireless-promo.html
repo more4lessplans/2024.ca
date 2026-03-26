@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en-US" dir="ltr">
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-10988139493"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'AW-10988139493');
+  </script>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Wireless Internet | High-Speed LTE & 5G Internet Across Canada</title>
+  
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+
+  <style>
+    body { padding-top: 70px; font-family: 'Figtree', sans-serif; color: #1a1a1a; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    .pricing-section { background-color: #ffffff; padding: 3rem 0; }
+    
+    /* Hero Header Styling */
+    .pricing-header { text-align: center; margin-bottom: 3rem; padding: 0 15px; }
+    .promo-badge {
+      display: inline-block;
+      background-color: #D73C59;
+      color: white;
+      padding: 6px 14px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 20px;
+    }
+    .pricing-title { font-size: calc(1.8rem + 1.5vw); font-weight: 800; letter-spacing: -1px; margin-bottom: 0.5rem; }
+    .pricing-subtitle { font-size: 1rem; color: #6b7280; max-width: 600px; margin: 0 auto; line-height: 1.4; }
+
+    /* Hero Price Section */
+    .price-hero-container { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 20px 0 5px; }
+    .old-price-strike { font-size: 1.4rem; color: #9CA3AF; text-decoration: line-through; font-weight: 300; }
+    .new-price-main { font-size: calc(3.5rem + 2vw); font-weight: 900; line-height: 0.9; color: #222831; letter-spacing: -2px; }
+    .price-suffix { font-size: 1.1rem; color: #4b5563; font-weight: 600; align-self: flex-end; margin-bottom: 5px; }
+
+    /* Integrated Feature Bar */
+    .value-bar {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: #fdfdfd;
+      padding: 10px 20px;
+      border-radius: 50px;
+      border: 1px solid #f0f0f0;
+      margin-top: 10px;
+    }
+    .value-item { font-size: 0.75rem; font-weight: 800; color: #374151; text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; white-space: nowrap; }
+    .value-item i { color: #D73C59; font-size: 1rem; margin-right: 6px; }
+    .v-divider { width: 1px; height: 12px; background-color: #e5e7eb; }
+
+    /* Pricing Cards */
+    .pricing-card {
+      background-color: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 20px;
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    @media (min-width: 992px) { .pricing-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08); border-color: #D73C59; } }
+    .pricing-card-category { font-size: 0.9rem; font-weight: 800; color: #D73C59; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 0.5rem; }
+    .pricing-card-image { max-width: 180px; width: 100%; height: auto; margin: 1.5rem auto; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.05)); }
+    .pricing-card-model { font-size: 1.2rem; font-weight: 800; margin-bottom: 1.2rem; color: #222831; }
+    
+    .checkout-button {
+      display: inline-block;
+      padding: 1rem 2rem;
+      font-weight: 800;
+      color: #ffffff;
+      background-color: #222831;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      margin-top: auto;
+      font-size: 0.95rem;
+    }
+    .checkout-button:hover { background-color: #D73C59; color: white; text-decoration: none; }
+
+    /* Dropdown/Terms Section */
+    .terms-wrapper { max-width: 850px; margin: 4rem auto 0; padding: 0 15px; }
+    .accordion-item { border: none; border-bottom: 1px solid #f1f1f1; padding: 15px 0; }
+    .accordion-header { display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: 700; font-size: 1rem; color: #374151; }
+    .accordion-content { display: none; padding: 12px 0; color: #6b7280; line-height: 1.6; font-size: 0.9rem; }
+    .accordion-icon { font-size: 0.8rem; transition: transform 0.3s ease; color: #D73C59; }
+    .active-item .accordion-icon { transform: rotate(90deg); }
+
+    /* Polished Single-Line Benefits Grid */
+    .benefits-grid { 
+      display: flex; 
+      justify-content: space-between; 
+      gap: 10px; 
+      margin-top: 40px; 
+      overflow-x: auto; /* Fallback for very tiny screens */
+      padding-bottom: 10px;
+    }
+    .benefit-card { 
+      flex: 1;
+      min-width: 80px; /* Ensures text doesn't collapse */
+      background: #f9fafb; 
+      padding: 15px 8px; 
+      border-radius: 12px; 
+      text-align: center; 
+      border: 1px solid #f3f4f6;
+    }
+    .benefit-card i { display: block; font-size: 1.2rem; color: #D73C59; margin-bottom: 8px; }
+    .benefit-card span { font-size: 0.65rem; font-weight: 800; color: #374151; text-transform: uppercase; letter-spacing: 0.2px; display: block; line-height: 1.2; }
+
+    @media (max-width: 576px) {
+      .benefits-grid { gap: 6px; }
+      .benefit-card { padding: 10px 4px; }
+      .benefit-card span { font-size: 0.55rem; }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="navbar-container"></div>
+
+  <main class="main">
+    <section class="pricing-section">
+      <div class="container">
+        
+        <div class="pricing-header">
+          <div class="promo-badge">Exclusive Member Rate</div>
+          <h1 class="pricing-title">High-Speed Wireless Internet</h1>
+          <p class="pricing-subtitle">Premium LTE & 5G network performance for rural homes, travelers, and remote work.</p>
+          
+          <div class="price-hero-container">
+            <span class="old-price-strike">$110</span>
+            <span class="new-price-main">$60</span>
+            <span class="price-suffix">/mo</span>
+          </div>
+          
+          <div class="value-bar">
+            <span class="value-item"><i class="uil uil-truck"></i> Free Shipping</span>
+            <div class="v-divider"></div>
+            <span class="value-item"><i class="uil uil-shield-check"></i> 30-Day Guarantee</span>
+          </div>
+        </div>
+
+        <div class="row justify-content-center">
+          <div class="col-12 col-md-6 col-lg-5 mb-4">
+            <div class="pricing-card">
+              <p class="pricing-card-category">On-the-Go</p>
+              <img src="assets/img/products/mr1100.png" alt="Nighthawk M1" class="pricing-card-image">
+              <p class="pricing-card-model">Mobile Wireless Unit</p>
+              <p class="text-muted small mb-4">Portable high-performance connectivity for RVers and mobile professionals.</p>
+              <a class="checkout-button" href="javascript:void(0)" data-cb-type="checkout" data-cb-plan-id="Velocity-Go">Sign Up Today →</a>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-lg-5 mb-4">
+            <div class="pricing-card">
+              <p class="pricing-card-category">Home Use</p>
+              <img src="assets/img/products/LBR20.png" alt="Orbi LBR20" class="pricing-card-image">
+              <p class="pricing-card-model">Fixed Wireless Unit</p>
+              <p class="text-muted small mb-4">Powerful whole-home coverage. The reliable high-speed landline alternative.</p>
+              <a class="checkout-button" href="javascript:void(0)" data-cb-type="checkout" data-cb-plan-id="Ultra-Home">Sign Up Today →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="terms-wrapper">
+          <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+              Lease Agreement Details <span class="accordion-icon"><i class="uil uil-angle-right"></i></span>
+            </div>
+            <div class="accordion-content">
+              Offers are subject to change without notice. Taxes are additional. You may cancel your service at any time and return equipment within 30 days to avoid a $250 charge. Cancellations within the first 30 days receive a full service fee refund.
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+              Coverage and Speed <span class="accordion-icon"><i class="uil uil-angle-right"></i></span>
+            </div>
+            <div class="accordion-content">
+              Powered by major Canadian carriers. A strong mobile signal indicates reliable coverage. Request a speed estimate <a href="speedestimate" style="color:#D73C59; font-weight: 700; text-decoration: none;">here</a>.
+            </div>
+          </div>
+
+          <div class="accordion-item" style="border-bottom: 2px solid #f3f4f6;">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+              Shipping Details <span class="accordion-icon"><i class="uil uil-angle-right"></i></span>
+            </div>
+            <div class="accordion-content">
+              Ships within 1-2 business days with tracking. Your subscription begins the day the device is delivered.
+            </div>
+          </div>
+
+          <div class="benefits-grid">
+            <div class="benefit-card">
+              <i class="uil uil-sync"></i> <span>Unlimited Data</span>
+            </div>
+            <div class="benefit-card">
+              <i class="uil uil-history"></i> <span>No Contracts</span>
+            </div>
+            <div class="benefit-card">
+              <i class="uil uil-user-check"></i> <span>No Credit Checks</span>
+            </div>
+            <div class="benefit-card">
+              <i class="uil uil-bolt"></i> <span>Plug & Play</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer-container"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://js.chargebee.com/v2/chargebee.js" data-cb-site="more4lessplans"></script>
+  
+  <script>
+    function toggleAccordion(element) {
+      const content = element.nextElementSibling;
+      const isOpen = content.style.display === 'block';
+      document.querySelectorAll('.accordion-content').forEach(c => c.style.display = 'none');
+      document.querySelectorAll('.accordion-header').forEach(h => h.classList.remove('active-item'));
+      if (!isOpen) {
+        content.style.display = 'block';
+        element.classList.add('active-item');
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof Chargebee !== 'undefined') {
+        Chargebee.init({ site: "more4lessplans", publishableKey: 'live_9xoL0GUAJyfaZddNn5cdFhI4hrLAGhyIh' });
+      }
+      fetch('/navbar.html').then(res => res.text()).then(html => document.getElementById('navbar-container').innerHTML = html);
+      fetch('/footer.html').then(res => res.text()).then(html => document.getElementById('footer-container').innerHTML = html);
+    });
+  </script>
+</body>
+</html>
