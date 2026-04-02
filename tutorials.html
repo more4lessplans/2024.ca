@@ -5,233 +5,219 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- SEO and Meta Tags -->
-  <title>More4Less | Device Tutorials</title>
-  <meta name="keywords" content="wireless internet tutorials, More4Less device tutorials, MR1100 tutorials, MR6500 tutorials, LBR20 tutorials, Netgear Orbi setup, LTE router setup, 5G router setup, Canada internet tutorials, rural internet setup, internet for RVers, mobile internet setup, wireless internet Canada, more4less wireless, internet troubleshooting, router configuration">
-  <meta name="description" content="Explore More4Less device tutorials for setting up and troubleshooting your wireless internet. Find step-by-step guides for MR1100/MR6500 and LBR20 routers.">
-  <meta property="og:title" content="More4Less | Device Tutorials">
-  <meta property="og:description" content="Explore More4Less device tutorials for setting up and troubleshooting your wireless internet. Find step-by-step guides for MR1100/MR6500 and LBR20 routers.">
-  <meta property="og:image" content="https://more4lessplans.ca/main.jpg">
-  <meta property="og:url" content="https://more4lessplans.ca/device-tutorials">
-  <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="More4Less | Device Tutorials">
-  <meta name="twitter:description" content="Explore More4Less device tutorials for setting up and troubleshooting your wireless internet. Find step-by-step guides for MR1100/MR6500 and LBR20 routers.">
-  <meta name="twitter:image" content="https://more4lessplans.ca/main.jpg">
-
-  <!-- Favicons -->
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicons/favicon-16x16.png">
-  <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicons/favicon.ico">
-  <link rel="manifest" href="assets/img/favicons/manifest.json">
-  <meta name="msapplication-TileImage" content="assets/img/favicons/mstile-150x150.png">
-  <meta name="theme-color" content="#2E2F34">
-
-  <!-- Bootstrap CSS -->
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="/navbar.css">
-  <link rel="stylesheet" href="/footer.css">
-  <link rel="stylesheet" href="vendors/swiper/swiper-bundle.min.css">
+  <title>Device Tutorials | More4Less Plans</title>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
-  <link href="assets/css/theme.min.css" rel="stylesheet" id="style-default">
-  <link href="assets/css/user-rtl.min.css" rel="stylesheet" id="user-style-rtl">
-  <link href="assets/css/user.min.css" rel="stylesheet" id="user-style-default">
-  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
 
-  <!-- Page-Specific CSS -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+  
+  <link rel="stylesheet" href="/navbar.css">
+  <link rel="stylesheet" href="/footer.css">
+
   <style>
+    :root {
+      --primary-dark: #2E2F33;
+      --accent-gray: #F9F9F9;
+      --text-muted: #565656;
+    }
+
     body {
-      padding-top: 70px;
+      font-family: 'Figtree', sans-serif;
+      color: #333;
+      background-color: #fff;
+      padding-top: 100px; /* Space for navbar */
     }
-    @media (max-width: 576px) {
-      body { padding-top: 60px; }
+
+    h1, h2, h3, h4, .section-title {
+      font-family: 'Rubik', sans-serif;
+      font-weight: 700;
+      color: var(--primary-dark);
     }
-    .text-danger { color: #2E2F33 !important; }
-    .text-muted { color: #565656 !important; }
-    .btn-primary {
-      border: 2px solid #2E2F33;
-      background-color: #2E2F33;
-      color: #fff;
+
+    /* Main Card Styling */
+    .tutorial-container {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .tutorial-card {
+      background: var(--accent-gray);
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      text-align: center;
+    }
+
+    /* Modern Pill Tabs */
+    .tutorial-tabs {
+      display: flex;
+      background: #E5E7EB;
+      padding: 5px;
+      border-radius: 14px;
+      margin-bottom: 30px;
+    }
+
+    .tutorial-tab {
+      flex: 1;
+      text-align: center;
+      padding: 12px;
+      cursor: pointer;
       font-weight: 600;
-      border-radius: 9px;
-      padding: 15px 45px;
-      transition: all 0.3s ease;
-      text-transform: none;
+      border-radius: 11px;
+      transition: 0.3s;
+      color: var(--text-muted);
     }
-    .btn-primary:hover, .btn-primary:focus {
-      background-color: transparent;
-      color: #000;
-      border: 2px solid #000;
+
+    .tutorial-tab.active {
+      background: white;
+      color: var(--primary-dark);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
-    .activation-card {
-      background: #F9F9F9;
-      border: none;
-      border-radius: 15px;
-      padding: 30px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-      transition: box-shadow 0.3s ease;
+
+    /* Content Visibility */
+    .tab-content { display: none; animation: fadeIn 0.4s ease; }
+    .tab-content.active { display: block; }
+
+    .tab-content img { 
+      max-height: 200px; 
+      margin-bottom: 25px; 
+      filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
     }
-    .activation-card:hover { box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); }
-    .activation-tabs {
+
+    /* Thumbnail Gallery for Nighthawk models */
+    .device-thumb-row {
       display: flex;
       justify-content: center;
-      margin-bottom: 2rem;
-      border-bottom: 1px solid #E5E7EB;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
     }
-    .activation-tab {
-      padding: 10px 20px;
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: #565656;
+
+    .thumb-box {
+      width: 60px;
+      height: 60px;
+      padding: 5px;
+      background: white;
+      border: 2px solid transparent;
+      border-radius: 10px;
       cursor: pointer;
-      transition: all 0.3s ease;
-      border-bottom: 3px solid transparent;
+      transition: 0.2s;
     }
-    .activation-tab.active { color: #2E2F33; border-bottom: 3px solid #2E2F33; }
-    .activation-tab:hover { color: #2E2F33; }
-    .tab-content { display: none; text-align: center; }
-    .tab-content.active { display: block; }
-    .tab-content img { max-width: 200px; height: auto; margin: 1rem auto; }
-    .tab-content p { font-size: 1rem; line-height: 1.6; color: #565656; margin-bottom: 2rem; }
-    .section-title h3 {
-      position: relative;
-      display: inline-block;
-      padding-bottom: 10px;
-      color: #2E2F33;
-    }
-    .section-title h3::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 250px;
-      height: 3px;
-      background: linear-gradient(90deg, #313C59, #2E2F33);
-      border-radius: 2px;
-    }
-    .section-title p { font-family: 'Rubik', sans-serif; font-weight: 400; letter-spacing: 0.5px; }
-    @media (max-width: 991.98px) {
-      #activation-section { padding-top: 120px; }
-      .section-title { padding-top: 20px; }
-    }
-    .reactivate-text {
-      font-size: 0.9rem;
-      color: #9CA3AF;
-      text-align: center;
-      margin-top: 1.5rem;
-    }
-    .reactivate-text a {
-      color: #2E2F33;
+
+    .thumb-box.active { border-color: var(--primary-dark); }
+    .thumb-box img { width: 100%; height: 100%; object-fit: contain; margin: 0; filter: none; }
+
+    /* Button Styling */
+    .btn-tutorial {
+      background: var(--primary-dark);
+      color: white;
+      border-radius: 12px;
+      padding: 16px 35px;
+      font-weight: 600;
       text-decoration: none;
+      display: inline-block;
+      transition: 0.3s;
+      border: 2px solid var(--primary-dark);
+      width: 100%;
+    }
+
+    .btn-tutorial:hover {
+      background: transparent;
+      color: var(--primary-dark);
+      text-decoration: none;
+    }
+
+    .sub-link {
+      display: block;
+      margin-top: 25px;
       font-weight: 500;
-      transition: color 0.3s ease;
+      color: var(--primary-dark);
+      transition: color 0.3s;
     }
-    .reactivate-text a:hover {
-      color: #D73C59;
-    }
+
+    .sub-link:hover { color: #D73C59; text-decoration: none; }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
   </style>
 </head>
 
 <body>
   <div id="navbar-container"></div>
 
-  <main class="main" id="top">
-    <div class="content">
-      <section class="bg-white py-8 py-lg-10" id="activation-section">
-        <div class="container">
-          <div class="row justify-content-center text-center mb-5 section-title">
-            <div class="col-md-8 col-lg-7">
-              <h3 class="fs-4 fs-lg-3 fw-bold mb-2 lh-sm">Device Tutorials</h3>
-              <p class="fs-8 lh-lg text-muted">Select your device to access step-by-step setup and troubleshooting guides.</p>
-            </div>
-          </div>
-          <div class="row justify-content-center">
-            <div class="col-md-8 col-lg-6">
-              <div class="activation-card">
-                <div class="activation-tabs">
-                  <div class="activation-tab active" data-tab="mr1100">Travel Router</div>
-                  <div class="activation-tab" data-tab="lbr20">Home Router</div>
-                </div>
-                <div class="tab-content active" id="mr1100-content">
-                  <img src="assets/img/products/mr1100.png" alt="MR1100/MR6500 Tutorial" class="mb-3">
-                  <p>Access tutorials for setting up and troubleshooting your Nighthawk router for high-speed wireless internet.</p>
-                  <a href="MR1100" class="btn btn-primary">View Tutorials</a>
-                </div>
-                <div class="tab-content" id="lbr20-content">
-                  <img src="assets/img/products/LBR20.png" alt="LBR20 Tutorial" class="mb-3">
-                  <p>Access tutorials for setting up and troubleshooting your Orbi router for reliable wireless connectivity.</p>
-                  <a href="LBR20" class="btn btn-primary">View Tutorials</a>
-                </div>
-              </div>
-         <p class="reactivate-text" style="text-align: center; font-size: 1rem;">
-  Manage your device easily — <a href="/app-download">Download the App →</a>
-</p>
-            </div>
-          </div>
+  <main class="container">
+    <div class="text-center mb-5">
+      <h1 class="display-5">Device Tutorials</h1>
+      <p class="text-muted">Step-by-step setup and troubleshooting for your More4Less hardware.</p>
+    </div>
+
+    <div class="tutorial-container">
+      <div class="tutorial-card">
+        
+        <div class="tutorial-tabs">
+          <div class="tutorial-tab active" data-tab="travel">Travel Router</div>
+          <div class="tutorial-tab" data-tab="home">Home Router</div>
         </div>
-      </section>
+
+        <div id="travel-content" class="tab-content active">
+          <div class="device-thumb-row">
+            <div class="thumb-box active" data-img="assets/img/products/mr1100.png"><img src="assets/img/products/mr1100.png"></div>
+            <div class="thumb-box" data-img="assets/img/products/MR5100.png"><img src="assets/img/products/MR5100.png"></div>
+            <div class="thumb-box" data-img="assets/img/products/MR6500.png"><img src="assets/img/products/MR6500.png"></div>
+            <div class="thumb-box" data-img="assets/img/products/mr6110.png"><img src="assets/img/products/mr6110.png"></div>
+          </div>
+          
+          <img src="assets/img/products/mr1100.png" id="travel-main-img" alt="Nighthawk Series">
+          
+          <p class="text-muted mb-4">Guides for Netgear Nighthawk series (MR1100, MR5100, MR6110, MR6500). Includes SIM placement, APN settings, and battery optimization.</p>
+          
+          <a href="MR1100" class="btn-tutorial">View Nighthawk Tutorials</a>
+        </div>
+
+        <div id="home-content" class="tab-content">
+          <img src="assets/img/products/LBR20.png" alt="Orbi LBR20">
+          <p class="text-muted mb-4">Guides for the Orbi LBR20 Home Hub. Includes external antenna setup, signal optimization, and Wi-Fi management.</p>
+          
+          <a href="LBR20" class="btn-tutorial">View Orbi Tutorials</a>
+        </div>
+
+        <a href="/app-download" class="sub-link">Need to manage settings? Download the App →</a>
+      </div>
+
+      <div class="text-center mt-5">
+        <p class="small text-muted">Can't find your device? <a href="/contact" class="text-dark fw-bold">Contact Support</a></p>
+      </div>
     </div>
   </main>
 
   <div id="footer-container"></div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script src="vendors/is/is.min.js"></script>
-  <script src="vendors/countup/countUp.umd.js"></script>
-  <script src="vendors/swiper/swiper-bundle.min.js"></script>
-  <script src="vendors/lodash/lodash.min.js"></script>
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
-  <script src="assets/js/theme.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // Load navbar
-      fetch('/navbar.html')
-        .then(response => {
-          if (!response.ok) throw new Error('Failed to load navbar.html: ' + response.status);
-          return response.text();
-        })
-        .then(data => {
-          document.getElementById('navbar-container').innerHTML = data;
-          const navbarScript = document.createElement('script');
-          navbarScript.src = '/navbar.js';
-          navbarScript.onload = function() {
-            initializeNavbar(); // Assumes this function exists in navbar.js
-          };
-          document.body.appendChild(navbarScript);
-        })
-        .catch(error => console.error('Error loading navbar:', error));
-
-      // Load footer
-      fetch('/footer.html')
-        .then(response => {
-          if (!response.ok) throw new Error('Failed to load footer.html: ' + response.status);
-          return response.text();
-        })
-        .then(data => {
-          document.getElementById('footer-container').innerHTML = data;
-          document.getElementById('currentYear').textContent = new Date().getFullYear();
-        })
-        .catch(error => console.error('Error loading footer:', error));
-
-      // Tab switching
-      const tabs = document.querySelectorAll('.activation-tab');
-      const contents = document.querySelectorAll('.tab-content');
-      tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-          tabs.forEach(t => t.classList.remove('active'));
-          contents.forEach(c => c.classList.remove('active'));
-          tab.classList.add('active');
-          document.getElementById(`${tab.getAttribute('data-tab')}-content`).classList.add('active');
-        });
+      // Basic Tab Switching
+      $('.tutorial-tab').on('click', function() {
+        const tab = $(this).data('tab');
+        $('.tutorial-tab').removeClass('active');
+        $(this).addClass('active');
+        $('.tab-content').removeClass('active');
+        $('#' + tab + '-content').addClass('active');
       });
+
+      // Travel Router Image Switcher
+      $('.thumb-box').on('click', function() {
+        const newSrc = $(this).data('img');
+        $('.thumb-box').removeClass('active');
+        $(this).addClass('active');
+        $('#travel-main-img').attr('src', newSrc);
+      });
+
+      // Load Navbar/Footer (Your existing fetch logic)
+      fetch('/navbar.html').then(r => r.text()).then(d => document.getElementById('navbar-container').innerHTML = d);
+      fetch('/footer.html').then(r => r.text()).then(d => document.getElementById('footer-container').innerHTML = d);
     });
   </script>
 </body>

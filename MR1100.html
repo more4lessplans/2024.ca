@@ -2,344 +2,244 @@
 <html data-bs-theme="light" lang="en-US" dir="ltr">
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- SEO and Meta Tags -->
-  <title>Tutorials - More4Less Wireless Internet</title>
-  <meta name="keywords" content="More4Less tutorials, Nighthawk MR1100 setup, wireless internet Canada, APN settings, manual network selection, band locking, mobile hotspot configuration, rural internet support, Canadian internet provider">
-  <meta name="description" content="Learn how to configure your Nighthawk MR1100 with More4Less Wireless Internet tutorials. Step-by-step guides for updating APN, manual network selection, and band locking to optimize your mobile hotspot in Canada.">
-  <meta property="og:title" content="Tutorials - More4Less Wireless Internet">
-  <meta property="og:description" content="Step-by-step tutorials for setting up your Nighthawk MR1100 with More4Less. Guides on APN updates, network selection, and band locking for reliable wireless internet in Canada.">
-  <meta property="og:image" content="https://more4lessplans.ca/main.jpg">
-  <meta property="og:url" content="https://more4lessplans.ca/tutorials">
-  <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Tutorials - More4Less Wireless Internet">
-  <meta name="twitter:description" content="Step-by-step tutorials for setting up your Nighthawk MR1100 with More4Less. Guides on APN updates, network selection, and band locking for reliable wireless internet in Canada.">
-  <meta name="twitter:image" content="https://more4lessplans.ca/main.jpg">
-
-  <!-- Favicons -->
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicons/favicon-16x16.png">
-  <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicons/favicon.ico">
-  <link rel="manifest" href="assets/img/favicons/manifest.json">
-  <meta name="msapplication-TileImage" content="assets/img/favicons/mstile-150x150.png">
-  <meta name="theme-color" content="#2E2F34">
-
-  <!-- Google Tag Manager -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-10988139493"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'AW-10988139493');
-  </script>
-
-  <!-- Bootstrap CSS -->
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- External Stylesheets -->
-  <link rel="stylesheet" href="/navbar.css">
-  <link rel="stylesheet" href="/footer.css">
-  <link rel="stylesheet" href="vendors/swiper/swiper-bundle.min.css">
+  <title>Nighthawk Tutorials | More4Less Plans</title>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
-  <link href="assets/css/theme.min.css" rel="stylesheet" id="style-default">
-  <link href="assets/css/user-rtl.min.css" rel="stylesheet" id="user-style-rtl">
-  <link href="assets/css/user.min.css" rel="stylesheet" id="user-style-default">
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&family=Rubik:wght@300..900&display=swap" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
 
-  <!-- Page-Specific CSS -->
   <style>
+    :root {
+      --primary-dark: #2E2F33;
+      --accent-gray: #F9F9F9;
+      --text-muted: #565656;
+    }
+
     body {
-      padding-top: 70px;
+      font-family: 'Figtree', sans-serif;
+      color: #333;
+      background-color: #fff;
+      padding-top: 100px;
     }
-    @media (max-width: 576px) {
-      body { padding-top: 60px; }
+
+    h1, h2, h3, h4 { font-family: 'Rubik', sans-serif; font-weight: 700; color: var(--primary-dark); }
+
+    .tutorial-container { max-width: 800px; margin: 0 auto; padding: 20px; }
+
+    .tutorial-card {
+      background: var(--accent-gray);
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
     }
-    .text-danger { color: #2E2F33 !important; }
-    .text-muted { color: #565656 !important; }
-    .btn-primary {
-      border: 2px solid #2E2F33;
-      background-color: #2E2F33;
-      color: #fff;
-      font-weight: 600;
-      border-radius: 9px;
-      padding: 15px 45px;
-      transition: all 0.3s ease;
-      text-transform: none;
-    }
-    .btn-primary:hover, .btn-primary:focus {
-      background-color: transparent;
-      color: #000;
-      border: 2px solid #000;
-    }
-    .activation-card {
-      background: #F9F9F9;
-      border: none;
-      border-radius: 15px;
-      padding: 30px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-      transition: box-shadow 0.3s ease;
-    }
-    .activation-card:hover { box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); }
-    .activation-tabs {
+
+    /* Minimal Image Switcher */
+    .image-switcher {
       display: flex;
+      align-items: center;
       justify-content: center;
-      margin-bottom: 2rem;
-      border-bottom: 1px solid #E5E7EB;
-      flex-wrap: wrap;
+      gap: 30px;
+      margin-bottom: 30px;
     }
-    .activation-tab {
-      padding: 10px 20px;
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: #565656;
+
+    .nav-arrow {
+      background: none;
+      border: none;
+      font-size: 2rem;
+      color: #bbb;
       cursor: pointer;
-      transition: all 0.3s ease;
-      border-bottom: 3px solid transparent;
+      transition: all 0.2s ease;
+      padding: 10px;
+      outline: none !important;
     }
-    .activation-tab.active { color: #2E2F33; border-bottom: 3px solid #2E2F33; }
-    .activation-tab:hover { color: #2E2F33; }
-    .tab-content { display: none; text-align: left; }
-    .tab-content.active { display: block; }
-    .tab-content img { max-width: 200px; height: auto; margin: 1rem auto; display: block; }
-    .tab-content p { font-size: 1rem; line-height: 1.6; color: #565656; margin-bottom: 2rem; text-align: center; }
-    .tab-content ol { font-size: 0.9rem; line-height: 1.8; color: #333; margin-bottom: 2rem; padding-left: 20px; }
-    .tab-content ol li { margin-bottom: 1rem; }
-    .tab-content ol li strong { color: #2E2F33; font-weight: 600; }
-    .tab-content ol li code { background: #f5f5f5; padding: 2px 6px; border-radius: 4px; font-size: 0.85em; color: #444; }
-    .tab-content video { max-width: 100%; height: auto; margin: 1rem auto; display: block; border: 1px solid #dee2e6; border-radius: 5px; }
-    .section-title h3 {
-      position: relative;
-      display: inline-block;
-      padding-bottom: 10px;
-      color: #2E2F33;
+
+    .nav-arrow:hover { color: var(--primary-dark); transform: scale(1.2); }
+
+    #main-tutorial-img {
+      max-height: 160px;
+      opacity: 1; /* Ensure visible on load */
+      transition: opacity 0.25s ease;
+      filter: drop-shadow(0 8px 20px rgba(0,0,0,0.08));
     }
-    .section-title h3::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 250px;
-      height: 3px;
-      background: linear-gradient(90deg, #313C59, #2E2F33);
-      border-radius: 2px;
+
+    /* Modern Pill Tabs */
+    .nav-pills-custom {
+      display: flex; background: #E5E7EB; padding: 5px; border-radius: 14px; margin-bottom: 35px;
     }
-    .section-title p { font-family: 'Rubik', sans-serif; font-weight: 400; letter-spacing: 0.5px; }
-    @media (max-width: 991.98px) {
-      #activation-section { padding-top: 120px; }
-      .section-title { padding-top: 20px; }
+    .nav-link-custom {
+      flex: 1; text-align: center; padding: 12px; cursor: pointer;
+      font-weight: 600; border-radius: 11px; color: var(--text-muted);
+      transition: 0.3s; border: none; background: none; outline: none !important;
     }
-    .reactivate-text {
-      font-size: 0.9rem;
-      color: #9CA3AF;
-      text-align: center;
-      margin-top: 1.5rem;
+    .nav-link-custom.active {
+      background: white; color: var(--primary-dark); box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
-    .reactivate-text a {
-      color: #2E2F33;
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.3s ease;
+
+    /* Tutorial Content Hidden by Default */
+    .tutorial-pane { display: none; text-align: left; animation: fadeIn 0.4s ease; }
+    .tutorial-pane.active { display: block; }
+
+    ol { padding-left: 20px; color: #333; margin-top: 20px; }
+    ol li { margin-bottom: 15px; line-height: 1.8; font-size: 0.95rem; }
+    ol li strong { color: var(--primary-dark); font-weight: 600; }
+    code { background: #eee; padding: 2px 6px; border-radius: 4px; color: #444; font-size: 0.9em; }
+
+    video {
+      width: 100%; border-radius: 15px; margin-top: 30px;
+      border: 1px solid #ddd; background: #000;
     }
-    .reactivate-text a:hover {
-      color: #D73C59;
-    }
+
+    .reactivate-text { margin-top: 30px; text-align: center; color: #9CA3AF; font-size: 0.9rem; }
+    .reactivate-text a { color: var(--primary-dark); font-weight: 600; text-decoration: none; }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
   </style>
 </head>
 
 <body>
   <div id="navbar-container"></div>
 
-  <main class="main" id="top">
-    <div class="content">
-      <section class="bg-white py-8 py-lg-10" id="activation-section">
-        <div class="container">
-          <div class="row justify-content-center text-center mb-5 section-title">
-            <div class="col-md-8 col-lg-7">
-              <h3 class="fs-4 fs-lg-3 fw-bold mb-2 lh-sm">Nighthawk MR1100 Tutorials</h3>
-              <p class="fs-8 lh-lg text-muted">Select a tutorial to configure your Nighthawk MR1100 for optimal performance.</p>
-            </div>
-          </div>
-          <div class="row justify-content-center">
-            <div class="col-md-8 col-lg-6">
-              <div class="activation-card">
-                <div class="activation-tabs">
-                  <div class="activation-tab active" data-tab="update-apn">Update APN</div>
-                  <div class="activation-tab" data-tab="manual-network">Manual Network</div>
-                  <div class="activation-tab" data-tab="band-locking">Band Locking</div>
-                </div>
-                <div class="tab-content active" id="update-apn-content">
-                  <img src="assets/img/products/mr1100.png" alt="Nighthawk MR1100" class="mb-3">
-                  <p>Follow these steps to update the APN on your Nighthawk MR1100 for reliable connectivity.</p>
-                  <ol>
-                    <li><strong>Download the NETGEAR Mobile App:</strong> If you haven't already, download and install the NETGEAR Mobile app from the App Store (iOS) or Google Play Store (Android).</li>
-                    <li><strong>Open the App:</strong> Launch the NETGEAR Mobile app on your smartphone or tablet.</li>
-                    <li><strong>Log in with NETGEAR Account:</strong> Log in with your NETGEAR account credentials or create an account if you don't have one.</li>
-                    <li><strong>Connect to Your Router:</strong> Make sure your device is connected to the Nighthawk's network.</li>
-                    <li><strong>Router Admin Login:</strong> Log in with username <code>admin</code> and password <code>attadmin</code>.</li>
-                    <li><strong>Go to Router Settings:</strong> Tap the menu icon or settings icon to access router settings.</li>
-                    <li><strong>Access Mobile Settings:</strong> Navigate to <strong>Settings</strong> > <strong>Advanced</strong> > <strong>Mobile</strong> > <strong>APN</strong>.</li>
-                    <li><strong>Add a New APN:</strong> Tap <strong>Add</strong> to create a new APN profile.</li>
-                    <li><strong>Enter APN Details:</strong> Type the required APN (contact support for this) and leave other fields blank.</li>
-                    <li><strong>Save the Settings:</strong> Tap <strong>Save</strong> or <strong>Apply</strong>.</li>
-                    <li><strong>Restart the Router:</strong> Reboot your Netgear Nighthawk router.</li>
-                    <li><strong>Verify Connection:</strong> Check your internet connection after rebooting.</li>
-                  </ol>
-                  <video controls>
-                    <source src="tutorial-videos/APN - MR1100.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                  </video>
-                </div>
-                <div class="tab-content" id="manual-network-content">
-                  <img src="assets/img/products/mr1100.png" alt="Nighthawk MR1100" class="mb-3">
-                  <p>Follow these steps to manually select a network on your Nighthawk MR1100 for better control.</p>
-                  <ol>
-                    <li><strong>Download the NETGEAR Mobile App:</strong> Download and install from the App Store or Google Play Store.</li>
-                    <li><strong>Open the App:</strong> Launch the NETGEAR Mobile app.</li>
-                    <li><strong>Log in with NETGEAR Account:</strong> Use your NETGEAR credentials or create an account.</li>
-                    <li><strong>Connect to Your Router:</strong> Ensure connection to the Nighthawk's network.</li>
-                    <li><strong>Router Admin Login:</strong> Use <code>admin</code> and <code>attadmin</code>.</li>
-                    <li><strong>Go to Router Settings:</strong> Access settings via the menu or settings icon.</li>
-                    <li><strong>Access Mobile Settings:</strong> Go to <strong>Settings</strong> > <strong>Advanced</strong> > <strong>Mobile</strong>.</li>
-                    <li><strong>Select Manual Network Selection:</strong> Tap <strong>Network Selection</strong>.</li>
-                    <li><strong>Choose Manual:</strong> Switch from <strong>Auto</strong> to <strong>Manual</strong>.</li>
-                    <li><strong>Select Your Preferred Carrier:</strong> Choose from the list of available carriers.</li>
-                    <li><strong>Save the Settings:</strong> Tap <strong>Save</strong> or <strong>Apply</strong>.</li>
-                    <li><strong>Restart the Router:</strong> Reboot your Netgear Nighthawk router.</li>
-                    <li><strong>Verify Connection:</strong> Confirm the connection works with your selected carrier.</li>
-                  </ol>
-                  <video controls>
-                    <source src="tutorial-videos/MNS - MR1100.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                  </video>
-                </div>
-                <div class="tab-content" id="band-locking-content">
-                  <img src="assets/img/products/mr1100.png" alt="Nighthawk MR1100" class="mb-3">
-                  <p>Follow these steps to lock specific LTE bands on your Nighthawk MR1100 for optimized performance.</p>
-                  <ol>
-                    <li><strong>Download the NETGEAR Mobile App:</strong> Install from the App Store or Google Play Store.</li>
-                    <li><strong>Open the App:</strong> Launch the NETGEAR Mobile app.</li>
-                    <li><strong>Log in with NETGEAR Account:</strong> Log in or create an account.</li>
-                    <li><strong>Connect to Your Router:</strong> Connect to the routers network.</li>
-                    <li><strong>Router Admin Login:</strong> Use <code>admin</code> and <code>attadmin</code>.</li>
-                    <li><strong>Go to Router Settings:</strong> Access via menu or settings icon.</li>
-                    <li><strong>Access Mobile Settings:</strong> Navigate to <strong>Settings</strong> > <strong>Advanced</strong> > <strong>Mobile</strong>.</li>
-                    <li><strong>Select LTE Bands:</strong> Tap <strong>LTE Bands</strong>.</li>
-                    <li><strong>Choose Preferred LTE Band:</strong> Select from the list (e.g., Band 2, Band 4, Band 12).</li>
-                    <li><strong>Save the Settings:</strong> Tap <strong>Save</strong> or <strong>Apply</strong>.</li>
-                    <li><strong>Restart the Router:</strong> Reboot your Netgear router.</li>
-                    <li><strong>Verify Connection:</strong> Check the connection with your selected LTE band.</li>
-                  </ol>
-                  <video controls>
-                    <source src="tutorial-videos/Band Locking - MR1100.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                  </video>
-                </div>
-              </div>
-              <p class="reactivate-text">Control your connection anytime. <a href="/app-download">Download the App →</a></p>
-            </div>
-          </div>
-        </div>
-      </section>
+  <main class="tutorial-container">
+    <div class="text-center mb-5">
+      <h3 class="display-5 fw-bold">Nighthawk Support</h3>
+      <p class="text-muted">Follow these steps to configure your device for optimal performance.</p>
     </div>
+
+    <div class="tutorial-card">
+      
+      <div class="image-switcher">
+        <button class="nav-arrow" id="prev-img"><i class="uil uil-angle-left"></i></button>
+        <img src="assets/img/products/mr1100.png" id="main-tutorial-img" alt="Device Model">
+        <button class="nav-arrow" id="next-img"><i class="uil uil-angle-right"></i></button>
+      </div>
+
+      <div class="nav-pills-custom">
+        <button class="nav-link-custom active" data-tab="update-apn">Update APN</button>
+        <button class="nav-link-custom" data-tab="manual-network">Manual Network</button>
+        <button class="nav-link-custom" data-tab="band-locking">Band Locking</button>
+      </div>
+
+      <div id="update-apn-content" class="tutorial-pane active">
+        <p class="text-center text-muted">Follow these steps to update the APN on your Nighthawk for reliable connectivity.</p>
+        <ol>
+          <li><strong>Download the NETGEAR Mobile App:</strong> If you haven't already, download and install the NETGEAR Mobile app from the App Store (iOS) or Google Play Store (Android).</li>
+          <li><strong>Open the App:</strong> Launch the NETGEAR Mobile app on your smartphone or tablet.</li>
+          <li><strong>Log in with NETGEAR Account:</strong> Log in with your NETGEAR account credentials or create an account if you don't have one.</li>
+          <li><strong>Connect to Your Router:</strong> Make sure your device is connected to the Nighthawk's network.</li>
+          <li><strong>Router Admin Login:</strong> Log in with username <code>admin</code> and password <code>attadmin</code>.</li>
+          <li><strong>Go to Router Settings:</strong> Tap the menu icon or settings icon to access router settings.</li>
+          <li><strong>Access Mobile Settings:</strong> Navigate to <strong>Settings</strong> > <strong>Advanced</strong> > <strong>Mobile</strong> > <strong>APN</strong>.</li>
+          <li><strong>Add a New APN:</strong> Tap <strong>Add</strong> to create a new APN profile.</li>
+          <li><strong>Enter APN Details:</strong> Type the required APN (contact support for this) and leave other fields blank.</li>
+          <li><strong>Save the Settings:</strong> Tap <strong>Save</strong> or <strong>Apply</strong>.</li>
+          <li><strong>Restart the Router:</strong> Reboot your Netgear Nighthawk router.</li>
+          <li><strong>Verify Connection:</strong> Check your internet connection after rebooting.</li>
+        </ol>
+        <video controls><source src="tutorial-videos/APN - MR1100.mp4" type="video/mp4"></video>
+      </div>
+
+      <div id="manual-network-content" class="tutorial-pane">
+        <p class="text-center text-muted">Follow these steps to manually select a network on your Nighthawk for better control.</p>
+        <ol>
+          <li><strong>Download the NETGEAR Mobile App:</strong> Download and install from the App Store or Google Play Store.</li>
+          <li><strong>Open the App:</strong> Launch the NETGEAR Mobile app.</li>
+          <li><strong>Log in with NETGEAR Account:</strong> Use your NETGEAR credentials or create an account.</li>
+          <li><strong>Connect to Your Router:</strong> Ensure connection to the Nighthawk's network.</li>
+          <li><strong>Router Admin Login:</strong> Use <code>admin</code> and <code>attadmin</code>.</li>
+          <li><strong>Go to Router Settings:</strong> Access settings via the menu or settings icon.</li>
+          <li><strong>Access Mobile Settings:</strong> Go to <strong>Settings</strong> > <strong>Advanced</strong> > <strong>Mobile</strong>.</li>
+          <li><strong>Select Manual Network Selection:</strong> Tap <strong>Network Selection</strong>.</li>
+          <li><strong>Choose Manual:</strong> Switch from <strong>Auto</strong> to <strong>Manual</strong>.</li>
+          <li><strong>Select Your Preferred Carrier:</strong> Choose from the list of available carriers.</li>
+          <li><strong>Save the Settings:</strong> Tap <strong>Save</strong> or <strong>Apply</strong>.</li>
+          <li><strong>Restart the Router:</strong> Reboot your Netgear Nighthawk router.</li>
+          <li><strong>Verify Connection:</strong> Confirm the connection works with your selected carrier.</li>
+        </ol>
+        <video controls><source src="tutorial-videos/MNS - MR1100.mp4" type="video/mp4"></video>
+      </div>
+
+      <div id="band-locking-content" class="tutorial-pane">
+        <p class="text-center text-muted">Follow these steps to lock specific LTE bands on your Nighthawk for optimized performance.</p>
+        <ol>
+          <li><strong>Download the NETGEAR Mobile App:</strong> Install from the App Store or Google Play Store.</li>
+          <li><strong>Open the App:</strong> Launch the NETGEAR Mobile app.</li>
+          <li><strong>Log in with NETGEAR Account:</strong> Log in or create an account.</li>
+          <li><strong>Connect to Your Router:</strong> Connect to the routers network.</li>
+          <li><strong>Router Admin Login:</strong> Use <code>admin</code> and <code>attadmin</code>.</li>
+          <li><strong>Go to Router Settings:</strong> Access via menu or settings icon.</li>
+          <li><strong>Access Mobile Settings:</strong> Navigate to <strong>Settings</strong> > <strong>Advanced</strong> > <strong>Mobile</strong>.</li>
+          <li><strong>Select LTE Bands:</strong> Tap <strong>LTE Bands</strong>.</li>
+          <li><strong>Choose Preferred LTE Band:</strong> Select from the list (e.g., Band 2, Band 4, Band 12).</li>
+          <li><strong>Save the Settings:</strong> Tap <strong>Save</strong> or <strong>Apply</strong>.</li>
+          <li><strong>Restart the Router:</strong> Reboot your Netgear router.</li>
+          <li><strong>Verify Connection:</strong> Check the connection with your selected LTE band.</li>
+        </ol>
+        <video controls><source src="tutorial-videos/Band Locking - MR1100.mp4" type="video/mp4"></video>
+      </div>
+
+    </div>
+    
+    <p class="reactivate-text">Control your connection anytime. <a href="/app-download">Download the App →</a></p>
   </main>
 
   <div id="footer-container"></div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script src="https://js.chargebee.com/v2/chargebee.js" data-cb-site="more4lessplans"></script>
-  <script src="vendors/is/is.min.js"></script>
-  <script src="vendors/countup/countUp.umd.js"></script>
-  <script src="vendors/swiper/swiper-bundle.min.js"></script>
-  <script src="vendors/lodash/lodash.min.js"></script>
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
-  <script src="assets/js/theme.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Load navbar
-      fetch('/navbar.html')
-        .then(response => {
-          if (!response.ok) throw new Error('Failed to load navbar.html: ' + response.status);
-          return response.text();
-        })
-        .then(data => {
-          document.getElementById('navbar-container').innerHTML = data;
-          const navbarScript = document.createElement('script');
-          navbarScript.src = '/navbar.js';
-          navbarScript.async = true;
-          navbarScript.onload = function() {
-            if (typeof initializeNavbar === 'function') {
-              initializeNavbar();
-            } else {
-              console.error('initializeNavbar function not found in navbar.js');
-            }
-          };
-          navbarScript.onerror = function() {
-            console.error('Failed to load navbar.js');
-          };
-          document.body.appendChild(navbarScript);
-        })
-        .catch(error => console.error('Error loading navbar:', error));
+    $(document).ready(function() {
+      // 1. Device Image Switcher
+      const deviceImages = [
+        'assets/img/products/mr1100.png',
+        'assets/img/products/MR5100.png',
+        'assets/img/products/MR6500.png',
+        'assets/img/products/mr6110.png'
+      ];
+      let currentImgIndex = 0;
 
-      // Load footer
-      fetch('/footer.html')
-        .then(response => {
-          if (!response.ok) throw new Error('Failed to load footer.html: ' + response.status);
-          return response.text();
-        })
-        .then(data => {
-          document.getElementById('footer-container').innerHTML = data;
-          const yearElement = document.getElementById('currentYear');
-          if (yearElement) {
-            yearElement.textContent = new Date().getFullYear();
-          }
-        })
-        .catch(error => console.error('Error loading footer:', error));
+      function updateImage(index) {
+        $('#main-tutorial-img').css('opacity', 0);
+        setTimeout(() => {
+          $('#main-tutorial-img').attr('src', deviceImages[index]);
+          $('#main-tutorial-img').css('opacity', 1);
+        }, 200);
+      }
 
-      // Tab switching
-      const tabs = document.querySelectorAll('.activation-tab');
-      const contents = document.querySelectorAll('.tab-content');
-      tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-          tabs.forEach(t => t.classList.remove('active'));
-          contents.forEach(c => c.classList.remove('active'));
-          tab.classList.add('active');
-          document.getElementById(`${tab.getAttribute('data-tab')}-content`).classList.add('active');
-        });
+      $('#next-img').on('click', function() {
+        currentImgIndex = (currentImgIndex + 1) % deviceImages.length;
+        updateImage(currentImgIndex);
       });
 
-      // Initialize Chargebee
-      if (typeof Chargebee !== 'undefined') {
-        Chargebee.init({
-          site: "more4lessplans",
-          publishableKey: 'live_9xoL0GUAJyfaZddNn5cdFhI4hrLAGhyIh' // Replace with actual Chargebee publishable key
-        });
+      $('#prev-img').on('click', function() {
+        currentImgIndex = (currentImgIndex - 1 + deviceImages.length) % deviceImages.length;
+        updateImage(currentImgIndex);
+      });
 
-        const accountLoginLinks = document.querySelectorAll('.account-login-link');
-        accountLoginLinks.forEach(link => {
-          link.addEventListener('click', function(event) {
-            event.preventDefault();
-            const chargebeeInstance = Chargebee.getInstance();
-            if (chargebeeInstance) {
-              chargebeeInstance.openPortal({
-                onLoad: function() { console.log("Chargebee portal loaded"); },
-                onClose: function() { console.log("Chargebee portal closed"); }
-              });
-            } else {
-              console.error('Chargebee instance not initialized');
-            }
-          });
-        });
-      } else {
-        console.error("Chargebee script not loaded. Please ensure the Chargebee script is included.");
+      // 2. Tab Logic
+      function switchTab(tabId) {
+        // Switch Buttons
+        $('.nav-link-custom').removeClass('active');
+        $(`.nav-link-custom[data-tab="${tabId}"]`).addClass('active');
+        
+        // Switch Content
+        $('.tutorial-pane').removeClass('active');
+        $(`#${tabId}-content`).addClass('active');
+        
+        // Update URL
+        window.location.hash = tabId;
+      }
+
+      $('.nav-link-custom').on('click', function() {
+        const tab = $(this).data('tab');
+        switchTab(tab);
+      });
+
+      // Check URL hash on start
+      const startHash = window.location.hash.replace('#', '');
+      if (startHash && $(`#${startHash}-content`).length) {
+        switchTab(startHash);
       }
     });
   </script>
