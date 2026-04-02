@@ -2,15 +2,12 @@
 <html data-bs-theme="light" lang="en-US" dir="ltr">
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <title>Device Tutorials | More4Less Plans</title>
+  <title>Device Support | More4Less Plans</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&family=Rubik:wght@300..900&display=swap" rel="stylesheet">
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
   
@@ -28,21 +25,12 @@
       font-family: 'Figtree', sans-serif;
       color: #333;
       background-color: #fff;
-      padding-top: 100px; /* Space for navbar */
+      padding-top: 100px;
     }
 
-    h1, h2, h3, h4, .section-title {
-      font-family: 'Rubik', sans-serif;
-      font-weight: 700;
-      color: var(--primary-dark);
-    }
+    h1, h2, h3, h4 { font-family: 'Rubik', sans-serif; font-weight: 700; color: var(--primary-dark); }
 
-    /* Main Card Styling */
-    .tutorial-container {
-      max-width: 700px;
-      margin: 0 auto;
-      padding: 20px;
-    }
+    .tutorial-container { max-width: 700px; margin: 0 auto; padding: 20px; }
 
     .tutorial-card {
       background: var(--accent-gray);
@@ -52,82 +40,68 @@
       text-align: center;
     }
 
+    /* Subtle Image Switcher */
+    .image-switcher {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
+      margin-bottom: 25px;
+    }
+
+    .nav-arrow {
+      background: none;
+      border: none;
+      font-size: 2rem;
+      color: #ccc;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      padding: 10px;
+      outline: none !important;
+    }
+
+    .nav-arrow:hover { color: var(--primary-dark); transform: scale(1.1); }
+
+    #main-tutorial-img {
+      max-height: 180px;
+      opacity: 1;
+      transition: opacity 0.25s ease;
+      filter: drop-shadow(0 8px 20px rgba(0,0,0,0.08));
+    }
+
     /* Modern Pill Tabs */
     .tutorial-tabs {
-      display: flex;
-      background: #E5E7EB;
-      padding: 5px;
-      border-radius: 14px;
-      margin-bottom: 30px;
+      display: flex; background: #E5E7EB; padding: 5px; border-radius: 14px; margin-bottom: 35px;
     }
-
     .tutorial-tab {
-      flex: 1;
-      text-align: center;
-      padding: 12px;
-      cursor: pointer;
-      font-weight: 600;
-      border-radius: 11px;
-      transition: 0.3s;
-      color: var(--text-muted);
+      flex: 1; text-align: center; padding: 12px; cursor: pointer;
+      font-weight: 600; border-radius: 11px; color: var(--text-muted);
+      transition: 0.3s; border: none; background: none; outline: none !important;
     }
-
     .tutorial-tab.active {
-      background: white;
-      color: var(--primary-dark);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      background: white; color: var(--primary-dark); box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
 
     /* Content Visibility */
-    .tab-content { display: none; animation: fadeIn 0.4s ease; }
-    .tab-content.active { display: block; }
+    .tab-pane { display: none; text-align: center; animation: fadeIn 0.4s ease; }
+    .tab-pane.active { display: block; }
 
-    .tab-content img { 
-      max-height: 200px; 
-      margin-bottom: 25px; 
-      filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
-    }
-
-    /* Thumbnail Gallery for Nighthawk models */
-    .device-thumb-row {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-    }
-
-    .thumb-box {
-      width: 60px;
-      height: 60px;
-      padding: 5px;
-      background: white;
-      border: 2px solid transparent;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .thumb-box.active { border-color: var(--primary-dark); }
-    .thumb-box img { width: 100%; height: 100%; object-fit: contain; margin: 0; filter: none; }
-
-    /* Button Styling */
     .btn-tutorial {
       background: var(--primary-dark);
-      color: white;
+      color: white !important;
       border-radius: 12px;
       padding: 16px 35px;
       font-weight: 600;
       text-decoration: none;
-      display: inline-block;
+      display: block;
       transition: 0.3s;
       border: 2px solid var(--primary-dark);
-      width: 100%;
+      margin-top: 20px;
     }
 
     .btn-tutorial:hover {
       background: transparent;
-      color: var(--primary-dark);
+      color: var(--primary-dark) !important;
       text-decoration: none;
     }
 
@@ -150,41 +124,38 @@
 
   <main class="container">
     <div class="text-center mb-5">
-      <h1 class="display-5">Device Tutorials</h1>
-      <p class="text-muted">Step-by-step setup and troubleshooting for your More4Less hardware.</p>
+      <h1 class="display-5">Device Support</h1>
+      <p class="text-muted">Step-by-step setup and troubleshooting for your hardware.</p>
     </div>
 
     <div class="tutorial-container">
       <div class="tutorial-card">
         
         <div class="tutorial-tabs">
-          <div class="tutorial-tab active" data-tab="travel">Travel Router</div>
-          <div class="tutorial-tab" data-tab="home">Home Router</div>
+          <button class="tutorial-tab active" data-tab="nighthawk">On-The-Go</button>
+          <button class="tutorial-tab" data-tab="orbi">Fixed Home</button>
         </div>
 
-        <div id="travel-content" class="tab-content active">
-          <div class="device-thumb-row">
-            <div class="thumb-box active" data-img="assets/img/products/mr1100.png"><img src="assets/img/products/mr1100.png"></div>
-            <div class="thumb-box" data-img="assets/img/products/MR5100.png"><img src="assets/img/products/MR5100.png"></div>
-            <div class="thumb-box" data-img="assets/img/products/MR6500.png"><img src="assets/img/products/MR6500.png"></div>
-            <div class="thumb-box" data-img="assets/img/products/mr6110.png"><img src="assets/img/products/mr6110.png"></div>
+        <div id="nighthawk-pane" class="tab-pane active">
+          <div class="image-switcher">
+            <button class="nav-arrow" id="prev-img"><i class="uil uil-angle-left"></i></button>
+            <img src="assets/img/products/mr1100.png" id="main-tutorial-img" alt="Nighthawk Series">
+            <button class="nav-arrow" id="next-img"><i class="uil uil-angle-right"></i></button>
           </div>
           
-          <img src="assets/img/products/mr1100.png" id="travel-main-img" alt="Nighthawk Series">
-          
-          <p class="text-muted mb-4">Guides for Netgear Nighthawk series (MR1100, MR5100, MR6110, MR6500). Includes SIM placement, APN settings, and battery optimization.</p>
-          
-          <a href="MR1100" class="btn-tutorial">View Nighthawk Tutorials</a>
+          <p class="text-muted mb-4">Guides for the Nighthawk series. Includes SIM placement, APN settings, and battery optimization.</p>
+          <a href="/nighthawk-tutorials" class="btn-tutorial">View Nighthawk Tutorials</a>
         </div>
 
-        <div id="home-content" class="tab-content">
-          <img src="assets/img/products/LBR20.png" alt="Orbi LBR20">
-          <p class="text-muted mb-4">Guides for the Orbi LBR20 Home Hub. Includes external antenna setup, signal optimization, and Wi-Fi management.</p>
-          
-          <a href="LBR20" class="btn-tutorial">View Orbi Tutorials</a>
+        <div id="orbi-pane" class="tab-pane">
+          <div class="image-switcher">
+            <img src="assets/img/products/LBR20.png" alt="Orbi Home Hub" style="max-height: 180px; filter: drop-shadow(0 8px 20px rgba(0,0,0,0.08));">
+          </div>
+          <p class="text-muted mb-4">Guides for the Orbi Home Hub. Includes external antenna setup, signal optimization, and Wi-Fi management.</p>
+          <a href="/orbi-tutorials" class="btn-tutorial">View Orbi Tutorials</a>
         </div>
 
-        <a href="/app-download" class="sub-link">Need to manage settings? Download the App →</a>
+        <a href="/app-download" class="sub-link">Need the management app? Download here →</a>
       </div>
 
       <div class="text-center mt-5">
@@ -197,27 +168,44 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Basic Tab Switching
+    $(document).ready(function() {
+      // 1. Navbar & Footer Fetch
+      fetch('/navbar.html').then(r => r.text()).then(d => { 
+        $('#navbar-container').html(d); 
+        $.getScript('/navbar.js'); 
+      });
+      fetch('/footer.html').then(r => r.text()).then(d => { 
+        $('#footer-container').html(d); 
+        $('#currentYear').text(new Date().getFullYear());
+      });
+
+      // 2. Tab Switching
       $('.tutorial-tab').on('click', function() {
         const tab = $(this).data('tab');
         $('.tutorial-tab').removeClass('active');
         $(this).addClass('active');
-        $('.tab-content').removeClass('active');
-        $('#' + tab + '-content').addClass('active');
+        $('.tab-pane').removeClass('active');
+        $(`#${tab}-pane`).addClass('active');
       });
 
-      // Travel Router Image Switcher
-      $('.thumb-box').on('click', function() {
-        const newSrc = $(this).data('img');
-        $('.thumb-box').removeClass('active');
-        $(this).addClass('active');
-        $('#travel-main-img').attr('src', newSrc);
-      });
+      // 3. Subtle Image Switcher (Nighthawk only)
+      const nighthawkImages = [
+        'assets/img/products/mr1100.png',
+        'assets/img/products/MR5100.png',
+        'assets/img/products/MR6500.png',
+        'assets/img/products/mr6110.png'
+      ];
+      let currentIdx = 0;
 
-      // Load Navbar/Footer (Your existing fetch logic)
-      fetch('/navbar.html').then(r => r.text()).then(d => document.getElementById('navbar-container').innerHTML = d);
-      fetch('/footer.html').then(r => r.text()).then(d => document.getElementById('footer-container').innerHTML = d);
+      function updateImg(idx) {
+        $('#main-tutorial-img').css('opacity', 0);
+        setTimeout(() => {
+          $('#main-tutorial-img').attr('src', nighthawkImages[idx]).css('opacity', 1);
+        }, 200);
+      }
+
+      $('#next-img').on('click', () => { currentIdx = (currentIdx + 1) % nighthawkImages.length; updateImg(currentIdx); });
+      $('#prev-img').on('click', () => { currentIdx = (currentIdx - 1 + nighthawkImages.length) % nighthawkImages.length; updateImg(currentIdx); });
     });
   </script>
 </body>
