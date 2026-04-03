@@ -2,272 +2,185 @@
 <html data-bs-theme="light" lang="en-US" dir="ltr">
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- SEO and Meta Tags -->
-  <title>Manage Your LTE Router - More4Less Plans</title>
-  <meta name="description" content="Easily manage your More4Less LTE router with the Nighthawk or Orbi app. Download now to access settings, monitor usage, and optimize your high-speed internet connection.">
-  <meta name="keywords" content="More4Less router management, LTE router app, Nighthawk app, Orbi app, wireless internet settings, high-speed internet Canada">
-  <meta property="og:title" content="Manage Your LTE Router - More4Less Plans">
-  <meta property="og:description" content="Easily manage your More4Less LTE router with the Nighthawk or Orbi app. Download now to access settings, monitor usage, and optimize your high-speed internet connection.">
-  <meta property="og:image" content="https://more4lessplans.ca/main.jpg">
-  <meta property="og:url" content="https://more4lessplans.ca/manage-router">
-  <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Manage Your LTE Router - More4Less Plans">
-  <meta name="twitter:description" content="Easily manage your More4Less LTE router with the Nighthawk or Orbi app. Download now to access settings, monitor usage, and optimize your high-speed internet connection.">
-  <meta name="twitter:image" content="https://more4lessplans.ca/main.jpg">
-
-  <!-- Favicons -->
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicons/favicon-16x16.png">
-  <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicons/favicon.ico">
-  <link rel="manifest" href="assets/img/favicons/manifest.json">
-  <meta name="msapplication-TileImage" content="assets/img/favicons/mstile-150x150.png">
-  <meta name="theme-color" content="#2E2F34">
-
-  <!-- Bootstrap CSS -->
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="/navbar.css">
-  <link rel="stylesheet" href="/footer.css">
-  <link rel="stylesheet" href="vendors/swiper/swiper-bundle.min.css">
+  <title>Get the Netgear App | More4Less Plans</title>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
-  <link href="assets/css/theme.min.css" rel="stylesheet" id="style-default">
-  <link href="assets/css/user-rtl.min.css" rel="stylesheet" id="user-style-rtl">
-  <link href="assets/css/user.min.css" rel="stylesheet" id="user-style-default">
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&family=Rubik:wght@300..900&display=swap" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
 
-  <!-- Page-Specific CSS -->
+  <link rel="stylesheet" href="/navbar.css">
+  <link rel="stylesheet" href="/footer.css">
+
   <style>
+    :root {
+      --primary-dark: #2E2F33;
+      --accent-gray: #F9F9F9;
+      --text-muted: #565656;
+      --brand-red: #D73C59;
+    }
+
     body {
-      padding-top: 70px;
+      font-family: 'Figtree', sans-serif;
+      color: #333;
+      background-color: #fff;
+      padding-top: 100px;
     }
-    @media (max-width: 576px) {
-      body { padding-top: 60px; }
-    }
-    .text-danger { color: #2E2F33 !important; }
-    .text-muted { color: #565656 !important; }
-    .btn-primary {
-      border: 2px solid #2E2F33;
-      background-color: #2E2F33;
-      color: #fff;
-      font-weight: 600;
-      border-radius: 9px;
-      padding: 15px 45px;
-      transition: all 0.3s ease;
-      text-transform: none;
-    }
-    .btn-primary:hover, .btn-primary:focus {
-      background-color: transparent;
-      color: #000;
-      border: 2px solid #000;
-    }
-    .activation-card {
-      background: #F9F9F9;
-      border: none;
-      border-radius: 15px;
-      padding: 30px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-      transition: box-shadow 0.3s ease;
-    }
-    .activation-card:hover { box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); }
-    .activation-tabs {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 2rem;
-      border-bottom: 1px solid #E5E7EB;
-    }
-    .activation-tab {
-      padding: 10px 20px;
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: #565656;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      border-bottom: 3px solid transparent;
-    }
-    .activation-tab.active { color: #2E2F33; border-bottom: 3px solid #2E2F33; }
-    .activation-tab:hover { color: #2E2F33; }
-    .tab-content { display: none; text-align: center; }
-    .tab-content.active { display: block; }
-    .tab-content img { max-width: 200px; height: auto; margin: 1rem auto; }
-    .tab-content p { font-size: 1rem; line-height: 1.6; color: #565656; margin-bottom: 2rem; }
-    .tab-content .credentials { font-size: 0.9rem; color: #565656; margin-bottom: 1rem; }
-    .tab-content .credentials strong { color: #2E2F33; }
-    .tab-content .credentials em { font-style: italic; }
-    .section-title h3 {
-      position: relative;
-      display: inline-block;
-      padding-bottom: 10px;
-      color: #2E2F33;
-    }
-    .section-title h3::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 250px;
-      height: 3px;
-      background: linear-gradient(90deg, #313C59, #2E2F33);
-      border-radius: 2px;
-    }
-    .section-title p { font-family: 'Rubik', sans-serif; font-weight: 400; letter-spacing: 0.5px; }
-    @media (max-width: 991.98px) {
-      #activation-section { padding-top: 120px; }
-      .section-title { padding-top: 20px; }
-    }
-    .reactivate-text {
-      font-size: 0.9rem;
-      color: #9CA3AF;
+
+    h1, h2, h3, h4 { font-family: 'Rubik', sans-serif; font-weight: 700; color: var(--primary-dark); }
+
+    .manage-container { max-width: 800px; margin: 0 auto; padding: 20px; }
+
+    .manage-card {
+      background: var(--accent-gray);
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
       text-align: center;
-      margin-top: 1.5rem;
     }
-    .reactivate-text a {
-      color: #2E2F33;
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.3s ease;
+
+    /* Pill Tabs */
+    .nav-pills-custom {
+      display: flex; background: #E5E7EB; padding: 5px; border-radius: 14px; margin-bottom: 35px;
     }
-    .reactivate-text a:hover {
-      color: #D73C59;
+    .nav-link-custom {
+      flex: 1; text-align: center; padding: 12px; cursor: pointer;
+      font-weight: 600; border-radius: 11px; color: var(--text-muted);
+      transition: 0.3s; border: none; background: none; outline: none !important;
     }
+    .nav-link-custom.active {
+      background: white; color: var(--primary-dark); box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    /* Image Switcher */
+    .image-switcher {
+      display: flex; align-items: center; justify-content: center; gap: 30px; margin-bottom: 30px;
+    }
+    .nav-arrow {
+      background: none; border: none; font-size: 2rem; color: #bbb;
+      cursor: pointer; transition: 0.2s; outline: none !important;
+    }
+    .nav-arrow:hover { color: var(--primary-dark); transform: scale(1.2); }
+
+    #main-device-img {
+      max-height: 160px; transition: opacity 0.25s ease;
+      filter: drop-shadow(0 8px 20px rgba(0,0,0,0.08));
+    }
+
+    .tab-pane { display: none; animation: fadeIn 0.4s ease; }
+    .tab-pane.active { display: block; }
+
+    /* Credential Highlighting */
+    .cred-badge {
+      background: #fff; border: 1px solid #eee; padding: 15px;
+      border-radius: 14px; margin-bottom: 25px; display: inline-block; width: 100%;
+    }
+    code { 
+      background: rgba(215, 60, 89, 0.1); padding: 2px 6px; border-radius: 4px; 
+      color: var(--brand-red); font-weight: 700; font-size: 0.95em;
+    }
+
+    .btn-main {
+      background: var(--primary-dark); color: white; border-radius: 12px;
+      padding: 15px 40px; font-weight: 600; text-decoration: none;
+      display: inline-block; transition: 0.3s; border: 2px solid var(--primary-dark);
+    }
+    .btn-main:hover { background: transparent; color: var(--primary-dark); text-decoration: none; }
+
+    .support-link { margin-top: 30px; color: #9CA3AF; font-size: 0.9rem; }
+    .support-link a { color: var(--primary-dark); font-weight: 600; text-decoration: none; }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
   </style>
 </head>
 
 <body>
   <div id="navbar-container"></div>
 
-  <main class="main" id="top">
-    <div class="content">
-      <section class="bg-white py-8 py-lg-10" id="activation-section">
-        <div class="container">
-          <div class="row justify-content-center text-center mb-5 section-title">
-            <div class="col-md-8 col-lg-7">
-              <h3 class="fs-4 fs-lg-3 fw-bold mb-2 lh-sm">Manage Your LTE Router</h3>
-              <p class="fs-8 lh-lg text-muted">Select your device to download the app and manage your connection.</p>
-            </div>
-          </div>
-          <div class="row justify-content-center">
-            <div class="col-md-8 col-lg-6">
-              <div class="activation-card">
-                <div class="activation-tabs">
-                  <div class="activation-tab active" data-tab="nighthawk">Nighthawk</div>
-                  <div class="activation-tab" data-tab="orbi">Orbi</div>
-                </div>
-                <div class="tab-content active" id="nighthawk-content">
-                  <img src="assets/img/products/mr1100.png" alt="Nighthawk" class="mb-3">
-                  <p>Download the Nighthawk app to manage your Nighthawk router, access settings, and monitor usage.</p>
-                  <div class="credentials">
-                    <p><strong>Username:</strong> <em>admin</em><br>
-                    <strong>Password:</strong> <em>attadmin</em></p>
-                  </div>
-                  <a href="https://www.netgear.com/support/product/netgear-mobile-app/" class="btn btn-primary">Download App</a>
-                </div>
-                <div class="tab-content" id="orbi-content">
-                  <img src="assets/img/products/LBR20.png" alt="Orbi" class="mb-3">
-                  <p>Download the Orbi app to manage your device, optimize your connection, and monitor usage.</p>
-                  <div class="credentials">
-                    <p><strong>Username:</strong> <em>admin</em><br>
-                    <strong>Password:</strong> <em>more4less</em> or <em>More4LessPlans</em></p>
-                  </div>
-                  <a href="https://www.netgear.com/home/services/orbi-app/" class="btn btn-primary">Download App</a>
-                </div>
-              </div>
-              <p class="reactivate-text">Need more help? <a href="/contact">Contact Support →</a></p>
-            </div>
-          </div>
-        </div>
-      </section>
+  <main class="manage-container">
+    <div class="text-center mb-5">
+      <h3 class="display-5 fw-bold">Get the Netgear App</h3>
+      <p class="text-muted">The easiest way to manage your device, check data, and update settings.</p>
     </div>
+
+    <div class="manage-card">
+      <div class="nav-pills-custom">
+        <button class="nav-link-custom active" data-tab="nighthawk">On-The-Go Devices</button>
+        <button class="nav-link-custom" data-tab="orbi">Fixed Home Devices</button>
+      </div>
+
+      <div id="nighthawk-pane" class="tab-pane active">
+        <div class="image-switcher">
+          <button class="nav-arrow" id="prev-img"><i class="uil uil-angle-left"></i></button>
+          <img src="assets/img/products/mr1100.png" id="main-device-img" alt="Nighthawk">
+          <button class="nav-arrow" id="next-img"><i class="uil uil-angle-right"></i></button>
+        </div>
+        <p class="text-muted mb-4">Use the Nighthawk app to check data usage, manage Wi-Fi settings, and view connected devices.</p>
+        <div class="cred-badge">
+          <span class="small text-muted">Admin Credentials:</span><br>
+          <strong>User:</strong> <code>admin</code> | <strong>Pass:</strong> <code>attadmin</code>
+        </div>
+        <a href="https://www.netgear.com/support/product/netgear-mobile-app/" class="btn-main">Download Nighthawk App</a>
+      </div>
+
+      <div id="orbi-pane" class="tab-pane">
+        <img src="assets/img/products/LBR20.png" alt="Orbi" style="max-height: 160px; margin-bottom: 30px; filter: drop-shadow(0 8px 20px rgba(0,0,0,0.08));">
+        <p class="text-muted mb-4">Use the Orbi app to optimize your home signal, run speed tests, and manage your mesh network.</p>
+        <div class="cred-badge">
+          <span class="small text-muted">Admin Credentials:</span><br>
+          <strong>User:</strong> <code>admin</code> | <strong>Pass:</strong> <code>more4less</code>
+        </div>
+        <a href="https://www.netgear.com/home/services/orbi-app/" class="btn-main">Download Orbi App</a>
+      </div>
+    </div>
+
+    <p class="support-link text-center">Need more help? <a href="/contact">Contact Support →</a></p>
   </main>
 
   <div id="footer-container"></div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script src="https://js.chargebee.com/v2/chargebee.js" data-cb-site="more4lessplans"></script>
-  <script src="vendors/is/is.min.js"></script>
-  <script src="vendors/countup/countUp.umd.js"></script>
-  <script src="vendors/swiper/swiper-bundle.min.js"></script>
-  <script src="vendors/lodash/lodash.min.js"></script>
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
-  <script src="assets/js/theme.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Load navbar
-      fetch('/navbar.html')
-        .then(response => {
-          if (!response.ok) throw new Error('Failed to load navbar.html: ' + response.status);
-          return response.text();
-        })
-        .then(data => {
-          document.getElementById('navbar-container').innerHTML = data;
-          const navbarScript = document.createElement('script');
-          navbarScript.src = '/navbar.js';
-          navbarScript.onload = function() {
-            initializeNavbar(); // Assumes this function exists in navbar.js
-          };
-          document.body.appendChild(navbarScript);
-        })
-        .catch(error => console.error('Error loading navbar:', error));
-
-      // Load footer
-      fetch('/footer.html')
-        .then(response => {
-          if (!response.ok) throw new Error('Failed to load footer.html: ' + response.status);
-          return response.text();
-        })
-        .then(data => {
-          document.getElementById('footer-container').innerHTML = data;
-          document.getElementById('currentYear').textContent = new Date().getFullYear();
-        })
-        .catch(error => console.error('Error loading footer:', error));
-
-      // Tab switching
-      const tabs = document.querySelectorAll('.activation-tab');
-      const contents = document.querySelectorAll('.tab-content');
-      tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-          tabs.forEach(t => t.classList.remove('active'));
-          contents.forEach(c => c.classList.remove('active'));
-          tab.classList.add('active');
-          document.getElementById(`${tab.getAttribute('data-tab')}-content`).classList.add('active');
-        });
+    $(document).ready(function() {
+      // 1. Fetch Navbar & Footer
+      fetch('/navbar.html').then(r => r.text()).then(d => { 
+        $('#navbar-container').html(d); 
+        $.getScript('/navbar.js'); 
+      });
+      fetch('/footer.html').then(r => r.text()).then(d => { 
+        $('#footer-container').html(d); 
+        $('#currentYear').text(new Date().getFullYear());
       });
 
-      // Initialize Chargebee
-      if (typeof Chargebee !== 'undefined') {
-        Chargebee.init({
-          site: "more4lessplans",
-          publishableKey: 'live_9xoL0GUAJyfaZddNn5cdFhI4hrLAGhyIh' // Replace with actual Chargebee publishable key
-        });
+      // 2. Tab Logic
+      $('.nav-link-custom').on('click', function() {
+        const tab = $(this).data('tab');
+        $('.nav-link-custom').removeClass('active');
+        $(this).addClass('active');
+        $('.tab-pane').removeClass('active');
+        $(`#${tab}-pane`).addClass('active');
+      });
 
-        // Add event listener for Account Login links
-        const accountLoginLinks = document.querySelectorAll('.account-login-link');
-        accountLoginLinks.forEach(link => {
-          link.addEventListener('click', function(event) {
-            event.preventDefault();
-            Chargebee.getInstance().openPortal({
-              onLoad: function() {
-                console.log("Chargebee portal loaded");
-              },
-              onClose: function() {
-                console.log("Chargebee portal closed");
-              }
-            });
-          });
-        });
-      } else {
-        console.error("Chargebee script not loaded. Please ensure the Chargebee script is included.");
+      // 3. Nighthawk Image Switcher
+      const deviceImages = [
+        'assets/img/products/mr1100.png',
+        'assets/img/products/MR5100.png',
+        'assets/img/products/MR6500.png',
+        'assets/img/products/mr6110.png'
+      ];
+      let currentIdx = 0;
+
+      function updateImg(idx) {
+        $('#main-device-img').css('opacity', 0);
+        setTimeout(() => {
+          $('#main-device-img').attr('src', deviceImages[idx]).css('opacity', 1);
+        }, 200);
       }
+
+      $('#next-img').on('click', () => { currentIdx = (currentIdx + 1) % deviceImages.length; updateImg(currentIdx); });
+      $('#prev-img').on('click', () => { currentIdx = (currentIdx - 1 + deviceImages.length) % deviceImages.length; updateImg(currentIdx); });
     });
   </script>
 </body>
