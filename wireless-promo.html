@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html data-bs-theme="light" lang="en-US" dir="ltr">
 <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-10988139493"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -9,9 +13,23 @@
     gtag('config', 'AW-10988139493');
   </script>
 
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+  function gtag_report_conversion(url) {
+    var callback = function () {
+      if (typeof(url) != 'undefined') {
+        window.location = url;
+      }
+    };
+    gtag('event', 'conversion', {
+        'send_to': 'AW-10988139493/PvABCJGj5ZccEOXnxvco',
+        'value': 60.0,
+        'currency': 'CAD',
+        'transaction_id': '',
+        'event_callback': callback
+    });
+    return false;
+  }
+  </script>
 
   <title>More4Less Wireless | High-Speed Wireless Internet Across Canada</title>
   <meta name="keywords" content="wireless internet Canada, high-speed wireless internet, rural internet Canada, RV internet, mobile internet plans, More4Less wireless, unlimited data plans">
@@ -34,7 +52,6 @@
   <style>
     body { padding-top: 80px; font-family: 'Figtree', sans-serif; color: #1a1a1a; -webkit-font-smoothing: antialiased; }
     .pricing-section { background-color: #ffffff; padding: 3rem 0; }
-    
     .pricing-header { text-align: center; margin-bottom: 3rem; padding: 0 15px; }
     .promo-badge {
       display: inline-block;
@@ -53,12 +70,10 @@
     .old-price-strike { font-size: 1.4rem; color: #9CA3AF; text-decoration: line-through; font-weight: 300; }
     .new-price-main { font-size: calc(3.5rem + 2vw); font-weight: 900; line-height: 0.9; color: #222831; letter-spacing: -2px; }
     .price-suffix { font-size: 1.1rem; color: #4b5563; font-weight: 600; align-self: flex-end; margin-bottom: 5px; }
-
     .value-bar { display: inline-flex; align-items: center; gap: 12px; background: #fdfdfd; padding: 10px 20px; border-radius: 50px; border: 1px solid #f0f0f0; margin-top: 10px; }
     .value-item { font-size: 0.75rem; font-weight: 800; color: #374151; text-transform: uppercase; display: flex; align-items: center; }
     .value-item i { color: #D73C59; font-size: 1rem; margin-right: 6px; }
     .v-divider { width: 1px; height: 12px; background-color: #e5e7eb; }
-
     .pricing-card {
       background-color: #ffffff;
       border: 1px solid #e5e7eb;
@@ -74,7 +89,6 @@
     .pricing-card-category { font-size: 0.9rem; font-weight: 800; color: #D73C59; text-transform: uppercase; margin-bottom: 0.5rem; }
     .pricing-card-image { max-width: 180px; width: 100%; height: auto; margin: 1.5rem auto; }
     .pricing-card-model { font-size: 1.2rem; font-weight: 800; margin-bottom: 1.2rem; color: #222831; }
-    
     .checkout-button {
       display: inline-block;
       padding: 1rem 2rem;
@@ -87,14 +101,12 @@
       margin-top: auto;
     }
     .checkout-button:hover { background-color: #D73C59; color: white; text-decoration: none; }
-
     .terms-wrapper { max-width: 850px; margin: 4rem auto 0; padding: 0 15px; }
     .accordion-item { border: none; border-top: 1px solid #f1f1f1; padding: 18px 0; }
     .accordion-header { display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: 700; color: #374151; font-size: 1rem; }
     .accordion-content { display: none; padding: 14px 0 5px; color: #6b7280; font-size: 0.9rem; line-height: 1.6; }
     .accordion-header i { color: #D73C59; transition: transform 0.3s ease; }
     .accordion-header.active i { transform: rotate(90deg); }
-    
     .benefits-grid { display: flex; justify-content: space-between; gap: 10px; margin-top: 40px; overflow-x: auto; padding-bottom: 10px; }
     .benefit-card { flex: 1; min-width: 90px; background: #f9fafb; padding: 15px 8px; border-radius: 12px; text-align: center; border: 1px solid #f3f4f6; }
     .benefit-card i { display: block; font-size: 1.2rem; color: #D73C59; margin-bottom: 8px; }
@@ -130,7 +142,10 @@
               <img src="assets/img/products/mr1100.png" alt="Mobile Wireless Unit" class="pricing-card-image">
               <p class="pricing-card-model">Mobile Wireless Unit</p>
               <p class="text-muted small mb-4">Portable high-performance connectivity for on the go.</p>
-              <a class="checkout-button" href="javascript:void(0)" data-cb-type="checkout" data-cb-plan-id="Velocity-Go">Sign Up Today →</a>
+              <a class="checkout-button" href="javascript:void(0)" 
+                 onclick="gtag_report_conversion()" 
+                 data-cb-type="checkout" 
+                 data-cb-plan-id="Velocity-Go">Sign Up Today →</a>
             </div>
           </div>
           <div class="col-12 col-md-6 col-lg-5 mb-4">
@@ -139,7 +154,10 @@
               <img src="assets/img/products/LBR20.png" alt="Fixed Wireless Unit" class="pricing-card-image">
               <p class="pricing-card-model">Fixed Wireless Unit</p>
               <p class="text-muted small mb-4">Powerful whole-home coverage.</p>
-              <a class="checkout-button" href="javascript:void(0)" data-cb-type="checkout" data-cb-plan-id="Ultra-Home">Sign Up Today →</a>
+              <a class="checkout-button" href="javascript:void(0)" 
+                 onclick="gtag_report_conversion()" 
+                 data-cb-type="checkout" 
+                 data-cb-plan-id="Ultra-Home">Sign Up Today →</a>
             </div>
           </div>
         </div>
@@ -157,11 +175,9 @@
             <div class="accordion-header" onclick="toggleAccordion(this)">Shipping Details <i class="uil uil-angle-right"></i></div>
             <div class="accordion-content">Your equipment ships within 1-2 business days with tracking included.</div>
           </div>
-
           <div class="benefits-grid">
             <div class="benefit-card"><i class="uil uil-sync"></i><span>Unlimited Data</span></div>
             <div class="benefit-card"><i class="uil uil-history"></i><span>No Contracts</span></div>
-           
             <div class="benefit-card"><i class="uil uil-bolt"></i><span>Plug & Play</span></div>
           </div>
         </div>
@@ -193,24 +209,17 @@
         Chargebee.init({ site: "more4lessplans", publishableKey: 'live_9xoL0GUAJyfaZddNn5cdFhI4hrLAGhyIh' });
       }
 
-      // LOAD NAVBAR
       fetch('/navbar.html')
         .then(res => res.text())
         .then(html => {
           document.getElementById('navbar-container').innerHTML = html;
-          
-          // Re-trigger Bootstrap dropdowns for the newly injected HTML
-          if (typeof $ !== 'undefined') {
-            $('.dropdown-toggle').dropdown(); 
-          }
-
+          if (typeof $ !== 'undefined') { $('.dropdown-toggle').dropdown(); }
           const navScript = document.createElement('script');
           navScript.src = '/navbar.js';
           navScript.onload = () => { if(typeof initializeNavbar === 'function') initializeNavbar(); };
           document.body.appendChild(navScript);
         });
 
-      // LOAD FOOTER
       fetch('/footer.html')
         .then(res => res.text())
         .then(html => {
