@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en-US" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Coverage Check | RV & Mobile High-Speed Wi-Fi Canada</title>
+  <meta name="description" content="Check high-speed wireless availability for your RV, cottage, or home. Powered by The Big Three networks.">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon-32x32.png">
+  <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicons/favicon.ico">
+
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/navbar.css">
+  <link rel="stylesheet" href="/footer.css">
+
+  <style>
+    body { 
+      padding-top: 100px; 
+      font-family: 'Figtree', sans-serif; 
+      background-color: #f8fafc; 
+      color: #1a1a1a;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Minimal Floating Card */
+    .coverage-wrapper {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .main-search-card {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 3rem;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
+      border: 1px solid #f1f5f9;
+      text-align: center;
+    }
+
+    .tagline {
+      color: #D73C59;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-size: 0.8rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .search-title {
+      font-size: 2.5rem;
+      font-weight: 900;
+      letter-spacing: -1px;
+      margin-bottom: 2rem;
+    }
+
+    /* Input Styling */
+    .address-input-group {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+
+    .address-input-group i {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.4rem;
+      color: #94a3b8;
+      z-index: 5;
+    }
+
+    #address {
+      height: 65px;
+      border-radius: 16px;
+      border: 2px solid #e2e8f0;
+      padding-left: 55px;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+    }
+
+    #address:focus {
+      border-color: #D73C59;
+      box-shadow: 0 0 0 4px rgba(215, 60, 89, 0.1);
+      outline: none;
+    }
+
+    #check-coverage-btn {
+      width: 100%;
+      height: 60px;
+      background-color: #222831;
+      color: white;
+      border: none;
+      border-radius: 14px;
+      font-weight: 800;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+    }
+
+    #check-coverage-btn:hover {
+      background-color: #D73C59;
+      transform: translateY(-2px);
+    }
+
+    /* Functional Result Box */
+    .result-container {
+      display: none;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid #f1f5f9;
+    }
+
+    .success-icon {
+      width: 60px;
+      height: 60px;
+      background: #ecfdf5;
+      color: #10b981;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+      font-size: 1.8rem;
+    }
+
+    .availability-text {
+      font-size: 1.4rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+
+    .signup-link {
+      display: inline-block;
+      margin-top: 1.5rem;
+      background: #D73C59;
+      color: white;
+      padding: 12px 30px;
+      border-radius: 12px;
+      font-weight: 800;
+      text-decoration: none !important;
+      transition: 0.3s;
+    }
+
+    .signup-link:hover {
+      background: #b52b46;
+      color: white;
+    }
+
+    /* Floating Feature Grid */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 3rem;
+    }
+
+    .feature-card {
+      background: white;
+      padding: 25px;
+      border-radius: 20px;
+      border: 1px solid #f1f5f9;
+      text-align: center;
+      transition: 0.3s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+    }
+
+    .feature-card i {
+      font-size: 2rem;
+      color: #D73C59;
+      margin-bottom: 15px;
+      display: block;
+    }
+
+    .feature-card h6 {
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .feature-card p {
+      font-size: 0.85rem;
+      color: #64748b;
+      margin-bottom: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="navbar-container"></div>
+
+  <main class="coverage-wrapper">
+    <div class="main-search-card">
+      <span class="tagline">Nationwide Availability</span>
+      <h1 class="search-title">Is Service Available At Your Location?</h1>
+      
+      <form id="address-form">
+        <div class="address-input-group">
+          <i class="uil uil-map-pin-alt"></i>
+          <input type="text" id="address" class="form-control" placeholder="Enter Address..." required>
+        </div>
+        <button type="submit" id="check-coverage-btn">Check Coverage Now</button>
+      </form>
+
+      <div id="result-container" class="result-container">
+        <div class="success-icon"><i class="uil uil-check"></i></div>
+        <div class="availability-text">Service is Available!</div>
+        <p class="text-muted">High-speed data detected via The Big Three networks at this location.</p>
+        <a href="/#pricing" class="signup-link">View Available Plans →</a>
+        <div class="mt-3">
+          <a href="/speed-estimate" class="text-muted small">Need a speed estimate? Click here.</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="feature-grid">
+      <div class="feature-card">
+        <i class="uil uil-signal-alt-3"></i>
+        <h6>The Big Three</h6>
+        <p>Reliable nationwide coverage on Canada's primary networks.</p>
+      </div>
+      <div class="feature-card">
+        <i class="uil uil-tachometer-fast-alt"></i>
+        <h6>Truly Unlimited</h6>
+        <p>No data caps, no slowdowns, and no overage charges.</p>
+      </div>
+      <div class="feature-card">
+        <i class="uil uil-truck"></i>
+        <h6>Ready to Ship</h6>
+        <p>Pre-configured equipment arrives at your door in 2 days.</p>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-container"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script>
+    // MATCHING MAIN CODE FUNCTIONALITY
+    document.getElementById('address-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const btn = document.getElementById('check-coverage-btn');
+      const result = document.getElementById('result-container');
+      
+      // Visual feedback
+      btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Verifying Signal...';
+      btn.disabled = true;
+
+      // Exact simulated logic
+      setTimeout(() => {
+        btn.style.display = 'none';
+        result.style.display = 'block';
+        window.scrollTo({
+          top: result.offsetTop - 150,
+          behavior: 'smooth'
+        });
+      }, 1500);
+    });
+
+    // Load External Nav/Footer
+    document.addEventListener('DOMContentLoaded', function() {
+      fetch('/navbar.html').then(res => res.text()).then(html => {
+        document.getElementById('navbar-container').innerHTML = html;
+      });
+      fetch('/footer.html').then(res => res.text()).then(html => {
+        document.getElementById('footer-container').innerHTML = html;
+      });
+    });
+  </script>
+</body>
+</html>
