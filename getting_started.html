@@ -138,14 +138,13 @@
   <div id="navbar-container"></div>
 
   <main class="container py-5">
-   <div class="text-center mb-5">
-  <h1 class="display-5 fw-bold mb-3">Quick Start Guide</h1>
-  
-  <p class="text-dark fw-bold fs-4 mb-2">Ready to use, right out of the box.</p>
-  
-  <p class="text-muted mx-auto" style="max-width: 650px; font-size: 1.1rem; line-height: 1.6;">
-   Your device comes with a SIM card pre-installed and your unlimited plan is already active. Explore this guide to learn how your device works and find helpful tips.
-</div>
+    <div class="text-center mb-5">
+      <h1 class="display-5 fw-bold mb-3">Quick Start Guide</h1>
+      <p class="text-dark fw-bold fs-4 mb-2">Ready to use, right out of the box.</p>
+      <p class="text-muted mx-auto" style="max-width: 650px; font-size: 1.1rem; line-height: 1.6;">
+        Your device comes with a SIM card pre-installed and your unlimited plan is already active. Explore this guide to learn how your device works and find helpful tips.
+      </p>
+    </div>
 
     <div class="setup-container">
       
@@ -181,10 +180,7 @@
               
               <div class="hardware-detail">
                 <h6 class="fw-bold"><i class="uil uil-battery-bolt me-2"></i>Removable Battery</h6>
-                <p class="small mb-0">The battery is <strong>already installed</strong> for your convenience. To access it, firmly 
-    slide the back cover upward to unlatch it from the device frame. Once open, ensure the 
-    battery is seated firmly against the gold contact pins. Slide the cover back down until 
-    it clicks into place. We recommend charging the unit fully before the first use.</p>
+                <p class="small mb-0">The battery is <strong>already installed</strong> for your convenience. To access it, firmly slide the back cover upward to unlatch it from the device frame. Once open, ensure the battery is seated firmly against the gold contact pins. Slide the cover back down until it clicks into place. We recommend charging the unit fully before the first use.</p>
               </div>
 
               <div class="hardware-detail">
@@ -219,7 +215,9 @@
             </div>
           </div>
 
-        </div> <div id="guide-fixed-home" class="guide-section">
+        </div> 
+
+        <div id="guide-fixed-home" class="guide-section">
           
           <div class="setup-step">
             <div class="step-circle">2</div>
@@ -263,7 +261,9 @@
             </div>
           </div>
 
-        </div> <div id="universal-step-5" class="guide-section">
+        </div> 
+
+        <div id="universal-step-5" class="guide-section">
           <div class="setup-step">
             <div class="step-circle">5</div>
             <div class="step-content">
@@ -277,7 +277,7 @@
                   <li>Cancel or pause your subscription at any time.</li>
                 </ul>
               </div>
-              <a href="#" class="account-login-link btn-main w-100" style="background:#fff; color:#2E2F33;">Open Self-Serve Portal</a>
+              <a href="javascript:void(0)" data-cb-type="portal" class="btn-main w-100" style="background:#fff; color:#2E2F33;">Open Self-Serve Portal</a>
             </div>
           </div>
         </div>
@@ -317,13 +317,9 @@
         }, 800);
       });
 
-      // 3. CHARGEBEE PORTAL
+      // 3. CHARGEBEE PORTAL INITIALIZATION
       if (typeof Chargebee !== 'undefined') {
         Chargebee.init({ site: "more4lessplans" });
-        $('.account-login-link').on('click', function(e) {
-          e.preventDefault();
-          Chargebee.getInstance().openPortal();
-        });
       }
     });
   </script>
