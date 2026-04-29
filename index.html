@@ -639,78 +639,203 @@
         </div>
       </div>
 
-      <!-- Updated Pricing Section -->
-      <section class="pricing-section" id="pricing">
-        <div class="container">
-          <div class="pricing-header">
-            <h1 class="pricing-title">Plug-and-Play 5G/LTE Internet</h1>
-            <p class="pricing-subtitle">Wireless Internet Package</p>
-            <hr class="pricing-divider">
-            <p class="pricing-subtitle">Unlimited High-Speed Internet for <span class="price-highlight">$110/mo.</span></p>
-            <p class="pricing-text">One-time equipment cost - shipped to your door!</p>
+    <style>
+  :root {
+    --brand-red: #D73C59;
+    --brand-red-hover: #bd2f4a;
+    --text-main: #1d1d1f;
+    --text-muted: #86868b;
+    --card-bg: #ffffff;
+    --border-color: #e5e5e7;
+  }
+
+  /* Section Spacing */
+  .pricing-section-refined {
+    padding-top: 80px;
+    padding-bottom: 120px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: #ffffff;
+  }
+
+  .premium-condensed-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
+    padding: 2rem;
+    height: 100%;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  .premium-condensed-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.07);
+    border-color: var(--brand-red);
+  }
+
+  .product-thumb {
+    width: 90px;
+    height: 90px;
+    object-fit: contain;
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+  }
+
+  .price-compact {
+    font-size: 2.5rem;
+    font-weight: 800;
+    line-height: 1;
+    color: var(--text-main);
+    margin-top: 0.5rem;
+  }
+
+  .btn-premium-action {
+    background-color: var(--brand-red);
+    color: #ffffff !important;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 12px 28px;
+    border-radius: 50px;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s ease;
+    border: none;
+    text-align: center;
+  }
+
+  .btn-premium-action:hover {
+    background-color: var(--brand-red-hover);
+    box-shadow: 0 4px 12px rgba(215, 60, 89, 0.25);
+  }
+
+  .feature-list-clean {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0;
+    border-top: 1px solid #f2f2f2;
+    padding-top: 1.5rem;
+  }
+
+  .feature-list-clean li {
+    font-size: 0.9rem;
+    color: #424245;
+    margin-bottom: 0.6rem;
+    display: flex;
+    align-items: center;
+  }
+
+  .check-accent {
+    color: var(--brand-red);
+    font-weight: bold;
+    margin-right: 10px;
+    font-size: 1.1rem;
+  }
+
+  .pricing-note {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 1rem;
+    line-height: 1.4;
+  }
+
+  @media (max-width: 991px) {
+    .product-thumb {
+      position: static;
+      margin: 0 auto 1.5rem auto;
+      display: block;
+      width: 120px;
+      height: 120px;
+    }
+    .premium-condensed-card {
+      text-align: center;
+    }
+    .feature-list-clean li {
+      justify-content: center;
+    }
+  }
+</style>
+
+<section class="pricing-section-refined" id="pricing">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="fw-bold display-5 mb-3" style="letter-spacing: -0.02em;">Simple Startup. Unlimited High-Speed Internet.</h2>
+      <p class="text-muted mx-auto" style="max-width: 600px; font-size: 1rem; line-height: 1.6;">
+       Everything you need to get online instantly. Your initial payment covers your hardware and first month of unlimited service.
+      </p>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="premium-condensed-card">
+          <img src="assets/img/products/mr1100.png" alt="M1" class="product-thumb">
+          <div class="card-body-content">
+            <span class="text-uppercase tracking-widest fw-bold" style="font-size: 0.7rem; color: var(--brand-red);">Mobile Essential</span>
+            <h3 class="h5 fw-bold mb-1">Nighthawk M1</h3>
+            <div class="price-compact">$199</div>
+            <p class="small fw-bold text-dark mt-2 mb-0">Total Upfront Cost</p>
+            
+            <ul class="feature-list-clean">
+              <li><span class="check-accent">✓</span> Hotspot Device (You Own It)</li>
+              <li><span class="check-accent">✓</span> 1st Month Service Included</li>
+              <li><span class="check-accent">✓</span> Unlimited High-Speed Data</li>
+            </ul>
           </div>
-          <div class="row justify-content-center g-4">
-            <!-- Nighthawk M1 -->
-            <div class="col-12 col-md-6 col-lg-4 pricing-col">
-              <a href="/product-m1" class="pricing-card-link">
-                <div class="pricing-card">
-                  <div>
-                    <p class="pricing-card-category">On-the-Go</p>
-                    <p class="pricing-card-description">Ultimate Mobile Connectivity</p>
-                    <img src="assets/img/products/mr1100.png" alt="Nighthawk M1" class="pricing-card-image">
-                    <p class="pricing-card-model">Nighthawk M1</p>
-                    <h2 class="pricing-card-price"><span class="currency">$</span>199</h2>
-                    <ul class="pricing-card-features">
-                      <li>Pocket-Sized LTE Hotspot</li>
-                      <li>Road-Ready with Simple Setup</li>
-                    </ul>
-                  </div>
-                  <a href="https://checkout.more4lessplans.ca/cart/41999509815476:1?channel=buy_button" class="checkout-button">Order Now →</a>
-                </div>
-              </a>
-            </div>
-            <!-- Orbi -->
-            <div class="col-12 col-md-6 col-lg-4 pricing-col">
-              <a href="/product-orbi" class="pricing-card-link">
-                <div class="pricing-card">
-                  <div>
-                    <p class="pricing-card-category">Home Use</p>
-                    <p class="pricing-card-description">Reliable Connection for Your Home</p>
-                    <img src="assets/img/products/LBR20.png" alt="Orbi" class="pricing-card-image">
-                    <p class="pricing-card-model">Orbi</p>
-                    <h2 class="pricing-card-price"><span class="currency">$</span>249</h2>
-                    <ul class="pricing-card-features">
-                      <li>4G LTE Wi-Fi Router</li>
-                      <li>Easy Setup, Instant Connection</li>
-                    </ul>
-                  </div>
-                  <a href="https://checkout.more4lessplans.ca/cart/42101476589748:1?channel=buy_button" class="checkout-button">Order Now →</a>
-                </div>
-              </a>
-            </div>
-            <!-- Nighthawk M6 -->
-            <div class="col-12 col-md-6 col-lg-4 pricing-col">
-              <a href="/product-m6" class="pricing-card-link">
-                <div class="pricing-card">
-                  <div>
-                    <p class="pricing-card-category">On-the-Go</p>
-                    <p class="pricing-card-description">High-Performance Mobile Hotspot</p>
-                    <img src="assets/img/products/mr6110.png" alt="Nighthawk M6" class="pricing-card-image">
-                    <p class="pricing-card-model">Nighthawk M6</p>
-                    <h2 class="pricing-card-price"><span class="currency">$</span>349</h2>
-                    <ul class="pricing-card-features">
-                      <li>Pocket-Sized 5G Hotspot</li>
-                      <li>Travel-Friendly with Simple Setup</li>
-                    </ul>
-                  </div>
-                  <a href="https://checkout.more4lessplans.ca/cart/43787668357300:1?channel=buy_button" class="checkout-button">Order Now →</a>
-                </div>
-              </a>
-            </div>
+          <div class="mt-auto">
+            <a href="javascript:void(0)" data-cb-type="checkout" data-cb-plan-id="wireless-internet-m1" class="btn-premium-action w-100">Order Now</a>
+            <p class="pricing-note text-center">Plan continues at $110/mo after month one. No long-term contracts.</p>
           </div>
         </div>
-      </section>
+      </div>
 
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="premium-condensed-card">
+          <img src="assets/img/products/LBR20.png" alt="Orbi" class="product-thumb">
+          <div class="card-body-content">
+            <span class="text-uppercase tracking-widest fw-bold" style="font-size: 0.7rem; color: var(--brand-red);">Home & Office</span>
+            <h3 class="h5 fw-bold mb-1">Orbi 4G Router</h3>
+            <div class="price-compact">$249</div>
+            <p class="small fw-bold text-dark mt-2 mb-0">Total Upfront Cost</p>
+            
+            <ul class="feature-list-clean">
+              <li><span class="check-accent">✓</span> Home Router (You Own It)</li>
+              <li><span class="check-accent">✓</span> 1st Month Service Included</li>
+              <li><span class="check-accent">✓</span> Whole-Home WiFi Coverage</li>
+            </ul>
+          </div>
+          <div class="mt-auto">
+            <a href="javascript:void(0)" data-cb-type="checkout" data-cb-plan-id="wireless-internet-orbi" class="btn-premium-action w-100">Order Now</a>
+            <p class="pricing-note text-center">Plan continues at $110/mo after month one. No long-term contracts.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-4 mx-auto">
+        <div class="premium-condensed-card">
+          <img src="assets/img/products/mr6110.png" alt="M6" class="product-thumb">
+          <div class="card-body-content">
+            <span class="text-uppercase tracking-widest fw-bold" style="font-size: 0.7rem; color: var(--brand-red);">Pro Performance</span>
+            <h3 class="h5 fw-bold mb-1">Nighthawk M6</h3>
+            <div class="price-compact">$349</div>
+            <p class="small fw-bold text-dark mt-2 mb-0">Total Upfront Cost</p>
+            
+            <ul class="feature-list-clean">
+              <li><span class="check-accent">✓</span> 5G Pro Device (You Own It)</li>
+              <li><span class="check-accent">✓</span> 1st Month Service Included</li>
+              <li><span class="check-accent">✓</span> Ultra-Low Latency 5G</li>
+            </ul>
+          </div>
+          <div class="mt-auto">
+            <a href="javascript:void(0)" data-cb-type="checkout" data-cb-plan-id="wireless-internet-m6" class="btn-premium-action w-100">Order Now</a>
+            <p class="pricing-note text-center">Plan continues at $110/mo after month one. No long-term contracts.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
       <section style="background-color: #2E2F34;" id="question">
         <div class="container">
           <div class="row py-8 py-md-10 py-lg-11">
