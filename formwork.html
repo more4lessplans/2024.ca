@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>More4Less | High-Speed Wireless</title>
+    
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNt4XeQ5roadq0L-IpadA6s9e4CPm9FwI&libraries=places"></script>
+
+    <style>
+        .status-warning { color: #f39c12; } 
+
+        /* Coverage Result Styles */
+        .coverage-status {
+            margin-top: 15px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: none; 
+            animation: fadeIn 0.5s ease forwards;
+        }
+        .status-available { color: #4BB543; }
+        .status-unavailable { color: #ff4d4d; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        :root {
+            --brand-red: #D73C59;
+            --bg-nav: #2E2F33; 
+            --bg-hero: #2E2F33; 
+            --bg-page: #fbfbfd;
+            --text-dark: #1d1d1f;
+            --text-muted: #6e6e73;
+            --card-radius: 28px;
+        }
+
+        html { font-size: 15px; scroll-behavior: smooth; } 
+
+        body {
+            font-family: 'Figtree', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--bg-page);
+            -webkit-font-smoothing: antialiased;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* --- Navigation --- */
+        .navbar-custom {
+            background-color: var(--bg-nav);
+            padding: 1.2rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 3000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 25px;
+        }
+
+        .navbar-brand img { height: 22px; }
+
+        .nav-links-desktop { display: flex; align-items: center; list-style: none; margin: 0; padding: 0; }
+        .nav-links-desktop li a {
+            color: #ffffff;
+            font-weight: 500;
+            font-size: 0.85rem;
+            margin: 0 18px;
+            text-decoration: none;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+        .nav-links-desktop li a:hover { opacity: 1; }
+
+        .btn-portal-top {
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white !important;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            margin-left: 10px;
+        }
+
+        /* Mobile Menu */
+        .menu-trigger {
+            display: none;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 4001;
+            position: relative;
+        }
+        .menu-icon {
+            width: 26px;
+            height: 18px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .menu-icon span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background-color: #fff;
+            border-radius: 10px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .menu-active .menu-icon span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        .menu-active .menu-icon span:nth-child(2) { opacity: 0; transform: translateX(10px); }
+        .menu-active .menu-icon span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+        .mobile-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(29, 29, 31, 0.96); 
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 3500;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+        .mobile-overlay.active { opacity: 1; visibility: visible; }
+        .mobile-nav-links { list-style: none; padding: 0; text-align: center; }
+        .mobile-nav-links li { margin: 25px 0; transform: translateY(20px); opacity: 0; transition: 0.4s ease; }
+        .mobile-overlay.active .mobile-nav-links li { transform: translateY(0); opacity: 1; }
+        .mobile-nav-links a { color: #fff; font-size: 2.2rem; font-weight: 700; text-decoration: none; }
+
+        /* --- Hero --- */
+        .hero {
+            position: relative;
+            background-image: url('assets/img/gallery/MR6110.png'); 
+            background-size: cover;
+            background-position: center;
+            padding: 240px 0 160px; 
+            color: white;
+            text-align: center;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(180deg, rgba(46, 47, 51, 0.8) 0%, rgba(46, 47, 51, 0.3) 50%, rgba(46, 47, 51, 0.8) 100%);
+            z-index: 1;
+        }
+        .hero .container { position: relative; z-index: 2; opacity: 0; transform: translateY(20px); animation: heroFadeIn 1s ease forwards; }
+        @keyframes heroFadeIn { to { opacity: 1; transform: translateY(0); } }
+
+        .hero h1 { font-weight: 800; font-size: 4rem; letter-spacing: -0.05em; margin-bottom: 20px; }
+        .hero p { color: rgba(255, 255, 255, 0.9); font-size: 1.35rem; max-width: 700px; margin: 0 auto 50px; }
+
+        .search-module-wrapper { max-width: 580px; margin: 0 auto; }
+        .search-module {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 10px;
+            border-radius: 20px;
+            display: flex;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+            margin-bottom: 10px;
+        }
+        #email-module {
+            display: none;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 10px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 10px;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        .search-module input, #email-module input {
+            background: transparent;
+            border: none;
+            color: white;
+            padding: 15px 25px;
+            flex: 1;
+            outline: none;
+            font-size: 1.1rem;
+            width: 100%;
+        }
+        .search-module input::placeholder, #email-module input::placeholder { color: rgba(255, 255, 255, 0.6); }
+
+        .btn-search {
+            background: white;
+            color: var(--bg-nav);
+            border: none;
+            padding: 12px 35px;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .btn-search:hover { transform: scale(1.02); background: #f5f5f7; }
+
+        /* --- Pricing --- */
+        .pricing-area { padding: 120px 0; background: var(--bg-page); }
+        .pricing-grid { display: flex; justify-content: center; gap: 30px; max-width: 1200px; margin: 0 auto; padding: 0 25px; }
+        .plan-card {
+            background: #ffffff;
+            border: 1px solid #eaeaec;
+            border-radius: var(--card-radius);
+            flex: 1;
+            padding: 50px 45px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .plan-card:hover { transform: translateY(-10px); box-shadow: 0 30px 60px rgba(0,0,0,0.06); }
+        .card-category { color: var(--brand-red); font-weight: 700; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 8px; }
+        .card-title { font-size: 1.85rem; font-weight: 800; margin-bottom: 5px; }
+        .price-value { font-size: 4.8rem; font-weight: 800; line-height: 1; color: var(--text-dark); }
+        .device-visual { width: 140px; height: 140px; object-fit: contain; }
+        .btn-order {
+            background: var(--brand-red);
+            color: white !important;
+            padding: 20px;
+            border-radius: 20px;
+            text-align: center;
+            font-weight: 700;
+            text-decoration: none !important;
+            margin-top: 25px;
+        }
+
+        /* --- FAQ --- */
+        .faq-section { padding: 120px 0; background-color: #ffffff; }
+        .faq-container { max-width: 850px; margin: 0 auto; padding: 0 25px; }
+        .accordion-item { border-bottom: 1px solid #eaeaec; }
+        .accordion-header { width: 100%; padding: 30px 0; background: none; border: none; display: flex; justify-content: space-between; cursor: pointer; }
+        .accordion-header span { font-size: 1.4rem; font-weight: 700; }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+        .accordion-item.active .accordion-content { max-height: 300px; }
+
+        footer { padding: 100px 0; text-align: center; background: #fff; }
+        
+        /* Hidden fields for Jotform logic */
+        #jotform-hidden-fields { display: none; }
+        #hidden_iframe { display: none; }
+
+        @media (max-width: 991px) {
+            .nav-links-desktop { display: none; }
+            .menu-trigger { display: block; }
+            .pricing-grid { flex-direction: column; align-items: center; }
+            .plan-card { width: 100%; max-width: 500px; }
+            .hero h1 { font-size: 3.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar-custom">
+        <div class="nav-container">
+            <a class="navbar-brand" href="#"><img src="assets/img/logos/logo.png" alt="More4Less"></a>
+            <ul class="nav-links-desktop">
+                <li><a href="#pricing">Plans</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="/support">Support</a></li>
+                <li><a href="#" class="btn-portal-top">Customer Portal</a></li>
+            </ul>
+            <div class="menu-trigger" id="menuTrigger">
+                <div class="menu-icon"><span></span><span></span><span></span></div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="mobile-overlay" id="mobileOverlay">
+        <ul class="mobile-nav-links">
+            <li><a href="#pricing">Plans</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="/support">Support</a></li>
+            <li><a href="#">Customer Portal</a></li>
+        </ul>
+    </div>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Truly Unlimited Wireless.</h1>
+            <p>Premium LTE & 5G solutions for rural homes, travelers, and mobile professionals.</p>
+            
+            <div class="search-module-wrapper">
+                <!-- Background Submission Frame -->
+                <iframe name="hidden_iframe" id="hidden_iframe"></iframe>
+                
+                <form action="https://submit.jotform.com/submit/223076752019051/" method="post" target="hidden_iframe" id="jotformCoverage">
+                    <input type="hidden" name="formID" value="223076752019051" />
+                    
+                    <!-- Search Bar -->
+                    <div class="search-module">
+                        <input type="text" id="addressInput" placeholder="Enter your address...">
+                        <button type="button" class="btn-search" id="searchBtn">Check Coverage</button>
+                    </div>
+
+                    <!-- Email Module (appears after address) -->
+                    <div id="email-module">
+                        <input type="email" name="q4_email" id="emailInput" placeholder="Enter email to see coverage results...">
+                    </div>
+
+                    <!-- Hidden Jotform Logic Fields -->
+                    <div id="jotform-hidden-fields">
+                        <input type="text" name="q3_name[first]" value="Coverage">
+                        <input type="text" name="q3_name[last]" value="Search">
+                        <input type="text" name="q5_address[addr_line1]" id="jf_street">
+                        <input type="text" name="q5_address[city]" id="jf_city">
+                        <input type="text" name="q5_address[state]" id="jf_state">
+                        <input type="text" name="q5_address[postal]" id="jf_postal">
+                        <input type="tel" name="q6_phoneNumber[full]" value="000-000-0000">
+                    </div>
+                </form>
+            </div>
+            <div id="coverageResult" class="coverage-status"></div>
+        </div>
+    </section>
+
+    <section class="pricing-area" id="pricing">
+        <div class="pricing-grid">
+            <!-- Nighthawk M1 -->
+            <div class="plan-card">
+                <div class="card-category">Mobile Essential</div>
+                <div class="card-title">Nighthawk M1</div>
+                <div class="price-value">$199</div>
+                <div class="divider"></div>
+                <div class="feature-item">✓ Unlimited High-Speed Data</div>
+                <a href="#" class="btn-order">Order Now</a>
+            </div>
+            <!-- Netgear Orbi -->
+            <div class="plan-card">
+                <div class="card-category">Home & Office</div>
+                <div class="card-title">Netgear Orbi</div>
+                <div class="price-value">$249</div>
+                <div class="divider"></div>
+                <div class="feature-item">✓ Whole-Home WiFi Coverage</div>
+                <a href="#" class="btn-order">Order Now</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section" id="faq">
+        <div class="faq-container">
+            <div class="accordion-item">
+                <button class="accordion-header"><span>Are there really no contracts?</span></button>
+                <div class="accordion-content"><p>Absolutely. You own your hardware outright. No hidden fees.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© <span id="year"></span> More4Less Wireless.</p>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('year').textContent = new Date().getFullYear();
+        const addressInput = document.getElementById('addressInput');
+        const emailInput = document.getElementById('emailInput');
+        const emailModule = document.getElementById('email-module');
+        const searchBtn = document.getElementById('searchBtn');
+        const statusBox = document.getElementById('coverageResult');
+        const mainForm = document.getElementById('jotformCoverage');
+
+        let addressSelected = false;
+
+        // Initialize Google Places
+        if (typeof google !== 'undefined') {
+            const autocomplete = new google.maps.places.Autocomplete(addressInput);
+            autocomplete.addListener('place_changed', () => {
+                const place = autocomplete.getPlace();
+                if (place.geometry) {
+                    addressSelected = true;
+                    emailModule.style.display = 'block';
+                    
+                    // Logic to map Address Components to Jotform hidden fields
+                    let street = "", city = "", state = "", post = "";
+                    place.address_components.forEach(c => {
+                        if(c.types.includes("street_number")) street = c.long_name + " " + street;
+                        if(c.types.includes("route")) street += c.long_name;
+                        if(c.types.includes("locality")) city = c.long_name;
+                        if(c.types.includes("administrative_area_level_1")) state = c.long_name;
+                        if(c.types.includes("postal_code")) post = c.long_name;
+                    });
+                    document.getElementById('jf_street').value = street;
+                    document.getElementById('jf_city').value = city;
+                    document.getElementById('jf_state').value = state;
+                    document.getElementById('jf_postal').value = post;
+                }
+            });
+        }
+
+        searchBtn.addEventListener('click', function() {
+            if (!addressSelected) {
+                statusBox.innerHTML = '<span class="status-warning">⚠ Please select an address from the list.</span>';
+                statusBox.style.display = 'block';
+                return;
+            }
+
+            if (!emailInput.value.includes('@')) {
+                statusBox.innerHTML = '<span class="status-warning">⚠ Valid email required for results.</span>';
+                statusBox.style.display = 'block';
+                emailModule.style.display = 'block';
+                emailInput.focus();
+                return;
+            }
+
+            // Logic: Submit the form to Jotform in the background
+            searchBtn.innerHTML = 'Checking...';
+            mainForm.submit();
+
+            // Simulate result UI immediately after background submission
+            setTimeout(() => {
+                statusBox.innerHTML = '<span class="status-available">✓ Service Available! <a href="#pricing" style="color:white; text-decoration:underline;">See Plans Below</a></span>';
+                statusBox.style.display = 'block';
+                searchBtn.innerHTML = 'Available';
+                searchBtn.style.background = '#4BB543';
+            }, 800);
+        });
+
+        // UI Interactions (Mobile Menu & FAQ)
+        const trigger = document.getElementById('menuTrigger');
+        const overlay = document.getElementById('mobileOverlay');
+        trigger.addEventListener('click', () => {
+            trigger.classList.toggle('menu-active');
+            overlay.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', () => {
+                header.parentElement.classList.toggle('active');
+            });
+        });
+    });
+    </script>
+</body>
+</html>
