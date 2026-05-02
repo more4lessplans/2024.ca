@@ -7,27 +7,10 @@
     
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Using the Google Maps API Key from your previous working code -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNt4XeQ5roadq0L-IpadA6s9e4CPm9FwI&libraries=places"></script>
 
     <style>
-        .status-warning { color: #f39c12; } 
-
-        /* Coverage Result Styles */
-        .coverage-status {
-            margin-top: 15px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            display: none; 
-            animation: fadeIn 0.5s ease forwards;
-        }
-        .status-available { color: #4BB543; }
-        .status-unavailable { color: #ff4d4d; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
         :root {
             --brand-red: #D73C59;
             --bg-nav: #2E2F33; 
@@ -213,6 +196,21 @@
         }
         .btn-search:hover { transform: scale(1.02); background: #f5f5f7; }
 
+        /* Coverage Result Styles */
+        .coverage-status {
+            margin-top: 15px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: none; 
+            animation: fadeIn 0.5s ease forwards;
+        }
+        .status-available { color: #4BB543; }
+        .status-warning { color: #f39c12; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         /* --- Pricing --- */
         .pricing-area { padding: 120px 0; background: var(--bg-page); }
         .pricing-grid { display: flex; justify-content: center; gap: 30px; max-width: 1200px; margin: 0 auto; padding: 0 25px; }
@@ -230,7 +228,6 @@
         .card-category { color: var(--brand-red); font-weight: 700; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 8px; }
         .card-title { font-size: 1.85rem; font-weight: 800; margin-bottom: 5px; }
         .price-value { font-size: 4.8rem; font-weight: 800; line-height: 1; color: var(--text-dark); }
-        .device-visual { width: 140px; height: 140px; object-fit: contain; }
         .btn-order {
             background: var(--brand-red);
             color: white !important;
@@ -254,8 +251,9 @@
         footer { padding: 100px 0; text-align: center; background: #fff; }
         
         /* Hidden fields for Jotform logic */
-        #jotform-hidden-fields { display: none; }
-        #hidden_iframe { display: none; }
+        #jotform-hidden-container { display: none; }
+        /* The target frame must be hidden to prevent the redirect from showing */
+        #silent_frame { width: 0; height: 0; border: 0; border: none; display: none; }
 
         @media (max-width: 991px) {
             .nav-links-desktop { display: none; }
@@ -298,27 +296,26 @@
             <p>Premium LTE & 5G solutions for rural homes, travelers, and mobile professionals.</p>
             
             <div class="search-module-wrapper">
-                <!-- Background Submission Frame -->
-                <iframe name="hidden_iframe" id="hidden_iframe"></iframe>
+                <!-- SILENT IFRAME: This prevents the page from redirecting -->
+                <iframe name="silent_frame" id="silent_frame"></iframe>
                 
-                <form action="https://submit.jotform.com/submit/223076752019051/" method="post" target="hidden_iframe" id="jotformCoverage">
+                <!-- The form target must match the iframe name -->
+                <form action="https://submit.jotform.com/submit/223076752019051/" method="post" target="silent_frame" id="jotformCoverage">
                     <input type="hidden" name="formID" value="223076752019051" />
                     
-                    <!-- Search Bar -->
                     <div class="search-module">
                         <input type="text" id="addressInput" placeholder="Enter your address...">
                         <button type="button" class="btn-search" id="searchBtn">Check Coverage</button>
                     </div>
 
-                    <!-- Email Module (appears after address) -->
                     <div id="email-module">
-                        <input type="email" name="q4_email" id="emailInput" placeholder="Enter email to see coverage results...">
+                        <input type="email" name="q4_email" id="emailInput" placeholder="Enter email for results...">
                     </div>
 
-                    <!-- Hidden Jotform Logic Fields -->
-                    <div id="jotform-hidden-fields">
-                        <input type="text" name="q3_name[first]" value="Coverage">
-                        <input type="text" name="q3_name[last]" value="Search">
+                    <!-- Hidden Jotform Logic Fields (Mapped to your original form ID) -->
+                    <div id="jotform-hidden-container">
+                        <input type="text" name="q3_name[first]" value="Website">
+                        <input type="text" name="q3_name[last]" value="Lead">
                         <input type="text" name="q5_address[addr_line1]" id="jf_street">
                         <input type="text" name="q5_address[city]" id="jf_city">
                         <input type="text" name="q5_address[state]" id="jf_state">
@@ -333,22 +330,18 @@
 
     <section class="pricing-area" id="pricing">
         <div class="pricing-grid">
-            <!-- Nighthawk M1 -->
             <div class="plan-card">
                 <div class="card-category">Mobile Essential</div>
                 <div class="card-title">Nighthawk M1</div>
                 <div class="price-value">$199</div>
-                <div class="divider"></div>
                 <div class="feature-item">✓ Unlimited High-Speed Data</div>
                 <a href="#" class="btn-order">Order Now</a>
             </div>
-            <!-- Netgear Orbi -->
             <div class="plan-card">
                 <div class="card-category">Home & Office</div>
-                <div class="card-title">Netgear Orbi</div>
+                <div class="card-title) Orbi 4G</div>
                 <div class="price-value">$249</div>
-                <div class="divider"></div>
-                <div class="feature-item">✓ Whole-Home WiFi Coverage</div>
+                <div class="feature-item) ✓ Whole-Home WiFi Coverage</div>
                 <a href="#" class="btn-order">Order Now</a>
             </div>
         </div>
@@ -388,14 +381,15 @@
                     addressSelected = true;
                     emailModule.style.display = 'block';
                     
-                    // Logic to map Address Components to Jotform hidden fields
+                    // Map Address Components to Jotform hidden fields
                     let street = "", city = "", state = "", post = "";
                     place.address_components.forEach(c => {
-                        if(c.types.includes("street_number")) street = c.long_name + " " + street;
-                        if(c.types.includes("route")) street += c.long_name;
-                        if(c.types.includes("locality")) city = c.long_name;
-                        if(c.types.includes("administrative_area_level_1")) state = c.long_name;
-                        if(c.types.includes("postal_code")) post = c.long_name;
+                        const types = c.types;
+                        if(types.includes("street_number")) street = c.long_name + " " + street;
+                        if(types.includes("route")) street += c.long_name;
+                        if(types.includes("locality")) city = c.long_name;
+                        if(types.includes("administrative_area_level_1")) state = c.long_name;
+                        if(types.includes("postal_code")) post = c.long_name;
                     });
                     document.getElementById('jf_street').value = street;
                     document.getElementById('jf_city').value = city;
@@ -407,7 +401,7 @@
 
         searchBtn.addEventListener('click', function() {
             if (!addressSelected) {
-                statusBox.innerHTML = '<span class="status-warning">⚠ Please select an address from the list.</span>';
+                statusBox.innerHTML = '<span class="status-warning">⚠ Please select an address from the drop-down.</span>';
                 statusBox.style.display = 'block';
                 return;
             }
@@ -420,20 +414,21 @@
                 return;
             }
 
-            // Logic: Submit the form to Jotform in the background
-            searchBtn.innerHTML = 'Checking...';
+            // ACTION: Submit the form to Jotform via the silent iframe
+            searchBtn.innerHTML = 'Analyzing...';
             mainForm.submit();
 
-            // Simulate result UI immediately after background submission
+            // SUCCESS UI: Show results without refreshing or redirecting
             setTimeout(() => {
                 statusBox.innerHTML = '<span class="status-available">✓ Service Available! <a href="#pricing" style="color:white; text-decoration:underline;">See Plans Below</a></span>';
                 statusBox.style.display = 'block';
                 searchBtn.innerHTML = 'Available';
                 searchBtn.style.background = '#4BB543';
-            }, 800);
+                searchBtn.disabled = true;
+            }, 1000);
         });
 
-        // UI Interactions (Mobile Menu & FAQ)
+        // UI Helpers
         const trigger = document.getElementById('menuTrigger');
         const overlay = document.getElementById('mobileOverlay');
         trigger.addEventListener('click', () => {
