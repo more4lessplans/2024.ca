@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>More4Less | High-Speed Wireless</title>
+    
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNt4XeQ5roadq0L-IpadA6s9e4CPm9FwI&libraries=places"></script>
+
+    <style>
+        .status-warning { color: #f39c12; } 
+
+        /* Coverage Result Styles */
+        .coverage-status {
+            margin-top: 15px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: none; 
+            animation: fadeIn 0.5s ease forwards;
+        }
+        .status-available { color: #4BB543; }
+        .status-unavailable { color: #ff4d4d; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        :root {
+            --brand-red: #D73C59;
+            --bg-nav: #2E2F33; 
+            --bg-hero: #2E2F33; 
+            --bg-page: #fbfbfd;
+            --text-dark: #1d1d1f;
+            --text-muted: #6e6e73;
+            --card-radius: 28px;
+        }
+
+        html { font-size: 15px; scroll-behavior: smooth; } 
+
+        body {
+            font-family: 'Figtree', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--bg-page);
+            -webkit-font-smoothing: antialiased;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* --- Navigation --- */
+        .navbar-custom {
+            background-color: var(--bg-nav);
+            padding: 1.2rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 3000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 25px;
+        }
+
+        .navbar-brand img { height: 22px; }
+
+        .nav-links-desktop { display: flex; align-items: center; list-style: none; margin: 0; padding: 0; }
+        .nav-links-desktop li a {
+            color: #ffffff;
+            font-weight: 500;
+            font-size: 0.85rem;
+            margin: 0 18px;
+            text-decoration: none;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+        .nav-links-desktop li a:hover { opacity: 1; }
+
+        .btn-portal-top {
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white !important;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            margin-left: 10px;
+        }
+
+        /* Mobile Menu Trigger */
+        .menu-trigger {
+            display: none;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 4001;
+            position: relative;
+        }
+        .menu-icon {
+            width: 26px;
+            height: 18px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .menu-icon span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background-color: #fff;
+            border-radius: 10px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .menu-active .menu-icon span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        .menu-active .menu-icon span:nth-child(2) { opacity: 0; transform: translateX(10px); }
+        .menu-active .menu-icon span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+        /* Mobile Overlay */
+        .mobile-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(29, 29, 31, 0.96); 
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 3500;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+        .mobile-overlay.active { opacity: 1; visibility: visible; }
+        
+        .mobile-nav-links { list-style: none; padding: 0; text-align: center; pointer-events: auto; }
+        .mobile-nav-links li { margin: 25px 0; transform: translateY(20px); opacity: 0; transition: 0.4s ease; }
+        .mobile-overlay.active .mobile-nav-links li { transform: translateY(0); opacity: 1; }
+        .mobile-nav-links a { color: #fff; font-size: 2.2rem; font-weight: 700; text-decoration: none; letter-spacing: -0.03em; }
+
+        /* --- Hero Section --- */
+        .hero {
+            position: relative;
+            background-image: url('assets/img/gallery/MR6110.png'); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            padding: 240px 0 160px; 
+            color: white;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(180deg, rgba(46, 47, 51, 0.8) 0%, rgba(46, 47, 51, 0.3) 50%, rgba(46, 47, 51, 0.8) 100%);
+            z-index: 1;
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 2;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: heroFadeIn 1s ease forwards;
+        }
+
+        @keyframes heroFadeIn { to { opacity: 1; transform: translateY(0); } }
+
+        .hero h1 { 
+            font-weight: 800; 
+            font-size: 4rem; 
+            letter-spacing: -0.05em; 
+            margin-bottom: 20px; 
+            text-shadow: 0 2px 15px rgba(0,0,0,0.4);
+        }
+
+        .hero p { 
+            color: rgba(255, 255, 255, 0.9); 
+            font-size: 1.35rem; 
+            max-width: 700px; 
+            margin: 0 auto 50px; 
+            font-weight: 400;
+        }
+
+        /* Unified Search Container */
+        .search-module-wrapper {
+            max-width: 580px;
+            margin: 0 auto;
+        }
+
+        .search-module {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 10px;
+            border-radius: 20px;
+            display: flex;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+            margin-bottom: 10px;
+        }
+
+        /* Email field hidden by default */
+        #email-module {
+            display: none;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 10px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        .search-module input, #email-module input {
+            background: transparent;
+            border: none;
+            color: white;
+            padding: 15px 25px;
+            flex: 1;
+            outline: none;
+            font-size: 1.1rem;
+            width: 100%;
+        }
+
+        .search-module input::placeholder, #email-module input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .btn-search {
+            background: white;
+            color: var(--bg-nav);
+            border: none;
+            padding: 12px 35px;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .btn-search:hover { transform: scale(1.02); background: #f5f5f7; }
+
+        /* --- Pricing Cards --- */
+        .pricing-area { padding: 120px 0; background: var(--bg-page); }
+        .pricing-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 25px;
+        }
+
+        .plan-card {
+            background: #ffffff;
+            border: 1px solid #eaeaec;
+            border-radius: var(--card-radius);
+            flex: 1;
+            padding: 50px 45px;
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .plan-card:hover { transform: translateY(-10px); box-shadow: 0 30px 60px rgba(0,0,0,0.06); }
+
+        .card-category { color: var(--brand-red); font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+        .card-title { font-size: 1.85rem; font-weight: 800; margin-bottom: 5px; letter-spacing: -0.03em; }
+        
+        .price-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .price-value { font-size: 4.8rem; font-weight: 800; line-height: 1; letter-spacing: -0.05em; color: var(--text-dark); }
+        
+        /* Subtle Apple-Style Hover Animation */
+        .price-row { perspective: 2000px; }
+        .device-visual { 
+            width: 140px; 
+            height: 140px; 
+            object-fit: contain; 
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.05));
+            transition: transform 0.8s cubic-bezier(0.2, 1, 0.2, 1);
+        }
+        .plan-card:hover .device-visual {
+            transform: scale(1.08) rotateX(4deg) rotateY(-8deg) translateY(-10px);
+        }
+
+        .price-subtext { font-weight: 700; font-size: 1rem; color: var(--text-dark); margin-bottom: 35px; }
+        .divider { height: 1px; background: #f0f0f2; width: 100%; margin-bottom: 35px; }
+        .feature-item { display: flex; align-items: center; margin-bottom: 18px; font-weight: 500; font-size: 1.1rem; color: #424245; }
+        .check-icon { color: var(--brand-red); margin-right: 14px; font-size: 1.2rem; font-weight: bold; }
+
+        .btn-order {
+            background: var(--brand-red);
+            color: white !important;
+            padding: 20px;
+            border-radius: 20px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.15rem;
+            text-decoration: none !important;
+            margin-top: 25px;
+            transition: opacity 0.2s;
+        }
+        .btn-order:hover { opacity: 0.9; }
+        .disclaimer-text { text-align: center; font-size: 0.9rem; color: var(--text-muted); margin-top: 25px; font-weight: 500; }
+
+        /* --- FAQ Accordion --- */
+        .faq-section { padding: 120px 0; background-color: #ffffff; }
+        .faq-container { max-width: 850px; margin: 0 auto; padding: 0 25px; }
+        .faq-header { text-align: center; margin-bottom: 60px; }
+        .faq-header h2 { font-weight: 800; font-size: 3rem; letter-spacing: -0.04em; }
+
+        .accordion-item { border-bottom: 1px solid #eaeaec; }
+        .accordion-header {
+            width: 100%; padding: 30px 0; background: none; border: none;
+            display: flex; justify-content: space-between; align-items: center;
+            cursor: pointer; text-align: left;
+        }
+        .accordion-header span { font-size: 1.4rem; font-weight: 700; color: var(--text-dark); letter-spacing: -0.02em; }
+        .accordion-icon { width: 22px; height: 2px; background: var(--text-dark); position: relative; transition: transform 0.3s; }
+        .accordion-icon::after { content: ""; position: absolute; width: 2px; height: 22px; background: var(--text-dark); left: 10px; top: -10px; transition: 0.3s; }
+        
+        .accordion-item.active .accordion-icon { transform: rotate(45deg); }
+        .accordion-item.active .accordion-icon::after { opacity: 0; }
+        .accordion-item.active .accordion-header span { color: var(--brand-red); }
+
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .accordion-content p { padding-bottom: 35px; color: var(--text-muted); font-size: 1.15rem; line-height: 1.65; margin: 0; }
+        .accordion-item.active .accordion-content { max-height: 300px; }
+
+        /* --- Responsive Styles --- */
+        @media (max-width: 991px) {
+            .nav-links-desktop { display: none; }
+            .menu-trigger { display: block; }
+            .pricing-grid { flex-direction: column; align-items: center; }
+            .plan-card { width: 100%; max-width: 500px; margin-bottom: 30px; }
+            .hero h1 { font-size: 3.2rem; }
+            .search-module-wrapper { width: 90%; }
+            .search-module { flex-direction: column; }
+            .btn-search { width: 100%; margin-top: 10px; }
+        }
+
+        footer { padding: 100px 0; text-align: center; background: #fff; border-top: 1px solid #eee; }
+        footer p { color: var(--text-muted); font-weight: 500; font-size: 1rem; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar-custom">
+        <div class="nav-container">
+            <a class="navbar-brand" href="#"><img src="assets/img/logos/logo.png" alt="More4Less"></a>
+            <ul class="nav-links-desktop">
+                <li><a href="#pricing">Plans</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="/support">Support</a></li>
+                <li><a href="#" class="btn-portal-top">Customer Portal</a></li>
+            </ul>
+            <div class="menu-trigger" id="menuTrigger">
+                <div class="menu-icon"><span></span><span></span><span></span></div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="mobile-overlay" id="mobileOverlay">
+        <ul class="mobile-nav-links">
+            <li><a href="#pricing">Plans</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="/support">Support</a></li>
+            <li><a href="#" style="color: var(--brand-red);">Customer Portal</a></li>
+        </ul>
+    </div>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Truly Unlimited Wireless.</h1>
+            <p>Premium LTE & 5G solutions for rural homes, travelers, and mobile professionals. No contracts.</p>
+            
+            <div class="search-module-wrapper">
+                <div class="search-module" id="searchModule">
+                    <input type="text" id="addressInput" placeholder="Enter your address to check coverage...">
+                    <button class="btn-search" id="searchBtn">Check Coverage</button>
+                </div>
+                <!-- Email lead capture field -->
+                <div id="email-module">
+                    <input type="email" id="emailInput" placeholder="Enter email to see coverage results...">
+                </div>
+            </div>
+            <div id="coverageResult" class="coverage-status"></div>
+        </div>
+    </section>
+
+    <section class="pricing-area" id="pricing">
+        <div class="pricing-grid">
+            <div class="plan-card">
+                <div class="card-category">Mobile Essential</div>
+                <div class="card-title">Nighthawk M1</div>
+                <div class="price-row">
+                    <div class="price-value">$199</div>
+                    <img src="assets/img/products/mr1100.png" class="device-visual">
+                </div>
+                <div class="price-subtext">Total Upfront Cost</div>
+                <div class="divider"></div>
+                <div class="feature-item"><span class="check-icon">✓</span> Hotspot Device (Own It)</div>
+                <div class="feature-item"><span class="check-icon">✓</span> 1st Month Service Included</div>
+                <div class="feature-item"><span class="check-icon">✓</span> Unlimited High-Speed Data</div>
+                <div class="feature-item"><span class="check-icon">✓</span> Connect up to 20 Devices</div>
+                <a href="#" class="btn-order">Order Now</a>
+                <div class="disclaimer-text">Plan continues at $110/mo after month one.</div>
+            </div>
+
+            <div class="plan-card">
+                <div class="card-category">Home & Office</div>
+                <div class="card-title">Netgear Orbi</div>
+                <div class="price-row">
+                    <div class="price-value">$249</div>
+                    <img src="assets/img/products/LBR20.png" class="device-visual">
+                </div>
+                <div class="price-subtext">Total Upfront Cost</div>
+                <div class="divider"></div>
+                <div class="feature-item"><span class="check-icon">✓</span> Home Router (Own It)</div>
+                <div class="feature-item"><span class="check-icon">✓</span> 1st Month Service Included</div>
+                <div class="feature-item"><span class="check-icon">✓</span> Whole-Home WiFi Coverage</div>
+                <div class="feature-item"><span class="check-icon">✓</span> Ethernet Ports for LAN</div>
+                <a href="#" class="btn-order">Order Now</a>
+                <div class="disclaimer-text">Plan continues at $110/mo after month one.</div>
+            </div>
+
+            <div class="plan-card">
+                <div class="card-category">Pro Performance</div>
+                <div class="card-title">Nighthawk M6</div>
+                <div class="price-row">
+                    <div class="price-value">$349</div>
+                    <img src="assets/img/products/mr6110.png" class="device-visual">
+                </div>
+                <div class="price-subtext">Total Upfront Cost</div>
+                <div class="divider"></div>
+                <div class="feature-item"><span class="check-icon">✓</span> 5G Pro Device (Own It)</div>
+                <div class="feature-item"><span class="check-icon">✓</span> 1st Month Service Included</div>
+                <div class="feature-item"><span class="check-icon">✓</span> Ultra-Fast 5G Connectivity</div>
+                <div class="feature-item"><span class="check-icon">✓</span> Secure Enterprise WiFi</div>
+                <a href="#" class="btn-order">Order Now</a>
+                <div class="disclaimer-text">Plan continues at $110/mo after month one.</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section" id="faq">
+        <div class="faq-container">
+            <div class="faq-header"><h2>Common Questions</h2></div>
+            <div class="accordion-item">
+                <button class="accordion-header"><span>Are there really no contracts?</span><div class="accordion-icon"></div></button>
+                <div class="accordion-content"><p>Absolutely. You own your hardware outright from day one. Our service is strictly month-to-month, and you can cancel or pause at any time without penalties or hidden fees.</p></div>
+            </div>
+            <div class="accordion-item">
+                <button class="accordion-header"><span>How does the renewal work?</span><div class="accordion-icon"></div></button>
+                <div class="accordion-content"><p>Your initial purchase covers the device and the first 30 days of service. After that, your plan renews automatically at $110 per month. We handle all taxes and surcharges, so the price you see is the price you pay.</p></div>
+            </div>
+            <div class="accordion-item">
+                <button class="accordion-header"><span>What network do you use?</span><div class="accordion-icon"></div></button>
+                <div class="accordion-content"><p>We partner with major national LTE and 5G infrastructure providers to deliver the strongest signal possible. Our systems are optimized specifically for rural areas and mobile professionals who need reliability over traditional consumer lines.</p></div>
+            </div>
+            <div class="accordion-item">
+                <button class="accordion-header"><span>What speeds will I get?</span><div class="accordion-icon"></div></button>
+                <div class="accordion-content"><p>Speeds depend on your local tower and the device you choose. Most users on our LTE plans see 25-100 Mbps. Our Nighthawk M6 users in 5G areas often see significantly higher speeds, comparable to high-end fiber connections.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© <span id="year"></span> More4Less Wireless. Premium Connectivity, Redefined.</p>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Elements
+        const yearSpan = document.getElementById('year');
+        const trigger = document.getElementById('menuTrigger');
+        const overlay = document.getElementById('mobileOverlay');
+        const addressInput = document.getElementById('addressInput');
+        const emailInput = document.getElementById('emailInput');
+        const emailModule = document.getElementById('email-module');
+        const searchBtn = document.getElementById('searchBtn');
+        const statusBox = document.getElementById('coverageResult');
+
+        if(yearSpan) yearSpan.textContent = new Date().getFullYear();
+
+        // Google Maps & Lead Flow
+        let addressSelected = false;
+
+        if (typeof google !== 'undefined') {
+            const autocomplete = new google.maps.places.Autocomplete(addressInput);
+            
+            addressInput.addEventListener('input', () => { 
+                addressSelected = false; 
+            });
+
+            autocomplete.addListener('place_changed', () => {
+                const place = autocomplete.getPlace();
+                if (place.geometry) {
+                    addressSelected = true;
+                    // REVEAL EMAIL FIELD on address selection
+                    emailModule.style.display = 'block';
+                }
+            });
+
+            searchBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                statusBox.style.display = 'none';
+
+                // 1. Verify Address Selection
+                if (!addressSelected) {
+                    showStatus('⚠ Please select an address from the dropdown list.', 'status-warning');
+                    return;
+                }
+
+                // 2. Verify Email Entry
+                const email = emailInput.value.trim();
+                if (!email || !email.includes('@')) {
+                    showStatus('⚠ Please enter a valid email address to see results.', 'status-warning');
+                    emailModule.style.display = 'block';
+                    emailInput.focus();
+                    return;
+                }
+
+                // 3. Perform Geocoding
+                const geocoder = new google.maps.Geocoder();
+                geocoder.geocode({ address: addressInput.value }, (results, status) => {
+                    if (status === 'OK') {
+                        const country = results[0].address_components.find(c => c.types.includes('country'));
+                        if (country && country.short_name === 'CA') {
+                            showStatus('✓ Service Available! <a href="#pricing" style="color:white; text-decoration:underline;">Select a plan below</a>', 'status-available');
+                            searchBtn.innerHTML = 'Available';
+                            searchBtn.style.background = '#4BB543';
+                            searchBtn.style.color = 'white';
+                        } else {
+                            showStatus('✕ Service is currently limited to Canada.', 'status-unavailable');
+                        }
+                    } else {
+                        showStatus('✕ Address not found.', 'status-unavailable');
+                    }
+                });
+            });
+        }
+
+        function showStatus(msg, className) {
+            statusBox.innerHTML = `<span class="${className}">${msg}</span>`;
+            statusBox.style.display = 'block';
+        }
+
+        // UI Interactions
+        function toggleMenu() {
+            trigger.classList.toggle('menu-active');
+            overlay.classList.toggle('active');
+            document.body.style.overflow = overlay.classList.contains('active') ? 'hidden' : 'auto';
+        }
+
+        trigger.addEventListener('click', toggleMenu);
+        overlay.addEventListener('click', (e) => {
+            if (e.target.tagName === 'A' || e.target === overlay) toggleMenu();
+        });
+
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const item = header.parentElement;
+                const wasActive = item.classList.contains('active');
+                document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('active'));
+                if (!wasActive) item.classList.add('active');
+            });
+        });
+    });
+    </script>
+</body>
+</html>
