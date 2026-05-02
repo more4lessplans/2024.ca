@@ -55,7 +55,7 @@
             position: fixed;
             width: 100%;
             top: 0;
-            z-index: 4000; /* Ensure it stays above hero */
+            z-index: 4000;
         }
 
         .nav-container {
@@ -90,12 +90,11 @@
             margin-left: 10px;
         }
 
-        /* Mobile Menu Icon (Hamburger to X) */
         .menu-trigger {
             display: none;
             cursor: pointer;
             padding: 10px;
-            z-index: 5001; /* Must be above overlay */
+            z-index: 5001;
             position: relative;
         }
         .menu-icon {
@@ -115,12 +114,10 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* The Animation logic for the X */
         .menu-active .menu-icon span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
         .menu-active .menu-icon span:nth-child(2) { opacity: 0; transform: translateX(10px); }
         .menu-active .menu-icon span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
-        /* Mobile Overlay */
         .mobile-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -174,21 +171,8 @@
 
         @keyframes heroFadeIn { to { opacity: 1; transform: translateY(0); } }
 
-        .hero h1 { 
-            font-weight: 800; 
-            font-size: 4rem; 
-            letter-spacing: -0.05em; 
-            margin-bottom: 20px; 
-            text-shadow: 0 2px 15px rgba(0,0,0,0.4);
-        }
-
-        .hero p { 
-            color: rgba(255, 255, 255, 0.9); 
-            font-size: 1.35rem; 
-            max-width: 700px; 
-            margin: 0 auto 50px; 
-            font-weight: 400;
-        }
+        .hero h1 { font-weight: 800; font-size: 4rem; letter-spacing: -0.05em; margin-bottom: 20px; text-shadow: 0 2px 15px rgba(0,0,0,0.4); }
+        .hero p { color: rgba(255, 255, 255, 0.9); font-size: 1.35rem; max-width: 700px; margin: 0 auto 50px; font-weight: 400; }
 
         /* --- Form Module --- */
         .search-module-wrapper { max-width: 580px; margin: 0 auto; }
@@ -266,12 +250,9 @@
 
         .card-category { color: var(--brand-red); font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
         .card-title { font-size: 1.85rem; font-weight: 800; margin-bottom: 5px; letter-spacing: -0.03em; }
-        
         .price-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
         .price-value { font-size: 4.8rem; font-weight: 800; color: var(--text-dark); letter-spacing: -0.05em; }
-        
         .device-visual { width: 140px; height: 140px; object-fit: contain; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.05)); }
-
         .price-subtext { font-weight: 700; font-size: 1rem; color: var(--text-dark); margin-bottom: 35px; }
         .divider { height: 1px; background: #f0f0f2; width: 100%; margin-bottom: 35px; }
         .feature-item { display: flex; align-items: center; margin-bottom: 18px; font-weight: 500; font-size: 1.1rem; color: #424245; }
@@ -339,18 +320,12 @@
                 <li><a href="/support">Support</a></li>
                 <li><a href="#" class="btn-portal-top">Customer Portal</a></li>
             </ul>
-            <!-- Mobile Toggle -->
             <div class="menu-trigger" id="menuTrigger">
-                <div class="menu-icon">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
+                <div class="menu-icon"><span></span><span></span><span></span></div>
             </div>
         </div>
     </nav>
 
-    <!-- Mobile Menu Overlay -->
     <div class="mobile-overlay" id="mobileOverlay">
         <ul class="mobile-nav-links">
             <li><a href="#pricing">Plans</a></li>
@@ -366,6 +341,7 @@
             <p>Premium LTE & 5G solutions for rural homes, travelers, and mobile professionals. No contracts.</p>
             
             <div class="search-module-wrapper">
+                <!-- Hidden Iframe for silent submission -->
                 <iframe name="hidden_iframe" id="hidden_iframe"></iframe>
                 <form action="https://submit.jotform.com/submit/223076752019051/" method="post" target="hidden_iframe" id="jotformCoverage">
                     <input type="hidden" name="formID" value="223076752019051" />
@@ -485,40 +461,30 @@
 
         if(yearSpan) yearSpan.textContent = new Date().getFullYear();
 
-        // 1. MOBILE MENU LOGIC
+        // MOBILE MENU
         function toggleMenu() {
             trigger.classList.toggle('menu-active');
             overlay.classList.toggle('active');
             document.body.style.overflow = overlay.classList.contains('active') ? 'hidden' : 'auto';
         }
+        trigger.addEventListener('click', (e) => { e.stopPropagation(); toggleMenu(); });
+        overlay.addEventListener('click', (e) => { if (overlay.classList.contains('active')) toggleMenu(); });
 
-        trigger.addEventListener('click', (e) => {
-            e.stopPropagation(); // Prevent immediate closing when clicking trigger
-            toggleMenu();
-        });
-
-        // Close menu when clicking anywhere on the overlay background
-        overlay.addEventListener('click', (e) => {
-            if (overlay.classList.contains('active')) {
-                toggleMenu();
-            }
-        });
-
-        // 2. FORM & GOOGLE PLACES LOGIC
+        // GOOGLE PLACES & JOTFORM SUBMISSION FIX
         let addressSelected = false;
 
         if (typeof google !== 'undefined') {
             const autocomplete = new google.maps.places.Autocomplete(addressInput);
             autocomplete.addListener('place_changed', () => {
                 const place = autocomplete.getPlace();
-                if (place.geometry) {
+                if (place && place.geometry) {
                     addressSelected = true;
                     emailModule.style.display = 'block';
 
                     let street = "", city = "", prov = "", post = "";
                     place.address_components.forEach(c => {
                         const type = c.types;
-                        if(type.includes("street_number")) street = c.long_name + " " + street;
+                        if(type.includes("street_number")) street = c.long_name + " ";
                         if(type.includes("route")) street += c.long_name;
                         if(type.includes("locality")) city = c.long_name;
                         if(type.includes("administrative_area_level_1")) prov = c.long_name;
@@ -551,7 +517,8 @@
                     if (status === 'OK') {
                         const country = results[0].address_components.find(c => c.types.includes('country'));
                         if (country && country.short_name === 'CA') {
-                            mainForm.submit();
+                            // Submission using standard submit method which respects form target
+                            HTMLFormElement.prototype.submit.call(mainForm);
                             showStatus('✓ Service Available! <a href="#pricing" style="color:white; text-decoration:underline;">View Plans</a>', 'status-available');
                             searchBtn.innerHTML = 'Available';
                             searchBtn.style.background = '#4BB543';
@@ -561,6 +528,10 @@
                             searchBtn.disabled = false;
                             searchBtn.innerHTML = 'Check Coverage';
                         }
+                    } else {
+                        showStatus('⚠ Error verifying address.', 'status-warning');
+                        searchBtn.disabled = false;
+                        searchBtn.innerHTML = 'Check Coverage';
                     }
                 });
             });
@@ -571,7 +542,7 @@
             statusBox.style.display = 'block';
         }
 
-        // 3. ACCORDION LOGIC
+        // ACCORDION
         document.querySelectorAll('.accordion-header').forEach(header => {
             header.addEventListener('click', () => {
                 const item = header.parentElement;
