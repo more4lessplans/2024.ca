@@ -7,10 +7,27 @@
     
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Using the Google Maps API Key from your previous working code -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNt4XeQ5roadq0L-IpadA6s9e4CPm9FwI&libraries=places"></script>
 
     <style>
+        .status-warning { color: #f39c12; } 
+
+        /* Coverage Result Styles */
+        .coverage-status {
+            margin-top: 15px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: none; 
+            animation: fadeIn 0.5s ease forwards;
+        }
+        .status-available { color: #4BB543; }
+        .status-unavailable { color: #ff4d4d; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         :root {
             --brand-red: #D73C59;
             --bg-nav: #2E2F33; 
@@ -74,7 +91,7 @@
             margin-left: 10px;
         }
 
-        /* Mobile Menu */
+        /* Mobile Menu Trigger */
         .menu-trigger {
             display: none;
             cursor: pointer;
@@ -103,6 +120,7 @@
         .menu-active .menu-icon span:nth-child(2) { opacity: 0; transform: translateX(10px); }
         .menu-active .menu-icon span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
+        /* Mobile Overlay */
         .mobile-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -119,21 +137,25 @@
             transition: opacity 0.4s ease, visibility 0.4s ease;
         }
         .mobile-overlay.active { opacity: 1; visibility: visible; }
-        .mobile-nav-links { list-style: none; padding: 0; text-align: center; }
+        
+        .mobile-nav-links { list-style: none; padding: 0; text-align: center; pointer-events: auto; }
         .mobile-nav-links li { margin: 25px 0; transform: translateY(20px); opacity: 0; transition: 0.4s ease; }
         .mobile-overlay.active .mobile-nav-links li { transform: translateY(0); opacity: 1; }
-        .mobile-nav-links a { color: #fff; font-size: 2.2rem; font-weight: 700; text-decoration: none; }
+        .mobile-nav-links a { color: #fff; font-size: 2.2rem; font-weight: 700; text-decoration: none; letter-spacing: -0.03em; }
 
-        /* --- Hero --- */
+        /* --- Hero Section --- */
         .hero {
             position: relative;
             background-image: url('assets/img/gallery/MR6110.png'); 
             background-size: cover;
             background-position: center;
+            background-repeat: no-repeat;
             padding: 240px 0 160px; 
             color: white;
             text-align: center;
+            overflow: hidden;
         }
+
         .hero::before {
             content: '';
             position: absolute;
@@ -141,13 +163,39 @@
             background: linear-gradient(180deg, rgba(46, 47, 51, 0.8) 0%, rgba(46, 47, 51, 0.3) 50%, rgba(46, 47, 51, 0.8) 100%);
             z-index: 1;
         }
-        .hero .container { position: relative; z-index: 2; opacity: 0; transform: translateY(20px); animation: heroFadeIn 1s ease forwards; }
+
+        .hero .container {
+            position: relative;
+            z-index: 2;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: heroFadeIn 1s ease forwards;
+        }
+
         @keyframes heroFadeIn { to { opacity: 1; transform: translateY(0); } }
 
-        .hero h1 { font-weight: 800; font-size: 4rem; letter-spacing: -0.05em; margin-bottom: 20px; }
-        .hero p { color: rgba(255, 255, 255, 0.9); font-size: 1.35rem; max-width: 700px; margin: 0 auto 50px; }
+        .hero h1 { 
+            font-weight: 800; 
+            font-size: 4rem; 
+            letter-spacing: -0.05em; 
+            margin-bottom: 20px; 
+            text-shadow: 0 2px 15px rgba(0,0,0,0.4);
+        }
 
-        .search-module-wrapper { max-width: 580px; margin: 0 auto; }
+        .hero p { 
+            color: rgba(255, 255, 255, 0.9); 
+            font-size: 1.35rem; 
+            max-width: 700px; 
+            margin: 0 auto 50px; 
+            font-weight: 400;
+        }
+
+        /* Unified Search Container */
+        .search-module-wrapper {
+            max-width: 580px;
+            margin: 0 auto;
+        }
+
         .search-module {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(15px);
@@ -159,6 +207,8 @@
             box-shadow: 0 25px 50px rgba(0,0,0,0.4);
             margin-bottom: 10px;
         }
+
+        /* Email field hidden by default */
         #email-module {
             display: none;
             background: rgba(255, 255, 255, 0.1);
@@ -167,8 +217,8 @@
             padding: 10px;
             border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.2);
-            margin-bottom: 10px;
             animation: fadeIn 0.4s ease forwards;
+            margin-bottom: 10px;
         }
 
         .search-module input, #email-module input {
@@ -181,7 +231,10 @@
             font-size: 1.1rem;
             width: 100%;
         }
-        .search-module input::placeholder, #email-module input::placeholder { color: rgba(255, 255, 255, 0.6); }
+
+        .search-module input::placeholder, #email-module input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
 
         .btn-search {
             background: white;
@@ -196,24 +249,17 @@
         }
         .btn-search:hover { transform: scale(1.02); background: #f5f5f7; }
 
-        /* Coverage Result Styles */
-        .coverage-status {
-            margin-top: 15px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            display: none; 
-            animation: fadeIn 0.5s ease forwards;
-        }
-        .status-available { color: #4BB543; }
-        .status-warning { color: #f39c12; }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* --- Pricing Cards --- */
+        .pricing-area { padding: 120px 0; background: var(--bg-page); }
+        .pricing-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 25px;
         }
 
-        /* --- Pricing --- */
-        .pricing-area { padding: 120px 0; background: var(--bg-page); }
-        .pricing-grid { display: flex; justify-content: center; gap: 30px; max-width: 1200px; margin: 0 auto; padding: 0 25px; }
         .plan-card {
             background: #ffffff;
             border: 1px solid #eaeaec;
@@ -222,12 +268,34 @@
             padding: 50px 45px;
             display: flex;
             flex-direction: column;
+            text-align: left;
             transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
         .plan-card:hover { transform: translateY(-10px); box-shadow: 0 30px 60px rgba(0,0,0,0.06); }
-        .card-category { color: var(--brand-red); font-weight: 700; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 8px; }
-        .card-title { font-size: 1.85rem; font-weight: 800; margin-bottom: 5px; }
-        .price-value { font-size: 4.8rem; font-weight: 800; line-height: 1; color: var(--text-dark); }
+
+        .card-category { color: var(--brand-red); font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+        .card-title { font-size: 1.85rem; font-weight: 800; margin-bottom: 5px; letter-spacing: -0.03em; }
+        
+        .price-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .price-value { font-size: 4.8rem; font-weight: 800; line-height: 1; letter-spacing: -0.05em; color: var(--text-dark); }
+        
+        .price-row { perspective: 2000px; }
+        .device-visual { 
+            width: 140px; 
+            height: 140px; 
+            object-fit: contain; 
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.05));
+            transition: transform 0.8s cubic-bezier(0.2, 1, 0.2, 1);
+        }
+        .plan-card:hover .device-visual {
+            transform: scale(1.08) rotateX(4deg) rotateY(-8deg) translateY(-10px);
+        }
+
+        .price-subtext { font-weight: 700; font-size: 1rem; color: var(--text-dark); margin-bottom: 35px; }
+        .divider { height: 1px; background: #f0f0f2; width: 100%; margin-bottom: 35px; }
+        .feature-item { display: flex; align-items: center; margin-bottom: 18px; font-weight: 500; font-size: 1.1rem; color: #424245; }
+        .check-icon { color: var(--brand-red); margin-right: 14px; font-size: 1.2rem; font-weight: bold; }
+
         .btn-order {
             background: var(--brand-red);
             color: white !important;
@@ -235,33 +303,55 @@
             border-radius: 20px;
             text-align: center;
             font-weight: 700;
+            font-size: 1.15rem;
             text-decoration: none !important;
             margin-top: 25px;
+            transition: opacity 0.2s;
         }
+        .btn-order:hover { opacity: 0.9; }
+        .disclaimer-text { text-align: center; font-size: 0.9rem; color: var(--text-muted); margin-top: 25px; font-weight: 500; }
 
-        /* --- FAQ --- */
+        /* --- FAQ Accordion --- */
         .faq-section { padding: 120px 0; background-color: #ffffff; }
         .faq-container { max-width: 850px; margin: 0 auto; padding: 0 25px; }
-        .accordion-item { border-bottom: 1px solid #eaeaec; }
-        .accordion-header { width: 100%; padding: 30px 0; background: none; border: none; display: flex; justify-content: space-between; cursor: pointer; }
-        .accordion-header span { font-size: 1.4rem; font-weight: 700; }
-        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
-        .accordion-item.active .accordion-content { max-height: 300px; }
+        .faq-header { text-align: center; margin-bottom: 60px; }
+        .faq-header h2 { font-weight: 800; font-size: 3rem; letter-spacing: -0.04em; }
 
-        footer { padding: 100px 0; text-align: center; background: #fff; }
+        .accordion-item { border-bottom: 1px solid #eaeaec; }
+        .accordion-header {
+            width: 100%; padding: 30px 0; background: none; border: none;
+            display: flex; justify-content: space-between; align-items: center;
+            cursor: pointer; text-align: left;
+        }
+        .accordion-header span { font-size: 1.4rem; font-weight: 700; color: var(--text-dark); letter-spacing: -0.02em; }
+        .accordion-icon { width: 22px; height: 2px; background: var(--text-dark); position: relative; transition: transform 0.3s; }
+        .accordion-icon::after { content: ""; position: absolute; width: 2px; height: 22px; background: var(--text-dark); left: 10px; top: -10px; transition: 0.3s; }
         
-        /* Hidden fields for Jotform logic */
-        #jotform-hidden-container { display: none; }
-        /* The target frame must be hidden to prevent the redirect from showing */
-        #silent_frame { width: 0; height: 0; border: 0; border: none; display: none; }
+        .accordion-item.active .accordion-icon { transform: rotate(45deg); }
+        .accordion-item.active .accordion-icon::after { opacity: 0; }
+        .accordion-item.active .accordion-header span { color: var(--brand-red); }
+
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .accordion-content p { padding-bottom: 35px; color: var(--text-muted); font-size: 1.15rem; line-height: 1.65; margin: 0; }
+        .accordion-item.active .accordion-content { max-height: 300px; }
 
         @media (max-width: 991px) {
             .nav-links-desktop { display: none; }
             .menu-trigger { display: block; }
             .pricing-grid { flex-direction: column; align-items: center; }
-            .plan-card { width: 100%; max-width: 500px; }
+            .plan-card { width: 100%; max-width: 500px; margin-bottom: 30px; }
             .hero h1 { font-size: 3.2rem; }
+            .search-module-wrapper { width: 90%; }
+            .search-module { flex-direction: column; }
+            .btn-search { width: 100%; margin-top: 10px; }
         }
+
+        footer { padding: 100px 0; text-align: center; background: #fff; border-top: 1px solid #eee; }
+        footer p { color: var(--text-muted); font-weight: 500; font-size: 1rem; }
+
+        /* Hidden Layout for Jotform Background Logic */
+        #hidden_iframe { display: none; }
+        #jotform-hidden-logic { display: none; }
     </style>
 </head>
 <body>
@@ -286,34 +376,32 @@
             <li><a href="#pricing">Plans</a></li>
             <li><a href="#faq">FAQ</a></li>
             <li><a href="/support">Support</a></li>
-            <li><a href="#">Customer Portal</a></li>
+            <li><a href="#" style="color: var(--brand-red);">Customer Portal</a></li>
         </ul>
     </div>
 
     <section class="hero">
         <div class="container">
             <h1>Truly Unlimited Wireless.</h1>
-            <p>Premium LTE & 5G solutions for rural homes, travelers, and mobile professionals.</p>
+            <p>Premium LTE & 5G solutions for rural homes, travelers, and mobile professionals. No contracts.</p>
             
             <div class="search-module-wrapper">
-                <!-- SILENT IFRAME: This prevents the page from redirecting -->
-                <iframe name="silent_frame" id="silent_frame"></iframe>
+                <iframe name="hidden_iframe" id="hidden_iframe"></iframe>
                 
-                <!-- The form target must match the iframe name -->
-                <form action="https://submit.jotform.com/submit/223076752019051/" method="post" target="silent_frame" id="jotformCoverage">
+                <form action="https://submit.jotform.com/submit/223076752019051/" method="post" target="hidden_iframe" id="jotformCoverage">
                     <input type="hidden" name="formID" value="223076752019051" />
                     
-                    <div class="search-module">
-                        <input type="text" id="addressInput" placeholder="Enter your address...">
+                    <div class="search-module" id="searchModule">
+                        <input type="text" id="addressInput" placeholder="Enter your address to check coverage...">
                         <button type="button" class="btn-search" id="searchBtn">Check Coverage</button>
                     </div>
 
                     <div id="email-module">
-                        <input type="email" name="q4_email" id="emailInput" placeholder="Enter email for results...">
+                        <input type="email" id="emailInput" name="q4_email" placeholder="Enter email to see coverage results...">
                     </div>
 
-                    <!-- Hidden Jotform Logic Fields (Mapped to your original form ID) -->
-                    <div id="jotform-hidden-container">
+                    <!-- HIDDEN LOGIC FIELDS: These map your address parts to Jotform fields -->
+                    <div id="jotform-hidden-logic">
                         <input type="text" name="q3_name[first]" value="Website">
                         <input type="text" name="q3_name[last]" value="Lead">
                         <input type="text" name="q5_address[addr_line1]" id="jf_street">
@@ -333,36 +421,87 @@
             <div class="plan-card">
                 <div class="card-category">Mobile Essential</div>
                 <div class="card-title">Nighthawk M1</div>
-                <div class="price-value">$199</div>
-                <div class="feature-item">✓ Unlimited High-Speed Data</div>
+                <div class="price-row">
+                    <div class="price-value">$199</div>
+                    <img src="assets/img/products/mr1100.png" class="device-visual">
+                </div>
+                <div class="price-subtext">Total Upfront Cost</div>
+                <div class="divider"></div>
+                <div class="feature-item"><span class="check-icon">✓</span> Hotspot Device (Own It)</div>
+                <div class="feature-item"><span class="check-icon">✓</span> 1st Month Service Included</div>
+                <div class="feature-item"><span class="check-icon">✓</span> Unlimited High-Speed Data</div>
+                <div class="feature-item"><span class="check-icon">✓</span> Connect up to 20 Devices</div>
                 <a href="#" class="btn-order">Order Now</a>
+                <div class="disclaimer-text">Plan continues at $110/mo after month one.</div>
             </div>
+
             <div class="plan-card">
                 <div class="card-category">Home & Office</div>
-                <div class="card-title) Orbi 4G</div>
-                <div class="price-value">$249</div>
-                <div class="feature-item) ✓ Whole-Home WiFi Coverage</div>
+                <div class="card-title">Netgear Orbi</div>
+                <div class="price-row">
+                    <div class="price-value">$249</div>
+                    <img src="assets/img/products/LBR20.png" class="device-visual">
+                </div>
+                <div class="price-subtext">Total Upfront Cost</div>
+                <div class="divider"></div>
+                <div class="feature-item"><span class="check-icon">✓</span> Home Router (Own It)</div>
+                <div class="feature-item"><span class="check-icon">✓</span> 1st Month Service Included</div>
+                <div class="feature-item"><span class="check-icon">✓</span> Whole-Home WiFi Coverage</div>
+                <div class="feature-item"><span class="check-icon">✓</span> Ethernet Ports for LAN</div>
                 <a href="#" class="btn-order">Order Now</a>
+                <div class="disclaimer-text">Plan continues at $110/mo after month one.</div>
+            </div>
+
+            <div class="plan-card">
+                <div class="card-category">Pro Performance</div>
+                <div class="card-title">Nighthawk M6</div>
+                <div class="price-row">
+                    <div class="price-value">$349</div>
+                    <img src="assets/img/products/mr6110.png" class="device-visual">
+                </div>
+                <div class="price-subtext">Total Upfront Cost</div>
+                <div class="divider"></div>
+                <div class="feature-item"><span class="check-icon">✓</span> 5G Pro Device (Own It)</div>
+                <div class="feature-item"><span class="check-icon">✓</span> 1st Month Service Included</div>
+                <div class="feature-item"><span class="check-icon">✓</span> Ultra-Fast 5G Connectivity</div>
+                <div class="feature-item"><span class="check-icon">✓</span> Secure Enterprise WiFi</div>
+                <a href="#" class="btn-order">Order Now</a>
+                <div class="disclaimer-text">Plan continues at $110/mo after month one.</div>
             </div>
         </div>
     </section>
 
     <section class="faq-section" id="faq">
         <div class="faq-container">
+            <div class="faq-header"><h2>Common Questions</h2></div>
             <div class="accordion-item">
-                <button class="accordion-header"><span>Are there really no contracts?</span></button>
-                <div class="accordion-content"><p>Absolutely. You own your hardware outright. No hidden fees.</p></div>
+                <button class="accordion-header"><span>Are there really no contracts?</span><div class="accordion-icon"></div></button>
+                <div class="accordion-content"><p>Absolutely. You own your hardware outright from day one. Our service is strictly month-to-month, and you can cancel or pause at any time without penalties or hidden fees.</p></div>
+            </div>
+            <div class="accordion-item">
+                <button class="accordion-header"><span>How does the renewal work?</span><div class="accordion-icon"></div></button>
+                <div class="accordion-content"><p>Your initial purchase covers the device and the first 30 days of service. After that, your plan renews automatically at $110 per month. We handle all taxes and surcharges, so the price you see is the price you pay.</p></div>
+            </div>
+            <div class="accordion-item">
+                <button class="accordion-header"><span>What network do you use?</span><div class="accordion-icon"></div></button>
+                <div class="accordion-content"><p>We partner with major national LTE and 5G infrastructure providers to deliver the strongest signal possible. Our systems are optimized specifically for rural areas and mobile professionals who need reliability over traditional consumer lines.</p></div>
+            </div>
+            <div class="accordion-item">
+                <button class="accordion-header"><span>What speeds will I get?</span><div class="accordion-icon"></div></button>
+                <div class="accordion-content"><p>Speeds depend on your local tower and the device you choose. Most users on our LTE plans see 25-100 Mbps. Our Nighthawk M6 users in 5G areas often see significantly higher speeds, comparable to high-end fiber connections.</p></div>
             </div>
         </div>
     </section>
 
     <footer>
-        <p>© <span id="year"></span> More4Less Wireless.</p>
+        <p>© <span id="year"></span> More4Less Wireless. Premium Connectivity, Redefined.</p>
     </footer>
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        document.getElementById('year').textContent = new Date().getFullYear();
+        const yearSpan = document.getElementById('year');
+        const trigger = document.getElementById('menuTrigger');
+        const overlay = document.getElementById('mobileOverlay');
         const addressInput = document.getElementById('addressInput');
         const emailInput = document.getElementById('emailInput');
         const emailModule = document.getElementById('email-module');
@@ -370,75 +509,113 @@
         const statusBox = document.getElementById('coverageResult');
         const mainForm = document.getElementById('jotformCoverage');
 
+        if(yearSpan) yearSpan.textContent = new Date().getFullYear();
+
         let addressSelected = false;
 
-        // Initialize Google Places
         if (typeof google !== 'undefined') {
             const autocomplete = new google.maps.places.Autocomplete(addressInput);
+            
             autocomplete.addListener('place_changed', () => {
                 const place = autocomplete.getPlace();
                 if (place.geometry) {
                     addressSelected = true;
                     emailModule.style.display = 'block';
-                    
-                    // Map Address Components to Jotform hidden fields
-                    let street = "", city = "", state = "", post = "";
+
+                    // Parse Address for Jotform Hidden Fields
+                    let street = "", city = "", prov = "", post = "";
                     place.address_components.forEach(c => {
-                        const types = c.types;
-                        if(types.includes("street_number")) street = c.long_name + " " + street;
-                        if(types.includes("route")) street += c.long_name;
-                        if(types.includes("locality")) city = c.long_name;
-                        if(types.includes("administrative_area_level_1")) state = c.long_name;
-                        if(types.includes("postal_code")) post = c.long_name;
+                        const type = c.types;
+                        if(type.includes("street_number")) street = c.long_name + " " + street;
+                        if(type.includes("route")) street += c.long_name;
+                        if(type.includes("locality")) city = c.long_name;
+                        if(type.includes("administrative_area_level_1")) prov = c.long_name;
+                        if(type.includes("postal_code")) post = c.long_name;
                     });
+                    
                     document.getElementById('jf_street').value = street;
                     document.getElementById('jf_city').value = city;
-                    document.getElementById('jf_state').value = state;
+                    document.getElementById('jf_state').value = prov;
                     document.getElementById('jf_postal').value = post;
                 }
             });
+
+            searchBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                statusBox.style.display = 'none';
+
+                if (!addressSelected) {
+                    showStatus('⚠ Please select an address from the dropdown list.', 'status-warning');
+                    return;
+                }
+
+                const email = emailInput.value.trim();
+                if (!email || !email.includes('@')) {
+                    showStatus('⚠ Please enter a valid email address to see results.', 'status-warning');
+                    emailModule.style.display = 'block';
+                    emailInput.focus();
+                    return;
+                }
+
+                searchBtn.innerHTML = 'Checking...';
+                searchBtn.disabled = true;
+
+                const geocoder = new google.maps.Geocoder();
+                geocoder.geocode({ address: addressInput.value }, function(results, status) {
+                    if (status === 'OK') {
+                        const country = results[0].address_components.find(c => c.types.includes('country'));
+                        if (country && country.short_name === 'CA') {
+                            
+                            // SUBMIT SILENTLY TO JOTFORM
+                            mainForm.submit();
+                            
+                            // Show Page Success UI
+                            showStatus('✓ Service Available! <a href="#pricing" style="color:white; text-decoration:underline;">Select a plan below</a>', 'status-available');
+                            searchBtn.innerHTML = 'Available';
+                            searchBtn.style.background = '#4BB543';
+                            searchBtn.style.color = 'white';
+
+                        } else {
+                            showStatus('✕ Service is currently limited to Canada.', 'status-unavailable');
+                            searchBtn.innerHTML = 'Check Coverage';
+                            searchBtn.disabled = false;
+                        }
+                    } else {
+                        showStatus('✕ Address not found.', 'status-unavailable');
+                        searchBtn.innerHTML = 'Check Coverage';
+                        searchBtn.disabled = false;
+                    }
+                });
+            });
         }
 
-        searchBtn.addEventListener('click', function() {
-            if (!addressSelected) {
-                statusBox.innerHTML = '<span class="status-warning">⚠ Please select an address from the drop-down.</span>';
-                statusBox.style.display = 'block';
-                return;
-            }
+        function showStatus(msg, className) {
+            statusBox.innerHTML = `<span class="${className}">${msg}</span>`;
+            statusBox.style.display = 'block';
+        }
 
-            if (!emailInput.value.includes('@')) {
-                statusBox.innerHTML = '<span class="status-warning">⚠ Valid email required for results.</span>';
-                statusBox.style.display = 'block';
-                emailModule.style.display = 'block';
-                emailInput.focus();
-                return;
-            }
-
-            // ACTION: Submit the form to Jotform via the silent iframe
-            searchBtn.innerHTML = 'Analyzing...';
-            mainForm.submit();
-
-            // SUCCESS UI: Show results without refreshing or redirecting
-            setTimeout(() => {
-                statusBox.innerHTML = '<span class="status-available">✓ Service Available! <a href="#pricing" style="color:white; text-decoration:underline;">See Plans Below</a></span>';
-                statusBox.style.display = 'block';
-                searchBtn.innerHTML = 'Available';
-                searchBtn.style.background = '#4BB543';
-                searchBtn.disabled = true;
-            }, 1000);
-        });
-
-        // UI Helpers
-        const trigger = document.getElementById('menuTrigger');
-        const overlay = document.getElementById('mobileOverlay');
+        // Navigation UI
         trigger.addEventListener('click', () => {
             trigger.classList.toggle('menu-active');
             overlay.classList.toggle('active');
+            document.body.style.overflow = overlay.classList.contains('active') ? 'hidden' : 'auto';
         });
 
+        overlay.addEventListener('click', (e) => {
+            if (e.target.tagName === 'A' || e.target === overlay) {
+                trigger.classList.remove('menu-active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // FAQ UI
         document.querySelectorAll('.accordion-header').forEach(header => {
             header.addEventListener('click', () => {
-                header.parentElement.classList.toggle('active');
+                const item = header.parentElement;
+                const wasActive = item.classList.contains('active');
+                document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('active'));
+                if (!wasActive) item.classList.add('active');
             });
         });
     });
