@@ -10,9 +10,8 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNt4XeQ5roadq0L-IpadA6s9e4CPm9FwI&libraries=places"></script>
 
     <style>
+        /* Status & Feedback */
         .status-warning { color: #f39c12; } 
-
-        /* Coverage Result Styles */
         .coverage-status {
             margin-top: 15px;
             font-weight: 600;
@@ -56,7 +55,7 @@
             position: fixed;
             width: 100%;
             top: 0;
-            z-index: 3000;
+            z-index: 4000; /* Ensure it stays above hero */
         }
 
         .nav-container {
@@ -91,12 +90,12 @@
             margin-left: 10px;
         }
 
-        /* Mobile Menu Trigger */
+        /* Mobile Menu Icon (Hamburger to X) */
         .menu-trigger {
             display: none;
             cursor: pointer;
             padding: 10px;
-            z-index: 4001;
+            z-index: 5001; /* Must be above overlay */
             position: relative;
         }
         .menu-icon {
@@ -116,6 +115,7 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
+        /* The Animation logic for the X */
         .menu-active .menu-icon span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
         .menu-active .menu-icon span:nth-child(2) { opacity: 0; transform: translateX(10px); }
         .menu-active .menu-icon span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
@@ -124,21 +124,21 @@
         .mobile-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(29, 29, 31, 0.96); 
+            background: rgba(29, 29, 31, 0.98); 
             backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            z-index: 3500;
+            z-index: 4500;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.4s ease, visibility 0.4s ease;
         }
         .mobile-overlay.active { opacity: 1; visibility: visible; }
         
-        .mobile-nav-links { list-style: none; padding: 0; text-align: center; pointer-events: auto; }
+        .mobile-nav-links { list-style: none; padding: 0; text-align: center; }
         .mobile-nav-links li { margin: 25px 0; transform: translateY(20px); opacity: 0; transition: 0.4s ease; }
         .mobile-overlay.active .mobile-nav-links li { transform: translateY(0); opacity: 1; }
         .mobile-nav-links a { color: #fff; font-size: 2.2rem; font-weight: 700; text-decoration: none; letter-spacing: -0.03em; }
@@ -190,12 +190,8 @@
             font-weight: 400;
         }
 
-        /* Unified Search Container */
-        .search-module-wrapper {
-            max-width: 580px;
-            margin: 0 auto;
-        }
-
+        /* --- Form Module --- */
+        .search-module-wrapper { max-width: 580px; margin: 0 auto; }
         .search-module {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(15px);
@@ -208,7 +204,6 @@
             margin-bottom: 10px;
         }
 
-        /* Email field hidden by default */
         #email-module {
             display: none;
             background: rgba(255, 255, 255, 0.1);
@@ -231,10 +226,7 @@
             font-size: 1.1rem;
             width: 100%;
         }
-
-        .search-module input::placeholder, #email-module input::placeholder {
-            color: rgba(255, 255, 255, 0.6);
-        }
+        .search-module input::placeholder, #email-module input::placeholder { color: rgba(255, 255, 255, 0.6); }
 
         .btn-search {
             background: white;
@@ -247,7 +239,6 @@
             transition: all 0.2s;
             white-space: nowrap;
         }
-        .btn-search:hover { transform: scale(1.02); background: #f5f5f7; }
 
         /* --- Pricing Cards --- */
         .pricing-area { padding: 120px 0; background: var(--bg-page); }
@@ -277,19 +268,9 @@
         .card-title { font-size: 1.85rem; font-weight: 800; margin-bottom: 5px; letter-spacing: -0.03em; }
         
         .price-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-        .price-value { font-size: 4.8rem; font-weight: 800; line-height: 1; letter-spacing: -0.05em; color: var(--text-dark); }
+        .price-value { font-size: 4.8rem; font-weight: 800; color: var(--text-dark); letter-spacing: -0.05em; }
         
-        .price-row { perspective: 2000px; }
-        .device-visual { 
-            width: 140px; 
-            height: 140px; 
-            object-fit: contain; 
-            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.05));
-            transition: transform 0.8s cubic-bezier(0.2, 1, 0.2, 1);
-        }
-        .plan-card:hover .device-visual {
-            transform: scale(1.08) rotateX(4deg) rotateY(-8deg) translateY(-10px);
-        }
+        .device-visual { width: 140px; height: 140px; object-fit: contain; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.05)); }
 
         .price-subtext { font-weight: 700; font-size: 1rem; color: var(--text-dark); margin-bottom: 35px; }
         .divider { height: 1px; background: #f0f0f2; width: 100%; margin-bottom: 35px; }
@@ -308,8 +289,6 @@
             margin-top: 25px;
             transition: opacity 0.2s;
         }
-        .btn-order:hover { opacity: 0.9; }
-        .disclaimer-text { text-align: center; font-size: 0.9rem; color: var(--text-muted); margin-top: 25px; font-weight: 500; }
 
         /* --- FAQ Accordion --- */
         .faq-section { padding: 120px 0; background-color: #ffffff; }
@@ -323,7 +302,7 @@
             display: flex; justify-content: space-between; align-items: center;
             cursor: pointer; text-align: left;
         }
-        .accordion-header span { font-size: 1.4rem; font-weight: 700; color: var(--text-dark); letter-spacing: -0.02em; }
+        .accordion-header span { font-size: 1.4rem; font-weight: 700; color: var(--text-dark); }
         .accordion-icon { width: 22px; height: 2px; background: var(--text-dark); position: relative; transition: transform 0.3s; }
         .accordion-icon::after { content: ""; position: absolute; width: 2px; height: 22px; background: var(--text-dark); left: 10px; top: -10px; transition: 0.3s; }
         
@@ -333,7 +312,7 @@
 
         .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
         .accordion-content p { padding-bottom: 35px; color: var(--text-muted); font-size: 1.15rem; line-height: 1.65; margin: 0; }
-        .accordion-item.active .accordion-content { max-height: 300px; }
+        .accordion-item.active .accordion-content { max-height: 350px; }
 
         @media (max-width: 991px) {
             .nav-links-desktop { display: none; }
@@ -341,17 +320,12 @@
             .pricing-grid { flex-direction: column; align-items: center; }
             .plan-card { width: 100%; max-width: 500px; margin-bottom: 30px; }
             .hero h1 { font-size: 3.2rem; }
-            .search-module-wrapper { width: 90%; }
             .search-module { flex-direction: column; }
             .btn-search { width: 100%; margin-top: 10px; }
         }
 
         footer { padding: 100px 0; text-align: center; background: #fff; border-top: 1px solid #eee; }
-        footer p { color: var(--text-muted); font-weight: 500; font-size: 1rem; }
-
-        /* Hidden Layout for Jotform Background Logic */
-        #hidden_iframe { display: none; }
-        #jotform-hidden-logic { display: none; }
+        #hidden_iframe, #jotform-hidden-logic { display: none; }
     </style>
 </head>
 <body>
@@ -365,12 +339,18 @@
                 <li><a href="/support">Support</a></li>
                 <li><a href="#" class="btn-portal-top">Customer Portal</a></li>
             </ul>
+            <!-- Mobile Toggle -->
             <div class="menu-trigger" id="menuTrigger">
-                <div class="menu-icon"><span></span><span></span><span></span></div>
+                <div class="menu-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
             </div>
         </div>
     </nav>
 
+    <!-- Mobile Menu Overlay -->
     <div class="mobile-overlay" id="mobileOverlay">
         <ul class="mobile-nav-links">
             <li><a href="#pricing">Plans</a></li>
@@ -387,20 +367,15 @@
             
             <div class="search-module-wrapper">
                 <iframe name="hidden_iframe" id="hidden_iframe"></iframe>
-                
                 <form action="https://submit.jotform.com/submit/223076752019051/" method="post" target="hidden_iframe" id="jotformCoverage">
                     <input type="hidden" name="formID" value="223076752019051" />
-                    
                     <div class="search-module" id="searchModule">
                         <input type="text" id="addressInput" placeholder="Enter your address to check coverage...">
                         <button type="button" class="btn-search" id="searchBtn">Check Coverage</button>
                     </div>
-
                     <div id="email-module">
                         <input type="email" id="emailInput" name="q4_email" placeholder="Enter email to see coverage results...">
                     </div>
-
-                    <!-- HIDDEN LOGIC FIELDS: These map your address parts to Jotform fields -->
                     <div id="jotform-hidden-logic">
                         <input type="text" name="q3_name[first]" value="Website">
                         <input type="text" name="q3_name[last]" value="Lead">
@@ -408,7 +383,6 @@
                         <input type="text" name="q5_address[city]" id="jf_city">
                         <input type="text" name="q5_address[state]" id="jf_state">
                         <input type="text" name="q5_address[postal]" id="jf_postal">
-                        <input type="tel" name="q6_phoneNumber[full]" value="000-000-0000">
                     </div>
                 </form>
             </div>
@@ -511,18 +485,36 @@
 
         if(yearSpan) yearSpan.textContent = new Date().getFullYear();
 
+        // 1. MOBILE MENU LOGIC
+        function toggleMenu() {
+            trigger.classList.toggle('menu-active');
+            overlay.classList.toggle('active');
+            document.body.style.overflow = overlay.classList.contains('active') ? 'hidden' : 'auto';
+        }
+
+        trigger.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent immediate closing when clicking trigger
+            toggleMenu();
+        });
+
+        // Close menu when clicking anywhere on the overlay background
+        overlay.addEventListener('click', (e) => {
+            if (overlay.classList.contains('active')) {
+                toggleMenu();
+            }
+        });
+
+        // 2. FORM & GOOGLE PLACES LOGIC
         let addressSelected = false;
 
         if (typeof google !== 'undefined') {
             const autocomplete = new google.maps.places.Autocomplete(addressInput);
-            
             autocomplete.addListener('place_changed', () => {
                 const place = autocomplete.getPlace();
                 if (place.geometry) {
                     addressSelected = true;
                     emailModule.style.display = 'block';
 
-                    // Parse Address for Jotform Hidden Fields
                     let street = "", city = "", prov = "", post = "";
                     place.address_components.forEach(c => {
                         const type = c.types;
@@ -542,18 +534,12 @@
 
             searchBtn.addEventListener('click', function(e) {
                 e.preventDefault();
-                statusBox.style.display = 'none';
-
                 if (!addressSelected) {
-                    showStatus('⚠ Please select an address from the dropdown list.', 'status-warning');
+                    showStatus('⚠ Please select an address from the list.', 'status-warning');
                     return;
                 }
-
-                const email = emailInput.value.trim();
-                if (!email || !email.includes('@')) {
-                    showStatus('⚠ Please enter a valid email address to see results.', 'status-warning');
-                    emailModule.style.display = 'block';
-                    emailInput.focus();
+                if (!emailInput.value.includes('@')) {
+                    showStatus('⚠ Please enter a valid email.', 'status-warning');
                     return;
                 }
 
@@ -565,25 +551,16 @@
                     if (status === 'OK') {
                         const country = results[0].address_components.find(c => c.types.includes('country'));
                         if (country && country.short_name === 'CA') {
-                            
-                            // SUBMIT SILENTLY TO JOTFORM
                             mainForm.submit();
-                            
-                            // Show Page Success UI
-                            showStatus('✓ Service Available! <a href="#pricing" style="color:white; text-decoration:underline;">Select a plan below</a>', 'status-available');
+                            showStatus('✓ Service Available! <a href="#pricing" style="color:white; text-decoration:underline;">View Plans</a>', 'status-available');
                             searchBtn.innerHTML = 'Available';
                             searchBtn.style.background = '#4BB543';
-                            searchBtn.style.color = 'white';
-
+                            searchBtn.style.color = '#fff';
                         } else {
-                            showStatus('✕ Service is currently limited to Canada.', 'status-unavailable');
-                            searchBtn.innerHTML = 'Check Coverage';
+                            showStatus('✕ Currently limited to Canada.', 'status-unavailable');
                             searchBtn.disabled = false;
+                            searchBtn.innerHTML = 'Check Coverage';
                         }
-                    } else {
-                        showStatus('✕ Address not found.', 'status-unavailable');
-                        searchBtn.innerHTML = 'Check Coverage';
-                        searchBtn.disabled = false;
                     }
                 });
             });
@@ -594,22 +571,7 @@
             statusBox.style.display = 'block';
         }
 
-        // Navigation UI
-        trigger.addEventListener('click', () => {
-            trigger.classList.toggle('menu-active');
-            overlay.classList.toggle('active');
-            document.body.style.overflow = overlay.classList.contains('active') ? 'hidden' : 'auto';
-        });
-
-        overlay.addEventListener('click', (e) => {
-            if (e.target.tagName === 'A' || e.target === overlay) {
-                trigger.classList.remove('menu-active');
-                overlay.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            }
-        });
-
-        // FAQ UI
+        // 3. ACCORDION LOGIC
         document.querySelectorAll('.accordion-header').forEach(header => {
             header.addEventListener('click', () => {
                 const item = header.parentElement;
