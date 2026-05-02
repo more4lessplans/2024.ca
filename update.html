@@ -218,6 +218,7 @@
             border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             animation: fadeIn 0.4s ease forwards;
+            margin-bottom: 10px;
         }
 
         .search-module input, #email-module input {
@@ -278,7 +279,6 @@
         .price-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
         .price-value { font-size: 4.8rem; font-weight: 800; line-height: 1; letter-spacing: -0.05em; color: var(--text-dark); }
         
-        /* Subtle Apple-Style Hover Animation */
         .price-row { perspective: 2000px; }
         .device-visual { 
             width: 140px; 
@@ -335,7 +335,6 @@
         .accordion-content p { padding-bottom: 35px; color: var(--text-muted); font-size: 1.15rem; line-height: 1.65; margin: 0; }
         .accordion-item.active .accordion-content { max-height: 300px; }
 
-        /* --- Responsive Styles --- */
         @media (max-width: 991px) {
             .nav-links-desktop { display: none; }
             .menu-trigger { display: block; }
@@ -349,6 +348,9 @@
 
         footer { padding: 100px 0; text-align: center; background: #fff; border-top: 1px solid #eee; }
         footer p { color: var(--text-muted); font-weight: 500; font-size: 1rem; }
+
+        /* Hidden Frame for Jotform submission */
+        #hidden_iframe { display: none; }
     </style>
 </head>
 <body>
@@ -383,14 +385,24 @@
             <p>Premium LTE & 5G solutions for rural homes, travelers, and mobile professionals. No contracts.</p>
             
             <div class="search-module-wrapper">
-                <div class="search-module" id="searchModule">
-                    <input type="text" id="addressInput" placeholder="Enter your address to check coverage...">
-                    <button class="btn-search" id="searchBtn">Check Coverage</button>
-                </div>
-                <!-- Email lead capture field -->
-                <div id="email-module">
-                    <input type="email" id="emailInput" placeholder="Enter email to see coverage results...">
-                </div>
+                <!-- Hidden Iframe to catch Jotform redirect -->
+                <iframe name="hidden_iframe" id="hidden_iframe"></iframe>
+                
+                <!-- The Actual Jotform Form -->
+                <form action="https://submit.jotform.com/submit/223076752019051/" method="post" target="hidden_iframe" id="jotformCoverage">
+                    <input type="hidden" name="formID" value="223076752019051" />
+                    
+                    <div class="search-module" id="searchModule">
+                        <!-- Address Field mapped to q3_address -->
+                        <input type="text" id="addressInput" name="q3_address" placeholder="Enter your address to check coverage...">
+                        <button type="button" class="btn-search" id="searchBtn">Check Coverage</button>
+                    </div>
+
+                    <div id="email-module">
+                        <!-- Email Field mapped to q4_email -->
+                        <input type="email" id="emailInput" name="q4_email" placeholder="Enter email to see coverage results...">
+                    </div>
+                </form>
             </div>
             <div id="coverageResult" class="coverage-status"></div>
         </div>
@@ -479,7 +491,6 @@
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Elements
         const yearSpan = document.getElementById('year');
         const trigger = document.getElementById('menuTrigger');
         const overlay = document.getElementById('mobileOverlay');
@@ -488,10 +499,10 @@
         const emailModule = document.getElementById('email-module');
         const searchBtn = document.getElementById('searchBtn');
         const statusBox = document.getElementById('coverageResult');
+        const mainForm = document.getElementById('jotformCoverage');
 
         if(yearSpan) yearSpan.textContent = new Date().getFullYear();
 
-        // Google Maps & Lead Flow
         let addressSelected = false;
 
         if (typeof google !== 'undefined') {
@@ -505,22 +516,19 @@
                 const place = autocomplete.getPlace();
                 if (place.geometry) {
                     addressSelected = true;
-                    // REVEAL EMAIL FIELD on address selection
                     emailModule.style.display = 'block';
                 }
             });
 
-            searchBtn.addEventListener('click', (e) => {
+            searchBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 statusBox.style.display = 'none';
 
-                // 1. Verify Address Selection
                 if (!addressSelected) {
                     showStatus('⚠ Please select an address from the dropdown list.', 'status-warning');
                     return;
                 }
 
-                // 2. Verify Email Entry
                 const email = emailInput.value.trim();
                 if (!email || !email.includes('@')) {
                     showStatus('⚠ Please enter a valid email address to see results.', 'status-warning');
@@ -529,21 +537,33 @@
                     return;
                 }
 
-                // 3. Perform Geocoding
+                searchBtn.innerHTML = 'Checking...';
+                searchBtn.disabled = true;
+
                 const geocoder = new google.maps.Geocoder();
-                geocoder.geocode({ address: addressInput.value }, (results, status) => {
+                geocoder.geocode({ address: addressInput.value }, function(results, status) {
                     if (status === 'OK') {
                         const country = results[0].address_components.find(c => c.types.includes('country'));
                         if (country && country.short_name === 'CA') {
+                            
+                            // SUBMIT THE FORM TO JOTFORM (Background)
+                            mainForm.submit();
+                            
+                            // Immediately show success on page
                             showStatus('✓ Service Available! <a href="#pricing" style="color:white; text-decoration:underline;">Select a plan below</a>', 'status-available');
                             searchBtn.innerHTML = 'Available';
                             searchBtn.style.background = '#4BB543';
                             searchBtn.style.color = 'white';
+
                         } else {
                             showStatus('✕ Service is currently limited to Canada.', 'status-unavailable');
+                            searchBtn.innerHTML = 'Check Coverage';
+                            searchBtn.disabled = false;
                         }
                     } else {
                         showStatus('✕ Address not found.', 'status-unavailable');
+                        searchBtn.innerHTML = 'Check Coverage';
+                        searchBtn.disabled = false;
                     }
                 });
             });
@@ -554,7 +574,6 @@
             statusBox.style.display = 'block';
         }
 
-        // UI Interactions
         function toggleMenu() {
             trigger.classList.toggle('menu-active');
             overlay.classList.toggle('active');
