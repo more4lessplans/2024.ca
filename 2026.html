@@ -11,6 +11,8 @@
 
     <style>
 
+        .status-warning { color: #f39c12; } /* Orange for the "Select an address" prompt */
+
         /* Coverage Result Styles */
 .coverage-status {
     margin-top: 15px;
@@ -494,49 +496,69 @@ document.addEventListener('DOMContentLoaded', function() {
     // Set Footer Year
     if(yearSpan) yearSpan.textContent = new Date().getFullYear();
 
-    // 2. Google Maps & Coverage Logic
-    if (typeof google !== 'undefined') {
-        // Initialize Autocomplete
-        const autocomplete = new google.maps.places.Autocomplete(searchInput);
-        
-        searchBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            const address = searchInput.value;
-            if (!address) return;
+   // 2. Google Maps & Coverage Logic
+if (typeof google !== 'undefined') {
+    let addressSelected = false; // Track if a verified address was picked
 
-            const geocoder = new google.maps.Geocoder();
-            geocoder.geocode({ address: address }, (results, status) => {
-                // Remove existing status message
-                const existingStatus = document.querySelector('.coverage-status');
-                if (existingStatus) existingStatus.remove();
+    const autocomplete = new google.maps.places.Autocomplete(searchInput);
+    
+    // Reset selection status if the user starts typing again
+    searchInput.addEventListener('input', () => {
+        addressSelected = false;
+    });
 
-                const statusDiv = document.createElement('div');
-                statusDiv.className = 'coverage-status';
+    // Listen for the "place_changed" event (user clicked a verified suggestion)
+    autocomplete.addListener('place_changed', () => {
+        const place = autocomplete.getPlace();
+        if (place.geometry) {
+            addressSelected = true;
+        }
+    });
 
-                if (status === 'OK') {
-                    const country = results[0].address_components.find(c => c.types.includes('country'));
-                    
-                    if (country && country.short_name === 'CA') {
-                        // SUCCESS: In Canada
-                        statusDiv.innerHTML = '<span class="status-available">✓ Service Available! <a href="#pricing" style="color:white; text-decoration:underline; margin-left:10px;">Select a plan below</a></span>';
-                        searchBtn.innerHTML = 'Available';
-                        searchBtn.style.background = '#4BB543';
-                        searchBtn.style.color = 'white';
-                    } else {
-                        // FAIL: Outside Canada
-                        statusDiv.innerHTML = '<span class="status-unavailable">✕ Service is currently limited to Canada.</span>';
-                        resetBtn();
-                    }
+    searchBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const address = searchInput.value;
+
+        // Clear previous messages
+        const existingStatus = document.querySelector('.coverage-status');
+        if (existingStatus) existingStatus.remove();
+
+        const statusDiv = document.createElement('div');
+        statusDiv.className = 'coverage-status';
+
+        // NEW CHECK: If they didn't pick from the list, stop them here
+        if (!addressSelected) {
+            statusDiv.innerHTML = '<span class="status-warning">⚠ Please select an address from the dropdown list to verify.</span>';
+            searchModule.after(statusDiv);
+            statusDiv.style.display = 'block';
+            return; // Stop the function
+        }
+
+        // Proceed to Geocoding if selection is valid
+        const geocoder = new google.maps.Geocoder();
+        geocoder.geocode({ address: address }, (results, status) => {
+            if (status === 'OK') {
+                const country = results[0].address_components.find(c => c.types.includes('country'));
+                
+                if (country && country.short_name === 'CA') {
+                    statusDiv.innerHTML = '<span class="status-available">✓ Service Available! <a href="#pricing" style="color:white; text-decoration:underline; margin-left:10px;">Select a plan below</a></span>';
+                    searchBtn.innerHTML = 'Available';
+                    searchBtn.style.background = '#4BB543';
+                    searchBtn.style.color = 'white';
                 } else {
-                    statusDiv.innerHTML = '<span class="status-unavailable">✕ Address not found. Please try again.</span>';
+                    statusDiv.innerHTML = '<span class="status-unavailable">✕ The service checker is currently limited to Canada.</span>';
                     resetBtn();
                 }
-                
-                searchModule.after(statusDiv);
-                statusDiv.style.display = 'block';
-            });
+            } else {
+                statusDiv.innerHTML = '<span class="status-unavailable">✕ Address not found. Please try again.</span>';
+                resetBtn();
+            }
+            
+            searchModule.after(statusDiv);
+            statusDiv.style.display = 'block';
         });
-    }
+    });
+}
 
     function resetBtn() {
         searchBtn.innerHTML = 'Check Coverage';
