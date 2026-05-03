@@ -41,48 +41,40 @@
         </ul>
     </div>
 
-  <!-- SECTION: HERO & LEAD CAPTURE -->
 <section class="hero">
     <div class="container">
-        <div class="hero-content">
-            <h1 class="hero-title">Truly Unlimited Wireless.</h1>
-            <p class="hero-subtitle">Premium LTE & 5G solutions for rural homes, travelers, and mobile professionals. No contracts.</p>
-            
-            <div class="search-module-wrapper">
-                <!-- Hidden Iframe for Background Submission -->
-                <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+        <h1>Truly Unlimited Wireless.</h1>
+        <p>Premium LTE & 5G solutions for rural homes, travelers, and mobile professionals. No contracts.</p>
+        
+        <div class="search-module-wrapper">
+            <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+            <form action="https://submit.jotform.com/submit/223076752019051/" method="post" target="hidden_iframe" id="jotformCoverage">
+                <input type="hidden" name="formID" value="223076752019051" />
                 
-                <form action="https://submit.jotform.com/submit/223076752019051/" method="post" target="hidden_iframe" id="jotformCoverage">
-                    <input type="hidden" name="formID" value="223076752019051" />
-                    
-                    <!-- Main Search Input -->
-                    <div class="search-module" id="searchModule">
-                        <input type="text" id="addressInput" placeholder="Enter your service address..." autocomplete="off">
-                        <button type="button" class="btn-search" id="searchBtn">Check Coverage</button>
-                    </div>
-
-                    <!-- Secondary Email Module (Fades in via JS) -->
-                    <div id="email-module" class="email-capture-container">
-                        <div class="search-module">
-                            <input type="email" id="emailInput" name="q4_email" placeholder="Enter your email to view results...">
-                        </div>
-                    </div>
-
-                    <!-- Invisible Lead Data Mapping -->
-                    <div class="hidden-fields" style="display:none;">
-                        <input type="text" name="q5_address[addr_line1]" id="jf_street">
-                        <input type="text" name="q5_address[city]" id="jf_city">
-                        <input type="text" name="q5_address[state]" id="jf_state">
-                        <input type="text" name="q5_address[postal]" id="jf_postal">
-                    </div>
-                </form>
-
-                <!-- DYNAMIC STATUS RESPONSE -->
-                <div id="coverageResult">
-                    <!-- JavaScript will inject the status-card-success or status-card-error here -->
+                <div class="search-module" id="searchModule">
+                    <input type="text" id="addressInput" placeholder="Enter your address to check coverage...">
+                    <button type="button" class="btn-search" id="searchBtn">Check Coverage</button>
                 </div>
-            </div>
+
+                <div id="email-module">
+                    <div class="search-module">
+                        <input type="email" id="emailInput" name="q4_email" placeholder="Enter email to see results...">
+                    </div>
+                    <p class="email-subtext">We'll send your local signal report to this address.</p>
+                </div>
+
+                <div style="display:none;">
+                    <input type="text" name="q3_name[first]" value="Website">
+                    <input type="text" name="q3_name[last]" value="Lead">
+                    <input type="text" name="q5_address[addr_line1]" id="jf_street">
+                    <input type="text" name="q5_address[city]" id="jf_city">
+                    <input type="text" name="q5_address[state]" id="jf_state">
+                    <input type="text" name="q5_address[postal]" id="jf_postal">
+                </div>
+            </form>
         </div>
+        <!-- Result Box stays here, but the CSS will transform it -->
+        <div id="coverageResult" class="coverage-status"></div>
     </div>
 </section>
 
@@ -264,8 +256,8 @@
 </script>
 
     <!-- LOGIC: SYSTEM SCRIPTS -->
-    <script>
-/* --- LOGIC: SYSTEM SCRIPTS --- */
+   <!-- LOGIC: SYSTEM SCRIPTS -->
+<script>
 document.addEventListener('DOMContentLoaded', function() {
     // Dynamic Year
     const yearSpan = document.getElementById('year');
@@ -291,7 +283,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // 2. LEAD CAPTURE & COVERAGE LOGIC (PRO REFINEMENT)
+    // 2. LEAD CAPTURE & COVERAGE LOGIC
     const addressInput = document.getElementById('addressInput');
     const emailInput = document.getElementById('emailInput');
     const emailModule = document.getElementById('email-module');
@@ -300,31 +292,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const mainForm = document.getElementById('jotformCoverage');
     let addressSelected = false;
 
-    // Helper: Generate Premium Status Cards
-    function renderStatus(type, message) {
-        statusBox.classList.remove('visible'); // Reset animation
-        
-        setTimeout(() => {
-            if (type === 'success') {
-                statusBox.innerHTML = `
-                    <div class="status-card-success">
-                        <div class="status-title-success">Service Available</div>
-                        <p class="status-msg">${message}</p>
-                        <a href="#pricing" class="btn-status-cta">Order Your Package Now</a>
-                    </div>`;
-            } else {
-                statusBox.innerHTML = `
-                    <div class="status-card-error">
-                        <div class="caution-icon-wrapper">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M12 2L1 21h22L12 2zm1 14h-2v-2h2v2zm0-4h-2V8h2v4z"/>
-                            </svg>
-                        </div>
-                        <div class="status-msg-error">${message}</div>
-                    </div>`;
-            }
-            statusBox.classList.add('visible');
-        }, 100);
+    // Subtle Status Renderer
+    function showStatus(msg, type) {
+        statusBox.style.display = 'block';
+        statusBox.innerHTML = `<span class="status-text ${type}">${msg}</span>`;
+        // Subtle fade in
+        statusBox.style.opacity = '0';
+        setTimeout(() => { statusBox.style.opacity = '1'; }, 10);
     }
 
     if (typeof google !== 'undefined') {
@@ -333,22 +307,26 @@ document.addEventListener('DOMContentLoaded', function() {
             const place = autocomplete.getPlace();
             if (place && place.geometry) {
                 addressSelected = true;
-                // Reveal email module with a smooth flex/block transition
+                
+                // REVEAL EMAIL FIELD: Transition from none to block/visible
                 emailModule.style.display = 'block';
-                emailModule.style.opacity = '0';
                 setTimeout(() => { emailModule.style.opacity = '1'; }, 10);
                 
                 // Map components to hidden JotForm fields
-                let components = { street_number: '', route: '', locality: '', administrative_area_level_1: '', postal_code: '' };
+                let street = "", city = "", prov = "", post = "";
                 place.address_components.forEach(c => {
-                    const type = c.types[0];
-                    if (components.hasOwnProperty(type)) components[type] = c.long_name;
+                    const type = c.types;
+                    if(type.includes("street_number")) street = c.long_name + " ";
+                    if(type.includes("route")) street += c.long_name;
+                    if(type.includes("locality")) city = c.long_name;
+                    if(type.includes("administrative_area_level_1")) prov = c.long_name;
+                    if(type.includes("postal_code")) post = c.long_name;
                 });
                 
-                document.getElementById('jf_street').value = components.street_number + ' ' + components.route;
-                document.getElementById('jf_city').value = components.locality;
-                document.getElementById('jf_state').value = components.administrative_area_level_1;
-                document.getElementById('jf_postal').value = components.postal_code;
+                document.getElementById('jf_street').value = street;
+                document.getElementById('jf_city').value = city;
+                document.getElementById('jf_state').value = prov;
+                document.getElementById('jf_postal').value = post;
             }
         });
 
@@ -356,11 +334,11 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             
             if (!addressSelected) { 
-                renderStatus('error', 'Please select a valid address from the dropdown list.'); 
+                showStatus('⚠ Please select an address from the dropdown.', 'status-warning'); 
                 return; 
             }
             if (!emailInput.value.includes('@')) { 
-                renderStatus('error', 'A valid email address is required to view results.'); 
+                showStatus('⚠ Valid email address is required.', 'status-warning'); 
                 return; 
             }
 
@@ -372,22 +350,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (status === 'OK') {
                     const country = results[0].address_components.find(c => c.types.includes('country'));
                     
-                    // Logic for Canada (CA) as per your target market
                     if (country && country.short_name === 'CA') {
                         HTMLFormElement.prototype.submit.call(mainForm);
-                        renderStatus('success', 'High-speed 5G & LTE connectivity is available at your location. Hardware is in stock and ready to ship.');
-                        searchBtn.innerHTML = 'Confirmed';
-                        searchBtn.style.background = '#4cd964';
+                        showStatus('✓ Service Available! <a href="#pricing" style="color:inherit; text-decoration:underline;">View Packages</a>', 'status-available');
+                        searchBtn.innerHTML = 'Available';
+                        searchBtn.style.background = '#4BB543';
                         searchBtn.style.color = '#fff';
                     } else {
-                        renderStatus('error', 'We currently only provide service within Canada. Stay tuned for international updates.');
+                        showStatus('✕ Currently limited to Canada.', 'status-unavailable');
                         searchBtn.disabled = false;
-                        searchBtn.innerHTML = 'Check Again';
+                        searchBtn.innerHTML = 'Check Coverage';
                     }
                 } else {
-                    renderStatus('error', 'Connection error. Please check your internet and try again.');
+                    showStatus('⚠ Error verifying address.', 'status-warning');
                     searchBtn.disabled = false;
-                    searchBtn.innerHTML = 'Retry';
                 }
             });
         });
@@ -398,16 +374,11 @@ document.addEventListener('DOMContentLoaded', function() {
         header.addEventListener('click', () => {
             const item = header.parentElement;
             const wasActive = item.classList.contains('active');
-            
-            // Close others for a clean "Solo" accordion feel
             document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('active'));
-            
-            if (!wasActive) {
-                item.classList.add('active');
-            }
+            if (!wasActive) item.classList.add('active');
         });
     });
 });
-    </script>
+</script>
 </body>
 </html>
