@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Template | More4Less Premium</title>
+    
+    <!-- Core Styles -->
+    <link rel="stylesheet" href="css/global.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- API Integration -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY_HERE&libraries=places"></script>
+</head>
+<body>
+
+    <!-- SECTION: NAVIGATION (STRICT PRESERVATION) -->
+    <nav class="navbar-custom">
+        <div class="nav-container">
+            <a class="navbar-brand" href="/"><img src="assets/img/logos/logo.png" alt="More4Less"></a>
+            <ul class="nav-links-desktop">
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="/contact">Contact</a></li>
+                <li><a href="/portal" class="btn-portal-top">Customer Portal</a></li>
+            </ul>
+           <div class="menu-trigger" id="menuTrigger">
+                <div class="menu-icon"><span></span><span></span><span></span></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- SECTION: MOBILE OVERLAY (STRICT PRESERVATION) -->
+    <div class="mobile-overlay" id="mobileOverlay">
+        <ul class="mobile-nav-links">
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/portal">Customer Portal</a></li>
+        </ul>
+    </div>
+
+    <!-- SECTION: HERO & LEAD CAPTURE -->
+    <section class="hero">
+        <div class="container">
+            <h1>Truly Unlimited Wireless.</h1>
+            <p>Premium LTE & 5G solutions for rural homes, travelers, and mobile professionals. No contracts.</p>
+            
+            <div class="search-module-wrapper">
+                <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+                <form action="https://submit.jotform.com/submit/223076752019051/" method="post" target="hidden_iframe" id="jotformCoverage">
+                    <input type="hidden" name="formID" value="223076752019051" />
+                    
+                    <div class="search-module" id="searchModule">
+                        <input type="text" id="addressInput" placeholder="Enter address...">
+                        <button type="button" class="btn-search" id="searchBtn">Check Coverage</button>
+                    </div>
+
+                    <div id="email-module" style="display: none; margin-top: 15px;">
+                        <div class="search-module">
+                            <input type="email" id="emailInput" name="q4_email" placeholder="Enter email...">
+                        </div>
+                    </div>
+
+                    <!-- Hidden Lead Mapping -->
+                    <div style="display:none;">
+                        <input type="text" name="q5_address[addr_line1]" id="jf_street">
+                        <input type="text" name="q5_address[city]" id="jf_city">
+                        <input type="text" name="q5_address[state]" id="jf_state">
+                        <input type="text" name="q5_address[postal]" id="jf_postal">
+                    </div>
+                </form>
+            </div>
+            <div id="coverageResult" class="coverage-status"></div>
+        </div>
+    </section>
+
+<!-- SECTION: PRODUCT/SERVICE GRID -->
+<section class="pricing-area" id="pricing">
+    <div class="pricing-grid">
+        
+        <!-- MOBILE ESSENTIAL -->
+        <div class="plan-card">
+            <div class="card-category">Mobile Essential</div>
+            <h2 class="card-title">Nighthawk M1</h2>
+            
+            <div class="price-product-row">
+                <div class="price-col">
+                    <div class="price-value">$199</div>
+                    <div class="price-label">Total Upfront Cost</div>
+                </div>
+                <div class="visual-wrapper">
+                    <img src="assets/img/products/mr1100.png" class="device-visual" alt="Nighthawk M1">
+                </div>
+            </div>
+
+            <div class="card-divider"></div>
+
+            <div class="plan-features">
+                <div class="feature-item"><span>✓</span> Hotspot Device (Own It)</div>
+                <div class="feature-item"><span>✓</span> 1st Month Service Included</div>
+                <div class="feature-item"><span>✓</span> Unlimited High-Speed Data</div>
+                <div class="feature-item"><span>✓</span> Connect up to 20 Devices</div>
+            </div>
+
+            <a href="#" class="btn-order">Order Now</a>
+            <p class="card-footer-note">Plan continues at $110/mo after month one.</p>
+        </div>
+
+        <!-- HOME & OFFICE -->
+        <div class="plan-card">
+            <div class="card-category">Home & Office</div>
+            <h2 class="card-title">Netgear Orbi</h2>
+            
+            <div class="price-product-row">
+                <div class="price-col">
+                    <div class="price-value">$249</div>
+                    <div class="price-label">Total Upfront Cost</div>
+                </div>
+                <div class="visual-wrapper">
+                    <img src="assets/img/products/LBR20.png" class="device-visual" alt="Netgear Orbi">
+                </div>
+            </div>
+
+            <div class="card-divider"></div>
+
+            <div class="plan-features">
+                <div class="feature-item"><span>✓</span> Home Router (Own It)</div>
+                <div class="feature-item"><span>✓</span> 1st Month Service Included</div>
+                <div class="feature-item"><span>✓</span> Whole-Home WiFi Coverage</div>
+                <div class="feature-item"><span>✓</span> Ethernet Ports for LAN</div>
+            </div>
+
+            <a href="#" class="btn-order">Order Now</a>
+            <p class="card-footer-note">Plan continues at $110/mo after month one.</p>
+        </div>
+
+        <!-- PRO PERFORMANCE -->
+        <div class="plan-card">
+            <div class="card-category">Pro Performance</div>
+            <h2 class="card-title">Nighthawk M6</h2>
+            
+            <div class="price-product-row">
+                <div class="price-col">
+                    <div class="price-value">$349</div>
+                    <div class="price-label">Total Upfront Cost</div>
+                </div>
+                <div class="visual-wrapper">
+                    <img src="assets/img/products/mr6110.png" class="device-visual" alt="Nighthawk M6">
+                </div>
+            </div>
+
+            <div class="card-divider"></div>
+
+            <div class="plan-features">
+                <div class="feature-item"><span>✓</span> 5G Pro Device (Own It)</div>
+                <div class="feature-item"><span>✓</span> 1st Month Service Included</div>
+                <div class="feature-item"><span>✓</span> Ultra-Fast 5G Connectivity</div>
+                <div class="feature-item"><span>✓</span> Secure Enterprise WiFi</div>
+            </div>
+
+            <a href="#" class="btn-order">Order Now</a>
+            <p class="card-footer-note">Plan continues at $110/mo after month one.</p>
+        </div>
+
+    </div>
+</section>
+
+   <!-- SECTION: ACCORDION / FAQ -->
+<section class="faq-section" id="faq">
+    <div class="faq-container">
+        <div class="faq-header">
+            <h2>Common Questions</h2>
+        </div>
+        
+        <!-- FAQ Item 1 -->
+        <div class="accordion-item">
+            <button class="accordion-header">
+                <span>How does the 5G Home Internet setup work?</span>
+                <div class="accordion-icon"></div>
+            </button>
+            <div class="accordion-content">
+                <p>
+                    Setup is designed to be plug-and-play. Once you receive your high-speed router, simply insert the activated SIM, power it on, and you'll be connected to our nationwide 5G network within minutes. No technician visits or drilling required.
+                </p>
+            </div>
+        </div>
+
+        <!-- FAQ Item 2 -->
+        <div class="accordion-item">
+            <button class="accordion-header">
+                <span>Can I keep my current phone number?</span>
+                <div class="accordion-icon"></div>
+            </button>
+            <div class="accordion-content">
+                <p>
+                    Absolutely. During the activation process, you'll have the option to port over your existing number from any Canadian carrier. We handle the technical transfer so your service remains seamless.
+                </p>
+            </div>
+        </div>
+
+        <!-- FAQ Item 3 -->
+        <div class="accordion-item">
+            <button class="accordion-header">
+                <span>Are there really no long-term contracts?</span>
+                <div class="accordion-icon"></div>
+            </button>
+            <div class="accordion-content">
+                <p>
+                    Correct. We believe in earning your business every month. All of our plans—both Wireless and Mobility—are month-to-month, giving you the ultimate flexibility to scale or change your service as your needs evolve.
+                </p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+   <!-- SECTION: FOOTER -->
+<footer class="site-footer">
+    <div class="footer-container">
+        
+        <!-- Brand Identity: Minimalist and grayscale until hover -->
+        <div class="footer-brand">
+            <img src="assets/img/logos/grey.png" alt="More4Less Logo" height="20">
+        </div>
+
+        <!-- Boutique Navigation: Uppercase with letter-spacing -->
+        <nav class="footer-links">
+            <a href="#pricing" class="footer-link">Plans</a>
+            <a href="#faq" class="footer-link">Support</a>
+            <a href="/activate" class="footer-link">Activate</a>
+            <a href="/portal" class="footer-link">My Account</a>
+        </nav>
+
+        <!-- Legal & Copyright: Asymmetric layout -->
+        <div class="footer-bottom">
+            <div class="footer-copyright">
+                &copy; <span id="year"></span> Copyright. All rights reserved.
+            </div>
+            
+            <div class="footer-legal-links">
+                <a href="/privacy" class="footer-legal-link">Privacy Policy</a>
+                <a href="/terms" class="footer-legal-link">Terms of Service</a>
+            </div>
+        </div>
+        
+    </div>
+</footer>
+
+<!-- Master Template Year Script -->
+<script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+    <!-- LOGIC: SYSTEM SCRIPTS -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Dynamic Year
+        const yearSpan = document.getElementById('year');
+        if(yearSpan) yearSpan.textContent = new Date().getFullYear();
+
+        // 1. NAVIGATION LOGIC (STRICT PRESERVATION)
+        const trigger = document.getElementById('menuTrigger');
+        const overlay = document.getElementById('mobileOverlay');
+        const body = document.body;
+
+        const toggleMenu = () => {
+            const isActive = overlay.classList.contains('active');
+            trigger.classList.toggle('menu-active');
+            overlay.classList.toggle('active');
+            body.style.overflow = isActive ? 'auto' : 'hidden';
+        };
+
+        trigger.addEventListener('click', (e) => { e.stopPropagation(); toggleMenu(); });
+        overlay.addEventListener('click', (e) => { if (e.target === overlay) toggleMenu(); });
+        document.querySelectorAll('.mobile-nav-links a').forEach(link => {
+            link.addEventListener('click', toggleMenu);
+        });
+
+        // 2. LEAD CAPTURE LOGIC
+        const addressInput = document.getElementById('addressInput');
+        const emailInput = document.getElementById('emailInput');
+        const emailModule = document.getElementById('email-module');
+        const searchBtn = document.getElementById('searchBtn');
+        const statusBox = document.getElementById('coverageResult');
+        const mainForm = document.getElementById('jotformCoverage');
+        let addressSelected = false;
+
+        if (typeof google !== 'undefined') {
+            const autocomplete = new google.maps.places.Autocomplete(addressInput);
+            autocomplete.addListener('place_changed', () => {
+                const place = autocomplete.getPlace();
+                if (place && place.geometry) {
+                    addressSelected = true;
+                    emailModule.style.display = 'block';
+                    
+                    // Map components to hidden JotForm fields
+                    let components = { street_number: '', route: '', locality: '', administrative_area_level_1: '', postal_code: '' };
+                    place.address_components.forEach(c => {
+                        const type = c.types[0];
+                        if (components.hasOwnProperty(type)) components[type] = c.long_name;
+                    });
+                    
+                    document.getElementById('jf_street').value = components.street_number + ' ' + components.route;
+                    document.getElementById('jf_city').value = components.locality;
+                    document.getElementById('jf_state').value = components.administrative_area_level_1;
+                    document.getElementById('jf_postal').value = components.postal_code;
+                }
+            });
+
+            searchBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (!addressSelected) { showStatus('⚠ Select an address from the dropdown.', 'status-warning'); return; }
+                if (!emailInput.value.includes('@')) { showStatus('⚠ Valid email required.', 'status-warning'); return; }
+
+                searchBtn.innerHTML = 'Verifying...';
+                searchBtn.disabled = true;
+
+                const geocoder = new google.maps.Geocoder();
+                geocoder.geocode({ address: addressInput.value }, function(results, status) {
+                    if (status === 'OK') {
+                        const country = results[0].address_components.find(c => c.types.includes('country'));
+                        if (country && country.short_name === 'CA') {
+                            HTMLFormElement.prototype.submit.call(mainForm);
+                            showStatus('✓ Service Available! <a href="#pricing">View Plans</a>', 'status-available');
+                            searchBtn.innerHTML = 'Available';
+                            searchBtn.style.background = '#4BB543';
+                        } else {
+                            showStatus('✕ Service currently unavailable in this region.', 'status-unavailable');
+                            searchBtn.disabled = false;
+                            searchBtn.innerHTML = 'Check Again';
+                        }
+                    } else {
+                        showStatus('⚠ Connection error.', 'status-warning');
+                        searchBtn.disabled = false;
+                    }
+                });
+            });
+        }
+
+        function showStatus(msg, className) {
+            statusBox.innerHTML = `<span class="${className}">${msg}</span>`;
+            statusBox.style.display = 'block';
+        }
+
+        // 3. ACCORDION LOGIC
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const item = header.parentElement;
+                const wasActive = item.classList.contains('active');
+                document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('active'));
+                if (!wasActive) item.classList.add('active');
+            });
+        });
+    });
+    </script>
+</body>
+</html>
