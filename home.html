@@ -293,11 +293,16 @@ document.addEventListener('DOMContentLoaded', function() {
     // Subtle Status Renderer
     function showStatus(msg, type) {
         statusBox.style.display = 'block';
-        statusBox.innerHTML = `<span class="status-text ${type}">${msg}</span>`;
+        statusBox.innerHTML = `<div class="status-text ${type}">${msg}</div>`;
         // Subtle fade in
         statusBox.style.opacity = '0';
         setTimeout(() => { statusBox.style.opacity = '1'; }, 10);
     }
+
+    // Reset address selection if the user types again after selecting
+    addressInput.addEventListener('input', () => {
+        addressSelected = false;
+    });
 
     if (typeof google !== 'undefined') {
         const autocomplete = new google.maps.places.Autocomplete(addressInput);
@@ -306,7 +311,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (place && place.geometry) {
                 addressSelected = true;
                 
-                // REVEAL EMAIL FIELD: Transition from none to block/visible
+                // REVEAL EMAIL FIELD
                 emailModule.style.display = 'block';
                 setTimeout(() => { emailModule.style.opacity = '1'; }, 10);
                 
@@ -331,10 +336,12 @@ document.addEventListener('DOMContentLoaded', function() {
         searchBtn.addEventListener('click', function(e) {
             e.preventDefault();
             
+            // Fixed Logic: Show warning immediately if typed but not selected from autofill
             if (!addressSelected) { 
                 showStatus('⚠ Please select an address from the autofill dropdown.', 'status-warning'); 
                 return; 
             }
+
             if (!emailInput.value.includes('@')) { 
                 showStatus('⚠ Valid email address is required.', 'status-warning'); 
                 return; 
@@ -350,7 +357,15 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     if (country && country.short_name === 'CA') {
                         HTMLFormElement.prototype.submit.call(mainForm);
-                        showStatus('✓ High-Speed Internet Available! <a href="#pricing" style="color:inherit; text-decoration:underline;">View Packages</a>', 'status-available');
+                        
+                        // Success: Green confirmation + White View Packages link with down arrow
+                        showStatus(
+                            '✓ High-Speed Internet Available!<br>' +
+                            '<a href="#pricing" style="color:#ffffff; text-decoration:none; display:inline-block; margin-top:8px; font-weight:400;">' +
+                            'View Packages ↓</a>', 
+                            'status-available'
+                        );
+
                         searchBtn.innerHTML = 'Available';
                         searchBtn.style.background = '#4BB543';
                         searchBtn.style.color = '#fff';
@@ -362,6 +377,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 } else {
                     showStatus('⚠ Error verifying address.', 'status-warning');
                     searchBtn.disabled = false;
+                    searchBtn.innerHTML = 'Check Coverage';
                 }
             });
         });
