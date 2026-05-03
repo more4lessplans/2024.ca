@@ -393,97 +393,125 @@ body {
     transform: scale(1.02);
 }
 
-/* --- 4.2 Email Capture Reveal --- */
-.email-capture-container {
-    display: none; /* Injected/Shown by JS */
-    margin-top: 15px;
-    opacity: 0;
-    transition: opacity 0.5s ease;
+/* --- 1. Search Module Wrapper --- */
+.search-module-wrapper {
+    max-width: 580px;
+    margin: 0 auto 20px auto;
+    position: relative;
 }
 
-/* --- 4.3 Coverage Response (The Result Cards) --- */
-#coverageResult {
-    margin-top: 30px;
-    opacity: 0;
-    transform: translateY(15px);
-    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-    display: none; /* JS toggles display: block */
-}
-
-#coverageResult.visible {
-    display: block;
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Success Card */
-.status-card-success {
-    background: rgba(76, 217, 100, 0.08);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(76, 217, 100, 0.3);
-    border-radius: 24px;
-    padding: 30px;
-    text-align: center;
+/* --- 2. Main Search Bar (Glassmorphism) --- */
+.search-module {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    padding: 8px;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 15px;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
 }
 
-.status-title-success {
-    color: #4cd964;
-    font-size: 1.6rem;
-    font-weight: 800;
+.search-module:focus-within {
+    border-color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.12);
 }
 
-.btn-status-cta {
-    background: #4cd964;
-    color: #fff !important;
-    padding: 16px 35px;
+.search-module input {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    padding: 12px 20px;
+    flex: 1;
+    outline: none;
+    font-size: 1.1rem;
+    min-width: 0; /* Prevents input from pushing past container boundaries */
+}
+
+.search-module input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* --- 3. Premium Search Button --- */
+.btn-search {
+    background: #ffffff;
+    color: #000000;
+    border: none;
+    padding: 14px 28px;
     border-radius: 14px;
-    text-decoration: none;
     font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
 }
 
-/* Error/Caution Card */
-.status-card-error {
-    background: rgba(255, 204, 0, 0.08);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 204, 0, 0.3);
-    border-radius: 24px;
-    padding: 25px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    color: #ffcc00;
+.btn-search:hover {
+    background: #4cd964; /* Brand Green */
+    color: #ffffff;
+    transform: translateY(-1px);
 }
 
-.caution-icon-wrapper {
-    width: 45px;
-    height: 45px;
-    background: #ffcc00;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
+/* --- 4. Mandatory Email Module (Hidden by Default) --- */
+#email-module {
+    display: none;
+    opacity: 0;
+    margin-top: 12px;
+    transition: opacity 0.5s ease-in-out;
 }
 
-.caution-icon-wrapper svg { width: 24px; fill: #000; }
+.email-subtext {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 8px;
+    display: block;
+    text-align: center;
+}
 
-/* Mobile Adjustments */
+/* --- 5. Subtle Status Results --- */
+#coverageResult {
+    margin-top: 18px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+}
+
+.status-available { color: #4cd964; }
+.status-warning   { color: #ffcc00; }
+.status-error     { color: #ff4444; }
+
+/* --- 6. Mobile Responsiveness (The Fix) --- */
 @media (max-width: 580px) {
     .search-module {
-        flex-direction: column;
-        border-radius: 28px;
-        padding: 15px;
+        flex-direction: column; /* Stack vertically to prevent button bleed */
+        padding: 12px;
+        border-radius: 24px;
     }
-    .btn-search { width: 100%; }
+
+    .search-module input {
+        width: 100%;
+        text-align: center;
+        padding: 15px 10px;
+        font-size: 1rem;
+    }
+
+    .btn-search {
+        width: 100%; /* Full width button on mobile */
+        padding: 16px;
+        margin-top: 8px;
+    }
+    
+    #coverageResult {
+        font-size: 0.85rem;
+        padding: 0 10px;
+    }
 }
-
-
-
-
 /* --- 5. Pricing & Product Cards (High-End Side-by-Side) --- */
 .pricing-area { 
     padding: 100px 0; 
