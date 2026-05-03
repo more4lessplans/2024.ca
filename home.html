@@ -59,9 +59,7 @@
                 <div id="email-module">
                     <div class="search-module">
                         <input type="email" id="emailInput" name="q4_email" placeholder="Enter email to see results...">
-                    </div>
-                    <p class="email-subtext">We'll send your local signal report to this address.</p>
-                </div>
+                    
 
                 <div style="display:none;">
                     <input type="text" name="q3_name[first]" value="Website">
@@ -334,7 +332,7 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             
             if (!addressSelected) { 
-                showStatus('⚠ Please select an address from the dropdown.', 'status-warning'); 
+                showStatus('⚠ Please select an address from the autofill dropdown.', 'status-warning'); 
                 return; 
             }
             if (!emailInput.value.includes('@')) { 
@@ -352,12 +350,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     if (country && country.short_name === 'CA') {
                         HTMLFormElement.prototype.submit.call(mainForm);
-                        showStatus('✓ Service Available! <a href="#pricing" style="color:inherit; text-decoration:underline;">View Packages</a>', 'status-available');
+                        showStatus('✓ High-Speed Internet Available! <a href="#pricing" style="color:inherit; text-decoration:underline;">View Packages</a>', 'status-available');
                         searchBtn.innerHTML = 'Available';
                         searchBtn.style.background = '#4BB543';
                         searchBtn.style.color = '#fff';
                     } else {
-                        showStatus('✕ Currently limited to Canada.', 'status-unavailable');
+                        showStatus('✕ Checker limited to Canada.', 'status-unavailable');
                         searchBtn.disabled = false;
                         searchBtn.innerHTML = 'Check Coverage';
                     }
