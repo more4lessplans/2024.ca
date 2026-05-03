@@ -1,0 +1,933 @@
+/* --- 1. Global Variables & Base --- */
+:root {
+    --brand-red: #D73C59;
+    --brand-dark: #1d1d1f;
+    --bg-nav: #2E2F33; 
+    --bg-page: #fbfbfd;
+    --text-dark: #1d1d1f;
+    --text-muted: #6e6e73;
+    --card-radius: 28px;
+    /* Apple-style 'Out-Quint' timing for ultra-smooth motion */
+    --transition-smooth: all 0.6s cubic-bezier(0.2, 1, 0.2, 1);
+    --transition-tesla: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+html { font-size: 15px; scroll-behavior: smooth; } 
+
+body {
+    font-family: 'Figtree', sans-serif;
+    color: var(--text-dark);
+    background-color: var(--bg-page);
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+/* --- 2. Navigation (Global & Minimal) --- */
+.navbar-custom {
+    background-color: var(--bg-nav);
+    padding: 1.2rem 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 4000;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 25px;
+}
+
+.navbar-brand img { height: 22px; }
+
+/* Desktop Navigation Links */
+.nav-links-desktop { 
+    display: flex; 
+    align-items: center; 
+    list-style: none; 
+    margin: 0; 
+    padding: 0; 
+}
+
+.nav-links-desktop li a {
+    color: #ffffff !important;
+    font-weight: 500;
+    font-size: 0.85rem;
+    margin: 0 18px;
+    text-decoration: none;
+    opacity: 0.85;
+    position: relative;
+    transition: var(--transition-smooth);
+}
+
+.nav-links-desktop li a:hover { 
+    opacity: 1; 
+    letter-spacing: 0.02em; 
+}
+
+/* Red Line Underline - Applied to Standard Links ONLY */
+.nav-links-desktop li a:not(.btn-portal-top)::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background-color: var(--brand-red);
+    transition: width 0.4s cubic-bezier(0.2, 1, 0.2, 1);
+}
+
+.nav-links-desktop li a:not(.btn-portal-top):hover::after { 
+    width: 100%; 
+}
+
+/* Top Right Portal Button - NO UNDERLINE */
+.btn-portal-top {
+    background: var(--brand-red) !important;
+    color: #ffffff !important;
+    padding: 10px 25px !important;
+    border-radius: 50px;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(224, 0, 0, 0.2);
+    transition: var(--transition-smooth) !important;
+}
+
+.btn-portal-top:hover { 
+    background: #ffffff !important; 
+    color: var(--brand-dark) !important; 
+    transform: translateY(-2px); 
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* --- 3. Mobile Menu
+/* --- 3. Mobile Menu Logic --- */
+.menu-trigger { 
+    display: none; 
+    cursor: pointer; 
+    padding: 10px; 
+    z-index: 5005; 
+    position: fixed; /* Ensures it stays visible over the overlay */
+    top: 25px;
+    right: 20px;
+    border: none;
+    background: none;
+}
+
+.menu-icon { 
+    width: 26px; 
+    height: 18px; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between; 
+}
+
+.menu-icon span { 
+    display: block; 
+    width: 100%; 
+    height: 2px; 
+    background-color: #fff; 
+    border-radius: 10px; 
+    transition: var(--transition-smooth); 
+    transform-origin: center; /* Crucial for the X transformation */
+}
+
+/* --- X Icon Transformation --- */
+.menu-active .menu-icon span:nth-child(1) { 
+    transform: translateY(8px) rotate(45deg); 
+}
+
+.menu-active .menu-icon span:nth-child(2) { 
+    opacity: 0; 
+    transform: translateX(10px); 
+}
+
+.menu-active .menu-icon span:nth-child(3) { 
+    transform: translateY(-8px) rotate(-45deg); 
+}
+
+.mobile-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(29, 29, 31, 0.98); 
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 4500;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.mobile-overlay.active { 
+    opacity: 1; 
+    visibility: visible; 
+    pointer-events: auto;
+}
+
+.mobile-nav-links { 
+    list-style: none; 
+    padding: 0; 
+    text-align: center; 
+}
+
+.mobile-nav-links li { 
+    margin: 25px 0; 
+    transform: translateY(20px); 
+    opacity: 0; 
+    transition: var(--transition-smooth); 
+}
+
+.mobile-overlay.active .mobile-nav-links li { 
+    transform: translateY(0); 
+    opacity: 1; 
+}
+
+/* Staggered entrance delays */
+.mobile-nav-links li:nth-child(1) { transition-delay: 0.1s; }
+.mobile-nav-links li:nth-child(2) { transition-delay: 0.15s; }
+.mobile-nav-links li:nth-child(3) { transition-delay: 0.2s; }
+.mobile-nav-links li:nth-child(4) { transition-delay: 0.25s; }
+
+/* Mobile Link Style - Single Left-to-Right Red Line */
+.mobile-nav-links a { 
+    color: #f4f4f4 !important; 
+    font-size: 2.2rem; 
+    font-weight: 700; 
+    text-decoration: none !important; 
+    border: none !important;         
+    position: relative;
+    display: inline-block;
+    padding-bottom: 6px;
+    transition: color 0.3s ease;
+}
+
+.mobile-nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px; 
+    bottom: 0;
+    left: 0; 
+    background-color: var(--brand-red);
+    transition: width 0.4s cubic-bezier(0.2, 1, 0.2, 1);
+}
+
+.mobile-nav-links a:hover {
+    color: #ffffff !important;
+}
+
+.mobile-nav-links a:hover::after { 
+    width: 100%; 
+}
+
+/* --- 4. Hero Section (Pro Refinement) --- */
+.hero {
+    position: relative;
+    background-image: url('../assets/img/gallery/MR6110.png'); 
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Creates a high-end parallax feel on scroll */
+    padding: 260px 0 180px; /* Increased verticality for a more "grand" entrance */
+    color: #ffffff;
+    text-align: center;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Multi-layered cinematic overlay */
+.hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    /* Deepening the top and bottom to frame the content while keeping the center clear */
+    background: linear-gradient(
+        to bottom, 
+        rgba(29, 29, 31, 0.85) 0%, 
+        rgba(29, 29, 31, 0.4) 40%, 
+        rgba(29, 29, 31, 0.4) 60%, 
+        rgba(29, 29, 31, 0.9) 100%
+    );
+    z-index: 1;
+}
+
+.hero .container { 
+    position: relative; 
+    z-index: 2; 
+    max-width: 900px;
+    padding: 0 30px;
+}
+
+/* Typography Refinement */
+.hero h1 { 
+    font-weight: 800; 
+    font-size: 4.5rem; /* Larger, more authoritative sizing */
+    line-height: 1.05;
+    letter-spacing: -0.04em; 
+    margin-bottom: 24px; 
+    /* Subtle drop shadow to ensure legibility against any image background */
+    text-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+    /* Initial state for potential fade-in animation */
+    opacity: 0;
+    transform: translateY(20px);
+    animation: heroReveal 1s cubic-bezier(0.2, 1, 0.2, 1) forwards;
+}
+
+.hero p { 
+    color: rgba(255, 255, 255, 0.95); 
+    font-size: 1.4rem; 
+    font-weight: 500;
+    line-height: 1.5;
+    max-width: 640px; 
+    margin: 0 auto 50px; 
+    letter-spacing: -0.01em;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: heroReveal 1s cubic-bezier(0.2, 1, 0.2, 1) 0.2s forwards;
+}
+
+/* Cinematic Reveal Animation */
+@keyframes heroReveal {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Hero Button Customization - Matching your Pro Button logic */
+.hero .btn-hero {
+    background: var(--brand-red);
+    color: #ffffff;
+    padding: 20px 45px;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-decoration: none;
+    display: inline-block;
+    transition: var(--transition-smooth);
+    box-shadow: 0 10px 30px rgba(215, 60, 89, 0.3);
+}
+
+.hero .btn-hero:hover {
+    transform: scale(1.03) translateY(-3px);
+    background: #ffffff;
+    color: var(--brand-dark);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hero { padding: 180px 0 120px; background-attachment: scroll; }
+    .hero h1 { font-size: 2.8rem; }
+    .hero p { font-size: 1.15rem; }
+}
+
+/* --- 4.1 Coverage/Search Module (Pro Refinement) --- */
+.search-module-wrapper { 
+    max-width: 620px; /* Slightly wider for better desktop presence */
+    margin: 0 auto; 
+    position: relative;
+    z-index: 10;
+}
+
+.search-module, #email-module {
+    background: rgba(255, 255, 255, 0.08); /* More subtle transparency */
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    padding: 8px; /* Balanced internal gutter */
+    border-radius: 22px; /* Slightly softer radius */
+    display: flex;
+    align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.3),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.05); /* Inner highlight for depth */
+    transition: var(--transition-smooth);
+}
+
+/* Subtle "Active" State when searching */
+.search-module:focus-within {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 0 4px rgba(215, 60, 89, 0.2), 0 25px 50px rgba(0, 0, 0, 0.4);
+    transform: translateY(-2px);
+}
+
+.search-module input {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    padding: 12px 25px;
+    flex: 1;
+    outline: none;
+    font-size: 1.15rem;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+}
+
+/* Premium Placeholder Styling */
+.search-module input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+    transition: opacity 0.3s ease;
+}
+
+.search-module input:focus::placeholder {
+    opacity: 0.3;
+}
+
+.btn-search {
+    background: #ffffff;
+    color: var(--brand-dark);
+    border: none;
+    padding: 14px 35px; /* Deeper padding for "pill" look */
+    border-radius: 16px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+    text-transform: uppercase; /* Boutique feel */
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.btn-search:hover {
+    background: var(--brand-red);
+    color: #ffffff;
+    transform: scale(1.02);
+    box-shadow: 0 8px 20px rgba(215, 60, 89, 0.4);
+}
+
+/* Mobile Tweak for the Search Bar */
+@media (max-width: 580px) {
+    .search-module {
+        flex-direction: column;
+        padding: 15px;
+        border-radius: 28px;
+        gap: 10px;
+    }
+    .search-module input {
+        text-align: center;
+        width: 100%;
+        padding: 10px;
+    }
+    .btn-search {
+        width: 100%;
+    }
+}
+
+/* --- 5. Pricing & Product Cards (High-End Side-by-Side) --- */
+.pricing-area { 
+    padding: 100px 0; 
+    background: var(--bg-page); 
+}
+
+.pricing-grid {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 25px;
+}
+
+.plan-card {
+    background: #ffffff;
+    border: 1px solid #f2f2f4; /* Ultra soft border from reference */
+    border-radius: 40px; /* Large, friendly Apple-style radius */
+    flex: 1;
+    padding: 40px 30px; /* Tighter, more elegant spacing */
+    display: flex;
+    flex-direction: column;
+    transition: var(--transition-smooth);
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+}
+
+.plan-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.06);
+}
+
+/* Header Text */
+.card-category { 
+    color: var(--brand-red); 
+    font-weight: 700; 
+    font-size: 0.75rem; 
+    text-transform: uppercase; 
+    letter-spacing: 0.05em; 
+    margin-bottom: 8px; 
+}
+
+.card-title { 
+    font-size: 2.2rem; 
+    font-weight: 800; 
+    letter-spacing: -0.04em; 
+    margin-bottom: 30px; 
+    color: var(--brand-dark);
+}
+
+/* Side-by-Side Price & Image Wrapper */
+.price-product-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.price-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.price-value { 
+    font-size: 4.5rem; 
+    font-weight: 800; 
+    color: var(--text-dark); 
+    letter-spacing: -0.06em;
+    line-height: 1;
+}
+
+.price-label {
+    font-size: 0.9rem;
+    color: #86868b;
+    font-weight: 500;
+    margin-top: 20px;
+}
+
+/* Compact Image Styling */
+.visual-wrapper {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.device-visual { 
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; 
+    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.08));
+}
+
+/* Divider Line */
+.card-divider {
+    height: 1px;
+    background: #f2f2f4;
+    margin: 10px 0 30px 0;
+}
+
+/* Feature List */
+.plan-features {
+    margin-bottom: 25px;
+}
+
+.feature-item {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #1d1d1f;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.feature-item span {
+    color: #4cd964; /* Green checkmark from reference */
+    font-weight: 700;
+}
+
+/* Order Button */
+.btn-order {
+    background: var(--brand-red);
+    color: white !important;
+    padding: 22px 30px;
+    border-radius: 20px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-decoration: none !important;
+    transition: var(--transition-smooth);
+}
+
+.btn-order:hover { 
+    transform: scale(1.02);
+    filter: brightness(1.05);
+}
+
+.card-footer-note {
+    font-size: 0.75rem;
+    color: #86868b;
+    text-align: center;
+    margin-top: 15px;
+}
+
+/* Responsive: Switch to Symmetrical Stack */
+@media (max-width: 991px) {
+    .price-product-row {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+    .visual-wrapper {
+        width: 140px;
+        height: 140px;
+        order: -1; /* Image back on top for mobile */
+    }
+    .pricing-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+    .plan-card {
+        width: 100%;
+        max-width: 400px;
+    }
+}
+
+/* --- 5.1 Product Image Animations (Pro Level) --- */
+
+.visual-wrapper {
+    width: 110px;
+    height: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    /* This ensures the scaling doesn't push other elements */
+    perspective: 1000px; 
+}
+
+.device-visual { 
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; 
+    /* The core transition: Using Out-Quint for a "weighted" feel */
+    transition: 
+        transform 0.7s cubic-bezier(0.23, 1, 0.32, 1), 
+        filter 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+    will-change: transform;
+    /* Initial soft shadow */
+    filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1)); 
+}
+
+/* Logic for when the entire CARD is hovered */
+.plan-card:hover .device-visual {
+    /* Subtle scale and lift */
+    transform: scale(1.15) translateY(-5px) rotate(-2deg);
+    /* Shadow deepens and spreads as it "lifts" away from the card surface */
+    filter: drop-shadow(0 20px 30px rgba(0,0,0,0.15));
+}
+
+/* Logic for when the IMAGE ITSELF is hovered (Extra emphasis) */
+.visual-wrapper:hover .device-visual {
+    transform: scale(1.25) translateY(-8px) rotate(0deg);
+    filter: drop-shadow(0 25px 40px rgba(0,0,0,0.2));
+}
+
+/* Subtle "glow" pulse behind the image on card hover */
+.visual-wrapper::after {
+    content: '';
+    position: absolute;
+    width: 60%;
+    height: 20%;
+    background: radial-gradient(ellipse at center, rgba(0,0,0,0.05) 0%, transparent 70%);
+    bottom: -5px;
+    left: 20%;
+    z-index: -1;
+    opacity: 0.8;
+    transition: transform 0.7s ease, opacity 0.7s ease;
+}
+
+.plan-card:hover .visual-wrapper::after {
+    transform: scale(1.4);
+    opacity: 0.4; /* Shadow thins out as object gets higher */
+}
+
+/* JavaScript triggers this by shifting the glider */
+[data-view="right"] .glider { transform: translateX(100%); }
+
+.t-btn {
+    flex: 1; 
+    border: none; 
+    background: transparent; 
+    font-size: 0.8rem;
+    font-weight: 700; 
+    color: #86868b; 
+    z-index: 2; 
+    cursor: pointer;
+    text-transform: uppercase; 
+    letter-spacing: 0.05em;
+    transition: color 0.3s ease;
+}
+
+.t-btn.active { 
+    color: var(--text-dark); 
+}
+/* --- 7. FAQ Section (Pro Refinement) --- */
+.faq-section { 
+    padding: 160px 0; 
+    background-color: #ffffff; 
+}
+
+.faq-container { 
+    max-width: 800px; /* Slightly wider for better line lengths */
+    margin: 0 auto; 
+    padding: 0 30px; 
+}
+
+.faq-header h2 { 
+    font-size: 3.5rem; 
+    font-weight: 800; 
+    text-align: center; 
+    letter-spacing: -0.04em; 
+    margin-bottom: 100px; 
+    color: var(--brand-dark);
+}
+
+.accordion-item { 
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06); 
+    background: transparent; 
+    transition: var(--transition-smooth);
+}
+
+.accordion-header {
+    width: 100%; 
+    padding: 40px 0; 
+    background: transparent; 
+    border: none;
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    cursor: pointer;
+    outline: none !important;
+}
+
+/* Kinetic Text Interaction */
+.accordion-header span { 
+    font-size: 1.4rem; 
+    font-weight: 600; 
+    color: #1d1d1f; 
+    letter-spacing: -0.01em;
+    transition: transform 0.4s cubic-bezier(0.2, 1, 0.2, 1), color 0.3s ease; 
+    text-align: left;
+    padding-right: 20px;
+}
+
+.accordion-item:hover .accordion-header span { 
+    color: var(--brand-red); 
+    transform: translateX(8px); /* Subtle "nudge" on hover */
+}
+
+/* Premium Minimalist Icon */
+.accordion-icon { 
+    width: 20px; 
+    height: 20px; 
+    position: relative; 
+    transition: transform 0.6s cubic-bezier(0.2, 1, 0.2, 1); 
+}
+
+.accordion-icon::before, 
+.accordion-icon::after { 
+    content: ""; 
+    position: absolute; 
+    background: #86868b; 
+    transition: all 0.5s cubic-bezier(0.2, 1, 0.2, 1); 
+    border-radius: 2px;
+}
+
+/* Horizontal line */
+.accordion-icon::before { 
+    width: 100%; 
+    height: 1.5px; 
+    top: 50%; 
+    left: 0; 
+    transform: translateY(-50%); 
+}
+
+/* Vertical line */
+.accordion-icon::after { 
+    width: 1.5px; 
+    height: 100%; 
+    left: 50%; 
+    top: 0; 
+    transform: translateX(-50%); 
+}
+
+/* Sophisticated Active State */
+.accordion-item.active {
+    border-bottom-color: var(--brand-dark);
+}
+
+.accordion-item.active .accordion-header span {
+    color: var(--brand-dark);
+    transform: translateX(0);
+}
+
+.accordion-item.active .accordion-icon { 
+    transform: rotate(135deg); 
+}
+
+.accordion-item.active .accordion-icon::before,
+.accordion-item.active .accordion-icon::after { 
+    background: var(--brand-dark); 
+}
+
+/* Smooth Content Reveal */
+.accordion-content { 
+    max-height: 0; 
+    opacity: 0; 
+    overflow: hidden; 
+    /* Using 'Out-Quint' for that heavy, expensive feeling drop */
+    transition: max-height 0.8s cubic-bezier(0.2, 1, 0.2, 1), opacity 0.4s ease; 
+}
+
+.accordion-item.active .accordion-content { 
+    max-height: 1000px; 
+    opacity: 1; 
+}
+
+.accordion-content p { 
+    font-size: 1.2rem; 
+    line-height: 1.7; 
+    color: var(--text-muted); 
+    padding: 0 0 50px 0; /* Asymmetric padding for modern look */
+    margin: 0; 
+    max-width: 90%; /* Prevents text from hitting the edge */
+}
+
+/* --- 8. Footer (Pro Refinement) --- */
+.site-footer { 
+    padding: 100px 0 60px; 
+    background-color: #ffffff; 
+    border-top: 1px solid rgba(0, 0, 0, 0.05); /* Softer, more modern hairline border */
+}
+
+.footer-container {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Navigation Links - Boutique Typography */
+.footer-links { 
+    display: flex; 
+    justify-content: center; 
+    gap: 40px; /* Increased breathing room */
+    margin-bottom: 40px; 
+}
+
+.footer-link { 
+    font-size: 0.75rem; /* Smaller for a more "designed" look */
+    font-weight: 600;
+    color: #86868b; 
+    text-decoration: none; 
+    text-transform: uppercase; /* Boutique aesthetic */
+    letter-spacing: 0.15em; /* Spacing out the letters for premium feel */
+    transition: var(--transition-smooth);
+    position: relative;
+}
+
+/* Subtle Underline for Footer Links */
+.footer-link::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    width: 0;
+    height: 1px;
+    background-color: var(--brand-red);
+    transition: var(--transition-smooth);
+    transform: translateX(-50%);
+}
+
+.footer-link:hover { 
+    color: var(--brand-dark); 
+}
+
+.footer-link:hover::after {
+    width: 20px; /* Short, elegant hover line */
+}
+
+/* Branding in Footer */
+.footer-brand {
+    margin-bottom: 30px;
+    opacity: 0.8;
+    filter: grayscale(1); /* Keeps focus on content, reveals on hover */
+    transition: filter 0.5s ease;
+}
+
+.footer-brand:hover {
+    filter: grayscale(0);
+}
+
+/* Copyright & Legal - Ultra Minimalist */
+.footer-bottom {
+    width: 100%;
+    padding-top: 40px;
+    border-top: 1px solid rgba(0, 0, 0, 0.03); /* Extremely faint secondary divider */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-copyright { 
+    font-size: 0.7rem; 
+    color: #a1a1a6; 
+    font-weight: 500;
+    letter-spacing: 0.02em;
+}
+
+.footer-legal-links {
+    display: flex;
+    gap: 20px;
+}
+
+.footer-legal-link {
+    font-size: 0.7rem;
+    color: #a1a1a6;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-legal-link:hover {
+    color: var(--brand-red);
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+    .footer-bottom {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+    .footer-links {
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+}
+/* --- 9. Responsive --- */
+@media (max-width: 991px) {
+    .nav-links-desktop { display: none; }
+    .menu-trigger { display: block; }
+    .hero h1 { font-size: 3rem; }
+    .pricing-grid { flex-direction: column; align-items: center; }
+    .plan-card { width: 100%; max-width: 450px; }
+}
+
+@media (max-width: 480px) {
+    .hero h1 { font-size: 2.5rem; }
+    .price-value { font-size: 2.8rem; }
+    .device-visual { width: 90px; height: 90px; }
+}
