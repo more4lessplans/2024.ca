@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- API Integration -->
-     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNt4XeQ5roadq0L-IpadA6s9e4CPm9FwI&libraries=places"></script>
+   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNt4XeQ5roadq0L-IpadA6s9e4CPm9FwI&libraries=places"></script>
 </head>
 <body>
 
@@ -41,40 +41,50 @@
         </ul>
     </div>
 
-    <!-- SECTION: HERO & LEAD CAPTURE -->
-    <section class="hero">
-        <div class="container">
-            <h1>Truly Unlimited Wireless.</h1>
-            <p>Premium LTE & 5G solutions for rural homes, travelers, and mobile professionals. No contracts.</p>
+  <!-- SECTION: HERO & LEAD CAPTURE -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <h1 class="hero-title">Truly Unlimited Wireless.</h1>
+            <p class="hero-subtitle">Premium LTE & 5G solutions for rural homes, travelers, and mobile professionals. No contracts.</p>
             
             <div class="search-module-wrapper">
+                <!-- Hidden Iframe for Background Submission -->
                 <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+                
                 <form action="https://submit.jotform.com/submit/223076752019051/" method="post" target="hidden_iframe" id="jotformCoverage">
                     <input type="hidden" name="formID" value="223076752019051" />
                     
+                    <!-- Main Search Input -->
                     <div class="search-module" id="searchModule">
-                        <input type="text" id="addressInput" placeholder="Enter address...">
+                        <input type="text" id="addressInput" placeholder="Enter your service address..." autocomplete="off">
                         <button type="button" class="btn-search" id="searchBtn">Check Coverage</button>
                     </div>
 
-                    <div id="email-module" style="display: none; margin-top: 15px;">
+                    <!-- Secondary Email Module (Fades in via JS) -->
+                    <div id="email-module" class="email-capture-container">
                         <div class="search-module">
-                            <input type="email" id="emailInput" name="q4_email" placeholder="Enter email...">
+                            <input type="email" id="emailInput" name="q4_email" placeholder="Enter your email to view results...">
                         </div>
                     </div>
 
-                    <!-- Hidden Lead Mapping -->
-                    <div style="display:none;">
+                    <!-- Invisible Lead Data Mapping -->
+                    <div class="hidden-fields" style="display:none;">
                         <input type="text" name="q5_address[addr_line1]" id="jf_street">
                         <input type="text" name="q5_address[city]" id="jf_city">
                         <input type="text" name="q5_address[state]" id="jf_state">
                         <input type="text" name="q5_address[postal]" id="jf_postal">
                     </div>
                 </form>
+
+                <!-- DYNAMIC STATUS RESPONSE -->
+                <div id="coverageResult">
+                    <!-- JavaScript will inject the status-card-success or status-card-error here -->
+                </div>
             </div>
-            <div id="coverageResult" class="coverage-status"></div>
         </div>
-    </section>
+    </div>
+</section>
 
 <!-- SECTION: PRODUCT/SERVICE GRID -->
 <section class="pricing-area" id="pricing">
@@ -255,105 +265,149 @@
 
     <!-- LOGIC: SYSTEM SCRIPTS -->
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Dynamic Year
-        const yearSpan = document.getElementById('year');
-        if(yearSpan) yearSpan.textContent = new Date().getFullYear();
+/* --- LOGIC: SYSTEM SCRIPTS --- */
+document.addEventListener('DOMContentLoaded', function() {
+    // Dynamic Year
+    const yearSpan = document.getElementById('year');
+    if(yearSpan) yearSpan.textContent = new Date().getFullYear();
 
-        // 1. NAVIGATION LOGIC (STRICT PRESERVATION)
-        const trigger = document.getElementById('menuTrigger');
-        const overlay = document.getElementById('mobileOverlay');
-        const body = document.body;
+    // 1. NAVIGATION LOGIC (STRICT PRESERVATION)
+    const trigger = document.getElementById('menuTrigger');
+    const overlay = document.getElementById('mobileOverlay');
+    const body = document.body;
 
-        const toggleMenu = () => {
-            const isActive = overlay.classList.contains('active');
-            trigger.classList.toggle('menu-active');
-            overlay.classList.toggle('active');
-            body.style.overflow = isActive ? 'auto' : 'hidden';
-        };
+    const toggleMenu = () => {
+        const isActive = overlay.classList.contains('active');
+        trigger.classList.toggle('menu-active');
+        overlay.classList.toggle('active');
+        body.style.overflow = isActive ? 'auto' : 'hidden';
+    };
 
+    if(trigger) {
         trigger.addEventListener('click', (e) => { e.stopPropagation(); toggleMenu(); });
         overlay.addEventListener('click', (e) => { if (e.target === overlay) toggleMenu(); });
         document.querySelectorAll('.mobile-nav-links a').forEach(link => {
             link.addEventListener('click', toggleMenu);
         });
+    }
 
-        // 2. LEAD CAPTURE LOGIC
-        const addressInput = document.getElementById('addressInput');
-        const emailInput = document.getElementById('emailInput');
-        const emailModule = document.getElementById('email-module');
-        const searchBtn = document.getElementById('searchBtn');
-        const statusBox = document.getElementById('coverageResult');
-        const mainForm = document.getElementById('jotformCoverage');
-        let addressSelected = false;
+    // 2. LEAD CAPTURE & COVERAGE LOGIC (PRO REFINEMENT)
+    const addressInput = document.getElementById('addressInput');
+    const emailInput = document.getElementById('emailInput');
+    const emailModule = document.getElementById('email-module');
+    const searchBtn = document.getElementById('searchBtn');
+    const statusBox = document.getElementById('coverageResult');
+    const mainForm = document.getElementById('jotformCoverage');
+    let addressSelected = false;
 
-        if (typeof google !== 'undefined') {
-            const autocomplete = new google.maps.places.Autocomplete(addressInput);
-            autocomplete.addListener('place_changed', () => {
-                const place = autocomplete.getPlace();
-                if (place && place.geometry) {
-                    addressSelected = true;
-                    emailModule.style.display = 'block';
+    // Helper: Generate Premium Status Cards
+    function renderStatus(type, message) {
+        statusBox.classList.remove('visible'); // Reset animation
+        
+        setTimeout(() => {
+            if (type === 'success') {
+                statusBox.innerHTML = `
+                    <div class="status-card-success">
+                        <div class="status-title-success">Service Available</div>
+                        <p class="status-msg">${message}</p>
+                        <a href="#pricing" class="btn-status-cta">Order Your Package Now</a>
+                    </div>`;
+            } else {
+                statusBox.innerHTML = `
+                    <div class="status-card-error">
+                        <div class="caution-icon-wrapper">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2L1 21h22L12 2zm1 14h-2v-2h2v2zm0-4h-2V8h2v4z"/>
+                            </svg>
+                        </div>
+                        <div class="status-msg-error">${message}</div>
+                    </div>`;
+            }
+            statusBox.classList.add('visible');
+        }, 100);
+    }
+
+    if (typeof google !== 'undefined') {
+        const autocomplete = new google.maps.places.Autocomplete(addressInput);
+        autocomplete.addListener('place_changed', () => {
+            const place = autocomplete.getPlace();
+            if (place && place.geometry) {
+                addressSelected = true;
+                // Reveal email module with a smooth flex/block transition
+                emailModule.style.display = 'block';
+                emailModule.style.opacity = '0';
+                setTimeout(() => { emailModule.style.opacity = '1'; }, 10);
+                
+                // Map components to hidden JotForm fields
+                let components = { street_number: '', route: '', locality: '', administrative_area_level_1: '', postal_code: '' };
+                place.address_components.forEach(c => {
+                    const type = c.types[0];
+                    if (components.hasOwnProperty(type)) components[type] = c.long_name;
+                });
+                
+                document.getElementById('jf_street').value = components.street_number + ' ' + components.route;
+                document.getElementById('jf_city').value = components.locality;
+                document.getElementById('jf_state').value = components.administrative_area_level_1;
+                document.getElementById('jf_postal').value = components.postal_code;
+            }
+        });
+
+        searchBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            if (!addressSelected) { 
+                renderStatus('error', 'Please select a valid address from the dropdown list.'); 
+                return; 
+            }
+            if (!emailInput.value.includes('@')) { 
+                renderStatus('error', 'A valid email address is required to view results.'); 
+                return; 
+            }
+
+            searchBtn.innerHTML = 'Verifying...';
+            searchBtn.disabled = true;
+
+            const geocoder = new google.maps.Geocoder();
+            geocoder.geocode({ address: addressInput.value }, function(results, status) {
+                if (status === 'OK') {
+                    const country = results[0].address_components.find(c => c.types.includes('country'));
                     
-                    // Map components to hidden JotForm fields
-                    let components = { street_number: '', route: '', locality: '', administrative_area_level_1: '', postal_code: '' };
-                    place.address_components.forEach(c => {
-                        const type = c.types[0];
-                        if (components.hasOwnProperty(type)) components[type] = c.long_name;
-                    });
-                    
-                    document.getElementById('jf_street').value = components.street_number + ' ' + components.route;
-                    document.getElementById('jf_city').value = components.locality;
-                    document.getElementById('jf_state').value = components.administrative_area_level_1;
-                    document.getElementById('jf_postal').value = components.postal_code;
+                    // Logic for Canada (CA) as per your target market
+                    if (country && country.short_name === 'CA') {
+                        HTMLFormElement.prototype.submit.call(mainForm);
+                        renderStatus('success', 'High-speed 5G & LTE connectivity is available at your location. Hardware is in stock and ready to ship.');
+                        searchBtn.innerHTML = 'Confirmed';
+                        searchBtn.style.background = '#4cd964';
+                        searchBtn.style.color = '#fff';
+                    } else {
+                        renderStatus('error', 'We currently only provide service within Canada. Stay tuned for international updates.');
+                        searchBtn.disabled = false;
+                        searchBtn.innerHTML = 'Check Again';
+                    }
+                } else {
+                    renderStatus('error', 'Connection error. Please check your internet and try again.');
+                    searchBtn.disabled = false;
+                    searchBtn.innerHTML = 'Retry';
                 }
             });
+        });
+    }
 
-            searchBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                if (!addressSelected) { showStatus('⚠ Select an address from the dropdown.', 'status-warning'); return; }
-                if (!emailInput.value.includes('@')) { showStatus('⚠ Valid email required.', 'status-warning'); return; }
-
-                searchBtn.innerHTML = 'Verifying...';
-                searchBtn.disabled = true;
-
-                const geocoder = new google.maps.Geocoder();
-                geocoder.geocode({ address: addressInput.value }, function(results, status) {
-                    if (status === 'OK') {
-                        const country = results[0].address_components.find(c => c.types.includes('country'));
-                        if (country && country.short_name === 'CA') {
-                            HTMLFormElement.prototype.submit.call(mainForm);
-                            showStatus('✓ Service Available! <a href="#pricing">View Plans</a>', 'status-available');
-                            searchBtn.innerHTML = 'Available';
-                            searchBtn.style.background = '#4BB543';
-                        } else {
-                            showStatus('✕ Service currently unavailable in this region.', 'status-unavailable');
-                            searchBtn.disabled = false;
-                            searchBtn.innerHTML = 'Check Again';
-                        }
-                    } else {
-                        showStatus('⚠ Connection error.', 'status-warning');
-                        searchBtn.disabled = false;
-                    }
-                });
-            });
-        }
-
-        function showStatus(msg, className) {
-            statusBox.innerHTML = `<span class="${className}">${msg}</span>`;
-            statusBox.style.display = 'block';
-        }
-
-        // 3. ACCORDION LOGIC
-        document.querySelectorAll('.accordion-header').forEach(header => {
-            header.addEventListener('click', () => {
-                const item = header.parentElement;
-                const wasActive = item.classList.contains('active');
-                document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('active'));
-                if (!wasActive) item.classList.add('active');
-            });
+    // 3. ACCORDION LOGIC
+    document.querySelectorAll('.accordion-header').forEach(header => {
+        header.addEventListener('click', () => {
+            const item = header.parentElement;
+            const wasActive = item.classList.contains('active');
+            
+            // Close others for a clean "Solo" accordion feel
+            document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('active'));
+            
+            if (!wasActive) {
+                item.classList.add('active');
+            }
         });
     });
+});
     </script>
 </body>
 </html>
