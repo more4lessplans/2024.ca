@@ -12,6 +12,116 @@
     
     <!-- API Integration -->
    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNt4XeQ5roadq0L-IpadA6s9e4CPm9FwI&libraries=places"></script>
+
+<style>
+    /* --- 1. Global & Root Variables --- */
+    :root {
+        --brand-red: #D73C59;
+        --bg-nav: #2E2F33; 
+        --bg-hero: #2E2F33; 
+        --bg-page: #fbfbfd;
+        --text-dark: #1d1d1f;
+        --text-muted: #6e6e73;
+        --card-radius: 28px;
+    }
+
+    html { font-size: 15px; scroll-behavior: smooth; } 
+
+    body {
+        font-family: 'Figtree', sans-serif;
+        color: var(--text-dark);
+        background-color: var(--bg-page);
+        -webkit-font-smoothing: antialiased;
+        margin: 0;
+        overflow-x: hidden;
+    }
+
+    /* --- 2. Status & Feedback --- */
+    .status-warning { color: #f39c12; } 
+    .status-available { color: #4BB543; }
+    .status-unavailable { color: #ff4d4d; }
+
+    .coverage-status {
+        margin-top: 15px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        display: none; 
+        animation: fadeIn 0.5s ease forwards;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* --- 3. Form Module (Integrated) --- */
+    .search-module-wrapper { 
+        max-width: 580px; 
+        margin: 0 auto; 
+    }
+
+    .search-module {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        padding: 10px;
+        border-radius: 20px;
+        display: flex;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+        margin-bottom: 10px;
+    }
+
+    #email-module {
+        display: none; /* Hidden by default; revealed by JS */
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        padding: 10px;
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        animation: fadeIn 0.4s ease forwards;
+        margin-bottom: 10px;
+    }
+
+    .search-module input, 
+    #email-module input {
+        background: transparent;
+        border: none;
+        color: white;
+        padding: 15px 25px;
+        flex: 1;
+        outline: none;
+        font-size: 1.1rem;
+        width: 100%;
+    }
+
+    .search-module input::placeholder, 
+    #email-module input::placeholder { 
+        color: rgba(255, 255, 255, 0.6); 
+    }
+
+    .btn-search {
+        background: white;
+        color: var(--bg-nav);
+        border: none;
+        padding: 12px 35px;
+        border-radius: 14px;
+        font-weight: 700;
+        font-size: 1rem;
+        transition: all 0.2s;
+        white-space: nowrap;
+    }
+
+    /* Desktop/Mobile Logic for Address Bar Stacking */
+    @media (max-width: 991px) {
+        .search-module { flex-direction: column; }
+        .btn-search { width: 100%; margin-top: 10px; }
+    }
+
+    /* Hidden Utility Classes */
+    #jotform-hidden-logic, #hidden_iframe { display: none; }
+</style>
 </head>
 <body>
 
@@ -253,114 +363,136 @@
     document.getElementById('year').textContent = new Date().getFullYear();
 </script>
 
-    <!-- LOGIC: SYSTEM SCRIPTS -->
-   <!-- LOGIC: SYSTEM SCRIPTS -->
- <script>
- 
-    document.addEventListener('DOMContentLoaded', function() {
-        const yearSpan = document.getElementById('year');
-        const trigger = document.getElementById('menuTrigger');
-        const overlay = document.getElementById('mobileOverlay');
-        const addressInput = document.getElementById('addressInput');
-        const emailInput = document.getElementById('emailInput');
-        const emailModule = document.getElementById('email-module');
-        const searchBtn = document.getElementById('searchBtn');
-        const statusBox = document.getElementById('coverageResult');
-        const mainForm = document.getElementById('jotformCoverage');
+  <script>
+document.addEventListener('DOMContentLoaded', function() {
+    // 1. DYNAMIC YEAR
+    const yearSpan = document.getElementById('year');
+    if(yearSpan) yearSpan.textContent = new Date().getFullYear();
 
-        if(yearSpan) yearSpan.textContent = new Date().getFullYear();
+    // 2. NAVIGATION LOGIC
+    const trigger = document.getElementById('menuTrigger');
+    const overlay = document.getElementById('mobileOverlay');
+    const body = document.body;
 
-        // MOBILE MENU
-        function toggleMenu() {
-            trigger.classList.toggle('menu-active');
-            overlay.classList.toggle('active');
-            document.body.style.overflow = overlay.classList.contains('active') ? 'hidden' : 'auto';
-        }
+    const toggleMenu = () => {
+        const isActive = overlay.classList.contains('active');
+        trigger.classList.toggle('menu-active');
+        overlay.classList.toggle('active');
+        body.style.overflow = isActive ? 'auto' : 'hidden';
+    };
+
+    if(trigger) {
         trigger.addEventListener('click', (e) => { e.stopPropagation(); toggleMenu(); });
-        overlay.addEventListener('click', (e) => { if (overlay.classList.contains('active')) toggleMenu(); });
+        overlay.addEventListener('click', (e) => { if (e.target === overlay) toggleMenu(); });
+        document.querySelectorAll('.mobile-nav-links a').forEach(link => {
+            link.addEventListener('click', toggleMenu);
+        });
+    }
 
-        // GOOGLE PLACES & JOTFORM SUBMISSION FIX
-        let addressSelected = false;
+    // 3. COVERAGE LOGIC
+    const addressInput = document.getElementById('addressInput');
+    const emailInput = document.getElementById('emailInput');
+    const emailModule = document.getElementById('email-module');
+    const searchBtn = document.getElementById('searchBtn');
+    const statusBox = document.getElementById('coverageResult');
+    const mainForm = document.getElementById('jotformCoverage');
+    
+    let validAddressSelected = false;
 
-        if (typeof google !== 'undefined') {
-            const autocomplete = new google.maps.places.Autocomplete(addressInput);
-            autocomplete.addListener('place_changed', () => {
-                const place = autocomplete.getPlace();
-                if (place && place.geometry) {
-                    addressSelected = true;
-                    emailModule.style.display = 'block';
+    function showStatus(msg, className) {
+        statusBox.innerHTML = `<span class="${className}">${msg}</span>`;
+        statusBox.style.display = 'block';
+    }
 
-                    let street = "", city = "", prov = "", post = "";
-                    place.address_components.forEach(c => {
-                        const type = c.types;
-                        if(type.includes("street_number")) street = c.long_name + " ";
-                        if(type.includes("route")) street += c.long_name;
-                        if(type.includes("locality")) city = c.long_name;
-                        if(type.includes("administrative_area_level_1")) prov = c.long_name;
-                        if(type.includes("postal_code")) post = c.long_name;
-                    });
-                    
-                    document.getElementById('jf_street').value = street;
-                    document.getElementById('jf_city').value = city;
-                    document.getElementById('jf_state').value = prov;
-                    document.getElementById('jf_postal').value = post;
-                }
-            });
+    // RESET: If user re-types, hide email and invalidate selection
+    addressInput.addEventListener('input', () => {
+        validAddressSelected = false;
+        if(emailModule) emailModule.style.display = 'none';
+        statusBox.style.display = 'none';
+    });
 
-            searchBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                if (!addressSelected) {
-                    showStatus('⚠ Please select an address from the list.', 'status-warning');
-                    return;
-                }
-                if (!emailInput.value.includes('@')) {
-                    showStatus('⚠ Please enter a valid email.', 'status-warning');
-                    return;
-                }
+    if (typeof google !== 'undefined' && addressInput) {
+        const autocomplete = new google.maps.places.Autocomplete(addressInput);
+        
+        autocomplete.addListener('place_changed', () => {
+            const place = autocomplete.getPlace();
+            if (place && place.geometry) {
+                validAddressSelected = true;
+                
+                // REVEAL EMAIL FIELD
+                if (emailModule) emailModule.style.display = 'block';
+                statusBox.style.display = 'none';
 
-                searchBtn.innerHTML = 'Checking...';
-                searchBtn.disabled = true;
+                // MAP DATA TO JOTFORM HIDDEN FIELDS
+                let street = "", city = "", prov = "", post = "";
+                place.address_components.forEach(c => {
+                    const type = c.types;
+                    if(type.includes("street_number")) street = c.long_name + " ";
+                    if(type.includes("route")) street += c.long_name;
+                    if(type.includes("locality")) city = c.long_name;
+                    if(type.includes("administrative_area_level_1")) prov = c.long_name;
+                    if(type.includes("postal_code")) post = c.long_name;
+                });
+                
+                if (document.getElementById('jf_street')) document.getElementById('jf_street').value = street;
+                if (document.getElementById('jf_city')) document.getElementById('jf_city').value = city;
+                if (document.getElementById('jf_state')) document.getElementById('jf_state').value = prov;
+                if (document.getElementById('jf_postal')) document.getElementById('jf_postal').value = post;
+            }
+        });
 
-                const geocoder = new google.maps.Geocoder();
-                geocoder.geocode({ address: addressInput.value }, function(results, status) {
-                    if (status === 'OK') {
-                        const country = results[0].address_components.find(c => c.types.includes('country'));
-                        if (country && country.short_name === 'CA') {
-                            // Submission using standard submit method which respects form target
-                            HTMLFormElement.prototype.submit.call(mainForm);
-                            showStatus('✓ Service Available! <a href="#pricing" style="color:white; text-decoration:underline;">View Plans</a>', 'status-available');
-                            searchBtn.innerHTML = 'Available';
-                            searchBtn.style.background = '#4BB543';
-                            searchBtn.style.color = '#fff';
-                        } else {
-                            showStatus('✕ Currently limited to Canada.', 'status-unavailable');
-                            searchBtn.disabled = false;
-                            searchBtn.innerHTML = 'Check Coverage';
-                        }
+        searchBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            if (!validAddressSelected) {
+                showStatus('⚠ Please select your address from the dropdown suggestions.', 'status-warning');
+                return;
+            }
+
+            if (!emailInput || !emailInput.value.includes('@')) {
+                showStatus('⚠ A valid email address is required.', 'status-warning');
+                return;
+            }
+
+            searchBtn.innerHTML = 'Checking...';
+            searchBtn.disabled = true;
+
+            const geocoder = new google.maps.Geocoder();
+            geocoder.geocode({ address: addressInput.value }, function(results, status) {
+                if (status === 'OK') {
+                    const country = results[0].address_components.find(c => c.types.includes('country'));
+                    if (country && country.short_name === 'CA') {
+                        // Submit hidden JotForm via Iframe
+                        HTMLFormElement.prototype.submit.call(mainForm);
+                        
+                        showStatus('✓ Service Available! <a href="#pricing" style="color:white; text-decoration:underline;">View Plans</a>', 'status-available');
+                        searchBtn.innerHTML = 'Available';
+                        searchBtn.style.background = '#4BB543';
+                        searchBtn.style.color = '#fff';
                     } else {
-                        showStatus('⚠ Error verifying address.', 'status-warning');
+                        showStatus('✕ Currently limited to Canada.', 'status-unavailable');
                         searchBtn.disabled = false;
                         searchBtn.innerHTML = 'Check Coverage';
                     }
-                });
-            });
-        }
-
-        function showStatus(msg, className) {
-            statusBox.innerHTML = `<span class="${className}">${msg}</span>`;
-            statusBox.style.display = 'block';
-        }
-
-        // ACCORDION
-        document.querySelectorAll('.accordion-header').forEach(header => {
-            header.addEventListener('click', () => {
-                const item = header.parentElement;
-                const wasActive = item.classList.contains('active');
-                document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('active'));
-                if (!wasActive) item.classList.add('active');
+                } else {
+                    showStatus('⚠ Error verifying address. Use the dropdown suggestions.', 'status-warning');
+                    searchBtn.disabled = false;
+                    searchBtn.innerHTML = 'Check Coverage';
+                }
             });
         });
+    }
+
+    // 4. ACCORDION (FAQ) LOGIC
+    document.querySelectorAll('.accordion-header').forEach(header => {
+        header.addEventListener('click', () => {
+            const item = header.parentElement;
+            const wasActive = item.classList.contains('active');
+            document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('active'));
+            if (!wasActive) item.classList.add('active');
+        });
     });
-    </script>
+});
+</script>
 </body>
 </html>
