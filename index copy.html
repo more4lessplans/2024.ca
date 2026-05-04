@@ -58,9 +58,7 @@
                     <div id="email-module" style="display: none; margin-top: 15px;">
                         <div class="search-module">
                             <input type="email" id="emailInput" name="q4_email" placeholder="Enter email to see results...">
-                        </div>
-                        <p style="font-size: 0.85rem; color: rgba(255,255,255,0.6); margin-top: 8px;">We'll send your local signal report to this address.</p>
-                    </div>
+                     
 
                     <!-- Hidden Fields for JotForm -->
                     <div style="display:none;">
@@ -223,7 +221,7 @@
             searchBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 if (!addressSelected) {
-                    showStatus('⚠ Please select an address from the list.', 'status-warning');
+                    showStatus('⚠ Please select an address from the dropdown list.', 'status-warning');
                     return;
                 }
                 if (!emailInput.value.includes('@')) {
@@ -241,7 +239,7 @@
                         if (country && country.short_name === 'CA') {
                             // Submission using standard submit method which respects form target
                             HTMLFormElement.prototype.submit.call(mainForm);
-                            showStatus('✓ Service Available! <a href="#pricing" style="color:white; text-decoration:underline;">View Packages</a>', 'status-available');
+                            showStatus('✓ High-Speed Internet Available! <a href="#pricing" style="color:white; text-decoration:underline;">View Packages ↓</a>', 'status-available');
                             searchBtn.innerHTML = 'Available';
                             searchBtn.style.background = '#4BB543';
                             searchBtn.style.color = '#fff';
