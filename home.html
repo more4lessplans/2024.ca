@@ -268,14 +268,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const toggleMenu = () => {
         const isActive = overlay.classList.contains('active');
-        if(trigger) trigger.classList.toggle('menu-active');
-        if(overlay) overlay.classList.toggle('active');
+        trigger.classList.toggle('menu-active');
+        overlay.classList.toggle('active');
         body.style.overflow = isActive ? 'auto' : 'hidden';
     };
 
     if(trigger) {
         trigger.addEventListener('click', (e) => { e.stopPropagation(); toggleMenu(); });
-        if(overlay) overlay.addEventListener('click', (e) => { if (e.target === overlay) toggleMenu(); });
+        overlay.addEventListener('click', (e) => { if (e.target === overlay) toggleMenu(); });
         document.querySelectorAll('.mobile-nav-links a').forEach(link => {
             link.addEventListener('click', toggleMenu);
         });
@@ -284,69 +284,43 @@ document.addEventListener('DOMContentLoaded', function() {
     // 3. COVERAGE LOGIC
     const addressInput = document.getElementById('addressInput');
     const emailInput = document.getElementById('emailInput');
-    const emailModule = document.querySelector('.email-capture-container');
+    const emailModule = document.getElementById('email-module');
     const searchBtn = document.getElementById('searchBtn');
     const statusBox = document.getElementById('coverageResult');
     const mainForm = document.getElementById('jotformCoverage');
     
-    // Tracks if the user actually clicked a suggestion from the dropdown
     let validAddressSelected = false;
 
-    function showFeedback(msg, type) {
-        const isCaution = type === 'caution';
-        const isSuccess = type === 'success';
-        
-        statusBox.className = `coverage-status ${isCaution ? 'caution' : ''} ${isSuccess ? 'success' : ''}`;
-        
-        if (isCaution) {
-            statusBox.innerHTML = `
-                <div class="status-content">
-                    <div class="caution-icon" style="color:#ffcc00; font-size:1.5rem; margin-bottom:10px;">!</div>
-                    <p style="color:#ffcc00; margin:0;">${msg}</p>
-                </div>`;
-        } else if (isSuccess) {
-            statusBox.innerHTML = `
-                <div class="status-content">
-                    <div class="status-header">EXCELLENT NEWS</div>
-                    <p style="color:#fff;">${msg}</p>
-                </div>`;
-        }
-        
-        statusBox.style.opacity = '1';
+    function showStatus(msg, className) {
+        statusBox.innerHTML = `<span class="${className}">${msg}</span>`;
+        statusBox.style.display = 'block';
     }
 
-    // RESET LOGIC: If user types, they must re-select to reveal email/button functionality
+    // RESET: If user types manually, hide email and invalidate selection
     addressInput.addEventListener('input', () => {
         validAddressSelected = false;
         if(emailModule) {
             emailModule.style.display = 'none';
-            emailModule.style.opacity = '0';
         }
-        statusBox.style.opacity = '0';
+        statusBox.style.display = 'none';
     });
 
     if (typeof google !== 'undefined' && addressInput) {
         const autocomplete = new google.maps.places.Autocomplete(addressInput);
         
-        // This only fires when a user selects from the dropdown
         autocomplete.addListener('place_changed', () => {
             const place = autocomplete.getPlace();
-            
             if (place && place.geometry) {
                 validAddressSelected = true;
                 
-                // REVEAL EMAIL MODULE: Now fits into the Flex column flow
+                // REVEAL EMAIL FIELD
                 if (emailModule) {
-                    emailModule.style.display = 'flex'; 
-                    setTimeout(() => { 
-                        emailModule.style.opacity = '1';
-                        emailModule.style.transform = 'translateY(0)';
-                    }, 10);
+                    emailModule.style.display = 'block';
                 }
                 
-                statusBox.style.opacity = '0';
+                statusBox.style.display = 'none';
 
-                // Map Google data to hidden JotForm inputs
+                // Map data to JotForm hidden fields
                 let street = "", city = "", prov = "", post = "";
                 place.address_components.forEach(c => {
                     const type = c.types;
@@ -367,46 +341,42 @@ document.addEventListener('DOMContentLoaded', function() {
         searchBtn.addEventListener('click', function(e) {
             e.preventDefault();
             
-            // PRIORITY 1: Ensure address was picked from Google List
             if (!validAddressSelected) {
-                showFeedback('Please select your address from the dropdown suggestions.', 'caution');
+                showStatus('⚠ Please select your address from the dropdown.', 'status-warning');
                 addressInput.focus();
                 return;
             }
 
-            // PRIORITY 2: Basic email validation
-            if (!emailInput || !emailInput.value.includes('@') || emailInput.value.length < 5) {
-                showFeedback('A valid email address is required to check fiber availability.', 'caution');
+            if (!emailInput || !emailInput.value.includes('@')) {
+                showStatus('⚠ A valid email is required.', 'status-warning');
                 if (emailInput) emailInput.focus();
                 return;
             }
 
-            // UI Progress State
-            searchBtn.innerHTML = 'VERIFYING...';
+            searchBtn.innerHTML = 'Checking...';
             searchBtn.disabled = true;
 
             const geocoder = new google.maps.Geocoder();
             geocoder.geocode({ address: addressInput.value }, function(results, status) {
                 if (status === 'OK') {
                     const country = results[0].address_components.find(c => c.types.includes('country'));
-                    
-                    // Specific check for Canada (CA)
                     if (country && country.short_name === 'CA') {
-                        if (mainForm) HTMLFormElement.prototype.submit.call(mainForm);
+                        // Submit to JotForm via the hidden iframe
+                        HTMLFormElement.prototype.submit.call(mainForm);
                         
-                        showFeedback('High-Speed Internet is available at your location!<br><a href="#pricing" class="status-cta">View Packages ↓</a>', 'success');
-                        searchBtn.innerHTML = 'AVAILABLE';
-                        searchBtn.style.background = '#4cd964';
+                        showStatus('✓ Service Available! <a href="#pricing" style="color:white; text-decoration:underline;">View Plans</a>', 'status-available');
+                        searchBtn.innerHTML = 'Available';
+                        searchBtn.style.background = '#4BB543';
                         searchBtn.style.color = '#fff';
                     } else {
-                        showFeedback('Service is currently limited to Canada.', 'caution');
+                        showStatus('✕ Currently limited to Canada.', 'status-unavailable');
                         searchBtn.disabled = false;
-                        searchBtn.innerHTML = 'CHECK COVERAGE';
+                        searchBtn.innerHTML = 'Check Coverage';
                     }
                 } else {
-                    showFeedback('Verification failed. Please try re-selecting your address.', 'caution');
+                    showStatus('⚠ Error verifying address. Use the dropdown.', 'status-warning');
                     searchBtn.disabled = false;
-                    searchBtn.innerHTML = 'CHECK COVERAGE';
+                    searchBtn.innerHTML = 'Check Coverage';
                 }
             });
         });
