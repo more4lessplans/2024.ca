@@ -295,9 +295,9 @@ body {
     }
 }
 
-/* --- Pricing Section Refinement --- */
+/* --- 5. Pricing Section (Ultra-Premium Pro) --- */
 .pricing-area { 
-    padding: 100px 0; 
+    padding: 120px 0; 
     background: var(--bg-page); 
 }
 
@@ -305,7 +305,7 @@ body {
     display: flex;
     justify-content: center;
     gap: 24px;
-    max-width: 1140px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 25px;
 }
@@ -315,72 +315,115 @@ body {
     border: 1px solid #eaeaec;
     border-radius: var(--card-radius);
     flex: 1;
-    padding: 40px 35px; /* Reduced padding for tighter look */
+    padding: 45px 35px;
     display: flex;
     flex-direction: column;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* Tesla-style smooth lift transition */
+    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1), 
+                box-shadow 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
     position: relative;
+    overflow: hidden;
 }
 
 .plan-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.04);
+    transform: translateY(-12px);
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.08);
 }
 
+/* Category & Title Typography */
 .card-category { 
     color: var(--brand-red); 
     font-weight: 700; 
     font-size: 0.75rem; 
     text-transform: uppercase; 
-    letter-spacing: 0.05em;
-    margin-bottom: 4px; 
+    letter-spacing: 0.08em;
+    margin-bottom: 6px; 
 }
 
 .card-title {
-    font-size: 1.8rem;
+    font-size: 1.85rem;
     font-weight: 700;
     letter-spacing: -0.02em;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
+    color: var(--text-dark);
 }
 
+/* --- Premium Price & Tax Container --- */
 .price-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 10px;
+    margin-bottom: 12px; /* Tightened from 15px */
+    min-height: 130px; 
 }
 
-/* Made pricing smaller as requested */
+/* Fix: Stack price and tax vertically for desktop to prevent line breaks */
 .price-value { 
     font-size: 3.5rem; 
     font-weight: 800; 
     color: var(--text-dark); 
     letter-spacing: -0.04em; 
+    display: flex;
+    flex-direction: column; 
+    line-height: 1;
 }
 
-.price-subtext {
+/* Refined Tax Styling */
+.price-tax {
     font-size: 0.9rem;
+    font-weight: 600;
     color: var(--text-muted);
-    font-weight: 500;
-    margin-bottom: 20px;
+    opacity: 0.5;
+    margin-top: 4px; 
+    margin-left: 2px;
+    letter-spacing: 0;
+    text-transform: lowercase;
 }
 
+/* --- Hierarchy Tweak for Pricing Subtexts --- */
+.price-subtext {
+    font-size: 0.95rem; /* Slightly larger for primary line */
+    color: var(--text-dark); /* Stronger presence */
+    font-weight: 600;
+    margin-bottom: 4px; /* Minimal gap between lines */
+    line-height: 1.2;
+}
+
+/* Targeting the second line for lower hierarchy */
+.price-subtext + .price-subtext {
+    font-size: 0.85rem; /* Smaller secondary text */
+    color: var(--text-muted);
+    font-weight: 400;
+    margin-bottom: 25px; /* Final spacing before divider */
+}
+
+/* --- High-End Product Image Animation --- */
 .device-visual { 
-    width: 110px; 
-    height: 110px; 
+    width: 130px; 
+    height: 130px; 
     object-fit: contain; 
+    /* Bouncy 'Out-Back' transition */
+    transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1); 
+    will-change: transform;
+    filter: drop-shadow(0 12px 24px rgba(0,0,0,0.06));
 }
 
+.plan-card:hover .device-visual {
+    transform: scale(1.15) rotate(3deg); 
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.12));
+}
+
+/* Features & Divider */
 .divider {
     height: 1px;
     background: #f2f2f7;
-    margin: 20px 0;
+    margin: 25px 0;
     width: 100%;
 }
 
 .feature-item {
     font-size: 0.95rem;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
     color: var(--text-dark);
     display: flex;
     align-items: center;
@@ -388,103 +431,83 @@ body {
 
 .check-icon {
     color: #4BB543;
-    margin-right: 10px;
+    margin-right: 12px;
     font-weight: bold;
 }
 
+/* Premium Call to Action */
 .btn-order {
     background: var(--brand-red);
     color: white !important;
-    padding: 16px;
+    padding: 18px;
     border-radius: 18px;
     text-align: center;
     font-weight: 700;
     text-decoration: none !important;
-    margin-top: auto; /* Pushes button to bottom */
-    transition: opacity 0.2s;
+    margin-top: 35px; 
+    transition: transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), background 0.3s ease;
 }
 
-.btn-order:hover { opacity: 0.9; }
+.btn-order:hover { 
+    background: #c3324d; 
+    transform: scale(1.02);
+}
 
 .disclaimer-text {
     font-size: 0.75rem;
     color: var(--text-muted);
     text-align: center;
-    margin-top: 15px;
+    margin-top: 18px;
+    line-height: 1.5;
 }
 
-/* --- Responsive Fixes --- */
+/* --- Responsive Architecture --- */
 @media (max-width: 1100px) {
-    .pricing-grid {
-        gap: 15px;
-    }
-    .plan-card {
-        padding: 30px 25px;
-    }
-    .price-value {
-        font-size: 3rem;
-    }
+    .pricing-grid { gap: 15px; }
+    .plan-card { padding: 35px 25px; }
+    .price-value { font-size: 3rem; }
+    .device-visual { width: 115px; height: 115px; }
 }
 
 @media (max-width: 991px) {
-    .pricing-grid {
-        flex-direction: column;
-        align-items: center;
+    .pricing-grid { 
+        flex-direction: column; 
+        align-items: center; 
     }
-    .plan-card {
-        width: 100%;
-        max-width: 450px;
-        margin-bottom: 20px;
+    .plan-card { 
+        width: 100%; 
+        max-width: 480px; 
+        margin-bottom: 25px; 
     }
-    .price-value {
-        font-size: 3.5rem;
+    .price-value { 
+        font-size: 3.5rem; 
+        flex-direction: row; 
+        align-items: baseline;
     }
+    .price-tax { 
+        margin-top: 0; 
+        margin-left: 8px; 
+    }
+    .device-visual { width: 130px; height: 130px; }
 }
 
 @media (max-width: 480px) {
-    .hero h1 { font-size: 2.5rem; }
-    .portal-header h1 { font-size: 2.2rem; }
+    .pricing-area { padding: 80px 0; }
     .price-value { font-size: 2.8rem; }
-    .device-visual { width: 90px; height: 90px; }
+    .price-tax { font-size: 0.8rem; }
+    .device-visual { width: 100px; height: 100px; }
+    .plan-card { padding: 30px 20px; }
+    .card-title { font-size: 1.6rem; }
 }
-
-/* --- High-End Product Image Animation --- */
-
-/* 1. Set the initial state */
-.device-visual {
-    width: 110px;
-    height: 110px;
-    object-fit: contain;
-    transition: transform 0.8s cubic-bezier(0.2, 1, 0.2, 1); /* Apple-style 'Out-Quint' timing */
-    will-change: transform; /* Optimizes browser performance for the animation */
-}
-
-/* 2. Define the 'Grow' effect on card hover */
-.plan-card:hover .device-visual {
-    transform: scale(1.12); /* Subtle 12% growth */
-}
-
-/* 3. Optional: Add a slight lift to the card itself to match */
-.plan-card {
-    transition: transform 0.6s cubic-bezier(0.2, 1, 0.2, 1), 
-                box-shadow 0.6s cubic-bezier(0.2, 1, 0.2, 1);
-}
-
-.plan-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.05); /* Soft, premium shadow */
-}
-
-
 
 /* --- 7. FAQ Section (Pro Refinement) --- */
 .faq-section { 
     padding: 160px 0; 
-    background-color: #ffffff; 
+    background-color: #FBFBFD; 
 }
 
 .faq-container { 
-    max-width: 800px; /* Slightly wider for better line lengths */
+    max-width: 800px; 
     margin: 0 auto; 
     padding: 0 30px; 
 }
@@ -495,13 +518,13 @@ body {
     text-align: center; 
     letter-spacing: -0.04em; 
     margin-bottom: 100px; 
-    color: var(--brand-dark);
+    color: #1d1d1f;
 }
 
 .accordion-item { 
-    border-bottom: 1px solid rgba(0, 0, 0, 0.06); 
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08); 
     background: transparent; 
-    transition: var(--transition-smooth);
+    transition: all 0.4s cubic-bezier(0.2, 1, 0.2, 1);
 }
 
 .accordion-header {
@@ -527,63 +550,69 @@ body {
     padding-right: 20px;
 }
 
+/* Hover State: Nudge & Red Turn */
 .accordion-item:hover .accordion-header span { 
     color: var(--brand-red); 
-    transform: translateX(8px); /* Subtle "nudge" on hover */
+    transform: translateX(8px);
 }
 
-/* Premium Minimalist Icon */
+/* Premium Minimalist Icon Logic */
 .accordion-icon { 
-    width: 20px; 
-    height: 20px; 
+    width: 24px; 
+    height: 24px; 
     position: relative; 
     transition: transform 0.6s cubic-bezier(0.2, 1, 0.2, 1); 
+    flex-shrink: 0;
 }
 
 .accordion-icon::before, 
 .accordion-icon::after { 
     content: ""; 
     position: absolute; 
-    background: #86868b; 
+    background: #1d1d1f; /* Darker, more premium gray/black */
     transition: all 0.5s cubic-bezier(0.2, 1, 0.2, 1); 
     border-radius: 2px;
 }
 
-/* Horizontal line */
+/* Horizontal line (+) */
 .accordion-icon::before { 
     width: 100%; 
-    height: 1.5px; 
+    height: 2px; 
     top: 50%; 
     left: 0; 
     transform: translateY(-50%); 
 }
 
-/* Vertical line */
+/* Vertical line (+) */
 .accordion-icon::after { 
-    width: 1.5px; 
+    width: 2px; 
     height: 100%; 
     left: 50%; 
     top: 0; 
     transform: translateX(-50%); 
 }
 
-/* Sophisticated Active State */
+/* --- Sophisticated Active State --- */
 .accordion-item.active {
-    border-bottom-color: var(--brand-dark);
+    border-bottom-color: #1d1d1f;
 }
 
+/* Fix: Ensuring text stays Red when active */
 .accordion-item.active .accordion-header span {
-    color: var(--brand-dark);
+    color: var(--brand-red);
     transform: translateX(0);
 }
 
+/* Icon Transformation: Rotating 45deg creates a perfect 'X' */
 .accordion-item.active .accordion-icon { 
-    transform: rotate(135deg); 
+    transform: rotate(45deg); 
 }
 
+/* Vertical line stays centered, Horizontal line stays centered, 
+   the rotation of the container creates the X */
 .accordion-item.active .accordion-icon::before,
 .accordion-item.active .accordion-icon::after { 
-    background: var(--brand-dark); 
+    background: var(--brand-red); 
 }
 
 /* Smooth Content Reveal */
@@ -591,24 +620,29 @@ body {
     max-height: 0; 
     opacity: 0; 
     overflow: hidden; 
-    /* Using 'Out-Quint' for that heavy, expensive feeling drop */
-    transition: max-height 0.8s cubic-bezier(0.2, 1, 0.2, 1), opacity 0.4s ease; 
+    transition: max-height 0.7s cubic-bezier(0.2, 1, 0.2, 1), opacity 0.4s ease; 
 }
 
 .accordion-item.active .accordion-content { 
-    max-height: 1000px; 
+    max-height: 500px; /* Adjusted to prevent excessive white space */
     opacity: 1; 
 }
 
 .accordion-content p { 
     font-size: 1.2rem; 
     line-height: 1.7; 
-    color: var(--text-muted); 
-    padding: 0 0 50px 0; /* Asymmetric padding for modern look */
+    color: #424245; /* Clean slate-gray for readability */
+    padding: 0 0 50px 0; 
     margin: 0; 
-    max-width: 90%; /* Prevents text from hitting the edge */
+    max-width: 90%;
 }
 
+/* Ensure hit area is responsive */
+@media (max-width: 768px) {
+    .accordion-header { padding: 30px 0; }
+    .accordion-header span { font-size: 1.2rem; }
+    .faq-header h2 { font-size: 2.5rem; margin-bottom: 60px; }
+}
 
 /* --- Portal Specific Styles --- */
 .portal-header { padding: 160px 0 60px; text-align: center; background: #fff; }
@@ -761,7 +795,7 @@ body {
 /* --- Premium Minimal Footer --- */
 .site-footer {
     padding: 80px 0 60px;
-    background-color: #ffffff;
+    background-color: #FBFBFD;
     border-top: 1px solid #e5e5e7;
 }
 
