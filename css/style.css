@@ -195,121 +195,136 @@ body {
     .hero p { font-size: 1.15rem; }
 }
 
-/* --- Search & Coverage Module --- */
+/* --- Ultra-Premium Pro Search Logic --- */
 .search-module-wrapper { 
-    max-width: 580px; 
-    margin: 0 auto; 
+    max-width: 600px; 
+    margin: 0 auto 40px; 
+    perspective: 1000px; /* Adds depth for Tesla-style motion */
 }
 
 .search-module {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    padding: 10px;
-    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(30px) saturate(150%);
+    -webkit-backdrop-filter: blur(30px) saturate(150%);
+    padding: 6px; /* Tight, precision spacing */
+    border-radius: 18px;
     display: flex;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 25px 50px rgba(0,0,0,0.4);
-    margin-bottom: 12px;
+    align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+    transition: var(--transition-tesla); /* Using your smooth variable */
 }
 
-/* Fix: Removed opacity: 0 so it's visible when JS sets display: block */
-#email-module {
-    display: none;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(15px);
-    padding: 10px;
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    margin-bottom: 12px;
-    /* Optional: Subtle entrance animation */
-    animation: fadeIn 0.4s ease forwards;
+.search-module:focus-within {
+    border-color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-2px) scale(1.01);
 }
 
-.search-module input, #email-module input {
+.search-module input {
     background: transparent;
     border: none;
-    color: white;
-    padding: 15px 25px;
+    color: #fff;
+    padding: 18px 28px;
     flex: 1;
     outline: none;
-    font-size: 1.1rem;
-    width: 100%;
+    font-size: 1.15rem;
+    font-weight: 400;
+    letter-spacing: -0.01em;
 }
 
-.search-module input::placeholder, #email-module input::placeholder {
-    color: rgba(255, 255, 255, 0.6);
-}
-
+/* Premium Button Styling */
 .btn-search {
-    background: white;
-    color: #2E2F33; 
+    background: #ffffff;
+    color: #000;
     border: none;
-    padding: 12px 35px;
+    padding: 14px 35px;
     border-radius: 14px;
     font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: var(--transition-smooth);
     white-space: nowrap;
+    margin-right: 4px;
 }
 
 .btn-search:hover {
-    background: #f0f0f0;
-    transform: translateY(-1px);
+    background: #fff;
+    transform: scale(1.03);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
 }
 
-/* --- Bigger & Better Results --- */
+/* --- The Reveal (Email Module) --- */
+#email-module {
+    display: none;
+    margin-top: 15px;
+    /* Tesla Reveal Animation */
+    animation: teslaReveal 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+@keyframes teslaReveal {
+    from { opacity: 0; transform: translateY(20px) rotateX(-10deg); }
+    to { opacity: 1; transform: translateY(0) rotateX(0); }
+}
+
+/* --- High-End Status & CTA --- */
 #coverageResult {
-    margin: 20px 0;
-    text-align: center;
-    min-height: 1.5em;
+    margin-top: 30px;
+    min-height: 80px;
 }
 
-/* Updated selector to match the span injected by your JS */
-#coverageResult span {
-    font-size: 1.25rem; 
+.status-available {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    animation: successPulse 2s infinite;
+}
+
+.status-available span {
+    color: #4cd964;
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+}
+
+/* Ultra-Premium Call to Action Link */
+.status-available a {
+    background: var(--brand-red); /* Matches your brand identity */
+    color: white !important;
+    text-decoration: none !important;
+    padding: 12px 30px;
+    border-radius: 50px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    transition: var(--transition-smooth);
+    box-shadow: 0 10px 25px rgba(215, 60, 89, 0.4);
+}
+
+.status-available a:hover {
+    transform: translateY(-3px);
+    filter: brightness(1.1);
+    box-shadow: 0 15px 30px rgba(215, 60, 89, 0.5);
+}
+
+/* Warning & Unavailable States */
+.status-warning, .status-unavailable {
+    font-size: 1.2rem;
     font-weight: 600;
-    display: inline-block;
-    line-height: 1.4;
-    padding: 10px 20px;
-    border-radius: 12px;
+    padding: 15px 30px;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.05);
 }
 
-.status-available { 
-    color: #4cd964; 
-    background: rgba(76, 217, 100, 0.1); 
-}
+.status-warning { color: #ffcc00; border: 1px solid rgba(255, 204, 0, 0.2); }
+.status-unavailable { color: #ff4444; border: 1px solid rgba(255, 68, 68, 0.2); }
 
-.status-warning { 
-    color: #ffcc00; 
-    background: rgba(255, 204, 0, 0.1); 
-}
-
-.status-unavailable { 
-    color: #ff4444; 
-    background: rgba(255, 68, 68, 0.1); 
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(5px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Responsive Fix */
-@media (max-width: 580px) {
-    .search-module {
-        flex-direction: column;
-        padding: 5px;
-    }
-    .btn-search {
-        width: 100%;
-        margin-top: 10px;
-        padding: 15px;
-    }
-    .search-module input {
-        padding: 15px;
-        text-align: center;
-    }
+@keyframes successPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
 }
 
 /* --- Pricing Section Refinement --- */
