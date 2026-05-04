@@ -195,51 +195,45 @@ body {
     .hero p { font-size: 1.15rem; }
 }
 
-/* --- Ultra-Premium Pro Search Logic --- */
+/* --- 4.1 Search & Coverage Module (Premium Responsive) --- */
 .search-module-wrapper { 
     max-width: 600px; 
-    margin: 0 auto 40px; 
-    perspective: 1000px; /* Adds depth for Tesla-style motion */
+    margin: 0 auto 30px; 
+    position: relative;
+    z-index: 10;
 }
 
 .search-module {
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(30px) saturate(150%);
     -webkit-backdrop-filter: blur(30px) saturate(150%);
-    padding: 6px; /* Tight, precision spacing */
-    border-radius: 18px;
+    padding: 6px; 
+    border-radius: 20px; 
     display: flex;
     align-items: center;
     border: 1px solid rgba(255, 255, 255, 0.12);
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
-    transition: var(--transition-tesla); /* Using your smooth variable */
-}
-
-.search-module:focus-within {
-    border-color: rgba(255, 255, 255, 0.4);
-    background: rgba(255, 255, 255, 0.08);
-    transform: translateY(-2px) scale(1.01);
+    transition: var(--transition-tesla);
+    margin-bottom: 15px;
 }
 
 .search-module input {
     background: transparent;
     border: none;
-    color: #fff;
-    padding: 18px 28px;
+    color: #ffffff;
+    padding: 14px 25px;
     flex: 1;
     outline: none;
-    font-size: 1.15rem;
-    font-weight: 400;
-    letter-spacing: -0.01em;
+    font-size: 1.1rem;
+    min-width: 0; /* Prevents input from pushing past container bounds */
 }
 
-/* Premium Button Styling */
 .btn-search {
     background: #ffffff;
-    color: #000;
+    color: #1d1d1f; 
     border: none;
-    padding: 14px 35px;
-    border-radius: 14px;
+    padding: 14px 35px; 
+    border-radius: 16px;
     font-weight: 700;
     font-size: 0.9rem;
     text-transform: uppercase;
@@ -247,84 +241,58 @@ body {
     cursor: pointer;
     transition: var(--transition-smooth);
     white-space: nowrap;
-    margin-right: 4px;
 }
 
-.btn-search:hover {
-    background: #fff;
-    transform: scale(1.03);
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+/* --- 4.2 The Mobile Fix (No Shortcuts) --- */
+@media (max-width: 768px) {
+    .search-module {
+        flex-direction: column; /* Stack vertically on mobile */
+        padding: 10px; /* More breathing room for touch */
+        background: rgba(255, 255, 255, 0.1); /* Slightly more solid for legibility */
+    }
+
+    .search-module input {
+        width: 100%;
+        padding: 18px 10px;
+        text-align: center; /* Better aesthetic for stacked layout */
+        font-size: 1.1rem;
+        margin-bottom: 8px; /* Gap between input and button */
+    }
+
+    .btn-search {
+        width: 100%; /* Full width button for easy thumb-reach */
+        padding: 18px;
+        font-size: 1rem;
+        border-radius: 14px;
+    }
+
+    /* Adjust the Email Module to follow the same stacking logic */
+    #email-module .search-module {
+        flex-direction: column;
+    }
 }
 
-/* --- The Reveal (Email Module) --- */
-#email-module {
-    display: none;
-    margin-top: 15px;
-    /* Tesla Reveal Animation */
-    animation: teslaReveal 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
-}
-
-@keyframes teslaReveal {
-    from { opacity: 0; transform: translateY(20px) rotateX(-10deg); }
-    to { opacity: 1; transform: translateY(0) rotateX(0); }
-}
-
-/* --- High-End Status & CTA --- */
+/* --- 4.3 High-End Status Adjustments --- */
 #coverageResult {
-    margin-top: 30px;
-    min-height: 80px;
-}
-
-.status-available {
-    display: inline-flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    animation: successPulse 2s infinite;
+    padding: 0 20px;
 }
 
 .status-available span {
-    color: #4cd964;
-    font-size: 1.5rem;
-    font-weight: 800;
-    letter-spacing: -0.03em;
+    font-size: 1.4rem;
+    display: block;
+    margin-bottom: 15px;
 }
 
-/* Ultra-Premium Call to Action Link */
-.status-available a {
-    background: var(--brand-red); /* Matches your brand identity */
-    color: white !important;
-    text-decoration: none !important;
-    padding: 12px 30px;
-    border-radius: 50px;
-    font-size: 0.95rem;
-    font-weight: 700;
-    transition: var(--transition-smooth);
-    box-shadow: 0 10px 25px rgba(215, 60, 89, 0.4);
-}
-
-.status-available a:hover {
-    transform: translateY(-3px);
-    filter: brightness(1.1);
-    box-shadow: 0 15px 30px rgba(215, 60, 89, 0.5);
-}
-
-/* Warning & Unavailable States */
-.status-warning, .status-unavailable {
-    font-size: 1.2rem;
-    font-weight: 600;
-    padding: 15px 30px;
-    border-radius: 15px;
-    background: rgba(255, 255, 255, 0.05);
-}
-
-.status-warning { color: #ffcc00; border: 1px solid rgba(255, 204, 0, 0.2); }
-.status-unavailable { color: #ff4444; border: 1px solid rgba(255, 68, 68, 0.2); }
-
-@keyframes successPulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.02); }
-    100% { transform: scale(1); }
+@media (max-width: 480px) {
+    .status-available span {
+        font-size: 1.2rem;
+    }
+    
+    .status-available a {
+        width: 100%; /* Make CTA button full width on tiny screens */
+        display: block;
+        box-sizing: border-box;
+    }
 }
 
 /* --- Pricing Section Refinement --- */
