@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Portal | More4Less</title>
+    
+    <!-- External Frameworks -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Linked External Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* --- Tesla-Style Toggle Fixes --- */
+        .view-controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .tesla-toggle {
+            background: #e9ecef;
+            padding: 2px;
+            border-radius: 8px;
+            display: flex;
+            position: relative;
+            width: 140px;
+            border: 1px solid #dee2e6;
+        }
+
+        .glider {
+            position: absolute;
+            width: calc(50% - 2px);
+            height: calc(100% - 4px);
+            background: #fff;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1;
+        }
+
+        .t-btn {
+            flex: 1;
+            border: none;
+            background: transparent;
+            font-size: 12px;
+            font-weight: 700;
+            color: #6c757d;
+            z-index: 2;
+            cursor: pointer;
+            text-transform: uppercase;
+            padding: 8px 0;
+            outline: none !important;
+        }
+
+        .t-btn.active { color: #1a1a1a; }
+
+        /* --- Grid vs List Layouts --- */
+        .portal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .portal-grid.list-view {
+            display: flex;
+            flex-direction: column;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .portal-grid.list-view .portal-card {
+            flex-direction: row;
+            align-items: center;
+            padding: 20px 30px;
+        }
+
+        .portal-grid.list-view .card-icon {
+            margin-bottom: 0;
+            margin-right: 25px;
+            font-size: 1.8rem;
+        }
+
+        .portal-grid.list-view .card-desc {
+            display: none; 
+        }
+
+        /* --- Mobile Overlay & Close Logic --- */
+        #mobileOverlay {
+            position: fixed;
+            top: 0;
+            right: -100%; /* Hidden by default */
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.95); /* High-end dark blur background */
+            z-index: 9999;
+            transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #mobileOverlay.active {
+            right: 0;
+        }
+
+        /* The white "X" button positioning[cite: 5] */
+        .close-trigger-white {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            font-size: 2rem;
+            color: #ffffff;
+            cursor: pointer;
+            z-index: 10001;
+            line-height: 1;
+            background: none;
+            border: none;
+            outline: none;
+        }
+
+        /* Prevent link clicks from being "intercepted" by the close logic */
+        .mobile-nav-links {
+            list-style: none;
+            padding: 0;
+            text-align: center;
+            z-index: 10002;
+        }
+
+        .mobile-nav-links a {
+            color: #ffffff;
+            font-size: 2rem;
+            font-weight: 700;
+            text-decoration: none;
+            display: block;
+            padding: 15px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav class="navbar-custom">
+        <div class="nav-container">
+            <a class="navbar-brand" href="/"><img src="assets/img/logos/logo.png" alt="More4Less"></a>
+            <ul class="nav-links-desktop">
+                <li><a href="/#pricing">Pricing</a></li>
+                <li><a href="/#faq">FAQ</a></li>
+                <li><a href="/contact">Contact</a></li>
+                <li><a href="/portal" class="btn-portal-top">Customer Portal</a></li>
+            </ul>
+            <div class="menu-trigger" id="menuTrigger">
+                <div class="menu-icon"><span></span><span></span><span></span></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Overlay with Dismissal Logic[cite: 5, 6] -->
+    <div id="mobileOverlay" class="mobile-overlay">
+        <!-- THE WHITE X BUTTON -->
+        <button class="close-trigger-white" id="closeMenu">✕</button>
+        
+        <ul class="mobile-nav-links" id="mobileNavLinks">
+            <li><a href="/#pricing">Pricing</a></li>
+            <li><a href="/#faq">FAQ</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/portal">Customer Portal</a></li>
+        </ul>
+    </div>
+
+    <header class="portal-header">
+        <div class="container">
+            <h1>Account Portal</h1>
+            <p>Manage your connection, billing, and support requests in one place.</p>
+            
+            <div class="view-controls">
+                <div class="tesla-toggle">
+                    <div class="glider" id="glider"></div>
+                    <button id="gridBtn" class="t-btn active">Grid</button>
+                    <button id="listBtn" class="t-btn">List</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="portal-container">
+        <div class="portal-grid" id="portalGrid">
+            
+            <a href="/login" class="portal-card card-featured">
+                <div class="card-icon">👤</div>
+                <div class="card-content">
+                    <div class="card-title">Account Management</div>
+                    <p class="card-desc">Update your payment methods, view upcoming billing dates, or manage your service status.</p>
+                    <div class="portal-link" href="javascript:void(0)" data-cb-type="portal">Sign In to Account</div>
+                    
+                </div>
+            </a>
+
+            <a href="/activate" class="portal-card">
+                <div class="card-icon">⚡</div>
+                <div class="card-content">
+                    <div class="card-title">Activate Service</div>
+                    <p class="card-desc">Ready to get back online? Process reactivations or start new subscriptions.</p>
+                    <div class="portal-link">Get Started</div>
+                </div>
+            </a>
+
+            <a href="/support" class="portal-card">
+                <div class="card-icon">🛠️</div>
+                <div class="card-content">
+                    <div class="card-title">Technical Support</div>
+                    <p class="card-desc">Encountering connection issues? Open a priority ticket for network assistance.</p>
+                    <div class="portal-link">Get Help</div>
+                </div>
+            </a>
+
+            <a href="/tutorials" class="portal-card">
+                <div class="card-icon">📖</div>
+                <div class="card-content">
+                    <div class="card-title">Device Tutorials</div>
+                    <p class="card-desc">Expert guides and optimization tips to help you get the maximum speed from hardware.</p>
+                    <div class="portal-link">View Guides</div>
+                </div>
+            </a>
+
+            <a href="/returns" class="portal-card">
+                <div class="card-icon">📦</div>
+                <div class="card-content">
+                    <div class="card-title">Return Equipment</div>
+                    <p class="card-desc">View our return policy or submit a request to return equipment rentals.</p>
+                    <div class="portal-link">Process Return</div>
+                </div>
+            </a>
+
+            <a href="/contact" class="portal-card">
+                <div class="card-icon">✉️</div>
+                <div class="card-content">
+                    <div class="card-title">Contact Us</div>
+                    <p class="card-desc">Reach out to our team for general inquiries or business partnership requests.</p>
+                    <div class="portal-link">Send Message</div>
+                </div>
+            </a>
+
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="/mobility" class="footer-link">Mobility</a>
+                    <a href="/privacy" class="footer-link">Privacy</a>
+                    <a href="/terms" class="footer-link">Terms</a>
+                </div>
+                <div class="footer-copyright">
+                    &copy; <span id="year"></span> More4Less Wireless. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+  <script src="https://js.chargebee.com/v2/chargebee.js" data-cb-site="more4lessplans"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Year logic
+        const yearSpan = document.getElementById('year');
+        if(yearSpan) yearSpan.textContent = new Date().getFullYear();
+
+        const trigger = document.getElementById('menuTrigger');
+        const overlay = document.getElementById('mobileOverlay');
+        const closeBtn = document.getElementById('closeMenu');
+        const navLinks = document.getElementById('mobileNavLinks');
+
+        // OPEN MENU[cite: 5]
+        trigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            overlay.classList.add('active');
+        });
+
+        // CLOSE MENU (When clicking the X)[cite: 5]
+        closeBtn.addEventListener('click', () => {
+            overlay.classList.remove('active');
+        });
+
+        // CLOSE MENU (When clicking anywhere on the overlay BUT the links)[cite: 6]
+        overlay.addEventListener('click', (e) => {
+            // Check if the click target is the overlay itself or the wrapper, but NOT a link
+            if (!navLinks.contains(e.target)) {
+                overlay.classList.remove('active');
+            }
+        });
+
+        // VIEW TOGGLES[cite: 5]
+        const gridBtn = document.getElementById('gridBtn');
+        const listBtn = document.getElementById('listBtn');
+        const portalGrid = document.getElementById('portalGrid');
+        const glider = document.getElementById('glider');
+
+        gridBtn.addEventListener('click', () => {
+            portalGrid.classList.remove('list-view');
+            gridBtn.classList.add('active');
+            listBtn.classList.remove('active');
+            glider.style.transform = 'translateX(0)';
+        });
+
+        listBtn.addEventListener('click', () => {
+            portalGrid.classList.add('list-view');
+            listBtn.classList.add('active');
+            gridBtn.classList.remove('active');
+            glider.style.transform = 'translateX(100%)';
+        });
+    });
+    </script>
+</body>
+</html>
