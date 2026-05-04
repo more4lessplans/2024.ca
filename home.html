@@ -281,7 +281,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // 3. COVERAGE ENGINE
+    // 3. COVERAGE LOGIC
     const addressInput = document.getElementById('addressInput');
     const emailInput = document.getElementById('emailInput');
     const emailModule = document.getElementById('email-module');
@@ -289,17 +289,17 @@ document.addEventListener('DOMContentLoaded', function() {
     const statusBox = document.getElementById('coverageResult');
     const mainForm = document.getElementById('jotformCoverage');
     
-    // This is the gatekeeper variable
-    let addressIsValidated = false;
+    // PRIORITY: This tracks if the address came from the dropdown
+    let validAddressSelected = false;
 
-    function displayFeedback(message, cssClass) {
-        statusBox.innerHTML = `<div class="status-text ${cssClass}">${message}</div>`;
+    function showFeedback(msg, type) {
+        statusBox.innerHTML = `<div class="status-text ${type}">${msg}</div>`;
         statusBox.style.opacity = '1';
     }
 
-    // CRITICAL: Reset validation if user types manually
+    // RESET: If user types anything, they must re-select from the dropdown
     addressInput.addEventListener('input', () => {
-        addressIsValidated = false;
+        validAddressSelected = false;
     });
 
     if (typeof google !== 'undefined') {
@@ -307,18 +307,17 @@ document.addEventListener('DOMContentLoaded', function() {
         
         autocomplete.addListener('place_changed', () => {
             const place = autocomplete.getPlace();
-            
             if (place && place.geometry) {
-                addressIsValidated = true;
+                validAddressSelected = true;
                 
-                // 1. Reveal Email Field
+                // Show Email module below address
                 emailModule.style.display = 'block';
                 setTimeout(() => { emailModule.style.opacity = '1'; }, 10);
                 
-                // 2. Clear any "Select from dropdown" warnings
+                // Clear any previous warnings
                 statusBox.innerHTML = '';
 
-                // 3. Populate Hidden JotForm Fields
+                // Fill hidden JotForm fields
                 let street = "", city = "", prov = "", post = "";
                 place.address_components.forEach(c => {
                     const type = c.types;
@@ -339,22 +338,21 @@ document.addEventListener('DOMContentLoaded', function() {
         searchBtn.addEventListener('click', function(e) {
             e.preventDefault();
             
-            // OBVIOUS WARNING: If they typed but didn't select from Google's list
-            if (!addressIsValidated) {
-                displayFeedback('⚠ Please select your address from the dropdown suggestions to continue.', 'status-warning');
+            // PRIORITY WARNING: Check if valid address is actually selected
+            if (!validAddressSelected) {
+                showFeedback('⚠ Please select your address from the dropdown list.', 'status-warning');
                 addressInput.focus();
                 return;
             }
 
-            // MANDATORY EMAIL:
+            // EMAIL CHECK:
             if (!emailInput.value.includes('@')) {
-                displayFeedback('⚠ A valid email address is required.', 'status-warning');
+                showFeedback('⚠ A valid email address is required.', 'status-warning');
                 emailInput.focus();
                 return;
             }
 
-            // Processing State
-            searchBtn.innerHTML = 'Checking...';
+            searchBtn.innerHTML = 'Verifying...';
             searchBtn.disabled = true;
 
             const geocoder = new google.maps.Geocoder();
@@ -363,26 +361,18 @@ document.addEventListener('DOMContentLoaded', function() {
                     const country = results[0].address_components.find(c => c.types.includes('country'));
                     
                     if (country && country.short_name === 'CA') {
-                        // Submit Form
                         HTMLFormElement.prototype.submit.call(mainForm);
-                        
-                        // Show Premium Success
-                        displayFeedback(
-                            '✓ High-Speed Internet Available!<br>' +
-                            '<a href="#pricing" class="status-link">View Packages ↓</a>', 
-                            'status-available'
-                        );
-                        
+                        showFeedback('✓ High-Speed Internet Available!<br><a href="#pricing" style="color:#fff; text-decoration:underline; font-size:1rem; margin-top:10px; display:inline-block;">View Packages ↓</a>', 'status-available');
                         searchBtn.innerHTML = 'Available';
                         searchBtn.style.background = '#4cd964';
                         searchBtn.style.color = '#fff';
                     } else {
-                        displayFeedback('✕ Currently only serving Canada.', 'status-error');
+                        showFeedback('✕ Service currently limited to Canada.', 'status-warning');
                         searchBtn.disabled = false;
                         searchBtn.innerHTML = 'Check Coverage';
                     }
                 } else {
-                    displayFeedback('⚠ Address not found. Please use the autofill dropdown.', 'status-warning');
+                    showFeedback('⚠ Address check failed. Please use the dropdown suggestions.', 'status-warning');
                     searchBtn.disabled = false;
                     searchBtn.innerHTML = 'Check Coverage';
                 }
