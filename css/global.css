@@ -331,16 +331,30 @@ body {
     .hero p { font-size: 1.15rem; }
 }
 
-/* --- 4.1 Coverage/Search Module --- */
-.search-module-wrapper { 
-    max-width: 620px; 
-    margin: 0 auto 40px; 
-    display: flex;
-    flex-direction: column;
+/* --- 4.1 Coverage/Search Module (Pro Refinement) --- */
+
+
+/* Use the ID to ensure highest priority */
+#email-module {
+    display: none !important; 
+    opacity: 0;
+    visibility: hidden;
+    height: 0;
+    overflow: hidden;
+    margin-top: 0;
+    transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
-/* Glassmorphism Bars */
-.search-module, #email-module {
+
+.search-module-wrapper { 
+    max-width: 620px; 
+    margin: 0 auto 80px; /* Space for the result card to appear below */
+    position: relative;
+    z-index: 10;
+}
+
+/* The Glassmorphism Container */
+.search-module {
     background: rgba(255, 255, 255, 0.08); 
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
@@ -350,18 +364,16 @@ body {
     align-items: center;
     border: 1px solid rgba(255, 255, 255, 0.15);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-    width: 100%;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-/* MANDATORY HIDDEN STATE */
-#email-module {
-    display: none !important; /* Physically removed from flow */
-    opacity: 0;
-    margin-top: 15px;
-    transition: opacity 0.4s ease;
+.search-module:focus-within {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-2px);
 }
 
-.search-module input, #email-module input {
+.search-module input {
     background: transparent;
     border: none;
     color: #ffffff;
@@ -371,10 +383,14 @@ body {
     font-size: 1.15rem;
 }
 
-/* Premium Button */
+.search-module input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Premium Button Styling */
 .btn-search {
     background: #ffffff;
-    color: #000;
+    color: #000000; /* Contrast against white */
     border: none;
     padding: 14px 35px; 
     border-radius: 16px;
@@ -385,19 +401,165 @@ body {
     transition: all 0.3s ease;
 }
 
-/* MOBILE STACKING */
+.btn-search:hover {
+    background: #4cd964; /* Brand Green on Hover */
+    color: #ffffff;
+    transform: scale(1.02);
+}
+
+/* --- 4.2 Email Capture Reveal --- */
+.email-capture-container {
+    display: none; /* Injected/Shown by JS */
+    margin-top: 15px;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+/* --- 4.1 Coverage/Search Module Container --- */
+.search-module-wrapper { 
+    max-width: 620px; 
+    margin: 0 auto 40px; 
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column; /* Force elements to stack vertically */
+    gap: 15px; /* Consistent spacing between all visible elements */
+}
+
+/* Glassmorphism Styling for both Address and Email Bars */
+.search-module, 
+.email-capture-container {
+    background: rgba(255, 255, 255, 0.08); 
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    padding: 8px; 
+    border-radius: 22px; 
+    display: flex;
+    align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    width: 100%;
+}
+
+/* THE HARD RESET: Email field is physically removed from the DOM flow */
+.email-capture-container {
+    display: none; 
+    opacity: 0;
+    transform: translateY(-10px); /* Slight offset for a slide-in effect later */
+}
+
+/* Input Styling */
+.search-module input, 
+.email-capture-container input {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    padding: 12px 25px;
+    flex: 1;
+    outline: none;
+    font-size: 1.15rem;
+    width: 100%;
+}
+
+.search-module input::placeholder,
+.email-capture-container input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Premium Button Styling */
+.btn-search {
+    background: #ffffff;
+    color: #000000;
+    border: none;
+    padding: 14px 35px; 
+    border-radius: 16px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    margin-left: 10px; /* Desktop spacing */
+}
+
+.btn-search:hover {
+    background: #4cd964;
+    color: #ffffff;
+    transform: scale(1.02);
+}
+
+/* --- MOBILE STACKING LOGIC --- */
 @media (max-width: 600px) {
-    .search-module, #email-module {
-        flex-direction: column; 
+    .search-module-wrapper {
+        gap: 12px;
+    }
+
+    .search-module, 
+    .email-capture-container {
+        flex-direction: column; /* Stack input and button inside the bar */
         padding: 15px;
         align-items: stretch;
     }
 
     .btn-search {
         width: 100%; 
-        margin-top: 15px;
+        margin: 15px 0 0 0; /* Move button below input on mobile */
         padding: 18px;
+        font-size: 1.1rem;
     }
+
+    .search-module input, 
+    .email-capture-container input {
+        text-align: center;
+        padding: 10px 0;
+    }
+}
+
+/* --- Coverage Results (Success/Caution Cards) --- */
+.coverage-status {
+    margin-top: 20px;
+    transition: opacity 0.5s ease;
+    max-width: 580px;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0; /* Hidden until triggered */
+}
+
+.coverage-status.success .status-content {
+    background: rgba(76, 217, 100, 0.1);
+    border: 1px solid rgba(76, 217, 100, 0.4);
+    border-radius: 24px;
+    padding: 30px;
+    text-align: center;
+    backdrop-filter: blur(20px);
+}
+
+.coverage-status.caution .status-content {
+    background: rgba(255, 204, 0, 0.1);
+    border: 1px solid rgba(255, 204, 0, 0.4);
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+    backdrop-filter: blur(20px);
+}
+
+.status-header {
+    color: #4cd964;
+    font-weight: 800;
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+}
+
+.status-cta {
+    display: inline-block;
+    background: #4cd964;
+    color: #fff !important;
+    padding: 14px 30px;
+    border-radius: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    margin-top: 15px;
 }
 /* --- 5. Pricing & Product Cards (High-End Side-by-Side) --- */
 .pricing-area { 
