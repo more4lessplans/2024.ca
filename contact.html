@@ -1,285 +1,185 @@
 <!DOCTYPE html>
-<html data-bs-theme="light" lang="en-US" dir="ltr">
+<html lang="en-US">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | More4Less Wireless</title>
+    
+    <!-- Premium Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- SEO and Meta Tags -->
-  <title>More4Less - Contact Us for 24/7 Support</title>
-  <meta name="keywords" content="contact more4less, wireless internet support, 24/7 internet support, high-speed LTE support, 5G internet support, more4less customer service, technical support Canada, internet troubleshooting, wireless internet help">
-  <meta name="description" content="Contact More4Less for 24/7 support with your high-speed LTE and 5G internet plans. Get help with troubleshooting, technical support, or inquiries for homes, RVers, and travelers across Canada.">
-  <meta property="og:title" content="More4Less - Contact Us for 24/7 Support">
-  <meta property="og:description" content="Contact More4Less for 24/7 support with your high-speed LTE and 5G internet plans. Get help with troubleshooting, technical support, or inquiries for homes, RVers, and travelers across Canada.">
-  <meta property="og:image" content="https://more4lessplans.ca/main.jpg">
-  <meta property="og:url" content="https://more4lessplans.ca/contact">
-  <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="More4Less - Contact Us for 24/7 Support">
-  <meta name="twitter:description" content="Contact More4Less for 24/7 support with your high-speed LTE and 5G internet plans. Get help with troubleshooting, technical support, or inquiries for homes, RVers, and travelers across Canada.">
-  <meta name="twitter:image" content="https://more4lessplans.ca/main.jpg">
-
-  <!-- Favicons -->
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicons/favicon-16x16.png">
-  <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicons/favicon.ico">
-  <link rel="manifest" href="assets/img/favicons/manifest.json">
-  <meta name="msapplication-TileImage" content="assets/img/favicons/mstile-150x150.png">
-  <meta name="theme-color" content="#2E2F34">
-
-  <!-- Bootstrap CSS -->
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="/navbar.css">
-  <link rel="stylesheet" href="/footer.css">
-  <link rel="stylesheet" href="vendors/swiper/swiper-bundle.min.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
-  <link href="assets/css/theme.min.css" rel="stylesheet" id="style-default">
-  <link href="assets/css/user-rtl.min.css" rel="stylesheet" id="user-style-rtl">
-  <link href="assets/css/user.min.css" rel="stylesheet" id="user-style-default">
-  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
-
-  <!-- Page-Specific CSS -->
-  <style>
-    body {
-      padding-top: 70px;
-    }
-    @media (max-width: 576px) {
-      body { padding-top: 60px; }
-    }
-    .text-danger { color: #2E2F33 !important; }
-    .text-muted { color: #565656 !important; }
-    .btn-primary, .submit-button {
-      border: 2px solid #2E2F33;
-      background-color: #2E2F33;
-      color: #fff;
-      font-weight: 600;
-      border-radius: 9px;
-      padding: 15px 45px;
-      transition: all 0.3s ease;
-      text-transform: none;
-    }
-    .btn-primary:hover, .btn-primary:focus, .submit-button:hover, .submit-button:focus {
-      background-color: transparent;
-      color: #000;
-      border: 2px solid #000;
-    }
-    .section-title h3 {
-      position: relative;
-      display: inline-block;
-      padding-bottom: 10px;
-      color: #2E2F33;
-    }
-    .section-title h3::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 250px;
-      height: 3px;
-      background: linear-gradient(90deg, #313C59, #2E2F33);
-      border-radius: 2px;
-    }
-    .section-title p { font-family: 'Rubik', sans-serif; font-weight: 400; letter-spacing: 0.5px; }
-    @media (max-width: 991.98px) {
-      #pricing { padding-top: 120px; }
-      .section-title { padding-top: 20px; }
-    }
-    form {
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", Arial, sans-serif;
-    }
-    form input,
-    form textarea {
-      width: 100%;
-      padding: 14px 16px;
-      margin-bottom: 12px;
-      border: 1px solid #E5E5EA;
-      border-radius: 12px;
-      background-color: #FFFFFF;
-      font-size: 1rem;
-      color: #1C2526;
-      box-sizing: border-box;
-      -webkit-appearance: none;
-      appearance: none;
-    }
-    form textarea {
-      height: 120px;
-      resize: vertical;
-    }
-    form input:focus,
-    form textarea:focus {
-      outline: none;
-      border: 1px solid #2E2F33;
-      box-shadow: 0 0 0 2px rgba(46, 47, 51, 0.2);
-    }
-    form input::placeholder,
-    form textarea::placeholder {
-      color: #8E8E93;
-    }
-    .contact-form-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-      padding: 0 15px;
-    }
-    .contact-form {
-      width: 100%;
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 0 15px;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .form-group {
-      width: 100%;
-      margin-bottom: 12px;
-    }
-    .submit-button {
-      width: auto;
-      margin: 20px auto 0;
-      display: block;
-    }
-    @media (max-width: 767px) {
-      .contact-form {
-        padding: 0 10px;
-      }
-      form input,
-      form textarea {
-        font-size: 1.05rem;
-      }
-      .submit-button {
-        width: 100%;
-        max-width: 300px;
-        font-size: 1.05rem;
-      }
-    }
-  </style>
+    <!-- Primary Stylesheet -->
+    <link rel="stylesheet" href="css/contact.css">
 </head>
+<body class="flow-body">
 
-<body>
-  <div id="navbar-container"></div>
-
-  <main class="main" id="top">
-    <div class="content">
-      <section class="bg-white py-8 py-lg-10" id="pricing">
-        <div class="container">
-          <div class="row justify-content-center text-center mb-5 section-title">
-            <div class="col-md-8 col-lg-7">
-              <h3 class="fs-4 fs-lg-3 fw-bold mb-2 lh-sm">Contact Us</h3>
-              <p class="fs-8 lh-lg text-muted">Support Available <span style="font-weight: 600;">24/7</span></p>
-            </div>
-          </div>
-          <div class="contact-form-container">
-            <form
-              action="https://submit.jotform.com/submit/211765043197154/"
-              method="post"
-              name="form_211765043197154"
-              id="211765043197154"
-              accept-charset="utf-8"
-              autocomplete="on"
-              class="contact-form"
-            >
-              <input type="hidden" name="formID" value="211765043197154" />
-              <input type="hidden" id="JWTContainer" value="" />
-              <input type="hidden" id="cardinalOrderNumber" value="" />
-              <input type="hidden" id="input_40" name="q40_uniqueId" class="form-textbox form-hidden" data-defaultvalue="001520" data-component="autoincrement" aria-labelledby="label_40" value="001520" />
-              <div class="form-group">
-                <input
-                  type="text"
-                  name="q28_name[first]"
-                  placeholder="First Name"
-                  required
-                />
-              </div>
-              <div class="form-group">
-                <input
-                  type="text"
-                  name="q28_name[last]"
-                  placeholder="Last Name"
-                  required
-                />
-              </div>
-              <div class="form-group">
-                <input
-                  type="email"
-                  name="q2_email"
-                  placeholder="Email"
-                  required
-                />
-              </div>
-              <div class="form-group">
-                <input
-                  type="tel"
-                  name="q11_phone[full]"
-                  placeholder="Phone Number"
-                />
-              </div>
-              <div class="form-group">
-                <textarea
-                  name="q24_commentsQuestions"
-                  placeholder="Your Message"
-                  required
-                ></textarea>
-              </div>
-              <button type="submit" class="submit-button">Submit</button>
-            </form>
-          </div>
-        </div>
-      </section>
+    <!-- Invisible Z-Index 10000 Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
     </div>
-  </main>
 
-  <div id="footer-container"></div>
+    <!-- High-End Minimalist Navigation -->
+    <nav class="navbar-minimal">
+        <a href="/" class="nav-brand-link">
+            <img src="assets/img/logos/logo.png" alt="More4Less" class="nav-logo">
+        </a>
+        <a href="/" class="exit-flow" aria-label="Close and return to home">✕</a>
+    </nav>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script src="https://js.chargebee.com/v2/chargebee.js" data-cb-site="more4lessplans"></script>
-  <script src="vendors/is/is.min.js"></script>
-  <script src="vendors/countup/countUp.umd.js"></script>
-  <script src="vendors/swiper/swiper-bundle.min.js"></script>
-  <script src="vendors/lodash/lodash.min.js"></script>
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
-  <script src="assets/js/theme.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Load navbar
-      fetch('/navbar.html')
-        .then(response => {
-          if (!response.ok) throw new Error('Failed to load navbar.html: ' + response.status);
-          return response.text();
-        })
-        .then(data => {
-          document.getElementById('navbar-container').innerHTML = data;
-          const navbarScript = document.createElement('script');
-          navbarScript.src = '/navbar.js';
-          navbarScript.onload = function() {
-            initializeNavbar(); // Assumes this function exists in navbar.js
-          };
-          document.body.appendChild(navbarScript);
-        })
-        .catch(error => console.error('Error loading navbar:', error));
+    <!-- The Centered Form Anchor -->
+    <main class="flow-wrapper">
+        <form 
+            id="jotformFlow" 
+            action="https://submit.jotform.com/submit/211765043197154/" 
+            method="post" 
+            autocomplete="off"
+        >
+            <input type="hidden" name="formID" value="211765043197154" />
 
-      // Load footer
-      fetch('/footer.html')
-        .then(response => {
-          if (!response.ok) throw new Error('Failed to load footer.html: ' + response.status);
-          return response.text();
-        })
-        .then(data => {
-          document.getElementById('footer-container').innerHTML = data;
-          document.getElementById('currentYear').textContent = new Date().getFullYear();
-        })
-        .catch(error => console.error('Error loading footer:', error));
-    });
-  </script>
+            <!-- STEP 1: NAME -->
+            <div class="form-step active" data-step="1">
+                <span class="step-label">01 — Introduction</span>
+                <h2>What should we call you?</h2>
+                <div class="input-pair">
+                    <input type="text" name="q28_name[first]" id="first_name" placeholder="First name" required autofocus>
+                    <input type="text" name="q28_name[last]" id="last_name" placeholder="Last name" required>
+                </div>
+                <div class="step-nav">
+                    <button type="button" class="btn-next">Continue</button>
+                </div>
+            </div>
+
+            <!-- STEP 2: EMAIL -->
+            <div class="form-step" data-step="2">
+                <span class="step-label">02 — Contact Details</span>
+                <h2>Nice to meet you. What’s your email?</h2>
+                <input type="email" name="q2_email" id="input_email" placeholder="email@example.com" required>
+                <div class="step-nav">
+                    <button type="button" class="btn-next">Continue</button>
+                    <button type="button" class="btn-back">Back</button>
+                </div>
+            </div>
+
+            <!-- STEP 3: PHONE (OPTIONAL) -->
+            <div class="form-step" data-step="3">
+                <span class="step-label">03 — Accessibility</span>
+                <h2>And a phone number to reach you?</h2>
+                <input type="tel" name="q11_phone[full]" id="input_phone" placeholder="(555) 000-0000">
+                <div class="step-nav">
+                    <button type="button" class="btn-next">Continue</button>
+                    <button type="button" class="btn-back">Back</button>
+                </div>
+            </div>
+
+            <!-- STEP 4: MESSAGE -->
+            <div class="form-step" data-step="4">
+                <span class="step-label">04 — Inquiry</span>
+                <h2>How can we help you today?</h2>
+                <textarea name="q24_commentsQuestions" id="input_message" placeholder="Type your message here..." required></textarea>
+                <div class="step-nav">
+                    <button type="submit" class="btn-submit">Submit Request</button>
+                    <button type="button" class="btn-back">Back</button>
+                </div>
+                <p class="submit-hint">Press <strong>Enter ↵</strong> to send your message</p>
+            </div>
+        </form>
+    </main>
+
+    <!-- Flow Logic Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('jotformFlow');
+            const steps = Array.from(document.querySelectorAll('.form-step'));
+            const nextBtns = document.querySelectorAll('.btn-next');
+            const backBtns = document.querySelectorAll('.btn-back');
+            const progressBar = document.getElementById('progressBar');
+
+            /**
+             * Updates the visual progress bar and shifts focus
+             */
+            function updateFlowUI(index) {
+                // Progress Bar Math
+                const progressPercentage = (index / (steps.length - 1)) * 100;
+                progressBar.style.width = `${progressPercentage}%`;
+                
+                // Auto-Focus first input in new step for premium UX
+                setTimeout(() => {
+                    const firstInput = steps[index].querySelector('input, textarea');
+                    if (firstInput) firstInput.focus();
+                }, 600);
+            }
+
+            /**
+             * Transition to Next Step
+             */
+            nextBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const currentStep = btn.closest('.form-step');
+                    const requiredInputs = currentStep.querySelectorAll('[required]');
+                    
+                    let isStepValid = true;
+                    requiredInputs.forEach(input => {
+                        if (!input.value.trim()) {
+                            isStepValid = false;
+                            input.style.borderColor = "var(--brand-red)";
+                            // Shake animation could be added here
+                        } else {
+                            input.style.borderColor = "";
+                        }
+                    });
+
+                    if (isStepValid) {
+                        currentStep.classList.remove('active');
+                        currentStep.classList.add('exit');
+                        
+                        const nextStep = steps[steps.indexOf(currentStep) + 1];
+                        if (nextStep) {
+                            nextStep.classList.add('active');
+                            updateFlowUI(steps.indexOf(nextStep));
+                        }
+                    }
+                });
+            });
+
+            /**
+             * Transition to Previous Step
+             */
+            backBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const currentStep = btn.closest('.form-step');
+                    currentStep.classList.remove('active');
+                    
+                    const prevStep = steps[steps.indexOf(currentStep) - 1];
+                    if (prevStep) {
+                        prevStep.classList.remove('exit');
+                        prevStep.classList.add('active');
+                        updateFlowUI(steps.indexOf(prevStep));
+                    }
+                });
+            });
+
+            /**
+             * Keyboard Accessibility: Enter Key Logic
+             */
+            window.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    // Prevent form submission if we aren't on the final step
+                    const activeStep = document.querySelector('.form-step.active');
+                    const isLastStep = steps.indexOf(activeStep) === steps.length - 1;
+                    
+                    if (!isLastStep) {
+                        e.preventDefault();
+                        const nextBtn = activeStep.querySelector('.btn-next');
+                        if (nextBtn) nextBtn.click();
+                    }
+                }
+            });
+
+            // Set initial progress
+            updateFlowUI(0);
+        });
+    </script>
 </body>
 </html>
