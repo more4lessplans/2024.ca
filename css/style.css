@@ -2,7 +2,7 @@
 :root {
     --brand-red: #D73C59;
     --bg-nav: #2E2F33; 
-    --bg-page: #fbfbfd;
+    --bg-page: #FBFBFD;
     --text-dark: #1d1d1f;
     --text-muted: #6e6e73;
     --card-radius: 28px;
@@ -297,7 +297,7 @@ body {
 
 /* --- 5. Pricing Section (Ultra-Premium Pro) --- */
 .pricing-area { 
-    padding: 120px 0; 
+    padding: 120px 0 0 0; /* Updated: Removed bottom padding to sit flush with FAQ */
     background: var(--bg-page); 
 }
 
@@ -307,7 +307,7 @@ body {
     gap: 24px;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 25px;
+    padding: 0 25px 0px 25px; /* Added bottom padding here to space cards from FAQ header */
 }
 
 .plan-card {
@@ -473,6 +473,7 @@ body {
     .pricing-grid { 
         flex-direction: column; 
         align-items: center; 
+        padding-bottom: 00px; 
     }
     .plan-card { 
         width: 100%; 
@@ -501,8 +502,17 @@ body {
 }
 
 /* --- 7. FAQ Section (Pro Refinement) --- */
+
+
+
+.faq-header h2 {
+    margin-top: 20px !important; /* Forces the title to the very top of the section */
+    padding-top: 40px; /* Use padding instead of margin for controlled spacing */
+    margin-bottom: 40px; /* Tightens space between title and first accordion */
+}
+
 .faq-section { 
-    padding: 160px 0; 
+    padding: 0 0 160px 0; /* Updated: 0 top padding to meet Pricing area */
     background-color: #FBFBFD; 
 }
 
@@ -517,7 +527,7 @@ body {
     font-weight: 800; 
     text-align: center; 
     letter-spacing: -0.04em; 
-    margin-bottom: 100px; 
+    margin-bottom: 20px; /* Updated: Reduced from 100px */
     color: #1d1d1f;
 }
 
