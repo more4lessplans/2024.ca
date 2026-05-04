@@ -261,7 +261,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const yearSpan = document.getElementById('year');
     if(yearSpan) yearSpan.textContent = new Date().getFullYear();
 
-    // 1. NAVIGATION LOGIC (STRICT PRESERVATION)
+    // 1. NAVIGATION LOGIC
     const trigger = document.getElementById('menuTrigger');
     const overlay = document.getElementById('mobileOverlay');
     const body = document.body;
@@ -290,16 +290,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const mainForm = document.getElementById('jotformCoverage');
     let addressSelected = false;
 
-    // Subtle Status Renderer
     function showStatus(msg, type) {
         statusBox.style.display = 'block';
+        // Using larger text classes from CSS
         statusBox.innerHTML = `<div class="status-text ${type}">${msg}</div>`;
-        // Subtle fade in
         statusBox.style.opacity = '0';
         setTimeout(() => { statusBox.style.opacity = '1'; }, 10);
     }
 
-    // Reset address selection if the user types again after selecting
+    // Reset selection if user changes text
     addressInput.addEventListener('input', () => {
         addressSelected = false;
     });
@@ -311,11 +310,13 @@ document.addEventListener('DOMContentLoaded', function() {
             if (place && place.geometry) {
                 addressSelected = true;
                 
-                // REVEAL EMAIL FIELD
+                // Show Email Module
                 emailModule.style.display = 'block';
                 setTimeout(() => { emailModule.style.opacity = '1'; }, 10);
                 
-                // Map components to hidden JotForm fields
+                // Clear any "please select address" warnings
+                statusBox.style.opacity = '0';
+
                 let street = "", city = "", prov = "", post = "";
                 place.address_components.forEach(c => {
                     const type = c.types;
@@ -336,12 +337,10 @@ document.addEventListener('DOMContentLoaded', function() {
         searchBtn.addEventListener('click', function(e) {
             e.preventDefault();
             
-            // Fixed Logic: Show warning immediately if typed but not selected from autofill
             if (!addressSelected) { 
                 showStatus('⚠ Please select an address from the autofill dropdown.', 'status-warning'); 
                 return; 
             }
-
             if (!emailInput.value.includes('@')) { 
                 showStatus('⚠ Valid email address is required.', 'status-warning'); 
                 return; 
@@ -358,10 +357,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (country && country.short_name === 'CA') {
                         HTMLFormElement.prototype.submit.call(mainForm);
                         
-                        // Success: Green confirmation + White View Packages link with down arrow
+                        // Premium Green Result + White Link with Arrow
                         showStatus(
                             '✓ High-Speed Internet Available!<br>' +
-                            '<a href="#pricing" style="color:#ffffff; text-decoration:none; display:inline-block; margin-top:8px; font-weight:400;">' +
+                            '<a href="#pricing" style="color:#ffffff; text-decoration:none; display:inline-block; margin-top:12px; font-weight:400; font-size:1.1rem;">' +
                             'View Packages ↓</a>', 
                             'status-available'
                         );
@@ -370,7 +369,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         searchBtn.style.background = '#4BB543';
                         searchBtn.style.color = '#fff';
                     } else {
-                        showStatus('✕ Checker limited to Canada.', 'status-unavailable');
+                        showStatus('✕ Service currently limited to Canada.', 'status-unavailable');
                         searchBtn.disabled = false;
                         searchBtn.innerHTML = 'Check Coverage';
                     }
