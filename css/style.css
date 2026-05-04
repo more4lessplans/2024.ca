@@ -95,7 +95,7 @@ body {
 /* --- 4. Hero Section (Pro Refinement) --- */
 .hero {
     position: relative;
-    background-image: url('../assets/img/gallery/MR6110.png'); 
+    background-image: url('../assets/img/gallery/MR6110.webp'); 
     background-size: cover;
     background-position: center;
     background-attachment: fixed; /* Creates a high-end parallax feel on scroll */
