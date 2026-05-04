@@ -442,12 +442,15 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         searchBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            if (!validAddressSelected) {
-                showStatus('⚠ Please select your address from the dropdown suggestions.', 'status-warning');
-                return;
-            }
+                e.preventDefault();
+                if (!addressSelected) {
+                    showStatus('⚠ Please select an address from the list.', 'status-warning');
+                    return;
+                }
+                if (!emailInput.value.includes('@')) {
+                    showStatus('⚠ Please enter a valid email.', 'status-warning');
+                    return;
+                }
 
             if (!emailInput || !emailInput.value.includes('@')) {
                 showStatus('⚠ A valid email address is required.', 'status-warning');
