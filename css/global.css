@@ -393,125 +393,88 @@ body {
     transform: scale(1.02);
 }
 
-/* --- 1. Search Module Wrapper --- */
-.search-module-wrapper {
-    max-width: 580px;
-    margin: 0 auto 20px auto;
-    position: relative;
+/* --- Search & Coverage Module --- */
+.search-module-wrapper { 
+    max-width: 580px; 
+    margin: 0 auto; 
 }
 
-/* --- 2. Main Search Bar (Glassmorphism) --- */
 .search-module {
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    padding: 10px;
     border-radius: 20px;
-    padding: 8px;
     display: flex;
-    align-items: center;
-    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+    margin-bottom: 5px; /* Reduced to keep status close */
 }
 
-.search-module:focus-within {
-    border-color: rgba(255, 255, 255, 0.4);
-    background: rgba(255, 255, 255, 0.12);
-}
-
-.search-module input {
-    background: transparent;
-    border: none;
-    color: #ffffff;
-    padding: 12px 20px;
-    flex: 1;
-    outline: none;
-    font-size: 1.1rem;
-    min-width: 0; /* Prevents input from pushing past container boundaries */
-}
-
-.search-module input::placeholder {
-    color: rgba(255, 255, 255, 0.4);
-}
-
-/* --- 3. Premium Search Button --- */
-.btn-search {
-    background: #ffffff;
-    color: #000000;
-    border: none;
-    padding: 14px 28px;
-    border-radius: 14px;
-    font-weight: 700;
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    white-space: nowrap;
-}
-
-.btn-search:hover {
-    background: #4cd964; /* Brand Green */
-    color: #ffffff;
-    transform: translateY(-1px);
-}
-
-/* --- 4. Mandatory Email Module (Hidden by Default) --- */
-#email-module {
-    display: none;
-    opacity: 0;
-    margin-top: 12px;
-    transition: opacity 0.5s ease-in-out;
-}
-
-.email-subtext {
-    font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.5);
-    margin-top: 8px;
-    display: block;
-    text-align: center;
-}
-
-/* --- 5. Subtle Status Results --- */
+/* --- THE FIX: Status Result Positioning --- */
 #coverageResult {
-    margin-top: 18px;
+    margin: 10px 0;
     text-align: center;
-    font-weight: 600;
-    font-size: 0.95rem;
+    min-height: 1.5em; /* Reserves space so it's never "hidden" */
+    display: block !important; /* Ensure it is always part of the DOM flow */
     transition: opacity 0.3s ease;
     opacity: 0;
 }
 
+#email-module {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    margin-top: 10px;
+}
+
+.search-module input, #email-module input {
+    background: transparent;
+    border: none;
+    color: white;
+    padding: 15px 25px;
+    flex: 1;
+    outline: none;
+    font-size: 1.1rem;
+    width: 100%;
+}
+
+.status-text {
+    font-size: 1.25rem;
+    font-weight: 600;
+    display: block;
+    line-height: 1.4;
+}
+
 .status-available { color: #4cd964; }
 .status-warning   { color: #ffcc00; }
-.status-error     { color: #ff4444; }
+.status-unavailable { color: #ff4444; }
 
-/* --- 6. Mobile Responsiveness (The Fix) --- */
-@media (max-width: 580px) {
-    .search-module {
-        flex-direction: column; /* Stack vertically to prevent button bleed */
-        padding: 12px;
-        border-radius: 24px;
-    }
-
-    .search-module input {
-        width: 100%;
-        text-align: center;
-        padding: 15px 10px;
-        font-size: 1rem;
-    }
-
-    .btn-search {
-        width: 100%; /* Full width button on mobile */
-        padding: 16px;
-        margin-top: 8px;
-    }
-    
-    #coverageResult {
-        font-size: 0.85rem;
-        padding: 0 10px;
-    }
+.btn-search {
+    background: white;
+    color: #000;
+    border: none;
+    padding: 12px 35px;
+    border-radius: 14px;
+    font-weight: 700;
+    cursor: pointer;
 }
+
+@media (max-width: 580px) {
+    .search-module { flex-direction: column; }
+    .btn-search { width: 100%; margin-top: 10px; }
+}
+
+
+
+
+
+
 /* --- 5. Pricing & Product Cards (High-End Side-by-Side) --- */
 .pricing-area { 
     padding: 100px 0; 

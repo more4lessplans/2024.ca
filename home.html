@@ -257,11 +257,11 @@
    <!-- LOGIC: SYSTEM SCRIPTS -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Dynamic Year
+    // 1. DYNAMIC YEAR
     const yearSpan = document.getElementById('year');
     if(yearSpan) yearSpan.textContent = new Date().getFullYear();
 
-    // 1. NAVIGATION LOGIC
+    // 2. NAVIGATION LOGIC
     const trigger = document.getElementById('menuTrigger');
     const overlay = document.getElementById('mobileOverlay');
     const body = document.body;
@@ -281,7 +281,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // 2. LEAD CAPTURE & COVERAGE LOGIC
+    // 3. COVERAGE & LEAD LOGIC
     const addressInput = document.getElementById('addressInput');
     const emailInput = document.getElementById('emailInput');
     const emailModule = document.getElementById('email-module');
@@ -291,14 +291,15 @@ document.addEventListener('DOMContentLoaded', function() {
     let addressSelected = false;
 
     function showStatus(msg, type) {
-        statusBox.style.display = 'block';
-        // Using larger text classes from CSS
-        statusBox.innerHTML = `<div class="status-text ${type}">${msg}</div>`;
+        // Force reset and show
         statusBox.style.opacity = '0';
-        setTimeout(() => { statusBox.style.opacity = '1'; }, 10);
+        setTimeout(() => {
+            statusBox.innerHTML = `<div class="status-text ${type}">${msg}</div>`;
+            statusBox.style.opacity = '1';
+        }, 50);
     }
 
-    // Reset selection if user changes text
+    // Reset if user types manually after selecting
     addressInput.addEventListener('input', () => {
         addressSelected = false;
     });
@@ -310,13 +311,14 @@ document.addEventListener('DOMContentLoaded', function() {
             if (place && place.geometry) {
                 addressSelected = true;
                 
-                // Show Email Module
+                // Success: Reveal Email Field
                 emailModule.style.display = 'block';
                 setTimeout(() => { emailModule.style.opacity = '1'; }, 10);
                 
-                // Clear any "please select address" warnings
+                // Clear any warnings
                 statusBox.style.opacity = '0';
 
+                // Fill hidden fields
                 let street = "", city = "", prov = "", post = "";
                 place.address_components.forEach(c => {
                     const type = c.types;
@@ -337,12 +339,16 @@ document.addEventListener('DOMContentLoaded', function() {
         searchBtn.addEventListener('click', function(e) {
             e.preventDefault();
             
+            // Priority Check: Address Selection
             if (!addressSelected) { 
-                showStatus('⚠ Please select an address from the autofill dropdown.', 'status-warning'); 
+                showStatus('⚠ Please select an address from the dropdown list.', 'status-warning'); 
                 return; 
             }
+
+            // Priority Check: Email Mandatory
             if (!emailInput.value.includes('@')) { 
                 showStatus('⚠ Valid email address is required.', 'status-warning'); 
+                emailInput.focus();
                 return; 
             }
 
@@ -357,7 +363,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (country && country.short_name === 'CA') {
                         HTMLFormElement.prototype.submit.call(mainForm);
                         
-                        // Premium Green Result + White Link with Arrow
                         showStatus(
                             '✓ High-Speed Internet Available!<br>' +
                             '<a href="#pricing" style="color:#ffffff; text-decoration:none; display:inline-block; margin-top:12px; font-weight:400; font-size:1.1rem;">' +
@@ -382,7 +387,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // 3. ACCORDION LOGIC
+    // 4. ACCORDION LOGIC
     document.querySelectorAll('.accordion-header').forEach(header => {
         header.addEventListener('click', () => {
             const item = header.parentElement;
