@@ -92,30 +92,108 @@ body {
 .mobile-overlay.active .mobile-nav-links li { transform: translateY(0); opacity: 1; }
 .mobile-nav-links a { color: #fff; font-size: 2.2rem; font-weight: 700; text-decoration: none; letter-spacing: -0.03em; }
 
-/* --- Hero Section --- */
+/* --- 4. Hero Section (Pro Refinement) --- */
 .hero {
     position: relative;
     background-image: url('../assets/img/gallery/MR6110.png'); 
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
-    padding: 240px 0 160px; 
-    color: white;
+    background-attachment: fixed; /* Creates a high-end parallax feel on scroll */
+    padding: 260px 0 180px; /* Increased verticality for a more "grand" entrance */
+    color: #ffffff;
     text-align: center;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
+/* Multi-layered cinematic overlay */
 .hero::before {
     content: '';
     position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: linear-gradient(180deg, rgba(46, 47, 51, 0.8) 0%, rgba(46, 47, 51, 0.3) 50%, rgba(46, 47, 51, 0.8) 100%);
+    inset: 0;
+    /* Deepening the top and bottom to frame the content while keeping the center clear */
+    background: linear-gradient(
+        to bottom, 
+        rgba(29, 29, 31, 0.85) 0%, 
+        rgba(29, 29, 31, 0.4) 40%, 
+        rgba(29, 29, 31, 0.4) 60%, 
+        rgba(29, 29, 31, 0.9) 100%
+    );
     z-index: 1;
 }
 
-.hero .container { position: relative; z-index: 2; }
-.hero h1 { font-weight: 800; font-size: 4rem; letter-spacing: -0.05em; margin-bottom: 20px; }
-.hero p { color: rgba(255, 255, 255, 0.9); font-size: 1.35rem; max-width: 700px; margin: 0 auto 50px; }
+.hero .container { 
+    position: relative; 
+    z-index: 2; 
+    max-width: 900px;
+    padding: 0 30px;
+}
+
+/* Typography Refinement */
+.hero h1 { 
+    font-weight: 800; 
+    font-size: 4.5rem; /* Larger, more authoritative sizing */
+    line-height: 1.05;
+    letter-spacing: -0.04em; 
+    margin-bottom: 24px; 
+    /* Subtle drop shadow to ensure legibility against any image background */
+    text-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+    /* Initial state for potential fade-in animation */
+    opacity: 0;
+    transform: translateY(20px);
+    animation: heroReveal 1s cubic-bezier(0.2, 1, 0.2, 1) forwards;
+}
+
+.hero p { 
+    color: rgba(255, 255, 255, 0.95); 
+    font-size: 1.4rem; 
+    font-weight: 500;
+    line-height: 1.5;
+    max-width: 640px; 
+    margin: 0 auto 50px; 
+    letter-spacing: -0.01em;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: heroReveal 1s cubic-bezier(0.2, 1, 0.2, 1) 0.2s forwards;
+}
+
+/* Cinematic Reveal Animation */
+@keyframes heroReveal {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Hero Button Customization - Matching your Pro Button logic */
+.hero .btn-hero {
+    background: var(--brand-red);
+    color: #ffffff;
+    padding: 20px 45px;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-decoration: none;
+    display: inline-block;
+    transition: var(--transition-smooth);
+    box-shadow: 0 10px 30px rgba(215, 60, 89, 0.3);
+}
+
+.hero .btn-hero:hover {
+    transform: scale(1.03) translateY(-3px);
+    background: #ffffff;
+    color: var(--brand-dark);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hero { padding: 180px 0 120px; background-attachment: scroll; }
+    .hero h1 { font-size: 2.8rem; }
+    .hero p { font-size: 1.15rem; }
+}
 
 /* --- Search & Coverage Module --- */
 .search-module-wrapper { 
@@ -132,20 +210,20 @@ body {
     display: flex;
     border: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow: 0 25px 50px rgba(0,0,0,0.4);
-    margin-bottom: 12px; /* Space for status text if needed */
+    margin-bottom: 12px;
 }
 
-/* Updated Email Module to match Search Bar */
+/* Fix: Removed opacity: 0 so it's visible when JS sets display: block */
 #email-module {
     display: none;
-    opacity: 0;
-    transition: opacity 0.5s ease;
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(15px);
     padding: 10px;
     border-radius: 20px;
     border: 1px solid rgba(255, 255, 255, 0.2);
     margin-bottom: 12px;
+    /* Optional: Subtle entrance animation */
+    animation: fadeIn 0.4s ease forwards;
 }
 
 .search-module input, #email-module input {
@@ -159,44 +237,78 @@ body {
     width: 100%;
 }
 
+.search-module input::placeholder, #email-module input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
 .btn-search {
     background: white;
-    color: #000; /* Match your nav background variable */
+    color: #2E2F33; 
     border: none;
     padding: 12px 35px;
     border-radius: 14px;
     font-weight: 700;
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.btn-search:hover {
+    background: #f0f0f0;
+    transform: translateY(-1px);
 }
 
 /* --- Bigger & Better Results --- */
 #coverageResult {
-    margin: 15px 0;
+    margin: 20px 0;
     text-align: center;
     min-height: 1.5em;
-    transition: opacity 0.3s ease;
 }
 
-.status-text {
-    font-size: 1.25rem; /* Increased size as requested */
+/* Updated selector to match the span injected by your JS */
+#coverageResult span {
+    font-size: 1.25rem; 
     font-weight: 600;
-    display: block;
+    display: inline-block;
     line-height: 1.4;
+    padding: 10px 20px;
+    border-radius: 12px;
 }
 
-.status-available { color: #4cd964; }
-.status-warning   { color: #ffcc00; }
-.status-unavailable { color: #ff4444; }
+.status-available { 
+    color: #4cd964; 
+    background: rgba(76, 217, 100, 0.1); 
+}
+
+.status-warning { 
+    color: #ffcc00; 
+    background: rgba(255, 204, 0, 0.1); 
+}
+
+.status-unavailable { 
+    color: #ff4444; 
+    background: rgba(255, 68, 68, 0.1); 
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
 /* Responsive Fix */
 @media (max-width: 580px) {
     .search-module {
         flex-direction: column;
+        padding: 5px;
     }
     .btn-search {
         width: 100%;
         margin-top: 10px;
+        padding: 15px;
+    }
+    .search-module input {
+        padding: 15px;
+        text-align: center;
     }
 }
 
