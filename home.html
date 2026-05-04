@@ -261,7 +261,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const yearSpan = document.getElementById('year');
     if(yearSpan) yearSpan.textContent = new Date().getFullYear();
 
-    // 2. NAVIGATION LOGIC (STRICT PRESERVATION)
+    // 2. NAVIGATION LOGIC
     const trigger = document.getElementById('menuTrigger');
     const overlay = document.getElementById('mobileOverlay');
     const body = document.body;
@@ -281,23 +281,25 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // 3. COVERAGE LOGIC
+    // 3. COVERAGE ENGINE
     const addressInput = document.getElementById('addressInput');
     const emailInput = document.getElementById('emailInput');
     const emailModule = document.getElementById('email-module');
     const searchBtn = document.getElementById('searchBtn');
     const statusBox = document.getElementById('coverageResult');
     const mainForm = document.getElementById('jotformCoverage');
-    let addressSelected = false;
+    
+    // This is the gatekeeper variable
+    let addressIsValidated = false;
 
-    function showStatus(msg, type) {
-        statusBox.innerHTML = `<div class="status-text ${type}">${msg}</div>`;
+    function displayFeedback(message, cssClass) {
+        statusBox.innerHTML = `<div class="status-text ${cssClass}">${message}</div>`;
         statusBox.style.opacity = '1';
     }
 
-    // Reset address state if user modifies text after selecting
+    // CRITICAL: Reset validation if user types manually
     addressInput.addEventListener('input', () => {
-        addressSelected = false;
+        addressIsValidated = false;
     });
 
     if (typeof google !== 'undefined') {
@@ -305,17 +307,18 @@ document.addEventListener('DOMContentLoaded', function() {
         
         autocomplete.addListener('place_changed', () => {
             const place = autocomplete.getPlace();
+            
             if (place && place.geometry) {
-                addressSelected = true;
+                addressIsValidated = true;
                 
-                // 1. Reveal Email Field immediately below
+                // 1. Reveal Email Field
                 emailModule.style.display = 'block';
                 setTimeout(() => { emailModule.style.opacity = '1'; }, 10);
                 
-                // 2. Clear previous warnings
+                // 2. Clear any "Select from dropdown" warnings
                 statusBox.innerHTML = '';
 
-                // 3. Map hidden fields for JotForm
+                // 3. Populate Hidden JotForm Fields
                 let street = "", city = "", prov = "", post = "";
                 place.address_components.forEach(c => {
                     const type = c.types;
@@ -336,21 +339,22 @@ document.addEventListener('DOMContentLoaded', function() {
         searchBtn.addEventListener('click', function(e) {
             e.preventDefault();
             
-            // Check 1: Must use autofill
-            if (!addressSelected) {
-                showStatus('⚠ Please select your address from the dropdown options.', 'status-warning');
+            // OBVIOUS WARNING: If they typed but didn't select from Google's list
+            if (!addressIsValidated) {
+                displayFeedback('⚠ Please select your address from the dropdown suggestions to continue.', 'status-warning');
+                addressInput.focus();
                 return;
             }
 
-            // Check 2: Email must be valid
+            // MANDATORY EMAIL:
             if (!emailInput.value.includes('@')) {
-                showStatus('⚠ A valid email is required to see results.', 'status-warning');
+                displayFeedback('⚠ A valid email address is required.', 'status-warning');
                 emailInput.focus();
                 return;
             }
 
-            // Clear box for processing
-            statusBox.innerHTML = '<div class="status-text" style="color:white;">Verifying...</div>';
+            // Processing State
+            searchBtn.innerHTML = 'Checking...';
             searchBtn.disabled = true;
 
             const geocoder = new google.maps.Geocoder();
@@ -359,11 +363,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     const country = results[0].address_components.find(c => c.types.includes('country'));
                     
                     if (country && country.short_name === 'CA') {
-                        // Submit to JotForm
+                        // Submit Form
                         HTMLFormElement.prototype.submit.call(mainForm);
                         
-                        // Show Success Output
-                        showStatus(
+                        // Show Premium Success
+                        displayFeedback(
                             '✓ High-Speed Internet Available!<br>' +
                             '<a href="#pricing" class="status-link">View Packages ↓</a>', 
                             'status-available'
@@ -373,12 +377,12 @@ document.addEventListener('DOMContentLoaded', function() {
                         searchBtn.style.background = '#4cd964';
                         searchBtn.style.color = '#fff';
                     } else {
-                        showStatus('✕ Service is currently limited to Canada.', 'status-unavailable');
+                        displayFeedback('✕ Currently only serving Canada.', 'status-error');
                         searchBtn.disabled = false;
                         searchBtn.innerHTML = 'Check Coverage';
                     }
                 } else {
-                    showStatus('⚠ Error verifying address. Please try again.', 'status-warning');
+                    displayFeedback('⚠ Address not found. Please use the autofill dropdown.', 'status-warning');
                     searchBtn.disabled = false;
                     searchBtn.innerHTML = 'Check Coverage';
                 }
@@ -386,7 +390,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // 4. ACCORDION LOGIC
+    // 4. ACCORDION (FAQ)
     document.querySelectorAll('.accordion-header').forEach(header => {
         header.addEventListener('click', () => {
             const item = header.parentElement;

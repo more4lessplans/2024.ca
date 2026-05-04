@@ -393,26 +393,30 @@ body {
     transform: scale(1.02);
 }
 
-/* --- Ultra-Premium Stacked Layout --- */
+/* --- Ultra-Premium Stacked Interface --- */
 .search-module-wrapper { 
     max-width: 580px; 
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 12px; /* Consistent spacing between all vertical elements */
+    gap: 15px; /* Perfect spacing between all elements */
 }
 
-/* Base style for both Address and Email containers */
-.input-container {
+/* Base Input Styling */
+.input-group {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
-    border-radius: 18px;
+    border-radius: 16px;
     border: 1px solid rgba(255, 255, 255, 0.2);
-    transition: all 0.3s ease;
+    transition: border-color 0.3s ease;
 }
 
-.input-container input {
+.input-group:focus-within {
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.input-group input {
     width: 100%;
     background: transparent;
     border: none;
@@ -422,63 +426,62 @@ body {
     font-size: 1.1rem;
 }
 
-/* Specifically for the Email Module Reveal */
+/* Email Module (Initially Hidden) */
 #email-module {
-    display: none; /* Controlled by JS */
+    display: none;
     opacity: 0;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.5s ease-in-out;
 }
 
-/* Premium Full-Width Button */
+/* The Button */
 .btn-search {
     width: 100%;
     background: #ffffff;
     color: #000;
     border: none;
     padding: 18px;
-    border-radius: 18px;
+    border-radius: 16px;
     font-weight: 700;
     font-size: 1.1rem;
     cursor: pointer;
-    transition: transform 0.2s ease, background 0.3s ease;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
 }
 
-.btn-search:active {
-    transform: scale(0.98);
+.btn-search:hover {
+    background: #f0f0f0;
+    transform: translateY(-2px);
 }
 
-/* --- Results & Warnings (Always below the button) --- */
+/* --- THE WARNING & STATUS AREA --- */
 #coverageResult {
-    margin-top: 10px;
+    margin-top: 5px;
     text-align: center;
-    min-height: 50px; /* Reserves space so content doesn't jump */
+    min-height: 60px; /* Reserves space so button doesn't jump wildly */
 }
 
 .status-text {
     font-size: 1.25rem;
-    font-weight: 600;
+    font-weight: 700;
     line-height: 1.4;
     display: block;
+    padding: 10px;
+    border-radius: 12px;
 }
 
+/* Color States */
 .status-available { color: #4cd964; }
-.status-warning   { color: #ffcc00; }
-.status-unavailable { color: #ff4444; }
+.status-warning   { color: #ffcc00; background: rgba(255, 204, 0, 0.1); }
+.status-error     { color: #ff4444; }
 
-/* Sub-text for the "View Packages" link */
 .status-link {
     color: #ffffff;
     text-decoration: none;
     display: inline-block;
     margin-top: 10px;
-    font-weight: 400;
     font-size: 1.1rem;
-    border-bottom: 1px solid rgba(255,255,255,0.3);
+    border-bottom: 1px solid rgba(255,255,255,0.4);
 }
-
-
-
 /* --- 5. Pricing & Product Cards (High-End Side-by-Side) --- */
 .pricing-area { 
     padding: 100px 0; 
