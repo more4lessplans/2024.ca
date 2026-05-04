@@ -261,21 +261,21 @@ document.addEventListener('DOMContentLoaded', function() {
     const yearSpan = document.getElementById('year');
     if(yearSpan) yearSpan.textContent = new Date().getFullYear();
 
-    // 2. NAVIGATION LOGIC (STRICT PRESERVATION)
+    // 2. NAVIGATION LOGIC
     const trigger = document.getElementById('menuTrigger');
     const overlay = document.getElementById('mobileOverlay');
     const body = document.body;
 
     const toggleMenu = () => {
         const isActive = overlay.classList.contains('active');
-        trigger.classList.toggle('menu-active');
-        overlay.classList.toggle('active');
+        if(trigger) trigger.classList.toggle('menu-active');
+        if(overlay) overlay.classList.toggle('active');
         body.style.overflow = isActive ? 'auto' : 'hidden';
     };
 
     if(trigger) {
         trigger.addEventListener('click', (e) => { e.stopPropagation(); toggleMenu(); });
-        overlay.addEventListener('click', (e) => { if (e.target === overlay) toggleMenu(); });
+        if(overlay) overlay.addEventListener('click', (e) => { if (e.target === overlay) toggleMenu(); });
         document.querySelectorAll('.mobile-nav-links a').forEach(link => {
             link.addEventListener('click', toggleMenu);
         });
@@ -289,22 +289,32 @@ document.addEventListener('DOMContentLoaded', function() {
     const statusBox = document.getElementById('coverageResult');
     const mainForm = document.getElementById('jotformCoverage');
     
-    // PRIORITY: Gatekeeper for Google Autofill
     let validAddressSelected = false;
 
     function showFeedback(msg, type) {
-        statusBox.innerHTML = `<div class="status-text ${type}">${msg}</div>`;
+        const isCaution = type.includes('warning') || type.includes('caution');
+        const isSuccess = type.includes('available') || type.includes('success');
+        statusBox.className = `coverage-status ${isCaution ? 'caution' : ''} ${isSuccess ? 'success' : ''}`;
+        
+        if (isCaution) {
+            statusBox.innerHTML = `<div class="status-content"><div class="caution-icon">!</div><p>${msg}</p></div>`;
+        } else if (isSuccess) {
+            statusBox.innerHTML = `<div class="status-content"><div class="status-header">SUCCESS</div><p>${msg}</p></div>`;
+        }
         statusBox.style.opacity = '1';
     }
 
-    // RESET LOGIC: If the user types manually, the autofill is invalidated
+    // RESET: If user re-types, hide email field and invalidate
     addressInput.addEventListener('input', () => {
         validAddressSelected = false;
-        // Optionally clear results if they start typing again
-        statusBox.innerHTML = ''; 
+        if(emailModule) {
+            emailModule.style.setProperty('display', 'none', 'important');
+            emailModule.style.opacity = '0';
+        }
+        statusBox.style.opacity = '0';
     });
 
-    if (typeof google !== 'undefined') {
+    if (typeof google !== 'undefined' && addressInput) {
         const autocomplete = new google.maps.places.Autocomplete(addressInput);
         
         autocomplete.addListener('place_changed', () => {
@@ -312,14 +322,15 @@ document.addEventListener('DOMContentLoaded', function() {
             if (place && place.geometry) {
                 validAddressSelected = true;
                 
-                // REVEAL EMAIL: Uses flex to maintain bar styling
-                emailModule.style.display = 'flex'; 
-                setTimeout(() => { emailModule.style.opacity = '1'; }, 10);
+                // FORCE REVEAL: Override the !important display:none
+                if (emailModule) {
+                    emailModule.style.setProperty('display', 'flex', 'important');
+                    setTimeout(() => { emailModule.style.opacity = '1'; }, 10);
+                }
                 
-                // Clear any "Please select from dropdown" warnings
-                statusBox.innerHTML = '';
+                statusBox.style.opacity = '0';
 
-                // MAP DATA TO JOTFORM
+                // Fill hidden JotForm fields
                 let street = "", city = "", prov = "", post = "";
                 place.address_components.forEach(c => {
                     const type = c.types;
@@ -330,63 +341,56 @@ document.addEventListener('DOMContentLoaded', function() {
                     if(type.includes("postal_code")) post = c.long_name;
                 });
                 
-                document.getElementById('jf_street').value = street;
-                document.getElementById('jf_city').value = city;
-                document.getElementById('jf_state').value = prov;
-                document.getElementById('jf_postal').value = post;
+                if (document.getElementById('jf_street')) document.getElementById('jf_street').value = street;
+                if (document.getElementById('jf_city')) document.getElementById('jf_city').value = city;
+                if (document.getElementById('jf_state')) document.getElementById('jf_state').value = prov;
+                if (document.getElementById('jf_postal')) document.getElementById('jf_postal').value = post;
             }
         });
 
         searchBtn.addEventListener('click', function(e) {
             e.preventDefault();
             
-            // 1. PRIMARY GATE: DROPDOWN CHECK
             if (!validAddressSelected) {
-                showFeedback('⚠ Please select your address from the dropdown suggestions.', 'status-warning');
+                showFeedback('Please select your address from the suggestions dropdown.', 'caution');
                 addressInput.focus();
                 return;
             }
 
-            // 2. SECONDARY GATE: EMAIL CHECK
-            if (!emailInput.value.includes('@') || emailInput.value.length < 5) {
-                showFeedback('⚠ A valid email address is required.', 'status-warning');
-                emailInput.focus();
+            if (!emailInput || !emailInput.value.includes('@')) {
+                showFeedback('A valid email address is required.', 'caution');
+                if (emailInput) emailInput.focus();
                 return;
             }
 
-            // UI LOADING STATE
-            searchBtn.innerHTML = 'Verifying...';
+            searchBtn.innerHTML = 'VERIFYING...';
             searchBtn.disabled = true;
 
             const geocoder = new google.maps.Geocoder();
             geocoder.geocode({ address: addressInput.value }, function(results, status) {
                 if (status === 'OK') {
                     const country = results[0].address_components.find(c => c.types.includes('country'));
-                    
                     if (country && country.short_name === 'CA') {
-                        // Submit hidden JotForm
-                        HTMLFormElement.prototype.submit.call(mainForm);
-                        
-                        // SUCCESS UI
-                        showFeedback('✓ High-Speed Internet Available!<br><a href="#pricing" style="color:#fff; text-decoration:underline; font-size:1.1rem; margin-top:10px; display:inline-block;">View Packages ↓</a>', 'status-available');
-                        searchBtn.innerHTML = 'Available';
+                        if (mainForm) HTMLFormElement.prototype.submit.call(mainForm);
+                        showFeedback('High-Speed Internet is available!<br><a href="#pricing" class="status-cta" style="margin-top:15px;">View Packages ↓</a>', 'success');
+                        searchBtn.innerHTML = 'AVAILABLE';
                         searchBtn.style.background = '#4cd964';
                         searchBtn.style.color = '#fff';
                     } else {
-                        showFeedback('✕ Service is currently limited to Canada.', 'status-warning');
+                        showFeedback('Service is currently limited to Canada.', 'caution');
                         searchBtn.disabled = false;
-                        searchBtn.innerHTML = 'Check Coverage';
+                        searchBtn.innerHTML = 'CHECK COVERAGE';
                     }
                 } else {
-                    showFeedback('⚠ Address check failed. Please re-select from the dropdown.', 'status-warning');
+                    showFeedback('Geocoding failed. Use the dropdown.', 'caution');
                     searchBtn.disabled = false;
-                    searchBtn.innerHTML = 'Check Coverage';
+                    searchBtn.innerHTML = 'CHECK COVERAGE';
                 }
             });
         });
     }
 
-    // 4. ACCORDION (FAQ) LOGIC
+    // 4. ACCORDION
     document.querySelectorAll('.accordion-header').forEach(header => {
         header.addEventListener('click', () => {
             const item = header.parentElement;

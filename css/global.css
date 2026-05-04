@@ -331,100 +331,74 @@ body {
     .hero p { font-size: 1.15rem; }
 }
 
-/* --- High-End Search & Coverage Module --- */
+/* --- 4.1 Coverage/Search Module --- */
 .search-module-wrapper { 
-    max-width: 580px; 
-    margin: 0 auto;
+    max-width: 620px; 
+    margin: 0 auto 40px; 
     display: flex;
     flex-direction: column;
 }
 
-/* Base style for the containers */
+/* Glassmorphism Bars */
 .search-module, #email-module {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.08); 
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    padding: 8px; 
+    border-radius: 22px; 
     display: flex;
     align-items: center;
-    padding: 10px;
-    margin-bottom: 15px; /* Spacing between Address and Email */
-    transition: all 0.3s ease;
-}
-
-/* Inputs stay clean and white */
-.search-module input, #email-module input {
-    background: transparent;
-    border: none;
-    color: white;
-    padding: 15px 20px;
-    flex: 1;
-    outline: none;
-    font-size: 1.1rem;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     width: 100%;
 }
 
-/* Initially hide email field */
+/* MANDATORY HIDDEN STATE */
 #email-module {
-    display: none;
+    display: none !important; /* Physically removed from flow */
     opacity: 0;
+    margin-top: 15px;
+    transition: opacity 0.4s ease;
 }
 
-/* The Button - Premium Design */
+.search-module input, #email-module input {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    padding: 12px 25px;
+    flex: 1;
+    outline: none;
+    font-size: 1.15rem;
+}
+
+/* Premium Button */
 .btn-search {
-    background: white;
+    background: #ffffff;
     color: #000;
     border: none;
-    padding: 14px 35px;
-    border-radius: 14px;
+    padding: 14px 35px; 
+    border-radius: 16px;
     font-weight: 700;
-    font-size: 1rem;
+    font-size: 0.95rem;
+    text-transform: uppercase;
     cursor: pointer;
-    transition: transform 0.2s ease, background 0.3s ease;
-    white-space: nowrap;
+    transition: all 0.3s ease;
 }
 
-/* --- MOBILE STACKING LOGIC --- */
+/* MOBILE STACKING */
 @media (max-width: 600px) {
-    /* Force the bars to be taller for fingers */
     .search-module, #email-module {
         flex-direction: column; 
         padding: 15px;
         align-items: stretch;
     }
 
-    /* Move the button below the address field on mobile */
-    .search-module .btn-search {
-        width: 100%;
-        margin-top: 15px; /* Space between text and button */
+    .btn-search {
+        width: 100%; 
+        margin-top: 15px;
         padding: 18px;
-        font-size: 1.1rem;
-    }
-
-    .search-module input {
-        text-align: center; /* Better look on small screens */
-        padding: 10px 0;
     }
 }
-
-/* --- Warning & Result Spacing --- */
-#coverageResult {
-    margin-top: 10px;
-    text-align: center;
-    min-height: 50px;
-}
-
-.status-text {
-    font-size: 1.2rem;
-    font-weight: 600;
-    line-height: 1.4;
-    padding: 10px;
-    display: block;
-}
-
-.status-warning { color: #ffcc00; }
-.status-available { color: #4cd964; }
 /* --- 5. Pricing & Product Cards (High-End Side-by-Side) --- */
 .pricing-area { 
     padding: 100px 0; 
