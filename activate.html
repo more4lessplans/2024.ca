@@ -1,273 +1,881 @@
 <!DOCTYPE html>
-<html data-bs-theme="light" lang="en-US" dir="ltr">
+<html lang="en-US">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activate Your Service | More4Less</title>
 
-  <!-- SEO and Meta Tags -->
-  <title>Activate Your Service | More4Less Wireless Internet & SIM Plans</title>
-  <meta name="keywords" content="activate router, activate SIM, More4Less activation, wireless internet activation, SIM card activation, high-speed internet setup, Canada internet activation, LTE 5G activation, mobile data plans, router setup">
-  <meta name="description" content="Activate your More4Less router or SIM card quickly and easily. Get high-speed wireless internet or mobile data plans with straightforward setup. Start enjoying reliable connectivity today!">
-  <meta property="og:title" content="Activate Your Service | More4Less Wireless Internet & SIM Plans">
-  <meta property="og:description" content="Activate your More4Less router or SIM card quickly and easily. Get high-speed wireless internet or mobile data plans with straightforward setup. Start enjoying reliable connectivity today!">
-  <meta property="og:image" content="https://more4lessplans.ca/main.jpg">
-  <meta property="og:url" content="https://more4lessplans.ca/activate">
-  <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Activate Your Service | More4Less Wireless Internet & SIM Plans">
-  <meta name="twitter:description" content="Activate your More4Less router or SIM card quickly and easily. Get high-speed wireless internet or mobile data plans with straightforward setup. Start enjoying reliable connectivity today!">
-  <meta name="twitter:image" content="https://more4lessplans.ca/main.jpg">
+    <script src="https://js.chargebee.com/v2/chargebee.js" data-cb-site="more4lessplans" ></script>
 
-  <!-- Favicons -->
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicons/favicon-16x16.png">
-  <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicons/favicon.ico">
-  <link rel="manifest" href="assets/img/favicons/manifest.json">
-  <meta name="msapplication-TileImage" content="assets/img/favicons/mstile-150x150.png">
-  <meta name="theme-color" content="#2E2F34">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Bootstrap CSS -->
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="/navbar.css">
-  <link rel="stylesheet" href="/footer.css">
-  <link rel="stylesheet" href="vendors/swiper/swiper-bundle.min.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
-  <link href="assets/css/theme.min.css" rel="stylesheet" id="style-default">
-  <link href="assets/css/user-rtl.min.css" rel="stylesheet" id="user-style-rtl">
-  <link href="assets/css/user.min.css" rel="stylesheet" id="user-style-default">
-  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
-
-  <!-- Page-Specific CSS -->
-  <style>
-    body {
-      padding-top: 70px;
-    }
-    @media (max-width: 576px) {
-      body { padding-top: 60px; }
-    }
-    .text-danger { color: #2E2F33 !important; }
-    .text-muted { color: #565656 !important; }
-    .btn-primary {
-      border: 2px solid #2E2F33;
-      background-color: #2E2F33;
-      color: #fff;
-      font-weight: 600;
-      border-radius: 9px;
-      padding: 15px 45px;
-      transition: all 0.3s ease;
-      text-transform: none;
-    }
-    .btn-primary:hover, .btn-primary:focus {
-      background-color: transparent;
-      color: #000;
-      border: 2px solid #000;
-    }
-    .activation-card {
-      background: #F9F9F9;
-      border: none;
-      border-radius: 15px;
-      padding: 30px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-      transition: box-shadow 0.3s ease;
-    }
-    .activation-card:hover { box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); }
-    .activation-tabs {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 2rem;
-      border-bottom: 1px solid #E5E7EB;
-    }
-    .activation-tab {
-      padding: 10px 20px;
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: #565656;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      border-bottom: 3px solid transparent;
-    }
-    .activation-tab.active { color: #2E2F33; border-bottom: 3px solid #2E2F33; }
-    .activation-tab:hover { color: #2E2F33; }
-    .tab-content { display: none; text-align: center; }
-    .tab-content.active { display: block; }
-    .tab-content img { max-width: 200px; height: auto; margin: 1rem auto; }
-    .tab-content p { font-size: 1rem; line-height: 1.6; color: #565656; margin-bottom: 2rem; }
-    .section-title h3 {
-      position: relative;
-      display: inline-block;
-      padding-bottom: 10px;
-      color: #2E2F33;
-    }
-    .section-title h3::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 250px;
-      height: 3px;
-      background: linear-gradient(90deg, #313C59, #2E2F33);
-      border-radius: 2px;
-    }
-    .section-title p { font-family: 'Rubik', sans-serif; font-weight: 400; letter-spacing: 0.5px; }
-    @media (max-width: 991.98px) {
-      #activation-section { padding-top: 120px; }
-      .section-title { padding-top: 20px; }
-    }
-    .reactivate-text {
-      font-size: 0.9rem;
-      color: #9CA3AF;
-      text-align: center;
-      margin-top: 1.5rem;
-    }
-    .reactivate-text a {
-      color: #2E2F33;
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.3s ease;
-    }
-    .reactivate-text a:hover {
-      color: #D73C59;
-    }
-  </style>
-</head>
-
-<body>
-  <div id="navbar-container"></div>
-
-  <main class="main" id="top">
-    <div class="content">
-      <section class="bg-white py-8 py-lg-10" id="activation-section">
-        <div class="container">
-          <div class="row justify-content-center text-center mb-5 section-title">
-            <div class="col-md-8 col-lg-7">
-              <h3 class="fs-4 fs-lg-3 fw-bold mb-2 lh-sm">Activate Your Service</h3>
-              <p class="fs-8 lh-lg text-muted">Select your service type to begin the activation process.</p>
-            </div>
-          </div>
-          <div class="row justify-content-center">
-            <div class="col-md-8 col-lg-6">
-              <div class="activation-card">
-                <div class="activation-tabs">
-                  <div class="activation-tab active" data-tab="router">Wireless Internet</div>
-                  <div class="activation-tab" data-tab="sim">Talk, Text & Data</div>
-                </div>
-                <div class="tab-content active" id="router-content">
-                  <img src="assets/img/Hero/active.png" alt="Router Activation" class="mb-3">
-                  <p>Activate your Wireless Internet service for high-speed connectivity at home or on the go. Have your credit card and router details ready.</p>
-                    <button class="btn btn-primary" onclick="window.location.href='javascript:void(0)'" data-cb-type="checkout" data-cb-plan-id="home-internet">Activate</button>
-                </div>
-                <div class="tab-content" id="sim-content">
-                  <img src="assets/img/Hero/sim.png" alt="SIM Activation" class="mb-3">
-                  <p>Activate your Talk, Text & Data Mobility Plan for your phone. Ensure you have your credit card and phone ready for a quick setup.</p>
-                  <button class="btn btn-primary" onclick="window.location.href='/activate-sim'">Activate</button>
-                </div>
-              </div>
-              <p class="reactivate-text">Returning Customer? <a href="/reactivate-service">Re-Activate Your Service →</a></p>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-  </main>
-
-  <div id="footer-container"></div>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script src="https://js.chargebee.com/v2/chargebee.js" data-cb-site="more4lessplans"></script>
-  <script src="vendors/is/is.min.js"></script>
-  <script src="vendors/countup/countUp.umd.js"></script>
-  <script src="vendors/swiper/swiper-bundle.min.js"></script>
-  <script src="vendors/lodash/lodash.min.js"></script>
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
-  <script src="assets/js/theme.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Load navbar
-      fetch('/navbar.html')
-        .then(response => {
-          if (!response.ok) throw new Error('Failed to load navbar.html: ' + response.status);
-          return response.text();
-        })
-        .then(data => {
-          document.getElementById('navbar-container').innerHTML = data;
-          const navbarScript = document.createElement('script');
-          navbarScript.src = '/navbar.js';
-          navbarScript.onload = function() {
-            initializeNavbar(); // Assumes this function exists in navbar.js
-          };
-          document.body.appendChild(navbarScript);
-        })
-        .catch(error => console.error('Error loading navbar:', error));
-
-      // Load footer
-      fetch('/footer.html')
-        .then(response => {
-          if (!response.ok) throw new Error('Failed to load footer.html: ' + response.status);
-          return response.text();
-        })
-        .then(data => {
-          document.getElementById('footer-container').innerHTML = data;
-          document.getElementById('currentYear').textContent = new Date().getFullYear();
-        })
-        .catch(error => console.error('Error loading footer:', error));
-
-      // Tab switching
-      const tabs = document.querySelectorAll('.activation-tab');
-      const contents = document.querySelectorAll('.tab-content');
-      tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-          tabs.forEach(t => t.classList.remove('active'));
-          contents.forEach(c => c.classList.remove('active'));
-          tab.classList.add('active');
-          document.getElementById(`${tab.getAttribute('data-tab')}-content`).classList.add('active');
-        });
-      });
-
-      // Chargebee activation button
-      const activateBtn = document.querySelector('.activate-btn');
-      activateBtn.addEventListener('click', () => {
-        if (typeof Chargebee === 'undefined') {
-          console.error('Chargebee library not loaded');
-          window.location.href = '/error.html'; // Fallback URL
-          return;
+    <style>
+        /* ─── SITE TOKENS ────────────────────────────────────────── */
+        :root {
+            --brand-red:      #D73C59;
+            --brand-red-glow: rgba(215, 60, 89, 0.10);
+            --brand-red-dark: #b82e48;
+            --bg-nav:         #2E2F33;
+            --bg-page:        #FBFBFD;
+            --text-dark:      #1d1d1f;
+            --text-muted:     #6e6e73;
+            --card-radius:    28px;
+            --nav-h:          68px;
+            --border:         #eaeaec;
         }
 
-        const cbInstance = Chargebee.init({
-          site: 'more4lessplans',
-          publishableKey: 'live_9xoL0GUAJyfaZddNn5cdFhI4hrLAGhyIh' // Replace with actual Chargebee publishable key
-        });
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { font-size: 15px; scroll-behavior: smooth; }
 
-        // Simulate fetching a hosted checkout session (replace with actual server-side call)
-        const hostedPage = {
-          id: 'hosted-page-id',
-          url: 'https://more4lessplans.chargebee.com/hosted_pages/plans/home-internet' // Replace with actual hosted page URL
-        };
+        body {
+            font-family: 'Figtree', sans-serif;
+            background: var(--bg-page);
+            color: var(--text-dark);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
 
-        cbInstance.openCheckout({
-          hostedPage: () => Promise.resolve(hostedPage),
-          success: (hostedPageId) => {
-            console.log('Checkout successful:', hostedPageId);
-            window.location.href = '/activation-success.html'; // Redirect after successful checkout
-          },
-          close: () => {
-            console.log('Checkout closed');
-          },
-          error: (err) => {
-            console.error('Checkout error:', err);
-            window.location.href = '/error.html'; // Fallback URL
-          }
-        });
-      });
+        /* ─── NAVBAR ─────────────────────────────────────────────── */
+        .navbar-custom {
+            background-color: var(--bg-nav);
+            padding: 1.2rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 4000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 25px;
+        }
+
+        .navbar-brand img { height: 22px; }
+
+        .nav-links-desktop {
+            display: flex;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links-desktop li a {
+            color: #ffffff;
+            font-weight: 500;
+            font-size: 0.85rem;
+            margin: 0 18px;
+            text-decoration: none;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+            position: relative;
+        }
+
+        .nav-links-desktop li a:hover { opacity: 1; }
+
+        .nav-links-desktop li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--brand-red);
+            transition: width 0.4s cubic-bezier(0.2, 1, 0.2, 1);
+        }
+
+        .nav-links-desktop li a:hover::after { width: 100%; }
+
+        .btn-portal-top::after { display: none !important; }
+
+        .btn-portal-top {
+            background: var(--brand-red);
+            color: white !important;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            opacity: 1 !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .btn-portal-top:hover {
+            background: #ffffff !important;
+            color: var(--text-dark) !important;
+            transform: translateY(-2px);
+        }
+
+        .menu-trigger {
+            display: none;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 5001;
+            position: relative;
+        }
+
+        .menu-icon {
+            width: 26px;
+            height: 18px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .menu-icon span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background: #fff;
+            border-radius: 10px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .menu-active .menu-icon span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        .menu-active .menu-icon span:nth-child(2) { opacity: 0; transform: translateX(10px); }
+        .menu-active .menu-icon span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+        .mobile-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(29, 29, 31, 0.98);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 4500;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        .mobile-overlay.active { opacity: 1; visibility: visible; }
+
+        .mobile-nav-links { list-style: none; padding: 0; text-align: center; }
+
+        .mobile-nav-links li {
+            margin: 25px 0;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: 0.4s ease;
+        }
+
+        .mobile-overlay.active .mobile-nav-links li { transform: translateY(0); opacity: 1; }
+
+        .mobile-nav-links li:nth-child(1) { transition-delay: 0.10s; }
+        .mobile-nav-links li:nth-child(2) { transition-delay: 0.15s; }
+        .mobile-nav-links li:nth-child(3) { transition-delay: 0.20s; }
+
+        .mobile-nav-links a {
+            color: #fff;
+            font-size: 2.2rem;
+            font-weight: 700;
+            text-decoration: none;
+            letter-spacing: -0.03em;
+            position: relative;
+            display: inline-block;
+        }
+
+        .mobile-nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--brand-red);
+            transition: width 0.4s cubic-bezier(0.2, 1, 0.2, 1);
+        }
+
+        .mobile-nav-links a:hover::after { width: 100%; }
+
+        /* ─── HERO ───────────────────────────────────────────────── */
+        .activate-hero {
+            height: 100vh;
+            max-height: 100vh;
+            padding-top: var(--nav-h);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: height 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+                        max-height 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .activate-hero.compact {
+            height: auto;
+            max-height: none;
+            min-height: 0;
+            padding-bottom: 52px;
+        }
+
+        /* Dot-grid background */
+        .activate-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
+            background-size: 28px 28px;
+            opacity: 0.8;
+            mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, black 20%, transparent 100%);
+            pointer-events: none;
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 820px;
+            padding: 60px 24px 70px;
+        }
+
+        /* Ruled eyebrow */
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-muted);
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeUp 0.6s ease 0.1s forwards;
+        }
+
+        .hero-eyebrow::before,
+        .hero-eyebrow::after {
+            content: '';
+            display: block;
+            width: 28px;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .hero-headline {
+            font-size: clamp(2.6rem, 5.5vw, 4rem);
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1.05;
+            color: var(--text-dark);
+            margin-bottom: 14px;
+            opacity: 0;
+            animation: fadeUp 0.7s ease 0.2s forwards;
+        }
+
+        .hero-sub {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 56px;
+            font-weight: 400;
+            opacity: 0;
+            animation: fadeUp 0.7s ease 0.3s forwards;
+            transition: opacity 0.35s ease, max-height 0.5s ease, margin 0.5s ease;
+            max-height: 80px;
+            overflow: hidden;
+        }
+
+        .hero-sub.hidden {
+            opacity: 0;
+            max-height: 0;
+            margin-bottom: 0;
+            pointer-events: none;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(18px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ─── SERVICE CARDS ──────────────────────────────────────── */
+        .service-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            width: 100%;
+            max-width: 680px;
+            opacity: 0;
+            animation: fadeUp 0.7s ease 0.4s forwards;
+        }
+
+        .activate-hero.compact .service-grid {
+            margin-top: 36px;
+        }
+
+        .service-card {
+            background: #ffffff;
+            border: 2px solid var(--border);
+            border-radius: var(--card-radius);
+            padding: 44px 32px 38px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition:
+                border-color 0.35s ease,
+                box-shadow 0.35s ease,
+                transform 0.35s cubic-bezier(0.34, 1.46, 0.64, 1),
+                opacity 0.35s ease;
+        }
+
+        /* Bottom accent bar */
+        .service-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 3px;
+            background: var(--brand-red);
+            border-radius: 0 0 var(--card-radius) var(--card-radius);
+            transform: scaleX(0);
+            transition: transform 0.35s ease;
+        }
+
+        .service-card:hover {
+            border-color: #d0d0d4;
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+        }
+
+        .service-card:hover::after,
+        .service-card.selected::after { transform: scaleX(1); }
+
+        .service-card.selected {
+            border-color: var(--brand-red);
+            box-shadow: 0 0 0 5px var(--brand-red-glow), 0 20px 45px rgba(0,0,0,0.07);
+            transform: translateY(-5px);
+        }
+
+        .service-card.unselected {
+            opacity: 0.35;
+            transform: none;
+        }
+
+        /* Selected badge */
+        .card-badge {
+            position: absolute;
+            top: 16px; right: 16px;
+            background: var(--brand-red);
+            color: #fff;
+            font-size: 0.65rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 50px;
+            opacity: 0;
+            transform: scale(0.75) translateY(-4px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .service-card.selected .card-badge { opacity: 1; transform: scale(1) translateY(0); }
+
+        /* Icon container */
+        .card-icon-wrap {
+            width: 68px;
+            height: 68px;
+            border-radius: 20px;
+            background: var(--bg-page);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 22px;
+            transition: background 0.35s ease, transform 0.4s cubic-bezier(0.34, 1.46, 0.64, 1);
+        }
+
+        .service-card:hover .card-icon-wrap,
+        .service-card.selected .card-icon-wrap {
+            background: rgba(215, 60, 89, 0.06);
+            transform: scale(1.07) translateY(-3px);
+        }
+
+        .card-icon-wrap svg {
+            width: 32px;
+            height: 32px;
+            transition: stroke 0.3s ease;
+        }
+
+        .service-card.selected .card-icon-wrap svg { stroke: var(--brand-red); }
+
+        .card-title {
+            font-size: 1.15rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+        }
+
+        .card-desc {
+            font-size: 0.83rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* ─── DETAIL PANEL ───────────────────────────────────────── */
+        .detail-wrap {
+            background: #f0f0f2;
+            border-top: 1px solid var(--border);
+            display: none;
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.7s cubic-bezier(0.4,0,0.2,1),
+                        transform 0.7s cubic-bezier(0.4,0,0.2,1);
+        }
+
+        .detail-wrap.visible { display: block; }
+        .detail-wrap.animated { opacity: 1; transform: translateY(0); }
+
+        .detail-inner {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 90px 24px 110px;
+        }
+
+        .detail-kicker {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--brand-red);
+            margin-bottom: 10px;
+        }
+
+        .detail-title {
+            font-size: 2.1rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+
+        .detail-subtitle {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            margin-bottom: 52px;
+            line-height: 1.65;
+            max-width: 560px;
+        }
+
+        /* Feature rows */
+        .feature-row {
+            display: flex;
+            gap: 26px;
+            padding: 28px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .feature-row:first-of-type { border-top: 1px solid var(--border); }
+
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: #ffffff;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .feature-icon svg {
+            width: 18px;
+            height: 18px;
+            stroke: var(--text-dark);
+        }
+
+        .feature-name {
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+        }
+
+        .feature-text {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            line-height: 1.72;
+        }
+
+        /* Conditional content */
+        .wireless-only, .talk-only { display: none; }
+        .wireless-only.show, .talk-only.show { display: block; }
+        .feature-row.wireless-only.show,
+        .feature-row.talk-only.show { display: flex; }
+
+        /* CTA card */
+        .cta-card {
+            background: var(--bg-nav);
+            border-radius: var(--card-radius);
+            padding: 40px 40px;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .cta-card-text .cta-overline {
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.35);
+            margin-bottom: 6px;
+        }
+
+        .cta-card-text .cta-heading {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: #ffffff;
+            margin-bottom: 6px;
+        }
+
+        .cta-card-text .cta-sub {
+            font-size: 0.88rem;
+            color: rgba(255,255,255,0.45);
+            line-height: 1.6;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background: var(--brand-red);
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 0.9rem;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+            box-shadow: 0 8px 24px rgba(215, 60, 89, 0.30);
+            flex-shrink: 0;
+        }
+
+        .cta-btn:hover {
+            background: #ffffff;
+            color: var(--text-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+        }
+
+        /* ─── RESPONSIVE ─────────────────────────────────────────── */
+        @media (max-width: 768px) {
+            .nav-links-desktop { display: none; }
+            .menu-trigger { display: block; }
+
+            .service-grid { gap: 12px; }
+            .service-card { padding: 30px 18px 26px; border-radius: 22px; }
+            .card-desc { display: none; }
+            .card-title { font-size: 1rem; }
+            .hero-headline { font-size: 2.4rem; }
+
+            .cta-card {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 30px;
+                border-radius: 22px;
+            }
+
+            .cta-btn { width: 100%; text-align: center; }
+            .detail-inner { padding: 60px 20px 80px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ── NAVBAR ─────────────────────────────────────────────────── -->
+<nav class="navbar-custom">
+    <div class="nav-container">
+        <a class="navbar-brand" href="/">
+            <img src="assets/img/logos/logo.png" alt="More4Less">
+        </a>
+
+        <ul class="nav-links-desktop">
+            <li><a href="/#pricing">Pricing</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/portal" class="btn-portal-top">Customer Portal</a></li>
+        </ul>
+
+        <div class="menu-trigger" id="menuTrigger" onclick="toggleMenu()">
+            <div class="menu-icon">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="mobile-overlay" id="mobileOverlay">
+    <ul class="mobile-nav-links">
+        <li><a href="/#pricing">Pricing</a></li>
+        <li><a href="/contact">Contact</a></li>
+        <li><a href="/portal">Account Portal</a></li>
+    </ul>
+</div>
+
+<!-- ── HERO ───────────────────────────────────────────────────── -->
+<section class="activate-hero" id="hero">
+    <div class="hero-inner">
+
+        <div class="hero-eyebrow">Activations</div>
+
+        <h1 class="hero-headline" id="heroHeadline">What are we<br>activating today?</h1>
+        <p class="hero-sub" id="heroSub">Select your service type below to get started.</p>
+
+        <div class="service-grid">
+
+            <!-- Wireless Internet -->
+            <div class="service-card" id="card-wireless" onclick="selectService('wireless')">
+                <div class="card-badge">Selected</div>
+                <div class="card-icon-wrap">
+                    <svg viewBox="0 0 32 32" fill="none" stroke="#1d1d1f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 12 Q16 2 28 12"/>
+                        <path d="M7.5 16 Q16 8.5 24.5 16"/>
+                        <path d="M11 20 Q16 15.5 21 20"/>
+                        <circle cx="16" cy="24" r="1.5" fill="#1d1d1f" stroke="none"/>
+                    </svg>
+                </div>
+                <div class="card-title">Wireless Internet</div>
+                <div class="card-desc">Home or mobile LTE broadband — unlimited data</div>
+            </div>
+
+            <!-- Talk, Text & Data -->
+            <div class="service-card" id="card-talk" onclick="selectService('talk')">
+                <div class="card-badge">Selected</div>
+                <div class="card-icon-wrap">
+                    <svg viewBox="0 0 32 32" fill="none" stroke="#1d1d1f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="9" y="3" width="14" height="26" rx="3"/>
+                        <line x1="13" y1="7" x2="19" y2="7"/>
+                        <circle cx="16" cy="24" r="1.2" fill="#1d1d1f" stroke="none"/>
+                    </svg>
+                </div>
+                <div class="card-title">Talk, Text & Data</div>
+                <div class="card-desc">Voice, SMS, and mobile data on one SIM</div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ── DETAIL PANEL ───────────────────────────────────────────── -->
+<div class="detail-wrap" id="detailWrap">
+    <div class="detail-inner">
+
+        <p class="detail-kicker" id="detailKicker">Service activation</p>
+        <h2 class="detail-title" id="detailTitle">Wireless Internet</h2>
+        <p class="detail-subtitle" id="detailSubtitle">Everything included with your activation.</p>
+
+        <!-- ── WIRELESS INTERNET FEATURES ────────────────────── -->
+
+        <div class="feature-row wireless-only">
+            <div class="feature-icon">
+                <svg viewBox="0 0 18 18" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M2 9 Q9 2 16 9"/>
+                    <path d="M4.5 11.5 Q9 6.5 13.5 11.5"/>
+                    <path d="M7 14 Q9 11.5 11 14"/>
+                    <circle cx="9" cy="16" r="1" fill="#1d1d1f" stroke="none"/>
+                </svg>
+            </div>
+           <div>
+    <div class="feature-name">Unlimited high-speed internet</div>
+    <p class="feature-text">Your plan includes unlimited LTE data with no hard caps or throttling thresholds. Stream, browse, and work without watching a meter.</p>
+</div>
+</div>
+
+<div class="feature-row wireless-only">
+    <div class="feature-icon">
+        <svg viewBox="0 0 18 18" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="14" height="10" rx="2"/>
+            <path d="M6 14v2M12 14v2M4 16h10"/>
+        </svg>
+    </div>
+    <div>
+        <div class="feature-name">Local support</div>
+        <p class="feature-text">Get help when you need it. Our local team is here to assist with setup, troubleshooting, and any questions or concerns along the way.</p>
+    </div>
+</div>
+
+<div class="feature-row wireless-only">
+    <div class="feature-icon">
+        <svg viewBox="0 0 18 18" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="9" r="7"/>
+            <path d="M9 5v4l3 2"/>
+        </svg>
+    </div>
+    <div>
+        <div class="feature-name">Transparent pricing</div>
+        <p class="feature-text">One simple price. No tiers, no hidden fees—just full access to the best service we offer from day one.</p>
+    </div>
+</div>
+
+<div class="feature-row wireless-only">
+    <div class="feature-icon">
+        <svg viewBox="0 0 18 18" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l4 4 8-8"/>
+        </svg>
+    </div>
+    <div>
+        <div class="feature-name">No contracts</div>
+        <p class="feature-text">Your service runs month-to-month. Pause or cancel at any time through your account portal with no cancellation fees.</p>
+    </div>
+</div>
+
+        <!-- ── TALK TEXT DATA FEATURES ────────────────────────── -->
+
+        <div class="feature-row talk-only">
+            <div class="feature-icon">
+                <svg viewBox="0 0 18 18" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 3h12v10H3z" rx="1"/>
+                    <path d="M6 8h6M6 11h4"/>
+                </svg>
+            </div>
+           <div>
+    <div class="feature-name">Talk, text & data — one SIM</div>
+    <p class="feature-text">
+        Your SIM includes unlimited calling, SMS, MMS, and mobile data on a single plan with one simple billing date. Roaming in the USA and Mexico is available as an add-on.
+    </p>
+</div>
+</div>
+
+<div class="feature-row talk-only">
+    <div class="feature-icon">
+        <svg viewBox="0 0 18 18" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="1" width="10" height="16" rx="2"/>
+            <line x1="7" y1="4.5" x2="11" y2="4.5"/>
+            <circle cx="9" cy="13.5" r="1" fill="#1d1d1f" stroke="none"/>
+        </svg>
+    </div>
+    <div>
+        <div class="feature-name">Use in any compatible device</div>
+        <p class="feature-text">
+            Your SIM is shipped physically or activated remotely as an eSIM where supported. Use it in any unlocked, compatible phone or tablet.
+            <a href="compatibility.html">Check compatibility</a>
+        </p>
+    </div>
+</div>
+
+<div class="feature-row talk-only">
+    <div class="feature-icon">
+        <svg viewBox="0 0 18 18" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="9" r="7"/>
+            <path d="M9 5v4l3 2"/>
+        </svg>
+    </div>
+    <div>
+        <div class="feature-name">Remarkable coverage</div>
+        <p class="feature-text">
+            Powered by Canada’s major telecom networks for strong, reliable coverage across the country.
+        </p>
+    </div>
+</div>
+
+<div class="feature-row talk-only">
+    <div class="feature-icon">
+        <svg viewBox="0 0 18 18" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l4 4 8-8"/>
+        </svg>
+    </div>
+    <div>
+        <div class="feature-name">No contracts</div>
+        <p class="feature-text">
+            Month-to-month service with full flexibility. Pause or cancel anytime through your account with no cancellation fees.
+        </p>
+    </div>
+</div>
+
+        <!-- ── CTA ────────────────────────────────────────────── -->
+        <div class="cta-card">
+    <div class="cta-card-text">
+        <div class="cta-overline">Ready to activate</div>
+        <div class="cta-heading" id="ctaHeading">Activate Wireless Internet</div>
+        <div class="cta-sub">Request an activation and have your service active in no time.</div>
+    </div>
+    <a href="javascript:void(0)" 
+       data-cb-type="checkout" 
+       data-cb-plan-id="platinumplan" 
+       class="cta-btn">
+        Activate
+    </a>
+</div>
+
+</div>
+</div>
+
+<script>
+    function toggleMenu() {
+        const trigger = document.getElementById('menuTrigger');
+        const overlay = document.getElementById('mobileOverlay');
+        const isOpen  = trigger.classList.contains('menu-active');
+        trigger.classList.toggle('menu-active');
+        overlay.classList.toggle('active');
+        document.body.style.overflow = isOpen ? '' : 'hidden';
+    }
+
+    document.getElementById('mobileOverlay').addEventListener('click', function(e) {
+        if (e.target === this) toggleMenu();
     });
-  </script>
+
+    const content = {
+        wireless: {
+            kicker:   'Wireless Internet — Activation',
+            title:    'Wireless Internet',
+            subtitle: 'Unlimited Internet, no slowdowns, no caps.',
+            cta:      'Activate Wireless Internet',
+        },
+        talk: {
+            kicker:   'Talk, Text & Data — Activation',
+            title:    'Talk, Text & Data',
+            subtitle: 'Voice, messaging, and mobile data — all on one plan.',
+            cta:      'Activate Talk, Text & Data',
+        }
+    };
+
+    function selectService(type) {
+        document.getElementById('card-wireless').className =
+            'service-card' + (type === 'wireless' ? ' selected' : ' unselected');
+        document.getElementById('card-talk').className =
+            'service-card' + (type === 'talk' ? ' selected' : ' unselected');
+
+        document.getElementById('hero').classList.add('compact');
+        document.getElementById('heroSub').classList.add('hidden');
+        document.getElementById('heroHeadline').textContent = 'Activation Details';
+
+        const c = content[type];
+        document.getElementById('detailKicker').textContent  = c.kicker;
+        document.getElementById('detailTitle').textContent   = c.title;
+        document.getElementById('detailSubtitle').textContent = c.subtitle;
+        document.getElementById('ctaHeading').textContent    = c.cta;
+
+        const wrap = document.getElementById('detailWrap');
+        wrap.classList.add('visible');
+        requestAnimationFrame(() => requestAnimationFrame(() => wrap.classList.add('animated')));
+
+        document.querySelectorAll('.wireless-only, .talk-only')
+            .forEach(el => el.classList.remove('show'));
+        document.querySelectorAll('.' + type + '-only')
+            .forEach(el => el.classList.add('show'));
+
+        if (window.innerWidth < 768) {
+            setTimeout(() => {
+                wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 550);
+        }
+    }
+</script>
 </body>
 </html>
