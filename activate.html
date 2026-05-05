@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Activate Your Service | More4Less</title>
 
-    <script src="https://js.chargebee.com/v2/chargebee.js" data-cb-site="more4lessplans" ></script>
-
     <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
@@ -214,7 +212,6 @@
             padding-bottom: 52px;
         }
 
-        /* Dot-grid background */
         .activate-hero::before {
             content: '';
             position: absolute;
@@ -237,7 +234,6 @@
             padding: 60px 24px 70px;
         }
 
-        /* Ruled eyebrow */
         .hero-eyebrow {
             display: inline-flex;
             align-items: center;
@@ -330,7 +326,6 @@
                 opacity 0.35s ease;
         }
 
-        /* Bottom accent bar */
         .service-card::after {
             content: '';
             position: absolute;
@@ -362,7 +357,6 @@
             transform: none;
         }
 
-        /* Selected badge */
         .card-badge {
             position: absolute;
             top: 16px; right: 16px;
@@ -381,7 +375,6 @@
 
         .service-card.selected .card-badge { opacity: 1; transform: scale(1) translateY(0); }
 
-        /* Icon container */
         .card-icon-wrap {
             width: 68px;
             height: 68px;
@@ -467,7 +460,6 @@
             max-width: 560px;
         }
 
-        /* Feature rows */
         .feature-row {
             display: flex;
             gap: 26px;
@@ -510,7 +502,6 @@
             line-height: 1.72;
         }
 
-        /* Conditional content */
         .wireless-only, .talk-only { display: none; }
         .wireless-only.show, .talk-only.show { display: block; }
         .feature-row.wireless-only.show,
@@ -691,49 +682,49 @@
                     <circle cx="9" cy="16" r="1" fill="#1d1d1f" stroke="none"/>
                 </svg>
             </div>
-           <div>
-    <div class="feature-name">Unlimited high-speed internet</div>
-    <p class="feature-text">Your plan includes unlimited LTE data with no hard caps or throttling thresholds. Stream, browse, and work without watching a meter.</p>
-</div>
-</div>
+            <div>
+                <div class="feature-name">Unlimited high-speed internet</div>
+                <p class="feature-text">Your plan includes unlimited LTE data with no hard caps or throttling thresholds. Stream, browse, and work without watching a meter.</p>
+            </div>
+        </div>
 
-<div class="feature-row wireless-only">
-    <div class="feature-icon">
-        <svg viewBox="0 0 18 18" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="4" width="14" height="10" rx="2"/>
-            <path d="M6 14v2M12 14v2M4 16h10"/>
-        </svg>
-    </div>
-    <div>
-        <div class="feature-name">Local support</div>
-        <p class="feature-text">Get help when you need it. Our local team is here to assist with setup, troubleshooting, and any questions or concerns along the way.</p>
-    </div>
-</div>
+        <div class="feature-row wireless-only">
+            <div class="feature-icon">
+                <svg viewBox="0 0 18 18" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="4" width="14" height="10" rx="2"/>
+                    <path d="M6 14v2M12 14v2M4 16h10"/>
+                </svg>
+            </div>
+            <div>
+                <div class="feature-name">Local support</div>
+                <p class="feature-text">Get help when you need it. Our local team is here to assist with setup, troubleshooting, and any questions or concerns along the way.</p>
+            </div>
+        </div>
 
-<div class="feature-row wireless-only">
-    <div class="feature-icon">
-        <svg viewBox="0 0 18 18" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="9" cy="9" r="7"/>
-            <path d="M9 5v4l3 2"/>
-        </svg>
-    </div>
-    <div>
-        <div class="feature-name">Transparent pricing</div>
-        <p class="feature-text">One simple price. No tiers, no hidden fees—just full access to the best service we offer from day one.</p>
-    </div>
-</div>
+        <div class="feature-row wireless-only">
+            <div class="feature-icon">
+                <svg viewBox="0 0 18 18" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="9" cy="9" r="7"/>
+                    <path d="M9 5v4l3 2"/>
+                </svg>
+            </div>
+            <div>
+                <div class="feature-name">Transparent pricing</div>
+                <p class="feature-text">One simple price. No tiers, no hidden fees—just full access to the best service we offer from day one.</p>
+            </div>
+        </div>
 
-<div class="feature-row wireless-only">
-    <div class="feature-icon">
-        <svg viewBox="0 0 18 18" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 9l4 4 8-8"/>
-        </svg>
-    </div>
-    <div>
-        <div class="feature-name">No contracts</div>
-        <p class="feature-text">Your service runs month-to-month. Pause or cancel at any time through your account portal with no cancellation fees.</p>
-    </div>
-</div>
+        <div class="feature-row wireless-only">
+            <div class="feature-icon">
+                <svg viewBox="0 0 18 18" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 9l4 4 8-8"/>
+                </svg>
+            </div>
+            <div>
+                <div class="feature-name">No contracts</div>
+                <p class="feature-text">Your service runs month-to-month. Pause or cancel at any time through your account portal with no cancellation fees.</p>
+            </div>
+        </div>
 
         <!-- ── TALK TEXT DATA FEATURES ────────────────────────── -->
 
@@ -744,138 +735,167 @@
                     <path d="M6 8h6M6 11h4"/>
                 </svg>
             </div>
-           <div>
-    <div class="feature-name">Talk, text & data — one SIM</div>
-    <p class="feature-text">
-        Your SIM includes unlimited calling, SMS, MMS, and mobile data on a single plan with one simple billing date. Roaming in the USA and Mexico is available as an add-on.
-    </p>
-</div>
-</div>
+            <div>
+                <div class="feature-name">Talk, text & data — one SIM</div>
+                <p class="feature-text">
+                    Your SIM includes unlimited calling, SMS, MMS, and mobile data on a single plan with one simple billing date. Roaming in the USA and Mexico is available as an add-on.
+                </p>
+            </div>
+        </div>
 
-<div class="feature-row talk-only">
-    <div class="feature-icon">
-        <svg viewBox="0 0 18 18" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="4" y="1" width="10" height="16" rx="2"/>
-            <line x1="7" y1="4.5" x2="11" y2="4.5"/>
-            <circle cx="9" cy="13.5" r="1" fill="#1d1d1f" stroke="none"/>
-        </svg>
-    </div>
-    <div>
-        <div class="feature-name">Use in any compatible device</div>
-        <p class="feature-text">
-            Your SIM is shipped physically or activated remotely as an eSIM where supported. Use it in any unlocked, compatible phone or tablet.
-            <a href="compatibility.html">Check compatibility</a>
-        </p>
-    </div>
-</div>
+        <div class="feature-row talk-only">
+            <div class="feature-icon">
+                <svg viewBox="0 0 18 18" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="4" y="1" width="10" height="16" rx="2"/>
+                    <line x1="7" y1="4.5" x2="11" y2="4.5"/>
+                    <circle cx="9" cy="13.5" r="1" fill="#1d1d1f" stroke="none"/>
+                </svg>
+            </div>
+            <div>
+                <div class="feature-name">Use in any compatible device</div>
+                <p class="feature-text">
+                    Your SIM is shipped physically or activated remotely as an eSIM where supported. Use it in any unlocked, compatible phone or tablet.
+                    <a href="compatibility.html">Check compatibility</a>
+                </p>
+            </div>
+        </div>
 
-<div class="feature-row talk-only">
-    <div class="feature-icon">
-        <svg viewBox="0 0 18 18" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="9" cy="9" r="7"/>
-            <path d="M9 5v4l3 2"/>
-        </svg>
-    </div>
-    <div>
-        <div class="feature-name">Remarkable coverage</div>
-        <p class="feature-text">
-            Powered by Canada’s major telecom networks for strong, reliable coverage across the country.
-        </p>
-    </div>
-</div>
+        <div class="feature-row talk-only">
+            <div class="feature-icon">
+                <svg viewBox="0 0 18 18" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="9" cy="9" r="7"/>
+                    <path d="M9 5v4l3 2"/>
+                </svg>
+            </div>
+            <div>
+                <div class="feature-name">Remarkable coverage</div>
+                <p class="feature-text">
+                    Powered by Canada's major telecom networks for strong, reliable coverage across the country.
+                </p>
+            </div>
+        </div>
 
-<div class="feature-row talk-only">
-    <div class="feature-icon">
-        <svg viewBox="0 0 18 18" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 9l4 4 8-8"/>
-        </svg>
-    </div>
-    <div>
-        <div class="feature-name">No contracts</div>
-        <p class="feature-text">
-            Month-to-month service with full flexibility. Pause or cancel anytime through your account with no cancellation fees.
-        </p>
-    </div>
-</div>
+        <div class="feature-row talk-only">
+            <div class="feature-icon">
+                <svg viewBox="0 0 18 18" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 9l4 4 8-8"/>
+                </svg>
+            </div>
+            <div>
+                <div class="feature-name">No contracts</div>
+                <p class="feature-text">
+                    Month-to-month service with full flexibility. Pause or cancel anytime through your account with no cancellation fees.
+                </p>
+            </div>
+        </div>
 
         <!-- ── CTA ────────────────────────────────────────────── -->
         <div class="cta-card">
-    <div class="cta-card-text">
-        <div class="cta-overline">Ready to activate</div>
-        <div class="cta-heading" id="ctaHeading">Activate Wireless Internet</div>
-        <div class="cta-sub">Request an activation and have your service active in no time.</div>
-    </div>
-    <a href="javascript:void(0)" 
-       data-cb-type="checkout" 
-       data-cb-plan-id="home-internet" 
-       class="cta-btn">
-        Activate
-    </a>
-</div>
+            <div class="cta-card-text">
+                <div class="cta-overline">Ready to activate</div>
+                <div class="cta-heading" id="ctaHeading">Activate Wireless Internet</div>
+                <div class="cta-sub">Request an activation and have your service active in no time.</div>
+            </div>
 
-</div>
+            <a
+                id="activateBtn"
+                class="cta-btn"
+                href="https://more4lessplans.chargebee.com/hosted_pages/plans/home-internet"
+                target="_blank"
+                rel="noopener noreferrer">
+                Activate
+            </a>
+        </div>
+
+    </div>
 </div>
 
 <script>
-    function toggleMenu() {
-        const trigger = document.getElementById('menuTrigger');
-        const overlay = document.getElementById('mobileOverlay');
-        const isOpen  = trigger.classList.contains('menu-active');
-        trigger.classList.toggle('menu-active');
-        overlay.classList.toggle('active');
-        document.body.style.overflow = isOpen ? '' : 'hidden';
-    }
+document.addEventListener('DOMContentLoaded', function () {
 
-    document.getElementById('mobileOverlay').addEventListener('click', function(e) {
-        if (e.target === this) toggleMenu();
-    });
-
-    const content = {
+    var content = {
         wireless: {
             kicker:   'Wireless Internet — Activation',
             title:    'Wireless Internet',
             subtitle: 'Unlimited Internet, no slowdowns, no caps.',
             cta:      'Activate Wireless Internet',
+            href:     'https://more4lessplans.chargebee.com/hosted_pages/plans/home-internet'
         },
         talk: {
             kicker:   'Talk, Text & Data — Activation',
             title:    'Talk, Text & Data',
             subtitle: 'Voice, messaging, and mobile data — all on one plan.',
             cta:      'Activate Talk, Text & Data',
+            href:     'https://more4lessplans.chargebee.com/hosted_pages/plans/platinumplan'
         }
     };
 
-    function selectService(type) {
+    window.selectService = function (type) {
+
+        var c = content[type];
+
+        // Update activate button href
+        document.getElementById('activateBtn').href = c.href;
+
+        // Update card states
         document.getElementById('card-wireless').className =
             'service-card' + (type === 'wireless' ? ' selected' : ' unselected');
         document.getElementById('card-talk').className =
             'service-card' + (type === 'talk' ? ' selected' : ' unselected');
 
+        // Collapse the hero
         document.getElementById('hero').classList.add('compact');
         document.getElementById('heroSub').classList.add('hidden');
         document.getElementById('heroHeadline').textContent = 'Activation Details';
 
-        const c = content[type];
-        document.getElementById('detailKicker').textContent  = c.kicker;
-        document.getElementById('detailTitle').textContent   = c.title;
+        // Update detail panel copy
+        document.getElementById('detailKicker').textContent   = c.kicker;
+        document.getElementById('detailTitle').textContent    = c.title;
         document.getElementById('detailSubtitle').textContent = c.subtitle;
-        document.getElementById('ctaHeading').textContent    = c.cta;
+        document.getElementById('ctaHeading').textContent     = c.cta;
 
-        const wrap = document.getElementById('detailWrap');
+        // Swap feature rows
+        document.querySelectorAll('.wireless-only, .talk-only').forEach(function (el) {
+            el.classList.remove('show');
+        });
+        document.querySelectorAll('.' + type + '-only').forEach(function (el) {
+            el.classList.add('show');
+        });
+
+        // Reveal and animate the detail panel
+        var wrap = document.getElementById('detailWrap');
         wrap.classList.add('visible');
-        requestAnimationFrame(() => requestAnimationFrame(() => wrap.classList.add('animated')));
+        requestAnimationFrame(function () {
+            requestAnimationFrame(function () {
+                wrap.classList.add('animated');
+            });
+        });
 
-        document.querySelectorAll('.wireless-only, .talk-only')
-            .forEach(el => el.classList.remove('show'));
-        document.querySelectorAll('.' + type + '-only')
-            .forEach(el => el.classList.add('show'));
-
+        // Scroll into view on mobile
         if (window.innerWidth < 768) {
-            setTimeout(() => {
+            setTimeout(function () {
                 wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 550);
+            }, 400);
         }
+    };
+
+});
+
+// Mobile menu toggle
+function toggleMenu() {
+    var trigger  = document.getElementById('menuTrigger');
+    var overlay  = document.getElementById('mobileOverlay');
+    var isActive = trigger.classList.contains('menu-active');
+
+    if (isActive) {
+        trigger.classList.remove('menu-active');
+        overlay.classList.remove('active');
+    } else {
+        trigger.classList.add('menu-active');
+        overlay.classList.add('active');
     }
+}
 </script>
+
 </body>
 </html>
