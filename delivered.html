@@ -1,218 +1,228 @@
 <!DOCTYPE html>
-<html data-bs-theme="light" lang="en-US" dir="ltr">
+<html lang="en-US">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support Ticket | More4Less</title>
 
-  <!-- SEO and Meta Tags -->
-  <title>Message Sent - More4Less Wireless Internet</title>
-  <meta name="keywords" content="wireless internet, affordable internet, high-speed LTE, 5G internet, Canada-wide internet service, rural internet, internet for RVers, campers internet, LTE internet for travelers, mobile internet plans, home internet solutions, unlimited data, wireless internet Canada, more4less wireless, best wireless internet, internet for remote areas, internet without contracts, Canadian internet provider, fast internet in rural Canada, reliable internet for travelers">
-  <meta name="description" content="Thank you for contacting More4Less Wireless Internet. Your message has been received, and our team will respond shortly regarding our high-speed LTE and 5G internet services across Canada.">
-  <meta property="og:title" content="Message Sent - More4Less Wireless Internet">
-  <meta property="og:description" content="Your message to More4Less Wireless Internet has been sent successfully. Expect a response soon about our affordable LTE and 5G internet plans for rural homes, RVers, and travelers in Canada.">
-  <meta property="og:image" content="https://more4lessplans.ca/main.jpg">
-  <meta property="og:url" content="https://more4lessplans.ca/message-sent">
-  <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Message Sent - More4Less Wireless Internet">
-  <meta name="twitter:description" content="Your message to More4Less Wireless Internet has been sent successfully. Expect a response soon about our affordable LTE and 5G internet plans for rural homes, RVers, and travelers in Canada.">
-  <meta name="twitter:image" content="https://more4lessplans.ca/main.jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Favicons -->
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicons/favicon-16x16.png">
-  <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicons/favicon.ico">
-  <link rel="manifest" href="assets/img/favicons/manifest.json">
-  <meta name="msapplication-TileImage" content="assets/img/favicons/mstile-150x150.png">
-  <meta name="theme-color" content="#2E2F34">
+    <style>
+        :root {
+            --bg-nav: #2E2F33;
+            --bg-page: #FBFBFD;
+            --text-muted: #6e6e73;
+            --nav-h: 68px;
+            --brand-red: #D73C59;
+        }
 
-  <!-- Google Tag Manager -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-10988139493"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'AW-10988139493');
-  </script>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  <!-- Bootstrap CSS -->
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        html, body {
+            height: 100%;
+            overflow: hidden; /* no scrolling */
+            font-family: 'Figtree', sans-serif;
+            background: var(--bg-page);
+        }
 
-  <!-- External Stylesheets -->
-  <link rel="stylesheet" href="/navbar.css">
-  <link rel="stylesheet" href="/footer.css">
-  <link rel="stylesheet" href="vendors/swiper/swiper-bundle.min.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
-  <link href="assets/css/theme.min.css" rel="stylesheet" id="style-default">
-  <link href="assets/css/user-rtl.min.css" rel="stylesheet" id="user-style-rtl">
-  <link href="assets/css/user.min.css" rel="stylesheet" id="user-style-default">
-  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        /* ─── NAVBAR ───────────────────────────── */
+        .navbar-custom {
+            background-color: var(--bg-nav);
+            padding: 1.2rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 4000;
+        }
 
-  <!-- Page-Specific CSS -->
-  <style>
-    body {
-      padding-top: 70px;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      background-color: #ffffff;
-    }
-    @media (max-width: 576px) {
-      body { padding-top: 60px; }
-    }
-    main {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: #ffffff;
-      padding: 20px;
-    }
-    .confirmation-content {
-      text-align: center;
-      max-width: 600px;
-      width: 100%;
-      padding: 20px;
-    }
-    h3 {
-      font-family: 'Figtree', sans-serif;
-      font-size: 1.25rem;
-      font-weight: 500;
-      color: #000000;
-      margin-bottom: 1rem;
-    }
-    p {
-      font-family: 'Rubik', sans-serif;
-      font-size: 1rem;
-      font-weight: 400;
-      color: #6B7280;
-      margin-bottom: 1.5rem;
-    }
-    .btn-primary {
-      border: 1px solid #2E2F33;
-      background-color: #2E2F33;
-      color: #ffffff;
-      font-weight: 500;
-      border-radius: 8px;
-      padding: 8px 20px;
-      font-size: 0.875rem;
-      text-transform: none;
-      transition: background-color 0.2s ease;
-    }
-    .btn-primary:hover, .btn-primary:focus {
-      background-color: #1a1b1e;
-      color: #ffffff;
-      border: 1px solid #1a1b1e;
-    }
-    .text-danger { color: #2E2F33 !important; }
-    .text-muted { color: #6B7280 !important; }
-  </style>
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 25px;
+        }
+
+        .navbar-brand img {
+            height: 22px;
+        }
+
+        /* desktop links */
+        .nav-links-desktop {
+            display: flex;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links-desktop li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.85rem;
+            margin: 0 18px;
+            opacity: 0.75;
+        }
+
+        .nav-links-desktop li a:hover {
+            opacity: 1;
+        }
+
+        .btn-portal-top {
+            background: var(--brand-red);
+            padding: 8px 18px;
+            border-radius: 999px;
+            color: #fff !important;
+            font-weight: 600;
+            opacity: 1 !important;
+        }
+
+        /* ─── MOBILE BUTTON ───────────────────── */
+        .menu-trigger {
+            display: none;
+            cursor: pointer;
+        }
+
+        .menu-icon {
+            width: 26px;
+            height: 18px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .menu-icon span {
+            height: 2px;
+            background: #fff;
+            border-radius: 2px;
+        }
+
+        /* ─── MOBILE MENU ─────────────────────── */
+        .mobile-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(29,29,31,0.98);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.25s ease;
+            z-index: 5000;
+        }
+
+        .mobile-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-nav-links {
+            list-style: none;
+            text-align: center;
+        }
+
+        .mobile-nav-links li {
+            margin: 22px 0;
+        }
+
+        .mobile-nav-links a {
+            color: #fff;
+            font-size: 2rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        /* ─── CONTENT ─────────────────────────── */
+        .wrap {
+            height: 100vh;
+            padding-top: var(--nav-h);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .box {
+            max-width: 520px;
+            padding: 0 20px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        p {
+            font-size: 1rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* ─── RESPONSIVE ──────────────────────── */
+        @media (max-width: 768px) {
+            .nav-links-desktop {
+                display: none;
+            }
+
+            .menu-trigger {
+                display: block;
+            }
+        }
+    </style>
 </head>
 
 <body>
-  <div id="navbar-container"></div>
 
-  <main class="main" id="top">
-    <div class="content">
-      <section class="container text-center">
-        <div class="row justify-content-center">
-          <div class="col-lg-8">
-            <div class="confirmation-content">
-              <h3>Support Ticket Created</h3>
-              <p>Your request has been received. A confirmation email is on its way—please check your inbox and spam folder to ensure your email was entered correctly.</p>
-              <a href="/" class="btn btn-primary">Return to Home</a>
+<!-- NAVBAR -->
+<nav class="navbar-custom">
+    <div class="nav-container">
+
+        <a class="navbar-brand" href="/">
+            <img src="assets/img/logos/logo.png" alt="More4Less">
+        </a>
+
+        <ul class="nav-links-desktop">
+           
+        </ul>
+
+        <div class="menu-trigger" onclick="toggleMenu()">
+           
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
-          </div>
         </div>
-      </section>
+
     </div>
-  </main>
+</nav>
 
-  <div id="footer-container"></div>
+<!-- MOBILE MENU -->
+<div class="mobile-overlay" id="mobileOverlay">
+    <ul class="mobile-nav-links">
+       
+    </ul>
+</div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script src="https://js.chargebee.com/v2/chargebee.js" data-cb-site="more4lessplans"></script>
-  <script src="vendors/is/is.min.js"></script>
-  <script src="vendors/countup/countUp.umd.js"></script>
-  <script src="vendors/swiper/swiper-bundle.min.js"></script>
-  <script src="vendors/lodash/lodash.min.js"></script>
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
-  <script src="assets/js/theme.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Load navbar
-      fetch('/navbar.html')
-        .then(response => {
-          if (!response.ok) throw new Error('Failed to load navbar.html: ' + response.status);
-          return response.text();
-        })
-        .then(data => {
-          document.getElementById('navbar-container').innerHTML = data;
-          const navbarScript = document.createElement('script');
-          navbarScript.src = '/navbar.js';
-          navbarScript.async = true;
-          navbarScript.onload = function() {
-            if (typeof initializeNavbar === 'function') {
-              initializeNavbar();
-            } else {
-              console.error('initializeNavbar function not found in navbar.js');
-            }
-          };
-          navbarScript.onerror = function() {
-            console.error('Failed to load navbar.js');
-          };
-          document.body.appendChild(navbarScript);
-        })
-        .catch(error => console.error('Error loading navbar:', error));
+<!-- CONTENT -->
+<div class="wrap">
+    <div class="box">
+        <h1>Support Ticket Created</h1>
+        <p>
+            Your request has been received. A confirmation email is on its way—please check your inbox and spam folder to ensure your email was entered correctly.
+        </p>
+    </div>
+</div>
 
-      // Load footer
-      fetch('/footer.html')
-        .then(response => {
-          if (!response.ok) throw new Error('Failed to load footer.html: ' + response.status);
-          return response.text();
-        })
-        .then(data => {
-          document.getElementById('footer-container').innerHTML = data;
-          const yearElement = document.getElementById('currentYear');
-          if (yearElement) {
-            yearElement.textContent = new Date().getFullYear();
-          }
-        })
-        .catch(error => console.error('Error loading footer:', error));
+<script>
+function toggleMenu() {
+    const menu = document.getElementById('mobileOverlay');
+    menu.classList.toggle('active');
+}
+</script>
 
-      // Initialize Chargebee
-      if (typeof Chargebee !== 'undefined') {
-        Chargebee.init({
-          site: "more4lessplans",
-          publishableKey: 'live_9xoL0GUAJyfaZddNn5cdFhI4hrLAGhyIh' // Replace with actual Chargebee publishable key
-        });
-
-        const accountLoginLinks = document.querySelectorAll('.account-login-link');
-        accountLoginLinks.forEach(link => {
-          link.addEventListener('click', function(event) {
-            event.preventDefault();
-            const chargebeeInstance = Chargebee.getInstance();
-            if (chargebeeInstance) {
-              chargebeeInstance.openPortal({
-                onLoad: function() { console.log("Chargebee portal loaded"); },
-                onClose: function() { console.log("Chargebee portal closed"); }
-              });
-            } else {
-              console.error('Chargebee instance not initialized');
-            }
-          });
-        });
-      } else {
-        console.error("Chargebee script not loaded. Please ensure the Chargebee script is included.");
-      }
-    });
-  </script>
 </body>
 </html>
