@@ -1469,4 +1469,282 @@ body.portal-premium-light {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
+ /* --- Premium Hardware Selector Grid --- */
+        .hardware-selector-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
 
+        .hardware-card {
+            background: #ffffff;
+            border: 2px solid #f4f4f6;
+            border-radius: 24px;
+            padding: 40px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hardware-card:hover {
+            transform: translateY(-8px);
+            border-color: #eaeaec;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+        }
+
+        .hardware-card.active {
+            border-color: var(--brand-red, #D73C59);
+            background: #fff;
+            box-shadow: 0 15px 35px rgba(215, 60, 89, 0.12);
+        }
+
+        .hardware-icon-wrapper {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: #1a1a1a;
+            transition: transform 0.3s ease;
+        }
+
+        .hardware-card.active .hardware-icon-wrapper {
+            color: var(--brand-red, #D73C59);
+            transform: scale(1.1);
+        }
+
+        .hardware-card h4 {
+            font-weight: 800;
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+            letter-spacing: -0.02em;
+        }
+
+        .hardware-card p {
+            font-size: 0.95rem;
+            color: #8e8e93;
+            margin-bottom: 0;
+        }
+
+        /* Active Badge for Card */
+        .selection-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.3s ease;
+            color: var(--brand-red, #D73C59);
+            font-size: 1.2rem;
+        }
+
+        .hardware-card.active .selection-badge {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* --- Tesla-Style Toggle (Secondary Control) --- */
+        .view-controls {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 50px;
+            opacity: 0.6; /* De-emphasized since cards are primary */
+            transition: opacity 0.3s;
+        }
+        
+        .view-controls:hover { opacity: 1; }
+
+        .tesla-toggle {
+            background: #f4f4f6;
+            padding: 4px;
+            border-radius: 12px;
+            display: flex;
+            position: relative;
+            width: 320px;
+            border: 1px solid #eaeaec;
+        }
+
+        .glider {
+            position: absolute;
+            width: calc(50% - 4px);
+            height: calc(100% - 8px);
+            background: #fff;
+            border-radius: 9px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 1;
+        }
+
+        .t-btn {
+            flex: 1;
+            border: none;
+            background: transparent;
+            font-size: 11px;
+            font-weight: 800;
+            color: #8e8e93;
+            z-index: 2;
+            cursor: pointer;
+            text-transform: uppercase;
+            padding: 10px 0;
+            outline: none !important;
+        }
+
+        .t-btn.active { color: #1a1a1a; }
+
+        /* --- Guide Sections --- */
+        .guide-section { 
+            display: none; 
+            animation: slideUpFade 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; 
+        }
+        
+        .guide-section.active { display: block; }
+
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .hardware-selector-grid { grid-template-columns: 1fr; }
+            .display-4 { font-size: 2.5rem; }
+        }
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+         /* --- PORTAL --- */
+        .view-controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .tesla-toggle {
+            background: #e9ecef;
+            padding: 2px;
+            border-radius: 8px;
+            display: flex;
+            position: relative;
+            width: 140px;
+            border: 1px solid #dee2e6;
+        }
+
+        .glider {
+            position: absolute;
+            width: calc(50% - 2px);
+            height: calc(100% - 4px);
+            background: #fff;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1;
+        }
+
+        .t-btn {
+            flex: 1;
+            border: none;
+            background: transparent;
+            font-size: 12px;
+            font-weight: 700;
+            color: #6c757d;
+            z-index: 2;
+            cursor: pointer;
+            text-transform: uppercase;
+            padding: 8px 0;
+            outline: none !important;
+        }
+
+        .t-btn.active { color: #1a1a1a; }
+
+        /* --- Grid vs List Layouts --- */
+        .portal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .portal-grid.list-view {
+            display: flex;
+            flex-direction: column;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .portal-grid.list-view .portal-card {
+            flex-direction: row;
+            align-items: center;
+            padding: 20px 30px;
+        }
+
+        .portal-grid.list-view .card-icon {
+            margin-bottom: 0;
+            margin-right: 25px;
+            font-size: 1.8rem;
+        }
+
+        .portal-grid.list-view .card-desc {
+            display: none; 
+        }
+
+        /* --- Mobile Overlay & Close Logic --- */
+        #mobileOverlay {
+            position: fixed;
+            top: 0;
+            right: -100%; /* Hidden by default */
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.95); /* High-end dark blur background */
+            z-index: 9999;
+            transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #mobileOverlay.active {
+            right: 0;
+        }
+
+        /* The white "X" button positioning[cite: 5] */
+        .close-trigger-white {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            font-size: 2rem;
+            color: #ffffff;
+            cursor: pointer;
+            z-index: 10001;
+            line-height: 1;
+            background: none;
+            border: none;
+            outline: none;
+        }
+
+        /* Prevent link clicks from being "intercepted" by the close logic */
+        .mobile-nav-links {
+            list-style: none;
+            padding: 0;
+            text-align: center;
+            z-index: 10002;
+        }
+
+        .mobile-nav-links a {
+            color: #ffffff;
+            font-size: 2rem;
+            font-weight: 700;
+            text-decoration: none;
+            display: block;
+            padding: 15px;
+        }

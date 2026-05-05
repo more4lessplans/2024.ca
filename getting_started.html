@@ -1,327 +1,887 @@
 <!DOCTYPE html>
-<html data-bs-theme="light" lang="en-US" dir="ltr">
+<html lang="en-US">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Getting Started | More4Less Plans</title>
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&family=Rubik:wght@300..900&display=swap" rel="stylesheet">
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getting Started | More4Less</title>
 
-  <link rel="stylesheet" href="/navbar.css">
-  <link rel="stylesheet" href="/footer.css">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <style>
-    :root {
-      --primary-dark: #2E2F33;
-      --accent-gray: #F9F9F9;
-      --text-muted: #565656;
-      --critical-red: #D73C59;
-    }
+    <style>
+        /* ─── SITE TOKENS (mirrors style.css) ───────────────────── */
+        :root {
+            --brand-red:   #D73C59;
+            --brand-red-glow: rgba(215, 60, 89, 0.10);
+            --brand-red-dark: #b82e48;
+            --bg-nav:      #2E2F33;
+            --bg-page:     #FBFBFD;
+            --text-dark:   #1d1d1f;
+            --text-muted:  #6e6e73;
+            --card-radius: 28px;
+            --nav-h:       68px;
+            --border:      #eaeaec;
+        }
 
-    body {
-      font-family: 'Figtree', sans-serif;
-      color: #333;
-      background-color: #fff;
-      padding-top: 100px;
-    }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    h1, h2, h3, h4, .section-title {
-      font-family: 'Rubik', sans-serif;
-      font-weight: 700;
-      color: var(--primary-dark);
-    }
+        html { font-size: 15px; scroll-behavior: smooth; }
 
-    .setup-container { max-width: 850px; margin: 0 auto; padding: 20px; }
+        body {
+            font-family: 'Figtree', sans-serif;
+            background: var(--bg-page);
+            color: var(--text-dark);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
 
-    .setup-step {
-      position: relative;
-      padding-bottom: 50px;
-      padding-left: 60px;
-      border-left: 2px solid #E5E7EB;
-    }
+        /* ─── NAVBAR ─────────────────────────────────────────────── */
+        .navbar-custom {
+            background-color: var(--bg-nav);
+            padding: 1.2rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 4000;
+        }
 
-    .setup-step:last-child { border-left: 2px solid transparent; }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 25px;
+        }
 
-    .step-circle {
-      position: absolute;
-      left: -21px;
-      top: 0;
-      width: 40px;
-      height: 40px;
-      background: var(--primary-dark);
-      color: white;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      z-index: 2;
-    }
+        .navbar-brand img { height: 22px; }
 
-    .step-content {
-      background: var(--accent-gray);
-      border-radius: 18px;
-      padding: 35px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
-    }
+        .nav-links-desktop {
+            display: flex;
+            align-items: center;
+            list-style: none;
+        }
 
-    /* Device Picker */
-    .device-picker {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      margin-top: 20px;
-    }
+        .nav-links-desktop li a {
+            color: #ffffff;
+            font-weight: 500;
+            font-size: 0.85rem;
+            margin: 0 18px;
+            text-decoration: none;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+            position: relative;
+        }
 
-    .device-card {
-      background: #fff;
-      padding: 30px;
-      border-radius: 15px;
-      border: 2px solid transparent;
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      text-align: center;
-    }
+        .nav-links-desktop li a:hover { opacity: 1; }
 
-    .device-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
-    .device-card.active { border-color: var(--critical-red); background: #fdf2f4; }
+        .nav-links-desktop li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--brand-red);
+            transition: width 0.4s cubic-bezier(0.2, 1, 0.2, 1);
+        }
 
-    .critical-note {
-      background: #FFF5F5;
-      border-left: 4px solid var(--critical-red);
-      padding: 20px;
-      border-radius: 8px;
-      margin: 25px 0;
-    }
+        .nav-links-desktop li a:hover::after { width: 100%; }
 
-    .critical-note h6 { color: var(--critical-red); text-transform: uppercase; letter-spacing: 1px; }
+        .btn-portal-top::after { display: none !important; }
 
-    .btn-main {
-      background: var(--primary-dark);
-      color: white;
-      border-radius: 10px;
-      padding: 16px 32px;
-      font-weight: 600;
-      text-decoration: none;
-      display: inline-block;
-      transition: 0.3s;
-      border: 2px solid var(--primary-dark);
-      text-align: center;
-    }
+        .btn-portal-top {
+            background: var(--brand-red);
+            color: white !important;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            opacity: 1 !important;
+            transition: all 0.3s ease !important;
+        }
 
-    .btn-main:hover { background: transparent; color: var(--primary-dark); text-decoration: none; }
+        .btn-portal-top:hover {
+            background: #ffffff !important;
+            color: var(--text-dark) !important;
+            transform: translateY(-2px);
+        }
 
-    .guide-section { display: none; animation: fadeIn 0.5s ease forwards; }
-    .guide-section.active { display: block; }
+        .menu-trigger {
+            display: none;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 5001;
+            position: relative;
+        }
 
-    .hardware-detail {
-      background: #fff;
-      padding: 15px;
-      border-radius: 10px;
-      margin-top: 15px;
-      border: 1px solid #eee;
-    }
+        .menu-icon {
+            width: 26px;
+            height: 18px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
 
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .menu-icon span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background: #fff;
+            border-radius: 10px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-    @media (max-width: 768px) {
-      .device-picker { grid-template-columns: 1fr; }
-    }
-  </style>
+        .menu-active .menu-icon span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        .menu-active .menu-icon span:nth-child(2) { opacity: 0; transform: translateX(10px); }
+        .menu-active .menu-icon span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+        .mobile-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(29, 29, 31, 0.98);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 4500;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        .mobile-overlay.active { opacity: 1; visibility: visible; }
+
+        .mobile-nav-links { list-style: none; padding: 0; text-align: center; }
+
+        .mobile-nav-links li {
+            margin: 25px 0;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: 0.4s ease;
+        }
+
+        .mobile-overlay.active .mobile-nav-links li { transform: translateY(0); opacity: 1; }
+
+        .mobile-nav-links li:nth-child(1) { transition-delay: 0.10s; }
+        .mobile-nav-links li:nth-child(2) { transition-delay: 0.15s; }
+        .mobile-nav-links li:nth-child(3) { transition-delay: 0.20s; }
+        .mobile-nav-links li:nth-child(4) { transition-delay: 0.25s; }
+
+        .mobile-nav-links a {
+            color: #fff;
+            font-size: 2.2rem;
+            font-weight: 700;
+            text-decoration: none;
+            letter-spacing: -0.03em;
+            position: relative;
+            display: inline-block;
+        }
+
+        .mobile-nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--brand-red);
+            transition: width 0.4s cubic-bezier(0.2, 1, 0.2, 1);
+        }
+
+        .mobile-nav-links a:hover::after { width: 100%; }
+
+        /* ─── HERO ───────────────────────────────────────────────── */
+        .setup-hero {
+            height: 100vh;
+            max-height: 100vh;
+            padding-top: var(--nav-h);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: height 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+                        max-height 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .setup-hero.compact {
+            height: auto;
+            max-height: none;
+            min-height: 0;
+            padding-bottom: 52px;
+        }
+
+        .setup-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
+            background-size: 28px 28px;
+            opacity: 0.8;
+            mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, black 20%, transparent 100%);
+            pointer-events: none;
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 820px;
+            padding: 60px 24px 70px;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-muted);
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeUp 0.6s ease 0.1s forwards;
+        }
+
+        .hero-eyebrow::before,
+        .hero-eyebrow::after {
+            content: '';
+            display: block;
+            width: 28px;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .hero-headline {
+            font-size: clamp(2.6rem, 5.5vw, 4rem);
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1.05;
+            color: var(--text-dark);
+            margin-bottom: 14px;
+            opacity: 0;
+            animation: fadeUp 0.7s ease 0.2s forwards;
+        }
+
+        .hero-sub {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 56px;
+            font-weight: 400;
+            opacity: 0;
+            animation: fadeUp 0.7s ease 0.3s forwards;
+            transition: opacity 0.35s ease, max-height 0.5s ease, margin 0.5s ease;
+            max-height: 80px;
+            overflow: hidden;
+        }
+
+        .hero-sub.hidden {
+            opacity: 0;
+            max-height: 0;
+            margin-bottom: 0;
+            pointer-events: none;
+        }
+
+        /* Extra breathing room between headline and cards after selection */
+        .setup-hero.compact .device-grid {
+            margin-top: 36px;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(18px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ─── DEVICE CARDS ───────────────────────────────────────── */
+        .device-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            width: 100%;
+            max-width: 680px;
+            opacity: 0;
+            animation: fadeUp 0.7s ease 0.4s forwards;
+        }
+
+        .device-card {
+            background: #ffffff;
+            border: 2px solid var(--border);
+            border-radius: var(--card-radius);
+            padding: 40px 28px 34px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition:
+                border-color 0.35s ease,
+                box-shadow 0.35s ease,
+                transform 0.35s cubic-bezier(0.34, 1.46, 0.64, 1),
+                opacity 0.35s ease;
+        }
+
+        .device-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 3px;
+            background: var(--brand-red);
+            border-radius: 0 0 var(--card-radius) var(--card-radius);
+            transform: scaleX(0);
+            transition: transform 0.35s ease;
+        }
+
+        .device-card:hover {
+            border-color: #d0d0d4;
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+        }
+
+        .device-card:hover::after,
+        .device-card.selected::after { transform: scaleX(1); }
+
+        .device-card.selected {
+            border-color: var(--brand-red);
+            box-shadow: 0 0 0 5px var(--brand-red-glow), 0 20px 45px rgba(0,0,0,0.07);
+            transform: translateY(-5px);
+        }
+
+        .device-card.unselected {
+            opacity: 0.35;
+            transform: none;
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 16px; right: 16px;
+            background: var(--brand-red);
+            color: #fff;
+            font-size: 0.65rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 50px;
+            opacity: 0;
+            transform: scale(0.75) translateY(-4px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .device-card.selected .card-badge { opacity: 1; transform: scale(1) translateY(0); }
+
+        .card-img-wrap {
+            height: 130px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 22px;
+        }
+
+        .card-img-wrap img {
+            max-height: 100%;
+            width: auto;
+            filter: drop-shadow(0 10px 22px rgba(0,0,0,0.09));
+            transition: transform 0.4s cubic-bezier(0.34, 1.46, 0.64, 1);
+        }
+
+        .device-card:hover .card-img-wrap img,
+        .device-card.selected .card-img-wrap img {
+            transform: scale(1.07) translateY(-4px);
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 6px;
+            color: var(--text-dark);
+        }
+
+        .card-desc {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            line-height: 1.55;
+        }
+
+        /* ─── GUIDE ──────────────────────────────────────────────── */
+        .guide-wrap {
+            background: #f0f0f2;
+            border-top: 1px solid var(--border);
+            display: none;
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.7s cubic-bezier(0.4,0,0.2,1),
+                        transform 0.7s cubic-bezier(0.4,0,0.2,1);
+        }
+
+        .guide-wrap.visible {
+            display: block;
+            pointer-events: auto;
+        }
+
+        .guide-wrap.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .guide-inner {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 90px 24px 110px;
+        }
+
+        .guide-kicker {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--brand-red);
+            margin-bottom: 10px;
+        }
+
+        .guide-title {
+            font-size: 2.1rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: var(--text-dark);
+            margin-bottom: 48px;
+        }
+
+        .step-row {
+            display: flex;
+            gap: 26px;
+            padding: 30px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .step-row:first-of-type { border-top: 1px solid var(--border); }
+
+        .step-num {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            min-width: 26px;
+            padding-top: 4px;
+        }
+
+        .step-name {
+            font-size: 1.1rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: var(--text-dark);
+            margin-bottom: 6px;
+        }
+
+        .step-text {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.75;
+        }
+
+        .mobile-only, .fixed-only { display: none; }
+        .show { display: flex !important; }
+
+        .step-final {
+            background: var(--bg-nav);
+            border-radius: var(--card-radius);
+            padding: 36px;
+            margin-top: 20px;
+            display: flex;
+            gap: 26px;
+        }
+
+        .step-final .step-num  { color: rgba(255,255,255,0.25); }
+        .step-final .step-name { color: #ffffff; }
+        .step-final .step-text { color: rgba(255,255,255,0.5); }
+
+        .cta-btn {
+            display: inline-block;
+            margin-top: 22px;
+            background: var(--brand-red);
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 0.9rem;
+            padding: 14px 38px;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+            box-shadow: 0 8px 24px rgba(215, 60, 89, 0.28);
+        }
+
+        .cta-btn:hover {
+            background: #ffffff;
+            color: var(--text-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+        }
+
+        /* ─── GUIDE CONTENT ELEMENTS ─────────────────────────────── */
+
+        /* Warning block */
+        .step-warning {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            background: #fff8f0;
+            border: 1.5px solid #f5a623;
+            border-left: 5px solid #f5a623;
+            border-radius: 14px;
+            padding: 20px 22px;
+            margin-top: 14px;
+        }
+
+        .warning-icon {
+            font-size: 1.2rem;
+            line-height: 1;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .warning-title {
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #b36a00;
+            margin-bottom: 5px;
+        }
+
+        .warning-text {
+            font-size: 0.88rem;
+            color: #7a4a00;
+            line-height: 1.7;
+        }
+
+        /* Bullet list inside steps */
+        .step-list {
+            margin-top: 10px;
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .step-list li {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.75;
+            padding-left: 18px;
+            position: relative;
+        }
+
+        .step-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 11px;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--brand-red);
+        }
+
+        /* Inline text link */
+        .step-link {
+            color: var(--brand-red);
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(215, 60, 89, 0.3);
+            transition: border-color 0.2s ease, opacity 0.2s ease;
+        }
+
+        .step-link:hover {
+            opacity: 0.8;
+            border-color: var(--brand-red);
+        }
+
+        /* Section divider label between guide groups */
+        .guide-section-label {
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin: 44px 0 0;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+        @media (max-width: 768px) {
+            .nav-links-desktop { display: none; }
+            .menu-trigger { display: block; }
+
+            .device-grid { gap: 12px; }
+            .device-card { padding: 28px 18px 24px; border-radius: 22px; }
+            .card-img-wrap { height: 100px; }
+            .card-desc { display: none; }
+            .card-title { font-size: 1rem; }
+            .hero-headline { font-size: 2.4rem; }
+            .step-final { padding: 28px; border-radius: 22px; }
+            .guide-inner { padding: 60px 20px 80px; }
+        }
+    </style>
 </head>
-
 <body>
-  <div id="navbar-container"></div>
 
-  <main class="container py-5">
-    <div class="text-center mb-5">
-      <h1 class="display-5 fw-bold mb-3">Quick Start Guide</h1>
-      <p class="text-dark fw-bold fs-4 mb-2">Ready to use, right out of the box.</p>
-      <p class="text-muted mx-auto" style="max-width: 650px; font-size: 1.1rem; line-height: 1.6;">
-        Your device comes with a SIM card pre-installed and your unlimited plan is already active. Explore this guide to learn how your device works and find helpful tips.
-      </p>
+<!-- ── NAVBAR ─────────────────────────────────────────────────── -->
+<nav class="navbar-custom">
+    <div class="nav-container">
+        <a class="navbar-brand" href="/">
+            <img src="assets/img/logos/logo.png" alt="More4Less">
+        </a>
+
+        <ul class="nav-links-desktop">
+          
+            <li><a href="/#pricing">Pricing</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/portal" class="btn-portal-top">Customer Portal</a></li>
+        </ul>
+
+        <div class="menu-trigger" id="menuTrigger" onclick="toggleMenu()">
+            <div class="menu-icon">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
     </div>
+</nav>
 
-    <div class="setup-container">
-      
-      <div class="setup-step">
-        <div class="step-circle">1</div>
-        <div class="step-content">
-          <h4>Identify Your Hardware</h4>
-          <p class="text-muted">Please select the device you received to begin your specific setup guide:</p>
-          <div class="device-picker">
-            <div class="device-card" data-guide="on-the-go">
-              <i class="uil uil-mobile-android d-block mb-2 h2" style="color: var(--critical-red);"></i>
-              <h6 class="fw-bold mb-0">On-The-Go Device</h6>
-              <small class="text-muted">Nighthawk M1 / M5 / M6</small>
+<div class="mobile-overlay" id="mobileOverlay">
+    <ul class="mobile-nav-links">
+        <li><a href="/#pricing">Pricing</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/portal">Account Portal</a></li>
+           
+    </ul>
+</div>
+
+<!-- ── HERO ───────────────────────────────────────────────────── -->
+<section class="setup-hero" id="hero">
+    <div class="hero-inner">
+
+        <div class="hero-eyebrow">Welcome</div>
+
+        <h1 class="hero-headline" id="heroHeadline">Let's get<br>you connected.</h1>
+        <p class="hero-sub" id="heroSub">Select the device you received to begin your setup guide.</p>
+
+        <div class="device-grid">
+
+            <div class="device-card" id="card-mobile" onclick="selectDevice('mobile')">
+                <div class="card-badge">Selected</div>
+                <div class="card-img-wrap">
+                    <img src="assets/img/products/mr1100.png" alt="Mobile Hotspot"
+                         onerror="this.style.opacity='0'">
+                </div>
+                <div class="card-title">Mobile Hotspot</div>
+                <div class="card-desc">Pocket LTE device — connects up to 15 devices</div>
             </div>
-            <div class="device-card" data-guide="fixed-home">
-              <i class="uil uil-home d-block mb-2 h2" style="color: var(--critical-red);"></i>
-              <h6 class="fw-bold mb-0">Fixed Home Router</h6>
-              <small class="text-muted">Orbi LBR20</small>
+
+            <div class="device-card" id="card-fixed" onclick="selectDevice('fixed')">
+                <div class="card-badge">Selected</div>
+                <div class="card-img-wrap">
+                    <img src="assets/img/products/LBR20.png" alt="Home Router"
+                         onerror="this.style.opacity='0'">
+                </div>
+                <div class="card-title">Home Router</div>
+                <div class="card-desc">Plug-in LTE router for whole-home Wi-Fi coverage</div>
             </div>
-          </div>
+
         </div>
-      </div>
+    </div>
+</section>
 
-      <div id="guide-content">
-        
-        <div id="guide-on-the-go" class="guide-section">
-          
-          <div class="setup-step">
-            <div class="step-circle">2</div>
-            <div class="step-content">
-              <h4>Hardware Preparation</h4>
-              <p class="text-muted">Referencing Netgear Nighthawk Official User Instructions:</p>
-              
-              <div class="hardware-detail">
-                <h6 class="fw-bold"><i class="uil uil-battery-bolt me-2"></i>Removable Battery</h6>
-                <p class="small mb-0">The battery is <strong>already installed</strong> for your convenience. To access it, firmly slide the back cover upward to unlatch it from the device frame. Once open, ensure the battery is seated firmly against the gold contact pins. Slide the cover back down until it clicks into place. We recommend charging the unit fully before the first use.</p>
-              </div>
+<!-- ── GUIDE ──────────────────────────────────────────────────── -->
+<div class="guide-wrap" id="guideWrap">
+    <div class="guide-inner">
 
-              <div class="hardware-detail">
-                <h6 class="fw-bold"><i class="uil uil-power me-2"></i>Powering On</h6>
-                <p class="small mb-0">Press and hold the <strong>Power Button</strong> on the top or front of the unit for 3 seconds until the screen illuminates. Wait roughly 60 seconds for the internal modem to initialize.</p>
-              </div>
+        <p class="guide-kicker" id="guideKicker">Setup guide</p>
+        <h2 class="guide-title">You're already online.</h2>
+
+        <!-- ── MOBILE HOTSPOT STEPS ──────────────────────────── -->
+
+        <div class="step-row mobile-only">
+            <div class="step-num">01</div>
+            <div>
+                <div class="step-name">Important — do not factory reset your device</div>
+                <div class="step-warning">
+                    <div class="warning-icon">⚠</div>
+                    <div>
+                        <div class="warning-title">Warning: Do Not Factory Reset</div>
+                        <p class="warning-text">Never perform a Factory Reset using the pinhole button or software settings. Your device has been pre-configured with a custom APN that enables your unlimited data plan. Resetting will permanently erase these settings and disconnect your service.</p>
+                    </div>
+                </div>
             </div>
-          </div>
+        </div>
 
-          <div class="setup-step">
-            <div class="step-circle">3</div>
-            <div class="step-content">
-              <h4>Connecting to WiFi</h4>
-              <p class="text-muted">Your default network credentials can be found in two places:</p>
-              <ul class="small text-muted">
-                <li><strong>On Device:</strong> Press the power button quickly to cycle through the LCD screens until "WiFi Name" and "WiFi Password" appear.</li>
-                <li><strong>Behind Battery:</strong> Remove the back cover and battery; the default SSID and Password are printed on the internal label.</li>
-              </ul>
-              <div class="critical-note">
-                <h6 class="fw-bold mb-2"><i class="uil uil-exclamation-triangle me-1"></i> Warning: Do Not Reset</h6>
-                <p class="small mb-0"><strong>NEVER perform a Factory Reset</strong> using the pinhole or software settings. Your device has been pre-configured with a custom APN to allow unlimited data access. Resetting will erase these settings and disconnect your service.</p>
-              </div>
+        <div class="step-row mobile-only">
+            <div class="step-num">02</div>
+            <div>
+                <div class="step-name">Battery & hardware</div>
+                <p class="step-text">The battery is already installed for your convenience. To access it, firmly slide the back cover upward to unlatch it from the device frame. Ensure the battery is seated firmly against the gold contact pins, then slide the cover back down until it clicks. We recommend charging the unit fully before first use.</p>
             </div>
-          </div>
+        </div>
 
-          <div class="setup-step">
-            <div class="step-circle">4</div>
-            <div class="step-content">
-              <h4>Personalize Your WiFi</h4>
-              <p class="text-muted">To change your WiFi name, password, or check your signal strength, download the management app.</p>
-              <a href="https://www.netgear.com/support/product/netgear-mobile-app/" class="btn-main mt-2">Download Nighthawk App</a>
+        <div class="step-row mobile-only">
+            <div class="step-num">03</div>
+            <div>
+                <div class="step-name">Power on</div>
+                <p class="step-text">Press and hold the Power button on the top or front of the unit for 3 seconds until the screen illuminates. Allow roughly 60 seconds for the internal modem to fully initialise and connect.</p>
             </div>
-          </div>
+        </div>
 
-        </div> 
-
-        <div id="guide-fixed-home" class="guide-section">
-          
-          <div class="setup-step">
-            <div class="step-circle">2</div>
-            <div class="step-content">
-              <h4>Hardware Preparation</h4>
-              <p class="text-muted">Referencing Netgear Orbi LBR20 Official User Instructions:</p>
-              
-              <div class="hardware-detail">
-                <h6 class="fw-bold"><i class="uil uil-plug me-2"></i>Power Connection</h6>
-                <p class="small mb-0">This unit must remain plugged in. Connect the provided 12V power adapter to the "Power" port on the back of the Orbi and plug it into a wall outlet. Ensure the <strong>On/Off</strong> button on the back is pushed in.</p>
-              </div>
-
-              <div class="hardware-detail">
-                <h6 class="fw-bold"><i class="uil uil-signal-alt-3 me-2"></i>Placement Tip</h6>
-                <p class="small mb-0">For the best possible high-speed performance, place the Orbi near a window or on an upper floor. Avoid placing it inside metal cabinets or near large appliances.</p>
-              </div>
+        <div class="step-row mobile-only">
+            <div class="step-num">04</div>
+            <div>
+                <div class="step-name">Placement tip</div>
+                <p class="step-text">For the strongest signal, place the hotspot near a window or on an upper floor. Avoid metal enclosures, thick concrete walls, and large appliances.</p>
             </div>
-          </div>
+        </div>
 
-          <div class="setup-step">
-            <div class="step-circle">3</div>
-            <div class="step-content">
-              <h4>Connecting to WiFi</h4>
-              <p class="text-muted">Retrieve your unique network details:</p>
-              <div class="hardware-detail">
-                <p class="small mb-0">Look at the <strong>Bottom of the Device</strong>. You will see a white label containing your unique <strong>Network Name (SSID)</strong> and <strong>Network Key (Password)</strong>. Connect your phone or computer to this network to get online.</p>
-              </div>
-              <div class="critical-note">
-                <h6 class="fw-bold mb-2"><i class="uil uil-exclamation-triangle me-1"></i> Warning: Do Not Reset</h6>
-                <p class="small mb-0"><strong>DO NOT PRESS THE RESET BUTTON.</strong> This device is professionally configured for our specific network. A factory reset will wipe the APN settings, requiring the unit to be sent back for re-programming.</p>
-              </div>
+        <div class="step-row mobile-only">
+            <div class="step-num">05</div>
+            <div>
+                <div class="step-name">Personalise your Wi-Fi</div>
+                <p class="step-text">To change your Wi-Fi network name or password, or to check real-time signal strength and data usage, download the Nighthawk management app.</p>
+                <p class="step-text" style="margin-top: 10px;">
+                    <a href="app-download.html" class="step-link">Download the Nighthawk App →</a>
+                </p>
             </div>
-          </div>
+        </div>
 
-          <div class="setup-step">
-            <div class="step-circle">4</div>
-            <div class="step-content">
-              <h4>Advanced Management</h4>
-              <p class="text-muted">Use the Orbi App to manage your home network, set up guest access, or run speed tests.</p>
-              <a href="https://www.netgear.com/home/services/orbi-app/" class="btn-main mt-2">Download Orbi App</a>
+        <!-- ── FIXED ROUTER STEPS ─────────────────────────────── -->
+
+        <div class="step-row fixed-only">
+            <div class="step-num">01</div>
+            <div>
+                <div class="step-name">Power connection</div>
+                <p class="step-text">This unit must remain plugged in at all times. Connect the provided 12V power adapter to the <strong>Power</strong> port on the rear of the Orbi and plug it into a wall outlet. Ensure the On/Off button on the back is pushed in to the on position.</p>
             </div>
-          </div>
+        </div>
 
-        </div> 
+        <div class="step-row fixed-only">
+            <div class="step-num">02</div>
+            <div>
+                <div class="step-name">Placement tip</div>
+                <p class="step-text">For the best possible performance, place the Orbi near a window or on an upper floor. Avoid placing it inside metal cabinets, near large appliances, or in basement areas.</p>
+            </div>
+        </div>
 
-        <div id="universal-step-5" class="guide-section">
-          <div class="setup-step">
-            <div class="step-circle">5</div>
-            <div class="step-content">
-              <h4>Manage Your Subscription</h4>
-              <p class="text-muted">The <strong>Self-Serve Portal</strong> is your primary tool for managing your unlimited internet plan.</p>
-              <div class="hardware-detail mb-4">
-                <ul class="small text-muted mb-0">
-                  <li>View and download monthly invoices.</li>
-                  <li>Check upcoming payment due dates.</li>
-                  <li>Update your credit card or payment method.</li>
-                  <li>Cancel or pause your subscription at any time.</li>
+        <div class="step-row fixed-only">
+            <div class="step-num">03</div>
+            <div>
+                <div class="step-name">Connect your devices</div>
+                <p class="step-text">Your Wi-Fi network name and password are printed on the label at the base of the router. Connect any device — phone, laptop, tablet — using those credentials.</p>
+            </div>
+        </div>
+
+        <!-- ── SHARED: App + Portal ───────────────────────────── -->
+
+        <div class="guide-section-label mobile-only show">Managing your hotspot</div>
+        <div class="guide-section-label fixed-only show" style="margin-top: 44px;">Managing your router</div>
+
+        <div class="step-row mobile-only">
+            <div class="step-num">06</div>
+            <div>
+                <div class="step-name">Self-serve account portal</div>
+                <p class="step-text">Your More4Less portal is the primary tool for managing your unlimited internet plan. From there you can:</p>
+                <ul class="step-list">
+                    <li>View and download monthly invoices</li>
+                    <li>Check upcoming payment due dates</li>
+                    <li>Update your credit card or payment method</li>
+                    <li>Cancel or pause your subscription at any time</li>
+                    <li>Access guides, tutorials, and tech support</li>
+                    <li>Submit a return or replacement request</li>
                 </ul>
-              </div>
-              <a href="javascript:void(0)" data-cb-type="portal" class="btn-main w-100" style="background:#fff; color:#2E2F33;">Open Self-Serve Portal</a>
+                <p class="step-text" style="margin-top: 14px;">
+                    <a href="portal.html" class="step-link">Go to My Account Portal →</a>
+                </p>
             </div>
-          </div>
         </div>
 
-      </div> </div>
-  </main>
+        <div class="step-row fixed-only">
+            <div class="step-num">04</div>
+            <div>
+                <div class="step-name">Self-serve account portal</div>
+                <p class="step-text">Your More4Less portal is the primary tool for managing your unlimited internet plan. From there you can:</p>
+                <ul class="step-list">
+                    <li>View and download monthly invoices</li>
+                    <li>Check upcoming payment due dates</li>
+                    <li>Update your credit card or payment method</li>
+                    <li>Cancel or pause your subscription at any time</li>
+                    <li>Access guides, tutorials, and tech support</li>
+                    <li>Submit a return or replacement request</li>
+                </ul>
+                <p class="step-text" style="margin-top: 14px;">
+                    <a href="portal.html" class="step-link">Go to My Account Portal →</a>
+                </p>
+            </div>
+        </div>
 
-  <div id="footer-container"></div>
+        <!-- ── FINAL CTA ──────────────────────────────────────── -->
+        <div class="step-final">
+            <div class="step-num">✓</div>
+            <div>
+                <div class="step-name">You're all set.</div>
+                <p class="step-text">Your device is pre-configured and your SIM is active — you're already connected. Head to your dashboard any time to manage your plan or get support.</p>
+                <a href="/portal" class="cta-btn">Account Portal</a>
+            </div>
+        </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://js.chargebee.com/v2/chargebee.js" data-cb-site="more4lessplans"></script>
+    </div>
+</div>
 
-  <script>
-    $(document).ready(function() {
-      // 1. COMPONENTS
-      $('#navbar-container').load('/navbar.html');
-      $('#footer-container').load('/footer.html');
+<script>
+    function toggleMenu() {
+        const trigger = document.getElementById('menuTrigger');
+        const overlay = document.getElementById('mobileOverlay');
+        const isOpen  = trigger.classList.contains('menu-active');
+        trigger.classList.toggle('menu-active');
+        overlay.classList.toggle('active');
+        document.body.style.overflow = isOpen ? '' : 'hidden';
+    }
 
-      // 2. 5-STEP DYNAMIC LOGIC
-      $('.device-card').on('click', function() {
-        const target = $(this).data('guide');
-        
-        // UI Feedback
-        $('.device-card').removeClass('active');
-        $(this).addClass('active');
-
-        // Hide everything first for a clean swap
-        $('.guide-section').removeClass('active').hide();
-
-        // Show the specific device guide and the universal step 5
-        $('#guide-' + target).addClass('active').fadeIn();
-        $('#universal-step-5').addClass('active').fadeIn();
-
-        // Smooth scroll
-        $('html, body').animate({
-          scrollTop: $('#guide-' + target).offset().top - 120
-        }, 800);
-      });
-
-      // 3. CHARGEBEE PORTAL INITIALIZATION
-      if (typeof Chargebee !== 'undefined') {
-        Chargebee.init({ site: "more4lessplans" });
-      }
+    document.getElementById('mobileOverlay').addEventListener('click', function(e) {
+        if (e.target === this) toggleMenu();
     });
-  </script>
+
+    function selectDevice(type) {
+        document.getElementById('card-mobile').className =
+            'device-card' + (type === 'mobile' ? ' selected' : ' unselected');
+        document.getElementById('card-fixed').className =
+            'device-card' + (type === 'fixed'  ? ' selected' : ' unselected');
+
+        document.getElementById('hero').classList.add('compact');
+        document.getElementById('heroSub').classList.add('hidden');
+        document.getElementById('heroHeadline').textContent = 'Setup Guide';
+
+        document.getElementById('guideKicker').textContent =
+            type === 'mobile' ? 'Mobile Hotspot — Setup guide' : 'Home Router — Setup guide';
+
+        document.getElementById('guideWrap').classList.add('visible');
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                document.getElementById('guideWrap').classList.add('animated');
+            });
+        });
+
+        document.querySelectorAll('.mobile-only, .fixed-only')
+            .forEach(el => el.classList.remove('show'));
+        document.querySelectorAll('.' + type + '-only')
+            .forEach(el => el.classList.add('show'));
+
+        if (window.innerWidth < 768) {
+            setTimeout(() => {
+                document.getElementById('guideWrap')
+                    .scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 550);
+        }
+    }
+</script>
 </body>
 </html>
