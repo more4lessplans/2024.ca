@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support Ticket | More4Less</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-nav: #2E2F33;
+            --bg-page: #FBFBFD;
+            --text-muted: #6e6e73;
+            --nav-h: 68px;
+            --brand-red: #D73C59;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden; /* no scrolling */
+            font-family: 'Figtree', sans-serif;
+            background: var(--bg-page);
+        }
+
+        /* ─── NAVBAR ───────────────────────────── */
+        .navbar-custom {
+            background-color: var(--bg-nav);
+            padding: 1.2rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 4000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 25px;
+        }
+
+        .navbar-brand img {
+            height: 22px;
+        }
+
+        /* desktop links */
+        .nav-links-desktop {
+            display: flex;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links-desktop li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.85rem;
+            margin: 0 18px;
+            opacity: 0.75;
+        }
+
+        .nav-links-desktop li a:hover {
+            opacity: 1;
+        }
+
+        .btn-portal-top {
+            background: var(--brand-red);
+            padding: 8px 18px;
+            border-radius: 999px;
+            color: #fff !important;
+            font-weight: 600;
+            opacity: 1 !important;
+        }
+
+        /* ─── MOBILE BUTTON ───────────────────── */
+        .menu-trigger {
+            display: none;
+            cursor: pointer;
+        }
+
+        .menu-icon {
+            width: 26px;
+            height: 18px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .menu-icon span {
+            height: 2px;
+            background: #fff;
+            border-radius: 2px;
+        }
+
+        /* ─── MOBILE MENU ─────────────────────── */
+        .mobile-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(29,29,31,0.98);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.25s ease;
+            z-index: 5000;
+        }
+
+        .mobile-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-nav-links {
+            list-style: none;
+            text-align: center;
+        }
+
+        .mobile-nav-links li {
+            margin: 22px 0;
+        }
+
+        .mobile-nav-links a {
+            color: #fff;
+            font-size: 2rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        /* ─── CONTENT ─────────────────────────── */
+        .wrap {
+            height: 100vh;
+            padding-top: var(--nav-h);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .box {
+            max-width: 520px;
+            padding: 0 20px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        p {
+            font-size: 1rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* ─── RESPONSIVE ──────────────────────── */
+        @media (max-width: 768px) {
+            .nav-links-desktop {
+                display: none;
+            }
+
+            .menu-trigger {
+                display: block;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar-custom">
+    <div class="nav-container">
+
+        <a class="navbar-brand" href="/">
+            <img src="assets/img/logos/logo.png" alt="More4Less">
+        </a>
+
+        <ul class="nav-links-desktop">
+           
+        </ul>
+
+        <div class="menu-trigger" onclick="toggleMenu()">
+           
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+    </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-overlay" id="mobileOverlay">
+    <ul class="mobile-nav-links">
+       
+    </ul>
+</div>
+
+<!-- CONTENT -->
+
+<div class="wrap">
+
+    <div class="box">
+
+        <h1>Success</h1>
+
+        <p>
+
+            <strong>Your setup is in progress.</strong> A representative will contact you shortly to activate your eSIM. If you prefer a physical SIM, simply let us know.
+
+        </p>
+
+    </div>
+
+</div>
+
+<script>
+function toggleMenu() {
+    const menu = document.getElementById('mobileOverlay');
+    menu.classList.toggle('active');
+}
+</script>
+
+</body>
+</html>
