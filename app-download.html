@@ -1,187 +1,685 @@
 <!DOCTYPE html>
-<html data-bs-theme="light" lang="en-US" dir="ltr">
+<html lang="en-US">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Get the Netgear App | More4Less Plans</title>
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&family=Rubik:wght@300..900&display=swap" rel="stylesheet">
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+  <meta name="robots" content="noindex, nofollow">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get the Netgear App | More4Less</title>
 
-  <link rel="stylesheet" href="/navbar.css">
-  <link rel="stylesheet" href="/footer.css">
 
-  <style>
-    :root {
-      --primary-dark: #2E2F33;
-      --accent-gray: #F9F9F9;
-      --text-muted: #565656;
-      --brand-red: #D73C59;
-    }
 
-    body {
-      font-family: 'Figtree', sans-serif;
-      color: #333;
-      background-color: #fff;
-      padding-top: 100px;
-    }
+    <!-- 5. Favicons & Theme -->
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicons/favicon-16x16.png">
+    <link rel="shortcut icon" href="assets/img/favicons/favicon.ico">
+    <link rel="manifest" href="assets/img/favicons/site.webmanifest">
+    <meta name="theme-color" content="#2E2F33">
 
-    h1, h2, h3, h4 { font-family: 'Rubik', sans-serif; font-weight: 700; color: var(--primary-dark); }
 
-    .manage-container { max-width: 800px; margin: 0 auto; padding: 20px; }
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-    .manage-card {
-      background: var(--accent-gray);
-      border-radius: 24px;
-      padding: 40px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-      text-align: center;
-    }
+    <style>
+        :root {
+            --brand-red:   #D73C59;
+            --bg-nav:      #2E2F33;
+            --bg-page:     #FBFBFD;
+            --text-dark:   #1d1d1f;
+            --text-muted:  #6e6e73;
+            --nav-h:       68px;
+            --border:      #eaeaec;
+            --card-radius: 28px;
+        }
 
-    /* Pill Tabs */
-    .nav-pills-custom {
-      display: flex; background: #E5E7EB; padding: 5px; border-radius: 14px; margin-bottom: 35px;
-    }
-    .nav-link-custom {
-      flex: 1; text-align: center; padding: 12px; cursor: pointer;
-      font-weight: 600; border-radius: 11px; color: var(--text-muted);
-      transition: 0.3s; border: none; background: none; outline: none !important;
-    }
-    .nav-link-custom.active {
-      background: white; color: var(--primary-dark); box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    /* Image Switcher */
-    .image-switcher {
-      display: flex; align-items: center; justify-content: center; gap: 30px; margin-bottom: 30px;
-    }
-    .nav-arrow {
-      background: none; border: none; font-size: 2rem; color: #bbb;
-      cursor: pointer; transition: 0.2s; outline: none !important;
-    }
-    .nav-arrow:hover { color: var(--primary-dark); transform: scale(1.2); }
+        html {
+            font-size: 15px;
+            scroll-behavior: smooth;
+        }
 
-    #main-device-img {
-      max-height: 160px; transition: opacity 0.25s ease;
-      filter: drop-shadow(0 8px 20px rgba(0,0,0,0.08));
-    }
+        body {
+            font-family: 'Figtree', sans-serif;
+            background: var(--bg-page);
+            color: var(--text-dark);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
 
-    .tab-pane { display: none; animation: fadeIn 0.4s ease; }
-    .tab-pane.active { display: block; }
+        /* ─── NAVBAR ─────────────────────────────────────────────── */
+        .navbar-custom {
+            background-color: var(--bg-nav);
+            padding: 1.2rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 4000;
+        }
 
-    /* Credential Highlighting */
-    .cred-badge {
-      background: #fff; border: 1px solid #eee; padding: 15px;
-      border-radius: 14px; margin-bottom: 25px; display: inline-block; width: 100%;
-    }
-    code { 
-      background: rgba(215, 60, 89, 0.1); padding: 2px 6px; border-radius: 4px; 
-      color: var(--brand-red); font-weight: 700; font-size: 0.95em;
-    }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 25px;
+        }
 
-    .btn-main {
-      background: var(--primary-dark); color: white; border-radius: 12px;
-      padding: 15px 40px; font-weight: 600; text-decoration: none;
-      display: inline-block; transition: 0.3s; border: 2px solid var(--primary-dark);
-    }
-    .btn-main:hover { background: transparent; color: var(--primary-dark); text-decoration: none; }
+        .navbar-brand img { height: 22px; }
 
-    .support-link { margin-top: 30px; color: #9CA3AF; font-size: 0.9rem; }
-    .support-link a { color: var(--primary-dark); font-weight: 600; text-decoration: none; }
+        .nav-links-desktop {
+            display: flex;
+            align-items: center;
+            list-style: none;
+        }
 
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-  </style>
+        .nav-links-desktop li a {
+            color: #ffffff;
+            font-weight: 500;
+            font-size: 0.85rem;
+            margin: 0 18px;
+            text-decoration: none;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+            position: relative;
+        }
+
+        .nav-links-desktop li a:hover { opacity: 1; }
+
+        .nav-links-desktop li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--brand-red);
+            transition: width 0.4s cubic-bezier(0.2, 1, 0.2, 1);
+        }
+
+        .nav-links-desktop li a:hover::after { width: 100%; }
+
+        .btn-portal-top::after { display: none !important; }
+
+        .btn-portal-top {
+            background: var(--brand-red);
+            color: white !important;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            opacity: 1 !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .btn-portal-top:hover {
+            background: #ffffff !important;
+            color: var(--text-dark) !important;
+            transform: translateY(-2px);
+        }
+
+        .menu-trigger {
+            display: none;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 5001;
+            position: relative;
+        }
+
+        .menu-icon {
+            width: 26px;
+            height: 18px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .menu-icon span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background: #fff;
+            border-radius: 10px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .menu-active .menu-icon span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        .menu-active .menu-icon span:nth-child(2) { opacity: 0; transform: translateX(10px); }
+        .menu-active .menu-icon span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+        .mobile-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(29, 29, 31, 0.98);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 4500;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        .mobile-overlay.active { opacity: 1; visibility: visible; }
+
+        .mobile-nav-links { list-style: none; padding: 0; text-align: center; }
+
+        .mobile-nav-links li {
+            margin: 25px 0;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: 0.4s ease;
+        }
+
+        .mobile-overlay.active .mobile-nav-links li { transform: translateY(0); opacity: 1; }
+
+        .mobile-nav-links li:nth-child(1) { transition-delay: 0.10s; }
+        .mobile-nav-links li:nth-child(2) { transition-delay: 0.15s; }
+        .mobile-nav-links li:nth-child(3) { transition-delay: 0.20s; }
+
+        .mobile-nav-links a {
+            color: #fff;
+            font-size: 2.2rem;
+            font-weight: 700;
+            text-decoration: none;
+            letter-spacing: -0.03em;
+            position: relative;
+            display: inline-block;
+        }
+
+        .mobile-nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--brand-red);
+            transition: width 0.4s cubic-bezier(0.2, 1, 0.2, 1);
+        }
+
+        .mobile-nav-links a:hover::after { width: 100%; }
+
+        /* ─── PAGE CONTENT ───────────────────────────────────────── */
+        .app-wrap {
+            padding-top: var(--nav-h);
+            min-height: 100vh;
+        }
+
+        /* Hero */
+        .app-hero {
+            padding: 80px 24px 60px;
+            text-align: center;
+            background: linear-gradient(to bottom, #ffffff 0%, var(--bg-page) 100%);
+            border-bottom: 1px solid var(--border);
+            position: relative;
+        }
+
+        .app-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
+            background-size: 28px 28px;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 680px;
+            margin: 0 auto;
+            opacity: 0;
+            animation: fadeUp 0.8s ease 0.1s forwards;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .app-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-muted);
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .app-eyebrow::before,
+        .app-eyebrow::after {
+            content: '';
+            width: 24px;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .app-hero h1 {
+            font-size: clamp(2.2rem, 5vw, 2.8rem);
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+            margin-bottom: 14px;
+            color: var(--text-dark);
+        }
+
+        .app-subtitle {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        /* Main content */
+        .app-content {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 70px 24px 100px;
+            opacity: 0;
+            animation: fadeUp 0.8s ease 0.25s forwards;
+        }
+
+        /* Tab switcher */
+        .tab-switcher {
+            background: #eeeeef;
+            border-radius: 14px;
+            padding: 4px;
+            display: flex;
+            position: relative;
+            margin-bottom: 48px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 14px 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 2;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .tab-btn.active { color: var(--text-dark); }
+
+        .tab-slider {
+            position: absolute;
+            height: calc(100% - 8px);
+            width: calc(50% - 4px);
+            background: #ffffff;
+            border-radius: 11px;
+            top: 4px;
+            left: 4px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            z-index: 1;
+        }
+
+        .tab-switcher[data-active="orbi"] .tab-slider { transform: translateX(100%); }
+
+        /* Tab panes */
+        .tab-pane {
+            display: none;
+            text-align: center;
+        }
+
+        .tab-pane.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Image carousel for nighthawk */
+        .image-carousel {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .carousel-arrow {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: #d0d0d4;
+            cursor: pointer;
+            transition: color 0.2s ease, transform 0.2s ease;
+            padding: 8px;
+        }
+
+        .carousel-arrow:hover {
+            color: var(--text-dark);
+            transform: scale(1.15);
+        }
+
+        .carousel-arrow:active {
+            transform: scale(0.95);
+        }
+
+        .device-img-wrap {
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .device-img {
+            max-height: 100%;
+            width: auto;
+            filter: drop-shadow(0 10px 25px rgba(0,0,0,0.08));
+            transition: opacity 0.3s ease;
+        }
+
+        /* Static image for orbi */
+        .static-device-img {
+            max-height: 150px;
+            width: auto;
+            margin-bottom: 32px;
+            filter: drop-shadow(0 10px 25px rgba(0,0,0,0.08));
+        }
+
+        /* Description */
+        .app-desc {
+            font-size: 1rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 28px;
+        }
+
+        /* Credentials box */
+        .cred-box {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 24px;
+            margin-bottom: 32px;
+        }
+
+        .cred-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .cred-row {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cred-item {
+            font-size: 0.95rem;
+            color: var(--text-dark);
+        }
+
+        .cred-item strong {
+            font-weight: 600;
+            margin-right: 6px;
+        }
+
+        .cred-value {
+            background: rgba(215, 60, 89, 0.08);
+            color: var(--brand-red);
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        /* Download button */
+        .btn-download {
+            display: inline-block;
+            background: var(--brand-red);
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 0.95rem;
+            padding: 16px 42px;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            box-shadow: 0 8px 24px rgba(215, 60, 89, 0.28);
+        }
+
+        .btn-download:hover {
+            background: var(--text-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+            color: #ffffff;
+        }
+
+        /* Support link */
+        .support-link {
+            text-align: center;
+            margin-top: 48px;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        .support-link a {
+            color: var(--brand-red);
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(215, 60, 89, 0.3);
+            transition: border-color 0.2s ease;
+        }
+
+        .support-link a:hover {
+            border-color: var(--brand-red);
+        }
+
+        /* ─── RESPONSIVE ─────────────────────────────────────────── */
+        @media (max-width: 768px) {
+            .nav-links-desktop { display: none; }
+            .menu-trigger { display: block; }
+
+            .app-hero { padding: 60px 20px 50px; }
+            .app-content { padding: 50px 20px 80px; }
+
+            .carousel-arrow { font-size: 1.6rem; }
+            .device-img-wrap { height: 120px; }
+            .static-device-img { max-height: 120px; }
+
+            .cred-row { flex-direction: column; gap: 10px; }
+        }
+    </style>
 </head>
-
 <body>
-  <div id="navbar-container"></div>
 
-  <main class="manage-container">
-    <div class="text-center mb-5">
-      <h3 class="display-5 fw-bold">Get the Netgear App</h3>
-      <p class="text-muted">The easiest way to manage your device, check data, and update settings.</p>
+<!-- ── NAVBAR ─────────────────────────────────────────────────── -->
+<nav class="navbar-custom">
+    <div class="nav-container">
+        <a class="navbar-brand" href="/">
+            <img src="assets/img/logos/logo.png" alt="More4Less">
+        </a>
+
+        <ul class="nav-links-desktop">
+            <li><a href="/#pricing">Pricing</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/portal" class="btn-portal-top">Customer Portal</a></li>
+        </ul>
+
+        <div class="menu-trigger" id="menuTrigger" onclick="toggleMenu()">
+            <div class="menu-icon">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="mobile-overlay" id="mobileOverlay">
+    <ul class="mobile-nav-links">
+        <li><a href="/#pricing">Pricing</a></li>
+        <li><a href="/contact">Contact</a></li>
+        <li><a href="/portal">Account Portal</a></li>
+    </ul>
+</div>
+
+<!-- ── PAGE CONTENT ───────────────────────────────────────────── -->
+<div class="app-wrap">
+
+    <!-- Hero -->
+    <section class="app-hero">
+        <div class="hero-content">
+            <div class="app-eyebrow">Device Management</div>
+            <h1>App Download</h1>
+            <p class="app-subtitle">The easiest way to manage your device, check data usage, and update settings.</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="app-content">
+
+        <!-- Tab Switcher -->
+        <div class="tab-switcher" id="tabSwitcher" data-active="nighthawk">
+            <div class="tab-slider"></div>
+            <button class="tab-btn active" data-tab="nighthawk" onclick="switchTab('nighthawk')">On-The-Go Devices</button>
+            <button class="tab-btn" data-tab="orbi" onclick="switchTab('orbi')">Fixed Home Devices</button>
+        </div>
+
+        <!-- Nighthawk Tab -->
+        <div class="tab-pane active" id="nighthawk-pane">
+            <div class="image-carousel">
+                <button class="carousel-arrow" id="prevBtn" onclick="prevImage()">‹</button>
+                <div class="device-img-wrap">
+                    <img src="assets/img/products/mr1100.png" class="device-img" id="deviceImg" alt="Nighthawk Device">
+                </div>
+                <button class="carousel-arrow" id="nextBtn" onclick="nextImage()">›</button>
+            </div>
+
+            <p class="app-desc">Use the Nighthawk app to check real-time data usage, manage Wi-Fi settings, view connected devices, and monitor signal strength.</p>
+
+            <div class="cred-box">
+                <div class="cred-label">Admin Credentials</div>
+                <div class="cred-row">
+                    <div class="cred-item">
+                        <strong>User:</strong>
+                        <span class="cred-value">admin</span>
+                    </div>
+                    <div class="cred-item">
+                        <strong>Pass:</strong>
+                        <span class="cred-value">attadmin</span>
+                    </div>
+                </div>
+            </div>
+
+            <a href="https://www.netgear.com/support/product/netgear-mobile-app/" class="btn-download">Download Nighthawk App</a>
+        </div>
+
+        <!-- Orbi Tab -->
+        <div class="tab-pane" id="orbi-pane">
+            <img src="assets/img/products/LBR20.png" class="static-device-img" alt="Orbi Router">
+
+            <p class="app-desc">Use the Orbi app to optimise your home signal coverage, run speed tests, manage connected devices, and configure your mesh network.</p>
+
+            <div class="cred-box">
+                <div class="cred-label">Admin Credentials</div>
+                <div class="cred-row">
+                    <div class="cred-item">
+                        <strong>User:</strong>
+                        <span class="cred-value">admin</span>
+                    </div>
+                    <div class="cred-item">
+                        <strong>Pass:</strong>
+                        <span class="cred-value">more4less</span>
+                    </div>
+                </div>
+            </div>
+
+            <a href="https://www.netgear.com/home/services/orbi-app/" class="btn-download">Download Orbi App</a>
+        </div>
+
+        <!-- Support Link -->
+        <p class="support-link">Need more help? <a href="/contact">Contact Support →</a></p>
+
     </div>
 
-    <div class="manage-card">
-      <div class="nav-pills-custom">
-        <button class="nav-link-custom active" data-tab="nighthawk">On-The-Go Devices</button>
-        <button class="nav-link-custom" data-tab="orbi">Fixed Home Devices</button>
-      </div>
+</div>
 
-      <div id="nighthawk-pane" class="tab-pane active">
-        <div class="image-switcher">
-          <button class="nav-arrow" id="prev-img"><i class="uil uil-angle-left"></i></button>
-          <img src="assets/img/products/mr1100.png" id="main-device-img" alt="Nighthawk">
-          <button class="nav-arrow" id="next-img"><i class="uil uil-angle-right"></i></button>
-        </div>
-        <p class="text-muted mb-4">Use the Nighthawk app to check data usage, manage Wi-Fi settings, and view connected devices.</p>
-        <div class="cred-badge">
-          <span class="small text-muted">Admin Credentials:</span><br>
-          <strong>User:</strong> <code>admin</code> | <strong>Pass:</strong> <code>attadmin</code>
-        </div>
-        <a href="https://www.netgear.com/support/product/netgear-mobile-app/" class="btn-main">Download Nighthawk App</a>
-      </div>
+<script>
+    // ── Mobile menu ──
+    function toggleMenu() {
+        const trigger = document.getElementById('menuTrigger');
+        const overlay = document.getElementById('mobileOverlay');
+        const isOpen  = trigger.classList.contains('menu-active');
+        trigger.classList.toggle('menu-active');
+        overlay.classList.toggle('active');
+        document.body.style.overflow = isOpen ? '' : 'hidden';
+    }
 
-      <div id="orbi-pane" class="tab-pane">
-        <img src="assets/img/products/LBR20.png" alt="Orbi" style="max-height: 160px; margin-bottom: 30px; filter: drop-shadow(0 8px 20px rgba(0,0,0,0.08));">
-        <p class="text-muted mb-4">Use the Orbi app to optimize your home signal, run speed tests, and manage your mesh network.</p>
-        <div class="cred-badge">
-          <span class="small text-muted">Admin Credentials:</span><br>
-          <strong>User:</strong> <code>admin</code> | <strong>Pass:</strong> <code>more4less</code>
-        </div>
-        <a href="https://www.netgear.com/home/services/orbi-app/" class="btn-main">Download Orbi App</a>
-      </div>
-    </div>
+    document.getElementById('mobileOverlay').addEventListener('click', function(e) {
+        if (e.target === this) toggleMenu();
+    });
 
-    <p class="support-link text-center">Need more help? <a href="/contact">Contact Support →</a></p>
-  </main>
+    // ── Tab switching ──
+    function switchTab(tab) {
+        const switcher = document.getElementById('tabSwitcher');
+        const buttons  = document.querySelectorAll('.tab-btn');
+        const panes    = document.querySelectorAll('.tab-pane');
 
-  <div id="footer-container"></div>
+        switcher.setAttribute('data-active', tab);
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script>
-    $(document).ready(function() {
-      // 1. Fetch Navbar & Footer
-      fetch('/navbar.html').then(r => r.text()).then(d => { 
-        $('#navbar-container').html(d); 
-        $.getScript('/navbar.js'); 
-      });
-      fetch('/footer.html').then(r => r.text()).then(d => { 
-        $('#footer-container').html(d); 
-        $('#currentYear').text(new Date().getFullYear());
-      });
+        buttons.forEach(btn => {
+            btn.classList.toggle('active', btn.getAttribute('data-tab') === tab);
+        });
 
-      // 2. Tab Logic
-      $('.nav-link-custom').on('click', function() {
-        const tab = $(this).data('tab');
-        $('.nav-link-custom').removeClass('active');
-        $(this).addClass('active');
-        $('.tab-pane').removeClass('active');
-        $(`#${tab}-pane`).addClass('active');
-      });
+        panes.forEach(pane => {
+            pane.classList.toggle('active', pane.id === tab + '-pane');
+        });
+    }
 
-      // 3. Nighthawk Image Switcher
-      const deviceImages = [
+    // ── Image carousel (Nighthawk only) ──
+    const deviceImages = [
         'assets/img/products/mr1100.png',
         'assets/img/products/MR5100.png',
         'assets/img/products/MR6500.png',
         'assets/img/products/mr6110.png'
-      ];
-      let currentIdx = 0;
+    ];
 
-      function updateImg(idx) {
-        $('#main-device-img').css('opacity', 0);
+    let currentIndex = 0;
+
+    function updateImage(index) {
+        const img = document.getElementById('deviceImg');
+        img.style.opacity = '0';
         setTimeout(() => {
-          $('#main-device-img').attr('src', deviceImages[idx]).css('opacity', 1);
-        }, 200);
-      }
+            img.src = deviceImages[index];
+            img.style.opacity = '1';
+        }, 150);
+    }
 
-      $('#next-img').on('click', () => { currentIdx = (currentIdx + 1) % deviceImages.length; updateImg(currentIdx); });
-      $('#prev-img').on('click', () => { currentIdx = (currentIdx - 1 + deviceImages.length) % deviceImages.length; updateImg(currentIdx); });
-    });
-  </script>
+    function nextImage() {
+        currentIndex = (currentIndex + 1) % deviceImages.length;
+        updateImage(currentIndex);
+    }
+
+    function prevImage() {
+        currentIndex = (currentIndex - 1 + deviceImages.length) % deviceImages.length;
+        updateImage(currentIndex);
+    }
+</script>
+
 </body>
 </html>
