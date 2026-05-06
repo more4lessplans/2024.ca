@@ -4,6 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Customer Portal | More4Less</title>
+
+    <!-- 5. Favicons & Theme -->
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicons/favicon-16x16.png">
+    <link rel="shortcut icon" href="assets/img/favicons/favicon.ico">
+    <link rel="manifest" href="assets/img/favicons/site.webmanifest">
+    <meta name="theme-color" content="#2E2F33">
     
     <!-- External Frameworks -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
@@ -12,134 +20,7 @@
     <!-- Linked External Stylesheet -->
     <link rel="stylesheet" href="css/style.css">
 
-    <style>
-        /* --- Tesla-Style Toggle Fixes --- */
-        .view-controls {
-            display: flex;
-            justify-content: center;
-            margin-top: 30px;
-        }
-
-        .tesla-toggle {
-            background: #e9ecef;
-            padding: 2px;
-            border-radius: 8px;
-            display: flex;
-            position: relative;
-            width: 140px;
-            border: 1px solid #dee2e6;
-        }
-
-        .glider {
-            position: absolute;
-            width: calc(50% - 2px);
-            height: calc(100% - 4px);
-            background: #fff;
-            border-radius: 6px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 1;
-        }
-
-        .t-btn {
-            flex: 1;
-            border: none;
-            background: transparent;
-            font-size: 12px;
-            font-weight: 700;
-            color: #6c757d;
-            z-index: 2;
-            cursor: pointer;
-            text-transform: uppercase;
-            padding: 8px 0;
-            outline: none !important;
-        }
-
-        .t-btn.active { color: #1a1a1a; }
-
-        /* --- Grid vs List Layouts --- */
-        .portal-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 30px;
-            transition: all 0.3s ease;
-        }
-
-        .portal-grid.list-view {
-            display: flex;
-            flex-direction: column;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .portal-grid.list-view .portal-card {
-            flex-direction: row;
-            align-items: center;
-            padding: 20px 30px;
-        }
-
-        .portal-grid.list-view .card-icon {
-            margin-bottom: 0;
-            margin-right: 25px;
-            font-size: 1.8rem;
-        }
-
-        .portal-grid.list-view .card-desc {
-            display: none; 
-        }
-
-        /* --- Mobile Overlay & Close Logic --- */
-        #mobileOverlay {
-            position: fixed;
-            top: 0;
-            right: -100%; /* Hidden by default */
-            width: 100%;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.95); /* High-end dark blur background */
-            z-index: 9999;
-            transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        #mobileOverlay.active {
-            right: 0;
-        }
-
-        /* The white "X" button positioning[cite: 5] */
-        .close-trigger-white {
-            position: absolute;
-            top: 30px;
-            right: 30px;
-            font-size: 2rem;
-            color: #ffffff;
-            cursor: pointer;
-            z-index: 10001;
-            line-height: 1;
-            background: none;
-            border: none;
-            outline: none;
-        }
-
-        /* Prevent link clicks from being "intercepted" by the close logic */
-        .mobile-nav-links {
-            list-style: none;
-            padding: 0;
-            text-align: center;
-            z-index: 10002;
-        }
-
-        .mobile-nav-links a {
-            color: #ffffff;
-            font-size: 2rem;
-            font-weight: 700;
-            text-decoration: none;
-            display: block;
-            padding: 15px;
-        }
-
-    </style>
+   
 </head>
 <body>
 
