@@ -6,7 +6,6 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- SEO and Meta Tags -->
   <title>Reactivate Service | More4Less Wireless Internet & Prepaid Service</title>
   <meta name="keywords" content="reactivate internet service, replacement SIM card, wireless internet Canada, LTE SIM card, 5G SIM card, More4Less SIM card, rural internet reactivation, RV internet service, mobile internet reactivation, unlimited data plans">
   <meta name="description" content="Reactivate your More4Less Wireless Internet service by ordering a replacement SIM card. Get back online with LTE or 5G internet for rural homes, RVs, and travelers across Canada.">
@@ -20,7 +19,6 @@
   <meta name="twitter:description" content="Get back online with a replacement SIM card for your More4Less wireless internet plan.">
   <meta name="twitter:image" content="https://more4lessplans.ca/assets/img/products/SIM.png">
 
-  <!-- Favicons -->
   <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicons/favicon-16x16.png">
@@ -29,229 +27,234 @@
   <meta name="msapplication-TileImage" content="assets/img/favicons/mstile-150x150.png">
   <meta name="theme-color" content="#2E2F34">
 
-  <!-- Stylesheets -->
-
+  <link rel="stylesheet" href="/navbar.css">
+  <link rel="stylesheet" href="/footer.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
 
   <style>
+    /* ─── TOKENS ─────────────────────────────────────────────── */
+    :root {
+      --brand-red:      #D73C59;
+      --brand-red-dark: #b82e48;
+      --bg-nav:         #2E2F33;
+      --bg-page:        #F5F5F7;
+      --text-dark:      #1d1d1f;
+      --text-muted:     #6e6e73;
+      --border:         #e2e2e6;
+      --card-bg:        #ffffff;
+      --card-radius:    26px;
+      --nav-h:          68px;
+    }
 
-       /* ─── SITE TOKENS ────────────────────────────────────────── */
-        :root {
-            --brand-red:      #D73C59;
-            --brand-red-glow: rgba(215, 60, 89, 0.10);
-            --brand-red-dark: #b82e48;
-            --bg-nav:         #2E2F33;
-            --bg-page:        #FBFBFD;
-            --text-dark:      #1d1d1f;
-            --text-muted:     #6e6e73;
-            --card-radius:    28px;
-            --nav-h:          68px;
-            --border:         #eaeaec;
-        }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 15px; }
 
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        html { font-size: 15px; scroll-behavior: smooth; }
+    /* ─── NO SCROLL ──────────────────────────────────────────── */
+    html, body {
+      overflow: hidden;
+      height: 100%;
+      width: 100%;
+    }
 
-        body {
-            font-family: 'Figtree', sans-serif;
-            background: var(--bg-page);
-            color: var(--text-dark);
-            -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
-        }
+    body {
+      font-family: 'Figtree', sans-serif;
+      background: var(--bg-page);
+      color: var(--text-dark);
+      -webkit-font-smoothing: antialiased;
+    }
 
-        /* ─── NAVBAR ─────────────────────────────────────────────── */
-        .navbar-custom {
-            background-color: var(--bg-nav);
-            padding: 1.2rem 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 4000;
-        }
+    /* ─── NAVBAR (UNCHANGED) ─────────────────────────────────── */
+    .navbar-custom {
+      background-color: var(--bg-nav);
+      padding: 1.2rem 0;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 4000;
+    }
 
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1140px;
-            margin: 0 auto;
-            padding: 0 25px;
-        }
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 25px;
+    }
 
-        .navbar-brand img { height: 22px; }
+    .navbar-brand img { height: 22px; }
 
-        .nav-links-desktop {
-            display: flex;
-            align-items: center;
-            list-style: none;
-        }
+    .nav-links-desktop {
+      display: flex;
+      align-items: center;
+      list-style: none;
+    }
 
-        .nav-links-desktop li a {
-            color: #ffffff;
-            font-weight: 500;
-            font-size: 0.85rem;
-            margin: 0 18px;
-            text-decoration: none;
-            opacity: 0.7;
-            transition: opacity 0.2s;
-            position: relative;
-        }
+    .nav-links-desktop li a {
+      color: #ffffff;
+      font-weight: 500;
+      font-size: 0.85rem;
+      margin: 0 18px;
+      text-decoration: none;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+      position: relative;
+    }
 
-        .nav-links-desktop li a:hover { opacity: 1; }
+    .nav-links-desktop li a:hover { opacity: 1; }
 
-        .nav-links-desktop li a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -4px;
-            left: 0;
-            background-color: var(--brand-red);
-            transition: width 0.4s cubic-bezier(0.2, 1, 0.2, 1);
-        }
+    .nav-links-desktop li a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -4px;
+      left: 0;
+      background-color: var(--brand-red);
+      transition: width 0.4s cubic-bezier(0.2, 1, 0.2, 1);
+    }
 
-        .nav-links-desktop li a:hover::after { width: 100%; }
+    .nav-links-desktop li a:hover::after { width: 100%; }
 
-        .btn-portal-top::after { display: none !important; }
+    .btn-portal-top::after { display: none !important; }
 
-        .btn-portal-top {
-            background: var(--brand-red);
-            color: white !important;
-            padding: 8px 20px;
-            border-radius: 50px;
-            font-weight: 600;
-            opacity: 1 !important;
-            transition: all 0.3s ease !important;
-        }
+    .btn-portal-top {
+      background: var(--brand-red);
+      color: white !important;
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-weight: 600;
+      opacity: 1 !important;
+      transition: all 0.3s ease !important;
+    }
 
-        .btn-portal-top:hover {
-            background: #ffffff !important;
-            color: var(--text-dark) !important;
-            transform: translateY(-2px);
-        }
+    .btn-portal-top:hover {
+      background: #ffffff !important;
+      color: var(--text-dark) !important;
+      transform: translateY(-2px);
+    }
 
-        .menu-trigger {
-            display: none;
-            cursor: pointer;
-            padding: 10px;
-            z-index: 5001;
-            position: relative;
-        }
+    .menu-trigger {
+      display: none;
+      cursor: pointer;
+      padding: 10px;
+      z-index: 5001;
+      position: relative;
+    }
 
-        .menu-icon {
-            width: 26px;
-            height: 18px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
+    .menu-icon {
+      width: 26px;
+      height: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
 
-        .menu-icon span {
-            display: block;
-            width: 100%;
-            height: 2px;
-            background: #fff;
-            border-radius: 10px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+    .menu-icon span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: #fff;
+      border-radius: 10px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
 
-        .menu-active .menu-icon span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
-        .menu-active .menu-icon span:nth-child(2) { opacity: 0; transform: translateX(10px); }
-        .menu-active .menu-icon span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+    .menu-active .menu-icon span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .menu-active .menu-icon span:nth-child(2) { opacity: 0; transform: translateX(10px); }
+    .menu-active .menu-icon span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
-        .mobile-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(29, 29, 31, 0.98);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 4500;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.4s ease, visibility 0.4s ease;
-        }
+    .mobile-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(29, 29, 31, 0.98);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 4500;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
 
-        .mobile-overlay.active { opacity: 1; visibility: visible; }
+    .mobile-overlay.active { opacity: 1; visibility: visible; }
 
-        .mobile-nav-links { list-style: none; padding: 0; text-align: center; }
+    .mobile-nav-links { list-style: none; padding: 0; text-align: center; }
 
-        .mobile-nav-links li {
-            margin: 25px 0;
-            transform: translateY(20px);
-            opacity: 0;
-            transition: 0.4s ease;
-        }
+    .mobile-nav-links li {
+      margin: 25px 0;
+      transform: translateY(20px);
+      opacity: 0;
+      transition: 0.4s ease;
+    }
 
-        .mobile-overlay.active .mobile-nav-links li { transform: translateY(0); opacity: 1; }
+    .mobile-overlay.active .mobile-nav-links li { transform: translateY(0); opacity: 1; }
 
-        .mobile-nav-links li:nth-child(1) { transition-delay: 0.10s; }
-        .mobile-nav-links li:nth-child(2) { transition-delay: 0.15s; }
-        .mobile-nav-links li:nth-child(3) { transition-delay: 0.20s; }
+    .mobile-nav-links li:nth-child(1) { transition-delay: 0.10s; }
+    .mobile-nav-links li:nth-child(2) { transition-delay: 0.15s; }
+    .mobile-nav-links li:nth-child(3) { transition-delay: 0.20s; }
 
-        .mobile-nav-links a {
-            color: #fff;
-            font-size: 2.2rem;
-            font-weight: 700;
-            text-decoration: none;
-            letter-spacing: -0.03em;
-            position: relative;
-            display: inline-block;
-        }
+    .mobile-nav-links a {
+      color: #fff;
+      font-size: 2.2rem;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: -0.03em;
+      position: relative;
+      display: inline-block;
+    }
 
-        .mobile-nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 3px;
-            bottom: -4px;
-            left: 0;
-            background-color: var(--brand-red);
-            transition: width 0.4s cubic-bezier(0.2, 1, 0.2, 1);
-        }
+    .mobile-nav-links a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 3px;
+      bottom: -4px;
+      left: 0;
+      background-color: var(--brand-red);
+      transition: width 0.4s cubic-bezier(0.2, 1, 0.2, 1);
+    }
 
-        .mobile-nav-links a:hover::after { width: 100%; }
-    /* ── Hero Shell ─────────────────────────────────────────── */
-    .reactivate-hero {
-      min-height: calc(100vh - var(--nav-h));
+    .mobile-nav-links a:hover::after { width: 100%; }
+
+    /* ─── FULL-SCREEN STAGE ──────────────────────────────────── */
+    .stage {
+      position: fixed;
+      inset: 0;
+      top: var(--nav-h);
+      background: var(--bg-page);
       display: flex;
       align-items: center;
       justify-content: center;
-      position: relative;
-      overflow: hidden;
-      padding: 80px 24px 100px;
+      padding: 32px 24px;
     }
 
-    /* Dot-grid background */
-    .reactivate-hero::before {
+    /* Subtle grain texture overlay */
+    .stage::before {
       content: '';
       position: absolute;
       inset: 0;
-      background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
-      background-size: 28px 28px;
-      opacity: 0.9;
-      mask-image: radial-gradient(ellipse 80% 70% at 50% 0%, black 20%, transparent 100%);
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.025;
       pointer-events: none;
     }
 
-    /* Subtle gradient wash */
-    .reactivate-hero::after {
+    /* Very soft vignette */
+    .stage::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse 60% 50% at 50% 100%, rgba(46,47,51,0.04) 0%, transparent 70%);
+      background: radial-gradient(ellipse 70% 70% at 50% 50%, transparent 50%, rgba(200,200,205,0.18) 100%);
       pointer-events: none;
     }
 
-    /* ── Hero Inner ─────────────────────────────────────────── */
-    .hero-inner {
+    /* ─── CENTER CONTENT ─────────────────────────────────────── */
+    .center-content {
       position: relative;
       z-index: 2;
       display: flex;
@@ -259,63 +262,62 @@
       align-items: center;
       text-align: center;
       width: 100%;
-      max-width: 540px;
+      max-width: 460px;
     }
 
-    /* ── Eyebrow ────────────────────────────────────────────── */
-    .hero-eyebrow {
+    /* ─── EYEBROW ────────────────────────────────────────────── */
+    .eyebrow {
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      color: var(--muted);
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.18em;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      margin-bottom: 22px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
       opacity: 0;
-      animation: fadeUp 0.6s ease 0.1s forwards;
+      animation: riseIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
     }
 
-    .hero-eyebrow::before,
-    .hero-eyebrow::after {
-      content: '';
+    .eyebrow-line {
       display: block;
-      width: 28px;
+      width: 24px;
       height: 1px;
       background: var(--border);
+      border-radius: 2px;
     }
 
-    /* ── Headline ───────────────────────────────────────────── */
-    .hero-headline {
+    /* ─── HEADLINE ───────────────────────────────────────────── */
+    .headline {
       font-family: 'Rubik', sans-serif;
-      font-size: clamp(2rem, 5vw, 3rem);
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
       font-weight: 800;
-      letter-spacing: -0.04em;
-      line-height: 1.08;
-      color: var(--text);
-      margin-bottom: 14px;
+      letter-spacing: -0.045em;
+      line-height: 1.05;
+      color: var(--text-dark);
+      margin-bottom: 10px;
       opacity: 0;
-      animation: fadeUp 0.7s ease 0.2s forwards;
+      animation: riseIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.18s forwards;
     }
 
-    /* ── Subheading ─────────────────────────────────────────── */
-    .hero-sub {
-      font-size: 1rem;
-      color: var(--muted);
+    /* ─── SUB ────────────────────────────────────────────────── */
+    .sub {
+      font-size: 0.95rem;
+      color: var(--text-muted);
       font-weight: 400;
-      line-height: 1.65;
-      margin-bottom: 48px;
+      line-height: 1.7;
+      margin-bottom: 40px;
       opacity: 0;
-      animation: fadeUp 0.7s ease 0.3s forwards;
+      animation: riseIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.26s forwards;
     }
 
-    /* ── Card ───────────────────────────────────────────────── */
+    /* ─── CARD ───────────────────────────────────────────────── */
     .sim-card {
       background: var(--card-bg);
-      border: 1.5px solid var(--border);
-      border-radius: 24px;
-      padding: 44px 40px 40px;
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      padding: 40px 36px 36px;
       width: 100%;
       display: flex;
       flex-direction: column;
@@ -324,103 +326,125 @@
       position: relative;
       overflow: hidden;
       opacity: 0;
-      animation: fadeUp 0.7s ease 0.4s forwards;
-      transition: box-shadow 0.4s ease, border-color 0.4s ease, transform 0.4s cubic-bezier(0.34, 1.46, 0.64, 1);
+      animation: riseIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.34s forwards;
+
+      /* Layered shadow for depth */
+      box-shadow:
+        0 1px 2px rgba(0,0,0,0.04),
+        0 4px 12px rgba(0,0,0,0.05),
+        0 16px 40px rgba(0,0,0,0.06);
+
+      transition:
+        box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+        border-color 0.4s ease;
     }
 
     .sim-card:hover {
-      border-color: #d0d0d4;
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.07);
-      transform: translateY(-4px);
+      transform: translateY(-5px);
+      border-color: #d5d5da;
+      box-shadow:
+        0 2px 4px rgba(0,0,0,0.04),
+        0 8px 24px rgba(0,0,0,0.07),
+        0 28px 60px rgba(0,0,0,0.09);
     }
 
-    /* Bottom accent bar */
+    /* Subtle top edge highlight */
+    .sim-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 10%; right: 10%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.9), transparent);
+      border-radius: 2px;
+    }
+
+    /* Bottom accent — slides in on hover */
     .sim-card::after {
       content: '';
       position: absolute;
       bottom: 0; left: 0; right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, #313C59, #2E2F33);
-      border-radius: 0 0 24px 24px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--bg-nav), #4a4d56);
+      border-radius: 0 0 var(--card-radius) var(--card-radius);
       transform: scaleX(0);
-      transition: transform 0.4s ease;
+      transform-origin: center;
+      transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
-    .sim-card:hover::after {
-      transform: scaleX(1);
-    }
+    .sim-card:hover::after { transform: scaleX(1); }
 
-    /* ── SIM Image Wrapper ──────────────────────────────────── */
+    /* ─── SIM IMAGE ──────────────────────────────────────────── */
     .sim-img-wrap {
-      width: 120px;
-      height: 120px;
-      border-radius: 20px;
-      background: var(--bg);
+      width: 100px;
+      height: 100px;
+      border-radius: 18px;
+      background: var(--bg-page);
       border: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 28px;
-      transition: transform 0.4s cubic-bezier(0.34, 1.46, 0.64, 1), background 0.3s ease;
+      margin-bottom: 24px;
+      transition: transform 0.5s cubic-bezier(0.34, 1.46, 0.64, 1);
     }
 
     .sim-card:hover .sim-img-wrap {
-      transform: scale(1.06) translateY(-3px);
-      background: #f4f4f6;
+      transform: scale(1.07) translateY(-2px);
     }
 
     .sim-img-wrap img {
-      max-width: 80px;
+      max-width: 64px;
       height: auto;
       display: block;
     }
 
-    /* ── Card Text ──────────────────────────────────────────── */
+    /* ─── CARD TEXT ──────────────────────────────────────────── */
     .sim-card-title {
       font-family: 'Rubik', sans-serif;
-      font-size: 1.25rem;
+      font-size: 1.15rem;
       font-weight: 700;
-      color: var(--text);
-      letter-spacing: -0.02em;
-      margin-bottom: 10px;
+      color: var(--text-dark);
+      letter-spacing: -0.025em;
+      margin-bottom: 8px;
     }
 
     .sim-card-desc {
-      font-size: 0.9rem;
-      color: var(--muted);
+      font-size: 0.88rem;
+      color: var(--text-muted);
       line-height: 1.7;
-      margin-bottom: 32px;
-      max-width: 320px;
+      margin-bottom: 30px;
+      max-width: 300px;
     }
 
-    /* ── Shopify Button Overrides ───────────────────────────── */
+    /* ─── SHOPIFY BUTTON OVERRIDES ───────────────────────────── */
     #product-component-1730913325603 {
       width: 100%;
       display: flex;
       justify-content: center;
     }
 
+    /* Force Shopify iframe button to match design */
     .shopify-buy__btn {
-      border: 2px solid var(--brand) !important;
-      background-color: var(--brand) !important;
+      background: var(--bg-nav) !important;
+      border: 1.5px solid var(--bg-nav) !important;
       color: #fff !important;
-      font-family: 'Rubik', sans-serif !important;
+      font-family: 'Figtree', sans-serif !important;
       font-weight: 600 !important;
-      font-size: 0.92rem !important;
-      border-radius: 9px !important;
-      padding: 15px 50px !important;
+      font-size: 0.88rem !important;
+      border-radius: 12px !important;
+      padding: 14px 44px !important;
       text-transform: none !important;
       letter-spacing: 0.01em !important;
-      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease !important;
+      transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease !important;
       display: inline-block !important;
       margin: 0 auto !important;
     }
 
     .shopify-buy__btn:hover,
     .shopify-buy__btn:focus {
-      background-color: transparent !important;
-      color: #000 !important;
-      border-color: #000 !important;
+      background: transparent !important;
+      color: var(--text-dark) !important;
+      border-color: var(--border) !important;
     }
 
     .shopify-buy__product {
@@ -432,129 +456,123 @@
     .shopify-buy__cart-toggle,
     .shopify-buy__btn--cart,
     .shopify-buy__cart-actions .shopify-buy__btn {
-      border: 2px solid var(--brand) !important;
-      background-color: var(--brand) !important;
+      background: var(--bg-nav) !important;
+      border: 1.5px solid var(--bg-nav) !important;
       color: #fff !important;
       font-weight: 600 !important;
-      border-radius: 9px !important;
-      font-family: 'Rubik', sans-serif !important;
+      border-radius: 12px !important;
+      font-family: 'Figtree', sans-serif !important;
       text-transform: none !important;
       transition: all 0.3s ease !important;
     }
 
     .shopify-buy__cart-toggle:hover,
-    .shopify-buy__cart-toggle:focus,
     .shopify-buy__btn--cart:hover,
-    .shopify-buy__btn--cart:focus,
-    .shopify-buy__cart-actions .shopify-buy__btn:hover,
-    .shopify-buy__cart-actions .shopify-buy__btn:focus {
-      background-color: transparent !important;
-      color: #000 !important;
-      border-color: #000 !important;
+    .shopify-buy__cart-actions .shopify-buy__btn:hover {
+      background: transparent !important;
+      color: var(--text-dark) !important;
+      border-color: var(--border) !important;
     }
 
-    .shopify-buy-frame--cart,
-    .shopify-buy__cart {
-      border-radius: 0 !important;
-      overflow: auto !important;
-      padding-bottom: 30px !important;
-    }
-
-    /* ── Helper Text ────────────────────────────────────────── */
+    /* ─── HELPER TEXT ────────────────────────────────────────── */
     .helper-text {
-      font-size: 0.85rem;
-      color: #9CA3AF;
-      margin-top: 24px;
+      font-size: 0.82rem;
+      color: #aaaaaf;
+      margin-top: 22px;
       opacity: 0;
-      animation: fadeUp 0.6s ease 0.55s forwards;
+      animation: riseIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.55s forwards;
     }
 
     .helper-text a {
-      color: var(--brand);
+      color: var(--text-muted);
       text-decoration: none;
       font-weight: 500;
-      transition: color 0.3s ease;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1px;
+      transition: color 0.25s ease, border-color 0.25s ease;
     }
 
     .helper-text a:hover {
-      color: var(--accent);
+      color: var(--text-dark);
+      border-color: var(--text-dark);
     }
 
-    /* ── Animations ─────────────────────────────────────────── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(18px); }
+    /* ─── ANIMATION ──────────────────────────────────────────── */
+    @keyframes riseIn {
+      from { opacity: 0; transform: translateY(16px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* ── Responsive ─────────────────────────────────────────── */
+    /* ─── RESPONSIVE ─────────────────────────────────────────── */
     @media (max-width: 576px) {
-      .reactivate-hero { padding: 60px 20px 80px; }
-      .sim-card { padding: 32px 24px 30px; border-radius: 18px; }
-      .hero-headline { font-size: 2rem; }
+      .menu-trigger { display: flex; }
+      .nav-links-desktop { display: none; }
+      .sim-card { padding: 28px 20px 26px; border-radius: 20px; }
+      .headline { font-size: 2rem; }
     }
   </style>
 </head>
 
 <body>
-<!-- ── NAVBAR ─────────────────────────────────────────────────── -->
-<nav class="navbar-custom">
+
+  <!-- ── NAVBAR (UNCHANGED) ───────────────────────────────────── -->
+  <nav class="navbar-custom">
     <div class="nav-container">
-        <a class="navbar-brand" href="/">
-            <img src="assets/img/logos/logo.png" alt="More4Less">
-        </a>
+      <a class="navbar-brand" href="/">
+        <img src="assets/img/logos/logo.png" alt="More4Less">
+      </a>
 
-        <ul class="nav-links-desktop">
-          
-        </ul>
+      <ul class="nav-links-desktop">
+         <li><a href="/#pricing">Pricing</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/portal" class="btn-portal-top">Customer Portal</a></li>
+      </ul>
 
-        <div class="menu-trigger" id="menuTrigger" onclick="toggleMenu()">
-            <div class="menu-icon">
-                <span></span><span></span><span></span>
-            </div>
+      <div class="menu-trigger" id="menuTrigger" onclick="toggleMenu()">
+        <div class="menu-icon">
+          <span></span><span></span><span></span>
         </div>
-    </div>
-</nav>
-
-<div class="mobile-overlay" id="mobileOverlay">
-    <ul class="mobile-nav-links">
-        <li><a href="/#pricing">Pricing</a></li>
-        <li><a href="/contact">Contact</a></li>
-        <li><a href="/portal">Account Portal</a></li>
-    </ul>
-</div>
-
-  <!-- Main Content -->
-  <main id="top">
-
-    <section class="reactivate-hero">
-      <div class="hero-inner">
-
-        <div class="hero-eyebrow">Service Reactivation</div>
-
-        <h1 class="hero-headline">Get back online.</h1>
-
-        <p class="hero-sub">To reactivate your service you'll need a new SIM card.<br>Order one below and we'll get you sorted.</p>
-
-        <div class="sim-card">
-          <div class="sim-img-wrap">
-            <img src="assets/img/products/SIM.png" alt="More4Less SIM Card">
-          </div>
-          <div class="sim-card-title">Replacement SIM Card</div>
-          <p class="sim-card-desc">Reactivate your LTE or 5G wireless internet service for rural homes, RVs, or travel across Canada.</p>
-          <div id="product-component-1730913325603"></div>
-        </div>
-
-        <p class="helper-text">Need help? <a href="/contact">Contact Support →</a></p>
-
       </div>
-    </section>
+    </div>
+  </nav>
 
-  </main>
+  <div class="mobile-overlay" id="mobileOverlay">
+    <ul class="mobile-nav-links">
+      <li><a href="/#pricing">Pricing</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/portal">Account Portal</a></li>
+    </ul>
+  </div>
 
-  <!-- Footer Container -->
-  <div id="footer-container"></div>
+  <!-- ── FULL-SCREEN STAGE ────────────────────────────────────── -->
+  <div class="stage">
+    <div class="center-content">
 
-  <!-- JavaScripts -->
+      <div class="eyebrow">
+        <span class="eyebrow-line"></span>
+        Service Reactivation
+        <span class="eyebrow-line"></span>
+      </div>
+
+      <h1 class="headline">Get back online.</h1>
+
+      <p class="sub">To reactivate your service you'll need a new SIM card.<br>Order one below and we'll get you sorted.</p>
+
+      <div class="sim-card">
+        <div class="sim-img-wrap">
+          <img src="assets/img/products/SIM.png" alt="More4Less SIM Card">
+        </div>
+        <div class="sim-card-title">Replacement SIM Card</div>
+        <p class="sim-card-desc">Reactivate your LTE or 5G wireless internet service for rural homes, RVs, or travel across Canada.</p>
+        <div id="product-component-1730913325603"></div>
+      </div>
+
+      <p class="helper-text">Need help? <a href="/contact">Contact Support →</a></p>
+
+    </div>
+  </div>
+
+  <!-- ── SCRIPTS ───────────────────────────────────────────────── -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -567,25 +585,16 @@
   <script>
     document.addEventListener('DOMContentLoaded', function () {
 
-      // Load navbar
-      fetch('/navbar.html')
-        .then(r => { if (!r.ok) throw new Error(r.status); return r.text(); })
-        .then(data => {
-          document.getElementById('navbar-container').innerHTML = data;
-          const s = document.createElement('script');
-          s.src = '/navbar.js';
-          s.onload = () => { if (typeof initializeNavbar === 'function') initializeNavbar(); };
-          document.body.appendChild(s);
-        })
-        .catch(e => console.error('Navbar load error:', e));
-
       // Load footer
       fetch('/footer.html')
         .then(r => { if (!r.ok) throw new Error(r.status); return r.text(); })
         .then(data => {
-          document.getElementById('footer-container').innerHTML = data;
-          const yr = document.getElementById('currentYear');
-          if (yr) yr.textContent = new Date().getFullYear();
+          const container = document.getElementById('footer-container');
+          if (container) {
+            container.innerHTML = data;
+            const yr = document.getElementById('currentYear');
+            if (yr) yr.textContent = new Date().getFullYear();
+          }
         })
         .catch(e => console.error('Footer load error:', e));
 
@@ -623,18 +632,27 @@
                   "text": { "button": "Order SIM Card" },
                   "styles": {
                     "button": {
-                      "border": "2px solid #2E2F33",
-                      "background-color": "#2E2F33",
-                      "color": "#fff",
+                      "font-family": "Figtree, sans-serif",
+                      "font-size": "0.88rem",
                       "font-weight": "600",
-                      "border-radius": "9px",
-                      "padding": "15px 50px",
-                      "font-family": "Rubik, sans-serif",
-                      "font-size": "0.92rem",
+                      "background-color": "#2E2F33",
+                      "color": "#ffffff",
+                      "border": "1.5px solid #2E2F33",
+                      "border-radius": "12px",
+                      "padding": "14px 44px",
                       "text-transform": "none",
                       "letter-spacing": "0.01em",
-                      ":hover": { "background-color": "transparent", "color": "#000", "border": "2px solid #000" },
-                      ":focus": { "background-color": "transparent", "color": "#000", "border": "2px solid #000" }
+                      "transition": "all 0.3s ease",
+                      ":hover": {
+                        "background-color": "transparent",
+                        "color": "#1d1d1f",
+                        "border": "1.5px solid #e2e2e6"
+                      },
+                      ":focus": {
+                        "background-color": "transparent",
+                        "color": "#1d1d1f",
+                        "border": "1.5px solid #e2e2e6"
+                      }
                     }
                   }
                 },
@@ -643,16 +661,19 @@
                   "text": { "button": "Order Now" },
                   "styles": {
                     "button": {
-                      "border": "2px solid #2E2F33",
-                      "background-color": "#2E2F33",
-                      "color": "#fff",
+                      "font-family": "Figtree, sans-serif",
                       "font-weight": "600",
-                      "border-radius": "0px",
-                      "padding": "15px 65px",
-                      "font-family": "Rubik, sans-serif",
+                      "background-color": "#2E2F33",
+                      "color": "#ffffff",
+                      "border": "1.5px solid #2E2F33",
+                      "border-radius": "12px",
+                      "padding": "14px 52px",
                       "text-transform": "none",
-                      ":hover": { "background-color": "transparent", "color": "#000", "border": "2px solid #000" },
-                      ":focus": { "background-color": "transparent", "color": "#000", "border": "2px solid #000" }
+                      ":hover": {
+                        "background-color": "transparent",
+                        "color": "#1d1d1f",
+                        "border": "1.5px solid #e2e2e6"
+                      }
                     }
                   }
                 },
@@ -660,16 +681,19 @@
                   "text": { "title": "Shopping Cart", "total": "Subtotal", "button": "Checkout" },
                   "styles": {
                     "button": {
-                      "border": "2px solid #2E2F33",
-                      "background-color": "#2E2F33",
-                      "color": "#fff",
+                      "font-family": "Figtree, sans-serif",
                       "font-weight": "600",
-                      "border-radius": "0px",
-                      "padding": "10px 40px",
-                      "font-family": "Rubik, sans-serif",
+                      "background-color": "#2E2F33",
+                      "color": "#ffffff",
+                      "border": "1.5px solid #2E2F33",
+                      "border-radius": "12px",
+                      "padding": "12px 40px",
                       "text-transform": "none",
-                      ":hover": { "background-color": "transparent", "color": "#000", "border": "2px solid #000" },
-                      ":focus": { "background-color": "transparent", "color": "#000", "border": "2px solid #000" }
+                      ":hover": {
+                        "background-color": "transparent",
+                        "color": "#1d1d1f",
+                        "border": "1.5px solid #e2e2e6"
+                      }
                     },
                     "footer": { "background-color": "#ffffff", "padding-bottom": "20px" },
                     "cart": { "border-radius": "0", "overflow": "auto" }
@@ -678,18 +702,17 @@
                 "toggle": {
                   "styles": {
                     "toggle": {
-                      "border": "2px solid #2E2F33",
-                      "background-color": "#2E2F33",
-                      "color": "#fff",
+                      "font-family": "Figtree, sans-serif",
                       "font-weight": "600",
+                      "background-color": "#2E2F33",
+                      "color": "#ffffff",
+                      "border": "1.5px solid #2E2F33",
                       "border-radius": "0px",
                       "padding": "30px 20px",
-                      "font-family": "Rubik, sans-serif",
                       "text-transform": "none",
                       "box-sizing": "border-box",
                       "line-height": "1.2",
-                      ":hover": { "background-color": "black", "color": "#000", "border": "0px solid #000" },
-                      ":focus": { "background-color": "white", "color": "#000", "border": "0px solid #000" }
+                      ":hover": { "background-color": "#1a1b1e" }
                     }
                   }
                 }
@@ -700,22 +723,22 @@
       })();
     });
 
-
-    // Mobile menu toggle
-function toggleMenu() {
-    var trigger  = document.getElementById('menuTrigger');
-    var overlay  = document.getElementById('mobileOverlay');
-    var isActive = trigger.classList.contains('menu-active');
-
-    if (isActive) {
-        trigger.classList.remove('menu-active');
-        overlay.classList.remove('active');
-    } else {
-        trigger.classList.add('menu-active');
-        overlay.classList.add('active');
+    // Mobile menu
+    function closeMenu() {
+      document.getElementById('menuTrigger').classList.remove('menu-active');
+      document.getElementById('mobileOverlay').classList.remove('active');
     }
-}
 
+    function toggleMenu() {
+      var trigger = document.getElementById('menuTrigger');
+      var overlay = document.getElementById('mobileOverlay');
+      trigger.classList.contains('menu-active') ? closeMenu() : (trigger.classList.add('menu-active'), overlay.classList.add('active'));
+    }
+
+    // Close on backdrop tap (not on link clicks)
+    document.getElementById('mobileOverlay').addEventListener('click', function (e) {
+      if (!e.target.closest('a')) closeMenu();
+    });
   </script>
 </body>
 </html>
