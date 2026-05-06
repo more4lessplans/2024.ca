@@ -29,129 +29,411 @@
   <meta name="msapplication-TileImage" content="assets/img/favicons/mstile-150x150.png">
   <meta name="theme-color" content="#2E2F34">
 
-  <!-- Bootstrap CSS -->
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="/navbar.css">
-  <link rel="stylesheet" href="/footer.css">
-  <link rel="stylesheet" href="vendors/swiper/swiper-bundle.min.css">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
-  <link href="assets/css/theme.min.css" rel="stylesheet" id="style-default">
-  <link href="assets/css/user-rtl.min.css" rel="stylesheet" id="user-style-rtl">
-  <link href="assets/css/user.min.css" rel="stylesheet" id="user-style-default">
   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
 
-  <!-- Page-Specific CSS -->
   <style>
-    body {
-      padding-top: 70px;
+
+       /* ─── SITE TOKENS ────────────────────────────────────────── */
+        :root {
+            --brand-red:      #D73C59;
+            --brand-red-glow: rgba(215, 60, 89, 0.10);
+            --brand-red-dark: #b82e48;
+            --bg-nav:         #2E2F33;
+            --bg-page:        #FBFBFD;
+            --text-dark:      #1d1d1f;
+            --text-muted:     #6e6e73;
+            --card-radius:    28px;
+            --nav-h:          68px;
+            --border:         #eaeaec;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { font-size: 15px; scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Figtree', sans-serif;
+            background: var(--bg-page);
+            color: var(--text-dark);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* ─── NAVBAR ─────────────────────────────────────────────── */
+        .navbar-custom {
+            background-color: var(--bg-nav);
+            padding: 1.2rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 4000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 25px;
+        }
+
+        .navbar-brand img { height: 22px; }
+
+        .nav-links-desktop {
+            display: flex;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links-desktop li a {
+            color: #ffffff;
+            font-weight: 500;
+            font-size: 0.85rem;
+            margin: 0 18px;
+            text-decoration: none;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+            position: relative;
+        }
+
+        .nav-links-desktop li a:hover { opacity: 1; }
+
+        .nav-links-desktop li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--brand-red);
+            transition: width 0.4s cubic-bezier(0.2, 1, 0.2, 1);
+        }
+
+        .nav-links-desktop li a:hover::after { width: 100%; }
+
+        .btn-portal-top::after { display: none !important; }
+
+        .btn-portal-top {
+            background: var(--brand-red);
+            color: white !important;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            opacity: 1 !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .btn-portal-top:hover {
+            background: #ffffff !important;
+            color: var(--text-dark) !important;
+            transform: translateY(-2px);
+        }
+
+        .menu-trigger {
+            display: none;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 5001;
+            position: relative;
+        }
+
+        .menu-icon {
+            width: 26px;
+            height: 18px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .menu-icon span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background: #fff;
+            border-radius: 10px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .menu-active .menu-icon span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        .menu-active .menu-icon span:nth-child(2) { opacity: 0; transform: translateX(10px); }
+        .menu-active .menu-icon span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+        .mobile-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(29, 29, 31, 0.98);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 4500;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        .mobile-overlay.active { opacity: 1; visibility: visible; }
+
+        .mobile-nav-links { list-style: none; padding: 0; text-align: center; }
+
+        .mobile-nav-links li {
+            margin: 25px 0;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: 0.4s ease;
+        }
+
+        .mobile-overlay.active .mobile-nav-links li { transform: translateY(0); opacity: 1; }
+
+        .mobile-nav-links li:nth-child(1) { transition-delay: 0.10s; }
+        .mobile-nav-links li:nth-child(2) { transition-delay: 0.15s; }
+        .mobile-nav-links li:nth-child(3) { transition-delay: 0.20s; }
+
+        .mobile-nav-links a {
+            color: #fff;
+            font-size: 2.2rem;
+            font-weight: 700;
+            text-decoration: none;
+            letter-spacing: -0.03em;
+            position: relative;
+            display: inline-block;
+        }
+
+        .mobile-nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--brand-red);
+            transition: width 0.4s cubic-bezier(0.2, 1, 0.2, 1);
+        }
+
+        .mobile-nav-links a:hover::after { width: 100%; }
+    /* ── Hero Shell ─────────────────────────────────────────── */
+    .reactivate-hero {
+      min-height: calc(100vh - var(--nav-h));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      padding: 80px 24px 100px;
     }
-    @media (max-width: 576px) {
-      body { padding-top: 60px; }
+
+    /* Dot-grid background */
+    .reactivate-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
+      background-size: 28px 28px;
+      opacity: 0.9;
+      mask-image: radial-gradient(ellipse 80% 70% at 50% 0%, black 20%, transparent 100%);
+      pointer-events: none;
     }
-    .text-danger { color: #2E2F33 !important; }
-    .text-muted { color: #565656 !important; }
-    .btn-primary {
-      border: 2px solid #2E2F33;
-      background-color: #2E2F33;
-      color: #fff;
-      font-weight: 600;
-      border-radius: 9px;
-      padding: 15px 45px;
-      transition: all 0.3s ease;
-      text-transform: none;
+
+    /* Subtle gradient wash */
+    .reactivate-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 50% 100%, rgba(46,47,51,0.04) 0%, transparent 70%);
+      pointer-events: none;
     }
-    .btn-primary:hover, .btn-primary:focus {
-      background-color: transparent;
-      color: #000;
-      border: 2px solid #000;
-    }
-    .activation-card {
-      background: #F9F9F9;
-      border: none;
-      border-radius: 15px;
-      padding: 30px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-      transition: box-shadow 0.3s ease;
+
+    /* ── Hero Inner ─────────────────────────────────────────── */
+    .hero-inner {
+      position: relative;
+      z-index: 2;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
+      width: 100%;
+      max-width: 540px;
     }
-    .activation-card:hover { box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); }
-    .activation-card img { max-width: 200px; height: auto; margin: 1rem auto; display: block; }
-    .activation-card p { font-size: 1rem; line-height: 1.6; color: #565656; margin-bottom: 2rem; }
-    .section-title h3 {
+
+    /* ── Eyebrow ────────────────────────────────────────────── */
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.1s forwards;
+    }
+
+    .hero-eyebrow::before,
+    .hero-eyebrow::after {
+      content: '';
+      display: block;
+      width: 28px;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── Headline ───────────────────────────────────────────── */
+    .hero-headline {
+      font-family: 'Rubik', sans-serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.08;
+      color: var(--text);
+      margin-bottom: 14px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.2s forwards;
+    }
+
+    /* ── Subheading ─────────────────────────────────────────── */
+    .hero-sub {
+      font-size: 1rem;
+      color: var(--muted);
+      font-weight: 400;
+      line-height: 1.65;
+      margin-bottom: 48px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.3s forwards;
+    }
+
+    /* ── Card ───────────────────────────────────────────────── */
+    .sim-card {
+      background: var(--card-bg);
+      border: 1.5px solid var(--border);
+      border-radius: 24px;
+      padding: 44px 40px 40px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
       position: relative;
-      display: inline-block;
-      padding-bottom: 10px;
-      color: #2E2F33;
+      overflow: hidden;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.4s forwards;
+      transition: box-shadow 0.4s ease, border-color 0.4s ease, transform 0.4s cubic-bezier(0.34, 1.46, 0.64, 1);
     }
-    .section-title h3::after {
+
+    .sim-card:hover {
+      border-color: #d0d0d4;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.07);
+      transform: translateY(-4px);
+    }
+
+    /* Bottom accent bar */
+    .sim-card::after {
       content: '';
       position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 250px;
+      bottom: 0; left: 0; right: 0;
       height: 3px;
       background: linear-gradient(90deg, #313C59, #2E2F33);
-      border-radius: 2px;
+      border-radius: 0 0 24px 24px;
+      transform: scaleX(0);
+      transition: transform 0.4s ease;
     }
-    .section-title p { font-family: 'Rubik', sans-serif; font-weight: 400; letter-spacing: 0.5px; }
-    @media (max-width: 991.98px) {
-      #reactivation-section { padding-top: 120px; }
-      .section-title { padding-top: 20px; }
+
+    .sim-card:hover::after {
+      transform: scaleX(1);
     }
-    .reactivate-text {
+
+    /* ── SIM Image Wrapper ──────────────────────────────────── */
+    .sim-img-wrap {
+      width: 120px;
+      height: 120px;
+      border-radius: 20px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 28px;
+      transition: transform 0.4s cubic-bezier(0.34, 1.46, 0.64, 1), background 0.3s ease;
+    }
+
+    .sim-card:hover .sim-img-wrap {
+      transform: scale(1.06) translateY(-3px);
+      background: #f4f4f6;
+    }
+
+    .sim-img-wrap img {
+      max-width: 80px;
+      height: auto;
+      display: block;
+    }
+
+    /* ── Card Text ──────────────────────────────────────────── */
+    .sim-card-title {
+      font-family: 'Rubik', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+    }
+
+    .sim-card-desc {
       font-size: 0.9rem;
-      color: #9CA3AF;
-      text-align: center;
-      margin-top: 1.5rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 32px;
+      max-width: 320px;
     }
-    .reactivate-text a {
-      color: #2E2F33;
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.3s ease;
+
+    /* ── Shopify Button Overrides ───────────────────────────── */
+    #product-component-1730913325603 {
+      width: 100%;
+      display: flex;
+      justify-content: center;
     }
-    .reactivate-text a:hover {
-      color: #D73C59;
-    }
-    /* Shopify Button Override */
+
     .shopify-buy__btn {
-      border: 2px solid #2E2F33 !important;
-      background-color: #2E2F33 !important;
+      border: 2px solid var(--brand) !important;
+      background-color: var(--brand) !important;
       color: #fff !important;
-      font-weight: 600 !important;
-      border-radius: 0px !important;
-      padding: 15px 45px !important;
       font-family: 'Rubik', sans-serif !important;
+      font-weight: 600 !important;
+      font-size: 0.92rem !important;
+      border-radius: 9px !important;
+      padding: 15px 50px !important;
       text-transform: none !important;
-      transition: all 0.3s ease !important;
+      letter-spacing: 0.01em !important;
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease !important;
       display: inline-block !important;
       margin: 0 auto !important;
     }
-    .shopify-buy__btn:hover, .shopify-buy__btn:focus {
+
+    .shopify-buy__btn:hover,
+    .shopify-buy__btn:focus {
       background-color: transparent !important;
       color: #000 !important;
-      border: 2px solid #000 !important;
+      border-color: #000 !important;
     }
-    /* Ensure Shopify container is centered */
+
     .shopify-buy__product {
       display: flex !important;
       justify-content: center !important;
       width: 100% !important;
     }
-    /* Shopify Cart and Modal Button Overrides */
+
     .shopify-buy__cart-toggle,
     .shopify-buy__btn--cart,
     .shopify-buy__cart-actions .shopify-buy__btn {
-      border: 2px solid #2E2F33 !important;
-      background-color: #2E2F33 !important;
+      border: 2px solid var(--brand) !important;
+      background-color: var(--brand) !important;
       color: #fff !important;
       font-weight: 600 !important;
       border-radius: 9px !important;
@@ -159,6 +441,7 @@
       text-transform: none !important;
       transition: all 0.3s ease !important;
     }
+
     .shopify-buy__cart-toggle:hover,
     .shopify-buy__cart-toggle:focus,
     .shopify-buy__btn--cart:hover,
@@ -167,46 +450,105 @@
     .shopify-buy__cart-actions .shopify-buy__btn:focus {
       background-color: transparent !important;
       color: #000 !important;
-      border: 2px solid #000 !important;
+      border-color: #000 !important;
     }
-    /* Shopify Cart Frame Override */
+
     .shopify-buy-frame--cart,
     .shopify-buy__cart {
       border-radius: 0 !important;
       overflow: auto !important;
       padding-bottom: 30px !important;
     }
+
+    /* ── Helper Text ────────────────────────────────────────── */
+    .helper-text {
+      font-size: 0.85rem;
+      color: #9CA3AF;
+      margin-top: 24px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.55s forwards;
+    }
+
+    .helper-text a {
+      color: var(--brand);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .helper-text a:hover {
+      color: var(--accent);
+    }
+
+    /* ── Animations ─────────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Responsive ─────────────────────────────────────────── */
+    @media (max-width: 576px) {
+      .reactivate-hero { padding: 60px 20px 80px; }
+      .sim-card { padding: 32px 24px 30px; border-radius: 18px; }
+      .hero-headline { font-size: 2rem; }
+    }
   </style>
 </head>
 
 <body>
-  <!-- Navbar Container -->
-  <div id="navbar-container"></div>
+<!-- ── NAVBAR ─────────────────────────────────────────────────── -->
+<nav class="navbar-custom">
+    <div class="nav-container">
+        <a class="navbar-brand" href="/">
+            <img src="assets/img/logos/logo.png" alt="More4Less">
+        </a>
+
+        <ul class="nav-links-desktop">
+          
+        </ul>
+
+        <div class="menu-trigger" id="menuTrigger" onclick="toggleMenu()">
+            <div class="menu-icon">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="mobile-overlay" id="mobileOverlay">
+    <ul class="mobile-nav-links">
+        <li><a href="/#pricing">Pricing</a></li>
+        <li><a href="/contact">Contact</a></li>
+        <li><a href="/portal">Account Portal</a></li>
+    </ul>
+</div>
 
   <!-- Main Content -->
-  <main class="main" id="top">
-    <div class="content">
-      <section class="bg-white py-8 py-lg-10" id="reactivation-section">
-        <div class="container">
-          <div class="row justify-content-center text-center mb-5 section-title">
-            <div class="col-md-8 col-lg-7">
-              <h3 class="fs-4 fs-lg-3 fw-bold mb-2 lh-sm">Reactivate Your Service</h3>
-              <p class="fs-8 lh-lg text-muted">To get back online you'll need a new SIM card</p>
-            </div>
+  <main id="top">
+
+    <section class="reactivate-hero">
+      <div class="hero-inner">
+
+        <div class="hero-eyebrow">Service Reactivation</div>
+
+        <h1 class="hero-headline">Get back online.</h1>
+
+        <p class="hero-sub">To reactivate your service you'll need a new SIM card.<br>Order one below and we'll get you sorted.</p>
+
+        <div class="sim-card">
+          <div class="sim-img-wrap">
+            <img src="assets/img/products/SIM.png" alt="More4Less SIM Card">
           </div>
-          <div class="row justify-content-center">
-            <div class="col-md-8 col-lg-6">
-              <div class="activation-card">
-                <img src="assets/img/products/SIM.png" alt="SIM Card" class="mb-3">
-                <p>Reactivate your LTE or 5G wireless internet service for rural homes, RVs, or travel across Canada by ordering a new SIM card.</p>
-                <div id="product-component-1730913325603"></div>
-              </div>
-              <p class="reactivate-text">Need help? <a href="/contact">Contact Support →</a></p>
-            </div>
-          </div>
+          <div class="sim-card-title">Replacement SIM Card</div>
+          <p class="sim-card-desc">Reactivate your LTE or 5G wireless internet service for rural homes, RVs, or travel across Canada.</p>
+          <div id="product-component-1730913325603"></div>
         </div>
-      </section>
-    </div>
+
+        <p class="helper-text">Need help? <a href="/contact">Contact Support →</a></p>
+
+      </div>
+    </section>
+
   </main>
 
   <!-- Footer Container -->
@@ -217,71 +559,59 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script src="vendors/is/is.min.js"></script>
-  <script src="vendors/countup/countUp.umd.js"></script>
   <script src="vendors/swiper/swiper-bundle.min.js"></script>
   <script src="vendors/lodash/lodash.min.js"></script>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
   <script src="assets/js/theme.js"></script>
+
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
+
       // Load navbar
       fetch('/navbar.html')
-        .then(response => {
-          if (!response.ok) throw new Error('Failed to load navbar.html: ' + response.status);
-          return response.text();
-        })
+        .then(r => { if (!r.ok) throw new Error(r.status); return r.text(); })
         .then(data => {
           document.getElementById('navbar-container').innerHTML = data;
-          const navbarScript = document.createElement('script');
-          navbarScript.src = '/navbar.js';
-          navbarScript.onload = function() {
-            if (typeof initializeNavbar === 'function') {
-              initializeNavbar();
-            }
-          };
-          document.body.appendChild(navbarScript);
+          const s = document.createElement('script');
+          s.src = '/navbar.js';
+          s.onload = () => { if (typeof initializeNavbar === 'function') initializeNavbar(); };
+          document.body.appendChild(s);
         })
-        .catch(error => console.error('Error loading navbar:', error));
+        .catch(e => console.error('Navbar load error:', e));
 
       // Load footer
       fetch('/footer.html')
-        .then(response => {
-          if (!response.ok) throw new Error('Failed to load footer.html: ' + response.status);
-          return response.text();
-        })
+        .then(r => { if (!r.ok) throw new Error(r.status); return r.text(); })
         .then(data => {
           document.getElementById('footer-container').innerHTML = data;
-          const yearElement = document.getElementById('currentYear');
-          if (yearElement) {
-            yearElement.textContent = new Date().getFullYear();
-          }
+          const yr = document.getElementById('currentYear');
+          if (yr) yr.textContent = new Date().getFullYear();
         })
-        .catch(error => console.error('Error loading footer:', error));
+        .catch(e => console.error('Footer load error:', e));
 
-      // Shopify Buy Button Initialization
+      // Shopify Buy Button
       (function () {
         var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
         if (window.ShopifyBuy) {
-          if (window.ShopifyBuy.UI) {
-            ShopifyBuyInit();
-          } else {
-            loadScript();
-          }
+          window.ShopifyBuy.UI ? ShopifyBuyInit() : loadScript();
         } else {
           loadScript();
         }
+
         function loadScript() {
-          var script = document.createElement('script');
-          script.async = true;
-          script.src = scriptURL;
-          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(script);
-          script.onload = ShopifyBuyInit;
+          var s = document.createElement('script');
+          s.async = true;
+          s.src = scriptURL;
+          s.onload = ShopifyBuyInit;
+          (document.head || document.body).appendChild(s);
         }
+
         function ShopifyBuyInit() {
           var client = ShopifyBuy.buildClient({
             domain: 'checkout.more4lessplans.ca',
             storefrontAccessToken: '8919363113a077a0d17cd850b89265f4',
           });
+
           ShopifyBuy.UI.onReady(client).then(function (ui) {
             ui.createComponent('product', {
               id: '7883323572404',
@@ -289,14 +619,8 @@
               moneyFormat: '%24%7B%7Bamount%7D%7D',
               options: {
                 "product": {
-                  "contents": {
-                    "img": false,
-                    "title": false,
-                    "price": false
-                  },
-                  "text": {
-                    "button": "Order SIM Card"
-                  },
+                  "contents": { "img": false, "title": false, "price": false },
+                  "text": { "button": "Order SIM Card" },
                   "styles": {
                     "button": {
                       "border": "2px solid #2E2F33",
@@ -304,30 +628,19 @@
                       "color": "#fff",
                       "font-weight": "600",
                       "border-radius": "9px",
-                      "padding": "15px 45px",
+                      "padding": "15px 50px",
                       "font-family": "Rubik, sans-serif",
+                      "font-size": "0.92rem",
                       "text-transform": "none",
-                      ":hover": {
-                        "background-color": "transparent",
-                        "color": "#000",
-                        "border": "2px solid #000"
-                      },
-                      ":focus": {
-                        "background-color": "transparent",
-                        "color": "#000",
-                        "border": "2px solid #000"
-                      }
+                      "letter-spacing": "0.01em",
+                      ":hover": { "background-color": "transparent", "color": "#000", "border": "2px solid #000" },
+                      ":focus": { "background-color": "transparent", "color": "#000", "border": "2px solid #000" }
                     }
                   }
                 },
                 "modalProduct": {
-                  "contents": {
-                    "img": false,
-                    "imgWithCarousel": true
-                  },
-                  "text": {
-                    "button": "Order Now"
-                  },
+                  "contents": { "img": false, "imgWithCarousel": true },
+                  "text": { "button": "Order Now" },
                   "styles": {
                     "button": {
                       "border": "2px solid #2E2F33",
@@ -338,25 +651,13 @@
                       "padding": "15px 65px",
                       "font-family": "Rubik, sans-serif",
                       "text-transform": "none",
-                      ":hover": {
-                        "background-color": "transparent",
-                        "color": "#000",
-                        "border": "2px solid #000"
-                      },
-                      ":focus": {
-                        "background-color": "transparent",
-                        "color": "#000",
-                        "border": "2px solid #000"
-                      }
+                      ":hover": { "background-color": "transparent", "color": "#000", "border": "2px solid #000" },
+                      ":focus": { "background-color": "transparent", "color": "#000", "border": "2px solid #000" }
                     }
                   }
                 },
                 "cart": {
-                  "text": {
-                    "title": "Shopping Cart",
-                    "total": "Subtotal",
-                    "button": "Checkout"
-                  },
+                  "text": { "title": "Shopping Cart", "total": "Subtotal", "button": "Checkout" },
                   "styles": {
                     "button": {
                       "border": "2px solid #2E2F33",
@@ -367,50 +668,28 @@
                       "padding": "10px 40px",
                       "font-family": "Rubik, sans-serif",
                       "text-transform": "none",
-                      ":hover": {
-                        "background-color": "transparent",
-                        "color": "#000",
-                        "border": "2px solid #000"
-                      },
-                      ":focus": {
-                        "background-color": "transparent",
-                        "color": "#000",
-                        "border": "2px solid #000"
-                      }
+                      ":hover": { "background-color": "transparent", "color": "#000", "border": "2px solid #000" },
+                      ":focus": { "background-color": "transparent", "color": "#000", "border": "2px solid #000" }
                     },
-                    "footer": {
-                      "background-color": "#ffffff",
-                      "padding-bottom": "20px"
-                    },
-                    "cart": {
-                      "border-radius": "0",
-                      "overflow": "auto"
-                    }
+                    "footer": { "background-color": "#ffffff", "padding-bottom": "20px" },
+                    "cart": { "border-radius": "0", "overflow": "auto" }
                   }
                 },
- "toggle": {
-  "styles": {
-    "toggle": {
-      "border": "2px solid #2E2F33",
-      "background-color": "#2E2F33",
-      "color": "#fff",
-      "font-weight": "600",
-      "border-radius": "0px",
-      "padding": "30px 20px",
-      "font-family": "Rubik, sans-serif",
-      "text-transform": "none",
-      "box-sizing": "border-box",
-      "line-height": "1.2",
-      ":hover": {
-        "background-color": "black",
-        "color": "#000",
-        "border": "0px solid #000"
-      },
-      ":focus": {
-        "background-color": "white",
-        "color": "#000",
-        "border": "0px solid #000"
-                      }
+                "toggle": {
+                  "styles": {
+                    "toggle": {
+                      "border": "2px solid #2E2F33",
+                      "background-color": "#2E2F33",
+                      "color": "#fff",
+                      "font-weight": "600",
+                      "border-radius": "0px",
+                      "padding": "30px 20px",
+                      "font-family": "Rubik, sans-serif",
+                      "text-transform": "none",
+                      "box-sizing": "border-box",
+                      "line-height": "1.2",
+                      ":hover": { "background-color": "black", "color": "#000", "border": "0px solid #000" },
+                      ":focus": { "background-color": "white", "color": "#000", "border": "0px solid #000" }
                     }
                   }
                 }
@@ -420,6 +699,23 @@
         }
       })();
     });
+
+
+    // Mobile menu toggle
+function toggleMenu() {
+    var trigger  = document.getElementById('menuTrigger');
+    var overlay  = document.getElementById('mobileOverlay');
+    var isActive = trigger.classList.contains('menu-active');
+
+    if (isActive) {
+        trigger.classList.remove('menu-active');
+        overlay.classList.remove('active');
+    } else {
+        trigger.classList.add('menu-active');
+        overlay.classList.add('active');
+    }
+}
+
   </script>
 </body>
 </html>
