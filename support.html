@@ -1,524 +1,902 @@
 <!DOCTYPE html>
-<html data-bs-theme="light" lang="en-US" dir="ltr">
+<html lang="en-US">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Technical Support | Flowchart</title>
-  <!-- Bootstrap CSS -->
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="/navbar.css">
-  <link rel="stylesheet" href="/footer.css">
-  <link rel="stylesheet" href="vendors/swiper/swiper-bundle.min.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
-  <link href="assets/css/theme.min.css" rel="stylesheet" id="style-default">
-  <link href="assets/css/user-rtl.min.css" rel="stylesheet" id="user-style-rtl">
-  <link href="assets/css/user.min.css" rel="stylesheet" id="user-style-default">
-  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
-  <!-- Custom CSS -->
-  <style>
-    body {
-      background-color: #f8f9fa;
-      padding-top: 70px; /* Space for fixed navbar */
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    }
-    .support-container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-    .support-container .support-card {
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      padding: 30px;
-      margin-bottom: 30px;
-      transition: transform 0.3s ease;
-    }
-    .support-container .support-card:hover {
-      transform: translateY(-5px);
-    }
-    .support-container .support-header {
-      text-align: center;
-      margin-bottom: 40px;
-    }
-    .support-container .support-header h1 {
-      font-size: 2.5rem;
-      color: #000000;
-      font-weight: 700;
-      position: relative;
-      display: inline-block;
-      padding-bottom: 10px;
-    }
-    .support-container .support-header h1::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 150px;
-      height: 3px;
-      background: linear-gradient(90deg, #313C59, #2E2F33);
-      border-radius: 2px;
-    }
-    .support-container .support-header p {
-      font-size: 1.1rem;
-      color: #333333;
-    }
-    .support-container .form-group {
-      margin-bottom: 25px;
-      position: relative; /* Ensure dropdown options are not clipped */
-    }
-    .support-container .form-control {
-      border-radius: 8px;
-      background-color: #ffffff;
-      border: 1px solid #d1d5db;
-      padding: 12px;
-      height: 48px !important; /* Ensure consistent height */
-      width: 100% !important;
-      box-sizing: border-box;
-    }
-    .support-container .form-control::placeholder {
-      color: #9ca3af;
-    }
-    .support-container .custom-select {
-      appearance: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 9l-4-4h8z'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 10px center;
-      background-size: 12px;
-      padding-right: 30px;
-      z-index: 10 !important; /* Ensure dropdown options appear above other elements */
-      position: relative;
-    }
-    .support-container .custom-select option:disabled {
-      color: #9ca3af !important;
-    }
-    .support-container .btn-primary {
-      background-color: #2E2F33;
-      border-color: #2E2F33;
-      border-radius: 9px;
-      padding: 15px 45px;
-      font-weight: 600;
-      margin-top: 20px;
-      margin-bottom: 20px;
-      font-size: 0.875rem;
-      text-transform: none;
-      transition: all 0.3s ease;
-      color: #fff;
-    }
-    .support-container .btn-primary:hover {
-      background-color: transparent;
-      color: #2E2F33;
-      border-color: #2E2F33;
-    }
-    .support-container .btn-primary::after {
-      content: ' →';
-      margin-left: 5px;
-    }
-    .support-container .btn-secondary {
-      background-color: #2E2F33;
-      border-color: #2E2F33;
-      border-radius: 9px;
-      padding: 15px 45px;
-      font-weight: 600;
-      margin-top: 20px;
-      margin-bottom: 20px;
-      font-size: 0.875rem;
-      text-transform: none;
-      transition: all 0.3s ease;
-      color: #fff;
-    }
-    .support-container .btn-secondary:hover {
-      background-color: transparent;
-      color: #2E2F33;
-      border-color: #2E2F33;
-    }
-    .support-container .btn-secondary::before {
-      content: '← ';
-      margin-right: 5px;
-    }
-    .support-container .button-group {
-      display: flex;
-      gap: 10px;
-      margin-top: 1rem;
-      flex-wrap: wrap;
-    }
-    .support-container .troubleshooting-section {
-      display: none !important;
-    }
-    .support-container .troubleshooting-section.active {
-      display: block !important;
-      animation: fadeIn 0.5s ease;
-    }
-    .support-container ol, .support-container ul {
-      margin-bottom: 1rem;
-    }
-    .support-container ol > li {
-      margin-top: 1rem;
-    }
-    .support-container h3, .support-container h4 {
-      margin-bottom: 1.25rem;
-      color: #000000;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    @media (max-width: 576px) {
-      body {
-        padding-top: 60px;
-      }
-      .support-container .support-card {
-        padding: 20px;
-      }
-      .support-container .support-header h1 {
-        font-size: 2rem;
-      }
-      .support-container .btn-primary,
-      .support-container .btn-secondary {
-        flex: 1;
-        max-width: 48%;
-        text-align: center;
-      }
-      .support-container .button-group {
-        flex-direction: row;
-        justify-content: space-between;
-      }
-    }
-  </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technical Support | More4Less</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --brand-red:   #D73C59;
+            --bg-nav:      #2E2F33;
+            --bg-page:     #FBFBFD;
+            --text-dark:   #1d1d1f;
+            --text-muted:  #6e6e73;
+            --nav-h:       68px;
+            --border:      #eaeaec;
+            --card-radius: 28px;
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 15px;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Figtree', sans-serif;
+            background: var(--bg-page);
+            color: var(--text-dark);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* ─── NAVBAR ─────────────────────────────────────────────── */
+        .navbar-custom {
+            background-color: var(--bg-nav);
+            padding: 1.2rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 4000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 25px;
+        }
+
+        .navbar-brand img { height: 22px; }
+
+        .nav-links-desktop {
+            display: flex;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links-desktop li a {
+            color: #ffffff;
+            font-weight: 500;
+            font-size: 0.85rem;
+            margin: 0 18px;
+            text-decoration: none;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+            position: relative;
+        }
+
+        .nav-links-desktop li a:hover { opacity: 1; }
+
+        .nav-links-desktop li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--brand-red);
+            transition: width 0.4s cubic-bezier(0.2, 1, 0.2, 1);
+        }
+
+        .nav-links-desktop li a:hover::after { width: 100%; }
+
+        .btn-portal-top::after { display: none !important; }
+
+        .btn-portal-top {
+            background: var(--brand-red);
+            color: white !important;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            opacity: 1 !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .btn-portal-top:hover {
+            background: #ffffff !important;
+            color: var(--text-dark) !important;
+            transform: translateY(-2px);
+        }
+
+        .menu-trigger {
+            display: none;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 5001;
+            position: relative;
+        }
+
+        .menu-icon {
+            width: 26px;
+            height: 18px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .menu-icon span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background: #fff;
+            border-radius: 10px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .menu-active .menu-icon span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        .menu-active .menu-icon span:nth-child(2) { opacity: 0; transform: translateX(10px); }
+        .menu-active .menu-icon span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+        .mobile-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(29, 29, 31, 0.98);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 4500;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        .mobile-overlay.active { opacity: 1; visibility: visible; }
+
+        .mobile-nav-links { list-style: none; padding: 0; text-align: center; }
+
+        .mobile-nav-links li {
+            margin: 25px 0;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: 0.4s ease;
+        }
+
+        .mobile-overlay.active .mobile-nav-links li { transform: translateY(0); opacity: 1; }
+
+        .mobile-nav-links li:nth-child(1) { transition-delay: 0.10s; }
+        .mobile-nav-links li:nth-child(2) { transition-delay: 0.15s; }
+        .mobile-nav-links li:nth-child(3) { transition-delay: 0.20s; }
+
+        .mobile-nav-links a {
+            color: #fff;
+            font-size: 2.2rem;
+            font-weight: 700;
+            text-decoration: none;
+            letter-spacing: -0.03em;
+            position: relative;
+            display: inline-block;
+        }
+
+        .mobile-nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--brand-red);
+            transition: width 0.4s cubic-bezier(0.2, 1, 0.2, 1);
+        }
+
+        .mobile-nav-links a:hover::after { width: 100%; }
+
+        /* ─── PAGE CONTENT ───────────────────────────────────────── */
+        .support-wrap {
+            padding-top: var(--nav-h);
+            min-height: 100vh;
+        }
+
+        /* Hero */
+        .support-hero {
+            padding: 80px 24px 60px;
+            text-align: center;
+            background: linear-gradient(to bottom, #ffffff 0%, var(--bg-page) 100%);
+            border-bottom: 1px solid var(--border);
+            position: relative;
+        }
+
+        .support-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
+            background-size: 28px 28px;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 680px;
+            margin: 0 auto;
+            opacity: 0;
+            animation: fadeUp 0.8s ease 0.1s forwards;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .support-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-muted);
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .support-eyebrow::before,
+        .support-eyebrow::after {
+            content: '';
+            width: 24px;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .support-hero h1 {
+            font-size: clamp(2.2rem, 5vw, 2.8rem);
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+            margin-bottom: 14px;
+            color: var(--text-dark);
+        }
+
+        .support-subtitle {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        /* Main content */
+        .support-content {
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 70px 24px 100px;
+            opacity: 0;
+            animation: fadeUp 0.8s ease 0.25s forwards;
+        }
+
+        /* Form card */
+        .form-card {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: var(--card-radius);
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .form-card.hidden {
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+            position: absolute;
+            left: -9999px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 0.95rem;
+            border: 1.5px solid var(--border);
+            border-radius: 12px;
+            background: var(--bg-page);
+            color: var(--text-dark);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            font-family: 'Figtree', sans-serif;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--brand-red);
+            box-shadow: 0 0 0 4px rgba(215, 60, 89, 0.08);
+        }
+
+        .form-control::placeholder {
+            color: var(--text-muted);
+            opacity: 0.6;
+        }
+
+        select.form-control {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236e6e73' d='M6 9l-4-4h8z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            background-size: 12px;
+            padding-right: 40px;
+            cursor: pointer;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            display: inline-block;
+            background: var(--brand-red);
+            color: #ffffff !important;
+            font-weight: 700;
+            font-size: 0.95rem;
+            padding: 15px 38px;
+            border-radius: 50px;
+            text-decoration: none !important;
+            border: none;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            box-shadow: 0 8px 24px rgba(215, 60, 89, 0.28);
+        }
+
+        .btn-primary:hover {
+            background: var(--text-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+        }
+
+        .btn-secondary {
+            display: inline-block;
+            background: transparent;
+            color: var(--text-dark) !important;
+            font-weight: 700;
+            font-size: 0.95rem;
+            padding: 15px 38px;
+            border-radius: 50px;
+            text-decoration: none !important;
+            border: 2px solid var(--border);
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--text-dark);
+            transform: translateY(-2px);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 28px;
+            flex-wrap: wrap;
+        }
+
+        /* Troubleshooting sections */
+        .troubleshooting-card {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: var(--card-radius);
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideIn 0.6s ease forwards;
+        }
+
+        .troubleshooting-card.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .troubleshooting-card h3 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 24px;
+            color: var(--text-dark);
+        }
+
+        .troubleshooting-card h4 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin: 32px 0 16px;
+            color: var(--text-dark);
+        }
+
+        .troubleshooting-card p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+        }
+
+        .troubleshooting-card ol,
+        .troubleshooting-card ul {
+            margin: 16px 0 20px 0;
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .troubleshooting-card ol {
+            counter-reset: step-counter;
+        }
+
+        .troubleshooting-card ol > li {
+            position: relative;
+            padding-left: 42px;
+            margin-bottom: 24px;
+            counter-increment: step-counter;
+        }
+
+        .troubleshooting-card ol > li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 28px;
+            height: 28px;
+            background: var(--brand-red);
+            color: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .troubleshooting-card ul li {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--text-muted);
+        }
+
+        .troubleshooting-card ul li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--text-muted);
+            opacity: 0.5;
+        }
+
+        .troubleshooting-card strong {
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .troubleshooting-card em {
+            font-style: italic;
+            color: var(--brand-red);
+            font-weight: 600;
+        }
+
+        .troubleshooting-card a:not(.btn-primary):not(.btn-secondary) {
+            color: var(--brand-red);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(215, 60, 89, 0.3);
+            transition: border-color 0.2s ease;
+        }
+
+        .troubleshooting-card a:not(.btn-primary):not(.btn-secondary):hover {
+            border-color: var(--brand-red);
+        }
+
+        /* ─── RESPONSIVE ─────────────────────────────────────────── */
+        @media (max-width: 768px) {
+            .nav-links-desktop { display: none; }
+            .menu-trigger { display: block; }
+
+            .support-hero { padding: 60px 20px 50px; }
+            .support-content { padding: 50px 20px 80px; }
+
+            .form-card,
+            .troubleshooting-card { padding: 28px; }
+
+            .button-group { flex-direction: column; }
+            .btn-primary,
+            .btn-secondary { width: 100%; text-align: center; }
+        }
+    </style>
 </head>
 <body>
-  <div id="navbar-container"></div>
 
-  <div class="support-container">
-    <!-- Header -->
-    <div class="support-header">
-      <h1>Technical Support</h1>
-      <p>We're here to help you get back online quickly!</p>
-    </div>
+<!-- ── NAVBAR ─────────────────────────────────────────────────── -->
+<nav class="navbar-custom">
+    <div class="nav-container">
+        <a class="navbar-brand" href="/">
+            <img src="assets/img/logos/logo.png" alt="More4Less">
+        </a>
 
-    <!-- Initial Form -->
-    <div class="support-card" id="initial-form">
-      <form id="support-form">
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input type="text" class="form-control" id="name" required placeholder="Enter Your Full Name">
+        <ul class="nav-links-desktop">
+            <li><a href="/#pricing">Pricing</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/portal" class="btn-portal-top">Customer Portal</a></li>
+        </ul>
+
+        <div class="menu-trigger" id="menuTrigger" onclick="toggleMenu()">
+            <div class="menu-icon">
+                <span></span><span></span><span></span>
+            </div>
         </div>
-        <div class="form-group">
-          <label for="email">Account Email</label>
-          <input type="email" class="form-control" id="email" required placeholder="Enter Email Associated With Your Account">
+    </div>
+</nav>
+
+<div class="mobile-overlay" id="mobileOverlay">
+    <ul class="mobile-nav-links">
+        <li><a href="/#pricing">Pricing</a></li>
+        <li><a href="/contact">Contact</a></li>
+        <li><a href="/portal">Account Portal</a></li>
+    </ul>
+</div>
+
+<!-- ── PAGE CONTENT ───────────────────────────────────────────── -->
+<div class="support-wrap">
+
+    <!-- Hero -->
+    <section class="support-hero">
+        <div class="hero-content">
+            <div class="support-eyebrow">Help Centre</div>
+            <h1>Technical Support</h1>
+            <p class="support-subtitle">We're here to help you get back online quickly.</p>
         </div>
-        <div class="form-group">
-          <label for="issue">Select Your Issue</label>
-          <select class="form-control custom-select" id="issue" required>
-            <option value="" disabled selected>Choose An Option</option>
-            <option value="internet-not-working">Internet Not Working</option>
-            <option value="internet-too-slow">Internet Too Slow</option>
-            <option value="router-not-turning-on">Router Not Turning On</option>
-            <option value="change-wifi-name">Change Wi-Fi Name or Password</option>
-            <option value="streaming-services">Streaming Services Issues</option>
-            <option value="paused-service">Pause or Resume Service</option>
-            <option value="other">Other</option>
-          </select>
+    </section>
+
+    <!-- Main Content -->
+    <div class="support-content">
+
+        <!-- Initial Form -->
+        <div class="form-card" id="initialForm">
+            <form id="supportForm">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" required placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label for="email">Account Email</label>
+                    <input type="email" class="form-control" id="email" required placeholder="Enter email associated with your account">
+                </div>
+                <div class="form-group">
+                    <label for="issue">Select Your Issue</label>
+                    <select class="form-control" id="issue" required>
+                        <option value="" disabled selected>Choose an option</option>
+                        <option value="internet-not-working">Internet Not Working</option>
+                        <option value="internet-too-slow">Internet Too Slow</option>
+                        <option value="router-not-turning-on">Router Not Turning On</option>
+                        <option value="change-wifi-name">Change Wi-Fi Name or Password</option>
+                        <option value="streaming-services">Streaming Services Issues</option>
+                        <option value="paused-service">Pause or Resume Service</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <button type="button" class="btn-primary" onclick="showTroubleshooting()">Continue →</button>
+            </form>
         </div>
-        <button type="button" class="btn btn-primary" onclick="showTroubleshooting()">Next</button>
-      </form>
+
+        <!-- Internet Not Working -->
+        <div class="troubleshooting-card" id="internet-not-working">
+            <h3>Fix Your 5G/LTE Internet Connection</h3>
+            <ol>
+                <li><strong>Restart Your Device</strong>
+                    <ul>
+                        <li>Unplug the device or turn it off for 10 seconds.</li>
+                        <li>Plug it back in or turn it on, wait for a full restart, then try connecting again.</li>
+                    </ul>
+                </li>
+                <li><strong>Improve Signal Strength</strong>
+                    <ul>
+                        <li>Place the hub near a window or outside wall, ideally toward the nearest cell tower.</li>
+                        <li>Avoid basements, cabinets, or metal objects.</li>
+                        <li>Elevate the hub (e.g., on a shelf) for better signal.</li>
+                        <li>Check the hub's LEDs or app for signal strength. Aim for at least 3/5 bars.</li>
+                    </ul>
+                </li>
+                <li><strong>Know About Network Issues</strong>
+                    <ul>
+                        <li>Cell tower maintenance may cause temporary outages or slowdowns.</li>
+                        <li>Peak hours (evenings/weekends) can slow speeds due to high network use.</li>
+                    </ul>
+                </li>
+                <li><strong>Adjust Network Settings</strong>
+                    <ul>
+                        <li>Log into your router's settings via its app or web interface.</li>
+                        <li>Select a 5G/LTE band available in your area or set to "Auto" for best results.</li>
+                        <li>Try switching to another major Canadian network provider for a stronger signal.</li>
+                    </ul>
+                </li>
+                <li><strong>Inspect the SIM Card</strong>
+                    <ul>
+                        <li>Turn off and unplug the device.</li>
+                        <li>Remove the SIM card, clean it gently with a soft cloth, and reinsert it securely.</li>
+                        <li>Turn the device back on and check the connection.</li>
+                    </ul>
+                </li>
+                <li><strong>Test Your Speed</strong>
+                    <ul>
+                        <li>Measure your internet speed using a speed test tool.</li>
+                        <li>Test at different times (morning, afternoon, evening).</li>
+                        <li>Try moving the hub to different spots in your home.</li>
+                    </ul>
+                    <a href="https://speedtest.net" class="btn-primary" target="_blank" rel="nofollow" style="margin-top: 16px; display: inline-block;">Run Speed Test</a>
+                </li>
+            </ol>
+            <h4>Need More Help With Your Connection?</h4>
+            <div class="button-group">
+                <button type="button" class="btn-secondary" onclick="showInitialForm()">← Back</button>
+                <a href="/contact" class="btn-primary">Contact Support</a>
+            </div>
+        </div>
+
+        <!-- Internet Too Slow -->
+        <div class="troubleshooting-card" id="internet-too-slow">
+            <h3>Internet Too Slow?</h3>
+            <ol>
+                <li><strong>Choose a Stronger Network</strong>
+                    <ul>
+                        <li>Log into your router's settings via its app or web interface.</li>
+                        <li>Find "Network Selection" or "Band Selection."</li>
+                        <li>Select the strongest band or set to "Auto" for best performance.</li>
+                        <li>Follow our guide for detailed steps.</li>
+                    </ul>
+                    <a href="tutorials" class="btn-primary" target="_blank" rel="nofollow" style="margin-top: 16px; display: inline-block;">View Guide</a>
+                </li>
+                <li><strong>Optimize Hub Placement</strong>
+                    <ul>
+                        <li>Place the hub near a window or outside wall, toward the nearest cell tower.</li>
+                        <li>Avoid thick walls, metal objects, or appliances.</li>
+                        <li>Elevate the hub (e.g., on a shelf) away from other electronics.</li>
+                        <li>Test different locations with a speed test tool.</li>
+                    </ul>
+                    <a href="https://speedtest.net" class="btn-primary" target="_blank" rel="nofollow" style="margin-top: 16px; display: inline-block;">Run Speed Test</a>
+                </li>
+                <li><strong>Use a MIMO Antenna</strong>
+                    <ul>
+                        <li>Consider a 2x2 MIMO antenna from retailers like Amazon.</li>
+                        <li>Aim it toward the nearest cell tower or strongest signal direction.</li>
+                        <li>This can improve signal strength and speed.</li>
+                    </ul>
+                </li>
+                <li><strong>Avoid Peak Usage Times</strong>
+                    <ul>
+                        <li>Switch to another network (see step 1) if speeds are slow.</li>
+                        <li>Use the internet during off-peak hours for better performance.</li>
+                    </ul>
+                </li>
+            </ol>
+            <h4>Need More Help With Slow Speeds?</h4>
+            <div class="button-group">
+                <button type="button" class="btn-secondary" onclick="showInitialForm()">← Back</button>
+                <a href="/contact" class="btn-primary">Contact Support</a>
+            </div>
+        </div>
+
+        <!-- Router Not Turning On -->
+        <div class="troubleshooting-card" id="router-not-turning-on">
+            <h3>Troubleshoot a Router That Won't Power On</h3>
+            <ol>
+                <li><strong>For Mobile Devices with a Battery</strong>
+                    <ul>
+                        <li>Remove the battery from the device.</li>
+                        <li>Connect it to a power source using a USB-C cable and 3.0A power adapter (without the battery).</li>
+                        <li>Wait 1–2 minutes and check for indicator lights or error codes on the screen.</li>
+                    </ul>
+                </li>
+                <li><strong>For Home Devices with a Power Adapter</strong>
+                    <ul>
+                        <li>Ensure the power adapter is securely connected to the router and a working outlet.</li>
+                        <li>Try a different outlet to rule out power issues.</li>
+                        <li>Use a compatible adapter with the same voltage if available.</li>
+                        <li>Check for any indicator lights on the device.</li>
+                    </ul>
+                </li>
+                <li><strong>Reset the Device (Caution)</strong>
+                    <ul>
+                        <li>Do not reset mobile devices unless instructed, as it may disconnect service.</li>
+                        <li>For home devices, find the reset pinhole and press it with a paperclip while powered on.</li>
+                    </ul>
+                </li>
+                <li><strong>Check for Other Issues</strong>
+                    <ul>
+                        <li>Inspect cables and replace if possible.</li>
+                        <li>Confirm other devices work on the same outlet.</li>
+                        <li>Look for damage, burn marks, or unusual smells on the device.</li>
+                    </ul>
+                </li>
+            </ol>
+            <h4>Need More Help With Your Router?</h4>
+            <div class="button-group">
+                <button type="button" class="btn-secondary" onclick="showInitialForm()">← Back</button>
+                <a href="/contact" class="btn-primary">Contact Support</a>
+            </div>
+        </div>
+
+        <!-- Change Wi-Fi Name -->
+        <div class="troubleshooting-card" id="change-wifi-name">
+            <h3>Change Your Wi-Fi Name or Password</h3>
+            <h4>Option 1: Use the NETGEAR App (Recommended)</h4>
+            <ul>
+                <li>For Nighthawk M1/M6, use the NETGEAR Mobile app.</li>
+                <li>For Orbi, use the NETGEAR Orbi app.</li>
+                <li>Download the app from the App Store or Google Play.</li>
+                <li>Open the app, connect to your device, and go to Wi-Fi Settings to update the name (SSID) or password.</li>
+                <li>Save changes, which apply immediately.</li>
+            </ul>
+            <a href="app-download" class="btn-primary" target="_blank" rel="nofollow" style="margin-top: 16px; display: inline-block;">Download App</a>
+            <h4>Option 2: Use a Web Browser</h4>
+            <ol>
+                <li><strong>Connect to Your Device</strong>
+                    <ul>
+                        <li>Connect to your device's Wi-Fi network.</li>
+                    </ul>
+                </li>
+                <li><strong>Access Settings Page</strong>
+                    <ul>
+                        <li>Open a browser and type <em>192.168.1.1</em> in the address bar.</li>
+                    </ul>
+                </li>
+                <li><strong>Log In</strong>
+                    <ul>
+                        <li>Nighthawk: Username <em>admin</em>, Password <em>attadmin</em></li>
+                        <li>Orbi: Username <em>admin</em>, Password <em>more4less</em></li>
+                    </ul>
+                </li>
+                <li><strong>Update Settings</strong>
+                    <ul>
+                        <li>Go to Wireless or Wi-Fi Settings.</li>
+                        <li>Update the Network Name (SSID) or Password, then save.</li>
+                        <li>Devices may need to reconnect.</li>
+                    </ul>
+                </li>
+            </ol>
+            <h4>Need More Help Changing Wi-Fi Settings?</h4>
+            <div class="button-group">
+                <button type="button" class="btn-secondary" onclick="showInitialForm()">← Back</button>
+                <a href="/contact" class="btn-primary">Contact Support</a>
+            </div>
+        </div>
+
+        <!-- Streaming Services -->
+        <div class="troubleshooting-card" id="streaming-services">
+            <h3>Troubleshoot Website Access Issues</h3>
+            <h4>Why This Happens</h4>
+            <ul>
+                <li><strong>Canadian Content Limits:</strong> Some Canadian apps or websites may not load or show restricted content.</li>
+                <li><strong>U.S. Content Access:</strong> You may access U.S.-exclusive platforms (e.g., Hulu, Peacock shows) as a benefit.</li>
+            </ul>
+            <h4>Solution: Use a VPN</h4>
+            <ul>
+                <li>Set your IP address to appear in Canada.</li>
+                <li>Improve online privacy and security.</li>
+                <li>Access both Canadian and U.S. content easily.</li>
+            </ul>
+            <h4>Need More Help With Streaming?</h4>
+            <div class="button-group">
+                <button type="button" class="btn-secondary" onclick="showInitialForm()">← Back</button>
+                <a href="/contact" class="btn-primary">Contact Support</a>
+            </div>
+        </div>
+
+        <!-- Pause Service -->
+        <div class="troubleshooting-card" id="paused-service">
+            <h3>Pause or Reactivate Your Service</h3>
+            <p>Our service is 100% contract-free. While there is no option to pause your service, you're free to cancel at any time without penalty. When you're ready to return, you can reactivate the service at any time. We recommend reaching out at least one week in advance of your preferred restart date to ensure a smooth reactivation process. A new SIM card is required to resume service, which costs $10.</p>
+            <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 24px;">
+                <a href="https://more4lessplans.chargebeeportal.com/portal/v2/login?forward=portal_main" class="btn-primary" target="_blank" rel="nofollow">Cancel Service</a>
+                <a href="/reactivate-service" class="btn-primary" target="_blank" rel="nofollow">Re-Activate Service</a>
+            </div>
+            <h4>Need More Help With Service Status?</h4>
+            <div class="button-group">
+                <button type="button" class="btn-secondary" onclick="showInitialForm()">← Back</button>
+                <a href="/contact" class="btn-primary">Contact Support</a>
+            </div>
+        </div>
+
+        <!-- Other -->
+        <div class="troubleshooting-card" id="other">
+            <h3>Submit a Support Request</h3>
+            <p>Our support team is ready to help with any issue not covered in our troubleshooting guides.</p>
+            <h4>Need Help With Something Else?</h4>
+            <div class="button-group">
+                <button type="button" class="btn-secondary" onclick="showInitialForm()">← Back</button>
+                <a href="/contact" class="btn-primary">Contact Support</a>
+            </div>
+        </div>
+
     </div>
 
-    <!-- Internet Not Working -->
-    <div class="support-card troubleshooting-section" id="internet-not-working">
-      <h3>Fix Your 5G/LTE Internet Connection</h3>
-      <ol>
-        <li><strong>Restart Your Device</strong>
-          <ul>
-            <li>Unplug the device or turn it off for 10 seconds.</li>
-            <li>Plug it back in or turn it on, wait for a full restart, then try connecting again.</li>
-          </ul>
-        </li>
-        <li><strong>Improve Signal Strength</strong>
-          <ul>
-            <li>Place the hub near a window or outside wall, ideally toward the nearest cell tower.</li>
-            <li>Avoid basements, cabinets, or metal objects.</li>
-            <li>Elevate the hub (e.g., on a shelf) for better signal.</li>
-            <li>Check the hub’s LEDs or app for signal strength. Aim for at least 3/5 bars.</li>
-          </ul>
-        </li>
-        <li><strong>Know About Network Issues</strong>
-          <ul>
-            <li>Cell tower maintenance may cause temporary outages or slowdowns.</li>
-            <li>Peak hours (evenings/weekends) can slow speeds due to high network use.</li>
-          </ul>
-        </li>
-        <li><strong>Adjust Network Settings</strong>
-          <ul>
-            <li>Log into your router’s settings via its app or web interface.</li>
-            <li>Select a 5G/LTE band available in your area or set to “Auto” for best results.</li>
-            <li>Try switching to another major Canadian network provider for a stronger signal.</li>
-          </ul>
-        </li>
-        <li><strong>Inspect the SIM Card</strong>
-          <ul>
-            <li>Turn–
+</div>
 
-System: off and unplug the device.</li>
-            <li>Remove the SIM card, clean it gently with a soft cloth, and reinsert it securely.</li>
-            <li>Turn the device back on and check the connection.</li>
-          </ul>
-        </li>
-        <li><strong>Test Your Speed</strong>
-          <ul>
-            <li>Measure your internet speed using a speed test tool.</li>
-            <li>Test at different times (morning, afternoon, evening).</li>
-            <li>Try moving the hub to different spots in your home.</li>
-          </ul>
-          <a href="https://speedtest.net" class="btn btn-primary" target="_blank" rel="nofollow">Run Speed Test</a>
-        </li>
-      </ol>
-      <h4>Need More Help With Your Connection?</h4>
-      <div class="button-group">
-        <button type="button" class="btn btn-secondary" onclick="showInitialForm()">Back</button>
-        <a href="/contact" class="btn btn-primary" target="_blank" rel="nofollow">Contact Support</a>
-      </div>
-    </div>
+<script>
+    // ── Mobile menu ──
+    function toggleMenu() {
+        const trigger = document.getElementById('menuTrigger');
+        const overlay = document.getElementById('mobileOverlay');
+        const isOpen  = trigger.classList.contains('menu-active');
+        trigger.classList.toggle('menu-active');
+        overlay.classList.toggle('active');
+        document.body.style.overflow = isOpen ? '' : 'hidden';
+    }
 
-    <!-- Internet Too Slow -->
-    <div class="support-card troubleshooting-section" id="internet-too-slow">
-      <h3>Internet Too Slow?</h3>
-      <ol>
-        <li><strong>Choose a Stronger Network</strong>
-          <ul>
-            <li>Log into your router’s settings via its app or web interface.</li>
-            <li>Find “Network Selection” or “Band Selection.”</li>
-            <li>Select the strongest band or set to “Auto” for best performance.</li>
-            <li>Follow our guide for detailed steps.</li>
-          </ul>
-          <a href="tutorials" class="btn btn-primary" target="_blank" rel="nofollow">View Guide</a>
-        </li>
-        <li><strong>Optimize Hub Placement</strong>
-          <ul>
-            <li>Place the hub near a window or outside wall, toward the nearest cell tower.</li>
-            <li>Avoid thick walls, metal objects, or appliances.</li>
-            <li>Elevate the hub (e.g., on a shelf) away from other electronics.</li>
-            <li>Test different locations with a speed test tool.</li>
-          </ul>
-          <a href="https://speedtest.net" class="btn btn-primary" target="_blank" rel="nofollow">Run Speed Test</a>
-        </li>
-        <li><strong>Use a MIMO Antenna</strong>
-          <ul>
-            <li>Consider a 2x2 MIMO antenna from retailers like Amazon.</li>
-            <li>Aim it toward the nearest cell tower or strongest signal direction.</li>
-            <li>This can improve signal strength and speed.</li>
-          </ul>
-        </li>
-        <li><strong>Avoid Peak Usage Times</strong>
-          <ul>
-            <li>Switch to another network (see step 1) if speeds are slow.</li>
-            <li>Use the internet during off-peak hours for better performance.</li>
-          </ul>
-        </li>
-      </ol>
-      <h4>Need More Help With Slow Speeds?</h4>
-      <div class="button-group">
-        <button type="button" class="btn btn-secondary" onclick="showInitialForm()">Back</button>
-        <a href="/contact" class="btn btn-primary" target="_blank" class="btn btn-primary" target="_blank" rel="nofollow">Contact Support</a>
-      </div>
-    </div>
+    document.getElementById('mobileOverlay').addEventListener('click', function(e) {
+        if (e.target === this) toggleMenu();
+    });
 
-    <!-- Router Not Turning On -->
-    <div class="support-card troubleshooting-section" id="router-not-turning-on">
-      <h3>Troubleshoot a Router That Won’t Power On</h3>
-      <ol>
-        <li><strong>For Mobile Devices with a Battery</strong>
-          <ul>
-            <li>Remove the battery from the device.</li>
-            <li>Connect it to a power source using a USB-C cable and 3.0A power adapter (without the battery).</li>
-            <li>Wait 1–2 minutes and check for indicator
-
-System: lights or error codes on the screen.</li>
-          </ul>
-        </li>
-        <li><strong>For Home Devices with a Power Adapter</strong>
-          <ul>
-            <li>Ensure the power adapter is securely connected to the router and a working outlet.</li>
-            <li>Try a different outlet to rule out power issues.</li>
-            <li>Use a compatible adapter with the same voltage if available.</li>
-            <li>Check for any indicator lights on the device.</li>
-          </ul>
-        </li>
-        <li><strong>Reset the Device (Caution)</strong>
-          <ul>
-            <li>Do not reset mobile devices unless instructed, as it may disconnect service.</li>
-            <li>For home devices, find the reset pinhole and press it with a paperclip while powered on.</li>
-          </ul>
-        </li>
-        <li><strong>Check for Other Issues</strong>
-          <ul>
-            <li>Inspect cables and replace if possible.</li>
-            <li>Confirm other devices work on the same outlet.</li>
-            <li>Look for damage, burn marks, or unusual smells on the device.</li>
-          </ul>
-        </li>
-      </ol>
-      <h4>Need More Help With Your Router?</h4>
-      <div class="button-group">
-        <button type="button" class="btn btn-secondary" onclick="showInitialForm()">Back</button>
-        <a href="/contact" class="btn btn-primary" target="_blank" rel="nofollow">Contact Support</a>
-      </div>
-    </div>
-
-    <!-- Change Wi-Fi Name -->
-    <div class="support-card troubleshooting-section" id="change-wifi-name">
-      <h3>Change Your Wi-Fi Name or Password</h3>
-      <h4>Option 1: Use the NETGEAR App (Recommended)</h4>
-      <ul>
-        <li>For Nighthawk M1/M6, use the NETGEAR Mobile app.</li>
-        <li>For Orbi, use the NETGEAR Orbi app.</li>
-        <li>Download the app from the App Store or Google Play.</li>
-        <li>Open the app, connect to your device, and go to Wi-Fi Settings to update the name (SSID) or password.</li>
-        <li>Save changes, which apply immediately.</li>
-      </ul>
-      <a href="app-download" class="btn btn-primary" target="_blank" rel="nofollow">Download App</a>
-      <h4>Option 2: Use a Web Browser</h4>
-      <ol>
-        <li>Connect to your device’s Wi-Fi network.</li>
-        <li>Open a browser and visit the device settings page by typing the following in the address bar:
-          <ul>
-            <li>192.168.1.1</li>
-          </ul>
-        </li>
-        <li>Log in with default credentials (check device label or manual):
-          <ul>
-            <li>Nighthawk: Default credentials are username: <em>admin</em>; password <em>attadmin</em>.</li>
-            <li>Orbi: username is <em>admin</em>; password is <em>more4less</em>.</li>
-          </ul>
-        </li>
-        <li>Go to Wireless or Wi-Fi Settings (menu varies by device).</li>
-        <li>Update the Network Name (SSID) or Password, then save. Devices may need to reconnect.</li>
-      </ol>
-      <h4>Need More Help Changing Wi-Fi Settings?</h4>
-      <div class="button-group">
-        <button type="button" class="btn btn-secondary" onclick="showInitialForm()">Back</button>
-        <a href="/contact" class="btn btn-primary" target="_blank" rel="nofollow">Contact Support</a>
-      </div>
-    </div>
-
-    <!-- Streaming Services -->
-    <div class="support-card troubleshooting-section" id="streaming-services">
-      <h3>Troubleshoot Website Access Issues</h3>
-      <h4>Why This Happens</h4>
-      <ul>
-        <li><strong>Canadian Content Limits:</strong> Some Canadian apps or websites may not load or show restricted content.</li>
-        <li><strong>U.S. Content Access:</strong> You may access U.S.-exclusive platforms (e.g., Hulu, Peacock shows) as a benefit.</li>
-      </ul>
-      <h4>Solution: Use a VPN</h4>
-      <ul>
-        <li>Set your IP address to appear in Canada.</li>
-        <li>Improve online privacy and security.</li>
-        <li>Access both Canadian and U.S. content easily.</li>
-      </ul>
-      <h4>Need More Help With Streaming?</h4>
-      <div class="button-group">
-        <button type="button" class="btn btn-secondary" onclick="showInitialForm()">Back</button>
-        <a href="/contact" class="btn btn-primary" target="_blank" rel="nofollow">Contact Support</a>
-      </div>
-    </div>
-
-    <!-- Pause Service -->
-    <div class="support-card troubleshooting-section" id="paused-service">
-      <h3>Pause or Reactivate Your Service</h3>
-      <p>Our service is 100% contract-free. While there is no option to pause your service, you’re free to cancel at any time without penalty. When you’re ready to return, you can reactivate the service at any time. We recommend reaching out at least one week in advance of your preferred restart date to ensure a smooth reactivation process. A new SIM card is required to resume service, which costs $10.</p>
-      <div style="display: flex; flex-direction: column;">
-        <a href="https://more4lessplans.chargebeeportal.com/portal/v2/login?forward=portal_main" class="btn btn-primary" target="_blank" rel="nofollow" style="margin-bottom: 0;">Cancel Service</a>
-        <a href="/reactivate-service" class="btn btn-primary" target="_blank" rel="nofollow">Re-Activate Service</a>
-      </div>
-      <h4>Need More Help With Service Status?</h4>
-      <div class="button-group">
-        <button type="button" class="btn btn-secondary" onclick="showInitialForm()">Back</button>
-        <a href="/contact" class="btn btn-primary" target="_blank" rel="nofollow">Contact Support</a>
-      </div>
-    </div>
-
-    <!-- Other -->
-    <div class="support-card troubleshooting-section" id="other">
-      <h3>Submit a Support Request</h3>
-      <h4>Need Help With Something Else?</h4>
-      <div class="button-group">
-        <button type="button" class="btn btn-secondary" onclick="showInitialForm()">Back</button>
-        <a href="/contact" class="btn btn-primary" target="_blank" rel="nofollow">Contact Support</a>
-      </div>
-    </div>
-  </div>
-
-  <div id="footer-container"></div>
-
-  <!-- Scripts -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script src="vendors/is/is.min.js"></script>
-  <script src="vendors/countup/countUp.umd.js"></script>
-  <script src="vendors/swiper/swiper-bundle.min.js"></script>
-  <script src="vendors/lodash/lodash.min.js"></script>
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
-  <script src="assets/js/theme.js"></script>
-  <script>
-    // Form functionality
+    // ── Support form logic ──
     function showTroubleshooting() {
-      const form = document.getElementById('support-form');
-      if (!form.checkValidity()) {
-        form.reportValidity();
-        return;
-      }
-      const issue = document.getElementById('issue').value;
-      const sections = document.querySelectorAll('.troubleshooting-section');
-      sections.forEach(section => section.classList.remove('active'));
-      document.getElementById('initial-form').style.display = 'none';
-      document.getElementById(issue).classList.add('active');
+        const form = document.getElementById('supportForm');
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+        }
+
+        const issue = document.getElementById('issue').value;
+        const initialForm = document.getElementById('initialForm');
+        const allCards = document.querySelectorAll('.troubleshooting-card');
+
+        // Hide initial form
+        initialForm.classList.add('hidden');
+
+        // Hide all troubleshooting cards
+        allCards.forEach(card => card.classList.remove('active'));
+
+        // Show selected card with animation
+        setTimeout(() => {
+            document.getElementById(issue).classList.add('active');
+            // Scroll to top of card smoothly
+            window.scrollTo({
+                top: document.querySelector('.support-content').offsetTop - 100,
+                behavior: 'smooth'
+            });
+        }, 100);
     }
 
     function showInitialForm() {
-      const sections = document.querySelectorAll('.troubleshooting-section');
-      sections.forEach(section => section.classList.remove('active'));
-      document.getElementById('initial-form').style.display = 'block';
+        const initialForm = document.getElementById('initialForm');
+        const allCards = document.querySelectorAll('.troubleshooting-card');
+
+        // Hide all troubleshooting cards
+        allCards.forEach(card => card.classList.remove('active'));
+
+        // Show initial form
+        initialForm.classList.remove('hidden');
+
+        // Scroll to top
+        window.scrollTo({
+            top: document.querySelector('.support-content').offsetTop - 100,
+            behavior: 'smooth'
+        });
     }
+</script>
 
-    // Load navbar and footer
-    document.addEventListener('DOMContentLoaded', function() {
-      // Load navbar
-      fetch('/navbar.html')
-        .then(response => {
-          if (!response.ok) throw new Error('Failed to load navbar.html: ' + response.status);
-          return response.text();
-        })
-        .then(data => {
-          document.getElementById('navbar-container').innerHTML = data;
-          const navbarScript = document.createElement('script');
-          navbarScript.src = '/navbar.js';
-          navbarScript.onload = function() {
-            initializeNavbar();
-          };
-          document.body.appendChild(navbarScript);
-        })
-        .catch(error => console.error('Error loading navbar:', error));
-
-      // Load footer
-      fetch('/footer.html')
-        .then(response => {
-          if (!response.ok) throw new Error('Failed to load footer.html: ' + response.status);
-          return response.text();
-        })
-        .then(data => {
-          document.getElementById('footer-container').innerHTML = data;
-          document.getElementById('currentYear').textContent = new Date().getFullYear();
-        })
-        .catch(error => console.error('Error loading footer:', error));
-    });
-  </script>
 </body>
 </html>
