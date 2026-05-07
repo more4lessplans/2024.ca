@@ -1,188 +1,490 @@
 <!DOCTYPE html>
-<html data-bs-theme="light" lang="en-US" dir="ltr">
+<html lang="en-US">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Returns | More4Less</title>
 
-  <!-- SEO and Meta Tags -->
-  <title>Returns - Wireless Internet</title>
-  <meta name="description" content="Learn about the return policy for More4Less Plans for leased or purchased equipment used with our third-party internet services in Canada and initiate a return.">
-  <meta name="keywords" content="More4Less returns, return policy, equipment return, wireless internet Canada, leased equipment return, purchased equipment return, customer support">
-  <meta property="og:title" content="Returns - More4Less Plans">
-  <meta property="og:description" content="Learn about the return policy for More4Less Plans for leased or purchased equipment used with our third-party internet services in Canada and initiate a return.">
-  <meta property="og:image" content="https://more4lessplans.ca/main.jpg">
-  <meta property="og:url" content="https://more4lessplans.ca/returns">
-  <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Returns - More4Less Plans">
-  <meta name="twitter:description" content="Learn about the return policy for More4Less Plans for leased or purchased equipment used with our third-party internet services in Canada and initiate a return.">
-  <meta name="twitter:image" content="https://more4lessplans.ca/main.jpg">
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Learn about the return policy for More4Less Plans for leased or purchased equipment used with our third-party internet services in Canada and initiate a return.">
+    <meta name="keywords" content="More4Less returns, return policy, equipment return, wireless internet Canada, leased equipment return, purchased equipment return, customer support">
+    <meta property="og:title" content="Returns - More4Less Plans">
+    <meta property="og:description" content="Learn about the return policy for More4Less Plans for leased or purchased equipment used with our third-party internet services in Canada and initiate a return.">
+    <meta property="og:image" content="https://more4lessplans.ca/main.jpg">
+    <meta property="og:url" content="https://more4lessplans.ca/returns">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Returns - More4Less Plans">
+    <meta name="twitter:description" content="Learn about the return policy for More4Less Plans for leased or purchased equipment used with our third-party internet services in Canada and initiate a return.">
+    <meta name="twitter:image" content="https://more4lessplans.ca/main.jpg">
 
-  <!-- Favicons -->
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicons/favicon-16x16.png">
-  <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicons/favicon.ico">
-  <link rel="manifest" href="assets/img/favicons/manifest.json">
-  <meta name="msapplication-TileImage" content="assets/img/favicons/mstile-150x150.png">
-  <meta name="theme-color" content="#2E2F34">
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicons/favicon-16x16.png">
+    <link rel="shortcut icon" href="assets/img/favicons/favicon.ico">
+    <link rel="manifest" href="assets/img/favicons/manifest.json">
+    <meta name="theme-color" content="#2E2F33">
 
-  <!-- Bootstrap CSS -->
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="/navbar.css">
-  <link rel="stylesheet" href="/footer.css">
-  <link rel="stylesheet" href="vendors/swiper/swiper-bundle.min.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
-  <link href="assets/css/theme.min.css" rel="stylesheet" id="style-default">
-  <link href="assets/css/user-rtl.min.css" rel="stylesheet" id="user-style-rtl">
-  <link href="assets/css/user.min.css" rel="stylesheet" id="user-style-default">
-  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+    <style>
+        :root {
+            --brand-red:   #D73C59;
+            --bg-nav:      #2E2F33;
+            --bg-page:     #FBFBFD;
+            --text-dark:   #1d1d1f;
+            --text-muted:  #6e6e73;
+            --nav-h:       68px;
+            --border:      #eaeaec;
+        }
 
-  <!-- Page-Specific CSS -->
-  <style>
-    body {
-      padding-top: 70px;
-    }
-    @media (max-width: 576px) {
-      body { padding-top: 60px; }
-    }
-    .text-danger { color: #2E2F33 !important; }
-    .text-muted { color: #565656 !important; }
-    .btn-primary, .btn-return {
-      border: 2px solid #2E2F33;
-      background-color: #2E2F33;
-      color: #fff;
-      font-weight: 600;
-      border-radius: 9px;
-      padding: 15px 45px;
-      transition: all 0.3s ease;
-      text-transform: none;
-    }
-    .btn-primary:hover, .btn-primary:focus, .btn-return:hover, .btn-return:focus {
-      background-color: transparent;
-      color: #000;
-      border: 2px solid #000;
-    }
-    .content-section {
-      padding: 60px 0;
-    }
-    .content-section h1 {
-      font-size: 2.5rem;
-      color: #2E2F33;
-      margin-bottom: 1.5rem;
-      position: relative;
-      display: inline-block;
-      padding-bottom: 10px;
-    }
-    .content-section h1::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 150px;
-      height: 3px;
-      background: linear-gradient(90deg, #313C59, #2E2F33);
-      border-radius: 2px;
-    }
-    .content-section h2 {
-      font-size: 1.5rem;
-      color: #2E2F33;
-      margin-top: 2rem;
-      margin-bottom: 1rem;
-    }
-    .content-section p, .content-section ul {
-      font-size: 1rem;
-      color: #565656;
-      line-height: 1.6;
-      margin-bottom: 1rem;
-      font-family: 'Rubik', sans-serif;
-      font-weight: 400;
-      letter-spacing: 0.5px;
-    }
-    .content-section ul {
-      padding-left: 20px;
-    }
-    .content-section ul li {
-      margin-bottom: 0.5rem;
-    }
-  </style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 15px;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Figtree', sans-serif;
+            background: var(--bg-page);
+            color: var(--text-dark);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* ─── NAVBAR ─────────────────────────────────────────────── */
+        .navbar-custom {
+            background-color: var(--bg-nav);
+            padding: 1.2rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 4000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 25px;
+        }
+
+        .navbar-brand img { height: 22px; }
+
+        .nav-links-desktop {
+            display: flex;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links-desktop li a {
+            color: #ffffff;
+            font-weight: 500;
+            font-size: 0.85rem;
+            margin: 0 18px;
+            text-decoration: none;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+            position: relative;
+        }
+
+        .nav-links-desktop li a:hover { opacity: 1; }
+
+        .nav-links-desktop li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--brand-red);
+            transition: width 0.4s cubic-bezier(0.2, 1, 0.2, 1);
+        }
+
+        .nav-links-desktop li a:hover::after { width: 100%; }
+
+        .btn-portal-top::after { display: none !important; }
+
+        .btn-portal-top {
+            background: var(--brand-red);
+            color: white !important;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            opacity: 1 !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .btn-portal-top:hover {
+            background: #ffffff !important;
+            color: var(--text-dark) !important;
+            transform: translateY(-2px);
+        }
+
+        .menu-trigger {
+            display: none;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 5001;
+            position: relative;
+        }
+
+        .menu-icon {
+            width: 26px;
+            height: 18px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .menu-icon span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background: #fff;
+            border-radius: 10px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .menu-active .menu-icon span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        .menu-active .menu-icon span:nth-child(2) { opacity: 0; transform: translateX(10px); }
+        .menu-active .menu-icon span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+        .mobile-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(29, 29, 31, 0.98);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 4500;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        .mobile-overlay.active { opacity: 1; visibility: visible; }
+
+        .mobile-nav-links { list-style: none; padding: 0; text-align: center; }
+
+        .mobile-nav-links li {
+            margin: 25px 0;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: 0.4s ease;
+        }
+
+        .mobile-overlay.active .mobile-nav-links li { transform: translateY(0); opacity: 1; }
+
+        .mobile-nav-links li:nth-child(1) { transition-delay: 0.10s; }
+        .mobile-nav-links li:nth-child(2) { transition-delay: 0.15s; }
+        .mobile-nav-links li:nth-child(3) { transition-delay: 0.20s; }
+
+        .mobile-nav-links a {
+            color: #fff;
+            font-size: 2.2rem;
+            font-weight: 700;
+            text-decoration: none;
+            letter-spacing: -0.03em;
+            position: relative;
+            display: inline-block;
+        }
+
+        .mobile-nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--brand-red);
+            transition: width 0.4s cubic-bezier(0.2, 1, 0.2, 1);
+        }
+
+        .mobile-nav-links a:hover::after { width: 100%; }
+
+        /* ─── RETURNS CONTENT ────────────────────────────────────── */
+        .returns-wrap {
+            padding-top: var(--nav-h);
+            min-height: 100vh;
+        }
+
+        .returns-hero {
+            padding: 80px 24px 60px;
+            text-align: center;
+            background: linear-gradient(to bottom, #ffffff 0%, var(--bg-page) 100%);
+            border-bottom: 1px solid var(--border);
+            position: relative;
+        }
+
+        .returns-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
+            background-size: 28px 28px;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 680px;
+            margin: 0 auto;
+            opacity: 0;
+            animation: fadeUp 0.8s ease 0.1s forwards;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .returns-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-muted);
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .returns-eyebrow::before,
+        .returns-eyebrow::after {
+            content: '';
+            width: 24px;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .returns-hero h1 {
+            font-size: clamp(2.4rem, 5vw, 3.2rem);
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+            margin-bottom: 14px;
+            color: var(--text-dark);
+        }
+
+        .returns-content {
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 70px 24px 100px;
+            opacity: 0;
+            animation: fadeUp 0.8s ease 0.25s forwards;
+        }
+
+        .returns-content p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+        }
+
+        .returns-content h2 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-top: 52px;
+            margin-bottom: 18px;
+            color: var(--text-dark);
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--bg-page);
+            position: relative;
+        }
+
+        .returns-content h2::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background: var(--brand-red);
+        }
+
+        .returns-content ul {
+            margin: 16px 0 20px 0;
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .returns-content ul li {
+            position: relative;
+            padding-left: 28px;
+            margin-bottom: 12px;
+            font-size: 1rem;
+            line-height: 1.75;
+            color: var(--text-dark);
+        }
+
+        .returns-content ul li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--brand-red);
+        }
+
+        .returns-content strong {
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .returns-content a {
+            color: var(--brand-red);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(215, 60, 89, 0.3);
+            transition: border-color 0.2s ease;
+        }
+
+        .returns-content a:hover {
+            border-color: var(--brand-red);
+        }
+
+        /* CTA button */
+        .btn-return {
+            display: inline-block;
+            margin-top: 24px;
+            margin-bottom: 16px;
+            background: var(--brand-red);
+            color: #ffffff !important;
+            font-weight: 700;
+            font-size: 0.95rem;
+            padding: 16px 42px;
+            border-radius: 50px;
+            text-decoration: none !important;
+            transition: all 0.25s ease;
+            box-shadow: 0 8px 24px rgba(215, 60, 89, 0.28);
+            border: none;
+        }
+
+        .btn-return:hover {
+            background: var(--text-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+            color: #ffffff !important;
+            text-decoration: none !important;
+            border: none;
+        }
+
+        /* ─── RESPONSIVE ─────────────────────────────────────────── */
+        @media (max-width: 768px) {
+            .nav-links-desktop { display: none; }
+            .menu-trigger { display: block; }
+
+            .returns-hero {
+                padding: 60px 20px 50px;
+            }
+
+            .returns-content {
+                padding: 50px 20px 80px;
+            }
+
+            .returns-content h2 {
+                font-size: 1.3rem;
+                margin-top: 42px;
+            }
+        }
+    </style>
 </head>
-
 <body>
-  <div id="navbar-container"></div>
 
-  <main class="main" id="top">
-    <div class="content">
-      <section class="content-section">
-        <div class="container">
-       <h2>Return Policy</h2>
-  <p>The following terms apply to the return of equipment, such as routers or modems, whether leased or purchased from More4Less Plans:</p>
-  <ul>
-    <li><strong>30-Day Money-Back Guarantee</strong>: New customers can try our service risk-free. If you are not satisfied, you may return the equipment within 30 days of receipt for a full refund of both the service fees and equipment cost, provided the equipment is in new or gently used condition with all original components, cables, and packaging.</li>
-    <li><strong>Leased Equipment Returns</strong>: If you cancel your subscription, you are required to return leased equipment within 30 days of cancellation. You are responsible for all return shipping fees. Failure to return the equipment within this period will result in a $250 charge to cover the equipment’s replacement cost.</li>
-    <li><strong>Equipment Condition</strong>: All returned equipment, whether leased or purchased, must be in new or gently used condition, including all original components, cables, and packaging. Normal wear and tear (e.g., minor scratches) is acceptable. Equipment with significant damage (e.g., water damage, cracked components) may incur additional fees.</li>
-    <li><strong>Non-Returnable Items</strong>: Equipment that is damaged beyond repair, missing components, or not in its original packaging may not be accepted, and you may be charged a fee equivalent to the equipment’s replacement cost.</li>
-    <li><strong>Return Shipping</strong>: You are responsible for all return shipping fees unless otherwise specified. We recommend using a trackable shipping method, as we are not liable for items lost or damaged during transit.</li>
-    <li><strong>Return Process</strong>: To initiate a return, visit our returns portal below. You will receive a confirmation email with a return authorization number and shipping instructions within 2 business days.</li>
-  </ul>
-          <h2>Initiate a Return</h2>
-          <p>To start the return process for your leased or purchased equipment, please visit our returns portal:</p>
-          <a href="http://orders.more4lessplans.ca/" class="btn btn-return">Initiate a Return</a>
-          <p class="mt-3">For further assistance, please contact our support team <a href="/contact">here</a>.</p>
+<!-- ── NAVBAR ─────────────────────────────────────────────────── -->
+<nav class="navbar-custom">
+    <div class="nav-container">
+        <a class="navbar-brand" href="/">
+            <img src="assets/img/logos/logo.png" alt="More4Less">
+        </a>
+
+        <ul class="nav-links-desktop">
+            <li><a href="/#pricing">Pricing</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/portal" class="btn-portal-top">Customer Portal</a></li>
+        </ul>
+
+        <div class="menu-trigger" id="menuTrigger" onclick="toggleMenu()">
+            <div class="menu-icon">
+                <span></span><span></span><span></span>
+            </div>
         </div>
-      </section>
     </div>
-  </main>
+</nav>
 
-  <div id="footer-container"></div>
+<div class="mobile-overlay" id="mobileOverlay">
+    <ul class="mobile-nav-links">
+        <li><a href="/#pricing">Pricing</a></li>
+        <li><a href="/contact">Contact</a></li>
+        <li><a href="/portal">Account Portal</a></li>
+    </ul>
+</div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script src="https://js.chargebee.com/v2/chargebee.js" data-cb-site="more4lessplans"></script>
-  <script src="vendors/is/is.min.js"></script>
-  <script src="vendors/countup/countUp.umd.js"></script>
-  <script src="vendors/swiper/swiper-bundle.min.js"></script>
-  <script src="vendors/lodash/lodash.min.js"></script>
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
-  <script src="assets/js/theme.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Load navbar
-      fetch('/navbar.html')
-        .then(response => {
-          if (!response.ok) throw new Error('Failed to load navbar.html: ' + response.status);
-          return response.text();
-        })
-        .then(data => {
-          document.getElementById('navbar-container').innerHTML = data;
-          const navbarScript = document.createElement('script');
-          navbarScript.src = '/navbar.js';
-          navbarScript.onload = function() {
-            initializeNavbar();
-          };
-          document.body.appendChild(navbarScript);
-        })
-        .catch(error => console.error('Error loading navbar:', error));
+<!-- ── RETURNS CONTENT ────────────────────────────────────────── -->
+<div class="returns-wrap">
 
-      // Load footer
-      fetch('/footer.html')
-        .then(response => {
-          if (!response.ok) throw new Error('Failed to load footer.html: ' + response.status);
-          return response.text();
-        })
-        .then(data => {
-          document.getElementById('footer-container').innerHTML = data;
-          document.getElementById('currentYear').textContent = new Date().getFullYear();
-        })
-        .catch(error => console.error('Error loading footer:', error));
+    <!-- Hero -->
+    <section class="returns-hero">
+        <div class="hero-content">
+            <div class="returns-eyebrow">Customer Support</div>
+            <h1>Return Policy</h1>
+        </div>
+    </section>
+
+    <!-- Content -->
+    <div class="returns-content">
+
+        <h2>Return Policy</h2>
+        <p>The following terms apply to the return of equipment, such as routers or modems, whether leased or purchased from More4Less Plans:</p>
+        <ul>
+            <li><strong>30-Day Money-Back Guarantee</strong>: New customers can try our service risk-free. If you are not satisfied, you may return the equipment within 30 days of receipt for a full refund of both the service fees and equipment cost, provided the equipment is in new or gently used condition with all original components, cables, and packaging.</li>
+            <li><strong>Leased Equipment Returns</strong>: If you cancel your subscription, you are required to return leased equipment within 30 days of cancellation. You are responsible for all return shipping fees. Failure to return the equipment within this period will result in a $250 charge to cover the equipment's replacement cost.</li>
+            <li><strong>Equipment Condition</strong>: All returned equipment, whether leased or purchased, must be in new or gently used condition, including all original components, cables, and packaging. Normal wear and tear (e.g., minor scratches) is acceptable. Equipment with significant damage (e.g., water damage, cracked components) may incur additional fees.</li>
+            <li><strong>Non-Returnable Items</strong>: Equipment that is damaged beyond repair, missing components, or not in its original packaging may not be accepted, and you may be charged a fee equivalent to the equipment's replacement cost.</li>
+            <li><strong>Return Shipping</strong>: You are responsible for all return shipping fees unless otherwise specified. We recommend using a trackable shipping method, as we are not liable for items lost or damaged during transit.</li>
+            <li><strong>Return Process</strong>: To initiate a return, visit our returns portal below. You will receive a confirmation email with a return authorization number and shipping instructions within 2 business days.</li>
+        </ul>
+
+        <h2>Initiate a Return</h2>
+        <p>To start the return process for your leased or purchased equipment, please visit our returns portal:</p>
+        <a href="http://orders.more4lessplans.ca/" class="btn-return">Initiate a Return</a>
+        <p>For further assistance, please contact our support team <a href="/contact">here</a>.</p>
+
+    </div>
+
+</div>
+
+<script>
+    function toggleMenu() {
+        const trigger = document.getElementById('menuTrigger');
+        const overlay = document.getElementById('mobileOverlay');
+        const isOpen  = trigger.classList.contains('menu-active');
+        trigger.classList.toggle('menu-active');
+        overlay.classList.toggle('active');
+        document.body.style.overflow = isOpen ? '' : 'hidden';
+    }
+
+    document.getElementById('mobileOverlay').addEventListener('click', function(e) {
+        if (e.target === this) toggleMenu();
     });
-  </script>
+</script>
+
 </body>
 </html>
