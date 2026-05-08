@@ -1,461 +1,772 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
+
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Netgear Nighthawk M6 MR6110 | More4Less Wireless Internet</title>
+  <meta name="description" content="The Netgear Nighthawk M6 — next-generation 5G mobile router. WiFi 6, up to 32 devices, and unlimited high-speed internet across Canada.">
 
-<!-- SEO and Meta Tags -->
-<title>Nighthawk M6 5G Mobile Travel Router - More4Less Wireless Internet</title>
-<meta name="keywords" content="Nighthawk M6, 5G mobile router, wireless internet Canada, More4Less wireless, high-speed 5G, mobile internet plans, travel internet, internet for RVers, campers internet, unlimited data, Canadian internet provider, pocket-sized router">
-<meta name="description" content="Get the Nighthawk M6 5G Mobile Travel Router from More4Less Wireless Internet. Enjoy blazing fast 5G and LTE speeds, unlimited data, and reliable connectivity for up to 32 devices anywhere in Canada.">
-<meta property="og:title" content="Nighthawk M6 5G Mobile Travel Router - More4Less Wireless Internet">
-<meta property="og:description" content="Take high-speed internet anywhere in Canada with the Nighthawk M6 by More4Less. Perfect for RVers, travelers, and digital nomads. No contracts. Unlimited data.">
-<meta property="og:image" content="https://more4lessplans.ca/main.jpg">
-<meta property="og:url" content="https://more4lessplans.ca/nighthawk-m6">
-<meta property="og:type" content="website">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Nighthawk M6 5G Mobile Travel Router - More4Less Wireless Internet">
-<meta name="twitter:description" content="Stay connected with the pocket-sized Nighthawk M6 from More4Less. High-speed wireless internet for travel, camping, and life on the go—across Canada.">
-<meta name="twitter:image" content="https://more4lessplans.ca/main.jpg">
-
-  <!-- Favicons -->
   <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicons/favicon-16x16.png">
-  <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicons/favicon.ico">
-  <link rel="manifest" href="assets/img/favicons/manifest.json">
-  <meta name="msapplication-TileImage" content="assets/img/favicons/mstile-150x150.png">
-  <meta name="theme-color" content="#2E2F34">
+  <link rel="shortcut icon" href="assets/img/favicons/favicon.ico">
+  <link rel="manifest" href="assets/img/favicons/site.webmanifest">
+  <meta name="theme-color" content="#2E2F33">
 
-  <!-- Google Tag Manager -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-10988139493"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'AW-10988139493');
-  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&family=Rubik:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://js.chargebee.com/v2/chargebee.js" data-cb-site="more4lessplans"></script>
 
-  <!-- Bootstrap CSS -->
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- External Stylesheets -->
- <link rel="stylesheet" href="/navbar.css">
-  <link rel="stylesheet" href="/footer.css">
-
-  <!-- Custom CSS -->
   <style>
+    /* ─── TOKENS ─────────────────────────────────────────────── */
+    :root {
+      --brand-red:      #D73C59;
+      --brand-red-dark: #b82e48;
+      --bg-nav:         #2E2F33;
+      --bg-page:        #F5F5F7;
+      --bg-white:       #ffffff;
+      --text-dark:      #1d1d1f;
+      --text-muted:     #6e6e73;
+      --border:         #e2e2e6;
+      --nav-h:          68px;
+      --card-r:         20px;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { font-size: 15px; scroll-behavior: smooth; }
+
     body {
-      padding-top: 70px;
-      background: #fff;
-      font-family: Arial, sans-serif;
+      font-family: 'Figtree', sans-serif;
+      background: var(--bg-page);
+      color: var(--text-dark);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
-    @media (max-width: 576px) {
-      body { padding-top: 60px; }
+
+    /* ─── NAVBAR ─────────────────────────────────────────────── */
+    .navbar-custom {
+      background: var(--bg-nav);
+      padding: 1.2rem 0;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 4000;
     }
-    #product-section {
-      padding: 60px 0;
-      max-width: 1200px;
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1140px;
       margin: 0 auto;
+      padding: 0 25px;
     }
-    .pricing-header {
-      text-align: center;
-      margin-bottom: 3rem;
+
+    .navbar-brand img { height: 22px; }
+
+    .nav-links-desktop {
+      display: flex;
+      align-items: center;
+      list-style: none;
     }
-    .pricing-title {
-      font-size: 2.5rem;
-      font-weight: 700;
-      color: #222831;
-      margin-bottom: 1rem;
-    }
-    .pricing-subtitle {
-      font-size: 1.25rem;
+
+    .nav-links-desktop li a {
+      color: #fff;
       font-weight: 500;
-      color: #6b7280;
-      max-width: 600px;
-      margin: 0 auto 1rem;
+      font-size: 0.85rem;
+      margin: 0 18px;
+      text-decoration: none;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+      position: relative;
     }
-    .price-highlight {
-      color: #D73C59;
+
+    .nav-links-desktop li a:hover { opacity: 1; }
+
+    .nav-links-desktop li a::after {
+      content: '';
+      position: absolute;
+      width: 0; height: 2px;
+      bottom: -4px; left: 0;
+      background: var(--brand-red);
+      transition: width 0.4s cubic-bezier(0.2, 1, 0.2, 1);
+    }
+
+    .nav-links-desktop li a:hover::after { width: 100%; }
+    .btn-portal-top::after { display: none !important; }
+
+    .btn-portal-top {
+      background: var(--brand-red);
+      color: #fff !important;
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-weight: 600;
+      opacity: 1 !important;
+      transition: all 0.3s ease !important;
+    }
+
+    .btn-portal-top:hover {
+      background: #fff !important;
+      color: var(--text-dark) !important;
+      transform: translateY(-2px);
+    }
+
+    .menu-trigger {
+      display: none;
+      cursor: pointer;
+      padding: 10px;
+      z-index: 5001;
+      position: relative;
+    }
+
+    .menu-icon {
+      width: 26px; height: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .menu-icon span {
+      display: block;
+      width: 100%; height: 2px;
+      background: #fff;
+      border-radius: 10px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .menu-active .menu-icon span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .menu-active .menu-icon span:nth-child(2) { opacity: 0; transform: translateX(10px); }
+    .menu-active .menu-icon span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    .mobile-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(29,29,31,0.98);
+      backdrop-filter: blur(25px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 4500;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+
+    .mobile-overlay.active { opacity: 1; visibility: visible; }
+    .mobile-nav-links { list-style: none; padding: 0; text-align: center; }
+
+    .mobile-nav-links li {
+      margin: 25px 0;
+      transform: translateY(20px);
+      opacity: 0;
+      transition: 0.4s ease;
+    }
+
+    .mobile-overlay.active .mobile-nav-links li { transform: translateY(0); opacity: 1; }
+    .mobile-nav-links li:nth-child(1) { transition-delay: 0.10s; }
+    .mobile-nav-links li:nth-child(2) { transition-delay: 0.15s; }
+    .mobile-nav-links li:nth-child(3) { transition-delay: 0.20s; }
+
+    .mobile-nav-links a {
+      color: #fff;
+      font-size: 2.2rem;
       font-weight: 700;
+      text-decoration: none;
+      letter-spacing: -0.03em;
+      position: relative;
+      display: inline-block;
     }
-    .pricing-divider {
-      width: 100px;
-      border: 2px solid #e3e3e3;
-      margin: 1rem auto;
+
+    .mobile-nav-links a::after {
+      content: '';
+      position: absolute;
+      width: 0; height: 3px;
+      bottom: -4px; left: 0;
+      background: var(--brand-red);
+      transition: width 0.4s cubic-bezier(0.2, 1, 0.2, 1);
     }
-    .pricing-text {
+
+    .mobile-nav-links a:hover::after { width: 100%; }
+
+    /* ─── PAGE ───────────────────────────────────────────────── */
+    .page {
+      padding-top: var(--nav-h);
+      min-height: 100vh;
+    }
+
+    /* ─── PRODUCT STAGE ──────────────────────────────────────── */
+    .product-stage {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: calc(100vh - var(--nav-h));
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 40px;
+      gap: 60px;
+      align-items: center;
+    }
+
+    /* ─── LEFT: IMAGE PANEL ──────────────────────────────────── */
+    .img-panel {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 60px 20px;
+      opacity: 0;
+      animation: riseIn 1s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
+    }
+
+    /* Ambient glow behind device */
+    .img-panel::before {
+      content: '';
+      position: absolute;
+      width: 380px;
+      height: 380px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(215,60,89,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .device-img {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 400px;
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 40px 80px rgba(0,0,0,0.12));
+      transition: transform 1.2s cubic-bezier(0.34, 1.2, 0.64, 1),
+                  filter 0.6s ease;
+    }
+
+    .device-img:hover {
+      transform: scale(1.04) translateY(-8px) rotate(1deg);
+      filter: drop-shadow(0 60px 100px rgba(0,0,0,0.16));
+    }
+
+    /* ─── RIGHT: COPY PANEL ──────────────────────────────────── */
+    .copy-panel {
+      padding: 60px 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Eyebrow */
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      opacity: 0;
+      animation: riseIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards;
+    }
+
+    .eyebrow-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--brand-red);
+    }
+
+    /* Product name */
+    .product-name {
+      font-family: 'Rubik', sans-serif;
+      font-size: clamp(2.4rem, 3.5vw, 3.6rem);
+      font-weight: 800;
+      letter-spacing: -0.045em;
+      line-height: 1.02;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+      opacity: 0;
+      animation: riseIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.22s forwards;
+    }
+
+    .product-sub {
+      font-size: 1rem;
+      color: var(--text-muted);
+      font-weight: 400;
+      line-height: 1.65;
+      margin-bottom: 40px;
+      max-width: 420px;
+      opacity: 0;
+      animation: riseIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
+    }
+
+    /* ─── SPEC GRID ──────────────────────────────────────────── */
+    .spec-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 40px;
+      opacity: 0;
+      animation: riseIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.38s forwards;
+    }
+
+    .spec-item {
+      background: var(--bg-white);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 20px;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s cubic-bezier(0.34, 1.4, 0.64, 1);
+    }
+
+    .spec-item:hover {
+      border-color: #d0d0d6;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.06);
+      transform: translateY(-2px);
+    }
+
+    .spec-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 5px;
+    }
+
+    .spec-value {
+      font-family: 'Rubik', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+    }
+
+    /* ─── FEATURE LIST ───────────────────────────────────────── */
+    .feature-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 44px;
+      opacity: 0;
+      animation: riseIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.46s forwards;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 0.92rem;
+      color: var(--text-dark);
+      font-weight: 500;
+      line-height: 1.45;
+    }
+
+    .feature-check {
+      flex-shrink: 0;
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: rgba(215,60,89,0.08);
+      border: 1px solid rgba(215,60,89,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .feature-check svg {
+      width: 11px; height: 11px;
+      stroke: var(--brand-red);
+      stroke-width: 2.5;
+      fill: none;
+    }
+
+    /* ─── CTA AREA ───────────────────────────────────────────── */
+    .cta-area {
+      opacity: 0;
+      animation: riseIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.54s forwards;
+    }
+
+    .price-line {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .price-strike {
+      font-size: 1.1rem;
+      color: #b0b0b5;
+      text-decoration: line-through;
+      font-weight: 400;
+    }
+
+    .price-main {
+      font-family: 'Rubik', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 800;
+      letter-spacing: -0.045em;
+      line-height: 1;
+      color: var(--text-dark);
+    }
+
+    .price-period {
       font-size: 0.95rem;
-      color: #9CA3AF;
-      margin-bottom: 1rem;
+      color: var(--text-muted);
+      font-weight: 500;
     }
-    .shopify-section {
+
+    .price-note {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 22px;
+    }
+
+    .btn-order {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: var(--bg-nav);
+      color: #fff;
+      border: 1.5px solid var(--bg-nav);
+      border-radius: 14px;
+      padding: 16px 40px;
+      font-family: 'Figtree', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease,
+                  transform 0.35s cubic-bezier(0.34, 1.4, 0.64, 1),
+                  box-shadow 0.35s ease;
+      width: 100%;
+      max-width: 320px;
+    }
+
+    .btn-order:hover {
+      background: transparent;
+      color: var(--text-dark);
+      border-color: var(--border);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+    }
+
+    .btn-order svg {
+      width: 16px; height: 16px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+      transition: transform 0.3s cubic-bezier(0.34, 1.4, 0.64, 1);
+    }
+
+    .btn-order:hover svg { transform: translateX(4px); }
+
+    .order-disclaimer {
+      font-size: 0.78rem;
+      color: #aaaaaf;
+      margin-top: 14px;
+    }
+
+    /* ─── BOTTOM STRIP (scrollable specs) ───────────────────── */
+    .spec-strip {
+      border-top: 1px solid var(--border);
+      background: var(--bg-white);
+      padding: 28px 40px;
+      opacity: 0;
+      animation: riseIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.7s forwards;
+    }
+
+    .spec-strip-inner {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    .strip-stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       text-align: center;
-      margin: 2rem 0;
+      flex: 1;
+      min-width: 100px;
     }
-    @media (max-width: 767px) {
-      #product-section { padding: 30px 0; }
-      .pricing-title { font-size: 2rem; }
-      .pricing-subtitle { font-size: 1.1rem; }
-      .shopify-buy__btn,
-      .shopify-buy__product__description {
-        text-align: center !important;
-        margin-left: auto !important;
-        margin-right: auto !important;
-        display: block !important;
+
+    .strip-stat-value {
+      font-family: 'Rubik', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--text-dark);
+      line-height: 1;
+    }
+
+    .strip-stat-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 5px;
+    }
+
+    .strip-divider {
+      width: 1px;
+      height: 36px;
+      background: var(--border);
+      flex-shrink: 0;
+    }
+
+    /* ─── ANIMATION ──────────────────────────────────────────── */
+    @keyframes riseIn {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .product-stage {
+        grid-template-columns: 1fr;
+        padding: 40px 24px 60px;
+        gap: 20px;
+        min-height: unset;
       }
+
+      .img-panel {
+        padding: 40px 20px 20px;
+        order: -1;
+      }
+
+      .device-img { max-width: 280px; }
+
+      .copy-panel { padding: 0; }
+
+      .spec-grid { grid-template-columns: 1fr 1fr; }
+
+      .btn-order { max-width: 100%; }
+
+      .spec-strip { padding: 22px 24px; }
+
+      .strip-stat-value { font-size: 1.3rem; }
+    }
+
+    @media (max-width: 600px) {
+      .nav-links-desktop { display: none; }
+      .menu-trigger { display: block; }
+      .spec-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .spec-item { padding: 14px 16px; }
+      .strip-divider { display: none; }
+      .spec-strip-inner { justify-content: center; gap: 20px; }
+      .product-name { font-size: 2.2rem; }
     }
   </style>
 </head>
-
 <body>
-  <!-- Navbar -->
-  <div id="navbar-container"></div>
 
-  <!-- Main Content -->
-  <main id="top">
-    <section id="product-section">
-      <div class="container">
-        <!-- Title and Subtitle -->
-        <div class="pricing-header">
-          <h1 class="pricing-title">Plug-and-Play 5G/LTE Internet</h1>
-          <p class="pricing-subtitle">Wireless Internet Package</p>
-          <hr class="pricing-divider">
-          <p class="pricing-subtitle">Unlimited High-Speed Internet for <span class="price-highlight">$110/mo.</span></p>
-          <p class="pricing-text">One-time equipment cost - shipped to your door!</p>
+<!-- ── NAVBAR ────────────────────────────────────────────────── -->
+<nav class="navbar-custom">
+  <div class="nav-container">
+    <a class="navbar-brand" href="/">
+      <img src="assets/img/logos/logo.png" alt="More4Less">
+    </a>
+    <ul class="nav-links-desktop">
+      <li><a href="/#pricing">Pricing</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/portal" class="btn-portal-top">Customer Portal</a></li>
+    </ul>
+    <div class="menu-trigger" id="menuTrigger" onclick="toggleMenu()">
+      <div class="menu-icon"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-overlay" id="mobileOverlay">
+  <ul class="mobile-nav-links">
+    <li><a href="/#pricing">Pricing</a></li>
+    <li><a href="/contact">Contact</a></li>
+    <li><a href="/portal">Account Portal</a></li>
+  </ul>
+</div>
+
+<!-- ── PAGE ──────────────────────────────────────────────────── -->
+<div class="page">
+
+  <!-- Product Stage -->
+  <div class="product-stage">
+
+    <!-- Left: Device Image -->
+    <div class="img-panel">
+      <img
+        src="assets/img/products/mr6110.png"
+        alt="Netgear Nighthawk M6 MR6110"
+        class="device-img"
+      >
+    </div>
+
+    <!-- Right: Copy -->
+    <div class="copy-panel">
+
+      <div class="eyebrow">
+        <span class="eyebrow-dot"></span>
+        Next-Gen 5G
+      </div>
+
+      <h1 class="product-name">Netgear<br>Nighthawk M6</h1>
+
+      <p class="product-sub">5G-capable mobile router with WiFi 6 for your home, cabin, or office. Blazing-fast wireless powered by Canada's major networks — no landline required.</p>
+
+      <!-- Spec Grid -->
+      <div class="spec-grid">
+        <div class="spec-item">
+          <div class="spec-label">Network</div>
+          <div class="spec-value">5G Sub-6 /<br>LTE Cat. 20</div>
         </div>
-
-        <!-- Shopify Button -->
-        <div class="shopify-section">
-         <div id='product-component-1749307009689'></div>
-<script type="text/javascript">
-/*<![CDATA[*/
-(function () {
-  var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
-  if (window.ShopifyBuy) {
-    if (window.ShopifyBuy.UI) {
-      ShopifyBuyInit();
-    } else {
-      loadScript();
-    }
-  } else {
-    loadScript();
-  }
-  function loadScript() {
-    var script = document.createElement('script');
-    script.async = true;
-    script.src = scriptURL;
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(script);
-    script.onload = ShopifyBuyInit;
-  }
-  function ShopifyBuyInit() {
-    var client = ShopifyBuy.buildClient({
-      domain: 'more4less-plans.myshopify.com',
-      storefrontAccessToken: '8919363113a077a0d17cd850b89265f4',
-    });
-    ShopifyBuy.UI.onReady(client).then(function (ui) {
-      ui.createComponent('product', {
-        id: '7906799452340',
-        node: document.getElementById('product-component-1749307009689'),
-        moneyFormat: '%24%7B%7Bamount%7D%7D',
-        options: {
-  "product": {
-    "styles": {
-      "product": {
-        "@media (min-width: 601px)": {
-          "max-width": "100%",
-          "margin-left": "0",
-          "margin-bottom": "50px"
-        },
-        "text-align": "left"
-      },
-      "title": {
-        "font-family": "Raleway, sans-serif",
-        "font-size": "26px",
-        "color": "#000000"
-      },
-      "button": {
-        "font-family": "Arial, sans-serif",
-        ":hover": {
-          "background-color": "#4e5058"
-        },
-        "background-color": "#2e2f34",
-        ":focus": {
-          "background-color": "#4e5058"
-        },
-        "border-radius": "9px",
-        "padding-left": "59px",
-        "padding-right": "59px"
-      },
-      "price": {
-        "font-family": "Raleway, sans-serif",
-        "font-weight": "bold",
-        "font-size": "18px",
-        "color": "#000000"
-      },
-      "compareAt": {
-        "font-family": "Raleway, sans-serif",
-        "font-weight": "bold",
-        "font-size": "15.299999999999999px",
-        "color": "#000000"
-      },
-      "unitPrice": {
-        "font-family": "Raleway, sans-serif",
-        "font-weight": "bold",
-        "font-size": "15.299999999999999px",
-        "color": "#000000"
-      }
-    },
-    "layout": "horizontal",
-    "contents": {
-      "img": false,
-      "imgWithCarousel": true,
-      "description": true
-    },
-    "width": "100%",
-    "text": {
-      "button": "Add To Cart"
-    },
-    "googleFonts": [
-      "Raleway"
-    ]
-  },
-  "productSet": {
-    "styles": {
-      "products": {
-        "@media (min-width: 601px)": {
-          "margin-left": "-20px"
-        }
-      }
-    }
-  },
-  "modalProduct": {
-    "contents": {
-      "img": false,
-      "imgWithCarousel": true
-    },
-    "styles": {
-      "product": {
-        "@media (min-width: 601px)": {
-          "max-width": "100%",
-          "margin-left": "0px",
-          "margin-bottom": "0px"
-        }
-      },
-      "button": {
-        "font-family": "Arial, sans-serif",
-        ":hover": {
-          "background-color": "#4e5058"
-        },
-        "background-color": "#2e2f34",
-        ":focus": {
-          "background-color": "#4e5058"
-        },
-        "border-radius": "9px",
-        "padding-left": "59px",
-        "padding-right": "59px"
-      },
-      "title": {
-        "font-family": "Open Sans, sans-serif",
-        "font-weight": "bold",
-        "font-size": "30px",
-        "color": "#4c4c4c"
-      },
-      "price": {
-        "font-family": "Open Sans, sans-serif",
-        "font-weight": "normal",
-        "font-size": "18px",
-        "color": "#4c4c4c"
-      },
-      "compareAt": {
-        "font-family": "Open Sans, sans-serif",
-        "font-weight": "normal",
-        "font-size": "15.299999999999999px",
-        "color": "#4c4c4c"
-      },
-      "unitPrice": {
-        "font-family": "Open Sans, sans-serif",
-        "font-weight": "normal",
-        "font-size": "15.299999999999999px",
-        "color": "#4c4c4c"
-      },
-      "description": {
-        "font-family": "Open Sans, sans-serif"
-      }
-    },
-    "googleFonts": [
-      "Open Sans"
-    ],
-    "text": {
-      "button": "Order Now"
-    }
-  },
-  "option": {},
-  "cart": {
-    "styles": {
-      "button": {
-        "font-family": "Arial, sans-serif",
-        ":hover": {
-          "background-color": "#4e5058"
-        },
-        "background-color": "#2e2f34",
-        ":focus": {
-          "background-color": "#4e5058"
-        },
-        "border-radius": "9px"
-      },
-      "title": {
-        "color": "#000000"
-      },
-      "header": {
-        "color": "#000000"
-      },
-      "lineItems": {
-        "color": "#000000"
-      },
-      "subtotalText": {
-        "color": "#000000"
-      },
-      "subtotal": {
-        "color": "#000000"
-      },
-      "notice": {
-        "color": "#000000"
-      },
-      "currency": {
-        "color": "#000000"
-      },
-      "close": {
-        "color": "#000000",
-        ":hover": {
-          "color": "#000000"
-        }
-      },
-      "empty": {
-        "color": "#000000"
-      },
-      "noteDescription": {
-        "color": "#000000"
-      },
-      "discountText": {
-        "color": "#000000"
-      },
-      "discountIcon": {
-        "fill": "#000000"
-      },
-      "discountAmount": {
-        "color": "#000000"
-      }
-    },
-    "text": {
-      "title": "Shopping Cart",
-      "total": "Subtotal",
-      "notice": "",
-      "button": "Checkout"
-    }
-  },
-  "toggle": {
-    "styles": {
-      "toggle": {
-        "font-family": "Arial, sans-serif",
-        "background-color": "#2e2f34",
-        ":hover": {
-          "background-color": "#4e5058"
-        },
-        ":focus": {
-          "background-color": "#4e5058"
-        }
-      }
-    }
-  },
-  "lineItem": {
-    "styles": {
-      "variantTitle": {
-        "color": "#000000"
-      },
-      "title": {
-        "color": "#000000"
-      },
-      "price": {
-        "color": "#000000"
-      },
-      "fullPrice": {
-        "color": "#000000"
-      },
-      "discount": {
-        "color": "#000000"
-      },
-      "discountIcon": {
-        "fill": "#000000"
-      },
-      "quantity": {
-        "color": "#000000"
-      },
-      "quantityIncrement": {
-        "color": "#000000",
-        "border-color": "#000000"
-      },
-      "quantityDecrement": {
-        "color": "#000000",
-        "border-color": "#000000"
-      },
-      "quantityInput": {
-        "color": "#000000",
-        "border-color": "#000000"
-      }
-    }
-  }
-},
-      });
-    });
-  }
-})();
-/*]]>*/
-</script>
+        <div class="spec-item">
+          <div class="spec-label">Max Devices</div>
+          <div class="spec-value">32 Devices</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">WiFi Standard</div>
+          <div class="spec-value">WiFi 6<br>802.11ax</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Down / Up</div>
+          <div class="spec-value">4 Gbps /<br>300 Mbps</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Ethernet</div>
+          <div class="spec-value">2.5G LAN</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Display</div>
+          <div class="spec-value">Touchscreen</div>
         </div>
       </div>
-    </section>
-  </main>
 
-  <!-- Footer -->
-  <div id="footer-container"></div>
+      <!-- Feature List -->
+      <div class="feature-list">
+        <div class="feature-item">
+          <span class="feature-check">
+            <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
+          </span>
+          5G-ready with LTE fallback for maximum coverage
+        </div>
+        <div class="feature-item">
+          <span class="feature-check">
+            <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
+          </span>
+          WiFi 6 for faster speeds and less congestion
+        </div>
+        <div class="feature-item">
+          <span class="feature-check">
+            <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
+          </span>
+          2.5G Ethernet port for wired workstations
+        </div>
+        <div class="feature-item">
+          <span class="feature-check">
+            <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
+          </span>
+          Unlimited data — no throttling, no caps
+        </div>
+        <div class="feature-item">
+          <span class="feature-check">
+            <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
+          </span>
+          Hardware included — no large upfront cost
+        </div>
+      </div>
 
-  <!-- Scripts -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Load navbar
-      fetch('/navbar.html')
-        .then(response => {
-          if (!response.ok) throw new Error('Failed to load navbar.html: ' + response.status);
-          return response.text();
-        })
-        .then(data => {
-          document.getElementById('navbar-container').innerHTML = data;
-          const navbarScript = document.createElement('script');
-          navbarScript.src = '/navbar.js';
-          navbarScript.onload = function() {
-            initializeNavbar(); // Assumes this function exists in navbar.js
-          };
-          document.body.appendChild(navbarScript);
-        })
-        .catch(error => console.error('Error loading navbar:', error));
+      <!-- CTA -->
+      <div class="cta-area">
+        <div class="price-line">
+          <span class="price-main">$349</span>
+          <span class="price-period">+ tax</span>
+        </div>
+        <p class="price-note">Hardware included. First month of unlimited service included.</p>
 
-      // Load footer
-      fetch('/footer.html')
-        .then(response => {
-          if (!response.ok) throw new Error('Failed to load footer.html: ' + response.status);
-          return response.text();
-        })
-        .then(data => {
-          document.getElementById('footer-container').innerHTML = data;
-          document.getElementById('currentYear').textContent = new Date().getFullYear();
-        })
-        .catch(error => console.error('Error loading footer:', error));
-    });
-  </script>
+        <a
+          href="javascript:void(0)"
+          data-cb-type="checkout"
+          data-cb-plan-id="wireless-internet-m6"
+          class="btn-order"
+        >
+          Order Now
+          <svg viewBox="0 0 16 16"><line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg>
+        </a>
+
+        <p class="order-disclaimer">Unlimited data renews at $110/month after the first month.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Bottom Stat Strip -->
+  <div class="spec-strip">
+    <div class="spec-strip-inner">
+      <div class="strip-stat">
+        <div class="strip-stat-value">4 Gbps</div>
+        <div class="strip-stat-label">Peak Download</div>
+      </div>
+      <div class="strip-divider"></div>
+      <div class="strip-stat">
+        <div class="strip-stat-value">32</div>
+        <div class="strip-stat-label">Max Devices</div>
+      </div>
+      <div class="strip-divider"></div>
+      <div class="strip-stat">
+        <div class="strip-stat-value">WiFi 6</div>
+        <div class="strip-stat-label">802.11ax</div>
+      </div>
+      <div class="strip-divider"></div>
+      <div class="strip-stat">
+        <div class="strip-stat-value">∞</div>
+        <div class="strip-stat-label">Unlimited Data</div>
+      </div>
+      <div class="strip-divider"></div>
+      <div class="strip-stat">
+        <div class="strip-stat-value">30-Day</div>
+        <div class="strip-stat-label">Money-Back</div>
+      </div>
+      <div class="strip-divider"></div>
+      <div class="strip-stat">
+        <div class="strip-stat-value">$0</div>
+        <div class="strip-stat-label">Activation Fee</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+<script>
+  // Chargebee init
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof Chargebee !== 'undefined') {
+      Chargebee.init({
+        site: 'more4lessplans',
+        publishableKey: 'live_9xoL0GUAJyfaZddNn5cdFhI4hrLAGhyIh'
+      });
+    }
+  });
+
+  // Mobile menu
+  function toggleMenu() {
+    const trigger = document.getElementById('menuTrigger');
+    const overlay = document.getElementById('mobileOverlay');
+    const isOpen  = trigger.classList.contains('menu-active');
+    trigger.classList.toggle('menu-active');
+    overlay.classList.toggle('active');
+    document.body.style.overflow = isOpen ? '' : 'hidden';
+  }
+
+  document.getElementById('mobileOverlay').addEventListener('click', function(e) {
+    if (!e.target.closest('a')) toggleMenu();
+  });
+</script>
+
 </body>
 </html>
