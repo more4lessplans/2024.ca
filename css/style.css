@@ -87,10 +87,16 @@ body {
     transition: opacity 0.4s ease, visibility 0.4s ease;
 }
 .mobile-overlay.active { opacity: 1; visibility: visible; }
-.mobile-nav-links { list-style: none; padding: 0; text-align: center; }
-.mobile-nav-links li { margin: 25px 0; transform: translateY(20px); opacity: 0; transition: 0.4s ease; }
+.mobile-nav-links { list-style: none !important; padding: 0 !important; margin: 0 !important; text-align: center; }
+.mobile-nav-links li { margin: 25px 0 !important; padding: 0 !important; transform: translateY(20px); opacity: 0; transition: 0.4s ease; }
 .mobile-overlay.active .mobile-nav-links li { transform: translateY(0); opacity: 1; }
-.mobile-nav-links a { color: #fff; font-size: 2.2rem; font-weight: 700; text-decoration: none; letter-spacing: -0.03em; }
+.mobile-nav-links li:nth-child(1) { transition-delay: 0.10s; }
+.mobile-nav-links li:nth-child(2) { transition-delay: 0.15s; }
+.mobile-nav-links li:nth-child(3) { transition-delay: 0.20s; }
+.mobile-nav-links li:nth-child(4) { transition-delay: 0.25s; }
+.mobile-nav-links a { color: #fff !important; font-size: 2.2rem !important; font-weight: 700 !important; text-decoration: none !important; letter-spacing: -0.03em !important; position: relative; display: inline-block !important; padding: 0 !important; margin: 0 !important; line-height: 1.2 !important; }
+.mobile-nav-links a::after { content: ''; position: absolute; width: 0; height: 3px; bottom: -4px; left: 0; background: var(--brand-red); transition: width 0.4s cubic-bezier(0.2, 1, 0.2, 1); }
+.mobile-nav-links a:hover::after { width: 100%; }
 
 /* --- 4. Hero Section (Pro Refinement) --- */
 .hero {
@@ -1348,11 +1354,11 @@ body.portal-premium-light {
 
 /* --- Mobile Menu Interaction Fix --- */
 .mobile-overlay {
-    pointer-events: none; /* Prevents overlay from blocking clicks when hidden */
+    pointer-events: none;
 }
 
 .mobile-overlay.active {
-    pointer-events: auto; /* Re-enables clicks when visible */
+    pointer-events: auto;
 }
 
 /* --- Spacing Polish --- */
@@ -1376,40 +1382,22 @@ body.portal-premium-light {
 .menu-trigger {
     z-index: 5005;
 }
-/* --- High-End Link Animations --- */
-
-/* Base Styles for Desktop Links - Light for visibility[cite: 5, 6] */
+/* --- High-End Link Animations (desktop only) --- */
 .nav-links-desktop li a {
-    color: #ffffff !important; 
+    color: #ffffff !important;
     font-weight: 500;
-    opacity: 0.85; /* Slightly muted until hover for a premium feel */
+    opacity: 0.85;
     position: relative;
     text-decoration: none;
-    transition: var(--transition-smooth);
     display: inline-block;
 }
 
-/* Base Styles for Mobile Overlay Links - Now Light[cite: 5] */
-.mobile-nav-links li a {
-    color: #f4f4f4 !important; 
-    font-size: 2.2rem;
-    font-weight: 700;
-    text-decoration: none;
-    position: relative;
-    transition: color 0.3s ease, letter-spacing 0.3s ease;
-}
-
-/* Subtle Letter Spacing Shift on Hover[cite: 5] */
-.nav-links-desktop li a:hover,
-.mobile-nav-links li a:hover {
+.nav-links-desktop li a:hover {
     color: #ffffff !important;
     opacity: 1;
-    letter-spacing: 0.02em; 
 }
 
-/* Sliding Underline Animation[cite: 5] */
-.nav-links-desktop li a::after,
-.mobile-nav-links li a::after {
+.nav-links-desktop li a::after {
     content: '';
     position: absolute;
     width: 0;
@@ -1420,30 +1408,9 @@ body.portal-premium-light {
     transition: width 0.4s cubic-bezier(0.2, 1, 0.2, 1);
 }
 
-.nav-links-desktop li a:hover::after,
-.mobile-nav-links li a:hover::after {
+.nav-links-desktop li a:hover::after {
     width: 100%;
 }
-
-/* --- Mobile Overlay Polish --- */
-.mobile-nav-links li {
-    margin: 25px 0;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.5s cubic-bezier(0.2, 1, 0.2, 1);
-}
-
-/* Staggered entrance animation[cite: 5, 6] */
-.mobile-overlay.active .mobile-nav-links li {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Delay each link for a sophisticated reveal[cite: 5] */
-.mobile-nav-links li:nth-child(1) { transition-delay: 0.1s; }
-.mobile-nav-links li:nth-child(2) { transition-delay: 0.15s; }
-.mobile-nav-links li:nth-child(3) { transition-delay: 0.2s; }
-.mobile-nav-links li:nth-child(4) { transition-delay: 0.25s; }
 
 /* --- Portal Button (High-Contrast Red) --- */
 .btn-portal-top {
@@ -1698,53 +1665,4 @@ body.portal-premium-light {
             display: none; 
         }
 
-        /* --- Mobile Overlay & Close Logic --- */
-        #mobileOverlay {
-            position: fixed;
-            top: 0;
-            right: -100%; /* Hidden by default */
-            width: 100%;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.95); /* High-end dark blur background */
-            z-index: 9999;
-            transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        #mobileOverlay.active {
-            right: 0;
-        }
-
-        /* The white "X" button positioning[cite: 5] */
-        .close-trigger-white {
-            position: absolute;
-            top: 30px;
-            right: 30px;
-            font-size: 2rem;
-            color: #ffffff;
-            cursor: pointer;
-            z-index: 10001;
-            line-height: 1;
-            background: none;
-            border: none;
-            outline: none;
-        }
-
-        /* Prevent link clicks from being "intercepted" by the close logic */
-        .mobile-nav-links {
-            list-style: none;
-            padding: 0;
-            text-align: center;
-            z-index: 10002;
-        }
-
-        .mobile-nav-links a {
-            color: #ffffff;
-            font-size: 2rem;
-            font-weight: 700;
-            text-decoration: none;
-            display: block;
-            padding: 15px;
-        }
+        /* Mobile overlay handled by .mobile-overlay base class above */
