@@ -1,198 +1,797 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer Portal | More4Less</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Portal | More4Less</title>
 
-    <!-- 5. Favicons & Theme -->
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicons/favicon-16x16.png">
-    <link rel="shortcut icon" href="assets/img/favicons/favicon.ico">
-    <link rel="manifest" href="assets/img/favicons/site.webmanifest">
-    <meta name="theme-color" content="#2E2F33">
-    
-    <!-- External Frameworks -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon-32x32.png">
+  <link rel="shortcut icon" href="assets/img/favicons/favicon.ico">
+  <meta name="theme-color" content="#2E2F33">
 
-    <!-- Linked External Stylesheet -->
-    <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Rubik:wght@700;800&display=swap" rel="stylesheet">
+  <script src="https://js.chargebee.com/v2/chargebee.js" data-cb-site="more4lessplans"></script>
 
-   
+  <style>
+    /* ── Tokens — pulled directly from style.css ──────────────── */
+    :root {
+      --brand-red:   #D73C59;
+      --bg-nav:      #2E2F33;
+      --bg-page:     #FBFBFD;
+      --text-dark:   #1d1d1f;
+      --text-muted:  #6e6e73;
+      --card-radius: 28px;
+      --nav-h:       68px;
+      --border:      #eaeaec;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Figtree', sans-serif;
+      background: var(--bg-page);
+      color: var(--text-dark);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    /* ── NAVBAR ───────────────────────────────────────────────── */
+    .navbar-custom {
+      background: var(--bg-nav);
+      padding: 1.2rem 0;
+      position: fixed;
+      width: 100%; top: 0;
+      z-index: 4000;
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 25px;
+    }
+
+    .navbar-brand img { height: 22px; }
+    .nav-links-desktop { display: flex; align-items: center; list-style: none; }
+
+    .nav-links-desktop li a {
+      color: #fff;
+      font-weight: 500;
+      font-size: 0.85rem;
+      margin: 0 18px;
+      text-decoration: none;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+      position: relative;
+    }
+
+    .nav-links-desktop li a:hover { opacity: 1; }
+
+    .nav-links-desktop li a::after {
+      content: '';
+      position: absolute;
+      width: 0; height: 2px;
+      bottom: -4px; left: 0;
+      background: var(--brand-red);
+      transition: width 0.4s cubic-bezier(0.2, 1, 0.2, 1);
+    }
+
+    .nav-links-desktop li a:hover::after { width: 100%; }
+    .btn-portal-top::after { display: none !important; }
+
+    .btn-portal-top {
+      background: var(--brand-red) !important;
+      color: #fff !important;
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-weight: 600;
+      opacity: 1 !important;
+      transition: all 0.3s ease !important;
+    }
+
+    .btn-portal-top:hover {
+      background: #fff !important;
+      color: var(--text-dark) !important;
+      transform: translateY(-2px);
+    }
+
+    .menu-trigger { display: none; cursor: pointer; padding: 10px; z-index: 5001; position: relative; }
+    .menu-icon { width: 26px; height: 18px; display: flex; flex-direction: column; justify-content: space-between; }
+    .menu-icon span { display: block; width: 100%; height: 2px; background: #fff; border-radius: 10px; transition: all 0.3s cubic-bezier(0.4,0,0.2,1); }
+    .menu-active .menu-icon span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .menu-active .menu-icon span:nth-child(2) { opacity: 0; transform: translateX(10px); }
+    .menu-active .menu-icon span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    .mobile-overlay {
+      position: fixed; inset: 0;
+      background: rgba(29,29,31,0.98);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      z-index: 4500;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+
+    .mobile-overlay.active { opacity: 1; visibility: visible; }
+    .mobile-nav-links { list-style: none; padding: 0; text-align: center; }
+    .mobile-nav-links li { margin: 25px 0; transform: translateY(20px); opacity: 0; transition: 0.4s ease; }
+    .mobile-overlay.active .mobile-nav-links li { transform: translateY(0); opacity: 1; }
+    .mobile-nav-links li:nth-child(1) { transition-delay: 0.10s; }
+    .mobile-nav-links li:nth-child(2) { transition-delay: 0.15s; }
+    .mobile-nav-links li:nth-child(3) { transition-delay: 0.20s; }
+    .mobile-nav-links li:nth-child(4) { transition-delay: 0.25s; }
+    .mobile-nav-links a { color: #fff; font-size: 2.2rem; font-weight: 700; text-decoration: none; letter-spacing: -0.03em; position: relative; display: inline-block; }
+    .mobile-nav-links a::after { content: ''; position: absolute; width: 0; height: 3px; bottom: -4px; left: 0; background: var(--brand-red); transition: width 0.4s cubic-bezier(0.2,1,0.2,1); }
+    .mobile-nav-links a:hover::after { width: 100%; }
+
+    /* ── PAGE ─────────────────────────────────────────────────── */
+    .page {
+      padding-top: var(--nav-h);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── PORTAL HEADER ────────────────────────────────────────── */
+    .portal-header {
+      padding: 70px 25px 60px;
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      animation: fadeUp 0.8s cubic-bezier(0.2,1,0.2,1) 0.05s forwards;
+    }
+
+    /* Dot grid — same as your privacy/product pages */
+    .portal-header::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
+      background-size: 28px 28px;
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .portal-header-inner { position: relative; z-index: 2; }
+
+    /* Eyebrow — same pattern as all other pages */
+    .portal-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+    }
+
+    .portal-eyebrow::before,
+    .portal-eyebrow::after {
+      content: '';
+      width: 28px; height: 1px;
+      background: var(--border);
+    }
+
+    .portal-header h1 {
+      font-family: 'Rubik', sans-serif;
+      font-size: clamp(2.4rem, 5vw, 3.5rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+      color: var(--text-dark);
+      margin-bottom: 12px;
+    }
+
+    .portal-header p {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      max-width: 440px;
+      margin: 0 auto 32px;
+    }
+
+    /* ── STATUS PILL ──────────────────────────────────────────── */
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 10px 20px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    }
+
+    .status-dot-wrap { position: relative; width: 8px; height: 8px; flex-shrink: 0; }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #34C759; }
+    .status-pulse {
+      position: absolute; inset: -3px;
+      border-radius: 50%;
+      background: rgba(52,199,89,0.3);
+      animation: pulse 2.2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      60%       { transform: scale(1.8); opacity: 0; }
+    }
+
+    /* ── VIEW TOGGLE ──────────────────────────────────────────── */
+    /* Matches style.css tesla-toggle pattern */
+    .view-controls {
+      display: flex;
+      justify-content: center;
+      margin-top: 28px;
+    }
+
+    .tesla-toggle {
+      background: #f2f2f7;
+      padding: 3px;
+      border-radius: 12px;
+      display: flex;
+      position: relative;
+      border: 1px solid var(--border);
+      height: 44px;
+      width: 180px;
+    }
+
+    .glider {
+      position: absolute;
+      top: 3px; left: 3px;
+      height: calc(100% - 6px);
+      background: #fff;
+      border-radius: 9px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: transform 0.35s cubic-bezier(0.22,1,0.36,1),
+                  width 0.35s cubic-bezier(0.22,1,0.36,1);
+      z-index: 1;
+    }
+
+    .t-btn {
+      position: relative; z-index: 2;
+      border: none; background: transparent;
+      font-family: 'Figtree', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      cursor: pointer;
+      flex: 1;
+      border-radius: 9px;
+      outline: none;
+      transition: color 0.25s ease;
+    }
+
+    .t-btn.active { color: var(--text-dark); }
+
+    /* ── DASHBOARD BODY ───────────────────────────────────────── */
+    .portal-body {
+      flex: 1;
+      max-width: 1140px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 60px 25px 100px;
+    }
+
+    /* ── SECTION LABEL — matches style.css rhythm ─────────────── */
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      padding-left: 2px;
+    }
+
+    /* ── PRIMARY GRID ─────────────────────────────────────────── */
+    .primary-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeUp 0.8s cubic-bezier(0.2,1,0.2,1) 0.15s forwards;
+    }
+
+    /* ── SECONDARY GRID ───────────────────────────────────────── */
+    .secondary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      opacity: 0;
+      animation: fadeUp 0.8s cubic-bezier(0.2,1,0.2,1) 0.25s forwards;
+    }
+
+    /* ── BASE CARD — inherits style.css plan-card feel ────────── */
+    .dash-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      padding: 40px 35px;
+      text-decoration: none;
+      color: var(--text-dark);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      transition:
+        transform 0.6s cubic-bezier(0.165,0.84,0.44,1),
+        box-shadow 0.6s cubic-bezier(0.165,0.84,0.44,1),
+        border-color 0.3s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .dash-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.07);
+      border-color: #d8d8dc;
+      color: var(--text-dark);
+      text-decoration: none;
+    }
+
+    .dash-card:active { transform: scale(0.98); }
+
+    /* Dark featured card */
+    .dash-card.primary {
+      background: var(--bg-nav);
+      border-color: var(--bg-nav);
+      color: #fff;
+    }
+
+    .dash-card.primary:hover {
+      color: #fff;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.18);
+    }
+
+    /* ── ICON ─────────────────────────────────────────────────── */
+    .c-icon {
+      width: 48px; height: 48px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 32px;
+      flex-shrink: 0;
+    }
+
+    .c-icon svg {
+      width: 22px; height: 22px;
+      stroke-width: 1.7;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* Colour tokens per icon */
+    .icon-blue   { background: #E8F0FE; }
+    .icon-blue   svg { stroke: #3B7AEA; }
+    .icon-amber  { background: #FEF3E2; }
+    .icon-amber  svg { stroke: #D08000; }
+    .icon-red    { background: #FDEEF1; }
+    .icon-red    svg { stroke: var(--brand-red); }
+    .icon-purple { background: #F0ECFE; }
+    .icon-purple svg { stroke: #7B52E8; }
+    .icon-teal   { background: #E4F7F4; }
+    .icon-teal   svg { stroke: #1A9E8F; }
+    .icon-green  { background: #E6F8ED; }
+    .icon-green  svg { stroke: #1E9E52; }
+
+    /* Dark card icon */
+    .dash-card.primary .c-icon {
+      background: rgba(255,255,255,0.08);
+    }
+
+    .dash-card.primary .c-icon svg { stroke: #fff; }
+
+    /* ── CARD TEXT ────────────────────────────────────────────── */
+    .c-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--brand-red);
+      margin-bottom: 6px;
+    }
+
+    .dash-card.primary .c-label { color: rgba(215,60,89,0.8); }
+
+    .c-title {
+      font-family: 'Rubik', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      margin-bottom: 8px;
+      line-height: 1.15;
+    }
+
+    .c-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    .dash-card.primary .c-desc { color: rgba(255,255,255,0.45); }
+
+    /* ── CARD LINK — matches style.css portal-link pattern ─────── */
+    .c-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 28px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      transition: color 0.25s ease, gap 0.3s cubic-bezier(0.34,1.4,0.64,1);
+    }
+
+    .c-link::after {
+      content: '→';
+      transition: transform 0.25s ease;
+    }
+
+    .dash-card:hover .c-link { color: var(--text-dark); gap: 10px; }
+    .dash-card:hover .c-link::after { transform: translateX(3px); }
+
+    .dash-card.primary .c-link { color: rgba(255,255,255,0.4); }
+    .dash-card.primary:hover .c-link { color: #fff; }
+
+    /* ── SECONDARY COMPACT CARD ───────────────────────────────── */
+    .secondary-grid .dash-card {
+      padding: 28px 24px 24px;
+      border-radius: 22px;
+    }
+
+    .secondary-grid .c-icon {
+      width: 40px; height: 40px;
+      border-radius: 11px;
+      margin-bottom: 20px;
+    }
+
+    .secondary-grid .c-icon svg { width: 18px; height: 18px; }
+    .secondary-grid .c-title { font-size: 1rem; }
+    .secondary-grid .c-desc { display: none; }
+
+    .secondary-grid .c-link {
+      margin-top: 16px;
+      font-size: 0.78rem;
+    }
+
+    /* ── LIST VIEW ────────────────────────────────────────────── */
+    .portal-grid-all.list-view { display: flex; flex-direction: column; gap: 12px; max-width: 760px; margin: 0 auto; }
+    .portal-grid-all.list-view .dash-card {
+      flex-direction: row;
+      align-items: center;
+      padding: 22px 30px;
+      border-radius: 18px;
+      gap: 20px;
+    }
+
+    .portal-grid-all.list-view .c-icon { margin-bottom: 0; flex-shrink: 0; }
+    .portal-grid-all.list-view .c-label { display: none; }
+    .portal-grid-all.list-view .c-desc { display: none; }
+    .portal-grid-all.list-view .card-body { flex: 1; }
+    .portal-grid-all.list-view .c-title { margin-bottom: 0; font-size: 1rem; }
+    .portal-grid-all.list-view .c-link { margin-top: 0; margin-left: auto; flex-shrink: 0; }
+
+    /* Secondary cards in list view — stack body vertically, no side-by-side overflow */
+    .portal-grid-all.list-view .secondary-grid {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .portal-grid-all.list-view .secondary-grid .dash-card {
+      flex-direction: row;
+      align-items: center;
+      padding: 20px 28px;
+      border-radius: 18px;
+      gap: 18px;
+    }
+
+    .portal-grid-all.list-view .secondary-grid .c-icon { margin-bottom: 0; flex-shrink: 0; }
+
+    .portal-grid-all.list-view .secondary-grid .card-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .portal-grid-all.list-view .secondary-grid .c-title {
+      margin-bottom: 0;
+      font-size: 1rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .portal-grid-all.list-view .secondary-grid .c-link {
+      margin-top: 0;
+      margin-left: auto;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    /* ── FOOTER — matches style.css site-footer ───────────────── */
+    .site-footer {
+      padding: 60px 0 50px;
+      background: var(--bg-page);
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 25px;
+    }
+
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .footer-links { display: flex; gap: 28px; }
+
+    .footer-link {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #86868b;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-link:hover { color: var(--text-dark); }
+
+    .footer-copyright {
+      font-size: 0.85rem;
+      color: #86868b;
+    }
+
+    /* ── ANIMATION ────────────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ───────────────────────────────────────────── */
+    @media (max-width: 991px) {
+      .nav-links-desktop { display: none; }
+      .menu-trigger { display: block; }
+      .secondary-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 700px) {
+      .primary-grid { grid-template-columns: 1fr; }
+      .secondary-grid { grid-template-columns: repeat(2, 1fr); }
+      .portal-body { padding: 44px 20px 80px; }
+      .portal-header { padding: 56px 20px 48px; }
+      .dash-card { padding: 32px 26px; }
+    }
+  </style>
 </head>
 <body>
 
-    <nav class="navbar-custom">
-        <div class="nav-container">
-            <a class="navbar-brand" href="/"><img src="assets/img/logos/logo.png" alt="More4Less"></a>
-            <ul class="nav-links-desktop">
-                <li><a href="/#pricing">Pricing</a></li>
-                <li><a href="/#faq">FAQ</a></li>
-                <li><a href="/contact">Contact</a></li>
-                <li><a href="/portal" class="btn-portal-top">Customer Portal</a></li>
-            </ul>
-            <div class="menu-trigger" id="menuTrigger">
-                <div class="menu-icon"><span></span><span></span><span></span></div>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Mobile Overlay with Dismissal Logic[cite: 5, 6] -->
-    <div id="mobileOverlay" class="mobile-overlay">
-        <!-- THE WHITE X BUTTON -->
-        <button class="close-trigger-white" id="closeMenu">✕</button>
-        
-        <ul class="mobile-nav-links" id="mobileNavLinks">
-            <li><a href="/#pricing">Pricing</a></li>
-            <li><a href="/#faq">FAQ</a></li>
-            <li><a href="/contact">Contact</a></li>
-            <li><a href="/portal">Customer Portal</a></li>
-        </ul>
+<!-- ── NAVBAR ──────────────────────────────────────────────────── -->
+<nav class="navbar-custom">
+  <div class="nav-container">
+    <a class="navbar-brand" href="/"><img src="assets/img/logos/logo.png" alt="More4Less"></a>
+    <ul class="nav-links-desktop">
+      <li><a href="/#pricing">Pricing</a></li>
+      <li><a href="/#faq">FAQ</a></li>
+      <li><a href="/contact">Contact</a></li>
+    
+    </ul>
+    <div class="menu-trigger" id="menuTrigger">
+      <div class="menu-icon"><span></span><span></span><span></span></div>
     </div>
+  </div>
+</nav>
 
-    <header class="portal-header">
-        <div class="container">
-            <h1>Account Portal</h1>
-            <p>Manage your connection, billing, and support requests in one place.</p>
-            
-            <div class="view-controls">
-                <div class="tesla-toggle">
-                    <div class="glider" id="glider"></div>
-                    <button id="gridBtn" class="t-btn active">Grid</button>
-                    <button id="listBtn" class="t-btn">List</button>
-                </div>
-            </div>
+<div class="mobile-overlay" id="mobileOverlay">
+  <ul class="mobile-nav-links">
+    <li><a href="/#pricing">Pricing</a></li>
+    <li><a href="/#faq">FAQ</a></li>
+    <li><a href="/contact">Contact</a></li>
+   
+  </ul>
+</div>
+
+<!-- ── PAGE ────────────────────────────────────────────────────── -->
+<div class="page">
+
+  <!-- Header -->
+  <header class="portal-header">
+    <div class="portal-header-inner">
+
+      <div class="portal-eyebrow">Your Account</div>
+
+      <h1>Customer Portal</h1>
+      <p>Everything you need to manage your wireless internet service.</p>
+
+      <div class="status-pill">
+        <div class="status-dot-wrap">
+          <div class="status-pulse"></div>
+          <div class="status-dot"></div>
         </div>
-    </header>
+        All systems operational
+      </div>
 
-    <div class="portal-container">
-        <div class="portal-grid" id="portalGrid">
-            
-            <a href="/login" class="portal-card card-featured">
-                <div class="card-icon">👤</div>
-                <div class="card-content">
-                    <div class="card-title">Account Management</div>
-                    <p class="card-desc">Update your payment methods, view upcoming billing dates, or manage your service status.</p>
-                    <div class="portal-link" href="javascript:void(0)" data-cb-type="portal">Sign In to Account</div>
-                    
-                </div>
-            </a>
-
-            <a href="/activate" class="portal-card">
-                <div class="card-icon">⚡</div>
-                <div class="card-content">
-                    <div class="card-title">Activate Service</div>
-                    <p class="card-desc">Ready to get back online? Process reactivations or start new subscriptions.</p>
-                    <div class="portal-link">Get Started</div>
-                </div>
-            </a>
-
-            <a href="/support" class="portal-card">
-                <div class="card-icon">🛠️</div>
-                <div class="card-content">
-                    <div class="card-title">Technical Support</div>
-                    <p class="card-desc">Encountering connection issues? Open a priority ticket for network assistance.</p>
-                    <div class="portal-link">Get Help</div>
-                </div>
-            </a>
-
-            <a href="/tutorials" class="portal-card">
-                <div class="card-icon">📖</div>
-                <div class="card-content">
-                    <div class="card-title">Device Tutorials</div>
-                    <p class="card-desc">Expert guides and optimization tips to help you get the maximum speed from hardware.</p>
-                    <div class="portal-link">View Guides</div>
-                </div>
-            </a>
-
-            <a href="/returns" class="portal-card">
-                <div class="card-icon">📦</div>
-                <div class="card-content">
-                    <div class="card-title">Return Equipment</div>
-                    <p class="card-desc">View our return policy or submit a request to return equipment rentals.</p>
-                    <div class="portal-link">Process Return</div>
-                </div>
-            </a>
-
-            <a href="/contact" class="portal-card">
-                <div class="card-icon">✉️</div>
-                <div class="card-content">
-                    <div class="card-title">Contact Us</div>
-                    <p class="card-desc">Reach out to our team for general inquiries or business partnership requests.</p>
-                    <div class="portal-link">Send Message</div>
-                </div>
-            </a>
-
+      <div class="view-controls">
+        <div class="tesla-toggle">
+          <div class="glider" id="glider"></div>
+          <button id="gridBtn" class="t-btn active">Grid</button>
+          <button id="listBtn" class="t-btn">List</button>
         </div>
+      </div>
+
     </div>
+  </header>
 
-    <footer class="site-footer">
-        <div class="footer-container">
-            <div class="footer-content">
-                <div class="footer-links">
-                    <a href="/mobility" class="footer-link">Mobility</a>
-                    <a href="/privacy" class="footer-link">Privacy</a>
-                    <a href="/terms" class="footer-link">Terms</a>
-                </div>
-                <div class="footer-copyright">
-                    &copy; <span id="year"></span> More4Less Wireless. All rights reserved.
-                </div>
-            </div>
+  <!-- Dashboard -->
+  <div class="portal-body">
+    <div id="portalAll" class="portal-grid-all">
+
+      <!-- Primary row label -->
+      <div class="section-label" style="margin-bottom:16px;">Account</div>
+      <div class="primary-grid" style="margin-bottom:36px;">
+
+        <a href="/login" class="dash-card primary">
+          <div class="c-icon">
+            <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <div class="c-label">Account</div>
+          <div class="card-body">
+            <div class="c-title">Manage Account</div>
+            <p class="c-desc">Update payment methods, view billing dates, and manage your service status.</p>
+          </div>
+          <div class="c-link">Sign In</div>
+        </a>
+
+        <a href="/activate" class="dash-card">
+          <div class="c-icon icon-amber">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12,7 12,12 15,15"/></svg>
+          </div>
+          <div class="c-label">Service</div>
+          <div class="card-body">
+            <div class="c-title">Activate Service</div>
+            <p class="c-desc">Reactivate your plan or start a new subscription and get online fast.</p>
+          </div>
+          <div class="c-link">Get Started</div>
+        </a>
+
+      </div>
+
+      <!-- Secondary row label -->
+      <div class="section-label" style="margin-bottom:16px;">Help & Resources</div>
+      <div class="secondary-grid">
+
+        <a href="/support" class="dash-card">
+          <div class="c-icon icon-red">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><circle cx="12" cy="17" r="0.5" fill="#D73C59" stroke="none"/></svg>
+          </div>
+          <div class="card-body">
+            <div class="c-title">Support</div>
+            <div class="c-link">Get Help</div>
+          </div>
+        </a>
+
+        <a href="/tutorials" class="dash-card">
+          <div class="c-icon icon-purple">
+            <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><polygon points="10,9 16,12 10,15" fill="#7B52E8" stroke="none"/></svg>
+          </div>
+          <div class="card-body">
+            <div class="c-title">Tutorials</div>
+            <div class="c-link">View Guides</div>
+          </div>
+        </a>
+
+        <a href="/returns" class="dash-card">
+          <div class="c-icon icon-teal">
+            <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+          </div>
+          <div class="card-body">
+            <div class="c-title">Returns</div>
+            <div class="c-link">Ship Back</div>
+          </div>
+        </a>
+
+        <a href="/contact" class="dash-card">
+          <div class="c-icon icon-green">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div class="card-body">
+            <div class="c-title">Contact</div>
+            <div class="c-link">Message Us</div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer — matches style.css site-footer exactly -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-content">
+        <div class="footer-links">
+          <a href="/mobility" class="footer-link">Mobility</a>
+          <a href="/privacy" class="footer-link">Privacy</a>
+          <a href="/terms" class="footer-link">Terms</a>
         </div>
-    </footer>
-  <script src="https://js.chargebee.com/v2/chargebee.js" data-cb-site="more4lessplans"></script>
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Year logic
-        const yearSpan = document.getElementById('year');
-        if(yearSpan) yearSpan.textContent = new Date().getFullYear();
+        <div class="footer-copyright">&copy; <span id="year"></span> Copyright. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
 
-        const trigger = document.getElementById('menuTrigger');
-        const overlay = document.getElementById('mobileOverlay');
-        const closeBtn = document.getElementById('closeMenu');
-        const navLinks = document.getElementById('mobileNavLinks');
+</div>
 
-        // OPEN MENU[cite: 5]
-        trigger.addEventListener('click', (e) => {
-            e.stopPropagation();
-            overlay.classList.add('active');
-        });
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const y = document.getElementById('year');
+    if (y) y.textContent = new Date().getFullYear();
 
-        // CLOSE MENU (When clicking the X)[cite: 5]
-        closeBtn.addEventListener('click', () => {
-            overlay.classList.remove('active');
-        });
+    if (typeof Chargebee !== 'undefined') {
+      Chargebee.init({ site: 'more4lessplans', publishableKey: 'live_9xoL0GUAJyfaZddNn5cdFhI4hrLAGhyIh' });
+    }
 
-        // CLOSE MENU (When clicking anywhere on the overlay BUT the links)[cite: 6]
-        overlay.addEventListener('click', (e) => {
-            // Check if the click target is the overlay itself or the wrapper, but NOT a link
-            if (!navLinks.contains(e.target)) {
-                overlay.classList.remove('active');
-            }
-        });
+    // Mobile menu
+    const trigger = document.getElementById('menuTrigger');
+    const overlay = document.getElementById('mobileOverlay');
 
-        // VIEW TOGGLES[cite: 5]
-        const gridBtn = document.getElementById('gridBtn');
-        const listBtn = document.getElementById('listBtn');
-        const portalGrid = document.getElementById('portalGrid');
-        const glider = document.getElementById('glider');
+    function toggleMenu() {
+      const isOpen = trigger.classList.contains('menu-active');
+      trigger.classList.toggle('menu-active');
+      overlay.classList.toggle('active');
+      document.body.style.overflow = isOpen ? '' : 'hidden';
+    }
 
-        gridBtn.addEventListener('click', () => {
-            portalGrid.classList.remove('list-view');
-            gridBtn.classList.add('active');
-            listBtn.classList.remove('active');
-            glider.style.transform = 'translateX(0)';
-        });
+    trigger.addEventListener('click', e => { e.stopPropagation(); toggleMenu(); });
+    overlay.addEventListener('click', e => { if (!e.target.closest('a')) toggleMenu(); });
 
-        listBtn.addEventListener('click', () => {
-            portalGrid.classList.add('list-view');
-            listBtn.classList.add('active');
-            gridBtn.classList.remove('active');
-            glider.style.transform = 'translateX(100%)';
-        });
+    // Grid / List toggle
+    const gridBtn    = document.getElementById('gridBtn');
+    const listBtn    = document.getElementById('listBtn');
+    const portalAll  = document.getElementById('portalAll');
+    const glider     = document.getElementById('glider');
+
+    function moveGlider(btn) {
+      glider.style.width     = btn.offsetWidth + 'px';
+      glider.style.transform = `translateX(${btn.offsetLeft - 3}px)`;
+    }
+
+    moveGlider(gridBtn);
+
+    gridBtn.addEventListener('click', () => {
+      portalAll.classList.remove('list-view');
+      gridBtn.classList.add('active');
+      listBtn.classList.remove('active');
+      moveGlider(gridBtn);
     });
-    </script>
+
+    listBtn.addEventListener('click', () => {
+      portalAll.classList.add('list-view');
+      listBtn.classList.add('active');
+      gridBtn.classList.remove('active');
+      moveGlider(listBtn);
+    });
+  });
+</script>
 </body>
 </html>
