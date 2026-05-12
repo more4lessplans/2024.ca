@@ -804,6 +804,11 @@
                 <input type="email" id="email-esim" name="email" placeholder="jane@example.com" autocomplete="email">
                 <div class="field-error">Please enter a valid email address.</div>
             </div>
+            <div class="field-group" id="fg-phone-esim">
+                <label for="phone-esim">Phone number <span class="hint">— Canadian number preferred</span></label>
+                <input type="tel" id="phone-esim" name="phone" placeholder="e.g. 416-555-0123" autocomplete="tel">
+                <div class="field-error">Please enter a valid phone number.</div>
+            </div>
         </div>
 
         <!-- Physical SIM fields -->
@@ -875,6 +880,11 @@
                 <input type="email" id="email-phys" name="email" placeholder="jane@example.com" autocomplete="email">
                 <div class="field-error">Please enter a valid email address.</div>
             </div>
+            <div class="field-group" id="fg-phone-phys">
+                <label for="phone-phys">Phone number <span class="hint">— Canadian number preferred</span></label>
+                <input type="tel" id="phone-phys" name="phone" placeholder="e.g. 416-555-0123" autocomplete="tel">
+                <div class="field-error">Please enter a valid phone number.</div>
+            </div>
         </div>
 
         <!-- Submit -->
@@ -903,7 +913,7 @@
 var CHARGEBEE_SITE       = 'more4lessplans';          // your Chargebee site name
 var CHARGEBEE_PLAN_ID    = 'platinumplan-monthly';    // your Chargebee item price ID
 var WORKER_URL           = '/api/create-checkout';    // your Cloudflare Worker endpoint
-var CONFIRMATION_URL     = '/confirmation.html';
+var CONFIRMATION_URL     = '/mobility-signup.html';  // ✓ confirmed
 
 // ─── STATE ───────────────────────────────────────────────────────
 var selectedSim = null;
@@ -962,6 +972,7 @@ function setError(fieldId, groupId) {
 }
 
 function isValidEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+function isValidPhone(v)  { return v.replace(/[\s\-().+]/g,'').length >= 7; }
 function isValidIMEI(v)  { return /^\d{15}$/.test(v.replace(/\s/g,'')); }
 function isValidEID(v)   { return /^\d{32}$/.test(v.replace(/\s/g,'')); }
 
@@ -976,12 +987,14 @@ function collectAndValidate() {
         var first = document.getElementById('first-esim').value.trim();
         var last  = document.getElementById('last-esim').value.trim();
         var email = document.getElementById('email-esim').value.trim();
+        var phone = document.getElementById('phone-esim').value.trim();
 
         if (!isValidIMEI(imei2)) { setError('imei2', 'fg-imei2'); valid = false; }
         if (!isValidEID(eid))    { setError('eid', 'fg-eid');     valid = false; }
         if (!first)  { setError('first-esim', 'fg-first');        valid = false; }
         if (!last)   { setError('last-esim', 'fg-last-esim');     valid = false; }
         if (!isValidEmail(email)) { setError('email-esim', 'fg-email-esim'); valid = false; }
+        if (!isValidPhone(phone)) { setError('phone-esim', 'fg-phone-esim'); valid = false; }
 
         if (valid) {
             data.imei2 = imei2;
@@ -989,6 +1002,7 @@ function collectAndValidate() {
             data.first_name = first;
             data.last_name  = last;
             data.email      = email;
+            data.phone      = phone;
         }
     }
 
@@ -1000,6 +1014,7 @@ function collectAndValidate() {
         var first    = document.getElementById('first-phys').value.trim();
         var last     = document.getElementById('last-phys').value.trim();
         var email    = document.getElementById('email-phys').value.trim();
+        var phone    = document.getElementById('phone-phys').value.trim();
 
         if (!addr1)    { setError('addr1', 'fg-addr1');           valid = false; }
         if (!city)     { setError('city', 'fg-city');             valid = false; }
@@ -1008,6 +1023,7 @@ function collectAndValidate() {
         if (!first)    { setError('first-phys', 'fg-first-phys'); valid = false; }
         if (!last)     { setError('last-phys', 'fg-last-phys');   valid = false; }
         if (!isValidEmail(email)) { setError('email-phys', 'fg-email-phys'); valid = false; }
+        if (!isValidPhone(phone)) { setError('phone-phys', 'fg-phone-phys'); valid = false; }
 
         if (valid) {
             data.shipping = {
@@ -1023,6 +1039,7 @@ function collectAndValidate() {
             data.first_name = first;
             data.last_name  = last;
             data.email      = email;
+            data.phone      = phone;
         }
     }
 
