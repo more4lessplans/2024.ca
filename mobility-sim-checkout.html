@@ -643,8 +643,10 @@ function handleSubmit() {
     body:    JSON.stringify(data)
   })
   .then(function(res) {
-    if (!res.ok) throw new Error('Worker error ' + res.status);
-    return res.json();
+    return res.json().then(function(body) {
+      if (!res.ok) throw new Error('Worker ' + res.status + ': ' + (body.error || JSON.stringify(body)));
+      return body;
+    });
   })
   .then(function(result) {
     btn.classList.remove('loading');
@@ -674,7 +676,7 @@ function handleSubmit() {
     console.error(err);
     btn.classList.remove('loading');
     btn.disabled = false;
-    alert('Something went wrong. Please try again or contact support.');
+    alert('Error: ' + err.message);
   });
 }
 
