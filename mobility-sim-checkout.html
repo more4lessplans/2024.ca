@@ -429,6 +429,57 @@
       .field-row { grid-template-columns: 1fr; }
       .step-connector { width: 28px; }
     }
+
+
+    /* ── PRICING BADGE ────────────────────────────────────────── */
+    .pricing-badge {
+      margin-top: 24px;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      /* This ensures it starts invisible so the animation can fade it in */
+      opacity: 0; 
+      animation: fadeUp 0.7s ease 0.4s forwards;
+    }
+
+    .price-main {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--brand-red);
+      line-height: 1;
+    }
+
+    .price-tax {
+      font-size: 1rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .price-cycle {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      font-weight: 700;
+      margin-top: 4px;
+    }
+
+
+    .field-helper-link {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .field-helper-link:hover {
+      color: var(--brand-red);
+      text-decoration: underline;
+    }
+
+    
   </style>
 </head>
 <body>
@@ -461,10 +512,19 @@
 <!-- HERO -->
 <section class="signup-hero">
   <div class="hero-inner">
-    <div class="hero-eyebrow">SIM Activation</div>
-    <h1 class="hero-headline">Activate your SIM</h1>
-    <p class="hero-sub">Enter your details and SIM information to get connected.</p>
-  </div>
+    <div class="hero-eyebrow">Mobility Activation</div>
+    <h1 class="hero-headline">Unlimited Everything</h1>
+    
+    <!-- Added a specific feature list to justify the $99 price point -->
+    <p class="hero-sub">
+      Talk, Text, and High-Speed Data. No overages, no throttling, no catches.
+    </p>
+
+  <!-- Pricing badge for immediate clarity -->
+<div class="pricing-badge">
+  <span class="price-main">$99 <span class="price-tax">+ tax</span></span>
+  <span class="price-cycle">Per 30-Day Cycle</span>
+</div>
 </section>
 
 <!-- FORM -->
@@ -528,9 +588,15 @@
       <div class="field-error">Please enter your device name.</div>
     </div>
 
-    <div class="field-group" id="fg-sim">
+<div class="field-group" id="fg-sim">
       <label for="sim">SIM number <span class="hint">— printed on your SIM card</span></label>
       <input type="text" id="sim" placeholder="e.g. 8901260000000000000" inputmode="numeric">
+      
+      <!-- Subtle secondary action -->
+      <a href="https://more4lessplans.ca/reactivate-service" class="field-helper-link">
+        Don't have a SIM card? Order one here →
+      </a>
+
       <div class="field-error">Please enter a valid SIM number (18–22 digits).</div>
     </div>
 
