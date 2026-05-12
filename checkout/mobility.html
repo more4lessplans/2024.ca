@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Activate Your SIM | More4Less</title>
+
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicons/favicon-16x16.png">
+  <link rel="shortcut icon" href="assets/img/favicons/favicon.ico">
+  <link rel="manifest" href="assets/img/favicons/site.webmanifest">
+  <meta name="theme-color" content="#2E2F33">
+
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://js.chargebee.com/v2/chargebee.js"></script>
+
+  <style>
+    :root {
+      --brand-red:      #D73C59;
+      --brand-red-glow: rgba(215, 60, 89, 0.10);
+      --brand-red-dark: #b82e48;
+      --bg-nav:         #2E2F33;
+      --bg-page:        #FBFBFD;
+      --text-dark:      #1d1d1f;
+      --text-muted:     #6e6e73;
+      --card-radius:    28px;
+      --nav-h:          68px;
+      --border:         #eaeaec;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 15px; scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Figtree', sans-serif;
+      background: var(--bg-page);
+      color: var(--text-dark);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── NAVBAR ───────────────────────────────────────────────── */
+    .navbar-custom {
+      background-color: var(--bg-nav);
+      padding: 1.2rem 0;
+      position: fixed;
+      width: 100%; top: 0;
+      z-index: 4000;
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 25px;
+    }
+
+    .navbar-brand img { height: 22px; }
+
+    .nav-links-desktop { display: flex; align-items: center; list-style: none; }
+
+    .nav-links-desktop li a {
+      color: #ffffff;
+      font-weight: 500;
+      font-size: 0.85rem;
+      margin: 0 18px;
+      text-decoration: none;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+      position: relative;
+    }
+
+    .nav-links-desktop li a:hover { opacity: 1; }
+
+    .nav-links-desktop li a::after {
+      content: '';
+      position: absolute;
+      width: 0; height: 2px;
+      bottom: -4px; left: 0;
+      background-color: var(--brand-red);
+      transition: width 0.4s cubic-bezier(0.2, 1, 0.2, 1);
+    }
+
+    .nav-links-desktop li a:hover::after { width: 100%; }
+    .btn-portal-top::after { display: none !important; }
+
+    .btn-portal-top {
+      background: var(--brand-red);
+      color: white !important;
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-weight: 600;
+      opacity: 1 !important;
+      transition: all 0.3s ease !important;
+    }
+
+    .btn-portal-top:hover {
+      background: #ffffff !important;
+      color: var(--text-dark) !important;
+      transform: translateY(-2px);
+    }
+
+    .menu-trigger {
+      display: none;
+      cursor: pointer;
+      padding: 10px;
+      z-index: 5001;
+      position: relative;
+      background: none;
+      border: none;
+      outline: none;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .menu-icon { width: 26px; height: 18px; display: flex; flex-direction: column; justify-content: space-between; }
+    .menu-icon span { display: block; width: 100%; height: 2px; background: #fff; border-radius: 10px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    .menu-active .menu-icon span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .menu-active .menu-icon span:nth-child(2) { opacity: 0; transform: translateX(10px); }
+    .menu-active .menu-icon span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    .mobile-overlay {
+      position: fixed; inset: 0;
+      background: rgba(29, 29, 31, 0.98);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      z-index: 4500;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+
+    .mobile-overlay.active { opacity: 1; visibility: visible; }
+    .mobile-nav-links { list-style: none; padding: 0; text-align: center; }
+    .mobile-nav-links li { margin: 25px 0; transform: translateY(20px); opacity: 0; transition: 0.4s ease; }
+    .mobile-overlay.active .mobile-nav-links li { transform: translateY(0); opacity: 1; }
+    .mobile-nav-links li:nth-child(1) { transition-delay: 0.10s; }
+    .mobile-nav-links li:nth-child(2) { transition-delay: 0.15s; }
+    .mobile-nav-links li:nth-child(3) { transition-delay: 0.20s; }
+    .mobile-nav-links a { color: #fff; font-size: 2.2rem; font-weight: 700; text-decoration: none; letter-spacing: -0.03em; position: relative; display: inline-block; }
+    .mobile-nav-links a::after { content: ''; position: absolute; width: 0; height: 3px; bottom: -4px; left: 0; background-color: var(--brand-red); transition: width 0.4s cubic-bezier(0.2, 1, 0.2, 1); }
+    .mobile-nav-links a:hover::after { width: 100%; }
+
+    /* ── HERO ─────────────────────────────────────────────────── */
+    .signup-hero {
+      padding-top: var(--nav-h);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      position: relative;
+      min-height: 34vh;
+    }
+
+    .signup-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
+      background-size: 28px 28px;
+      opacity: 0.8;
+      mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, black 20%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative; z-index: 2;
+      display: flex; flex-direction: column;
+      align-items: center;
+      width: 100%; max-width: 820px;
+      padding: 60px 24px 48px;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.1s forwards;
+    }
+
+    .hero-eyebrow::before, .hero-eyebrow::after {
+      content: ''; display: block;
+      width: 28px; height: 1px;
+      background: var(--border);
+    }
+
+    .hero-headline {
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+      color: var(--text-dark);
+      margin-bottom: 14px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.2s forwards;
+    }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      font-weight: 400;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.3s forwards;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── STEP INDICATOR ───────────────────────────────────────── */
+    .steps-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      margin-bottom: 52px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.4s forwards;
+    }
+
+    .step-item {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.78rem; font-weight: 600;
+      color: var(--text-muted); letter-spacing: 0.02em;
+    }
+
+    .step-item.active { color: var(--brand-red); }
+    .step-item.done   { color: var(--text-dark); }
+
+    .step-dot {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem; font-weight: 700;
+      background: #fff; flex-shrink: 0;
+      transition: all 0.3s ease;
+    }
+
+    .step-item.active .step-dot { border-color: var(--brand-red); color: var(--brand-red); }
+    .step-item.done .step-dot   { background: var(--text-dark); border-color: var(--text-dark); color: #fff; }
+
+    .step-connector {
+      width: 44px; height: 1px;
+      background: var(--border);
+      margin: 0 4px; flex-shrink: 0;
+    }
+
+    .step-connector.done { background: var(--text-dark); }
+
+    /* ── FORM SECTION ─────────────────────────────────────────── */
+    .form-section {
+      background: #f0f0f2;
+      border-top: 1px solid var(--border);
+    }
+
+    .form-inner {
+      max-width: 620px;
+      margin: 0 auto;
+      padding: 72px 24px 100px;
+    }
+
+    /* ── FIELD STYLES ─────────────────────────────────────────── */
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .field-group { margin-bottom: 18px; }
+
+    .field-group label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 7px;
+    }
+
+    .field-group label span.hint {
+      font-weight: 400;
+      color: var(--text-muted);
+    }
+
+    .field-group input {
+      width: 100%;
+      padding: 13px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      font-family: 'Figtree', sans-serif;
+      font-size: 0.93rem;
+      color: var(--text-dark);
+      background: #fff;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      -webkit-appearance: none;
+      appearance: none;
+      outline: none;
+    }
+
+    .field-group input:focus {
+      border-color: var(--brand-red);
+      box-shadow: 0 0 0 4px var(--brand-red-glow);
+    }
+
+    .field-group input::placeholder { color: #b0b0b6; }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .field-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 30px 0;
+    }
+
+    /* ── ERROR STATES ─────────────────────────────────────────── */
+    .field-group input.error {
+      border-color: var(--brand-red);
+      box-shadow: 0 0 0 4px var(--brand-red-glow);
+    }
+
+    .field-error {
+      font-size: 0.75rem;
+      color: var(--brand-red);
+      font-weight: 500;
+      margin-top: 5px;
+      display: none;
+    }
+
+    .field-group.has-error .field-error { display: block; }
+
+    /* ── SUBMIT ───────────────────────────────────────────────── */
+    .submit-wrap { margin-top: 36px; }
+
+    .btn-submit {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 16px 32px;
+      background: var(--brand-red);
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      font-family: 'Figtree', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.25s ease, box-shadow 0.3s ease;
+    }
+
+    .btn-submit:hover {
+      background: var(--brand-red-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(215, 60, 89, 0.28);
+    }
+
+    .btn-submit:active { transform: translateY(0); }
+
+    .btn-submit:disabled {
+      background: #c4c4c8;
+      transform: none;
+      box-shadow: none;
+      cursor: not-allowed;
+    }
+
+    .btn-submit svg {
+      width: 18px; height: 18px;
+      stroke: #fff; flex-shrink: 0;
+      transition: transform 0.25s ease;
+    }
+
+    .btn-submit:hover svg { transform: translateX(3px); }
+
+    .spinner {
+      width: 18px; height: 18px;
+      border: 2px solid rgba(255,255,255,0.35);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: none; flex-shrink: 0;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .btn-submit.loading .btn-label { display: none; }
+    .btn-submit.loading .spinner   { display: block; }
+    .btn-submit.loading .btn-arrow { display: none; }
+
+    .submit-note {
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 14px;
+      line-height: 1.5;
+    }
+
+    .submit-note svg {
+      width: 12px; height: 12px;
+      stroke: var(--text-muted);
+      vertical-align: -1px;
+      margin-right: 4px;
+    }
+
+    /* ── RESPONSIVE ───────────────────────────────────────────── */
+    @media (max-width: 640px) {
+      .nav-links-desktop { display: none; }
+      .menu-trigger { display: block; }
+      .field-row { grid-template-columns: 1fr; }
+      .step-connector { width: 28px; }
+    }
+
+
+    /* ── PRICING BADGE ────────────────────────────────────────── */
+    .pricing-badge {
+      margin-top: 24px;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      /* This ensures it starts invisible so the animation can fade it in */
+      opacity: 0; 
+      animation: fadeUp 0.7s ease 0.4s forwards;
+    }
+
+    .price-main {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--brand-red);
+      line-height: 1;
+    }
+
+    .price-tax {
+      font-size: 1rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .price-cycle {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      font-weight: 700;
+      margin-top: 4px;
+    }
+
+
+    .field-helper-link {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .field-helper-link:hover {
+      color: var(--brand-red);
+      text-decoration: underline;
+    }
+
+    
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar-custom">
+  <div class="nav-container">
+    <a class="navbar-brand" href="/">
+      <img src="assets/img/logos/logo.png" alt="More4Less">
+    </a>
+    <ul class="nav-links-desktop">
+      <li><a href="/mobility">Pricing</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/portal" class="btn-portal-top">Customer Portal</a></li>
+    </ul>
+    <button class="menu-trigger" id="menuTrigger" onclick="toggleMenu()" aria-label="Open menu">
+      <div class="menu-icon"><span></span><span></span><span></span></div>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-overlay" id="mobileOverlay">
+  <ul class="mobile-nav-links">
+    <li><a href="/mobility">Pricing</a></li>
+    <li><a href="/contact">Contact</a></li>
+    <li><a href="/portal">Customer Portal</a></li>
+  </ul>
+</div>
+
+<!-- HERO -->
+<section class="signup-hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Mobility Activation</div>
+    <h1 class="hero-headline">Unlimited Everything</h1>
+    
+    <!-- Added a specific feature list to justify the $99 price point -->
+    <p class="hero-sub">
+      Talk, Text, and High-Speed Data. No overages, no throttling, no catches.
+    </p>
+
+  <!-- Pricing badge for immediate clarity -->
+<div class="pricing-badge">
+  <span class="price-main">$99 <span class="price-tax">+ tax</span></span>
+  <span class="price-cycle">Per 30-Day Cycle</span>
+</div>
+</section>
+
+<!-- FORM -->
+<div class="form-section">
+  <div class="form-inner">
+
+    <!-- Step indicator -->
+    <div class="steps-bar">
+      <div class="step-item active" id="step1-indicator">
+        <div class="step-dot">1</div>
+        <span>Your details</span>
+      </div>
+      <div class="step-connector" id="connector-1-2"></div>
+      <div class="step-item" id="step2-indicator">
+        <div class="step-dot">2</div>
+        <span>Payment</span>
+      </div>
+      <div class="step-connector"></div>
+      <div class="step-item" id="step3-indicator">
+        <div class="step-dot">3</div>
+        <span>Confirmed</span>
+      </div>
+    </div>
+
+    <!-- Contact details -->
+    <div class="section-label">Your contact details</div>
+
+    <div class="field-row">
+      <div class="field-group" id="fg-first">
+        <label for="first">First name</label>
+        <input type="text" id="first" placeholder="Jane" autocomplete="given-name">
+        <div class="field-error">Please enter your first name.</div>
+      </div>
+      <div class="field-group" id="fg-last">
+        <label for="last">Last name</label>
+        <input type="text" id="last" placeholder="Smith" autocomplete="family-name">
+        <div class="field-error">Please enter your last name.</div>
+      </div>
+    </div>
+
+    <div class="field-group" id="fg-email">
+      <label for="email">Email address</label>
+      <input type="email" id="email" placeholder="jane@example.com" autocomplete="email">
+      <div class="field-error">Please enter a valid email address.</div>
+    </div>
+
+    <div class="field-group" id="fg-phone">
+      <label for="phone">Phone number <span class="hint">— Canadian number preferred</span></label>
+      <input type="tel" id="phone" placeholder="e.g. 416-555-0123" autocomplete="tel">
+      <div class="field-error">Please enter a valid phone number.</div>
+    </div>
+
+    <div class="field-divider"></div>
+
+    <!-- SIM details -->
+    <div class="section-label">SIM & device information</div>
+
+    <div class="field-group" id="fg-device">
+      <label for="device">Device <span class="hint">— make and model</span></label>
+      <input type="text" id="device" placeholder="e.g. iPhone 15 Pro, Samsung Galaxy S24">
+      <div class="field-error">Please enter your device name.</div>
+    </div>
+
+<div class="field-group" id="fg-sim">
+      <label for="sim">SIM number <span class="hint">— printed on your SIM card</span></label>
+      <input type="text" id="sim" placeholder="e.g. 8901260000000000000" inputmode="numeric">
+      
+      <!-- Subtle secondary action -->
+      <a href="https://more4lessplans.ca/reactivate-service" class="field-helper-link">
+        Don't have a SIM card? Order one here →
+      </a>
+
+      <div class="field-error">Please enter a valid SIM number (18–22 digits).</div>
+    </div>
+
+    <div class="field-group" id="fg-imei">
+      <label for="imei">IMEI number <span class="hint">— dial *#06# or find in Settings → About</span></label>
+      <input type="text" id="imei" placeholder="e.g. 354321098765432" maxlength="20" inputmode="numeric">
+      <div class="field-error">Please enter a valid IMEI (15 digits).</div>
+    </div>
+
+    <!-- Submit -->
+    <div class="submit-wrap">
+      <button class="btn-submit" id="submitBtn" onclick="handleSubmit()">
+        <span class="btn-label">Continue to payment</span>
+        <div class="spinner"></div>
+        <svg class="btn-arrow" viewBox="0 0 18 18" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+          <path d="M3 9h12M10 4l5 5-5 5"/>
+        </svg>
+      </button>
+      <p class="submit-note">
+        <svg viewBox="0 0 14 14" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8">
+          <rect x="2" y="6" width="10" height="7" rx="1.5"/>
+          <path d="M4.5 6V4.5a2.5 2.5 0 015 0V6"/>
+        </svg>
+        Your details are passed securely to our payment processor. We never store card information.
+      </p>
+    </div>
+
+  </div>
+</div>
+
+<script>
+var CHARGEBEE_SITE    = 'more4lessplans';
+var CHARGEBEE_PLAN_ID = 'platinumplan-monthly';
+var WORKER_URL        = '/api/create-checkout';
+var CONFIRMATION_URL  = '/active';
+
+var cbInstance = Chargebee.init({ site: CHARGEBEE_SITE });
+
+// ── VALIDATION ────────────────────────────────────────────────────
+function clearErrors() {
+  document.querySelectorAll('.field-group.has-error').forEach(function(el) { el.classList.remove('has-error'); });
+  document.querySelectorAll('input.error').forEach(function(el) { el.classList.remove('error'); });
+}
+
+function setError(fieldId, groupId) {
+  var field = document.getElementById(fieldId);
+  var group = document.getElementById(groupId);
+  if (field) field.classList.add('error');
+  if (group) group.classList.add('has-error');
+}
+
+function isValidEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+function isValidPhone(v)  { return v.replace(/[\s\-().+]/g, '').length >= 7; }
+function isValidSIM(v)    { return /^\d{18,22}$/.test(v.replace(/\s/g, '')); }
+function isValidIMEI(v)   { return /^\d{15}$/.test(v.replace(/\s/g, '')); }
+
+function collectAndValidate() {
+  clearErrors();
+  var valid = true;
+
+  var first  = document.getElementById('first').value.trim();
+  var last   = document.getElementById('last').value.trim();
+  var email  = document.getElementById('email').value.trim();
+  var phone  = document.getElementById('phone').value.trim();
+  var device = document.getElementById('device').value.trim();
+  var sim    = document.getElementById('sim').value.trim();
+  var imei   = document.getElementById('imei').value.trim();
+
+  if (!first)               { setError('first',  'fg-first');  valid = false; }
+  if (!last)                { setError('last',   'fg-last');   valid = false; }
+  if (!isValidEmail(email)) { setError('email',  'fg-email');  valid = false; }
+  if (!isValidPhone(phone)) { setError('phone',  'fg-phone');  valid = false; }
+  if (!device)              { setError('device', 'fg-device'); valid = false; }
+  if (!isValidSIM(sim))     { setError('sim',    'fg-sim');    valid = false; }
+  if (!isValidIMEI(imei))   { setError('imei',   'fg-imei');   valid = false; }
+
+  if (!valid) return null;
+
+  return {
+    sim_type:   'physical',
+    plan_id:    CHARGEBEE_PLAN_ID,
+    first_name: first,
+    last_name:  last,
+    email:      email,
+    phone:      phone,
+    cf_specify_device: device,
+    cf_sim_:           sim,
+    cf_imei_number:    imei
+  };
+}
+
+// ── SUBMIT ────────────────────────────────────────────────────────
+function handleSubmit() {
+  var data = collectAndValidate();
+  if (!data) return;
+
+  var btn = document.getElementById('submitBtn');
+  btn.classList.add('loading');
+  btn.disabled = true;
+
+  sessionStorage.setItem('m4l_signup', JSON.stringify(data));
+
+  document.getElementById('step1-indicator').className = 'step-item done';
+  document.getElementById('connector-1-2').className   = 'step-connector done';
+  document.getElementById('step2-indicator').className = 'step-item active';
+
+  fetch(WORKER_URL, {
+    method:  'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body:    JSON.stringify(data)
+  })
+  .then(function(res) {
+    return res.json().then(function(body) {
+      if (!res.ok) throw new Error('Worker ' + res.status + ': ' + (body.error || JSON.stringify(body)));
+      return body;
+    });
+  })
+  .then(function(result) {
+    btn.classList.remove('loading');
+    btn.disabled = false;
+
+    cbInstance.openCheckout({
+      hostedPage: function() {
+        return Promise.resolve(result.hosted_page);
+      },
+      success: function(hostedPageId) {
+        sessionStorage.setItem('m4l_cb_page', hostedPageId);
+        window.location.href = CONFIRMATION_URL;
+      },
+      close: function() {
+        document.getElementById('step1-indicator').className = 'step-item active';
+        document.getElementById('connector-1-2').className   = 'step-connector';
+        document.getElementById('step2-indicator').className = 'step-item';
+      },
+      error: function(err) {
+        console.error('Chargebee error:', err);
+        btn.classList.remove('loading');
+        btn.disabled = false;
+      }
+    });
+  })
+  .catch(function(err) {
+    console.error(err);
+    btn.classList.remove('loading');
+    btn.disabled = false;
+    alert('Error: ' + err.message);
+  });
+}
+
+// ── MOBILE MENU ───────────────────────────────────────────────────
+function toggleMenu() {
+  var trigger  = document.getElementById('menuTrigger');
+  var overlay  = document.getElementById('mobileOverlay');
+  var isActive = trigger.classList.contains('menu-active');
+  if (isActive) {
+    trigger.classList.remove('menu-active');
+    overlay.classList.remove('active');
+  } else {
+    trigger.classList.add('menu-active');
+    overlay.classList.add('active');
+  }
+}
+
+document.getElementById('mobileOverlay').addEventListener('click', function(e) {
+  if (!e.target.closest('a')) toggleMenu();
+});
+</script>
+
+</body>
+</html>
