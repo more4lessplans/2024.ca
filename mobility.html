@@ -43,7 +43,22 @@
     <link rel="stylesheet" href="css/mobility.css">
     <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- 7. Scripts (Defer for performance) -->
+    <!-- Inline overrides: compatibility link style -->
+    <style>
+      /* Compatibility link — subtle on-brand, no browser default blue */
+      .accordion-content a {
+        color: var(--text-muted, #6e6e73);
+        text-decoration: none;
+        font-weight: 600;
+        border-bottom: 1px solid #d5d5da;
+        padding-bottom: 1px;
+        transition: color 0.25s ease, border-color 0.25s ease;
+      }
+      .accordion-content a:hover {
+        color: #1d1d1f;
+        border-color: #1d1d1f;
+      }
+    </style>
      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNt4XeQ5roadq0L-IpadA6s9e4CPm9FwI&libraries=places"></script>
       <script src="https://js.chargebee.com/v2/chargebee.js" data-cb-site="more4lessplans"></script>
 </head>
@@ -218,8 +233,15 @@ document.addEventListener('DOMContentLoaded', function() {
         toggleMenu();
     });
 
-    overlay.addEventListener('click', () => {
+    overlay.addEventListener('click', (e) => {
         if (overlay.classList.contains('active')) toggleMenu();
+    });
+
+    // Close menu when a nav link is clicked
+    overlay.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            if (overlay.classList.contains('active')) toggleMenu();
+        });
     });
 
     // ACCORDION
