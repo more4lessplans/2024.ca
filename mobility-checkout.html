@@ -120,6 +120,11 @@
             padding: 10px;
             z-index: 5001;
             position: relative;
+            background: none;
+            border: none;
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
         }
 
         .menu-icon {
@@ -677,14 +682,13 @@
 <!-- ─── NAVBAR ─────────────────────────────────────────────────── -->
 <nav class="navbar-custom">
     <div class="nav-container">
-        <a class="navbar-brand" href="index.html">
-            <img src="assets/img/logo-white.svg" alt="More4Less">
+        <a class="navbar-brand" href="/">
+            <img src="assets/img/logos/logo.png" alt="More4Less">
         </a>
         <ul class="nav-links-desktop">
-            <li><a href="plans.html">Plans</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="support.html">Support</a></li>
-            <li><a href="portal.html" class="btn-portal-top">My Account</a></li>
+            <li><a href="/mobility">Pricing</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/portal" class="btn-portal-top">Customer Portal</a></li>
         </ul>
         <button class="menu-trigger" id="menuTrigger" onclick="toggleMenu()" aria-label="Open menu">
             <div class="menu-icon">
@@ -697,9 +701,9 @@
 <!-- Mobile overlay -->
 <div class="mobile-overlay" id="mobileOverlay">
     <ul class="mobile-nav-links">
-        <li><a href="plans.html">Plans</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="support.html">Support</a></li>
+        <li><a href="/mobility">Pricing</a></li>
+        <li><a href="/contact">Contact</a></li>
+        <li><a href="/portal">Customer Portal</a></li>
     </ul>
 </div>
 
@@ -770,7 +774,7 @@
                     </svg>
                 </div>
                 <div class="sim-title">Physical SIM</div>
-                <div class="sim-desc">We'll mail your SIM card to you</div>
+                <div class="sim-desc">We'll mail your SIM card — no address needed now</div>
             </div>
         </div>
 
@@ -813,57 +817,6 @@
 
         <!-- Physical SIM fields -->
         <div class="fields-panel" id="panel-physical">
-            <div class="section-label">Shipping address</div>
-            <div class="field-group" id="fg-addr1">
-                <label for="addr1">Street address</label>
-                <input type="text" id="addr1" name="address_line1" placeholder="123 Main St" autocomplete="address-line1">
-                <div class="field-error">Please enter your street address.</div>
-            </div>
-            <div class="field-group">
-                <label for="addr2">Apartment / suite <span class="hint">— optional</span></label>
-                <input type="text" id="addr2" name="address_line2" placeholder="Apt 4B" autocomplete="address-line2">
-            </div>
-            <div class="field-row">
-                <div class="field-group" id="fg-city">
-                    <label for="city">City</label>
-                    <input type="text" id="city" name="city" placeholder="Toronto" autocomplete="address-level2">
-                    <div class="field-error">Required.</div>
-                </div>
-                <div class="field-group" id="fg-province">
-                    <label for="province">Province</label>
-                    <div class="select-wrap">
-                        <select id="province" name="state_code">
-                            <option value="">Select…</option>
-                            <option value="AB">Alberta</option>
-                            <option value="BC">British Columbia</option>
-                            <option value="MB">Manitoba</option>
-                            <option value="NB">New Brunswick</option>
-                            <option value="NL">Newfoundland and Labrador</option>
-                            <option value="NS">Nova Scotia</option>
-                            <option value="NT">Northwest Territories</option>
-                            <option value="NU">Nunavut</option>
-                            <option value="ON">Ontario</option>
-                            <option value="PE">Prince Edward Island</option>
-                            <option value="QC">Quebec</option>
-                            <option value="SK">Saskatchewan</option>
-                            <option value="YT">Yukon</option>
-                        </select>
-                    </div>
-                    <div class="field-error">Required.</div>
-                </div>
-            </div>
-            <div class="field-row">
-                <div class="field-group" id="fg-postal">
-                    <label for="postal">Postal code</label>
-                    <input type="text" id="postal" name="zip" placeholder="M5V 3A8" maxlength="7" autocomplete="postal-code">
-                    <div class="field-error">Required.</div>
-                </div>
-                <div class="field-group">
-                    <label>Country</label>
-                    <input type="text" value="Canada" disabled style="background:#f5f5f7; color: var(--text-muted); cursor: default;">
-                </div>
-            </div>
-            <div class="field-divider"></div>
             <div class="section-label">Your contact details</div>
             <div class="field-group" id="fg-first-phys">
                 <label for="first-phys">First name</label>
@@ -1007,35 +960,17 @@ function collectAndValidate() {
     }
 
     if (selectedSim === 'physical') {
-        var addr1    = document.getElementById('addr1').value.trim();
-        var city     = document.getElementById('city').value.trim();
-        var province = document.getElementById('province').value;
-        var postal   = document.getElementById('postal').value.trim();
         var first    = document.getElementById('first-phys').value.trim();
         var last     = document.getElementById('last-phys').value.trim();
         var email    = document.getElementById('email-phys').value.trim();
         var phone    = document.getElementById('phone-phys').value.trim();
 
-        if (!addr1)    { setError('addr1', 'fg-addr1');           valid = false; }
-        if (!city)     { setError('city', 'fg-city');             valid = false; }
-        if (!province) { setError('province', 'fg-province');     valid = false; }
-        if (!postal)   { setError('postal', 'fg-postal');         valid = false; }
         if (!first)    { setError('first-phys', 'fg-first-phys'); valid = false; }
         if (!last)     { setError('last-phys', 'fg-last-phys');   valid = false; }
         if (!isValidEmail(email)) { setError('email-phys', 'fg-email-phys'); valid = false; }
         if (!isValidPhone(phone)) { setError('phone-phys', 'fg-phone-phys'); valid = false; }
 
         if (valid) {
-            data.shipping = {
-                first_name:   first,
-                last_name:    last,
-                line1:        addr1,
-                line2:        document.getElementById('addr2').value.trim(),
-                city:         city,
-                state_code:   province,
-                country:      'CA',
-                zip:          postal
-            };
             data.first_name = first;
             data.last_name  = last;
             data.email      = email;
