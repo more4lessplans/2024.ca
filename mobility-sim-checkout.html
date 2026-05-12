@@ -531,7 +531,7 @@
     <div class="field-group" id="fg-sim">
       <label for="sim">SIM number <span class="hint">— printed on your SIM card</span></label>
       <input type="text" id="sim" placeholder="e.g. 8901260000000000000" inputmode="numeric">
-      <div class="field-error">Please enter your SIM number.</div>
+      <div class="field-error">Please enter a valid SIM number (18–22 digits).</div>
     </div>
 
     <div class="field-group" id="fg-imei">
@@ -584,6 +584,7 @@ function setError(fieldId, groupId) {
 
 function isValidEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
 function isValidPhone(v)  { return v.replace(/[\s\-().+]/g, '').length >= 7; }
+function isValidSIM(v)    { return /^\d{18,22}$/.test(v.replace(/\s/g, '')); }
 function isValidIMEI(v)   { return /^\d{15}$/.test(v.replace(/\s/g, '')); }
 
 function collectAndValidate() {
@@ -603,12 +604,13 @@ function collectAndValidate() {
   if (!isValidEmail(email)) { setError('email',  'fg-email');  valid = false; }
   if (!isValidPhone(phone)) { setError('phone',  'fg-phone');  valid = false; }
   if (!device)              { setError('device', 'fg-device'); valid = false; }
-  if (!sim)                 { setError('sim',    'fg-sim');    valid = false; }
+  if (!isValidSIM(sim))     { setError('sim',    'fg-sim');    valid = false; }
   if (!isValidIMEI(imei))   { setError('imei',   'fg-imei');   valid = false; }
 
   if (!valid) return null;
 
   return {
+    sim_type:   'physical',
     plan_id:    CHARGEBEE_PLAN_ID,
     first_name: first,
     last_name:  last,
