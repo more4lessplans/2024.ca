@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up | More4Less</title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicons/favicon-16x16.png">
+    <link rel="shortcut icon" href="assets/img/favicons/favicon.ico">
+    <link rel="manifest" href="assets/img/favicons/site.webmanifest">
+    <meta name="theme-color" content="#2E2F33">
+
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Chargebee JS -->
+    <script src="https://js.chargebee.com/v2/chargebee.js"></script>
+
+    <style>
+        /* ─── SITE TOKENS ────────────────────────────────────────── */
+        :root {
+            --brand-red:      #D73C59;
+            --brand-red-glow: rgba(215, 60, 89, 0.10);
+            --brand-red-dark: #b82e48;
+            --bg-nav:         #2E2F33;
+            --bg-page:        #FBFBFD;
+            --text-dark:      #1d1d1f;
+            --text-muted:     #6e6e73;
+            --card-radius:    28px;
+            --nav-h:          68px;
+            --border:         #eaeaec;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { font-size: 15px; scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Figtree', sans-serif;
+            background: var(--bg-page);
+            color: var(--text-dark);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* ─── NAVBAR ─────────────────────────────────────────────── */
+        .navbar-custom {
+            background-color: var(--bg-nav);
+            padding: 1.2rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 4000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 25px;
+        }
+
+        .navbar-brand img { height: 22px; }
+
+        .nav-links-desktop {
+            display: flex;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links-desktop li a {
+            color: #ffffff;
+            font-weight: 500;
+            font-size: 0.85rem;
+            margin: 0 18px;
+            text-decoration: none;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+            position: relative;
+        }
+
+        .nav-links-desktop li a:hover { opacity: 1; }
+
+        .nav-links-desktop li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--brand-red);
+            transition: width 0.4s cubic-bezier(0.2, 1, 0.2, 1);
+        }
+
+        .nav-links-desktop li a:hover::after { width: 100%; }
+
+        .btn-portal-top::after { display: none !important; }
+
+        .btn-portal-top {
+            background: var(--brand-red);
+            color: white !important;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            opacity: 1 !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .btn-portal-top:hover {
+            background: #ffffff !important;
+            color: var(--text-dark) !important;
+            transform: translateY(-2px);
+        }
+
+        .menu-trigger {
+            display: none;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 5001;
+            position: relative;
+        }
+
+        .menu-icon {
+            width: 26px;
+            height: 18px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .menu-icon span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background: #fff;
+            border-radius: 10px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .menu-active .menu-icon span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        .menu-active .menu-icon span:nth-child(2) { opacity: 0; transform: translateX(10px); }
+        .menu-active .menu-icon span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+        .mobile-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(29, 29, 31, 0.98);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 4500;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        .mobile-overlay.active { opacity: 1; visibility: visible; }
+
+        .mobile-nav-links { list-style: none; padding: 0; text-align: center; }
+
+        .mobile-nav-links li {
+            margin: 25px 0;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: 0.4s ease;
+        }
+
+        .mobile-overlay.active .mobile-nav-links li { transform: translateY(0); opacity: 1; }
+
+        .mobile-nav-links li:nth-child(1) { transition-delay: 0.10s; }
+        .mobile-nav-links li:nth-child(2) { transition-delay: 0.15s; }
+        .mobile-nav-links li:nth-child(3) { transition-delay: 0.20s; }
+
+        .mobile-nav-links a {
+            color: #fff;
+            font-size: 2.2rem;
+            font-weight: 700;
+            text-decoration: none;
+            letter-spacing: -0.03em;
+            position: relative;
+            display: inline-block;
+        }
+
+        .mobile-nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--brand-red);
+            transition: width 0.4s cubic-bezier(0.2, 1, 0.2, 1);
+        }
+
+        .mobile-nav-links a:hover::after { width: 100%; }
+
+        /* ─── PAGE HERO ──────────────────────────────────────────── */
+        .signup-hero {
+            padding-top: var(--nav-h);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            position: relative;
+            min-height: 38vh;
+        }
+
+        .signup-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
+            background-size: 28px 28px;
+            opacity: 0.8;
+            mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, black 20%, transparent 100%);
+            pointer-events: none;
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 820px;
+            padding: 60px 24px 56px;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-muted);
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeUp 0.6s ease 0.1s forwards;
+        }
+
+        .hero-eyebrow::before,
+        .hero-eyebrow::after {
+            content: '';
+            display: block;
+            width: 28px;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .hero-headline {
+            font-size: clamp(2.2rem, 5vw, 3.4rem);
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1.05;
+            color: var(--text-dark);
+            margin-bottom: 14px;
+            opacity: 0;
+            animation: fadeUp 0.7s ease 0.2s forwards;
+        }
+
+        .hero-sub {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            font-weight: 400;
+            opacity: 0;
+            animation: fadeUp 0.7s ease 0.3s forwards;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(18px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ─── STEP INDICATOR ─────────────────────────────────────── */
+        .steps-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            margin-bottom: 52px;
+            opacity: 0;
+            animation: fadeUp 0.7s ease 0.4s forwards;
+        }
+
+        .step-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            letter-spacing: 0.02em;
+        }
+
+        .step-item.active { color: var(--brand-red); }
+        .step-item.done   { color: var(--text-dark); }
+
+        .step-dot {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+            background: #fff;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .step-item.active .step-dot {
+            border-color: var(--brand-red);
+            color: var(--brand-red);
+        }
+
+        .step-item.done .step-dot {
+            background: var(--text-dark);
+            border-color: var(--text-dark);
+            color: #fff;
+        }
+
+        .step-connector {
+            width: 44px;
+            height: 1px;
+            background: var(--border);
+            margin: 0 4px;
+            flex-shrink: 0;
+        }
+
+        .step-connector.done { background: var(--text-dark); }
+
+        /* ─── FORM SECTION ───────────────────────────────────────── */
+        .form-section {
+            background: #f0f0f2;
+            border-top: 1px solid var(--border);
+        }
+
+        .form-inner {
+            max-width: 620px;
+            margin: 0 auto;
+            padding: 72px 24px 100px;
+        }
+
+        /* ─── SIM TYPE TOGGLE ────────────────────────────────────── */
+        .sim-toggle {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 40px;
+        }
+
+        .sim-card {
+            background: #fff;
+            border: 2px solid var(--border);
+            border-radius: 20px;
+            padding: 28px 24px 24px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition:
+                border-color 0.3s ease,
+                box-shadow 0.3s ease,
+                transform 0.3s cubic-bezier(0.34, 1.46, 0.64, 1);
+        }
+
+        .sim-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 3px;
+            background: var(--brand-red);
+            border-radius: 0 0 20px 20px;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .sim-card:hover {
+            border-color: #d0d0d4;
+            transform: translateY(-4px);
+            box-shadow: 0 16px 36px rgba(0,0,0,0.06);
+        }
+
+        .sim-card:hover::after { transform: scaleX(1); }
+
+        .sim-card.selected {
+            border-color: var(--brand-red);
+            box-shadow: 0 0 0 5px var(--brand-red-glow), 0 16px 36px rgba(0,0,0,0.07);
+            transform: translateY(-4px);
+        }
+
+        .sim-card.selected::after { transform: scaleX(1); }
+
+        .sim-check {
+            position: absolute;
+            top: 14px; right: 14px;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--brand-red);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: scale(0.6);
+            transition: opacity 0.25s ease, transform 0.3s cubic-bezier(0.34, 1.46, 0.64, 1);
+        }
+
+        .sim-card.selected .sim-check { opacity: 1; transform: scale(1); }
+
+        .sim-check svg { width: 11px; height: 11px; stroke: #fff; stroke-width: 2.5; }
+
+        .sim-icon-wrap {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            background: var(--bg-page);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 14px;
+            transition: background 0.3s ease, transform 0.3s cubic-bezier(0.34, 1.46, 0.64, 1);
+        }
+
+        .sim-card:hover .sim-icon-wrap,
+        .sim-card.selected .sim-icon-wrap {
+            background: rgba(215, 60, 89, 0.06);
+            transform: scale(1.06) translateY(-2px);
+        }
+
+        .sim-card.selected .sim-icon-wrap svg { stroke: var(--brand-red); }
+
+        .sim-icon-wrap svg {
+            width: 26px;
+            height: 26px;
+            stroke: var(--text-dark);
+            transition: stroke 0.3s ease;
+        }
+
+        .sim-title {
+            font-size: 1rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 4px;
+            color: var(--text-dark);
+        }
+
+        .sim-desc {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            line-height: 1.55;
+        }
+
+        /* ─── FORM FIELDS ────────────────────────────────────────── */
+        .fields-panel {
+            display: none;
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        .fields-panel.visible { display: block; }
+        .fields-panel.animated { opacity: 1; transform: translateY(0); }
+
+        .section-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .field-group {
+            margin-bottom: 18px;
+        }
+
+        .field-group label {
+            display: block;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 7px;
+        }
+
+        .field-group label span.hint {
+            font-weight: 400;
+            color: var(--text-muted);
+        }
+
+        .field-group input,
+        .field-group select {
+            width: 100%;
+            padding: 13px 16px;
+            border: 1.5px solid var(--border);
+            border-radius: 12px;
+            font-family: 'Figtree', sans-serif;
+            font-size: 0.93rem;
+            color: var(--text-dark);
+            background: #fff;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            -webkit-appearance: none;
+            appearance: none;
+            outline: none;
+        }
+
+        .field-group input:focus,
+        .field-group select:focus {
+            border-color: var(--brand-red);
+            box-shadow: 0 0 0 4px var(--brand-red-glow);
+        }
+
+        .field-group input::placeholder { color: #b0b0b6; }
+
+        .field-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .field-divider {
+            height: 1px;
+            background: var(--border);
+            margin: 30px 0;
+        }
+
+        /* ─── ERROR STATES ───────────────────────────────────────── */
+        .field-group input.error,
+        .field-group select.error {
+            border-color: #D73C59;
+            box-shadow: 0 0 0 4px var(--brand-red-glow);
+        }
+
+        .field-error {
+            font-size: 0.75rem;
+            color: var(--brand-red);
+            font-weight: 500;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .field-group.has-error .field-error { display: block; }
+
+        /* ─── SUBMIT BUTTON ──────────────────────────────────────── */
+        .submit-wrap {
+            margin-top: 36px;
+        }
+
+        .btn-submit {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 16px 32px;
+            background: var(--brand-red);
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            font-family: 'Figtree', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.25s ease, box-shadow 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            background: var(--brand-red-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(215, 60, 89, 0.28);
+        }
+
+        .btn-submit:active { transform: translateY(0); }
+
+        .btn-submit:disabled {
+            background: #c4c4c8;
+            transform: none;
+            box-shadow: none;
+            cursor: not-allowed;
+        }
+
+        .btn-submit svg {
+            width: 18px;
+            height: 18px;
+            stroke: #fff;
+            flex-shrink: 0;
+            transition: transform 0.25s ease;
+        }
+
+        .btn-submit:hover svg { transform: translateX(3px); }
+
+        .submit-note {
+            text-align: center;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-top: 14px;
+            line-height: 1.5;
+        }
+
+        .submit-note svg {
+            width: 12px;
+            height: 12px;
+            stroke: var(--text-muted);
+            vertical-align: -1px;
+            margin-right: 4px;
+        }
+
+        /* ─── LOADING SPINNER ────────────────────────────────────── */
+        .spinner {
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255,255,255,0.35);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            display: none;
+            flex-shrink: 0;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .btn-submit.loading .btn-label { display: none; }
+        .btn-submit.loading .spinner   { display: block; }
+        .btn-submit.loading .btn-arrow { display: none; }
+
+        /* ─── SELECT ARROW ───────────────────────────────────────── */
+        .select-wrap { position: relative; }
+
+        .select-wrap::after {
+            content: '';
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 6px solid var(--text-muted);
+            pointer-events: none;
+        }
+
+        /* ─── RESPONSIVE ─────────────────────────────────────────── */
+        @media (max-width: 640px) {
+            .nav-links-desktop { display: none; }
+            .menu-trigger { display: block; }
+
+            .sim-toggle { grid-template-columns: 1fr 1fr; gap: 10px; }
+            .sim-card { padding: 22px 14px 18px; }
+            .sim-title { font-size: 0.9rem; }
+            .sim-desc  { font-size: 0.73rem; }
+
+            .field-row { grid-template-columns: 1fr; }
+
+            .steps-bar { gap: 0; }
+            .step-connector { width: 28px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ─── NAVBAR ─────────────────────────────────────────────────── -->
+<nav class="navbar-custom">
+    <div class="nav-container">
+        <a class="navbar-brand" href="index.html">
+            <img src="assets/img/logo-white.svg" alt="More4Less">
+        </a>
+        <ul class="nav-links-desktop">
+            <li><a href="plans.html">Plans</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="support.html">Support</a></li>
+            <li><a href="portal.html" class="btn-portal-top">My Account</a></li>
+        </ul>
+        <button class="menu-trigger" id="menuTrigger" onclick="toggleMenu()" aria-label="Open menu">
+            <div class="menu-icon">
+                <span></span><span></span><span></span>
+            </div>
+        </button>
+    </div>
+</nav>
+
+<!-- Mobile overlay -->
+<div class="mobile-overlay" id="mobileOverlay">
+    <ul class="mobile-nav-links">
+        <li><a href="plans.html">Plans</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="support.html">Support</a></li>
+    </ul>
+</div>
+
+<!-- ─── HERO ───────────────────────────────────────────────────── -->
+<section class="signup-hero">
+    <div class="hero-inner">
+        <div class="hero-eyebrow">Talk, Text &amp; Data — Activation</div>
+        <h1 class="hero-headline">Set up your plan</h1>
+        <p class="hero-sub">Just a couple of details before we get you connected.</p>
+    </div>
+</section>
+
+<!-- ─── FORM ────────────────────────────────────────────────────── -->
+<div class="form-section">
+    <div class="form-inner">
+
+        <!-- Step indicator -->
+        <div class="steps-bar">
+            <div class="step-item active" id="step1-indicator">
+                <div class="step-dot">1</div>
+                <span>SIM &amp; details</span>
+            </div>
+            <div class="step-connector" id="connector-1-2"></div>
+            <div class="step-item" id="step2-indicator">
+                <div class="step-dot">2</div>
+                <span>Payment</span>
+            </div>
+            <div class="step-connector"></div>
+            <div class="step-item" id="step3-indicator">
+                <div class="step-dot">3</div>
+                <span>Confirmed</span>
+            </div>
+        </div>
+
+        <!-- SIM type selection -->
+        <div class="section-label">How would you like to receive your SIM?</div>
+        <div class="sim-toggle">
+            <!-- eSIM -->
+            <div class="sim-card" id="card-esim" onclick="selectSim('esim')">
+                <div class="sim-check">
+                    <svg viewBox="0 0 12 12" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M2 6l3 3 5-5"/>
+                    </svg>
+                </div>
+                <div class="sim-icon-wrap">
+                    <svg viewBox="0 0 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6">
+                        <rect x="6" y="3" width="14" height="20" rx="2.5"/>
+                        <path d="M10 8h6M10 12h4M10 16h2"/>
+                        <circle cx="17" cy="16" r="2.5"/>
+                    </svg>
+                </div>
+                <div class="sim-title">eSIM</div>
+                <div class="sim-desc">Instant digital activation — no shipping needed</div>
+            </div>
+
+            <!-- Physical SIM -->
+            <div class="sim-card" id="card-physical" onclick="selectSim('physical')">
+                <div class="sim-check">
+                    <svg viewBox="0 0 12 12" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M2 6l3 3 5-5"/>
+                    </svg>
+                </div>
+                <div class="sim-icon-wrap">
+                    <svg viewBox="0 0 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6">
+                        <rect x="5" y="4" width="16" height="18" rx="2"/>
+                        <path d="M5 10h16M9 4v6"/>
+                        <rect x="9" y="14" width="8" height="5" rx="1"/>
+                    </svg>
+                </div>
+                <div class="sim-title">Physical SIM</div>
+                <div class="sim-desc">We'll mail your SIM card to you</div>
+            </div>
+        </div>
+
+        <!-- eSIM fields -->
+        <div class="fields-panel" id="panel-esim">
+            <div class="section-label">Device information</div>
+            <div class="field-group" id="fg-imei2">
+                <label for="imei2">IMEI2 <span class="hint">— find in Settings → General → About</span></label>
+                <input type="text" id="imei2" name="imei2" placeholder="e.g. 354321098765432" maxlength="20" inputmode="numeric">
+                <div class="field-error">Please enter a valid IMEI2 (15 digits).</div>
+            </div>
+            <div class="field-group" id="fg-eid">
+                <label for="eid">EID# <span class="hint">— 32-digit number below the IMEI</span></label>
+                <input type="text" id="eid" name="eid" placeholder="e.g. 89049032004008882600126000000000" maxlength="36" inputmode="numeric">
+                <div class="field-error">Please enter a valid EID (32 digits).</div>
+            </div>
+            <div class="field-divider"></div>
+            <div class="section-label">Your contact details</div>
+            <div class="field-group" id="fg-first">
+                <label for="first-esim">First name</label>
+                <input type="text" id="first-esim" name="first_name" placeholder="Jane" autocomplete="given-name">
+                <div class="field-error">Please enter your first name.</div>
+            </div>
+            <div class="field-group" id="fg-last-esim">
+                <label for="last-esim">Last name</label>
+                <input type="text" id="last-esim" name="last_name" placeholder="Smith" autocomplete="family-name">
+                <div class="field-error">Please enter your last name.</div>
+            </div>
+            <div class="field-group" id="fg-email-esim">
+                <label for="email-esim">Email address</label>
+                <input type="email" id="email-esim" name="email" placeholder="jane@example.com" autocomplete="email">
+                <div class="field-error">Please enter a valid email address.</div>
+            </div>
+        </div>
+
+        <!-- Physical SIM fields -->
+        <div class="fields-panel" id="panel-physical">
+            <div class="section-label">Shipping address</div>
+            <div class="field-group" id="fg-addr1">
+                <label for="addr1">Street address</label>
+                <input type="text" id="addr1" name="address_line1" placeholder="123 Main St" autocomplete="address-line1">
+                <div class="field-error">Please enter your street address.</div>
+            </div>
+            <div class="field-group">
+                <label for="addr2">Apartment / suite <span class="hint">— optional</span></label>
+                <input type="text" id="addr2" name="address_line2" placeholder="Apt 4B" autocomplete="address-line2">
+            </div>
+            <div class="field-row">
+                <div class="field-group" id="fg-city">
+                    <label for="city">City</label>
+                    <input type="text" id="city" name="city" placeholder="Toronto" autocomplete="address-level2">
+                    <div class="field-error">Required.</div>
+                </div>
+                <div class="field-group" id="fg-province">
+                    <label for="province">Province</label>
+                    <div class="select-wrap">
+                        <select id="province" name="state_code">
+                            <option value="">Select…</option>
+                            <option value="AB">Alberta</option>
+                            <option value="BC">British Columbia</option>
+                            <option value="MB">Manitoba</option>
+                            <option value="NB">New Brunswick</option>
+                            <option value="NL">Newfoundland and Labrador</option>
+                            <option value="NS">Nova Scotia</option>
+                            <option value="NT">Northwest Territories</option>
+                            <option value="NU">Nunavut</option>
+                            <option value="ON">Ontario</option>
+                            <option value="PE">Prince Edward Island</option>
+                            <option value="QC">Quebec</option>
+                            <option value="SK">Saskatchewan</option>
+                            <option value="YT">Yukon</option>
+                        </select>
+                    </div>
+                    <div class="field-error">Required.</div>
+                </div>
+            </div>
+            <div class="field-row">
+                <div class="field-group" id="fg-postal">
+                    <label for="postal">Postal code</label>
+                    <input type="text" id="postal" name="zip" placeholder="M5V 3A8" maxlength="7" autocomplete="postal-code">
+                    <div class="field-error">Required.</div>
+                </div>
+                <div class="field-group">
+                    <label>Country</label>
+                    <input type="text" value="Canada" disabled style="background:#f5f5f7; color: var(--text-muted); cursor: default;">
+                </div>
+            </div>
+            <div class="field-divider"></div>
+            <div class="section-label">Your contact details</div>
+            <div class="field-group" id="fg-first-phys">
+                <label for="first-phys">First name</label>
+                <input type="text" id="first-phys" name="first_name" placeholder="Jane" autocomplete="given-name">
+                <div class="field-error">Please enter your first name.</div>
+            </div>
+            <div class="field-group" id="fg-last-phys">
+                <label for="last-phys">Last name</label>
+                <input type="text" id="last-phys" name="last_name" placeholder="Smith" autocomplete="family-name">
+                <div class="field-error">Please enter your last name.</div>
+            </div>
+            <div class="field-group" id="fg-email-phys">
+                <label for="email-phys">Email address</label>
+                <input type="email" id="email-phys" name="email" placeholder="jane@example.com" autocomplete="email">
+                <div class="field-error">Please enter a valid email address.</div>
+            </div>
+        </div>
+
+        <!-- Submit -->
+        <div class="submit-wrap" id="submitWrap" style="display:none;">
+            <button class="btn-submit" id="submitBtn" onclick="handleSubmit()">
+                <span class="btn-label">Continue to payment</span>
+                <div class="spinner"></div>
+                <svg class="btn-arrow" viewBox="0 0 18 18" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                    <path d="M3 9h12M10 4l5 5-5 5"/>
+                </svg>
+            </button>
+            <p class="submit-note">
+                <svg viewBox="0 0 14 14" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8">
+                    <rect x="2" y="6" width="10" height="7" rx="1.5"/>
+                    <path d="M4.5 6V4.5a2.5 2.5 0 015 0V6"/>
+                </svg>
+                Your details are passed securely to our payment processor. We never store card information.
+            </p>
+        </div>
+
+    </div>
+</div>
+
+<script>
+// ─── CONFIG — update these before going live ─────────────────────
+var CHARGEBEE_SITE       = 'more4lessplans';          // your Chargebee site name
+var CHARGEBEE_PLAN_ID    = 'platinumplan';    // your Chargebee item price ID
+var WORKER_URL           = '/api/create-checkout';    // your Cloudflare Worker endpoint
+var CONFIRMATION_URL     = '/mobility-signup';
+
+// ─── STATE ───────────────────────────────────────────────────────
+var selectedSim = null;
+
+// ─── CHARGEBEE INIT ──────────────────────────────────────────────
+var cbInstance = Chargebee.init({ site: CHARGEBEE_SITE });
+
+// ─── SIM SELECTION ───────────────────────────────────────────────
+function selectSim(type) {
+    selectedSim = type;
+
+    document.getElementById('card-esim').className     = 'sim-card' + (type === 'esim'     ? ' selected' : '');
+    document.getElementById('card-physical').className = 'sim-card' + (type === 'physical' ? ' selected' : '');
+
+    // Hide both panels first
+    ['esim', 'physical'].forEach(function(t) {
+        var panel = document.getElementById('panel-' + t);
+        panel.classList.remove('visible', 'animated');
+    });
+
+    // Show the chosen panel with animation
+    var chosen = document.getElementById('panel-' + type);
+    chosen.classList.add('visible');
+    requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+            chosen.classList.add('animated');
+        });
+    });
+
+    document.getElementById('submitWrap').style.display = 'block';
+
+    // Smooth scroll to fields on mobile
+    if (window.innerWidth < 768) {
+        setTimeout(function() {
+            chosen.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 200);
+    }
+}
+
+// ─── VALIDATION ──────────────────────────────────────────────────
+function clearErrors() {
+    document.querySelectorAll('.field-group.has-error').forEach(function(el) {
+        el.classList.remove('has-error');
+    });
+    document.querySelectorAll('input.error, select.error').forEach(function(el) {
+        el.classList.remove('error');
+    });
+}
+
+function setError(fieldId, groupId) {
+    var field = document.getElementById(fieldId);
+    var group = document.getElementById(groupId);
+    if (field) field.classList.add('error');
+    if (group) group.classList.add('has-error');
+    return false;
+}
+
+function isValidEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+function isValidIMEI(v)  { return /^\d{15}$/.test(v.replace(/\s/g,'')); }
+function isValidEID(v)   { return /^\d{32}$/.test(v.replace(/\s/g,'')); }
+
+function collectAndValidate() {
+    clearErrors();
+    var data = { sim_type: selectedSim, plan_id: CHARGEBEE_PLAN_ID };
+    var valid = true;
+
+    if (selectedSim === 'esim') {
+        var imei2 = document.getElementById('imei2').value.trim();
+        var eid   = document.getElementById('eid').value.trim();
+        var first = document.getElementById('first-esim').value.trim();
+        var last  = document.getElementById('last-esim').value.trim();
+        var email = document.getElementById('email-esim').value.trim();
+
+        if (!isValidIMEI(imei2)) { setError('imei2', 'fg-imei2'); valid = false; }
+        if (!isValidEID(eid))    { setError('eid', 'fg-eid');     valid = false; }
+        if (!first)  { setError('first-esim', 'fg-first');        valid = false; }
+        if (!last)   { setError('last-esim', 'fg-last-esim');     valid = false; }
+        if (!isValidEmail(email)) { setError('email-esim', 'fg-email-esim'); valid = false; }
+
+        if (valid) {
+            data.imei2 = imei2;
+            data.eid   = eid;
+            data.first_name = first;
+            data.last_name  = last;
+            data.email      = email;
+        }
+    }
+
+    if (selectedSim === 'physical') {
+        var addr1    = document.getElementById('addr1').value.trim();
+        var city     = document.getElementById('city').value.trim();
+        var province = document.getElementById('province').value;
+        var postal   = document.getElementById('postal').value.trim();
+        var first    = document.getElementById('first-phys').value.trim();
+        var last     = document.getElementById('last-phys').value.trim();
+        var email    = document.getElementById('email-phys').value.trim();
+
+        if (!addr1)    { setError('addr1', 'fg-addr1');           valid = false; }
+        if (!city)     { setError('city', 'fg-city');             valid = false; }
+        if (!province) { setError('province', 'fg-province');     valid = false; }
+        if (!postal)   { setError('postal', 'fg-postal');         valid = false; }
+        if (!first)    { setError('first-phys', 'fg-first-phys'); valid = false; }
+        if (!last)     { setError('last-phys', 'fg-last-phys');   valid = false; }
+        if (!isValidEmail(email)) { setError('email-phys', 'fg-email-phys'); valid = false; }
+
+        if (valid) {
+            data.shipping = {
+                first_name:   first,
+                last_name:    last,
+                line1:        addr1,
+                line2:        document.getElementById('addr2').value.trim(),
+                city:         city,
+                state_code:   province,
+                country:      'CA',
+                zip:          postal
+            };
+            data.first_name = first;
+            data.last_name  = last;
+            data.email      = email;
+        }
+    }
+
+    return valid ? data : null;
+}
+
+// ─── SUBMIT ───────────────────────────────────────────────────────
+function handleSubmit() {
+    var data = collectAndValidate();
+    if (!data) return;
+
+    var btn = document.getElementById('submitBtn');
+    btn.classList.add('loading');
+    btn.disabled = true;
+
+    // Save to sessionStorage so confirmation page can use it
+    sessionStorage.setItem('m4l_signup', JSON.stringify(data));
+
+    // Update step indicator
+    document.getElementById('step1-indicator').className = 'step-item done';
+    document.getElementById('connector-1-2').className   = 'step-connector done';
+    document.getElementById('step2-indicator').className = 'step-item active';
+
+    // Call your Cloudflare Worker to create the Chargebee hosted page
+    fetch(WORKER_URL, {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify(data)
+    })
+    .then(function(res) {
+        if (!res.ok) throw new Error('Worker error ' + res.status);
+        return res.json();
+    })
+    .then(function(result) {
+        btn.classList.remove('loading');
+        btn.disabled = false;
+
+        // Open Chargebee V1 with the pre-created hosted page token
+        cbInstance.openCheckout({
+            hostedPage: function() {
+                return Promise.resolve({ token: result.token });
+            },
+            success: function(hostedPageId) {
+                // Chargebee checkout completed — go to confirmation
+                sessionStorage.setItem('m4l_cb_page', hostedPageId);
+                window.location.href = CONFIRMATION_URL;
+            },
+            close: function() {
+                // User closed Chargebee without completing — reset step
+                document.getElementById('step1-indicator').className = 'step-item active';
+                document.getElementById('connector-1-2').className   = 'step-connector';
+                document.getElementById('step2-indicator').className = 'step-item';
+            },
+            error: function(err) {
+                console.error('Chargebee error:', err);
+                btn.classList.remove('loading');
+                btn.disabled = false;
+            }
+        });
+    })
+    .catch(function(err) {
+        console.error(err);
+        btn.classList.remove('loading');
+        btn.disabled = false;
+        alert('Something went wrong. Please try again or contact support.');
+    });
+}
+
+// ─── MOBILE MENU ─────────────────────────────────────────────────
+function toggleMenu() {
+    var trigger  = document.getElementById('menuTrigger');
+    var overlay  = document.getElementById('mobileOverlay');
+    var isActive = trigger.classList.contains('menu-active');
+    if (isActive) {
+        trigger.classList.remove('menu-active');
+        overlay.classList.remove('active');
+    } else {
+        trigger.classList.add('menu-active');
+        overlay.classList.add('active');
+    }
+}
+
+document.getElementById('mobileOverlay').addEventListener('click', function(e) {
+    if (e.target === this) toggleMenu();
+});
+</script>
+
+</body>
+</html>
