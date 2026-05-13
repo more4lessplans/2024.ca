@@ -527,10 +527,12 @@
             border-color: rgba(29, 29, 31, 0.55);
         }
 
-        .wireless-only, .talk-only { display: none; }
-        .wireless-only.show, .talk-only.show { display: block; }
+        .wireless-only, .talk-only { display: none !important; }
+        .wireless-only.show, .talk-only.show { display: block !important; }
         .feature-row.wireless-only.show,
-        .feature-row.talk-only.show { display: flex; }
+        .feature-row.talk-only.show,
+        .price-card.wireless-only.show,
+        .price-card.talk-only.show { display: flex !important; }
 
         /* CTA card */
         .cta-card {
@@ -590,6 +592,72 @@
             box-shadow: 0 12px 30px rgba(0,0,0,0.15);
         }
 
+        /* ─── PRICE CARD ─────────────────────────────────────────── */
+        .price-card {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 28px 32px;
+            margin-bottom: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .price-card-left { display: flex; flex-direction: column; gap: 4px; }
+
+        .price-card-amount {
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: -0.05em;
+            color: var(--text-dark);
+            line-height: 1;
+        }
+
+        .price-card-amount span {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            letter-spacing: 0;
+        }
+
+        .price-card-label {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            letter-spacing: 0.02em;
+        }
+
+        .price-card-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .price-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--bg-page);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            padding: 6px 14px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            white-space: nowrap;
+        }
+
+        .price-pill-dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: #34C759;
+            flex-shrink: 0;
+        }
+
         /* ─── RESPONSIVE ─────────────────────────────────────────── */
         @media (max-width: 768px) {
             .nav-links-desktop { display: none; }
@@ -608,6 +676,8 @@
                 border-radius: 22px;
             }
 
+            .price-card { flex-direction: column; align-items: flex-start; padding: 22px 24px; }
+            .price-card-amount { font-size: 2.2rem; }
             .cta-btn { width: 100%; text-align: center; }
             .detail-inner { padding: 60px 20px 80px; }
         }
@@ -696,6 +766,19 @@
         <h2 class="detail-title" id="detailTitle">Wireless Internet</h2>
         <p class="detail-subtitle" id="detailSubtitle">Everything included with your activation.</p>
 
+        <!-- ── WIRELESS PRICE CARD ──────────────────────────────── -->
+        <div class="price-card wireless-only">
+            <div class="price-card-left">
+                <div class="price-card-amount">$110 <span>+ tax / mo</span></div>
+                <div class="price-card-label">Prepaid — charged monthly, cancel anytime</div>
+            </div>
+            <div class="price-card-pills">
+                <div class="price-pill"><span class="price-pill-dot"></span> No contracts</div>
+                <div class="price-pill"><span class="price-pill-dot"></span> No setup fees</div>
+                <div class="price-pill"><span class="price-pill-dot"></span> No overages</div>
+            </div>
+        </div>
+
         <!-- ── WIRELESS INTERNET FEATURES ────────────────────── -->
 
         <div class="feature-row wireless-only">
@@ -707,47 +790,46 @@
                     <circle cx="9" cy="16" r="1" fill="#1d1d1f" stroke="none"/>
                 </svg>
             </div>
-            <div>
-                <div class="feature-name">Unlimited high-speed internet</div>
-                <p class="feature-text">Your plan includes unlimited LTE data with no hard caps or throttling thresholds. Stream, browse, and work without watching a meter.</p>
-            </div>
-        </div>
+           <div>
+    <div class="feature-name">Unlimited High-Speed Internet</div>
+    <p class="feature-text">Unlimited LTE data with no caps or slowdowns. Stream, browse, and work freely — without watching usage.</p>
+</div>
+</div>
 
-        <div class="feature-row wireless-only">
-            <div class="feature-icon">
-                <svg viewBox="0 0 18 18" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="2" y="4" width="14" height="10" rx="2"/>
-                    <path d="M6 14v2M12 14v2M4 16h10"/>
-                </svg>
-            </div>
-            <div>
-                <div class="feature-name">Local support</div>
-                <p class="feature-text">Get help when you need it. Our local team is here to assist with setup, troubleshooting, and any questions or concerns along the way.</p>
-            </div>
-        </div>
+<div class="feature-row wireless-only">
+    <div class="feature-icon">
+        <svg viewBox="0 0 18 18" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="9" r="7"/>
+            <path d="M9 5v4l3 2"/>
+        </svg>
+    </div>
+    <div>
+        <div class="feature-name">Simple Monthly Billing</div>
+        <p class="feature-text">$110 + tax billed automatically each month. No contracts, cancellation fees, or long-term commitments.</p>
+    </div>
+</div>
 
-        <div class="feature-row wireless-only">
-            <div class="feature-icon">
-                <svg viewBox="0 0 18 18" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="9" cy="9" r="7"/>
-                    <path d="M9 5v4l3 2"/>
-                </svg>
+<div class="feature-row wireless-only">
+    <div class="feature-icon">
+        <svg viewBox="0 0 18 18" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l4 4 8-8"/>
+        </svg>
+    </div>
+    <div>
+        <div class="feature-name">Support From A Local Team</div>
+        <p class="feature-text">Setup assistance and ongoing support from real people who know the service — included with every plan.</p>
+    </div>
+</div>
+        <!-- ── TALK PRICE CARD ────────────────────────────────── -->
+        <div class="price-card talk-only">
+            <div class="price-card-left">
+                <div class="price-card-amount">$99 <span>+ tax / mo</span></div>
+                <div class="price-card-label">Prepaid — charged monthly, cancel anytime</div>
             </div>
-            <div>
-                <div class="feature-name">Transparent pricing</div>
-                <p class="feature-text">One simple price. No tiers, no hidden fees—just full access to the best service we offer from day one.</p>
-            </div>
-        </div>
-
-        <div class="feature-row wireless-only">
-            <div class="feature-icon">
-                <svg viewBox="0 0 18 18" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M3 9l4 4 8-8"/>
-                </svg>
-            </div>
-            <div>
-                <div class="feature-name">No contracts</div>
-                <p class="feature-text">Your service runs month-to-month. Pause or cancel at any time through your account portal with no cancellation fees.</p>
+            <div class="price-card-pills">
+                <div class="price-pill"><span class="price-pill-dot"></span> No contracts</div>
+                <div class="price-pill"><span class="price-pill-dot"></span> No credit check</div>
+                <div class="price-pill"><span class="price-pill-dot"></span> No overages</div>
             </div>
         </div>
 
@@ -759,92 +841,66 @@
                     <path d="M15 11.5c-1 1-2.5 1.5-4 1-2-.7-4-2.7-4.7-4.7-.5-1.5 0-3 1-4L9 2l3 4-1.5 1.5c.5 1 1 1.5 2 2L14 8l4 3-3 .5z"/>
                 </svg>
             </div>
-            <div>
-                <div class="feature-name">Unlimited talk & text</div>
-                <p class="feature-text">
-                    Unlimited domestic calling and SMS/MMS messaging with no caps, no throttling, and no overage charges — ever. Includes call waiting and call forwarding.
-                </p>
-            </div>
-        </div>
+           <div>
+    <div class="feature-name">Unlimited Talk & Text</div>
+    <p class="feature-text">Unlimited calling and SMS/MMS messaging across Canada with no caps, throttling, or overage charges. Includes call waiting and call forwarding.</p>
+</div>
+</div>
 
-        <div class="feature-row talk-only">
-            <div class="feature-icon">
-                <svg viewBox="0 0 18 18" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M2 9 Q9 2 16 9"/>
-                    <path d="M4.5 11.5 Q9 6.5 13.5 11.5"/>
-                    <path d="M7 14 Q9 11.5 11 14"/>
-                    <circle cx="9" cy="16" r="1" fill="#1d1d1f" stroke="none"/>
-                </svg>
-            </div>
-            <div>
-                <div class="feature-name">Unlimited data — no caps, no throttling</div>
-                <p class="feature-text">
-                    Full-speed 5G data in Canada with no hard caps, no deprioritization thresholds, and no slowdowns at the end of your billing cycle. Stream, browse, and work freely.
-                </p>
-            </div>
-        </div>
+<div class="feature-row talk-only">
+    <div class="feature-icon">
+        <svg viewBox="0 0 18 18" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 9 Q9 2 16 9"/>
+            <path d="M4.5 11.5 Q9 6.5 13.5 11.5"/>
+            <path d="M7 14 Q9 11.5 11 14"/>
+            <circle cx="9" cy="16" r="1" fill="#1d1d1f" stroke="none"/>
+        </svg>
+    </div>
+    <div>
+        <div class="feature-name">Unlimited 5G Data</div>
+        <p class="feature-text">Unlimited high-speed 5G data across Canada with no hard caps or reduced speeds at the end of your billing cycle. Stream, browse, and work without limits.</p>
+    </div>
+</div>
 
-        <div class="feature-row talk-only">
-            <div class="feature-icon">
-                <svg viewBox="0 0 18 18" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="3" y="5" width="12" height="9" rx="1.5"/>
-                    <path d="M6 5V4a3 3 0 016 0v1"/>
-                    <circle cx="9" cy="9.5" r="1" fill="#1d1d1f" stroke="none"/>
-                </svg>
-            </div>
-            <div>
-                <div class="feature-name">USA + Mexico Add-On</div>
-                <p class="feature-text">
-                    Use your plan across the border with 10 GB of 5G mobile hotspot data in the United States — perfect for travel and remote work. Full unlimited data use applies while in Canada.
-                </p>
-            </div>
-        </div>
+<div class="feature-row talk-only">
+    <div class="feature-icon">
+        <svg viewBox="0 0 18 18" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="9" r="7"/>
+            <path d="M9 5v4l3 2"/>
+        </svg>
+    </div>
+    <div>
+        <div class="feature-name">Simple Monthly Billing</div>
+        <p class="feature-text">$99 + tax is charged upfront each month to keep your service active. No contracts, credit checks, cancellation fees, or long-term commitments. Cancel anytime through your account portal.</p>
+    </div>
+</div>
 
-        <div class="feature-row talk-only">
-            <div class="feature-icon">
-                <svg viewBox="0 0 18 18" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="9" cy="9" r="7"/>
-                    <path d="M9 5v4l3 2"/>
-                </svg>
-            </div>
-            <div>
-                <div class="feature-name">New USA-assigned number included</div>
-                <p class="feature-text">
-                    Every activation comes with a brand-new US phone number. Number porting is not available — this plan is prepaid and issued with a fresh number only.
-                </p>
-            </div>
-        </div>
+<div class="feature-row talk-only">
+    <div class="feature-icon">
+        <svg viewBox="0 0 18 18" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="5" width="12" height="9" rx="1.5"/>
+            <path d="M6 5V4a3 3 0 016 0v1"/>
+            <circle cx="9" cy="9.5" r="1" fill="#1d1d1f" stroke="none"/>
+        </svg>
+    </div>
+    <div>
+        <div class="feature-name">USA Roaming Add-On Available</div>
+        <p class="feature-text">Stay connected while travelling with 10 GB of high-speed 5G data in the United States. Unlimited data continues while in Canada.</p>
+    </div>
+</div>
 
-        <div class="feature-row talk-only">
-            <div class="feature-icon">
-                <svg viewBox="0 0 18 18" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="4" y="1" width="10" height="16" rx="2"/>
-                    <line x1="7" y1="4.5" x2="11" y2="4.5"/>
-                    <circle cx="9" cy="13.5" r="1" fill="#1d1d1f" stroke="none"/>
-                </svg>
-            </div>
-            <div>
-                <div class="feature-name">Physical SIM or eSIM — your choice</div>
-                <p class="feature-text">
-                    After your activation request is submitted, you'll choose between a physical SIM card shipped directly to you or an instant eSIM activation on any compatible unlocked device.
-                    <a href="compatibility.html">Check compatibility</a>
-                </p>
-            </div>
-        </div>
 
-        <div class="feature-row talk-only">
-            <div class="feature-icon">
-                <svg viewBox="0 0 18 18" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M3 9l4 4 8-8"/>
-                </svg>
-            </div>
-            <div>
-                <div class="feature-name">Prepaid — no contracts, no surprises</div>
-                <p class="feature-text">
-                    This is a prepaid plan. Pay upfront each month with no annual commitment, no credit checks, and no cancellation fees. One flat rate, full access.
-                </p>
-            </div>
-        </div>
+<div class="feature-row talk-only">
+    <div class="feature-icon">
+        <svg viewBox="0 0 18 18" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l4 4 8-8"/>
+        </svg>
+    </div>
+    <div>
+        <div class="feature-name">New Number Included</div>
+        <p class="feature-text">Every activation includes a new phone number. Number transfers are not available on this plan. Depending on availability, your number may be Canadian or US-based.</p>
+    </div>
+</div>
 
         <!-- ── CTA ────────────────────────────────────────────── -->
         <div class="cta-card">
@@ -857,9 +913,7 @@
             <a
                 id="activateBtn"
                 class="cta-btn"
-                href="/checkout/wireless"
-                target="_blank"
-                rel="noopener noreferrer">
+                href="/checkout/wireless">
                 Activate
             </a>
         </div>
@@ -872,19 +926,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var content = {
         wireless: {
-            kicker:   'Wireless Internet — Activation',
+            kicker:   'Wireless Internet — $110/mo + tax',
             title:    'Wireless Internet',
-            subtitle: 'Requires a device purchased from us and an unactivated SIM card. Need a SIM? <a href="https://more4lessplans.ca/reactivate-service">Order one here</a>.',
+            subtitle: 'A prepaid month-to-month subscription at $110/mo + tax. Requires an unactivated SIM card. Need one? <a href="https://more4lessplans.ca/reactivate-service">Order here.</a>',
             cta:      'Activate Wireless Internet',
-            ctaSub:   'You\'ll need an unactivated SIM card and a device purchased from us to complete activation.',
+            ctaSub:   '$110 + tax due today. Renews monthly. Cancel anytime.',
             href:     '/checkout/wireless'
         },
         talk: {
-            kicker:   'Talk, Text & Data — Activation',
+            kicker:   'Talk, Text & Data — $99/mo + tax',
             title:    'Talk, Text & Data',
-            subtitle: 'After submitting your activation request, you\'ll choose between a physical SIM card shipped to you or a digital eSIM activation.',
+            subtitle: 'A prepaid month-to-month subscription at $99/mo + tax. Your first payment activates your SIM and starts your service. Choose physical SIM or eSIM after checkout.',
             cta:      'Activate Talk, Text & Data',
-            ctaSub:   'After submitting, you\'ll choose between a physical SIM shipped to you or an eSIM activation.',
+            ctaSub:   '$99 + tax due today. Renews monthly. Cancel anytime.',
             href:     '/checkout/mobility'
         }
     };
