@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Customer Portal | More4Less</title>
+  <title>Customer Dashboard | More4Less</title>
 
   <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon-32x32.png">
@@ -247,7 +247,7 @@
       position: relative;
       border: 1px solid var(--border);
       height: 44px;
-      width: 180px;
+      width: 100px; /* narrowed for icons */
     }
 
     .glider {
@@ -265,20 +265,26 @@
     .t-btn {
       position: relative; z-index: 2;
       border: none; background: transparent;
-      font-family: 'Figtree', sans-serif;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.07em;
-      text-transform: uppercase;
-      color: var(--text-muted);
       cursor: pointer;
       flex: 1;
       border-radius: 9px;
       outline: none;
-      transition: color 0.25s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.25s ease;
     }
 
-    .t-btn.active { color: var(--text-dark); }
+    .t-btn svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--text-muted);
+      stroke-width: 2;
+      fill: none;
+      transition: stroke 0.25s ease;
+    }
+
+    .t-btn.active svg { stroke: var(--text-dark); }
 
     /* ── DASHBOARD BODY ───────────────────────────────────────── */
     .portal-body {
@@ -313,8 +319,8 @@
     /* ── SECONDARY GRID ───────────────────────────────────────── */
     .secondary-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
       opacity: 0;
       animation: fadeUp 0.8s cubic-bezier(0.2,1,0.2,1) 0.25s forwards;
     }
@@ -362,43 +368,8 @@
 
     /* ── ICON ─────────────────────────────────────────────────── */
     .c-icon {
-      width: 48px; height: 48px;
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 32px;
-      flex-shrink: 0;
+      display: none; /* Icons Hidden */
     }
-
-    .c-icon svg {
-      width: 22px; height: 22px;
-      stroke-width: 1.7;
-      fill: none;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    /* Colour tokens per icon */
-    .icon-blue   { background: #E8F0FE; }
-    .icon-blue   svg { stroke: #3B7AEA; }
-    .icon-amber  { background: #FEF3E2; }
-    .icon-amber  svg { stroke: #D08000; }
-    .icon-red    { background: #FDEEF1; }
-    .icon-red    svg { stroke: var(--brand-red); }
-    .icon-purple { background: #F0ECFE; }
-    .icon-purple svg { stroke: #7B52E8; }
-    .icon-teal   { background: #E4F7F4; }
-    .icon-teal   svg { stroke: #1A9E8F; }
-    .icon-green  { background: #E6F8ED; }
-    .icon-green  svg { stroke: #1E9E52; }
-
-    /* Dark card icon */
-    .dash-card.primary .c-icon {
-      background: rgba(255,255,255,0.08);
-    }
-
-    .dash-card.primary .c-icon svg { stroke: #fff; }
 
     /* ── CARD TEXT ────────────────────────────────────────────── */
     .c-label {
@@ -455,23 +426,8 @@
 
     /* ── SECONDARY COMPACT CARD ───────────────────────────────── */
     .secondary-grid .dash-card {
-      padding: 28px 24px 24px;
-      border-radius: 22px;
-    }
-
-    .secondary-grid .c-icon {
-      width: 40px; height: 40px;
-      border-radius: 11px;
-      margin-bottom: 20px;
-    }
-
-    .secondary-grid .c-icon svg { width: 18px; height: 18px; }
-    .secondary-grid .c-title { font-size: 1rem; }
-    .secondary-grid .c-desc { display: none; }
-
-    .secondary-grid .c-link {
-      margin-top: 16px;
-      font-size: 0.78rem;
+      padding: 40px 35px;
+      border-radius: var(--card-radius);
     }
 
     /* ── LIST VIEW ────────────────────────────────────────────── */
@@ -484,14 +440,13 @@
       gap: 20px;
     }
 
-    .portal-grid-all.list-view .c-icon { margin-bottom: 0; flex-shrink: 0; }
     .portal-grid-all.list-view .c-label { display: none; }
     .portal-grid-all.list-view .c-desc { display: none; }
     .portal-grid-all.list-view .card-body { flex: 1; }
     .portal-grid-all.list-view .c-title { margin-bottom: 0; font-size: 1rem; }
     .portal-grid-all.list-view .c-link { margin-top: 0; margin-left: auto; flex-shrink: 0; }
 
-    /* Secondary cards in list view — stack body vertically, no side-by-side overflow */
+    /* Secondary cards in list view */
     .portal-grid-all.list-view .secondary-grid {
       grid-template-columns: 1fr;
       gap: 10px;
@@ -504,8 +459,6 @@
       border-radius: 18px;
       gap: 18px;
     }
-
-    .portal-grid-all.list-view .secondary-grid .c-icon { margin-bottom: 0; flex-shrink: 0; }
 
     .portal-grid-all.list-view .secondary-grid .card-body {
       flex: 1;
@@ -574,12 +527,11 @@
     @media (max-width: 991px) {
       .nav-links-desktop { display: none; }
       .menu-trigger { display: block; }
-      .secondary-grid { grid-template-columns: repeat(2, 1fr); }
+      .secondary-grid { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 700px) {
       .primary-grid { grid-template-columns: 1fr; }
-      .secondary-grid { grid-template-columns: repeat(2, 1fr); }
       .portal-body { padding: 44px 20px 80px; }
       .portal-header { padding: 56px 20px 48px; }
       .dash-card { padding: 32px 26px; }
@@ -622,8 +574,8 @@
 
       <div class="portal-eyebrow">Your Account</div>
 
-      <h1>Customer Portal</h1>
-      <p>Everything you need to manage your wireless internet service.</p>
+      <h1>Dashboard</h1>
+      
 
       <div class="status-pill">
         <div class="status-dot-wrap">
@@ -636,8 +588,12 @@
       <div class="view-controls">
         <div class="tesla-toggle">
           <div class="glider" id="glider"></div>
-          <button id="gridBtn" class="t-btn active">Grid</button>
-          <button id="listBtn" class="t-btn">List</button>
+          <button id="gridBtn" class="t-btn active" aria-label="Grid View">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+          </button>
+          <button id="listBtn" class="t-btn" aria-label="List View">
+            <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+          </button>
         </div>
       </div>
 
@@ -652,25 +608,17 @@
       <div class="section-label" style="margin-bottom:16px;">Account</div>
       <div class="primary-grid" style="margin-bottom:36px;">
 
-        
-
         <a href="javascript:void(0)" data-cb-type="portal" class="dash-card primary">
-  <div class="c-icon">
-    <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-  </div>
-  <div class="c-label">Account</div>
-  <div class="card-body">
-    <div class="c-title">Manage Account</div>
-    <p class="c-desc">Update payment methods, view billing dates, and manage your service status.</p>
-  </div>
-  <div class="c-link">Sign In</div>
-</a>
+          <div class="c-label">Account Portal</div>
+          <div class="card-body">
+            <div class="c-title">Manage Account</div>
+            <p class="c-desc">Update payment methods, view billing dates, and manage your service status.</p>
+          </div>
+          <div class="c-link">Sign In</div>
+        </a>
 
 
         <a href="/activate" class="dash-card">
-          <div class="c-icon icon-amber">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12,7 12,12 15,15"/></svg>
-          </div>
           <div class="c-label">Service</div>
           <div class="card-body">
             <div class="c-title">Activate Service</div>
@@ -686,50 +634,46 @@
       <div class="secondary-grid">
 
         <a href="/support" class="dash-card">
-          <div class="c-icon icon-red">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><circle cx="12" cy="17" r="0.5" fill="#D73C59" stroke="none"/></svg>
-          </div>
+          <div class="c-label">Assistance</div>
           <div class="card-body">
             <div class="c-title">Support</div>
-            <div class="c-link">Get Help</div>
+            <p class="c-desc">Need a hand? Our team is available to help troubleshoot any issues.</p>
           </div>
+          <div class="c-link">Get Help</div>
         </a>
 
         <a href="/tutorials" class="dash-card">
-          <div class="c-icon icon-purple">
-            <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><polygon points="10,9 16,12 10,15" fill="#7B52E8" stroke="none"/></svg>
-          </div>
+          <div class="c-label">Learning</div>
           <div class="card-body">
             <div class="c-title">Tutorials</div>
-            <div class="c-link">View Guides</div>
+            <p class="c-desc">Step-by-step guides to setting up your hardware and optimizing speed.</p>
           </div>
+          <div class="c-link">View Guides</div>
         </a>
 
         <a href="/returns#initiate" class="dash-card">
-          <div class="c-icon icon-teal">
-            <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
-          </div>
+          <div class="c-label">Hardware</div>
           <div class="card-body">
             <div class="c-title">Returns</div>
-            <div class="c-link">Ship Back</div>
+            <p class="c-desc">Easy returns process for equipment upgrades or service cancellations.</p>
           </div>
+          <div class="c-link">Ship Back</div>
         </a>
 
         <a href="/contact" class="dash-card">
-          <div class="c-icon icon-green">
-            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          </div>
+          <div class="c-label">Inquiries</div>
           <div class="card-body">
             <div class="c-title">Contact</div>
-            <div class="c-link">Message Us</div>
+            <p class="c-desc">Have a specific question? Send us a message and we'll get right back to you.</p>
           </div>
+          <div class="c-link">Message Us</div>
         </a>
 
       </div>
     </div>
   </div>
 
-  <!-- Footer — matches style.css site-footer exactly -->
+  <!-- Footer -->
   <footer class="site-footer">
     <div class="footer-container">
       <div class="footer-content">
