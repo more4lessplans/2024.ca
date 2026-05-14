@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Secure Checkout — Orbi LBR20 | More4Less</title>
+  <meta name="description" content="Secure checkout for the NETGEAR Orbi LBR20 4G LTE unlimited wireless internet package.">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon-32x32.png">
+  <link rel="shortcut icon" href="assets/img/favicons/favicon.ico">
+  <link rel="manifest" href="assets/img/favicons/site.webmanifest">
+  <meta name="theme-color" content="#2E2F33">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://js.chargebee.com/v2/chargebee.js"></script>
+
+  <style>
+    /* ─────────────────────────────────────────────────────────────
+       TOKENS — matched exactly to site CSS
+    ───────────────────────────────────────────────────────────── */
+    :root {
+      --brand-red:      #D73C59;
+      --brand-red-dark: #b82e48;
+      --brand-red-glow: rgba(215, 60, 89, 0.10);
+      --bg-nav:         #2E2F33;
+      --bg-page:        #FBFBFD;
+      --bg-summary:     #F5F5F7;
+      --text-dark:      #1d1d1f;
+      --text-muted:     #6e6e73;
+      --text-faint:     #aeaeb2;
+      --green:          #1a9b5f;
+      --green-bg:       rgba(26, 155, 95, 0.07);
+      --border:         #eaeaec;
+      --border-soft:    #f2f2f4;
+      --nav-h:          68px;
+      --card-radius:    20px;
+      --ease-spring:    cubic-bezier(0.34, 1.4, 0.64, 1);
+      --ease-out:       cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 15px; scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 24px); }
+
+    body {
+      font-family: 'Figtree', sans-serif;
+      background: var(--bg-page);
+      color: var(--text-dark);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* ─────────────────────────────────────────────────────────────
+       NAVBAR — matches site exactly
+    ───────────────────────────────────────────────────────────── */
+    .navbar-custom {
+      background-color: var(--bg-nav);
+      padding: 1.2rem 0;
+      position: fixed;
+      width: 100%; top: 0;
+      z-index: 4000;
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 25px;
+    }
+
+    .navbar-brand img { height: 22px; }
+
+    /* Secure badge — right of logo, replaces main nav on checkout */
+    .nav-secure-badge {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 0.75rem; font-weight: 500;
+      color: rgba(255, 255, 255, 0.38);
+      letter-spacing: 0.03em;
+    }
+    .nav-secure-badge svg {
+      width: 12px; height: 12px;
+      stroke: rgba(255, 255, 255, 0.32);
+      stroke-width: 1.8; fill: none; flex-shrink: 0;
+    }
+
+    .nav-links-desktop { display: flex; align-items: center; list-style: none; }
+
+    .nav-links-desktop li a {
+      color: #ffffff;
+      font-weight: 500;
+      font-size: 0.85rem;
+      margin: 0 18px;
+      text-decoration: none;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+      position: relative;
+    }
+
+    .nav-links-desktop li a:hover { opacity: 1; }
+
+    .nav-links-desktop li a::after {
+      content: '';
+      position: absolute;
+      width: 0; height: 2px;
+      bottom: -4px; left: 0;
+      background-color: var(--brand-red);
+      transition: width 0.4s cubic-bezier(0.2, 1, 0.2, 1);
+    }
+
+    .nav-links-desktop li a:hover::after { width: 100%; }
+    .btn-portal-top::after { display: none !important; }
+
+    .btn-portal-top {
+      background: var(--brand-red);
+      color: white !important;
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-weight: 600;
+      opacity: 1 !important;
+      transition: all 0.3s ease !important;
+    }
+
+    .btn-portal-top:hover {
+      background: #ffffff !important;
+      color: var(--text-dark) !important;
+      transform: translateY(-2px);
+    }
+
+    /* Hamburger — matches site exactly */
+    .menu-trigger {
+      display: none;
+      cursor: pointer;
+      padding: 10px;
+      z-index: 5001;
+      position: relative;
+      background: none; border: none;
+      outline: none;
+      -webkit-appearance: none; appearance: none;
+    }
+
+    .menu-icon {
+      width: 26px; height: 18px;
+      display: flex; flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .menu-icon span {
+      display: block; width: 100%; height: 2px;
+      background: #fff; border-radius: 10px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .menu-trigger.menu-active .menu-icon span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .menu-trigger.menu-active .menu-icon span:nth-child(2) { opacity: 0; transform: translateX(10px); }
+    .menu-trigger.menu-active .menu-icon span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    /* Mobile overlay — matches site exactly */
+    .mobile-overlay {
+      position: fixed; inset: 0;
+      background: rgba(29, 29, 31, 0.98);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      z-index: 4500;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+
+    .mobile-overlay.active { opacity: 1; visibility: visible; }
+
+    .mobile-nav-links { list-style: none; padding: 0; text-align: center; }
+
+    .mobile-nav-links li {
+      margin: 25px 0;
+      transform: translateY(20px); opacity: 0;
+      transition: 0.4s ease;
+    }
+
+    .mobile-overlay.active .mobile-nav-links li { transform: translateY(0); opacity: 1; }
+    .mobile-nav-links li:nth-child(1) { transition-delay: 0.10s; }
+    .mobile-nav-links li:nth-child(2) { transition-delay: 0.15s; }
+    .mobile-nav-links li:nth-child(3) { transition-delay: 0.20s; }
+
+    /* font-weight: 700 — matches site (not 800/900) */
+    .mobile-nav-links a {
+      color: #fff;
+      font-size: 2.2rem;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: -0.03em;
+      position: relative; display: inline-block;
+    }
+
+    .mobile-nav-links a::after {
+      content: '';
+      position: absolute; width: 0; height: 3px;
+      bottom: -4px; left: 0;
+      background-color: var(--brand-red);
+      transition: width 0.4s cubic-bezier(0.2, 1, 0.2, 1);
+    }
+
+    .mobile-nav-links a:hover::after { width: 100%; }
+
+    /* ─────────────────────────────────────────────────────────────
+       PAGE
+    ───────────────────────────────────────────────────────────── */
+    .page { padding-top: var(--nav-h); }
+
+    /* ─────────────────────────────────────────────────────────────
+       SHOPIFY-STYLE TWO-COLUMN LAYOUT
+    ───────────────────────────────────────────────────────────── */
+    .checkout-wrap {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 52px 28px 80px;
+      gap: 36px;
+      align-items: start;
+    }
+
+    /* ─────────────────────────────────────────────────────────────
+       LEFT — FORM PANEL
+    ───────────────────────────────────────────────────────────── */
+    .form-panel {
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.1s forwards;
+    }
+
+    /* ── Step indicator — matches site pattern ── */
+    .steps-bar {
+      display: flex; align-items: center;
+      margin-bottom: 32px;
+    }
+
+    .step-item {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.78rem; font-weight: 600;
+      color: var(--text-muted); letter-spacing: 0.02em;
+      transition: color 0.3s ease;
+    }
+
+    .step-item.active { color: var(--brand-red); }
+    .step-item.done   { color: var(--text-dark); }
+
+    .step-dot {
+      width: 26px; height: 26px; border-radius: 50%;
+      border: 2px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem; font-weight: 700;
+      background: #fff; flex-shrink: 0;
+      transition: all 0.3s ease;
+    }
+
+    .step-item.active .step-dot { border-color: var(--brand-red); color: var(--brand-red); }
+    .step-item.done .step-dot   { background: var(--text-dark); border-color: var(--text-dark); color: #fff; }
+
+    /* Liquid-fill connector */
+    .step-connector {
+      flex: 1; height: 1px;
+      background: var(--border);
+      margin: 0 10px; min-width: 24px;
+      position: relative; overflow: hidden;
+    }
+
+    .step-connector::after {
+      content: ''; position: absolute; inset: 0;
+      background: var(--text-dark);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.5s var(--ease-out);
+    }
+
+    .step-connector.done::after { transform: scaleX(1); }
+
+    /* Checkmark swap */
+    .step-check { display: none; width: 9px; height: 5px; border-left: 2px solid #fff; border-bottom: 2px solid #fff; transform: rotate(-45deg) translate(1px, -1px); }
+    .step-item.done .step-num  { display: none; }
+    .step-item.done .step-check { display: block; }
+
+    /* ── Panel card ── */
+    .panel-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      padding: 28px 28px 24px;
+      margin-bottom: 14px;
+    }
+
+    .panel-card:last-child { margin-bottom: 0; }
+
+    .panel-title {
+      font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--text-faint); margin-bottom: 20px;
+      display: flex; align-items: center; gap: 10px;
+    }
+
+    .panel-title::after {
+      content: ''; flex: 1; height: 1px;
+      background: var(--border-soft);
+    }
+
+    /* ── Fields ── */
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 11px; margin-bottom: 11px; }
+    .field { margin-bottom: 11px; }
+    .field:last-of-type { margin-bottom: 0; }
+
+    .field label {
+      display: block; font-size: 0.78rem;
+      font-weight: 600; color: var(--text-dark);
+      margin-bottom: 6px;
+    }
+
+    .field input {
+      width: 100%; padding: 12px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      font-family: 'Figtree', sans-serif;
+      font-size: 0.9rem; color: var(--text-dark);
+      background: #fff; outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      -webkit-appearance: none; appearance: none;
+    }
+
+    .field input::placeholder { color: #c4c4ca; }
+    .field input:hover:not(:focus) { border-color: #d8d8dc; }
+
+    .field input:focus {
+      border-color: var(--brand-red);
+      box-shadow: 0 0 0 3px var(--brand-red-glow);
+    }
+
+    .field input.err {
+      border-color: var(--brand-red);
+      box-shadow: 0 0 0 3px var(--brand-red-glow);
+    }
+
+    .field-err {
+      font-size: 0.72rem; color: var(--brand-red);
+      font-weight: 500; margin-top: 4px; display: none;
+    }
+
+    .field.has-err .field-err { display: block; }
+
+    /* ── Submit button ── */
+    .btn-submit {
+      display: flex; align-items: center; justify-content: center;
+      gap: 10px; width: 100%;
+      padding: 14px 28px; margin-top: 6px;
+      background: var(--brand-red); color: #fff;
+      border: none; border-radius: 50px;
+      font-family: 'Figtree', sans-serif;
+      font-size: 0.95rem; font-weight: 600;
+      letter-spacing: 0.01em; cursor: pointer;
+      position: relative; overflow: hidden;
+      transition: background 0.3s ease,
+                  transform 0.4s var(--ease-spring),
+                  box-shadow 0.4s ease;
+      will-change: transform;
+    }
+
+    /* shimmer on hover */
+    .btn-submit::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(105deg, transparent 38%, rgba(255,255,255,0.09) 50%, transparent 62%);
+      transform: translateX(-100%);
+      transition: transform 0.55s var(--ease-out);
+    }
+
+    .btn-submit:hover::before  { transform: translateX(100%); }
+    .btn-submit:hover { background: var(--brand-red-dark); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(215, 60, 89, 0.22); }
+    .btn-submit:active { transform: translateY(0); transition-duration: 0.1s; }
+    .btn-submit:disabled { background: #c4c4c8; transform: none; box-shadow: none; cursor: not-allowed; }
+    .btn-submit:disabled::before { display: none; }
+
+    .btn-submit svg.btn-arr { width: 15px; height: 15px; stroke: #fff; stroke-width: 2; fill: none; transition: transform 0.3s var(--ease-spring); }
+    .btn-submit:hover svg.btn-arr { transform: translateX(4px); }
+
+    .btn-lbl { display: block; }
+    .btn-spin {
+      display: none; width: 17px; height: 17px;
+      border: 1.5px solid rgba(255,255,255,0.25);
+      border-top-color: #fff; border-radius: 50%;
+      animation: spin 0.6s linear infinite; flex-shrink: 0;
+    }
+
+    .btn-submit.loading .btn-lbl,
+    .btn-submit.loading .btn-arr  { display: none; }
+    .btn-submit.loading .btn-spin { display: block; }
+
+    .btn-secure {
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      margin-top: 12px; font-size: 0.71rem;
+      color: var(--text-faint); letter-spacing: 0.01em;
+    }
+
+    .btn-secure svg {
+      width: 11px; height: 11px;
+      stroke: var(--text-faint); stroke-width: 1.8;
+      fill: none; flex-shrink: 0;
+    }
+
+    /* ── What happens next ── */
+    .next-step {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 13px 0;
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .next-step:first-of-type { padding-top: 0; }
+    .next-step:last-of-type  { border-bottom: none; padding-bottom: 0; }
+
+    .next-step-icon {
+      width: 30px; height: 30px; border-radius: 8px;
+      background: var(--bg-summary); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+    }
+
+    .next-step-icon svg { width: 13px; height: 13px; stroke: var(--text-muted); stroke-width: 1.8; fill: none; }
+
+    .next-step-label { font-size: 0.8rem; font-weight: 700; color: var(--text-dark); margin-bottom: 2px; }
+    .next-step-desc  { font-size: 0.74rem; color: var(--text-muted); line-height: 1.55; }
+
+    /* ─────────────────────────────────────────────────────────────
+       RIGHT — ORDER SUMMARY
+    ───────────────────────────────────────────────────────────── */
+    .summary-panel {
+      background: var(--bg-summary);
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      overflow: hidden;
+      position: sticky; top: calc(var(--nav-h) + 20px);
+      opacity: 0; animation: fadeUp 0.7s ease 0.18s forwards;
+    }
+
+    /* Device header */
+    .summary-device {
+      padding: 20px 22px;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 16px;
+    }
+
+    .summary-device-img {
+      width: 64px; height: 64px;
+      object-fit: contain;
+      filter: drop-shadow(0 6px 16px rgba(0,0,0,0.09));
+      flex-shrink: 0;
+      transition: transform 1.2s cubic-bezier(0.34, 1.08, 0.64, 1);
+    }
+
+    .summary-device-img:hover { transform: scale(1.07) translateY(-3px); }
+
+    .summary-device-eyebrow {
+      font-size: 0.6rem; font-weight: 700;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--text-faint); margin-bottom: 3px;
+    }
+
+    .summary-device-name {
+      font-size: 1rem; font-weight: 700;
+      letter-spacing: -0.02em; color: var(--text-dark); line-height: 1.1;
+    }
+
+    .summary-device-sub {
+      font-size: 0.72rem; color: var(--text-muted); margin-top: 2px;
+    }
+
+    /* Breakdown */
+    .summary-section { padding: 18px 22px; border-bottom: 1px solid var(--border); }
+
+    .summary-section-label {
+      font-size: 0.6rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--text-faint); margin-bottom: 12px;
+    }
+
+    .breakdown-row {
+      display: flex; justify-content: space-between;
+      align-items: baseline;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border-soft);
+      font-size: 0.83rem;
+    }
+
+    .breakdown-row:first-of-type { padding-top: 0; }
+    .breakdown-row:last-of-type  { border-bottom: none; padding-bottom: 0; }
+
+    .bd-label { color: var(--text-muted); font-weight: 400; line-height: 1.5; }
+    .bd-label strong { color: var(--text-dark); font-weight: 600; display: block; }
+    .bd-label small  { font-size: 0.71rem; }
+
+    .bd-val { color: var(--text-dark); font-weight: 600; white-space: nowrap; }
+    .bd-val.free { color: var(--green); font-weight: 700; }
+    .bd-val.tag {
+      background: rgba(215, 60, 89, 0.07);
+      color: var(--brand-red);
+      border: 1px solid rgba(215, 60, 89, 0.14);
+      border-radius: 50px; padding: 1px 9px;
+      font-size: 0.7rem; font-weight: 600;
+    }
+
+    /* Total */
+    .summary-total {
+      padding: 18px 22px;
+      border-bottom: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+
+    .summary-total-label { font-size: 0.82rem; font-weight: 700; color: var(--text-dark); }
+    .summary-total-note  { font-size: 0.68rem; color: var(--text-faint); margin-top: 2px; }
+
+    .summary-total-fig {
+      font-size: 1.9rem; font-weight: 800;
+      letter-spacing: -0.04em; color: var(--text-dark); line-height: 1; text-align: right;
+    }
+
+    .summary-total-fig sup { font-size: 0.9rem; font-weight: 700; vertical-align: super; letter-spacing: 0; }
+    .summary-total-tax { font-size: 0.68rem; color: var(--text-faint); text-align: right; margin-top: 2px; }
+
+    /* Renewal */
+    .summary-renewal {
+      padding: 14px 22px;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: flex-start; gap: 9px;
+    }
+
+    .renewal-icon { flex-shrink: 0; margin-top: 1px; }
+    .renewal-icon svg { width: 13px; height: 13px; stroke: var(--text-muted); stroke-width: 1.8; fill: none; }
+    .renewal-text { font-size: 0.74rem; color: var(--text-muted); line-height: 1.6; }
+    .renewal-text strong { color: var(--text-dark); font-weight: 600; }
+
+    /* Features */
+    .summary-features { padding: 16px 22px; }
+
+    .feature-item {
+      display: flex; align-items: center; gap: 9px;
+      padding: 6px 0; font-size: 0.78rem; color: var(--text-dark);
+      border-bottom: 1px solid var(--border-soft); font-weight: 400;
+    }
+
+    .feature-item:first-child { padding-top: 0; }
+    .feature-item:last-child  { border-bottom: none; padding-bottom: 0; }
+
+    .feat-check {
+      width: 17px; height: 17px; border-radius: 50%;
+      background: var(--green-bg); border: 1px solid rgba(26, 155, 95, 0.2);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+
+    .feat-check svg { width: 8px; height: 8px; stroke: var(--green); stroke-width: 3; fill: none; }
+
+    /* ─────────────────────────────────────────────────────────────
+       TRUST FOOTER — three signals only, minimal
+    ───────────────────────────────────────────────────────────── */
+    .trust-footer {
+      max-width: 1080px; margin: 0 auto;
+      padding: 0 28px 52px;
+      display: flex; align-items: center;
+      justify-content: center;
+      gap: 0; flex-wrap: wrap;
+      opacity: 0; animation: fadeUp 0.7s ease 0.4s forwards;
+    }
+
+    .trust-item {
+      display: flex; align-items: center; gap: 7px;
+      font-size: 0.71rem; font-weight: 500;
+      color: var(--text-faint); letter-spacing: 0.02em;
+      padding: 0 24px;
+    }
+
+    .trust-item svg {
+      width: 13px; height: 13px;
+      stroke: var(--text-faint); stroke-width: 1.7;
+      fill: none; flex-shrink: 0;
+    }
+
+    .trust-sep {
+      width: 1px; height: 16px;
+      background: var(--border);
+    }
+
+    /* ─────────────────────────────────────────────────────────────
+       KEYFRAMES
+    ───────────────────────────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ─────────────────────────────────────────────────────────────
+       RESPONSIVE
+    ───────────────────────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .checkout-wrap   { grid-template-columns: 1fr; padding: 32px 20px 60px; gap: 24px; }
+      .summary-panel   { position: static; order: -1; }
+      .summary-device-img { width: 52px; height: 52px; }
+    }
+
+    @media (max-width: 640px) {
+      .nav-links-desktop { display: none; }
+      .menu-trigger      { display: block; }
+      .nav-secure-badge  { display: none; }
+      .field-row         { grid-template-columns: 1fr; }
+      .panel-card        { padding: 22px 18px; border-radius: 16px; }
+      .summary-section,
+      .summary-total,
+      .summary-renewal,
+      .summary-features  { padding-left: 18px; padding-right: 18px; }
+      .summary-device    { padding: 18px; }
+      .step-item > span  { display: none; }
+      .step-item.active > span,
+      .step-item.done   > span { display: block; }
+      .trust-item        { padding: 0 14px; font-size: 0.67rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAVBAR ───────────────────────────────────────────────────── -->
+<nav class="navbar-custom">
+  <div class="nav-container">
+    <a class="navbar-brand" href="/"><img src="assets/img/logos/logo.png" alt="More4Less"></a>
+
+
+
+    <ul class="nav-links-desktop">
+      <li><a href="/#pricing">Pricing</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/portal" class="btn-portal-top">Customer Portal</a></li>
+    </ul>
+
+    <button class="menu-trigger" id="menuTrigger" aria-label="Open menu">
+      <div class="menu-icon"><span></span><span></span><span></span></div>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile overlay -->
+<div class="mobile-overlay" id="mobileOverlay">
+  <ul class="mobile-nav-links">
+    <li><a href="/#pricing">Pricing</a></li>
+    <li><a href="/contact">Contact</a></li>
+    <li><a href="/portal">Customer Portal</a></li>
+  </ul>
+</div>
+
+<!-- ── PAGE ─────────────────────────────────────────────────────── -->
+<div class="page">
+  <div class="checkout-wrap">
+
+    <!-- ── LEFT — form ────────────────────────────────────────── -->
+    <div class="form-panel">
+
+      <!-- Steps bar -->
+      <div class="steps-bar">
+        <div class="step-item active" id="st-1">
+          <div class="step-dot">
+            <span class="step-num">1</span>
+            <span class="step-check"></span>
+          </div>
+          <span>Your Details</span>
+        </div>
+        <div class="step-connector" id="cn-1"></div>
+        <div class="step-item" id="st-2">
+          <div class="step-dot">
+            <span class="step-num">2</span>
+            <span class="step-check"></span>
+          </div>
+          <span>Payment</span>
+        </div>
+        <div class="step-connector" id="cn-2"></div>
+        <div class="step-item" id="st-3">
+          <div class="step-dot">
+            <span class="step-num">3</span>
+            <span class="step-check"></span>
+          </div>
+          <span>Confirmed</span>
+        </div>
+      </div>
+
+      <!-- Contact form card — id="secure" for anchor linking -->
+      <div class="panel-card" id="secure">
+        <div class="panel-title">Contact Information</div>
+
+        <div class="field-row">
+          <div class="field" id="fg-first">
+            <label for="f-first">First Name</label>
+            <input type="text" id="f-first" placeholder="Jane"
+                   autocomplete="given-name" spellcheck="false">
+            <div class="field-err">Required.</div>
+          </div>
+          <div class="field" id="fg-last">
+            <label for="f-last">Last Name</label>
+            <input type="text" id="f-last" placeholder="Smith"
+                   autocomplete="family-name" spellcheck="false">
+            <div class="field-err">Required.</div>
+          </div>
+        </div>
+
+      
+
+        <div class="field" id="fg-email">
+          <label for="f-email">Email Address</label>
+          <input type="email" id="f-email" placeholder="jane@example.com"
+                 autocomplete="email" spellcheck="false">
+          <div class="field-err">Please enter a valid email address.</div>
+        </div>
+
+          <div class="field" id="fg-phone">
+          <label for="f-phone">Phone Number</label>
+          <input type="tel" id="f-phone" placeholder="416-555-0123"
+                 autocomplete="tel">
+          <div class="field-err">Please enter a valid phone number.</div>
+        </div>
+
+        <br>
+
+        <button class="btn-submit" id="submitBtn" onclick="handleSubmit()">
+          <span class="btn-lbl">Continue to Payment</span>
+          <div class="btn-spin"></div>
+          <svg class="btn-arr" viewBox="0 0 16 16" fill="none"
+               stroke-linecap="round" stroke-linejoin="round">
+            <line x1="2" y1="8" x2="13" y2="8"/>
+            <polyline points="9,4 13,8 9,12"/>
+          </svg>
+        </button>
+
+        <div class="btn-secure">
+          <svg viewBox="0 0 14 14" fill="none" stroke-linecap="round">
+            <rect x="2" y="6" width="10" height="7" rx="1.5"/>
+            <path d="M4.5 6V4.5a2.5 2.5 0 015 0V6"/>
+          </svg>
+          SSL encrypted — payment handled by Chargebee, never stored by us
+        </div>
+      </div>
+
+      <!-- What happens next -->
+      <div class="panel-card">
+        <div class="panel-title">What Happens Next</div>
+
+        <div class="next-step">
+          <div class="next-step-icon">
+            <svg viewBox="0 0 16 16" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="4" width="12" height="9" rx="1.5"/>
+              <path d="M2 8h12"/>
+            </svg>
+          </div>
+          <div>
+            <div class="next-step-label">Secure Payment</div>
+            <div class="next-step-desc">Enter your card in Chargebee's encrypted checkout. Your details are never stored by More4Less.</div>
+          </div>
+        </div>
+
+        <div class="next-step">
+          <div class="next-step-icon">
+            <svg viewBox="0 0 16 16" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 8.5l3.5 3.5 7-7"/>
+            </svg>
+          </div>
+          <div>
+            <div class="next-step-label">Instant Confirmation</div>
+            <div class="next-step-desc">You'll receive an email with your order summary and activation instructions right away.</div>
+          </div>
+        </div>
+
+        <div class="next-step">
+          <div class="next-step-icon">
+            <svg viewBox="0 0 16 16" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 10l2-6h6l2 6"/>
+              <path d="M1 10h14"/>
+              <path d="M6 10v3m4-3v3"/>
+            </svg>
+          </div>
+          <div>
+            <div class="next-step-label">Device Ships To You</div>
+            <div class="next-step-desc">Your Orbi LBR20 ships pre-configured with your SIM. Plug in and connect — it just works.</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /form-panel -->
+
+    <!-- ── RIGHT — order summary ──────────────────────────────── -->
+    <div class="summary-panel">
+
+      <!-- Device -->
+      <div class="summary-device">
+        <img src="assets/img/products/lbr20.png"
+             alt="NETGEAR Orbi LBR20"
+             class="summary-device-img">
+        <div>
+          <div class="summary-device-eyebrow">Your Order</div>
+          <div class="summary-device-name">Orbi LBR20</div>
+          <div class="summary-device-sub">4G LTE Mesh WiFi Router</div>
+        </div>
+      </div>
+
+<!-- Price breakdown -->
+<div class="summary-section">
+  <div class="summary-section-label">Included With Your Order</div>
+
+  <div class="breakdown-row">
+    <div class="bd-label">
+      <strong>Orbi</strong>
+      <small>4G LTE Tri-Band Mesh WiFi Router</small>
+    </div>
+    <span class="bd-val">$249</span>
+  </div>
+
+  <div class="breakdown-row">
+    <div class="bd-label">
+      <strong>Unlimited Data — First Month Included</strong>
+      <small>Ready To Use Out Of The Box</small>
+    </div>
+    <span class="bd-val free">Included</span>
+  </div>
+
+  <div class="breakdown-row">
+    <span class="bd-label">Activation</span>
+    <span class="bd-val free">$0</span>
+  </div>
+
+  <div class="breakdown-row">
+    <span class="bd-label">Shipping</span>
+    <span class="bd-val free">$0</span>
+  </div>
+
+  <div class="breakdown-row">
+    <span class="bd-label">Contract Commitment</span>
+    <span class="bd-val tag">No Contract Required</span>
+  </div>
+</div>
+
+      <!-- Total -->
+      <div class="summary-total">
+        <div>
+          <div class="summary-total-label">Due Today</div>
+          <div class="summary-total-note">Device + first month included</div>
+        </div>
+        <div>
+          <div class="summary-total-fig"><sup>$</sup>249</div>
+          <div class="summary-total-tax">+ applicable tax</div>
+        </div>
+      </div>
+
+      <!-- Renewal -->
+      <div class="summary-renewal">
+        <div class="renewal-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color:var(--text-muted)">
+            <path d="M13.5 8A5.5 5.5 0 1 1 8 2.5"/>
+            <polyline points="8,2.5 13.5,2.5 13.5,8"/>
+          </svg>
+        </div>
+        <div class="renewal-text">
+          After the first month, unlimited internet renews at <strong>$110 / month</strong>. No contract — cancel anytime from your account portal.
+        </div>
+      </div>
+
+   <!-- Features -->
+<div class="summary-features">
+  <div class="summary-section-label">Everything Included</div>
+
+  <div class="feature-item">
+    <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+    Up To 2.2 Gbps Tri-Band WiFi (AC2200)
+  </div>
+
+  <div class="feature-item">
+    <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+    Truly Unlimited Data — No Caps Or Slowdowns
+  </div>
+
+  <div class="feature-item">
+    <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+    Connect Up To 64 Devices
+  </div>
+
+  <div class="feature-item">
+    <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+    Covers Up To 2,000 Sq. Ft. — Expandable Via Orbi Satellites
+  </div>
+
+  <div class="feature-item">
+    <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+    Tri-Band Mesh · 2.4 GHz + 5 GHz + 5 GHz Backhaul
+  </div>
+
+  <div class="feature-item">
+    <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+    30-Day Money-Back Guarantee
+  </div>
+</div>
+    </div><!-- /summary-panel -->
+
+  </div><!-- /checkout-wrap -->
+
+  <!-- ── TRUST FOOTER — three signals, clean ───────────────────── -->
+  <div class="trust-footer">
+    <div class="trust-item">
+      <svg viewBox="0 0 14 14" fill="none" stroke-linecap="round">
+        <rect x="2" y="6" width="10" height="7" rx="1.5"/>
+        <path d="M4.5 6V4.5a2.5 2.5 0 015 0V6"/>
+      </svg>
+      SSL Encrypted
+    </div>
+    <div class="trust-sep"></div>
+    <div class="trust-item">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="7" cy="7" r="5.5"/>
+        <path d="M7 4.5v3l1.5 1"/>
+      </svg>
+      Cancel Anytime
+    </div>
+    <div class="trust-sep"></div>
+    <div class="trust-item">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M2 7l3.5 3.5L12 3"/>
+      </svg>
+      30-Day Money-Back
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+<!-- ── SCRIPT ────────────────────────────────────────────────────── -->
+<script>
+(function () {
+  'use strict';
+
+  /* ── CONFIG ─────────────────────────────────────────────────── */
+  var CB_SITE    = 'more4lessplans';
+  var CB_PLAN_ID = 'wireless-internet-lbr20';
+  var WORKER_URL = '/api/create-checkout';
+  var CONFIRM    = '/active';
+
+  var cbInstance = Chargebee.init({ site: CB_SITE });
+
+  /* ── MOBILE MENU — matches site pattern exactly ─────────────── */
+  var trigger  = document.getElementById('menuTrigger');
+  var overlay  = document.getElementById('mobileOverlay');
+
+  function toggleMenu() {
+    var open = trigger.classList.toggle('menu-active');
+    overlay.classList.toggle('active', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+
+  trigger.addEventListener('click', function (e) {
+    e.stopPropagation(); toggleMenu();
+  });
+
+  overlay.addEventListener('click', function (e) {
+    if (!e.target.closest('a') && overlay.classList.contains('active')) toggleMenu();
+  });
+
+  /* ── STEP MACHINE ────────────────────────────────────────────── */
+  function setStep(n) {
+    [['st-1',1],['st-2',2],['st-3',3]].forEach(function (pair) {
+      var el = document.getElementById(pair[0]);
+      var i  = pair[1];
+      el.className = 'step-item' + (i < n ? ' done' : i === n ? ' active' : '');
+    });
+    [['cn-1',1],['cn-2',2]].forEach(function (pair) {
+      var el = document.getElementById(pair[0]);
+      el.className = 'step-connector' + (pair[1] < n ? ' done' : '');
+    });
+  }
+
+  /* ── VALIDATION ──────────────────────────────────────────────── */
+  function clearErrors() {
+    document.querySelectorAll('.field.has-err').forEach(function (el) { el.classList.remove('has-err'); });
+    document.querySelectorAll('input.err').forEach(function (el) { el.classList.remove('err'); });
+  }
+
+  function flagErr(inputId, groupId) {
+    var i = document.getElementById(inputId);
+    var g = document.getElementById(groupId);
+    if (i) i.classList.add('err');
+    if (g) g.classList.add('has-err');
+  }
+
+  function isPhone(v) { return v.replace(/[\s\-()+.]/g,'').length >= 7; }
+
+  /* Live — clear on fix */
+  ['f-first','f-last','f-phone','f-email'].forEach(function (id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener('input', function () {
+      this.classList.remove('err');
+      var p = this.closest('.field');
+      if (p) p.classList.remove('has-err');
+    });
+  });
+
+  function isEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+
+  function collect() {
+    clearErrors();
+    var first = document.getElementById('f-first').value.trim();
+    var last  = document.getElementById('f-last').value.trim();
+    var phone = document.getElementById('f-phone').value.trim();
+    var email = document.getElementById('f-email').value.trim();
+    var ok    = true;
+
+    if (!first)           { flagErr('f-first','fg-first');  ok = false; }
+    if (!last)            { flagErr('f-last', 'fg-last');   ok = false; }
+    if (!isPhone(phone))  { flagErr('f-phone','fg-phone');  ok = false; }
+    if (!isEmail(email))  { flagErr('f-email','fg-email');  ok = false; }
+
+    if (!ok) {
+      var f = document.querySelector('.field.has-err input');
+      if (f) f.focus();
+      return null;
+    }
+
+    return {
+      plan_id: CB_PLAN_ID, sim_type: 'physical',
+      first_name: first, last_name: last,
+      phone: phone, email: email
+    };
+  }
+
+  /* ── SUBMIT ──────────────────────────────────────────────────── */
+  function handleSubmit() {
+    var data = collect();
+    if (!data) return;
+
+    var btn = document.getElementById('submitBtn');
+    btn.classList.add('loading');
+    btn.disabled = true;
+
+    sessionStorage.setItem('m4l_order', JSON.stringify(data));
+    setStep(2);
+
+    fetch(WORKER_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    })
+    .then(function (res) {
+      return res.json().then(function (body) {
+        if (!res.ok) throw new Error('Worker ' + res.status + ': ' + (body.error || ''));
+        return body;
+      });
+    })
+    .then(function (result) {
+      btn.classList.remove('loading');
+      btn.disabled = false;
+
+      cbInstance.openCheckout({
+        hostedPage: function () { return Promise.resolve(result.hosted_page); },
+        success: function (id) {
+          sessionStorage.setItem('m4l_cb_page', id);
+          setStep(3);
+          window.location.href = CONFIRM;
+        },
+        close: function () {
+          btn.classList.remove('loading');
+          btn.disabled = false;
+          setStep(1);
+        },
+        error: function (err) {
+          console.error('Chargebee error:', err);
+          btn.classList.remove('loading');
+          btn.disabled = false;
+          setStep(1);
+        }
+      });
+    })
+    .catch(function (err) {
+      console.error(err);
+      btn.classList.remove('loading');
+      btn.disabled = false;
+      setStep(1);
+      alert('Something went wrong — please try again or contact support.');
+    });
+  }
+
+  window.handleSubmit = handleSubmit;
+
+})();
+</script>
+</body>
+</html>
