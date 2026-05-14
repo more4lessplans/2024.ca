@@ -566,7 +566,8 @@
       padding: 0 28px 52px;
       display: flex; align-items: center;
       justify-content: center;
-      gap: 0; flex-wrap: wrap;
+      gap: 0; flex-wrap: nowrap;
+      white-space: nowrap;
       opacity: 0; animation: fadeUp 0.7s ease 0.4s forwards;
     }
 
@@ -575,6 +576,8 @@
       font-size: 0.71rem; font-weight: 500;
       color: var(--text-faint); letter-spacing: 0.02em;
       padding: 0 24px;
+      flex-shrink: 0;
+      white-space: nowrap;
     }
 
     .trust-item svg {
@@ -586,6 +589,7 @@
     .trust-sep {
       width: 1px; height: 16px;
       background: var(--border);
+      flex-shrink: 0;
     }
 
     /* ─────────────────────────────────────────────────────────────
@@ -621,7 +625,8 @@
       .step-item > span  { display: none; }
       .step-item.active > span,
       .step-item.done   > span { display: block; }
-      .trust-item        { padding: 0 14px; font-size: 0.67rem; }
+      .trust-item        { padding: 0 10px; font-size: 0.62rem; letter-spacing: 0; }
+      .trust-item svg    { width: 11px; height: 11px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -862,8 +867,10 @@
       <div class="summary-renewal">
         <div class="renewal-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color:var(--text-muted)">
-            <path d="M13.5 8A5.5 5.5 0 1 1 8 2.5"/>
-            <polyline points="8,2.5 13.5,2.5 13.5,8"/>
+            <path d="M2.5 8a5.5 5.5 0 0 1 9.5-3.8"/>
+            <path d="M13.5 8a5.5 5.5 0 0 1-9.5 3.8"/>
+            <polyline points="9.5,1.5 11.5,4.2 8.5,4.8"/>
+            <polyline points="6.5,14.5 4.5,11.8 7.5,11.2"/>
           </svg>
         </div>
         <div class="renewal-text">
