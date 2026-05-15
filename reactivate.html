@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en-US" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Reactivate Service | More4Less Wireless Internet & Prepaid Service</title>
+  <meta name="keywords" content="reactivate internet service, replacement SIM card, wireless internet Canada, LTE SIM card, 5G SIM card, More4Less SIM card, rural internet reactivation, RV internet service, mobile internet reactivation, unlimited data plans">
+  <meta name="description" content="Reactivate your More4Less Wireless Internet service by ordering a replacement SIM card. Get back online with LTE or 5G internet for rural homes, RVs, and travelers across Canada.">
+  <meta property="og:title" content="Reactivate Service | More4Less Wireless Internet & SIM Plans">
+  <meta property="og:description" content="Order a replacement SIM card to reactivate your More4Less LTE or 5G internet service for rural homes, RVs, and travelers in Canada.">
+  <meta property="og:image" content="https://more4lessplans.ca/assets/img/products/SIM.png">
+  <meta property="og:url" content="https://more4lessplans.ca/reactivate">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Reactivate Service | More4Less Wireless Internet & SIM Plans">
+  <meta name="twitter:description" content="Get back online with a replacement SIM card for your More4Less wireless internet plan.">
+  <meta name="twitter:image" content="https://more4lessplans.ca/assets/img/products/SIM.png">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicons/favicon-16x16.png">
+  <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicons/favicon.ico">
+  <link rel="manifest" href="assets/img/favicons/manifest.json">
+  <meta name="msapplication-TileImage" content="assets/img/favicons/mstile-150x150.png">
+  <meta name="theme-color" content="#2E2F34">
+
+  <link rel="stylesheet" href="/navbar.css">
+  <link rel="stylesheet" href="/footer.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+
+  <style>
+    /* ─── TOKENS ─────────────────────────────────────────────── */
+    :root {
+      --brand-red:      #D73C59;
+      --brand-red-dark: #b82e48;
+      --bg-nav:         #2E2F33;
+      --bg-page:        #F5F5F7;
+      --text-dark:      #1d1d1f;
+      --text-muted:     #6e6e73;
+      --border:         #e2e2e6;
+      --card-bg:        #ffffff;
+      --card-radius:    26px;
+      --nav-h:          68px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 15px; }
+
+    /* ─── NO SCROLL ──────────────────────────────────────────── */
+    html, body {
+      overflow: hidden;
+      height: 100%;
+      width: 100%;
+    }
+
+    body {
+      font-family: 'Figtree', sans-serif;
+      background: var(--bg-page);
+      color: var(--text-dark);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── NAVBAR (UNCHANGED) ─────────────────────────────────── */
+    .navbar-custom {
+      background-color: var(--bg-nav);
+      padding: 1.2rem 0;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 4000;
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 25px;
+    }
+
+    .navbar-brand img { height: 22px; }
+
+    .nav-links-desktop {
+      display: flex;
+      align-items: center;
+      list-style: none;
+    }
+
+    .nav-links-desktop li a {
+      color: #ffffff;
+      font-weight: 500;
+      font-size: 0.85rem;
+      margin: 0 18px;
+      text-decoration: none;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+      position: relative;
+    }
+
+    .nav-links-desktop li a:hover { opacity: 1; }
+
+    .nav-links-desktop li a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -4px;
+      left: 0;
+      background-color: var(--brand-red);
+      transition: width 0.4s cubic-bezier(0.2, 1, 0.2, 1);
+    }
+
+    .nav-links-desktop li a:hover::after { width: 100%; }
+
+    .btn-portal-top::after { display: none !important; }
+
+    .btn-portal-top {
+      background: var(--brand-red);
+      color: white !important;
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-weight: 600;
+      opacity: 1 !important;
+      transition: all 0.3s ease !important;
+    }
+
+    .btn-portal-top:hover {
+      background: #ffffff !important;
+      color: var(--text-dark) !important;
+      transform: translateY(-2px);
+    }
+
+    .menu-trigger {
+      display: none;
+      cursor: pointer;
+      padding: 10px;
+      z-index: 5001;
+      position: relative;
+    }
+
+    .menu-icon {
+      width: 26px;
+      height: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .menu-icon span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: #fff;
+      border-radius: 10px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .menu-active .menu-icon span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .menu-active .menu-icon span:nth-child(2) { opacity: 0; transform: translateX(10px); }
+    .menu-active .menu-icon span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    .mobile-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(29, 29, 31, 0.98);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 4500;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+
+    .mobile-overlay.active { opacity: 1; visibility: visible; }
+
+    .mobile-nav-links { list-style: none; padding: 0; text-align: center; }
+
+    .mobile-nav-links li {
+      margin: 25px 0;
+      transform: translateY(20px);
+      opacity: 0;
+      transition: 0.4s ease;
+    }
+
+    .mobile-overlay.active .mobile-nav-links li { transform: translateY(0); opacity: 1; }
+
+    .mobile-nav-links li:nth-child(1) { transition-delay: 0.10s; }
+    .mobile-nav-links li:nth-child(2) { transition-delay: 0.15s; }
+    .mobile-nav-links li:nth-child(3) { transition-delay: 0.20s; }
+
+    .mobile-nav-links a {
+      color: #fff;
+      font-size: 2.2rem;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: -0.03em;
+      position: relative;
+      display: inline-block;
+    }
+
+    .mobile-nav-links a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 3px;
+      bottom: -4px;
+      left: 0;
+      background-color: var(--brand-red);
+      transition: width 0.4s cubic-bezier(0.2, 1, 0.2, 1);
+    }
+
+    .mobile-nav-links a:hover::after { width: 100%; }
+
+    /* ─── PAGE LAYOUT ────────────────────────────────────────── */
+    html, body { height: 100%; overflow: hidden; }
+
+    .page-wrap {
+      position: fixed;
+      inset: 0;
+      top: var(--nav-h);
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      background: var(--bg-page);
+    }
+
+    .checkout-grid {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 28px;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 48px 24px 64px;
+      align-items: start;
+    }
+
+    /* ─── LEFT PANEL ─────────────────────────────────────────── */
+    .info-panel {
+      opacity: 0;
+      animation: riseIn 0.8s cubic-bezier(0.22,1,0.36,1) 0.1s forwards;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+    }
+
+    .eyebrow-line {
+      display: block;
+      width: 22px;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .headline {
+      font-family: 'Rubik', sans-serif;
+      font-size: clamp(2rem, 4vw, 2.9rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.06;
+      color: var(--text-dark);
+      margin-bottom: 12px;
+    }
+
+    .sub {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.75;
+      margin-bottom: 36px;
+      max-width: 420px;
+    }
+
+    /* ─── NOTICE BANNER ──────────────────────────────────────── */
+    .notice-banner {
+      background: #fff8e6;
+      border: 1px solid #f5d87a;
+      border-radius: 14px;
+      padding: 18px 20px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      margin-bottom: 32px;
+    }
+
+    .notice-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: #f5d87a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 1rem;
+    }
+
+    .notice-body strong {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #7a5c00;
+      margin-bottom: 4px;
+    }
+
+    .notice-body p {
+      font-size: 0.83rem;
+      color: #9a7510;
+      line-height: 1.6;
+    }
+
+    /* ─── HOW IT WORKS STEPS ─────────────────────────────────── */
+    .steps-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .steps-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-bottom: 36px;
+    }
+
+    .step-row {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      position: relative;
+    }
+
+    .step-row:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 15px;
+      top: 34px;
+      bottom: -6px;
+      width: 1px;
+      background: var(--border);
+    }
+
+    .step-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--bg-nav);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .step-content {
+      padding-bottom: 22px;
+    }
+
+    .step-content strong {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 3px;
+    }
+
+    .step-content p {
+      font-size: 0.83rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ─── TRUST ROW ──────────────────────────────────────────── */
+    .trust-row {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .trust-item svg {
+      color: var(--text-muted);
+    }
+
+    /* ─── RIGHT PANEL (ORDER CARD) ───────────────────────────── */
+    .order-panel {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      overflow: hidden;
+      box-shadow:
+        0 1px 2px rgba(0,0,0,0.04),
+        0 4px 12px rgba(0,0,0,0.05),
+        0 16px 40px rgba(0,0,0,0.06);
+      opacity: 0;
+      animation: riseIn 0.9s cubic-bezier(0.22,1,0.36,1) 0.25s forwards;
+      position: relative;
+    }
+
+    .order-panel::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 10%; right: 10%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.9), transparent);
+    }
+
+    /* Product header */
+    .order-header {
+      padding: 28px 28px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .sim-img-wrap {
+      width: 72px;
+      height: 72px;
+      border-radius: 14px;
+      background: var(--bg-page);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .sim-img-wrap img {
+      max-width: 46px;
+      height: auto;
+    }
+
+    .order-header-text .eyebrow-sm {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .order-header-text .product-name {
+      font-family: 'Rubik', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      letter-spacing: -0.02em;
+    }
+
+    .order-header-text .product-sub {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* Breakdown rows */
+    .order-body {
+      padding: 20px 28px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-label {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .breakdown-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 9px 0;
+      border-top: 1px solid var(--border);
+      font-size: 0.84rem;
+    }
+
+    .breakdown-row:first-of-type { border-top: none; }
+
+    .bd-label { color: var(--text-dark); font-weight: 500; }
+    .bd-val   { color: var(--text-dark); font-weight: 600; }
+    .bd-free  { color: #34a853; font-weight: 600; }
+
+    .bd-tag {
+      font-size: 0.72rem;
+      font-weight: 600;
+      background: #f0f0f5;
+      color: var(--text-muted);
+      border-radius: 6px;
+      padding: 3px 8px;
+    }
+
+    /* Total */
+    .order-total {
+      padding: 20px 28px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .total-left .total-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+    }
+
+    .total-left .total-note {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .total-fig {
+      font-family: 'Rubik', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--text-dark);
+    }
+
+    .total-fig sup {
+      font-size: 1rem;
+      font-weight: 700;
+      vertical-align: super;
+    }
+
+    .total-tax {
+      font-size: 0.65rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      vertical-align: super;
+      margin-left: 3px;
+      letter-spacing: 0.02em;
+    }
+
+    /* CTA area */
+    .order-cta {
+      padding: 24px 28px 28px;
+    }
+
+    .cta-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-align: center;
+      margin-bottom: 14px;
+    }
+
+    /* Simplified Checkout Button Styling */
+    .btn-checkout {
+      display: block;
+      width: 100%;
+      background: var(--bg-nav);
+      border: 1.5px solid var(--bg-nav);
+      color: #fff;
+      font-family: 'Figtree', sans-serif;
+      font-weight: 600;
+      font-size: 0.92rem;
+      border-radius: 14px;
+      padding: 15px 0;
+      text-align: center;
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .btn-checkout:hover {
+      background: #4e5058;
+      border-color: #4e5058;
+      color: #fff;
+    }
+
+    .btn-checkout:active {
+      transform: scale(0.98);
+    }
+
+    .helper-text {
+      font-size: 0.78rem;
+      color: #aaaaaf;
+      text-align: center;
+      margin-top: 14px;
+    }
+
+    .helper-text a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 500;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .helper-text a:hover { color: var(--text-dark); border-color: var(--text-dark); }
+
+    /* ─── ANIMATION ──────────────────────────────────────────── */
+    @keyframes riseIn {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────────── */
+    @media (max-width: 720px) {
+      html, body { overflow: auto; }
+      .page-wrap { position: static; overflow: visible; padding-top: var(--nav-h); }
+      .checkout-grid {
+        grid-template-columns: 1fr;
+        padding: 32px 16px 56px;
+        gap: 24px;
+      }
+      .order-panel { order: -1; }
+      .menu-trigger { display: flex; }
+      .nav-links-desktop { display: none; }
+      /* Center hero text on mobile */
+      .eyebrow { justify-content: center; }
+      .headline { text-align: center; }
+      .sub { text-align: center; margin-left: auto; margin-right: auto; }
+      /* Trust row: single centered row, no wrapping */
+      .trust-row {
+        justify-content: center;
+        gap: 18px;
+        flex-wrap: nowrap;
+      }
+      .trust-item { white-space: nowrap; font-size: 0.75rem; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="navbar-custom">
+    <div class="nav-container">
+      <a class="navbar-brand" href="/">
+        <img src="assets/img/logos/logo.png" alt="More4Less">
+      </a>
+
+      <ul class="nav-links-desktop">
+         <li><a href="/#pricing">Pricing</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/portal" class="btn-portal-top">Customer Portal</a></li>
+      </ul>
+
+      <div class="menu-trigger" id="menuTrigger" onclick="toggleMenu()">
+        <div class="menu-icon">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="mobile-overlay" id="mobileOverlay">
+    <ul class="mobile-nav-links">
+      <li><a href="/#pricing">Pricing</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/portal">Account Portal</a></li>
+    </ul>
+  </div>
+
+  <div class="page-wrap">
+    <div class="checkout-grid">
+
+      <div class="info-panel">
+
+        <h1 class="headline">Get Back Online.</h1>
+
+        <p class="sub">To reactivate your More4Less service, you'll need a new SIM card. Order one below and we'll ship it right to your door.</p>
+
+        <div class="notice-banner">
+          <div class="notice-icon">⏱</div>
+          <div class="notice-body">
+            <strong>Order At Least 2 Weeks Before You Need Internet</strong>
+            <p>    This allows time for shipping and remote activation before your service begins.</p>
+          </div>
+        </div>
+
+        <div class="steps-label">How It Works</div>
+        <div class="steps-list">
+
+          <div class="step-row">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <strong>Order Your Replacement SIM</strong>
+              <p>Click "Order SIM Card" and complete checkout. It's just $10, shipping included.</p>
+            </div>
+          </div>
+
+          <div class="step-row">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <strong>We Ship Your New SIM</strong>
+              <p>An unactivated SIM card ships to your address. Allow a few business days for delivery.</p>
+            </div>
+          </div>
+
+          <div class="step-row">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <strong>We Activate Your Service</strong>
+              <p>Once your SIM arrives, contact us and we'll get your plan reactivated and ready to go.</p>
+            </div>
+          </div>
+
+          <div class="step-row">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <strong>Plug In &amp; Connect</strong>
+              <p>Insert the SIM into your device — you're back online.</p>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="trust-row">
+          <div class="trust-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="1" y="3" width="15" height="13" rx="1"/>
+              <path d="M16 8h4l3 5v4h-7V8z"/>
+              <circle cx="5.5" cy="18.5" r="1.5"/><circle cx="18.5" cy="18.5" r="1.5"/>
+            </svg>
+            Shipping Included
+          </div>
+          <div class="trust-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="9" y1="15" x2="15" y2="15"/>
+            </svg>
+            No Contract
+          </div>
+          <div class="trust-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+            Secure Checkout
+          </div>
+        </div>
+
+      </div>
+
+      <div class="order-panel">
+
+        <div class="order-header">
+          <div class="sim-img-wrap">
+            <img src="assets/img/products/SIM.png" alt="More4Less SIM Card">
+          </div>
+          <div class="order-header-text">
+            <div class="eyebrow-sm">Your Order</div>
+            <div class="product-name">New SIM Card</div>
+            <div class="product-sub">LTE &amp; 5G Compatible</div>
+          </div>
+        </div>
+
+        <div class="order-body">
+          <div class="section-label">What's Included</div>
+
+          <div class="breakdown-row">
+            <span class="bd-label">SIM Card</span>
+            <span class="bd-val">$10.00</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="bd-label">Shipping &amp; Handling</span>
+            <span class="bd-free">Included</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="bd-label">Contract</span>
+            <span class="bd-tag">No Contract</span>
+          </div>
+        </div>
+
+        <div class="order-total">
+          <div class="total-left">
+            <div class="total-label">Total Today</div>
+            <div class="total-note">Shipping &amp; handling included</div>
+          </div>
+          <div class="total-fig"><sup>$</sup>10<span class="total-tax">+tax</span></div>
+        </div>
+
+        <div class="order-cta">
+          <div class="cta-label">Order your SIM card to get started</div>
+          <a href="https://more4less-plans.myshopify.com/cart/43701468823732:1?channel=buy_button" class="btn-checkout">Order SIM Card</a>
+          <p class="helper-text">Questions? <a href="/contact">Contact Support →</a></p>
+        </div>
+
+      </div>
+      </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="vendors/is/is.min.js"></script>
+  <script src="vendors/swiper/swiper-bundle.min.js"></script>
+  <script src="vendors/lodash/lodash.min.js"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
+  <script src="assets/js/theme.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Load footer
+      fetch('/footer.html')
+        .then(r => { if (!r.ok) throw new Error(r.status); return r.text(); })
+        .then(data => {
+          const container = document.getElementById('footer-container');
+          if (container) {
+            container.innerHTML = data;
+            const yr = document.getElementById('currentYear');
+            if (yr) yr.textContent = new Date().getFullYear();
+          }
+        })
+        .catch(e => console.error('Footer load error:', e));
+    });
+
+    // Mobile menu
+    function closeMenu() {
+      document.getElementById('menuTrigger').classList.remove('menu-active');
+      document.getElementById('mobileOverlay').classList.remove('active');
+    }
+
+    function toggleMenu() {
+      var trigger = document.getElementById('menuTrigger');
+      var overlay = document.getElementById('mobileOverlay');
+      trigger.classList.contains('menu-active') ? closeMenu() : (trigger.classList.add('menu-active'), overlay.classList.add('active'));
+    }
+
+    // Close on backdrop tap (not on link clicks)
+    document.getElementById('mobileOverlay').addEventListener('click', function (e) {
+      if (!e.target.closest('a')) closeMenu();
+    });
+  </script>
+</body>
+</html>
