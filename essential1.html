@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <script src="https://js.chargebee.com/v2/chargebee.js"></script>
+  <!-- NOTE: chargebee.js is NOT needed here — we use a raw iframe, not cbInstance.openCheckout() -->
 
   <style>
     /* ─────────────────────────────────────────────────────────────
@@ -55,7 +55,7 @@
     }
 
     /* ─────────────────────────────────────────────────────────────
-       NAVBAR — matches site exactly
+       NAVBAR
     ───────────────────────────────────────────────────────────── */
     .navbar-custom {
       background-color: var(--bg-nav);
@@ -76,7 +76,6 @@
 
     .navbar-brand img { height: 22px; }
 
-    /* Secure badge — right of logo, replaces main nav on checkout */
     .nav-secure-badge {
       display: flex; align-items: center; gap: 6px;
       font-size: 0.75rem; font-weight: 500;
@@ -132,7 +131,6 @@
       transform: translateY(-2px);
     }
 
-    /* Hamburger — matches site exactly */
     .menu-trigger {
       display: none;
       cursor: pointer;
@@ -160,7 +158,6 @@
     .menu-trigger.menu-active .menu-icon span:nth-child(2) { opacity: 0; transform: translateX(10px); }
     .menu-trigger.menu-active .menu-icon span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
-    /* Mobile overlay — matches site exactly */
     .mobile-overlay {
       position: fixed; inset: 0;
       background: rgba(29, 29, 31, 0.98);
@@ -188,7 +185,6 @@
     .mobile-nav-links li:nth-child(2) { transition-delay: 0.15s; }
     .mobile-nav-links li:nth-child(3) { transition-delay: 0.20s; }
 
-    /* font-weight: 700 — matches site (not 800/900) */
     .mobile-nav-links a {
       color: #fff;
       font-size: 2.2rem;
@@ -214,7 +210,7 @@
     .page { padding-top: var(--nav-h); }
 
     /* ─────────────────────────────────────────────────────────────
-       SHOPIFY-STYLE TWO-COLUMN LAYOUT
+       TWO-COLUMN LAYOUT
     ───────────────────────────────────────────────────────────── */
     .checkout-wrap {
       display: grid;
@@ -234,7 +230,6 @@
       animation: fadeUp 0.7s ease 0.1s forwards;
     }
 
-    /* ── Step indicator — matches site pattern ── */
     .steps-bar {
       display: flex; align-items: center;
       margin-bottom: 32px;
@@ -262,7 +257,6 @@
     .step-item.active .step-dot { border-color: var(--brand-red); color: var(--brand-red); }
     .step-item.done .step-dot   { background: var(--text-dark); border-color: var(--text-dark); color: #fff; }
 
-    /* Liquid-fill connector */
     .step-connector {
       flex: 1; height: 1px;
       background: var(--border);
@@ -279,12 +273,10 @@
 
     .step-connector.done::after { transform: scaleX(1); }
 
-    /* Checkmark swap */
     .step-check { display: none; width: 9px; height: 5px; border-left: 2px solid #fff; border-bottom: 2px solid #fff; transform: rotate(-45deg) translate(1px, -1px); }
     .step-item.done .step-num  { display: none; }
     .step-item.done .step-check { display: block; }
 
-    /* ── Panel card ── */
     .panel-card {
       background: #fff;
       border: 1px solid var(--border);
@@ -307,7 +299,6 @@
       background: var(--border-soft);
     }
 
-    /* ── Fields ── */
     .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 11px; margin-bottom: 11px; }
     .field { margin-bottom: 11px; }
     .field:last-of-type { margin-bottom: 0; }
@@ -349,7 +340,6 @@
 
     .field.has-err .field-err { display: block; }
 
-    /* ── Submit button ── */
     .btn-submit {
       display: flex; align-items: center; justify-content: center;
       gap: 10px; width: 100%;
@@ -366,7 +356,6 @@
       will-change: transform;
     }
 
-    /* shimmer on hover */
     .btn-submit::before {
       content: '';
       position: absolute; inset: 0;
@@ -408,7 +397,6 @@
       fill: none; flex-shrink: 0;
     }
 
-    /* ── What happens next ── */
     .next-step {
       display: flex; align-items: flex-start; gap: 14px;
       padding: 13px 0;
@@ -442,7 +430,6 @@
       opacity: 0; animation: fadeUp 0.7s ease 0.18s forwards;
     }
 
-    /* Device header */
     .summary-device {
       padding: 20px 22px;
       border-bottom: 1px solid var(--border);
@@ -474,7 +461,6 @@
       font-size: 0.72rem; color: var(--text-muted); margin-top: 2px;
     }
 
-    /* Breakdown */
     .summary-section { padding: 18px 22px; border-bottom: 1px solid var(--border); }
 
     .summary-section-label {
@@ -508,7 +494,6 @@
       font-size: 0.7rem; font-weight: 600;
     }
 
-    /* Total */
     .summary-total {
       padding: 18px 22px;
       border-bottom: 1px solid var(--border);
@@ -526,7 +511,6 @@
     .summary-total-fig sup { font-size: 0.9rem; font-weight: 700; vertical-align: super; letter-spacing: 0; }
     .summary-total-tax { font-size: 0.68rem; color: var(--text-faint); text-align: right; margin-top: 2px; }
 
-    /* Renewal */
     .summary-renewal {
       padding: 14px 22px;
       border-bottom: 1px solid var(--border);
@@ -538,7 +522,6 @@
     .renewal-text { font-size: 0.74rem; color: var(--text-muted); line-height: 1.6; }
     .renewal-text strong { color: var(--text-dark); font-weight: 600; }
 
-    /* Features */
     .summary-features { padding: 16px 22px; }
 
     .feature-item {
@@ -559,7 +542,7 @@
     .feat-check svg { width: 8px; height: 8px; stroke: var(--green); stroke-width: 3; fill: none; }
 
     /* ─────────────────────────────────────────────────────────────
-       TRUST FOOTER — three signals only, minimal
+       TRUST FOOTER
     ───────────────────────────────────────────────────────────── */
     .trust-footer {
       max-width: 1080px; margin: 0 auto;
@@ -590,6 +573,130 @@
       width: 1px; height: 16px;
       background: var(--border);
       flex-shrink: 0;
+    }
+
+    /* ─────────────────────────────────────────────────────────────
+       IFRAME CHECKOUT OVERLAY
+       — replaces cbInstance.openCheckout() popup
+       — works on Safari iOS because there's no window.open()
+    ───────────────────────────────────────────────────────────── */
+    #cb-iframe-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9000;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      opacity: 0;
+      animation: overlayIn 0.3s var(--ease-out) forwards;
+    }
+
+    @keyframes overlayIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    #cb-iframe-card {
+      background: #fff;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 540px;
+      /* Height is intentionally tall — Chargebee's form needs room.
+         On small screens it fills most of the viewport. */
+      height: min(720px, calc(100vh - 32px));
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 32px 80px rgba(0, 0, 0, 0.28), 0 0 0 1px rgba(0,0,0,0.06);
+      transform: translateY(20px);
+      animation: cardIn 0.35s var(--ease-spring) 0.05s forwards;
+    }
+
+    @keyframes cardIn {
+      from { transform: translateY(20px); opacity: 0.6; }
+      to   { transform: translateY(0);    opacity: 1; }
+    }
+
+    /* Thin header bar inside the card — shows "Secure Payment" + close button */
+    #cb-iframe-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    #cb-iframe-header-label {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.02em;
+    }
+
+    #cb-iframe-header-label svg {
+      width: 12px; height: 12px;
+      stroke: var(--green); stroke-width: 2; fill: none;
+    }
+
+    #cb-iframe-close {
+      background: var(--bg-summary);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      width: 28px; height: 28px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    #cb-iframe-close:hover {
+      background: #eaeaec;
+      transform: scale(1.08);
+    }
+
+    #cb-iframe-close svg {
+      width: 11px; height: 11px;
+      stroke: var(--text-muted); stroke-width: 2.2; fill: none;
+    }
+
+    /* The actual iframe */
+    #cb-iframe {
+      width: 100%;
+      flex: 1;
+      border: none;
+      display: block;
+      /* Chargebee's hosted page has its own scroll — let it scroll inside */
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Loading shimmer shown while iframe is loading */
+    #cb-iframe-loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      flex: 1;
+      color: var(--text-faint);
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    #cb-iframe-loading .load-spin {
+      width: 22px; height: 22px;
+      border: 2px solid var(--border);
+      border-top-color: var(--brand-red);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
     }
 
     /* ─────────────────────────────────────────────────────────────
@@ -627,32 +734,16 @@
       .step-item.done   > span { display: block; }
       .trust-item        { padding: 0 10px; font-size: 0.62rem; letter-spacing: 0; }
       .trust-item svg    { width: 11px; height: 11px; }
+
+      /* On mobile the iframe card fills almost the full screen */
+      #cb-iframe-card {
+        height: calc(100vh - 32px);
+        border-radius: 16px;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
-    }
-
-    /* ── Inline Chargebee checkout container ── */
-    #cb-container {
-      display: none;
-      width: 100%;
-      min-height: 620px;
-      border: 1px solid var(--border);
-      border-radius: var(--card-radius);
-      overflow: hidden;
-      margin-bottom: 14px;
-      background: #fff;
-    }
-
-    #cb-container.visible {
-      display: block;
-      animation: fadeUp 0.4s var(--ease-out) forwards;
-    }
-
-    /* Hide the contact card when inline checkout is showing */
-    .panel-card.cb-hidden {
-      display: none;
     }
   </style>
 </head>
@@ -662,8 +753,6 @@
 <nav class="navbar-custom">
   <div class="nav-container">
     <a class="navbar-brand" href="/"><img src="assets/img/logos/logo.png" alt="More4Less"></a>
-
-
 
     <ul class="nav-links-desktop">
       <li><a href="/#pricing">Pricing</a></li>
@@ -720,10 +809,7 @@
         </div>
       </div>
 
-      <!-- Inline Chargebee checkout renders here -->
-      <div id="cb-container"></div>
-
-      <!-- Contact form card — id="secure" for anchor linking -->
+      <!-- Contact form card -->
       <div class="panel-card" id="secure">
         <div class="panel-title">Contact Information</div>
 
@@ -742,8 +828,6 @@
           </div>
         </div>
 
-      
-
         <div class="field" id="fg-email">
           <label for="f-email">Email Address</label>
           <input type="email" id="f-email" placeholder="jane@example.com"
@@ -751,7 +835,7 @@
           <div class="field-err">Please enter a valid email address.</div>
         </div>
 
-          <div class="field" id="fg-phone">
+        <div class="field" id="fg-phone">
           <label for="f-phone">Phone Number</label>
           <input type="tel" id="f-phone" placeholder="416-555-0123"
                  autocomplete="tel">
@@ -840,41 +924,41 @@
         </div>
       </div>
 
-     <!-- Price breakdown -->
-<div class="summary-section">
-  <div class="summary-section-label">Included With Your Order</div>
+      <!-- Price breakdown -->
+      <div class="summary-section">
+        <div class="summary-section-label">Included With Your Order</div>
 
-  <div class="breakdown-row">
-    <div class="bd-label">
-      <strong>NETGEAR Nighthawk M1</strong>
-      <small>Portable Gigabit LTE Wi-Fi Router</small>
-    </div>
-    <span class="bd-val">$199</span>
-  </div>
+        <div class="breakdown-row">
+          <div class="bd-label">
+            <strong>NETGEAR Nighthawk M1</strong>
+            <small>Portable Gigabit LTE Wi-Fi Router</small>
+          </div>
+          <span class="bd-val">$199</span>
+        </div>
 
-  <div class="breakdown-row">
-    <div class="bd-label">
-      <strong>Unlimited Data — First Month Included</strong>
-      <small>Ready To Use Out Of The Box</small>
-    </div>
-    <span class="bd-val free">Included</span>
-  </div>
+        <div class="breakdown-row">
+          <div class="bd-label">
+            <strong>Unlimited Data — First Month Included</strong>
+            <small>Ready To Use Out Of The Box</small>
+          </div>
+          <span class="bd-val free">Included</span>
+        </div>
 
-  <div class="breakdown-row">
-    <span class="bd-label">Activation</span>
-    <span class="bd-val free">$0</span>
-  </div>
+        <div class="breakdown-row">
+          <span class="bd-label">Activation</span>
+          <span class="bd-val free">$0</span>
+        </div>
 
-  <div class="breakdown-row">
-    <span class="bd-label">Shipping</span>
-    <span class="bd-val free">$0</span>
-  </div>
+        <div class="breakdown-row">
+          <span class="bd-label">Shipping</span>
+          <span class="bd-val free">$0</span>
+        </div>
 
-  <div class="breakdown-row">
-    <span class="bd-label">Contract Commitment</span>
-    <span class="bd-val tag">No Contract Required</span>
-  </div>
-</div>
+        <div class="breakdown-row">
+          <span class="bd-label">Contract Commitment</span>
+          <span class="bd-val tag">No Contract Required</span>
+        </div>
+      </div>
 
       <!-- Total -->
       <div class="summary-total">
@@ -903,45 +987,45 @@
         </div>
       </div>
 
-   <!-- Features -->
-<div class="summary-features">
-  <div class="summary-section-label">Everything Included</div>
+      <!-- Features -->
+      <div class="summary-features">
+        <div class="summary-section-label">Everything Included</div>
 
-  <div class="feature-item">
-    <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-    Up To 1 Gbps LTE Speeds
-  </div>
+        <div class="feature-item">
+          <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+          Up To 1 Gbps LTE Speeds
+        </div>
 
-  <div class="feature-item">
-    <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-    Truly Unlimited Data — No Caps Or Slowdowns
-  </div>
+        <div class="feature-item">
+          <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+          Truly Unlimited Data — No Caps Or Slowdowns
+        </div>
 
-  <div class="feature-item">
-    <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-    Connect Up To 20 Devices
-  </div>
+        <div class="feature-item">
+          <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+          Connect Up To 20 Devices
+        </div>
 
-  <div class="feature-item">
-    <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-    All-Day Battery Life — Home Or On The Go
-  </div>
+        <div class="feature-item">
+          <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+          All-Day Battery Life — Home Or On The Go
+        </div>
 
-  <div class="feature-item">
-    <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-    Dual-Band Wi-Fi · 2.4 GHz + 5 GHz
-  </div>
+        <div class="feature-item">
+          <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+          Dual-Band Wi-Fi · 2.4 GHz + 5 GHz
+        </div>
 
-  <div class="feature-item">
-    <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-    30-Day Money-Back Guarantee
-  </div>
-</div>
+        <div class="feature-item">
+          <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+          30-Day Money-Back Guarantee
+        </div>
+      </div>
     </div><!-- /summary-panel -->
 
   </div><!-- /checkout-wrap -->
 
-  <!-- ── TRUST FOOTER — three signals, clean ───────────────────── -->
+  <!-- ── TRUST FOOTER ───────────────────────────────────────────── -->
   <div class="trust-footer">
     <div class="trust-item">
       <svg viewBox="0 0 14 14" fill="none" stroke-linecap="round">
@@ -974,21 +1058,22 @@
 (function () {
   'use strict';
 
-  /* ── CONFIG ─────────────────────────────────────────────────── */
-  var CB_SITE    = 'more4lessplans';
+  /* ── CONFIG ─────────────────────────────────────────────────────
+     Point WORKER_URL at your NEW inline worker endpoint.
+     Keep this separate from your original /api/secure-checkout
+     so the old popup page still works independently.
+  ──────────────────────────────────────────────────────────────── */
   var CB_PLAN_ID = 'wireless-internet-m1';
-  var WORKER_URL = '/api/secure-checkout';
+  var WORKER_URL = '/api/secure-checkout-inline';  // <-- your NEW worker route
   var CONFIRM    = '/lease-confirmed';
 
-  var cbInstance = Chargebee.init({ site: CB_SITE });
-
-  /* ── MOBILE MENU — matches site pattern exactly ─────────────── */
-  var trigger  = document.getElementById('menuTrigger');
-  var overlay  = document.getElementById('mobileOverlay');
+  /* ── MOBILE MENU ─────────────────────────────────────────────── */
+  var trigger = document.getElementById('menuTrigger');
+  var mobileOverlay = document.getElementById('mobileOverlay');
 
   function toggleMenu() {
     var open = trigger.classList.toggle('menu-active');
-    overlay.classList.toggle('active', open);
+    mobileOverlay.classList.toggle('active', open);
     document.body.style.overflow = open ? 'hidden' : '';
   }
 
@@ -996,18 +1081,18 @@
     e.stopPropagation(); toggleMenu();
   });
 
-  overlay.addEventListener('click', function (e) {
-    if (!e.target.closest('a') && overlay.classList.contains('active')) toggleMenu();
+  mobileOverlay.addEventListener('click', function (e) {
+    if (!e.target.closest('a') && mobileOverlay.classList.contains('active')) toggleMenu();
   });
 
   /* ── STEP MACHINE ────────────────────────────────────────────── */
   function setStep(n) {
-    [['st-1',1],['st-2',2],['st-3',3]].forEach(function (pair) {
+    [['st-1', 1], ['st-2', 2], ['st-3', 3]].forEach(function (pair) {
       var el = document.getElementById(pair[0]);
       var i  = pair[1];
       el.className = 'step-item' + (i < n ? ' done' : i === n ? ' active' : '');
     });
-    [['cn-1',1],['cn-2',2]].forEach(function (pair) {
+    [['cn-1', 1], ['cn-2', 2]].forEach(function (pair) {
       var el = document.getElementById(pair[0]);
       el.className = 'step-connector' + (pair[1] < n ? ' done' : '');
     });
@@ -1026,10 +1111,10 @@
     if (g) g.classList.add('has-err');
   }
 
-  function isPhone(v) { return v.replace(/[\s\-()+.]/g,'').length >= 7; }
+  function isPhone(v) { return v.replace(/[\s\-()+.]/g, '').length >= 7; }
+  function isEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
 
-  /* Live — clear on fix */
-  ['f-first','f-last','f-phone','f-email'].forEach(function (id) {
+  ['f-first', 'f-last', 'f-phone', 'f-email'].forEach(function (id) {
     var el = document.getElementById(id);
     if (!el) return;
     el.addEventListener('input', function () {
@@ -1039,8 +1124,6 @@
     });
   });
 
-  function isEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
-
   function collect() {
     clearErrors();
     var first = document.getElementById('f-first').value.trim();
@@ -1049,10 +1132,10 @@
     var email = document.getElementById('f-email').value.trim();
     var ok    = true;
 
-    if (!first)           { flagErr('f-first','fg-first');  ok = false; }
-    if (!last)            { flagErr('f-last', 'fg-last');   ok = false; }
-    if (!isPhone(phone))  { flagErr('f-phone','fg-phone');  ok = false; }
-    if (!isEmail(email))  { flagErr('f-email','fg-email');  ok = false; }
+    if (!first)          { flagErr('f-first', 'fg-first'); ok = false; }
+    if (!last)           { flagErr('f-last',  'fg-last');  ok = false; }
+    if (!isPhone(phone)) { flagErr('f-phone', 'fg-phone'); ok = false; }
+    if (!isEmail(email)) { flagErr('f-email', 'fg-email'); ok = false; }
 
     if (!ok) {
       var f = document.querySelector('.field.has-err input');
@@ -1061,10 +1144,168 @@
     }
 
     return {
-      plan_id: CB_PLAN_ID, sim_type: 'physical',
-      first_name: first, last_name: last,
-      phone: phone, email: email
+      plan_id:    CB_PLAN_ID,
+      sim_type:   'physical',
+      first_name: first,
+      last_name:  last,
+      phone:      phone,
+      email:      email
     };
+  }
+
+  /* ── IFRAME CHECKOUT ─────────────────────────────────────────────
+     Injects a full-screen overlay containing an <iframe> that loads
+     the Chargebee hosted page URL directly. No popup, no window.open()
+     — Safari on iOS is happy with this approach.
+
+     Success detection: Chargebee's redirect_url fires inside the iframe,
+     which navigates the iframe to /active. We detect this by polling
+     the iframe's location (same-origin after redirect) OR by listening
+     for a postMessage from the Chargebee page.
+
+     Fallback: if neither fires, the user can also manually close and
+     they'll be on step 1 to try again.
+  ──────────────────────────────────────────────────────────────── */
+  function showCheckoutIframe(hostedPageUrl) {
+    /* Build overlay */
+    var overlay = document.createElement('div');
+    overlay.id = 'cb-iframe-overlay';
+
+    var card = document.createElement('div');
+    card.id = 'cb-iframe-card';
+
+    /* Header bar with lock icon + close button */
+    var header = document.createElement('div');
+    header.id = 'cb-iframe-header';
+    header.innerHTML =
+      '<div id="cb-iframe-header-label">' +
+        '<svg viewBox="0 0 14 14" fill="none" stroke-linecap="round">' +
+          '<rect x="2" y="6" width="10" height="7" rx="1.5"/>' +
+          '<path d="M4.5 6V4.5a2.5 2.5 0 015 0V6"/>' +
+        '</svg>' +
+        'Secure Payment — Powered by Chargebee' +
+      '</div>' +
+      '<button id="cb-iframe-close" aria-label="Close payment window">' +
+        '<svg viewBox="0 0 12 12" fill="none" stroke-linecap="round">' +
+          '<line x1="2" y1="2" x2="10" y2="10"/>' +
+          '<line x1="10" y1="2" x2="2" y2="10"/>' +
+        '</svg>' +
+      '</button>';
+
+    /* Loading indicator — shown until iframe fires load event */
+    var loading = document.createElement('div');
+    loading.id = 'cb-iframe-loading';
+    loading.innerHTML = '<div class="load-spin"></div><span>Loading secure checkout…</span>';
+
+    /* The iframe itself */
+    var iframe = document.createElement('iframe');
+    iframe.id  = 'cb-iframe';
+    iframe.setAttribute('allowpaymentrequest', 'true');
+    iframe.setAttribute('allow', 'payment');
+    iframe.title = 'Secure Chargebee Checkout';
+    /* src set after appending so load event fires reliably on iOS */
+
+    card.appendChild(header);
+    card.appendChild(loading);
+    card.appendChild(iframe);
+    overlay.appendChild(card);
+    document.body.appendChild(overlay);
+    document.body.style.overflow = 'hidden';
+
+    /* Show iframe, hide loader once content loads */
+    iframe.style.display = 'none';
+    iframe.addEventListener('load', function () {
+      loading.style.display = 'none';
+      iframe.style.display  = 'block';
+
+      /* ── Success detection via same-origin redirect ──────────────
+         When Chargebee redirects to our redirect_url (/active),
+         the iframe navigates to our domain. At that point we can
+         read iframe.contentWindow.location.href.
+         We poll for this because the load event fires on every
+         navigation including the chargebee.com page itself.
+      ────────────────────────────────────────────────────────────── */
+      try {
+        var loc = iframe.contentWindow.location.href;
+        if (loc && (loc.indexOf('/active') !== -1 || loc.indexOf(CONFIRM) !== -1)) {
+          onSuccess();
+          return;
+        }
+      } catch (e) {
+        /* cross-origin — not our redirect yet, ignore */
+      }
+    });
+
+    /* Set src now */
+    iframe.src = hostedPageUrl;
+
+    /* ── Poll for same-origin redirect (success) ─────────────────
+       Every 800ms check if the iframe has landed on our domain.
+       This is the most reliable cross-browser method for detecting
+       iframe redirects without postMessage support.
+    ──────────────────────────────────────────────────────────────── */
+    var pollInterval = setInterval(function () {
+      try {
+        var loc = iframe.contentWindow.location.href;
+        if (loc && (loc.indexOf('/active') !== -1 || loc.indexOf(CONFIRM) !== -1)) {
+          clearInterval(pollInterval);
+          onSuccess();
+        }
+      } catch (e) {
+        /* still cross-origin (chargebee.com) — keep polling */
+      }
+    }, 800);
+
+    /* ── postMessage fallback (if Chargebee ever adds it) ────────── */
+    function onMessage(e) {
+      if (!e.origin || e.origin.indexOf('chargebee.com') === -1) return;
+      try {
+        var msg = typeof e.data === 'string' ? JSON.parse(e.data) : e.data;
+        if (msg && (msg.event === 'checkout.success' || msg.event === 'success')) {
+          clearInterval(pollInterval);
+          window.removeEventListener('message', onMessage);
+          onSuccess();
+        }
+        if (msg && (msg.event === 'checkout.cancel' || msg.event === 'cancel')) {
+          clearInterval(pollInterval);
+          window.removeEventListener('message', onMessage);
+          closeOverlay();
+          setStep(1);
+        }
+      } catch (err) { /* non-JSON, ignore */ }
+    }
+    window.addEventListener('message', onMessage);
+
+    /* ── Close button ────────────────────────────────────────────── */
+    document.getElementById('cb-iframe-close').addEventListener('click', function () {
+      clearInterval(pollInterval);
+      window.removeEventListener('message', onMessage);
+      closeOverlay();
+      setStep(1);
+    });
+
+    /* ── Dismiss on backdrop click ───────────────────────────────── */
+    overlay.addEventListener('click', function (e) {
+      if (e.target === overlay) {
+        clearInterval(pollInterval);
+        window.removeEventListener('message', onMessage);
+        closeOverlay();
+        setStep(1);
+      }
+    });
+
+    function onSuccess() {
+      window.removeEventListener('message', onMessage);
+      closeOverlay();
+      setStep(3);
+      window.location.href = CONFIRM;
+    }
+
+    function closeOverlay() {
+      var el = document.getElementById('cb-iframe-overlay');
+      if (el) el.remove();
+      document.body.style.overflow = '';
+    }
   }
 
   /* ── SUBMIT ──────────────────────────────────────────────────── */
@@ -1080,9 +1321,9 @@
     setStep(2);
 
     fetch(WORKER_URL, {
-      method: 'POST',
+      method:  'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
+      body:    JSON.stringify(data)
     })
     .then(function (res) {
       return res.json().then(function (body) {
@@ -1094,49 +1335,9 @@
       btn.classList.remove('loading');
       btn.disabled = false;
 
-      var cbContainer = document.getElementById('cb-container');
-      var contactCard  = document.getElementById('secure');
-      var nextCard     = contactCard.nextElementSibling;
-
-      // Show inline container, hide the contact form card
-      cbContainer.classList.add('visible');
-      contactCard.classList.add('cb-hidden');
-      if (nextCard && nextCard.classList.contains('panel-card')) {
-        nextCard.classList.add('cb-hidden');
-      }
-
-      cbInstance.openCheckout({
-        hostedPage: function () { return Promise.resolve(result.hosted_page); },
-        embed: true,
-        container: '#cb-container',
-        success: function (id) {
-          sessionStorage.setItem('m4l_cb_page', id);
-          setStep(3);
-          window.location.href = CONFIRM;
-        },
-        close: function () {
-          // Restore the form, hide inline container
-          cbContainer.classList.remove('visible');
-          contactCard.classList.remove('cb-hidden');
-          if (nextCard && nextCard.classList.contains('panel-card')) {
-            nextCard.classList.remove('cb-hidden');
-          }
-          btn.classList.remove('loading');
-          btn.disabled = false;
-          setStep(1);
-        },
-        error: function (err) {
-          console.error('Chargebee error:', err);
-          cbContainer.classList.remove('visible');
-          contactCard.classList.remove('cb-hidden');
-          if (nextCard && nextCard.classList.contains('panel-card')) {
-            nextCard.classList.remove('cb-hidden');
-          }
-          btn.classList.remove('loading');
-          btn.disabled = false;
-          setStep(1);
-        }
-      });
+      /* Use the hosted_page.url from the response — embed=true means
+         this URL is formatted for iframe display */
+      showCheckoutIframe(result.hosted_page.url);
     })
     .catch(function (err) {
       console.error(err);
