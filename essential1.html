@@ -633,80 +633,26 @@
       *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
     }
 
-    /* ─────────────────────────────────────────────────────────────
-       INLINE CHECKOUT OVERLAY (iframe — no popup)
-    ───────────────────────────────────────────────────────────── */
-    .cb-inline-overlay {
-      position: fixed; inset: 0;
-      background: rgba(29, 29, 31, 0.72);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-      z-index: 9000;
-      display: flex; align-items: center; justify-content: center;
-      padding: 20px;
-      opacity: 0; visibility: hidden;
-      transition: opacity 0.35s var(--ease-out), visibility 0.35s;
-    }
-
-    .cb-inline-overlay.active {
-      opacity: 1; visibility: visible;
-    }
-
-    .cb-inline-wrap {
-      position: relative;
-      width: 100%; max-width: 560px;
-      background: #fff;
+    /* ── Inline Chargebee checkout container ── */
+    #cb-container {
+      display: none;
+      width: 100%;
+      min-height: 620px;
+      border: 1px solid var(--border);
       border-radius: var(--card-radius);
       overflow: hidden;
-      box-shadow: 0 32px 80px rgba(0,0,0,0.22);
-      transform: translateY(24px) scale(0.97);
-      transition: transform 0.4s var(--ease-spring);
+      margin-bottom: 14px;
+      background: #fff;
     }
 
-    .cb-inline-overlay.active .cb-inline-wrap {
-      transform: translateY(0) scale(1);
-    }
-
-    .cb-inline-close {
-      position: absolute; top: 14px; right: 14px;
-      width: 30px; height: 30px; border-radius: 50%;
-      background: var(--bg-summary);
-      border: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; z-index: 1;
-      transition: background 0.2s ease;
-    }
-
-    .cb-inline-close:hover { background: var(--border); }
-
-    .cb-inline-close svg {
-      width: 12px; height: 12px;
-      stroke: var(--text-muted); stroke-width: 2.2;
-      fill: none;
-    }
-
-    #cb-iframe-container {
-      width: 100%;
-      min-height: 480px;
-    }
-
-    #cb-iframe-container iframe {
-      width: 100%;
-      min-height: 480px;
-      border: none;
+    #cb-container.visible {
       display: block;
+      animation: fadeUp 0.4s var(--ease-out) forwards;
     }
 
-    @media (max-width: 640px) {
-      .cb-inline-overlay { padding: 0; align-items: flex-end; }
-      .cb-inline-wrap {
-        border-radius: 20px 20px 0 0;
-        max-width: 100%;
-        transform: translateY(100%);
-      }
-      .cb-inline-overlay.active .cb-inline-wrap { transform: translateY(0); }
-      #cb-iframe-container,
-      #cb-iframe-container iframe { min-height: 520px; }
+    /* Hide the contact card when inline checkout is showing */
+    .panel-card.cb-hidden {
+      display: none;
     }
   </style>
 </head>
@@ -773,6 +719,9 @@
           <span>Confirmed</span>
         </div>
       </div>
+
+      <!-- Inline Chargebee checkout renders here -->
+      <div id="cb-container"></div>
 
       <!-- Contact form card — id="secure" for anchor linking -->
       <div class="panel-card" id="secure">
@@ -1020,19 +969,6 @@
 
 </div><!-- /page -->
 
-<!-- ── INLINE CHARGEBEE CHECKOUT OVERLAY ────────────────────────── -->
-<div class="cb-inline-overlay" id="cbInlineOverlay" role="dialog" aria-modal="true" aria-label="Payment">
-  <div class="cb-inline-wrap">
-    <button class="cb-inline-close" id="cbInlineClose" aria-label="Close payment">
-      <svg viewBox="0 0 12 12" stroke-linecap="round">
-        <line x1="2" y1="2" x2="10" y2="10"/>
-        <line x1="10" y1="2" x2="2" y2="10"/>
-      </svg>
-    </button>
-    <div id="cb-iframe-container"></div>
-  </div>
-</div>
-
 <!-- ── SCRIPT ────────────────────────────────────────────────────── -->
 <script>
 (function () {
@@ -1045,41 +981,6 @@
   var CONFIRM    = '/lease-confirmed';
 
   var cbInstance = Chargebee.init({ site: CB_SITE });
-
-  /* ── INLINE OVERLAY HELPERS ──────────────────────────────────── */
-  var cbOverlay  = document.getElementById('cbInlineOverlay');
-  var cbCloseBtn = document.getElementById('cbInlineClose');
-
-  function openInlineOverlay() {
-    cbOverlay.classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeInlineOverlay() {
-    cbOverlay.classList.remove('active');
-    document.body.style.overflow = '';
-    /* Clear the iframe container so it's fresh next time */
-    document.getElementById('cb-iframe-container').innerHTML = '';
-  }
-
-  cbCloseBtn.addEventListener('click', function () {
-    closeInlineOverlay();
-    var btn = document.getElementById('submitBtn');
-    btn.classList.remove('loading');
-    btn.disabled = false;
-    setStep(1);
-  });
-
-  /* Close on backdrop click */
-  cbOverlay.addEventListener('click', function (e) {
-    if (e.target === cbOverlay) {
-      closeInlineOverlay();
-      var btn = document.getElementById('submitBtn');
-      btn.classList.remove('loading');
-      btn.disabled = false;
-      setStep(1);
-    }
-  });
 
   /* ── MOBILE MENU — matches site pattern exactly ─────────────── */
   var trigger  = document.getElementById('menuTrigger');
@@ -1193,28 +1094,44 @@
       btn.classList.remove('loading');
       btn.disabled = false;
 
-      /* ── Open Chargebee inline (iframe) — no popup ── */
-      openInlineOverlay();
+      var cbContainer = document.getElementById('cb-container');
+      var contactCard  = document.getElementById('secure');
+      var nextCard     = contactCard.nextElementSibling;
+
+      // Show inline container, hide the contact form card
+      cbContainer.classList.add('visible');
+      contactCard.classList.add('cb-hidden');
+      if (nextCard && nextCard.classList.contains('panel-card')) {
+        nextCard.classList.add('cb-hidden');
+      }
 
       cbInstance.openCheckout({
         hostedPage: function () { return Promise.resolve(result.hosted_page); },
-        embed: true,                          /* key flag — renders into iframe */
-        container: '#cb-iframe-container',    /* target container               */
+        embed: true,
+        container: '#cb-container',
         success: function (id) {
-          closeInlineOverlay();
           sessionStorage.setItem('m4l_cb_page', id);
           setStep(3);
           window.location.href = CONFIRM;
         },
         close: function () {
-          closeInlineOverlay();
+          // Restore the form, hide inline container
+          cbContainer.classList.remove('visible');
+          contactCard.classList.remove('cb-hidden');
+          if (nextCard && nextCard.classList.contains('panel-card')) {
+            nextCard.classList.remove('cb-hidden');
+          }
           btn.classList.remove('loading');
           btn.disabled = false;
           setStep(1);
         },
         error: function (err) {
           console.error('Chargebee error:', err);
-          closeInlineOverlay();
+          cbContainer.classList.remove('visible');
+          contactCard.classList.remove('cb-hidden');
+          if (nextCard && nextCard.classList.contains('panel-card')) {
+            nextCard.classList.remove('cb-hidden');
+          }
           btn.classList.remove('loading');
           btn.disabled = false;
           setStep(1);
