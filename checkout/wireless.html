@@ -14,7 +14,7 @@
   <meta name="theme-color" content="#2E2F33">
   
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <script src="https://js.chargebee.com/v2/chargebee.js"></script>
+  <!-- NOTE: chargebee.js not needed — using raw iframe instead of cbInstance.openCheckout() -->
 
   <style>
     :root {
@@ -482,6 +482,109 @@
 
     
 
+    /* ─────────────────────────────────────────────────────────────
+       IFRAME CHECKOUT OVERLAY
+       — replaces cbInstance.openCheckout() popup
+       — works on Safari iOS (no window.open)
+    ───────────────────────────────────────────────────────────── */
+    #cb-iframe-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9000;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      opacity: 0;
+      animation: overlayIn 0.3s cubic-bezier(0.22,1,0.36,1) forwards;
+    }
+    @keyframes overlayIn { from { opacity:0; } to { opacity:1; } }
+
+    #cb-iframe-card {
+      background: #fff;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 540px;
+      height: min(720px, calc(100vh - 32px));
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.28), 0 0 0 1px rgba(0,0,0,0.06);
+      transform: translateY(20px);
+      animation: cardIn 0.35s cubic-bezier(0.34,1.4,0.64,1) 0.05s forwards;
+    }
+    @keyframes cardIn {
+      from { transform: translateY(20px); opacity: 0.6; }
+      to   { transform: translateY(0);    opacity: 1; }
+    }
+
+    #cb-iframe-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      border-bottom: 1px solid #eaeaec;
+      flex-shrink: 0;
+    }
+    #cb-iframe-header-label {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #6e6e73;
+      letter-spacing: 0.02em;
+    }
+    #cb-iframe-header-label svg { width:12px; height:12px; stroke:#1a9b5f; stroke-width:2; fill:none; }
+
+    #cb-iframe-close {
+      background: #F5F5F7;
+      border: 1px solid #eaeaec;
+      border-radius: 50%;
+      width: 28px; height: 28px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+      flex-shrink: 0;
+    }
+    #cb-iframe-close:hover { background: #eaeaec; transform: scale(1.08); }
+    #cb-iframe-close svg { width:11px; height:11px; stroke:#6e6e73; stroke-width:2.2; fill:none; }
+
+    #cb-iframe {
+      width: 100%;
+      flex: 1;
+      border: none;
+      display: block;
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    #cb-iframe-loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      flex: 1;
+      color: #aeaeb2;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+    #cb-iframe-loading .load-spin {
+      width: 22px; height: 22px;
+      border: 2px solid #eaeaec;
+      border-top-color: #D73C59;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    @media (max-width: 640px) {
+      #cb-iframe-card { height: calc(100vh - 32px); border-radius: 16px; }
+    }
   </style>
 </head>
 <body>
@@ -626,7 +729,7 @@ var CHARGEBEE_PLAN_ID = 'home-internet';
 var WORKER_URL        = '/api/create-checkout-home';
 var CONFIRMATION_URL  = '/active';
 
-var cbInstance = Chargebee.init({ site: CHARGEBEE_SITE });
+/* cbInstance removed — using raw iframe instead of Chargebee popup */
 
 // ── VALIDATION ────────────────────────────────────────────────────
 function clearErrors() {
@@ -707,25 +810,7 @@ function handleSubmit() {
     btn.classList.remove('loading');
     btn.disabled = false;
 
-    cbInstance.openCheckout({
-      hostedPage: function() {
-        return Promise.resolve(result.hosted_page);
-      },
-      success: function(hostedPageId) {
-        sessionStorage.setItem('m4l_cb_page', hostedPageId);
-        window.location.href = CONFIRMATION_URL;
-      },
-      close: function() {
-        document.getElementById('step1-indicator').className = 'step-item active';
-        document.getElementById('connector-1-2').className   = 'step-connector';
-        document.getElementById('step2-indicator').className = 'step-item';
-      },
-      error: function(err) {
-        console.error('Chargebee error:', err);
-        btn.classList.remove('loading');
-        btn.disabled = false;
-      }
-    });
+    showCheckoutIframe(result.hosted_page.url);
   })
   .catch(function(err) {
     console.error(err);
@@ -733,6 +818,130 @@ function handleSubmit() {
     btn.disabled = false;
     alert('Error: ' + err.message);
   });
+}
+
+/* ── IFRAME CHECKOUT ─────────────────────────────────────────────
+   Injects a full-screen overlay containing an <iframe> that loads
+   the Chargebee hosted page URL directly. No popup, no window.open()
+   — Safari on iOS is happy with this approach.
+──────────────────────────────────────────────────────────────── */
+function showCheckoutIframe(hostedPageUrl) {
+  var overlay = document.createElement('div');
+  overlay.id = 'cb-iframe-overlay';
+
+  var card = document.createElement('div');
+  card.id = 'cb-iframe-card';
+
+  var header = document.createElement('div');
+  header.id = 'cb-iframe-header';
+  header.innerHTML =
+    '<div id="cb-iframe-header-label">' +
+      '<svg viewBox="0 0 14 14" fill="none" stroke-linecap="round">' +
+        '<rect x="2" y="6" width="10" height="7" rx="1.5"/>' +
+        '<path d="M4.5 6V4.5a2.5 2.5 0 015 0V6"/>' +
+      '</svg>' +
+      'Secure Payment — Powered by Chargebee' +
+    '</div>' +
+    '<button id="cb-iframe-close" aria-label="Close payment window">' +
+      '<svg viewBox="0 0 12 12" fill="none" stroke-linecap="round">' +
+        '<line x1="2" y1="2" x2="10" y2="10"/>' +
+        '<line x1="10" y1="2" x2="2" y2="10"/>' +
+      '</svg>' +
+    '</button>';
+
+  var loading = document.createElement('div');
+  loading.id = 'cb-iframe-loading';
+  loading.innerHTML = '<div class="load-spin"></div><span>Loading secure checkout…</span>';
+
+  var iframe = document.createElement('iframe');
+  iframe.id = 'cb-iframe';
+  iframe.setAttribute('allowpaymentrequest', 'true');
+  iframe.setAttribute('allow', 'payment');
+  iframe.title = 'Secure Chargebee Checkout';
+
+  card.appendChild(header);
+  card.appendChild(loading);
+  card.appendChild(iframe);
+  overlay.appendChild(card);
+  document.body.appendChild(overlay);
+  document.body.style.overflow = 'hidden';
+
+  iframe.style.display = 'none';
+  iframe.addEventListener('load', function () {
+    loading.style.display = 'none';
+    iframe.style.display  = 'block';
+    try {
+      var loc = iframe.contentWindow.location.href;
+      if (loc && (loc.indexOf('/active') !== -1 || loc.indexOf(CONFIRMATION_URL) !== -1)) {
+        onSuccess(); return;
+      }
+    } catch (e) { /* cross-origin, ignore */ }
+  });
+
+  iframe.src = hostedPageUrl;
+
+  var pollInterval = setInterval(function () {
+    try {
+      var loc = iframe.contentWindow.location.href;
+      if (loc && (loc.indexOf('/active') !== -1 || loc.indexOf(CONFIRMATION_URL) !== -1)) {
+        clearInterval(pollInterval);
+        onSuccess();
+      }
+    } catch (e) { /* still cross-origin, keep polling */ }
+  }, 800);
+
+  function onMessage(e) {
+    if (!e.origin || e.origin.indexOf('chargebee.com') === -1) return;
+    try {
+      var msg = typeof e.data === 'string' ? JSON.parse(e.data) : e.data;
+      if (msg && (msg.event === 'checkout.success' || msg.event === 'success')) {
+        clearInterval(pollInterval);
+        window.removeEventListener('message', onMessage);
+        onSuccess();
+      }
+      if (msg && (msg.event === 'checkout.cancel' || msg.event === 'cancel')) {
+        clearInterval(pollInterval);
+        window.removeEventListener('message', onMessage);
+        closeOverlay();
+        document.getElementById('step1-indicator').className = 'step-item active';
+        document.getElementById('connector-1-2').className   = 'step-connector';
+        document.getElementById('step2-indicator').className = 'step-item';
+      }
+    } catch (err) { /* non-JSON */ }
+  }
+  window.addEventListener('message', onMessage);
+
+  document.getElementById('cb-iframe-close').addEventListener('click', function () {
+    clearInterval(pollInterval);
+    window.removeEventListener('message', onMessage);
+    closeOverlay();
+    document.getElementById('step1-indicator').className = 'step-item active';
+    document.getElementById('connector-1-2').className   = 'step-connector';
+    document.getElementById('step2-indicator').className = 'step-item';
+  });
+
+  overlay.addEventListener('click', function (e) {
+    if (e.target === overlay) {
+      clearInterval(pollInterval);
+      window.removeEventListener('message', onMessage);
+      closeOverlay();
+      document.getElementById('step1-indicator').className = 'step-item active';
+      document.getElementById('connector-1-2').className   = 'step-connector';
+      document.getElementById('step2-indicator').className = 'step-item';
+    }
+  });
+
+  function onSuccess() {
+    window.removeEventListener('message', onMessage);
+    closeOverlay();
+    window.location.href = CONFIRMATION_URL;
+  }
+
+  function closeOverlay() {
+    var el = document.getElementById('cb-iframe-overlay');
+    if (el) el.remove();
+    document.body.style.overflow = '';
+  }
 }
 
 // ── MOBILE MENU ───────────────────────────────────────────────────
