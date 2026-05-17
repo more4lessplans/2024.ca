@@ -228,7 +228,13 @@
     ───────────────────────────────────────────────────────────── */
     .form-panel {
       opacity: 0;
-      animation: fadeUp 0.7s ease 0.1s forwards;
+      animation: fadeUp 0.7s ease 0.1s both;
+    }
+    .form-panel.anim-done {
+      opacity: 1;
+      transform: none;
+      animation: none;
+      will-change: auto;
     }
 
     .steps-bar {
@@ -587,15 +593,18 @@
     /* Chargebee field wrapper — mirrors .field input styling */
     .cb-field-wrap {
       width: 100%;
-      padding: 12px 14px;
+      height: 44px;
+      padding: 0 14px;
       border: 1.5px solid var(--border);
       border-radius: 12px;
       background: #fff;
       transition: border-color 0.2s ease, box-shadow 0.2s ease;
-      /* Chargebee injects a fixed-height iframe — give it room */
-      min-height: 44px;
-      display: flex;
-      align-items: center;
+      /* Must NOT be display:flex/grid — Chargebee sizes the iframe
+         relative to block layout. Keep it simple. */
+      display: block;
+      position: relative;
+      overflow: visible;
+      pointer-events: auto;
     }
 
     .cb-field-wrap.focus {
@@ -608,11 +617,15 @@
       box-shadow: 0 0 0 3px var(--brand-red-glow);
     }
 
-    /* Chargebee injects an iframe; make it fill the wrapper */
+    /* Chargebee iframe — must fill the wrapper completely */
     .cb-field-wrap iframe {
+      position: absolute !important;
+      top: 0 !important; left: 0 !important;
       width: 100% !important;
-      height: 20px !important;
+      height: 100% !important;
       border: none !important;
+      background: transparent !important;
+      pointer-events: auto !important;
     }
 
     /* Card brand icon row */
@@ -676,12 +689,6 @@
       .step-item.done   > span { display: block; }
       .trust-item        { padding: 0 10px; font-size: 0.62rem; letter-spacing: 0; }
       .trust-item svg    { width: 11px; height: 11px; }
-
-      /* On mobile the iframe card fills almost the full screen */
-      #cb-iframe-card {
-        height: calc(100vh - 32px);
-        border-radius: 16px;
-      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1092,83 +1099,107 @@
 (function () {
   'use strict';
 
-  /* ── CONFIG ──────────────────────────────────────────────────────
-     WORKER_URL: your backend that calls Chargebee's API to create a
-     subscription using the card token returned by Chargebee.js.
-     Replace CB_SITE with your Chargebee site name (e.g. "more4less").
-  ──────────────────────────────────────────────────────────────── */
-  var CB_SITE    = 'more4lessplans';               // <-- your Chargebee site name
+  /* ── CONFIG ─────────────────────────────────────────────────── */
+  var CB_SITE    = 'more4lessplans';
   var CB_PLAN_ID = 'wireless-internet-m1';
   var WORKER_URL = '/api/checkout-embedded';
   var CONFIRM    = '/lease-confirmed';
 
-  /* ── CHARGEBEE.JS INIT ───────────────────────────────────────────
-     Initialise once. publishableKey is safe to expose in the browser.
-  ──────────────────────────────────────────────────────────────── */
+  /* ── CHARGEBEE.JS INIT ──────────────────────────────────────── */
   var cbInstance = Chargebee.init({
     site: CB_SITE,
-    publishableKey: 'live_9xoL0GUAJyfaZddNn5cdFhI4hrLAGhyIh'  // <-- from Chargebee Dashboard → Settings → API Keys
+    publishableKey: 'live_9xoL0GUAJyfaZddNn5cdFhI4hrLAGhyIh'
   });
 
-  /* Mount card components after DOM ready */
-  var cardComponent = null;
-
-  function initCardComponent() {
-    if (cardComponent) return; // only mount once
-
-    var cbFonts = [{ fontFamily: 'Figtree', fontUrl: 'https://fonts.googleapis.com/css2?family=Figtree:wght@400;500&display=swap' }];
-
-    var cbStyle = {
-      base: {
-        color: '#1d1d1f',
-        fontFamily: 'Figtree, sans-serif',
-        fontSize: '14px',
-        fontSmoothing: 'antialiased',
-        '::placeholder': { color: '#c4c4ca' }
-      },
-      invalid: { color: '#D73C59' }
-    };
-
-    var classes = { focus: 'focus', invalid: 'err', empty: '' };
-
-    cardComponent = cbInstance.createComponent('card');
-
-    var numberField = cardComponent.createField('number', { style: cbStyle, classes: classes, placeholder: '1234 5678 9012 3456' });
-    var expiryField = cardComponent.createField('expiry', { style: cbStyle, classes: classes, placeholder: 'MM / YY' });
-    var cvvField    = cardComponent.createField('cvv',    { style: cbStyle, classes: classes, placeholder: '•••' });
-
-    numberField.at('#cb-card-number');
-    expiryField.at('#cb-card-expiry');
-    cvvField.at('#cb-card-cvv');
-
-    /* Wire focus/blur → wrapper border styles */
-    [
-      { field: numberField, wrapperId: 'cb-card-number',  errId: 'err-card-number' },
-      { field: expiryField, wrapperId: 'cb-card-expiry',  errId: 'err-card-expiry' },
-      { field: cvvField,    wrapperId: 'cb-card-cvv',     errId: 'err-card-cvv'    }
-    ].forEach(function (item) {
-      item.field.on('focus', function () {
-        document.getElementById(item.wrapperId).classList.add('focus');
-      });
-      item.field.on('blur', function () {
-        document.getElementById(item.wrapperId).classList.remove('focus');
-      });
-      item.field.on('change', function (e) {
-        var wrap = document.getElementById(item.wrapperId);
-        var err  = document.getElementById(item.errId);
-        if (e.error) {
-          wrap.classList.add('err');
-          if (err) err.style.display = 'block';
-        } else {
-          wrap.classList.remove('err');
-          if (err) err.style.display = 'none';
-        }
-      });
-    });
-
-    cardComponent.mount();
+  /* ── CLEAR ANIMATION STACKING CONTEXT ──────────────────────────
+     The fadeUp animation creates a stacking context while running.
+     Swap to a static class once it finishes so no transform/
+     will-change lingers to block Chargebee's iframe pointer events.
+  ──────────────────────────────────────────────────────────────── */
+  var formPanel = document.querySelector('.form-panel');
+  if (formPanel) {
+    formPanel.addEventListener('animationend', function () {
+      formPanel.classList.add('anim-done');
+    }, { once: true });
   }
 
+  /* ── CHARGEBEE CARD FIELDS ──────────────────────────────────────
+     IMPORTANT: We mount each field as its own CardComponent
+     immediately on page load — NOT lazily when step 2 appears.
+
+     Chargebee's iframes need to be injected into elements that are
+     already in the DOM (even if display:none on the parent panel).
+     Mounting into a hidden panel works fine; the iframes become
+     interactive as soon as the panel becomes visible.
+
+     Using separate CardComponent instances (one per field) is the
+     correct API for split/individual fields. The combined
+     createComponent('card') + createField() pattern requires all
+     three fields to share one component and tokenize together —
+     that's what we use here for tokenization, but we create each
+     field via its own CardComponent so they mount independently.
+  ──────────────────────────────────────────────────────────────── */
+  var cbStyle = {
+    base: {
+      color: '#1d1d1f',
+      fontFamily: 'Figtree, sans-serif',
+      fontSize: '15px',
+      fontWeight: '400',
+      fontSmoothing: 'antialiased',
+      lineHeight: '44px',        /* vertically centres text inside the 44px wrapper */
+      '::placeholder': { color: '#c4c4ca' }
+    },
+    invalid: { color: '#D73C59' }
+  };
+
+  var cbFonts = [{
+    fontFamily: 'Figtree',
+    fontUrl: 'https://fonts.googleapis.com/css2?family=Figtree:wght@400;500&display=swap'
+  }];
+
+  /* One CardComponent per field — this is the correct split-field pattern */
+  var numberComponent = cbInstance.createComponent('card', { fonts: cbFonts });
+  var expiryComponent = cbInstance.createComponent('card', { fonts: cbFonts });
+  var cvvComponent    = cbInstance.createComponent('card', { fonts: cbFonts });
+
+  var numberField = numberComponent.createField('number', { style: cbStyle, placeholder: '1234 5678 9012 3456' });
+  var expiryField = expiryComponent.createField('expiry', { style: cbStyle, placeholder: 'MM / YY' });
+  var cvvField    = cvvComponent.createField('cvv',       { style: cbStyle, placeholder: '•••' });
+
+  /* Mount into DOM elements immediately — safe even though the panel
+     is hidden; Chargebee handles the iframe layout on first paint */
+  numberField.at('#cb-card-number');
+  expiryField.at('#cb-card-expiry');
+  cvvField.at('#cb-card-cvv');
+
+  numberComponent.mount();
+  expiryComponent.mount();
+  cvvComponent.mount();
+
+  /* Wire focus/blur/change → wrapper border styles */
+  [
+    { field: numberField, wrapperId: 'cb-card-number', errId: 'err-card-number' },
+    { field: expiryField, wrapperId: 'cb-card-expiry', errId: 'err-card-expiry' },
+    { field: cvvField,    wrapperId: 'cb-card-cvv',    errId: 'err-card-cvv'    }
+  ].forEach(function (item) {
+    item.field.on('focus', function () {
+      document.getElementById(item.wrapperId).classList.add('focus');
+    });
+    item.field.on('blur', function () {
+      document.getElementById(item.wrapperId).classList.remove('focus');
+    });
+    item.field.on('change', function (e) {
+      var wrap = document.getElementById(item.wrapperId);
+      var err  = document.getElementById(item.errId);
+      if (e.error) {
+        wrap.classList.add('err');
+        if (err) err.style.display = 'block';
+      } else {
+        wrap.classList.remove('err');
+        if (err) err.style.display = 'none';
+      }
+    });
+  });
 
   /* ── MOBILE MENU ─────────────────────────────────────────────── */
   var trigger = document.getElementById('menuTrigger');
@@ -1205,12 +1236,7 @@
     var p2 = document.getElementById('panel-step-2');
     if (p2) p2.classList.toggle('active', n === 2);
 
-    /* Init Chargebee fields when payment panel first becomes visible */
-    if (n === 2) {
-      setTimeout(initCardComponent, 50); // brief delay lets the panel render
-    }
-
-    /* Scroll form panel to top on step change */
+    /* Scroll to top on step change */
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
@@ -1297,7 +1323,7 @@
     var contactData = JSON.parse(sessionStorage.getItem('m4l_order') || '{}');
 
     /* Chargebee.js tokenizes the card — card details never touch your server */
-    cardComponent.tokenize({
+    numberComponent.tokenize({
       firstName: contactData.first_name || '',
       lastName:  contactData.last_name  || ''
     })
