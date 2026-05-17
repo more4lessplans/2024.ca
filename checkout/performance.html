@@ -16,12 +16,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <script src="https://js.chargebee.com/v2/chargebee.js"></script>
+  <!-- chargebee.js removed — not needed for iframe approach -->
 
   <style>
-    /* ─────────────────────────────────────────────────────────────
-       TOKENS — matched exactly to site CSS
-    ───────────────────────────────────────────────────────────── */
     :root {
       --brand-red:      #D73C59;
       --brand-red-dark: #b82e48;
@@ -54,9 +51,7 @@
       min-height: 100vh;
     }
 
-    /* ─────────────────────────────────────────────────────────────
-       NAVBAR — matches site exactly
-    ───────────────────────────────────────────────────────────── */
+    /* ── NAVBAR ── */
     .navbar-custom {
       background-color: var(--bg-nav);
       padding: 1.2rem 0;
@@ -76,7 +71,6 @@
 
     .navbar-brand img { height: 22px; }
 
-    /* Secure badge — right of logo, replaces main nav on checkout */
     .nav-secure-badge {
       display: flex; align-items: center; gap: 6px;
       font-size: 0.75rem; font-weight: 500;
@@ -132,7 +126,6 @@
       transform: translateY(-2px);
     }
 
-    /* Hamburger — matches site exactly */
     .menu-trigger {
       display: none;
       cursor: pointer;
@@ -160,7 +153,6 @@
     .menu-trigger.menu-active .menu-icon span:nth-child(2) { opacity: 0; transform: translateX(10px); }
     .menu-trigger.menu-active .menu-icon span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
-    /* Mobile overlay — matches site exactly */
     .mobile-overlay {
       position: fixed; inset: 0;
       background: rgba(29, 29, 31, 0.98);
@@ -188,7 +180,6 @@
     .mobile-nav-links li:nth-child(2) { transition-delay: 0.15s; }
     .mobile-nav-links li:nth-child(3) { transition-delay: 0.20s; }
 
-    /* font-weight: 700 — matches site (not 800/900) */
     .mobile-nav-links a {
       color: #fff;
       font-size: 2.2rem;
@@ -208,14 +199,9 @@
 
     .mobile-nav-links a:hover::after { width: 100%; }
 
-    /* ─────────────────────────────────────────────────────────────
-       PAGE
-    ───────────────────────────────────────────────────────────── */
+    /* ── PAGE ── */
     .page { padding-top: var(--nav-h); }
 
-    /* ─────────────────────────────────────────────────────────────
-       SHOPIFY-STYLE TWO-COLUMN LAYOUT
-    ───────────────────────────────────────────────────────────── */
     .checkout-wrap {
       display: grid;
       grid-template-columns: 1fr 400px;
@@ -226,15 +212,12 @@
       align-items: start;
     }
 
-    /* ─────────────────────────────────────────────────────────────
-       LEFT — FORM PANEL
-    ───────────────────────────────────────────────────────────── */
+    /* ── FORM PANEL ── */
     .form-panel {
       opacity: 0;
       animation: fadeUp 0.7s ease 0.1s forwards;
     }
 
-    /* ── Step indicator — matches site pattern ── */
     .steps-bar {
       display: flex; align-items: center;
       margin-bottom: 32px;
@@ -262,7 +245,6 @@
     .step-item.active .step-dot { border-color: var(--brand-red); color: var(--brand-red); }
     .step-item.done .step-dot   { background: var(--text-dark); border-color: var(--text-dark); color: #fff; }
 
-    /* Liquid-fill connector */
     .step-connector {
       flex: 1; height: 1px;
       background: var(--border);
@@ -279,12 +261,10 @@
 
     .step-connector.done::after { transform: scaleX(1); }
 
-    /* Checkmark swap */
     .step-check { display: none; width: 9px; height: 5px; border-left: 2px solid #fff; border-bottom: 2px solid #fff; transform: rotate(-45deg) translate(1px, -1px); }
-    .step-item.done .step-num  { display: none; }
+    .step-item.done .step-num   { display: none; }
     .step-item.done .step-check { display: block; }
 
-    /* ── Panel card ── */
     .panel-card {
       background: #fff;
       border: 1px solid var(--border);
@@ -307,7 +287,6 @@
       background: var(--border-soft);
     }
 
-    /* ── Fields ── */
     .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 11px; margin-bottom: 11px; }
     .field { margin-bottom: 11px; }
     .field:last-of-type { margin-bottom: 0; }
@@ -349,7 +328,6 @@
 
     .field.has-err .field-err { display: block; }
 
-    /* ── Submit button ── */
     .btn-submit {
       display: flex; align-items: center; justify-content: center;
       gap: 10px; width: 100%;
@@ -366,7 +344,6 @@
       will-change: transform;
     }
 
-    /* shimmer on hover */
     .btn-submit::before {
       content: '';
       position: absolute; inset: 0;
@@ -408,7 +385,6 @@
       fill: none; flex-shrink: 0;
     }
 
-    /* ── What happens next ── */
     .next-step {
       display: flex; align-items: flex-start; gap: 14px;
       padding: 13px 0;
@@ -426,13 +402,10 @@
     }
 
     .next-step-icon svg { width: 13px; height: 13px; stroke: var(--text-muted); stroke-width: 1.8; fill: none; }
-
     .next-step-label { font-size: 0.8rem; font-weight: 700; color: var(--text-dark); margin-bottom: 2px; }
     .next-step-desc  { font-size: 0.74rem; color: var(--text-muted); line-height: 1.55; }
 
-    /* ─────────────────────────────────────────────────────────────
-       RIGHT — ORDER SUMMARY
-    ───────────────────────────────────────────────────────────── */
+    /* ── ORDER SUMMARY ── */
     .summary-panel {
       background: var(--bg-summary);
       border: 1px solid var(--border);
@@ -442,7 +415,6 @@
       opacity: 0; animation: fadeUp 0.7s ease 0.18s forwards;
     }
 
-    /* Device header */
     .summary-device {
       padding: 20px 22px;
       border-bottom: 1px solid var(--border);
@@ -474,7 +446,6 @@
       font-size: 0.72rem; color: var(--text-muted); margin-top: 2px;
     }
 
-    /* Breakdown */
     .summary-section { padding: 18px 22px; border-bottom: 1px solid var(--border); }
 
     .summary-section-label {
@@ -508,7 +479,6 @@
       font-size: 0.7rem; font-weight: 600;
     }
 
-    /* Total */
     .summary-total {
       padding: 18px 22px;
       border-bottom: 1px solid var(--border);
@@ -526,7 +496,6 @@
     .summary-total-fig sup { font-size: 0.9rem; font-weight: 700; vertical-align: super; letter-spacing: 0; }
     .summary-total-tax { font-size: 0.68rem; color: var(--text-faint); text-align: right; margin-top: 2px; }
 
-    /* Renewal */
     .summary-renewal {
       padding: 14px 22px;
       border-bottom: 1px solid var(--border);
@@ -538,7 +507,6 @@
     .renewal-text { font-size: 0.74rem; color: var(--text-muted); line-height: 1.6; }
     .renewal-text strong { color: var(--text-dark); font-weight: 600; }
 
-    /* Features */
     .summary-features { padding: 16px 22px; }
 
     .feature-item {
@@ -558,9 +526,7 @@
 
     .feat-check svg { width: 8px; height: 8px; stroke: var(--green); stroke-width: 3; fill: none; }
 
-    /* ─────────────────────────────────────────────────────────────
-       TRUST FOOTER — three signals only, minimal
-    ───────────────────────────────────────────────────────────── */
+    /* ── TRUST FOOTER ── */
     .trust-footer {
       max-width: 1080px; margin: 0 auto;
       padding: 0 28px 52px;
@@ -575,9 +541,7 @@
       display: flex; align-items: center; gap: 7px;
       font-size: 0.71rem; font-weight: 500;
       color: var(--text-faint); letter-spacing: 0.02em;
-      padding: 0 24px;
-      flex-shrink: 0;
-      white-space: nowrap;
+      padding: 0 24px; flex-shrink: 0; white-space: nowrap;
     }
 
     .trust-item svg {
@@ -586,15 +550,122 @@
       fill: none; flex-shrink: 0;
     }
 
-    .trust-sep {
-      width: 1px; height: 16px;
-      background: var(--border);
+    .trust-sep { width: 1px; height: 16px; background: var(--border); flex-shrink: 0; }
+
+    /* ─────────────────────────────────────────────────────────────
+       IFRAME CHECKOUT OVERLAY
+    ───────────────────────────────────────────────────────────── */
+    #cb-iframe-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9000;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      opacity: 0;
+      animation: overlayIn 0.3s var(--ease-out) forwards;
+    }
+
+    @keyframes overlayIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    #cb-iframe-card {
+      background: #fff;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 540px;
+      height: min(720px, calc(100vh - 32px));
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 32px 80px rgba(0, 0, 0, 0.28), 0 0 0 1px rgba(0,0,0,0.06);
+      transform: translateY(20px);
+      animation: cardIn 0.35s var(--ease-spring) 0.05s forwards;
+    }
+
+    @keyframes cardIn {
+      from { transform: translateY(20px); opacity: 0.6; }
+      to   { transform: translateY(0);    opacity: 1; }
+    }
+
+    #cb-iframe-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border);
       flex-shrink: 0;
     }
 
-    /* ─────────────────────────────────────────────────────────────
-       KEYFRAMES
-    ───────────────────────────────────────────────────────────── */
+    #cb-iframe-header-label {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.02em;
+    }
+
+    #cb-iframe-header-label svg {
+      width: 12px; height: 12px;
+      stroke: var(--green); stroke-width: 2; fill: none;
+    }
+
+    #cb-iframe-close {
+      background: var(--bg-summary);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      width: 28px; height: 28px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    #cb-iframe-close:hover { background: #eaeaec; transform: scale(1.08); }
+
+    #cb-iframe-close svg {
+      width: 11px; height: 11px;
+      stroke: var(--text-muted); stroke-width: 2.2; fill: none;
+    }
+
+    #cb-iframe {
+      width: 100%;
+      flex: 1;
+      border: none;
+      display: block;
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    #cb-iframe-loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      flex: 1;
+      color: var(--text-faint);
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    #cb-iframe-loading .load-spin {
+      width: 22px; height: 22px;
+      border: 2px solid var(--border);
+      border-top-color: var(--brand-red);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+
+    /* ── KEYFRAMES ── */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(16px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -602,9 +673,7 @@
 
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* ─────────────────────────────────────────────────────────────
-       RESPONSIVE
-    ───────────────────────────────────────────────────────────── */
+    /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       .checkout-wrap   { grid-template-columns: 1fr; padding: 32px 20px 60px; gap: 24px; }
       .summary-panel   { position: static; order: -1; }
@@ -627,6 +696,11 @@
       .step-item.done   > span { display: block; }
       .trust-item        { padding: 0 10px; font-size: 0.62rem; letter-spacing: 0; }
       .trust-item svg    { width: 11px; height: 11px; }
+
+      #cb-iframe-card {
+        height: calc(100vh - 32px);
+        border-radius: 16px;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -640,8 +714,6 @@
 <nav class="navbar-custom">
   <div class="nav-container">
     <a class="navbar-brand" href="/"><img src="assets/img/logos/logo.png" alt="More4Less"></a>
-
-
 
     <ul class="nav-links-desktop">
       <li><a href="/#pricing">Pricing</a></li>
@@ -671,7 +743,6 @@
     <!-- ── LEFT — form ────────────────────────────────────────── -->
     <div class="form-panel">
 
-      <!-- Steps bar -->
       <div class="steps-bar">
         <div class="step-item active" id="st-1">
           <div class="step-dot">
@@ -698,7 +769,6 @@
         </div>
       </div>
 
-      <!-- Contact form card — id="secure" for anchor linking -->
       <div class="panel-card" id="secure">
         <div class="panel-title">Contact Information</div>
 
@@ -717,8 +787,6 @@
           </div>
         </div>
 
-      
-
         <div class="field" id="fg-email">
           <label for="f-email">Email Address</label>
           <input type="email" id="f-email" placeholder="jane@example.com"
@@ -726,7 +794,7 @@
           <div class="field-err">Please enter a valid email address.</div>
         </div>
 
-          <div class="field" id="fg-phone">
+        <div class="field" id="fg-phone">
           <label for="f-phone">Phone Number</label>
           <input type="tel" id="f-phone" placeholder="416-555-0123"
                  autocomplete="tel">
@@ -754,7 +822,6 @@
         </div>
       </div>
 
-      <!-- What happens next -->
       <div class="panel-card">
         <div class="panel-title">What Happens Next</div>
 
@@ -803,7 +870,6 @@
     <!-- ── RIGHT — order summary ──────────────────────────────── -->
     <div class="summary-panel">
 
-      <!-- Device -->
       <div class="summary-device">
         <img src="assets/img/products/mr6110.png"
              alt="NETGEAR Nighthawk M6"
@@ -815,43 +881,41 @@
         </div>
       </div>
 
-     <!-- Price breakdown -->
-<div class="summary-section">
-  <div class="summary-section-label">Included With Your Order</div>
+      <div class="summary-section">
+        <div class="summary-section-label">Included With Your Order</div>
 
-  <div class="breakdown-row">
-    <div class="bd-label">
-      <strong>NETGEAR Nighthawk M6</strong>
-      <small>5G WiFi 6 Mobile Hotspot Router</small>
-    </div>
-    <span class="bd-val">$349</span>
-  </div>
+        <div class="breakdown-row">
+          <div class="bd-label">
+            <strong>NETGEAR Nighthawk M6</strong>
+            <small>5G WiFi 6 Mobile Hotspot Router</small>
+          </div>
+          <span class="bd-val">$349</span>
+        </div>
 
-  <div class="breakdown-row">
-    <div class="bd-label">
-      <strong>Unlimited Data — First Month Included</strong>
-      <small>Ready To Use Out Of The Box</small>
-    </div>
-    <span class="bd-val free">Included</span>
-  </div>
+        <div class="breakdown-row">
+          <div class="bd-label">
+            <strong>Unlimited Data — First Month Included</strong>
+            <small>Ready To Use Out Of The Box</small>
+          </div>
+          <span class="bd-val free">Included</span>
+        </div>
 
-  <div class="breakdown-row">
-    <span class="bd-label">Activation</span>
-    <span class="bd-val free">$0</span>
-  </div>
+        <div class="breakdown-row">
+          <span class="bd-label">Activation</span>
+          <span class="bd-val free">$0</span>
+        </div>
 
-  <div class="breakdown-row">
-    <span class="bd-label">Shipping</span>
-    <span class="bd-val free">$0</span>
-  </div>
+        <div class="breakdown-row">
+          <span class="bd-label">Shipping</span>
+          <span class="bd-val free">$0</span>
+        </div>
 
-  <div class="breakdown-row">
-    <span class="bd-label">Contract Commitment</span>
-    <span class="bd-val tag">No Contract Required</span>
-  </div>
-</div>
+        <div class="breakdown-row">
+          <span class="bd-label">Contract Commitment</span>
+          <span class="bd-val tag">No Contract Required</span>
+        </div>
+      </div>
 
-      <!-- Total -->
       <div class="summary-total">
         <div>
           <div class="summary-total-label">Due Today</div>
@@ -863,7 +927,6 @@
         </div>
       </div>
 
-      <!-- Renewal -->
       <div class="summary-renewal">
         <div class="renewal-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color:var(--text-muted)">
@@ -878,45 +941,44 @@
         </div>
       </div>
 
-   <!-- Features -->
-<div class="summary-features">
-  <div class="summary-section-label">Everything Included</div>
+      <div class="summary-features">
+        <div class="summary-section-label">Everything Included</div>
 
-  <div class="feature-item">
-    <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-    5G Speeds Up To 2.5 Gbps — Home Or On The Go
-  </div>
+        <div class="feature-item">
+          <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+          5G Speeds Up To 2.5 Gbps — Home Or On The Go
+        </div>
 
-  <div class="feature-item">
-    <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-    Truly Unlimited Data — No Caps Or Slowdowns
-  </div>
+        <div class="feature-item">
+          <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+          Truly Unlimited Data — No Caps Or Slowdowns
+        </div>
 
-  <div class="feature-item">
-    <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-    WiFi 6 (AX3600) — Connect Up To 32 Devices
-  </div>
+        <div class="feature-item">
+          <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+          WiFi 6 (AX3600) — Connect Up To 32 Devices
+        </div>
 
-  <div class="feature-item">
-    <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-    13-Hour Battery — Portable Or Plugged In At Home
-  </div>
+        <div class="feature-item">
+          <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+          13-Hour Battery — Portable Or Plugged In At Home
+        </div>
 
-  <div class="feature-item">
-    <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-    1 Gbps Ethernet + 2.4" Touchscreen Display
-  </div>
+        <div class="feature-item">
+          <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+          1 Gbps Ethernet + 2.4" Touchscreen Display
+        </div>
 
-  <div class="feature-item">
-    <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-    30-Day Money-Back Guarantee
-  </div>
-</div>
+        <div class="feature-item">
+          <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+          30-Day Money-Back Guarantee
+        </div>
+      </div>
     </div><!-- /summary-panel -->
 
   </div><!-- /checkout-wrap -->
 
-  <!-- ── TRUST FOOTER — three signals, clean ───────────────────── -->
+  <!-- ── TRUST FOOTER ───────────────────────────────────────────── -->
   <div class="trust-footer">
     <div class="trust-item">
       <svg viewBox="0 0 14 14" fill="none" stroke-linecap="round">
@@ -950,29 +1012,23 @@
   'use strict';
 
   /* ── CONFIG ─────────────────────────────────────────────────── */
-  var CB_SITE    = 'more4lessplans';
   var CB_PLAN_ID = 'wireless-internet-m6';
-  var WORKER_URL = '/api/secure-checkout';
+  var WORKER_URL = '/api/secure-checkout-inline';
   var CONFIRM    = '/lease-confirmed';
 
-  var cbInstance = Chargebee.init({ site: CB_SITE });
-
-  /* ── MOBILE MENU — matches site pattern exactly ─────────────── */
-  var trigger  = document.getElementById('menuTrigger');
-  var overlay  = document.getElementById('mobileOverlay');
+  /* ── MOBILE MENU ─────────────────────────────────────────────── */
+  var trigger       = document.getElementById('menuTrigger');
+  var mobileOverlay = document.getElementById('mobileOverlay');
 
   function toggleMenu() {
     var open = trigger.classList.toggle('menu-active');
-    overlay.classList.toggle('active', open);
+    mobileOverlay.classList.toggle('active', open);
     document.body.style.overflow = open ? 'hidden' : '';
   }
 
-  trigger.addEventListener('click', function (e) {
-    e.stopPropagation(); toggleMenu();
-  });
-
-  overlay.addEventListener('click', function (e) {
-    if (!e.target.closest('a') && overlay.classList.contains('active')) toggleMenu();
+  trigger.addEventListener('click', function (e) { e.stopPropagation(); toggleMenu(); });
+  mobileOverlay.addEventListener('click', function (e) {
+    if (!e.target.closest('a') && mobileOverlay.classList.contains('active')) toggleMenu();
   });
 
   /* ── STEP MACHINE ────────────────────────────────────────────── */
@@ -1002,8 +1058,8 @@
   }
 
   function isPhone(v) { return v.replace(/[\s\-()+.]/g,'').length >= 7; }
+  function isEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
 
-  /* Live — clear on fix */
   ['f-first','f-last','f-phone','f-email'].forEach(function (id) {
     var el = document.getElementById(id);
     if (!el) return;
@@ -1014,8 +1070,6 @@
     });
   });
 
-  function isEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
-
   function collect() {
     clearErrors();
     var first = document.getElementById('f-first').value.trim();
@@ -1024,10 +1078,10 @@
     var email = document.getElementById('f-email').value.trim();
     var ok    = true;
 
-    if (!first)           { flagErr('f-first','fg-first');  ok = false; }
-    if (!last)            { flagErr('f-last', 'fg-last');   ok = false; }
-    if (!isPhone(phone))  { flagErr('f-phone','fg-phone');  ok = false; }
-    if (!isEmail(email))  { flagErr('f-email','fg-email');  ok = false; }
+    if (!first)          { flagErr('f-first','fg-first'); ok = false; }
+    if (!last)           { flagErr('f-last', 'fg-last');  ok = false; }
+    if (!isPhone(phone)) { flagErr('f-phone','fg-phone'); ok = false; }
+    if (!isEmail(email)) { flagErr('f-email','fg-email'); ok = false; }
 
     if (!ok) {
       var f = document.querySelector('.field.has-err input');
@@ -1040,6 +1094,119 @@
       first_name: first, last_name: last,
       phone: phone, email: email
     };
+  }
+
+  /* ── IFRAME CHECKOUT ─────────────────────────────────────────── */
+  function showCheckoutIframe(hostedPageUrl) {
+    var overlay = document.createElement('div');
+    overlay.id  = 'cb-iframe-overlay';
+
+    var card = document.createElement('div');
+    card.id  = 'cb-iframe-card';
+
+    var header = document.createElement('div');
+    header.id  = 'cb-iframe-header';
+    header.innerHTML =
+      '<div id="cb-iframe-header-label">' +
+        '<svg viewBox="0 0 14 14" fill="none" stroke-linecap="round">' +
+          '<rect x="2" y="6" width="10" height="7" rx="1.5"/>' +
+          '<path d="M4.5 6V4.5a2.5 2.5 0 015 0V6"/>' +
+        '</svg>' +
+        'Secure Payment — Powered by Chargebee' +
+      '</div>' +
+      '<button id="cb-iframe-close" aria-label="Close payment window">' +
+        '<svg viewBox="0 0 12 12" fill="none" stroke-linecap="round">' +
+          '<line x1="2" y1="2" x2="10" y2="10"/>' +
+          '<line x1="10" y1="2" x2="2" y2="10"/>' +
+        '</svg>' +
+      '</button>';
+
+    var loading = document.createElement('div');
+    loading.id  = 'cb-iframe-loading';
+    loading.innerHTML = '<div class="load-spin"></div><span>Loading secure checkout…</span>';
+
+    var iframe = document.createElement('iframe');
+    iframe.id  = 'cb-iframe';
+    iframe.setAttribute('allowpaymentrequest', 'true');
+    iframe.setAttribute('allow', 'payment');
+    iframe.title = 'Secure Chargebee Checkout';
+    iframe.style.display = 'none';
+
+    card.appendChild(header);
+    card.appendChild(loading);
+    card.appendChild(iframe);
+    overlay.appendChild(card);
+    document.body.appendChild(overlay);
+    document.body.style.overflow = 'hidden';
+
+    iframe.addEventListener('load', function () {
+      loading.style.display = 'none';
+      iframe.style.display  = 'block';
+      try {
+        var loc = iframe.contentWindow.location.href;
+        if (loc && (loc.indexOf('/active') !== -1 || loc.indexOf(CONFIRM) !== -1)) {
+          onSuccess();
+        }
+      } catch (e) { /* cross-origin — not our redirect yet */ }
+    });
+
+    iframe.src = hostedPageUrl;
+
+    /* Poll for same-origin redirect (success) */
+    var pollInterval = setInterval(function () {
+      try {
+        var loc = iframe.contentWindow.location.href;
+        if (loc && (loc.indexOf('/active') !== -1 || loc.indexOf(CONFIRM) !== -1)) {
+          clearInterval(pollInterval);
+          onSuccess();
+        }
+      } catch (e) { /* still cross-origin — keep polling */ }
+    }, 800);
+
+    /* postMessage fallback */
+    function onMessage(e) {
+      if (!e.origin || e.origin.indexOf('chargebee.com') === -1) return;
+      try {
+        var msg = typeof e.data === 'string' ? JSON.parse(e.data) : e.data;
+        if (msg && (msg.event === 'checkout.success' || msg.event === 'success')) {
+          clearInterval(pollInterval);
+          window.removeEventListener('message', onMessage);
+          onSuccess();
+        }
+        if (msg && (msg.event === 'checkout.cancel' || msg.event === 'cancel')) {
+          clearInterval(pollInterval);
+          window.removeEventListener('message', onMessage);
+          closeOverlay(); setStep(1);
+        }
+      } catch (err) { /* non-JSON, ignore */ }
+    }
+    window.addEventListener('message', onMessage);
+
+    document.getElementById('cb-iframe-close').addEventListener('click', function () {
+      clearInterval(pollInterval);
+      window.removeEventListener('message', onMessage);
+      closeOverlay(); setStep(1);
+    });
+
+    overlay.addEventListener('click', function (e) {
+      if (e.target === overlay) {
+        clearInterval(pollInterval);
+        window.removeEventListener('message', onMessage);
+        closeOverlay(); setStep(1);
+      }
+    });
+
+    function onSuccess() {
+      window.removeEventListener('message', onMessage);
+      closeOverlay(); setStep(3);
+      window.location.href = CONFIRM;
+    }
+
+    function closeOverlay() {
+      var el = document.getElementById('cb-iframe-overlay');
+      if (el) el.remove();
+      document.body.style.overflow = '';
+    }
   }
 
   /* ── SUBMIT ──────────────────────────────────────────────────── */
@@ -1055,9 +1222,9 @@
     setStep(2);
 
     fetch(WORKER_URL, {
-      method: 'POST',
+      method:  'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
+      body:    JSON.stringify(data)
     })
     .then(function (res) {
       return res.json().then(function (body) {
@@ -1068,26 +1235,7 @@
     .then(function (result) {
       btn.classList.remove('loading');
       btn.disabled = false;
-
-      cbInstance.openCheckout({
-        hostedPage: function () { return Promise.resolve(result.hosted_page); },
-        success: function (id) {
-          sessionStorage.setItem('m4l_cb_page', id);
-          setStep(3);
-          window.location.href = CONFIRM;
-        },
-        close: function () {
-          btn.classList.remove('loading');
-          btn.disabled = false;
-          setStep(1);
-        },
-        error: function (err) {
-          console.error('Chargebee error:', err);
-          btn.classList.remove('loading');
-          btn.disabled = false;
-          setStep(1);
-        }
-      });
+      showCheckoutIframe(result.hosted_page.url);
     })
     .catch(function (err) {
       console.error(err);
