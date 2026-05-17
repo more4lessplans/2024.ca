@@ -1053,20 +1053,17 @@
   'use strict';
 
   /* ── CONFIG ─────────────────────────────────────────────────── */
-  var CB_SITE    = 'more4lessplans';
   var CB_PLAN_ID = 'wireless-internet-orbi';
   var WORKER_URL = '/api/secure-checkout';
   var CONFIRM    = '/lease-confirmed';
 
-  /* cbInstance removed — using raw iframe instead of Chargebee popup */
-
-  /* ── MOBILE MENU — matches site pattern exactly ─────────────── */
-  var trigger  = document.getElementById('menuTrigger');
-  var overlay  = document.getElementById('mobileOverlay');
+  /* ── MOBILE MENU ─────────────────────────────────────────────── */
+  var trigger       = document.getElementById('menuTrigger');
+  var mobileOverlay = document.getElementById('mobileOverlay');
 
   function toggleMenu() {
     var open = trigger.classList.toggle('menu-active');
-    overlay.classList.toggle('active', open);
+    mobileOverlay.classList.toggle('active', open);
     document.body.style.overflow = open ? 'hidden' : '';
   }
 
@@ -1074,18 +1071,18 @@
     e.stopPropagation(); toggleMenu();
   });
 
-  overlay.addEventListener('click', function (e) {
-    if (!e.target.closest('a') && overlay.classList.contains('active')) toggleMenu();
+  mobileOverlay.addEventListener('click', function (e) {
+    if (!e.target.closest('a') && mobileOverlay.classList.contains('active')) toggleMenu();
   });
 
   /* ── STEP MACHINE ────────────────────────────────────────────── */
   function setStep(n) {
-    [['st-1',1],['st-2',2],['st-3',3]].forEach(function (pair) {
+    [['st-1', 1], ['st-2', 2], ['st-3', 3]].forEach(function (pair) {
       var el = document.getElementById(pair[0]);
       var i  = pair[1];
       el.className = 'step-item' + (i < n ? ' done' : i === n ? ' active' : '');
     });
-    [['cn-1',1],['cn-2',2]].forEach(function (pair) {
+    [['cn-1', 1], ['cn-2', 2]].forEach(function (pair) {
       var el = document.getElementById(pair[0]);
       el.className = 'step-connector' + (pair[1] < n ? ' done' : '');
     });
@@ -1104,10 +1101,10 @@
     if (g) g.classList.add('has-err');
   }
 
-  function isPhone(v) { return v.replace(/[\s\-()+.]/g,'').length >= 7; }
+  function isPhone(v) { return v.replace(/[\s\-()+.]/g, '').length >= 7; }
+  function isEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
 
-  /* Live — clear on fix */
-  ['f-first','f-last','f-phone','f-email'].forEach(function (id) {
+  ['f-first', 'f-last', 'f-phone', 'f-email'].forEach(function (id) {
     var el = document.getElementById(id);
     if (!el) return;
     el.addEventListener('input', function () {
@@ -1117,8 +1114,6 @@
     });
   });
 
-  function isEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
-
   function collect() {
     clearErrors();
     var first = document.getElementById('f-first').value.trim();
@@ -1127,10 +1122,10 @@
     var email = document.getElementById('f-email').value.trim();
     var ok    = true;
 
-    if (!first)           { flagErr('f-first','fg-first');  ok = false; }
-    if (!last)            { flagErr('f-last', 'fg-last');   ok = false; }
-    if (!isPhone(phone))  { flagErr('f-phone','fg-phone');  ok = false; }
-    if (!isEmail(email))  { flagErr('f-email','fg-email');  ok = false; }
+    if (!first)          { flagErr('f-first', 'fg-first'); ok = false; }
+    if (!last)           { flagErr('f-last',  'fg-last');  ok = false; }
+    if (!isPhone(phone)) { flagErr('f-phone', 'fg-phone'); ok = false; }
+    if (!isEmail(email)) { flagErr('f-email', 'fg-email'); ok = false; }
 
     if (!ok) {
       var f = document.querySelector('.field.has-err input');
@@ -1139,62 +1134,34 @@
     }
 
     return {
-      plan_id: CB_PLAN_ID, sim_type: 'physical',
-      first_name: first, last_name: last,
-      phone: phone, email: email
+      plan_id:    CB_PLAN_ID,
+      sim_type:   'physical',
+      first_name: first,
+      last_name:  last,
+      phone:      phone,
+      email:      email
     };
-  }
-
-  /* ── SUBMIT ──────────────────────────────────────────────────── */
-  function handleSubmit() {
-    var data = collect();
-    if (!data) return;
-
-    var btn = document.getElementById('submitBtn');
-    btn.classList.add('loading');
-    btn.disabled = true;
-
-    sessionStorage.setItem('m4l_order', JSON.stringify(data));
-    setStep(2);
-
-    fetch(WORKER_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    })
-    .then(function (res) {
-      return res.json().then(function (body) {
-        if (!res.ok) throw new Error('Worker ' + res.status + ': ' + (body.error || ''));
-        return body;
-      });
-    })
-    .then(function (result) {
-      btn.classList.remove('loading');
-      btn.disabled = false;
-
-      showCheckoutIframe(result.hosted_page.url);
-    })
-    .catch(function (err) {
-      console.error(err);
-      btn.classList.remove('loading');
-      btn.disabled = false;
-      setStep(1);
-      alert('Something went wrong — please try again or contact support.');
-    });
   }
 
   /* ── IFRAME CHECKOUT ─────────────────────────────────────────────
      Injects a full-screen overlay containing an <iframe> that loads
      the Chargebee hosted page URL directly. No popup, no window.open()
      — Safari on iOS is happy with this approach.
+
+     Success detection: Chargebee's redirect_url fires inside the iframe,
+     which navigates the iframe to our domain. We detect this by polling
+     the iframe's location (same-origin after redirect) OR by listening
+     for a postMessage from the Chargebee page.
   ──────────────────────────────────────────────────────────────── */
   function showCheckoutIframe(hostedPageUrl) {
+    /* Build overlay */
     var overlay = document.createElement('div');
     overlay.id = 'cb-iframe-overlay';
 
     var card = document.createElement('div');
     card.id = 'cb-iframe-card';
 
+    /* Header bar with lock icon + close button */
     var header = document.createElement('div');
     header.id = 'cb-iframe-header';
     header.innerHTML =
@@ -1212,15 +1179,18 @@
         '</svg>' +
       '</button>';
 
+    /* Loading indicator — shown until iframe fires load event */
     var loading = document.createElement('div');
     loading.id = 'cb-iframe-loading';
     loading.innerHTML = '<div class="load-spin"></div><span>Loading secure checkout…</span>';
 
+    /* The iframe itself */
     var iframe = document.createElement('iframe');
-    iframe.id = 'cb-iframe';
+    iframe.id  = 'cb-iframe';
     iframe.setAttribute('allowpaymentrequest', 'true');
     iframe.setAttribute('allow', 'payment');
     iframe.title = 'Secure Chargebee Checkout';
+    /* src set after appending so load event fires reliably on iOS */
 
     card.appendChild(header);
     card.appendChild(loading);
@@ -1229,20 +1199,27 @@
     document.body.appendChild(overlay);
     document.body.style.overflow = 'hidden';
 
+    /* Show iframe, hide loader once content loads */
     iframe.style.display = 'none';
     iframe.addEventListener('load', function () {
       loading.style.display = 'none';
       iframe.style.display  = 'block';
+
       try {
         var loc = iframe.contentWindow.location.href;
         if (loc && (loc.indexOf('/active') !== -1 || loc.indexOf(CONFIRM) !== -1)) {
-          onSuccess(); return;
+          onSuccess();
+          return;
         }
-      } catch (e) { /* cross-origin, ignore */ }
+      } catch (e) {
+        /* cross-origin — not our redirect yet, ignore */
+      }
     });
 
+    /* Set src now */
     iframe.src = hostedPageUrl;
 
+    /* Poll every 800ms for same-origin success redirect */
     var pollInterval = setInterval(function () {
       try {
         var loc = iframe.contentWindow.location.href;
@@ -1250,9 +1227,12 @@
           clearInterval(pollInterval);
           onSuccess();
         }
-      } catch (e) { /* still cross-origin, keep polling */ }
+      } catch (e) {
+        /* still cross-origin (chargebee.com) — keep polling */
+      }
     }, 800);
 
+    /* postMessage fallback */
     function onMessage(e) {
       if (!e.origin || e.origin.indexOf('chargebee.com') === -1) return;
       try {
@@ -1265,29 +1245,35 @@
         if (msg && (msg.event === 'checkout.cancel' || msg.event === 'cancel')) {
           clearInterval(pollInterval);
           window.removeEventListener('message', onMessage);
-          closeOverlay(); setStep(1);
+          closeOverlay();
+          setStep(1);
         }
-      } catch (err) { /* non-JSON */ }
+      } catch (err) { /* non-JSON, ignore */ }
     }
     window.addEventListener('message', onMessage);
 
+    /* Close button */
     document.getElementById('cb-iframe-close').addEventListener('click', function () {
       clearInterval(pollInterval);
       window.removeEventListener('message', onMessage);
-      closeOverlay(); setStep(1);
+      closeOverlay();
+      setStep(1);
     });
 
+    /* Backdrop click */
     overlay.addEventListener('click', function (e) {
       if (e.target === overlay) {
         clearInterval(pollInterval);
         window.removeEventListener('message', onMessage);
-        closeOverlay(); setStep(1);
+        closeOverlay();
+        setStep(1);
       }
     });
 
     function onSuccess() {
       window.removeEventListener('message', onMessage);
-      closeOverlay(); setStep(3);
+      closeOverlay();
+      setStep(3);
       window.location.href = CONFIRM;
     }
 
@@ -1296,6 +1282,45 @@
       if (el) el.remove();
       document.body.style.overflow = '';
     }
+  }
+
+  /* ── SUBMIT ──────────────────────────────────────────────────── */
+  function handleSubmit() {
+    var data = collect();
+    if (!data) return;
+
+    var btn = document.getElementById('submitBtn');
+    btn.classList.add('loading');
+    btn.disabled = true;
+
+    sessionStorage.setItem('m4l_order', JSON.stringify(data));
+    setStep(2);
+
+    fetch(WORKER_URL, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(data)
+    })
+    .then(function (res) {
+      return res.json().then(function (body) {
+        if (!res.ok) throw new Error('Worker ' + res.status + ': ' + (body.error || ''));
+        return body;
+      });
+    })
+    .then(function (result) {
+      btn.classList.remove('loading');
+      btn.disabled = false;
+
+      /* Use hosted_page.url — embed=true formats it for iframe display */
+      showCheckoutIframe(result.hosted_page.url);
+    })
+    .catch(function (err) {
+      console.error(err);
+      btn.classList.remove('loading');
+      btn.disabled = false;
+      setStep(1);
+      alert('Something went wrong — please try again or contact support.');
+    });
   }
 
   window.handleSubmit = handleSubmit;
