@@ -2176,6 +2176,8 @@
 
     var contact = JSON.parse(sessionStorage.getItem('m4l_order') || '{}');
 
+    console.log('PAYLOAD billing_address:', JSON.stringify(contact.billing));
+
     cardComponent.tokenize({
       firstName: contact.first_name || '',
       lastName:  contact.last_name  || ''
