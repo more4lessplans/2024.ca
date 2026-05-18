@@ -2185,15 +2185,16 @@
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-  token:           data.token,
-  plan_id:         CB_PLAN_ID,
-  sim_type:        'physical',
-  first_name:      contact.first_name,
-  last_name:       contact.last_name,
-  phone:           contact.phone,
-  email:           contact.email,
+  token:            data.token,
+  plan_id:          CB_PLAN_ID,
+  sim_type:         'physical',
+  first_name:       contact.first_name,
+  last_name:        contact.last_name,
+  phone:            contact.phone,
+  email:            contact.email,
+  billing_address:  contact.billing,   // ← ADD THIS
   shipping_address: contact.shipping,
-  coupon_id:       appliedCoupon || undefined
+  coupon_id:        appliedCoupon || undefined
 })
       });
     })
