@@ -214,59 +214,113 @@
     ───────────────────────────────────────────────────────────── */
     .order-landing {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
       min-height: calc(100vh - var(--nav-h));
-      padding: 40px 20px 80px;
+      padding: 52px 28px 80px;
     }
 
-    .order-card {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: var(--card-radius);
-      max-width: 480px;
+    /* On desktop, two-column: product hero left, order details right */
+    .order-card-wrap {
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 36px;
+      max-width: 1080px;
       width: 100%;
-      overflow: hidden;
-      box-shadow: 0 2px 24px rgba(0,0,0,0.06);
+      align-items: start;
       opacity: 0;
       animation: fadeUp 0.7s ease 0.1s both;
     }
 
-    .order-card-hero {
+    /* Left hero panel */
+    .order-hero-panel {
       background: var(--bg-summary);
-      border-bottom: 1px solid var(--border);
-      padding: 32px 28px 28px;
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      overflow: hidden;
+      position: sticky;
+      top: calc(var(--nav-h) + 20px);
+    }
+
+    .order-hero-device {
+      padding: 36px 32px 28px;
       display: flex;
       align-items: center;
       gap: 20px;
+      border-bottom: 1px solid var(--border);
     }
 
-    .order-card-img {
-      width: 90px; height: 90px;
+    .order-hero-img {
+      width: 100px; height: 100px;
       object-fit: contain;
-      filter: drop-shadow(0 6px 16px rgba(0,0,0,0.10));
+      filter: drop-shadow(0 8px 20px rgba(0,0,0,0.10));
       flex-shrink: 0;
       transition: transform 1.2s cubic-bezier(0.34, 1.08, 0.64, 1);
     }
 
-    .order-card-img:hover { transform: scale(1.07) translateY(-3px); }
+    .order-hero-img:hover { transform: scale(1.07) translateY(-4px); }
 
-    .order-card-eyebrow {
+    .order-hero-eyebrow {
       font-size: 0.6rem; font-weight: 700;
       letter-spacing: 0.16em; text-transform: uppercase;
       color: var(--text-faint); margin-bottom: 4px;
     }
 
-    .order-card-name {
-      font-size: 1.15rem; font-weight: 700;
-      letter-spacing: -0.02em; color: var(--text-dark); line-height: 1.15;
+    .order-hero-name {
+      font-size: 1.25rem; font-weight: 800;
+      letter-spacing: -0.03em; color: var(--text-dark); line-height: 1.1;
     }
 
-    .order-card-sub {
-      font-size: 0.73rem; color: var(--text-muted); margin-top: 3px;
+    .order-hero-sub { font-size: 0.73rem; color: var(--text-muted); margin-top: 4px; }
+
+    /* Right details panel */
+    .order-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      overflow: hidden;
+    }
+
+    /* Mobile: single column, hero collapses into card header */
+    @media (max-width: 900px) {
+      .order-landing    { padding: 28px 16px 60px; align-items: flex-start; justify-content: center; }
+      .order-card-wrap  { grid-template-columns: 1fr; gap: 0; }
+      .order-hero-panel { display: none; } /* hero panel hidden on mobile; card has its own compact header */
+    }
+
+    /* Mobile-only compact header inside the order card */
+    .order-card-mobile-header {
+      display: none;
+      background: var(--bg-summary);
+      border-bottom: 1px solid var(--border);
+      padding: 22px 20px;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .order-card-mobile-img {
+      width: 64px; height: 64px;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.09));
+      flex-shrink: 0;
+    }
+
+    .order-card-mobile-name {
+      font-size: 0.95rem; font-weight: 700;
+      letter-spacing: -0.02em; color: var(--text-dark);
+    }
+
+    .order-card-mobile-sub { font-size: 0.71rem; color: var(--text-muted); margin-top: 2px; }
+
+    @media (max-width: 900px) {
+      .order-card-mobile-header { display: flex; }
     }
 
     .order-card-body { padding: 22px 28px 28px; }
+
+    @media (max-width: 640px) {
+      .order-card-body { padding: 18px 18px 24px; }
+    }
 
     .order-row {
       display: flex; justify-content: space-between; align-items: baseline;
@@ -900,9 +954,19 @@
     /* ─────────────────────────────────────────────────────────────
        RESPONSIVE
     ───────────────────────────────────────────────────────────── */
+    /* Desktop: features/renewal live in the hero panel, hide duplicates in the card */
+    .order-features-mobile,
+    .order-renewal-mobile { display: none; }
+
     @media (max-width: 900px) {
-      .checkout-wrap   { grid-template-columns: 1fr; padding: 32px 20px 60px; gap: 24px; }
-      .summary-panel   { position: static; order: -1; }
+      .order-features-mobile { display: block; }
+      .order-renewal-mobile  { display: flex; }
+      .order-card            { max-width: 520px; width: 100%; margin: 0 auto; }
+    }
+
+    @media (max-width: 900px) {
+      .checkout-wrap      { grid-template-columns: 1fr; padding: 32px 20px 60px; gap: 24px; }
+      .summary-panel      { display: none; }
       .summary-device-img { width: 75px; height: 75px; }
     }
 
@@ -923,7 +987,6 @@
       .trust-item        { padding: 0 10px; font-size: 0.62rem; letter-spacing: 0; }
       .trust-item svg    { width: 11px; height: 11px; }
       .order-card-body   { padding: 18px; }
-      .order-card-hero   { padding: 22px 18px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -974,18 +1037,75 @@
        STEP 0 — ORDER CARD (shown first)
   ═══════════════════════════════════════════════════════════════ -->
   <div id="screen-0" class="order-landing">
-    <div class="order-card">
+    <div class="order-card-wrap">
 
-      <div class="order-card-hero">
-        <img src="assets/img/products/mr1100.png" alt="Netgear Nighthawk M1" class="order-card-img">
-        <div>
-          <div class="order-card-eyebrow">Your Order</div>
-          <div class="order-card-name">Nighthawk M1</div>
-          <div class="order-card-sub">Unlimited Wireless Internet Package</div>
+      <!-- LEFT: product hero (desktop only) -->
+      <div class="order-hero-panel">
+        <div class="order-hero-device">
+          <img src="assets/img/products/mr1100.png" alt="Netgear Nighthawk M1" class="order-hero-img">
+          <div>
+            <div class="order-hero-eyebrow">Your Order</div>
+            <div class="order-hero-name">Nighthawk M1</div>
+            <div class="order-hero-sub">Unlimited Wireless Internet Package</div>
+          </div>
+        </div>
+
+        <div class="summary-section">
+          <div class="summary-section-label">Everything Included</div>
+          <div class="feature-item">
+            <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+            Up To 1 Gbps LTE Speeds
+          </div>
+          <div class="feature-item">
+            <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+            Truly Unlimited Data — No Caps Or Slowdowns
+          </div>
+          <div class="feature-item">
+            <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+            Connect Up To 20 Devices
+          </div>
+          <div class="feature-item">
+            <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+            All-Day Battery Life — Home Or On The Go
+          </div>
+          <div class="feature-item">
+            <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+            Dual-Band Wi-Fi · 2.4 GHz + 5 GHz
+          </div>
+          <div class="feature-item">
+            <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+            30-Day Money-Back Guarantee
+          </div>
+        </div>
+
+        <div class="summary-renewal" style="border-bottom:none;">
+          <div class="renewal-icon">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2.5 8a5.5 5.5 0 0 1 9.5-3.8"/>
+              <path d="M13.5 8a5.5 5.5 0 0 1-9.5 3.8"/>
+              <polyline points="9.5,1.5 11.5,4.2 8.5,4.8"/>
+              <polyline points="6.5,14.5 4.5,11.8 7.5,11.2"/>
+            </svg>
+          </div>
+          <div class="renewal-text">
+            After the first month, unlimited internet renews at <strong>$110 / month</strong>. No contract — cancel anytime.
+          </div>
         </div>
       </div>
 
-      <div class="order-card-body">
+      <!-- RIGHT: order details + CTA -->
+      <div class="order-card">
+
+        <!-- Mobile-only compact device header -->
+        <div class="order-card-mobile-header">
+          <img src="assets/img/products/mr1100.png" alt="Netgear Nighthawk M1" class="order-card-mobile-img">
+          <div>
+            <div class="order-card-mobile-name">Nighthawk M1</div>
+            <div class="order-card-mobile-sub">Unlimited Wireless Internet Package</div>
+          </div>
+        </div>
+
+        <div class="order-card-body">
 
         <div class="order-row">
           <div class="order-row-label">
@@ -1029,7 +1149,7 @@
           </div>
         </div>
 
-        <div class="order-features">
+        <div class="order-features order-features-mobile">
           <div class="order-feature">
             <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
             Up To 1 Gbps LTE Speeds
@@ -1048,7 +1168,7 @@
           </div>
         </div>
 
-        <div class="order-renewal">
+        <div class="order-renewal order-renewal-mobile">
           <svg viewBox="0 0 16 16" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <path d="M2.5 8a5.5 5.5 0 0 1 9.5-3.8"/>
             <path d="M13.5 8a5.5 5.5 0 0 1-9.5 3.8"/>
@@ -1075,8 +1195,9 @@
           SSL encrypted — payment handled by Chargebee
         </div>
 
-      </div>
-    </div>
+      </div><!-- /order-card-body -->
+      </div><!-- /order-card -->
+    </div><!-- /order-card-wrap -->
   </div><!-- /screen-0 -->
 
 
@@ -1965,7 +2086,7 @@
   }
 
   window.applyPromo = function () {
-    var code = document.getElementById('f-promo').value.trim().toUpperCase();
+    var code = document.getElementById('f-promo').value.trim();
     if (!code) { document.getElementById('f-promo').classList.add('err'); return; }
     document.getElementById('f-promo').classList.remove('err');
 
@@ -1986,7 +2107,7 @@
         setPromoFeedback('bad', data.error || 'Invalid promo code.');
         return;
       }
-      appliedCoupon = code;
+      appliedCoupon = data.coupon_id;
       if (data.discount_type === 'fixed_amount') {
         discountAmount = data.discount_amount / 100;
         showDiscountRow('Promo: ' + code, '−$' + discountAmount.toFixed(2));
@@ -2040,17 +2161,16 @@
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          token:           data.token,
-          plan_id:         CB_PLAN_ID,
-          sim_type:        'physical',
-          first_name:      contact.first_name,
-          last_name:       contact.last_name,
-          phone:           contact.phone,
-          email:           contact.email,
-          billing_address: contact.billing,
-          shipping_address: contact.shipping,
-          coupon_id:       appliedCoupon || undefined
-        })
+  token:           data.token,
+  plan_id:         CB_PLAN_ID,
+  sim_type:        'physical',
+  first_name:      contact.first_name,
+  last_name:       contact.last_name,
+  phone:           contact.phone,
+  email:           contact.email,
+  shipping_address: contact.shipping,
+  coupon_id:       appliedCoupon || undefined
+})
       });
     })
     .then(function (res) {
