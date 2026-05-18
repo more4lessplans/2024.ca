@@ -586,14 +586,14 @@
        PAYMENT STEP CARD — Chargebee.js embedded card fields
     ───────────────────────────────────────────────────────────── */
 
+    /* Hide/show step panels */
     .step-panel { display: none; }
     .step-panel.active { display: block; }
 
-    /* Chargebee field wrapper */
+    /* Chargebee field wrapper — flexbox centres the 18px iframe Chargebee injects */
     .cb-field-wrap {
       width: 100%;
       height: 44px;
-      /* flex + align-items centres the iframe content vertically */
       display: flex;
       align-items: center;
       padding: 0 14px;
@@ -602,23 +602,31 @@
       background: #fff;
       transition: border-color 0.2s ease, box-shadow 0.2s ease;
       box-sizing: border-box;
-      /* No position:relative / overflow:hidden — let Chargebee size naturally */
+      cursor: text;
     }
-    .cb-field-wrap.focus  { border-color: var(--brand-red); box-shadow: 0 0 0 3px var(--brand-red-glow); }
-    .cb-field-wrap.err    { border-color: var(--brand-red); box-shadow: 0 0 0 3px var(--brand-red-glow); }
-
-    /* The iframe Chargebee injects — fill the wrapper, centred by flexbox */
+    .cb-field-wrap.focus { border-color: var(--brand-red); box-shadow: 0 0 0 3px var(--brand-red-glow); }
+    .cb-field-wrap.err   { border-color: var(--brand-red); box-shadow: 0 0 0 3px var(--brand-red-glow); }
+    /* Chargebee injects iframe with height:18px and min-width:100% inline —
+       we must NOT override width/height, just let flexbox centre it */
     .cb-field-wrap iframe {
-      width: 100% !important;
-      height: 26px !important;   /* fixed px height keeps text vertically centred */
+      flex-shrink: 0;
       border: none !important;
       display: block !important;
-      flex-shrink: 0;
     }
 
-    /* Card brand icons */
-    .card-brand-row { display: flex; align-items: center; gap: 6px; margin-bottom: 18px; }
-    .card-brand-row svg { width: 36px; height: 22px; border: 1px solid var(--border); border-radius: 4px; }
+    /* Card brand icon row */
+    .card-brand-row {
+      display: flex; align-items: center; gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .card-brand-row svg {
+      width: 32px; height: 20px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2px 3px;
+      color: var(--text-faint);
+    }
 
     /* Back link */
     .back-link {
@@ -626,62 +634,12 @@
       font-size: 0.78rem; font-weight: 600; color: var(--text-muted);
       cursor: pointer; margin-bottom: 20px;
       background: none; border: none; padding: 0;
-      font-family: 'Figtree', sans-serif; transition: color 0.2s;
+      font-family: 'Figtree', sans-serif;
+      transition: color 0.2s;
     }
     .back-link:hover { color: var(--text-dark); }
     .back-link svg { width: 13px; height: 13px; stroke: currentColor; stroke-width: 2; fill: none; }
 
-    /* Section divider inside panel-card */
-    .field-section-title {
-      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em;
-      text-transform: uppercase; color: var(--text-faint);
-      margin: 22px 0 14px; padding-top: 18px;
-      border-top: 1px solid var(--border-soft);
-    }
-    .field-section-title:first-of-type { margin-top: 0; padding-top: 0; border-top: none; }
-
-    /* Same-as-billing checkbox row */
-    .checkbox-row {
-      display: flex; align-items: center; gap: 10px;
-      margin: 14px 0 4px; cursor: pointer;
-    }
-    .checkbox-row input[type="checkbox"] {
-      width: 17px; height: 17px; accent-color: var(--brand-red);
-      cursor: pointer; flex-shrink: 0;
-    }
-    .checkbox-row span { font-size: 0.82rem; font-weight: 500; color: var(--text-dark); }
-
-    /* Collapsible shipping section */
-    #shipping-fields { display: none; }
-    #shipping-fields.shown { display: block; }
-
-    /* Order summary box above pay button */
-    .pay-summary {
-      background: var(--bg-summary);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 16px 18px;
-      margin: 20px 0 18px;
-    }
-    .pay-summary-row {
-      display: flex; justify-content: space-between; align-items: baseline;
-      font-size: 0.82rem; color: var(--text-muted);
-      padding: 5px 0;
-    }
-    .pay-summary-row + .pay-summary-row { border-top: 1px solid var(--border-soft); }
-    .pay-summary-row strong { color: var(--text-dark); font-weight: 600; }
-    .pay-summary-total {
-      display: flex; justify-content: space-between; align-items: baseline;
-      margin-top: 10px; padding-top: 10px;
-      border-top: 1.5px solid var(--border);
-      font-size: 0.9rem; font-weight: 700; color: var(--text-dark);
-    }
-    .pay-summary-total-fig { font-size: 1.35rem; font-weight: 800; letter-spacing: -0.03em; }
-    .pay-summary-recurring {
-      margin-top: 8px; font-size: 0.73rem; color: var(--text-muted);
-      display: flex; align-items: center; gap: 5px;
-    }
-    .pay-summary-recurring svg { width: 11px; height: 11px; stroke: var(--text-muted); stroke-width: 1.8; fill: none; flex-shrink: 0; }
     /* ─────────────────────────────────────────────────────────────
        KEYFRAMES
     ───────────────────────────────────────────────────────────── */
@@ -722,6 +680,55 @@
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
     }
+    /* ── PROMO CODE ─────────────────────────────────────────────── */
+    .promo-row {
+      display: flex; gap: 8px; align-items: flex-start;
+      margin-bottom: 6px;
+    }
+    .promo-row input {
+      flex: 1; padding: 11px 14px;
+      border: 1.5px solid var(--border); border-radius: 12px;
+      font-family: "Figtree", sans-serif; font-size: 0.88rem;
+      color: var(--text-dark); background: #fff; outline: none;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .promo-row input:focus { border-color: var(--brand-red); box-shadow: 0 0 0 3px var(--brand-red-glow); }
+    .promo-row input.err  { border-color: var(--brand-red); }
+    .promo-apply {
+      padding: 11px 16px; border-radius: 12px; border: 1.5px solid var(--border);
+      background: #fff; font-family: "Figtree", sans-serif;
+      font-size: 0.82rem; font-weight: 600; color: var(--text-dark);
+      cursor: pointer; white-space: nowrap;
+      transition: background 0.2s, border-color 0.2s;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .promo-apply:hover { background: var(--bg-summary); border-color: #d0d0d4; }
+    .promo-apply:disabled { opacity: 0.5; cursor: not-allowed; }
+    .promo-apply .promo-spin {
+      display: none; width: 13px; height: 13px;
+      border: 1.5px solid var(--border); border-top-color: var(--brand-red);
+      border-radius: 50%; animation: spin 0.6s linear infinite;
+    }
+    .promo-apply.loading .promo-spin { display: block; }
+    .promo-apply.loading .promo-apply-lbl { display: none; }
+
+    .promo-feedback {
+      font-size: 0.78rem; font-weight: 500; margin-top: 2px;
+      display: none; align-items: center; gap: 5px;
+      padding: 7px 10px; border-radius: 8px;
+    }
+    .promo-feedback.ok  { display: flex; color: var(--green); background: var(--green-bg); }
+    .promo-feedback.bad { display: flex; color: var(--brand-red); background: var(--brand-red-glow); }
+    .promo-feedback svg { width: 12px; height: 12px; stroke: currentColor; stroke-width: 2.2; fill: none; flex-shrink: 0; }
+
+    /* Discount row inside order summary */
+    .pay-summary-discount {
+      display: flex; justify-content: space-between; align-items: baseline;
+      font-size: 0.82rem; color: var(--green); padding: 5px 0;
+      border-top: 1px solid var(--border-soft);
+    }
+
   </style>
 </head>
 <body>
@@ -888,7 +895,7 @@
 
       </div><!-- /panel-step-1 -->
 
-      <!-- ── STEP 2: Payment ───────────────────────────────────── -->
+      <!-- ── STEP 2: Payment (Chargebee.js embedded fields) ──── -->
       <div class="step-panel" id="panel-step-2">
 
         <button class="back-link" id="backBtn">
@@ -899,27 +906,31 @@
           Back to Your Details
         </button>
 
-        <!-- ── Card Details ───────────────────────────────────── -->
         <div class="panel-card">
           <div class="panel-title">Payment Information</div>
 
+          <!-- Accepted card brands -->
           <div class="card-brand-row">
+            <!-- Visa -->
             <svg viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Visa">
               <rect width="38" height="24" rx="3" fill="#1A1F71"/>
               <text x="6" y="17" font-family="Arial" font-size="10" font-weight="bold" fill="#FFFFFF">VISA</text>
             </svg>
+            <!-- Mastercard -->
             <svg viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mastercard">
               <rect width="38" height="24" rx="3" fill="#252525"/>
               <circle cx="15" cy="12" r="7" fill="#EB001B"/>
               <circle cx="23" cy="12" r="7" fill="#F79E1B"/>
               <path d="M19 6.8a7 7 0 0 1 0 10.4A7 7 0 0 1 19 6.8z" fill="#FF5F00"/>
             </svg>
+            <!-- Amex -->
             <svg viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Amex">
               <rect width="38" height="24" rx="3" fill="#2E77BC"/>
               <text x="4" y="17" font-family="Arial" font-size="8" font-weight="bold" fill="#FFFFFF">AMEX</text>
             </svg>
           </div>
 
+          <!-- Card Number — Chargebee mounts here -->
           <div class="field">
             <label>Card Number</label>
             <div class="cb-field-wrap" id="cb-card-number"></div>
@@ -927,11 +938,13 @@
           </div>
 
           <div class="field-row">
+            <!-- Expiry -->
             <div class="field">
               <label>Expiry</label>
               <div class="cb-field-wrap" id="cb-card-expiry"></div>
               <div class="field-err" id="err-card-expiry">Invalid expiry date.</div>
             </div>
+            <!-- CVV -->
             <div class="field">
               <label>CVV</label>
               <div class="cb-field-wrap" id="cb-card-cvv"></div>
@@ -939,159 +952,77 @@
             </div>
           </div>
 
+          <!-- Cardholder name -->
           <div class="field">
             <label for="f-card-name">Name on Card</label>
-            <input type="text" id="f-card-name" placeholder="Jane Smith" autocomplete="cc-name" spellcheck="false">
-            <div class="field-err">Required.</div>
-          </div>
-        </div>
-
-        <!-- ── Billing Address ────────────────────────────────── -->
-        <div class="panel-card">
-          <div class="panel-title">Billing Address</div>
-
-          <div class="field-row">
-            <div class="field" id="fg-bill-first">
-              <label for="f-bill-first">First Name</label>
-              <input type="text" id="f-bill-first" placeholder="Jane" autocomplete="billing given-name">
-              <div class="field-err">Required.</div>
-            </div>
-            <div class="field" id="fg-bill-last">
-              <label for="f-bill-last">Last Name</label>
-              <input type="text" id="f-bill-last" placeholder="Smith" autocomplete="billing family-name">
-              <div class="field-err">Required.</div>
-            </div>
-          </div>
-
-          <div class="field" id="fg-bill-line1">
-            <label for="f-bill-line1">Address Line 1</label>
-            <input type="text" id="f-bill-line1" placeholder="123 Main St" autocomplete="billing address-line1">
+            <input type="text" id="f-card-name" placeholder="Jane Smith"
+                   autocomplete="cc-name" spellcheck="false">
             <div class="field-err">Required.</div>
           </div>
 
-          <div class="field">
-            <label for="f-bill-line2">Address Line 2 <span style="font-weight:400;color:var(--text-faint);">(optional)</span></label>
-            <input type="text" id="f-bill-line2" placeholder="Apt 4B" autocomplete="billing address-line2">
-          </div>
-
-          <div class="field-row">
-            <div class="field" id="fg-bill-city">
-              <label for="f-bill-city">City</label>
-              <input type="text" id="f-bill-city" placeholder="Toronto" autocomplete="billing address-level2">
-              <div class="field-err">Required.</div>
+          <!-- ── Promo Code ───────────────────────────────────── -->
+          <div style="margin-top:18px;">
+            <label style="display:block;font-size:0.78rem;font-weight:600;color:var(--text-dark);margin-bottom:6px;">
+              Promo Code <span style="font-weight:400;color:var(--text-faint);">(optional)</span>
+            </label>
+            <div class="promo-row">
+              <input type="text" id="f-promo" placeholder="SUMMER25" autocomplete="off" spellcheck="false">
+              <button class="promo-apply" id="promoBtn" onclick="applyPromo()">
+                <span class="promo-apply-lbl">Apply</span>
+                <div class="promo-spin"></div>
+              </button>
             </div>
-            <div class="field" id="fg-bill-province">
-              <label for="f-bill-province">Province</label>
-              <input type="text" id="f-bill-province" placeholder="ON" autocomplete="billing address-level1" maxlength="2" style="text-transform:uppercase">
-              <div class="field-err">Required.</div>
-            </div>
-          </div>
-
-          <div class="field-row">
-            <div class="field" id="fg-bill-zip">
-              <label for="f-bill-zip">Postal Code</label>
-              <input type="text" id="f-bill-zip" placeholder="M5V 3A5" autocomplete="billing postal-code" maxlength="7">
-              <div class="field-err">Required.</div>
-            </div>
-            <div class="field">
-              <label>Country</label>
-              <input type="text" value="Canada" readonly style="background:var(--bg-summary);color:var(--text-muted);cursor:default;">
+            <div class="promo-feedback" id="promo-feedback">
+              <svg id="promo-icon" viewBox="0 0 12 12"><polyline points="1,6 4,9 11,2"/></svg>
+              <span id="promo-msg"></span>
             </div>
           </div>
 
-          <!-- ── Shipping Address ─────────────────────────────── -->
-          <div class="field-section-title">Shipping Address</div>
+          <!-- ── Order Summary ────────────────────────────────── -->
+          <div style="margin-top:20px;background:var(--bg-summary);border:1px solid var(--border);border-radius:14px;padding:16px 18px;">
+            <div style="font-size:0.67rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-faint);margin-bottom:12px;">Order Summary</div>
 
-          <label class="checkbox-row" id="same-as-billing-row">
-            <input type="checkbox" id="same-as-billing" checked>
-            <span>Same as billing address</span>
-          </label>
-
-          <div id="shipping-fields">
-            <div class="field-row" style="margin-top:14px;">
-              <div class="field" id="fg-ship-first">
-                <label for="f-ship-first">First Name</label>
-                <input type="text" id="f-ship-first" placeholder="Jane" autocomplete="shipping given-name">
-                <div class="field-err">Required.</div>
-              </div>
-              <div class="field" id="fg-ship-last">
-                <label for="f-ship-last">Last Name</label>
-                <input type="text" id="f-ship-last" placeholder="Smith" autocomplete="shipping family-name">
-                <div class="field-err">Required.</div>
-              </div>
-            </div>
-            <div class="field" id="fg-ship-line1">
-              <label for="f-ship-line1">Address Line 1</label>
-              <input type="text" id="f-ship-line1" placeholder="123 Main St" autocomplete="shipping address-line1">
-              <div class="field-err">Required.</div>
-            </div>
-            <div class="field">
-              <label for="f-ship-line2">Address Line 2 <span style="font-weight:400;color:var(--text-faint);">(optional)</span></label>
-              <input type="text" id="f-ship-line2" placeholder="Apt 4B" autocomplete="shipping address-line2">
-            </div>
-            <div class="field-row">
-              <div class="field" id="fg-ship-city">
-                <label for="f-ship-city">City</label>
-                <input type="text" id="f-ship-city" placeholder="Toronto" autocomplete="shipping address-level2">
-                <div class="field-err">Required.</div>
-              </div>
-              <div class="field" id="fg-ship-province">
-                <label for="f-ship-province">Province</label>
-                <input type="text" id="f-ship-province" placeholder="ON" autocomplete="shipping address-level1" maxlength="2" style="text-transform:uppercase">
-                <div class="field-err">Required.</div>
-              </div>
-            </div>
-            <div class="field-row">
-              <div class="field" id="fg-ship-zip">
-                <label for="f-ship-zip">Postal Code</label>
-                <input type="text" id="f-ship-zip" placeholder="M5V 3A5" autocomplete="shipping postal-code" maxlength="7">
-                <div class="field-err">Required.</div>
-              </div>
-              <div class="field">
-                <label>Country</label>
-                <input type="text" value="Canada" readonly style="background:var(--bg-summary);color:var(--text-muted);cursor:default;">
-              </div>
-            </div>
-          </div><!-- /shipping-fields -->
-
-        </div><!-- /billing panel-card -->
-
-        <!-- ── Order Summary + Pay Button ────────────────────── -->
-        <div class="panel-card">
-          <div class="panel-title">Order Summary</div>
-
-          <div class="pay-summary">
-            <div class="pay-summary-row">
+            <div style="display:flex;justify-content:space-between;font-size:0.82rem;color:var(--text-muted);padding:4px 0;">
               <span>NETGEAR Nighthawk M1 <small style="color:var(--text-faint)">(device)</small></span>
-              <strong>$199.00</strong>
+              <strong style="color:var(--text-dark)">$199.00</strong>
             </div>
-            <div class="pay-summary-row">
+            <div style="display:flex;justify-content:space-between;font-size:0.82rem;color:var(--text-muted);padding:4px 0;border-top:1px solid var(--border-soft);">
               <span>First Month's Internet</span>
               <strong style="color:var(--green)">Included</strong>
             </div>
-            <div class="pay-summary-row">
+            <div style="display:flex;justify-content:space-between;font-size:0.82rem;color:var(--text-muted);padding:4px 0;border-top:1px solid var(--border-soft);">
               <span>Activation &amp; Shipping</span>
               <strong style="color:var(--green)">$0.00</strong>
             </div>
-            <div class="pay-summary-total">
-              <span>Due Today</span>
-              <span class="pay-summary-total-fig"><sup style="font-size:0.65em;font-weight:700;vertical-align:super">$</sup>199<sup style="font-size:0.5em;font-weight:600;vertical-align:super">.00</sup></span>
+
+            <!-- Discount row — hidden until promo applied -->
+            <div class="pay-summary-discount" id="promo-discount-row" style="display:none;">
+              <span id="promo-discount-label">Promo discount</span>
+              <strong id="promo-discount-val"></strong>
             </div>
-            <div class="pay-summary-recurring">
-              <svg viewBox="0 0 16 16" fill="none" stroke-linecap="round" stroke-linejoin="round">
+
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:10px;padding-top:10px;border-top:1.5px solid var(--border);">
+              <span style="font-size:0.9rem;font-weight:700;color:var(--text-dark);">Due Today</span>
+              <span id="due-today-fig" style="font-size:1.35rem;font-weight:800;letter-spacing:-0.03em;color:var(--text-dark);">
+                <sup style="font-size:0.6em;vertical-align:super;font-weight:700">$</sup>199<sup style="font-size:0.45em;vertical-align:super;font-weight:600">.00</sup>
+              </span>
+            </div>
+            <div style="margin-top:8px;font-size:0.73rem;color:var(--text-muted);display:flex;align-items:center;gap:5px;">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:11px;height:11px;flex-shrink:0;">
                 <path d="M2.5 8a5.5 5.5 0 0 1 9.5-3.8"/>
                 <path d="M13.5 8a5.5 5.5 0 0 1-9.5 3.8"/>
                 <polyline points="9.5,1.5 11.5,4.2 8.5,4.8"/>
                 <polyline points="6.5,14.5 4.5,11.8 7.5,11.2"/>
               </svg>
-              Then <strong>$110 / month</strong> for unlimited internet — cancel anytime, no contract.
+              Then <strong style="color:var(--text-dark);margin:0 2px;">$110 / month</strong> for unlimited internet — no contract, cancel anytime.
             </div>
           </div>
 
-          <button class="btn-submit" id="payBtn" onclick="handlePay()">
-            <span class="btn-lbl">Pay $199 — Complete Order</span>
+          <button class="btn-submit" id="payBtn" onclick="handlePay()" style="margin-top:18px;">
+            <span class="btn-lbl" id="payBtn-lbl">Pay $199 — Complete Order</span>
             <div class="btn-spin"></div>
-            <svg class="btn-arr" viewBox="0 0 16 16" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <svg class="btn-arr" viewBox="0 0 16 16" fill="none"
+                 stroke-linecap="round" stroke-linejoin="round">
               <line x1="2" y1="8" x2="13" y2="8"/>
               <polyline points="9,4 13,8 9,12"/>
             </svg>
@@ -1109,6 +1040,7 @@
       </div><!-- /panel-step-2 -->
 
     </div><!-- /form-panel -->
+
     <!-- ── RIGHT — order summary ──────────────────────────────── -->
     <div class="summary-panel">
 
@@ -1253,7 +1185,6 @@
 
 </div><!-- /page -->
 
-
 <!-- ── SCRIPT ────────────────────────────────────────────────────── -->
 <script>
 (function () {
@@ -1263,16 +1194,12 @@
   var CB_PLAN_ID = 'wireless-internet-m1';
   var WORKER_URL = '/api/checkout-embedded';
   var CONFIRM    = '/lease-confirmed';
+  var BASE_PRICE = 199;   // update if price changes
 
   var cbInstance = Chargebee.init({
     site: CB_SITE,
     publishableKey: 'live_9xoL0GUAJyfaZddNn5cdFhI4hrLAGhyIh'
   });
-
-  /* Pre-load module — don't mount yet (panel is display:none) */
-  var componentsReady = false;
-  cbInstance.load('components').then(function () { componentsReady = true; })
-    .catch(function (e) { console.error('CB load failed:', e); });
 
   /* ── MOBILE MENU ─────────────────────────────────────────────── */
   var trigger = document.getElementById('menuTrigger');
@@ -1287,39 +1214,59 @@
     if (!e.target.closest('a') && mobileOverlay.classList.contains('active')) toggleMenu();
   });
 
-  /* ── SAME-AS-BILLING TOGGLE ──────────────────────────────────── */
-  var sameChk = document.getElementById('same-as-billing');
-  var shipDiv = document.getElementById('shipping-fields');
-  sameChk.addEventListener('change', function () {
-    shipDiv.classList.toggle('shown', !this.checked);
-  });
-
   /* ── CARD COMPONENT ──────────────────────────────────────────── */
-  var cardComponent = null;
-  var cardMounted   = false;
+  var componentsReady = false;
+  cbInstance.load('components').then(function () { componentsReady = true; })
+    .catch(function (e) { console.error('CB load failed:', e); });
+
+  var numberComponent = null;
+  var expiryComponent = null;
+  var cvvComponent    = null;
+  var cardMounted     = false;
 
   function doMount() {
     cardMounted = true;
-    cardComponent = cbInstance.createComponent('card', {
-      style: {
-        base: {
-          color: '#1d1d1f',
-          fontFamily: 'Figtree, sans-serif',
-          fontSize: '15px',
-          fontSmoothing: 'antialiased',
-          lineHeight: '26px',
-          '::placeholder': { color: '#c4c4ca' }
-        },
-        invalid: { color: '#D73C59' }
+
+    var cbStyle = {
+      base: {
+        color: '#1d1d1f',
+        fontFamily: 'Figtree, sans-serif',
+        fontSize: '15px',
+        fontSmoothing: 'antialiased',
+        '::placeholder': { color: '#c4c4ca' }
       },
-      classes: { focus: 'focus', invalid: 'err', empty: '', complete: '' },
-      fonts: ['https://fonts.googleapis.com/css2?family=Figtree:wght@400;500&display=swap'],
-      placeholder: { number: '1234 5678 9012 3456', expiry: 'MM / YY', cvv: '•••' }
+      invalid: { color: '#D73C59' }
+    };
+    var cbFonts = [{ fontFamily: 'Figtree', fontUrl: 'https://fonts.googleapis.com/css2?family=Figtree:wght@400;500&display=swap' }];
+
+    numberComponent = cbInstance.createComponent('card', { fonts: cbFonts });
+    expiryComponent = cbInstance.createComponent('card', { fonts: cbFonts });
+    cvvComponent    = cbInstance.createComponent('card', { fonts: cbFonts });
+
+    numberComponent.createField('number', { style: cbStyle, placeholder: '1234 5678 9012 3456' }).at('#cb-card-number');
+    expiryComponent.createField('expiry', { style: cbStyle, placeholder: 'MM / YY' }).at('#cb-card-expiry');
+    cvvComponent.createField('cvv',       { style: cbStyle, placeholder: '•••' }).at('#cb-card-cvv');
+
+    numberComponent.mount();
+    expiryComponent.mount();
+    cvvComponent.mount();
+
+    [
+      { comp: numberComponent, wrapId: 'cb-card-number', errId: 'err-card-number' },
+      { comp: expiryComponent, wrapId: 'cb-card-expiry', errId: 'err-card-expiry' },
+      { comp: cvvComponent,    wrapId: 'cb-card-cvv',    errId: 'err-card-cvv'    }
+    ].forEach(function (item) {
+      var field = item.comp.getField(item.wrapId === 'cb-card-number' ? 'number' : item.wrapId === 'cb-card-expiry' ? 'expiry' : 'cvv');
+      if (!field) return;
+      field.on('focus',  function ()  { document.getElementById(item.wrapId).classList.add('focus'); });
+      field.on('blur',   function ()  { document.getElementById(item.wrapId).classList.remove('focus'); });
+      field.on('change', function (e) {
+        var wrap = document.getElementById(item.wrapId);
+        var err  = document.getElementById(item.errId);
+        if (e.error) { wrap.classList.add('err'); if (err) err.style.display = 'block'; }
+        else          { wrap.classList.remove('err'); if (err) err.style.display = 'none'; }
+      });
     });
-    cardComponent.createField('number').at('#cb-card-number');
-    cardComponent.createField('expiry').at('#cb-card-expiry');
-    cardComponent.createField('cvv').at('#cb-card-cvv');
-    cardComponent.mount();
   }
 
   function mountCardFields() {
@@ -1340,9 +1287,9 @@
       document.getElementById(p[0]).className = 'step-connector'+(p[1]<n?' done':'');
     });
     document.getElementById('panel-step-1').classList.toggle('active', n===1);
-    document.getElementById('panel-step-2').classList.toggle('active', n===2);
+    var p2 = document.getElementById('panel-step-2');
+    if (p2) p2.classList.toggle('active', n===2);
     if (n === 2) {
-      /* Two rAFs ensure panel has painted with real dimensions before mount */
       requestAnimationFrame(function () {
         requestAnimationFrame(function () { mountCardFields(); });
       });
@@ -1351,7 +1298,7 @@
   }
   document.getElementById('backBtn').addEventListener('click', function () { setStep(1); });
 
-  /* ── VALIDATION HELPERS ──────────────────────────────────────── */
+  /* ── VALIDATION ──────────────────────────────────────────────── */
   function clearErrors() {
     document.querySelectorAll('.field.has-err').forEach(function(el){ el.classList.remove('has-err'); });
     document.querySelectorAll('input.err').forEach(function(el){ el.classList.remove('err'); });
@@ -1362,21 +1309,10 @@
     if (i) i.classList.add('err');
     if (g) g.classList.add('has-err');
   }
-  function req(id, gid) {
-    var v = document.getElementById(id).value.trim();
-    if (!v) { flagErr(id, gid); return false; }
-    return true;
-  }
   function isPhone(v) { return v.replace(/[\s\-()+.]/g,'').length >= 7; }
   function isEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
-
-  ['f-first','f-last','f-phone','f-email',
-   'f-bill-first','f-bill-last','f-bill-line1','f-bill-city','f-bill-province','f-bill-zip',
-   'f-ship-first','f-ship-last','f-ship-line1','f-ship-city','f-ship-province','f-ship-zip',
-   'f-card-name'
-  ].forEach(function(id) {
-    var el = document.getElementById(id);
-    if (!el) return;
+  ['f-first','f-last','f-phone','f-email'].forEach(function(id) {
+    var el = document.getElementById(id); if (!el) return;
     el.addEventListener('input', function() {
       this.classList.remove('err');
       var p = this.closest('.field'); if (p) p.classList.remove('has-err');
@@ -1401,82 +1337,126 @@
   function handleSubmit() {
     var data = collect(); if (!data) return;
     sessionStorage.setItem('m4l_order', JSON.stringify(data));
-    /* Pre-fill billing name from contact info */
-    document.getElementById('f-bill-first').value = data.first_name;
-    document.getElementById('f-bill-last').value  = data.last_name;
     setStep(2);
   }
   window.handleSubmit = handleSubmit;
 
-  /* ── STEP 2 VALIDATION ───────────────────────────────────────── */
-  function collectBilling() {
-    var ok = true;
-    ok = req('f-bill-first','fg-bill-first') && ok;
-    ok = req('f-bill-last', 'fg-bill-last')  && ok;
-    ok = req('f-bill-line1','fg-bill-line1') && ok;
-    ok = req('f-bill-city', 'fg-bill-city')  && ok;
-    ok = req('f-bill-province','fg-bill-province') && ok;
-    ok = req('f-bill-zip','fg-bill-zip')     && ok;
-    if (!ok) return null;
-    return {
-      first_name:  document.getElementById('f-bill-first').value.trim(),
-      last_name:   document.getElementById('f-bill-last').value.trim(),
-      line1:       document.getElementById('f-bill-line1').value.trim(),
-      line2:       document.getElementById('f-bill-line2').value.trim(),
-      city:        document.getElementById('f-bill-city').value.trim(),
-      state_code:  document.getElementById('f-bill-province').value.trim().toUpperCase(),
-      zip:         document.getElementById('f-bill-zip').value.trim()
-    };
+  /* ── PROMO CODE ──────────────────────────────────────────────────
+     Validates the coupon against your worker, which calls Chargebee's
+     coupon API. Returns { valid, discount_amount, discount_type,
+     discount_percent, description } or { error }.
+  ──────────────────────────────────────────────────────────────── */
+  var appliedCoupon    = null;   // coupon code string once validated
+  var discountAmount   = 0;      // dollar amount off BASE_PRICE
+
+  function setPromoFeedback(type, msg) {
+    var fb   = document.getElementById('promo-feedback');
+    var icon = document.getElementById('promo-icon');
+    var text = document.getElementById('promo-msg');
+    fb.className = 'promo-feedback ' + type;
+    text.textContent = msg;
+    /* switch icon: check for ok, x for bad */
+    icon.innerHTML = type === 'ok'
+      ? '<polyline points="1,6 4,9 11,2"/>'
+      : '<line x1="1" y1="1" x2="11" y2="11"/><line x1="11" y1="1" x2="1" y2="11"/>';
   }
 
-  function collectShipping(billing) {
-    if (document.getElementById('same-as-billing').checked) return billing;
-    var ok = true;
-    ok = req('f-ship-first','fg-ship-first') && ok;
-    ok = req('f-ship-last', 'fg-ship-last')  && ok;
-    ok = req('f-ship-line1','fg-ship-line1') && ok;
-    ok = req('f-ship-city', 'fg-ship-city')  && ok;
-    ok = req('f-ship-province','fg-ship-province') && ok;
-    ok = req('f-ship-zip','fg-ship-zip')     && ok;
-    if (!ok) return null;
-    return {
-      first_name: document.getElementById('f-ship-first').value.trim(),
-      last_name:  document.getElementById('f-ship-last').value.trim(),
-      line1:      document.getElementById('f-ship-line1').value.trim(),
-      line2:      document.getElementById('f-ship-line2').value.trim(),
-      city:       document.getElementById('f-ship-city').value.trim(),
-      state_code: document.getElementById('f-ship-province').value.trim().toUpperCase(),
-      zip:        document.getElementById('f-ship-zip').value.trim()
-    };
+  function updateDueToday(discountDollars) {
+    var final   = Math.max(0, BASE_PRICE - discountDollars);
+    var dollars = Math.floor(final);
+    var cents   = Math.round((final - dollars) * 100);
+    var centsStr = cents === 0 ? '00' : (cents < 10 ? '0'+cents : ''+cents);
+    document.getElementById('due-today-fig').innerHTML =
+      '<sup style="font-size:0.6em;vertical-align:super;font-weight:700">$</sup>' +
+      dollars +
+      '<sup style="font-size:0.45em;vertical-align:super;font-weight:600">.' + centsStr + '</sup>';
+    document.getElementById('payBtn-lbl').textContent =
+      'Pay $' + (cents === 0 ? dollars : (dollars + '.' + centsStr)) + ' — Complete Order';
   }
+
+  function showDiscountRow(label, val) {
+    var row = document.getElementById('promo-discount-row');
+    document.getElementById('promo-discount-label').textContent = label;
+    document.getElementById('promo-discount-val').textContent   = val;
+    row.style.display = 'flex';
+  }
+  function hideDiscountRow() {
+    document.getElementById('promo-discount-row').style.display = 'none';
+  }
+
+  function applyPromo() {
+    var code = document.getElementById('f-promo').value.trim().toUpperCase();
+    if (!code) {
+      document.getElementById('f-promo').classList.add('err');
+      return;
+    }
+    document.getElementById('f-promo').classList.remove('err');
+
+    var btn = document.getElementById('promoBtn');
+    btn.classList.add('loading'); btn.disabled = true;
+
+    /* Call your worker's coupon validation endpoint */
+    fetch('/api/validate-coupon', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ coupon_id: code, plan_id: CB_PLAN_ID })
+    })
+    .then(function (res) { return res.json(); })
+    .then(function (data) {
+      btn.classList.remove('loading'); btn.disabled = false;
+
+      if (data.error || !data.valid) {
+        appliedCoupon  = null;
+        discountAmount = 0;
+        hideDiscountRow();
+        updateDueToday(0);
+        setPromoFeedback('bad', data.error || 'Invalid promo code.');
+        return;
+      }
+
+      appliedCoupon = code;
+
+      /* Chargebee returns discount as fixed amount (in dollars) or percent */
+      if (data.discount_type === 'fixed_amount') {
+        discountAmount = data.discount_amount / 100;  /* Chargebee stores cents */
+        showDiscountRow('Promo: ' + code, '−$' + discountAmount.toFixed(2));
+      } else if (data.discount_type === 'percentage') {
+        discountAmount = (BASE_PRICE * data.discount_percent) / 100;
+        showDiscountRow('Promo: ' + code + ' (' + data.discount_percent + '% off)', '−$' + discountAmount.toFixed(2));
+      } else {
+        discountAmount = 0;
+      }
+
+      updateDueToday(discountAmount);
+      setPromoFeedback('ok', data.description || 'Promo code applied!');
+    })
+    .catch(function () {
+      btn.classList.remove('loading'); btn.disabled = false;
+      setPromoFeedback('bad', 'Could not validate code — please try again.');
+    });
+  }
+  window.applyPromo = applyPromo;
+
+  /* Allow Enter key in promo input */
+  document.getElementById('f-promo').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') { e.preventDefault(); applyPromo(); }
+  });
 
   /* ── STEP 2: Tokenize → worker → redirect ────────────────────── */
   function handlePay() {
-    if (!cardComponent) { alert('Card fields still loading — please wait a moment.'); return; }
+    if (!numberComponent) { alert('Card fields still loading — please wait a moment.'); return; }
 
-    clearErrors();
     var cardName = document.getElementById('f-card-name').value.trim();
     if (!cardName) { flagErr('f-card-name', null); return; }
-
-    var billing  = collectBilling();
-    if (!billing) { var f=document.querySelector('#panel-step-2 .field.has-err input'); if(f) f.focus(); return; }
-    var shipping = collectShipping(billing);
-    if (!shipping) { var f=document.querySelector('#panel-step-2 .field.has-err input'); if(f) f.focus(); return; }
 
     var payBtn = document.getElementById('payBtn');
     payBtn.classList.add('loading'); payBtn.disabled = true;
 
     var contact = JSON.parse(sessionStorage.getItem('m4l_order') || '{}');
 
-    cardComponent.tokenize({
-      firstName:    contact.first_name || '',
-      lastName:     contact.last_name  || '',
-      billingAddr1: billing.line1,
-      billingAddr2: billing.line2 || '',
-      billingCity:  billing.city,
-      billingState: billing.state_code,
-      billingZip:   billing.zip,
-      billingCountry: 'CA'
+    numberComponent.tokenize({
+      firstName: contact.first_name || '',
+      lastName:  contact.last_name  || ''
     })
     .then(function (data) {
       return fetch(WORKER_URL, {
@@ -1490,15 +1470,7 @@
           last_name:  contact.last_name,
           phone:      contact.phone,
           email:      contact.email,
-          shipping: {
-            first_name: shipping.first_name,
-            last_name:  shipping.last_name,
-            line1:      shipping.line1,
-            line2:      shipping.line2 || '',
-            city:       shipping.city,
-            state_code: shipping.state_code,
-            zip:        shipping.zip
-          }
+          coupon_id:  appliedCoupon || undefined
         })
       });
     })
@@ -1515,7 +1487,7 @@
     .catch(function (err) {
       console.error(err);
       payBtn.classList.remove('loading'); payBtn.disabled = false;
-      alert('Payment failed — ' + (err.message || 'please check your details and try again.'));
+      alert('Payment failed — ' + (err.message || 'please check your card details and try again.'));
     });
   }
   window.handlePay = handlePay;
