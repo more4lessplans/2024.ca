@@ -2176,10 +2176,16 @@
 
     var contact = JSON.parse(sessionStorage.getItem('m4l_order') || '{}');
 
-    cardComponent.tokenize({
-      firstName: contact.first_name || '',
-      lastName:  contact.last_name  || ''
-    })
+ cardComponent.tokenize({
+  firstName:      contact.first_name        || '',
+  lastName:       contact.last_name         || '',
+  billingAddr1:   contact.billing.line1     || '',
+  billingAddr2:   contact.billing.line2     || '',
+  billingCity:    contact.billing.city      || '',
+  billingState:   contact.billing.state_code || '',
+  billingZip:     contact.billing.zip       || '',
+  billingCountry: 'CA'
+})
     .then(function (data) {
       return fetch(WORKER_URL, {
         method: 'POST',
