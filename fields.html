@@ -1375,32 +1375,22 @@
                 <div class="field-err">Required.</div>
               </div>
               <div class="field" id="fg-bill-province">
-                <label for="f-bill-province">Province / State</label>
+                <label for="f-bill-province">Province</label>
                 <select id="f-bill-province" autocomplete="billing address-level1">
                   <option value="">Select…</option>
-                  <option>AB</option><option>BC</option><option>MB</option>
-                  <option>NB</option><option>NL</option><option>NS</option>
-                  <option>NT</option><option>NU</option><option>ON</option>
-                  <option>PE</option><option>QC</option><option>SK</option>
-                  <option>YT</option>
-                  <option disabled>──────</option>
-                  <option>AL</option><option>AK</option><option>AZ</option>
-                  <option>AR</option><option>CA</option><option>CO</option>
-                  <option>CT</option><option>DE</option><option>FL</option>
-                  <option>GA</option><option>HI</option><option>ID</option>
-                  <option>IL</option><option>IN</option><option>IA</option>
-                  <option>KS</option><option>KY</option><option>LA</option>
-                  <option>ME</option><option>MD</option><option>MA</option>
-                  <option>MI</option><option>MN</option><option>MS</option>
-                  <option>MO</option><option>MT</option><option>NE</option>
-                  <option>NV</option><option>NH</option><option>NJ</option>
-                  <option>NM</option><option>NY</option><option>NC</option>
-                  <option>ND</option><option>OH</option><option>OK</option>
-                  <option>OR</option><option>PA</option><option>RI</option>
-                  <option>SC</option><option>SD</option><option>TN</option>
-                  <option>TX</option><option>UT</option><option>VT</option>
-                  <option>VA</option><option>WA</option><option>WV</option>
-                  <option>WI</option><option>WY</option>
+                  <option value="AB">Alberta</option>
+                  <option value="BC">British Columbia</option>
+                  <option value="MB">Manitoba</option>
+                  <option value="NB">New Brunswick</option>
+                  <option value="NL">Newfoundland and Labrador</option>
+                  <option value="NS">Nova Scotia</option>
+                  <option value="NT">Northwest Territories</option>
+                  <option value="NU">Nunavut</option>
+                  <option value="ON">Ontario</option>
+                  <option value="PE">Prince Edward Island</option>
+                  <option value="QC">Quebec</option>
+                  <option value="SK">Saskatchewan</option>
+                  <option value="YT">Yukon</option>
                 </select>
                 <div class="field-err">Required.</div>
               </div>
@@ -1408,17 +1398,15 @@
 
             <div class="field-row">
               <div class="field" id="fg-bill-postal">
-                <label for="f-bill-postal">Postal / ZIP Code</label>
+                <label for="f-bill-postal">Postal Code</label>
                 <input type="text" id="f-bill-postal" placeholder="M5V 2T6"
                        autocomplete="billing postal-code" spellcheck="false">
                 <div class="field-err">Required.</div>
               </div>
               <div class="field" id="fg-bill-country">
                 <label for="f-bill-country">Country</label>
-                <select id="f-bill-country" autocomplete="billing country">
-                  <option value="CA">Canada</option>
-                  <option value="US">United States</option>
-                </select>
+                <input type="text" id="f-bill-country" value="Canada" readonly
+                       style="background:var(--bg-summary);color:var(--text-muted);cursor:default;">
               </div>
             </div>
           </div>
@@ -1454,32 +1442,22 @@
                   <div class="field-err">Required.</div>
                 </div>
                 <div class="field" id="fg-ship-province">
-                  <label for="f-ship-province">Province / State</label>
+                  <label for="f-ship-province">Province</label>
                   <select id="f-ship-province" autocomplete="shipping address-level1">
                     <option value="">Select…</option>
-                    <option>AB</option><option>BC</option><option>MB</option>
-                    <option>NB</option><option>NL</option><option>NS</option>
-                    <option>NT</option><option>NU</option><option>ON</option>
-                    <option>PE</option><option>QC</option><option>SK</option>
-                    <option>YT</option>
-                    <option disabled>──────</option>
-                    <option>AL</option><option>AK</option><option>AZ</option>
-                    <option>AR</option><option>CA</option><option>CO</option>
-                    <option>CT</option><option>DE</option><option>FL</option>
-                    <option>GA</option><option>HI</option><option>ID</option>
-                    <option>IL</option><option>IN</option><option>IA</option>
-                    <option>KS</option><option>KY</option><option>LA</option>
-                    <option>ME</option><option>MD</option><option>MA</option>
-                    <option>MI</option><option>MN</option><option>MS</option>
-                    <option>MO</option><option>MT</option><option>NE</option>
-                    <option>NV</option><option>NH</option><option>NJ</option>
-                    <option>NM</option><option>NY</option><option>NC</option>
-                    <option>ND</option><option>OH</option><option>OK</option>
-                    <option>OR</option><option>PA</option><option>RI</option>
-                    <option>SC</option><option>SD</option><option>TN</option>
-                    <option>TX</option><option>UT</option><option>VT</option>
-                    <option>VA</option><option>WA</option><option>WV</option>
-                    <option>WI</option><option>WY</option>
+                    <option value="AB">Alberta</option>
+                    <option value="BC">British Columbia</option>
+                    <option value="MB">Manitoba</option>
+                    <option value="NB">New Brunswick</option>
+                    <option value="NL">Newfoundland and Labrador</option>
+                    <option value="NS">Nova Scotia</option>
+                    <option value="NT">Northwest Territories</option>
+                    <option value="NU">Nunavut</option>
+                    <option value="ON">Ontario</option>
+                    <option value="PE">Prince Edward Island</option>
+                    <option value="QC">Quebec</option>
+                    <option value="SK">Saskatchewan</option>
+                    <option value="YT">Yukon</option>
                   </select>
                   <div class="field-err">Required.</div>
                 </div>
@@ -1487,17 +1465,15 @@
 
               <div class="field-row">
                 <div class="field" id="fg-ship-postal">
-                  <label for="f-ship-postal">Postal / ZIP Code</label>
+                  <label for="f-ship-postal">Postal Code</label>
                   <input type="text" id="f-ship-postal" placeholder="M5V 2T6"
                          autocomplete="shipping postal-code" spellcheck="false">
                   <div class="field-err">Required.</div>
                 </div>
                 <div class="field">
                   <label for="f-ship-country">Country</label>
-                  <select id="f-ship-country" autocomplete="shipping country">
-                    <option value="CA">Canada</option>
-                    <option value="US">United States</option>
-                  </select>
+                  <input type="text" id="f-ship-country" value="Canada" readonly
+                         style="background:var(--bg-summary);color:var(--text-muted);cursor:default;">
                 </div>
               </div>
             </div><!-- /shipping-fields -->
@@ -2007,15 +1983,13 @@
 
     var sameAsBilling = document.getElementById('same-as-billing').checked;
     var shipStreet = billStreet, shipCity = billCity,
-        shipProvince = billProvince, shipPostal = billPostal,
-        shipCountry  = document.getElementById('f-bill-country').value;
+        shipProvince = billProvince, shipPostal = billPostal;
 
     if (!sameAsBilling) {
       shipStreet   = document.getElementById('f-ship-street').value.trim();
       shipCity     = document.getElementById('f-ship-city').value.trim();
       shipProvince = document.getElementById('f-ship-province').value;
       shipPostal   = document.getElementById('f-ship-postal').value.trim();
-      shipCountry  = document.getElementById('f-ship-country').value;
 
       if (!shipStreet)   { flagErr('f-ship-street',   'fg-ship-street');   ok = false; }
       if (!shipCity)     { flagErr('f-ship-city',     'fg-ship-city');     ok = false; }
@@ -2027,14 +2001,20 @@
 
     return {
       billing: {
-        street: billStreet, apt: document.getElementById('f-bill-apt').value.trim(),
-        city: billCity, province: billProvince, postal: billPostal,
-        country: document.getElementById('f-bill-country').value
+        line1:      billStreet,
+        line2:      document.getElementById('f-bill-apt').value.trim(),
+        city:       billCity,
+        state_code: billProvince,
+        zip:        billPostal,
+        country:    'CA'
       },
       shipping: {
-        street: shipStreet, apt: sameAsBilling ? document.getElementById('f-bill-apt').value.trim() : document.getElementById('f-ship-apt').value.trim(),
-        city: shipCity, province: shipProvince, postal: shipPostal,
-        country: shipCountry
+        line1:      shipStreet,
+        line2:      sameAsBilling ? document.getElementById('f-bill-apt').value.trim() : document.getElementById('f-ship-apt').value.trim(),
+        city:       shipCity,
+        state_code: shipProvince,
+        zip:        shipPostal,
+        country:    'CA'
       }
     };
   }
@@ -2107,7 +2087,7 @@
         setPromoFeedback('bad', data.error || 'Invalid promo code.');
         return;
       }
-      appliedCoupon = code;
+      appliedCoupon = data.coupon_id;
       if (data.discount_type === 'fixed_amount') {
         discountAmount = data.discount_amount / 100;
         showDiscountRow('Promo: ' + code, '−$' + discountAmount.toFixed(2));
@@ -2152,6 +2132,14 @@
 
     var contact = JSON.parse(sessionStorage.getItem('m4l_order') || '{}');
 
+    // Failsafe: billing address must be present before attempting payment
+    if (!contact.billing || !contact.billing.line1 || !contact.billing.city || !contact.billing.state_code || !contact.billing.zip) {
+      payBtn.classList.remove('loading'); payBtn.disabled = false;
+      alert('Billing address is missing. Please go back to Step 2 and complete your address.');
+      setStep(2);
+      return;
+    }
+
     cardComponent.tokenize({
       firstName: contact.first_name || '',
       lastName:  contact.last_name  || ''
@@ -2161,15 +2149,16 @@
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-  token:           data.token,
-  plan_id:         CB_PLAN_ID,
-  sim_type:        'physical',
-  first_name:      contact.first_name,
-  last_name:       contact.last_name,
-  phone:           contact.phone,
-  email:           contact.email,
+  token:            data.token,
+  plan_id:          CB_PLAN_ID,
+  sim_type:         'physical',
+  first_name:       contact.first_name,
+  last_name:        contact.last_name,
+  phone:            contact.phone,
+  email:            contact.email,
+  billing_address:  contact.billing,
   shipping_address: contact.shipping,
-  coupon_id:       appliedCoupon || undefined
+  coupon_id:        appliedCoupon || undefined
 })
       });
     })
