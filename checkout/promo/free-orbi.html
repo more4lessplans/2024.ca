@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <script src="https://js.chargebee.com/v2/chargebee.js"></script>
+
 
   <style>
     /* ─────────────────────────────────────────────────────────────
@@ -629,6 +629,85 @@
       .trust-item svg    { width: 11px; height: 11px; }
     }
 
+    /* ─────────────────────────────────────────────────────────────
+       IFRAME PAYMENT PANEL
+    ───────────────────────────────────────────────────────────── */
+    .iframe-panel {
+      display: none;
+      margin-bottom: 14px;
+    }
+
+    .iframe-panel.visible { display: block; }
+
+    .iframe-wrap {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .iframe-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .iframe-header-title {
+      font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--text-faint);
+    }
+
+    .iframe-back-btn {
+      background: none; border: none; cursor: pointer;
+      display: flex; align-items: center; gap: 5px;
+      font-size: 0.75rem; font-weight: 600;
+      color: var(--text-muted);
+      font-family: 'Figtree', sans-serif;
+      padding: 4px 8px; border-radius: 8px;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .iframe-back-btn:hover { color: var(--text-dark); background: var(--bg-summary); }
+
+    .iframe-back-btn svg {
+      width: 12px; height: 12px;
+      stroke: currentColor; stroke-width: 2; fill: none;
+      flex-shrink: 0;
+    }
+
+    .iframe-loading {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 12px; background: #fff; z-index: 2;
+      min-height: 200px;
+      transition: opacity 0.3s ease;
+    }
+
+    .iframe-loading.hidden { opacity: 0; pointer-events: none; }
+
+    .iframe-loading-spin {
+      width: 24px; height: 24px;
+      border: 2px solid var(--border);
+      border-top-color: var(--brand-red);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+
+    .iframe-loading-text {
+      font-size: 0.78rem; color: var(--text-muted); font-weight: 500;
+    }
+
+    #cbIframe {
+      width: 100%; border: none; display: block;
+      min-height: 580px;
+      opacity: 0; transition: opacity 0.4s ease;
+    }
+
+    #cbIframe.loaded { opacity: 1; }
+
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
     }
@@ -754,8 +833,29 @@
         </div>
       </div>
 
+      <!-- Chargebee iframe payment panel (hidden until step 2) -->
+      <div class="iframe-panel" id="iframePanel">
+        <div class="iframe-wrap">
+          <div class="iframe-header">
+            <span class="iframe-header-title">Secure Payment</span>
+            <button class="iframe-back-btn" id="iframeBackBtn">
+              <svg viewBox="0 0 12 12" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="10" y1="6" x2="2" y2="6"/>
+                <polyline points="5,3 2,6 5,9"/>
+              </svg>
+              Edit Details
+            </button>
+          </div>
+          <div class="iframe-loading" id="iframeLoading">
+            <div class="iframe-loading-spin"></div>
+            <div class="iframe-loading-text">Loading secure checkout…</div>
+          </div>
+          <iframe id="cbIframe" title="Secure Checkout" allowpaymentrequest></iframe>
+        </div>
+      </div>
+
       <!-- What happens next -->
-      <div class="panel-card">
+      <div class="panel-card" id="nextStepsCard">
         <div class="panel-title">What Happens Next</div>
 
         <div class="next-step">
@@ -949,16 +1049,13 @@
   'use strict';
 
   /* ── CONFIG ─────────────────────────────────────────────────── */
-  var CB_SITE    = 'more4lessplans';
-  var CB_PLAN_ID = 'gta-m1-lease';
-  var WORKER_URL = '/api/secure-checkout';
+  var CB_PLAN_ID = 'wireless-internet-orbi';
+  var WORKER_URL = '/api/secure-checkout-inline';
   var CONFIRM    = '/lease-confirmed';
 
-  var cbInstance = Chargebee.init({ site: CB_SITE });
-
-  /* ── MOBILE MENU — matches site pattern exactly ─────────────── */
-  var trigger  = document.getElementById('menuTrigger');
-  var overlay  = document.getElementById('mobileOverlay');
+  /* ── MOBILE MENU ─────────────────────────────────────────────── */
+  var trigger = document.getElementById('menuTrigger');
+  var overlay = document.getElementById('mobileOverlay');
 
   function toggleMenu() {
     var open = trigger.classList.toggle('menu-active');
@@ -1001,8 +1098,8 @@
   }
 
   function isPhone(v) { return v.replace(/[\s\-()+.]/g,'').length >= 7; }
+  function isEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
 
-  /* Live — clear on fix */
   ['f-first','f-last','f-phone','f-email'].forEach(function (id) {
     var el = document.getElementById(id);
     if (!el) return;
@@ -1013,8 +1110,6 @@
     });
   });
 
-  function isEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
-
   function collect() {
     clearErrors();
     var first = document.getElementById('f-first').value.trim();
@@ -1023,10 +1118,10 @@
     var email = document.getElementById('f-email').value.trim();
     var ok    = true;
 
-    if (!first)           { flagErr('f-first','fg-first');  ok = false; }
-    if (!last)            { flagErr('f-last', 'fg-last');   ok = false; }
-    if (!isPhone(phone))  { flagErr('f-phone','fg-phone');  ok = false; }
-    if (!isEmail(email))  { flagErr('f-email','fg-email');  ok = false; }
+    if (!first)          { flagErr('f-first','fg-first'); ok = false; }
+    if (!last)           { flagErr('f-last', 'fg-last');  ok = false; }
+    if (!isPhone(phone)) { flagErr('f-phone','fg-phone'); ok = false; }
+    if (!isEmail(email)) { flagErr('f-email','fg-email'); ok = false; }
 
     if (!ok) {
       var f = document.querySelector('.field.has-err input');
@@ -1035,11 +1130,74 @@
     }
 
     return {
-      plan_id: CB_PLAN_ID, sim_type: 'physical',
-      first_name: first, last_name: last,
-      phone: phone, email: email
+      plan_id:    CB_PLAN_ID,
+      sim_type:   'physical',
+      first_name: first,
+      last_name:  last,
+      phone:      phone,
+      email:      email
     };
   }
+
+  /* ── IFRAME HELPERS ──────────────────────────────────────────── */
+  var iframePanel   = document.getElementById('iframePanel');
+  var iframeEl      = document.getElementById('cbIframe');
+  var iframeLoading = document.getElementById('iframeLoading');
+  var nextStepsCard = document.getElementById('nextStepsCard');
+
+  function showIframe(url) {
+    document.getElementById('secure').style.display = 'none';
+    nextStepsCard.style.display = 'none';
+    iframePanel.classList.add('visible');
+
+    iframeLoading.classList.remove('hidden');
+    iframeEl.classList.remove('loaded');
+    iframeEl.src = url;
+
+    iframeEl.onload = function () {
+      iframeLoading.classList.add('hidden');
+      iframeEl.classList.add('loaded');
+    };
+
+    iframePanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function resetToStep1() {
+    iframePanel.classList.remove('visible');
+    iframeEl.src = '';
+    document.getElementById('secure').style.display = '';
+    nextStepsCard.style.display = '';
+    var btn = document.getElementById('submitBtn');
+    btn.classList.remove('loading');
+    btn.disabled = false;
+    setStep(1);
+  }
+
+  /* ── BACK BUTTON ─────────────────────────────────────────────── */
+  document.getElementById('iframeBackBtn').addEventListener('click', resetToStep1);
+
+  /* ── LISTEN FOR CHARGEBEE SUCCESS VIA postMessage ────────────── */
+  window.addEventListener('message', function (e) {
+    if (typeof e.data !== 'object') return;
+    var type = e.data.type || e.data.event;
+    if (type === 'chargebee:success' || type === 'success') {
+      setStep(3);
+      window.location.href = CONFIRM;
+    }
+  });
+
+  /* Fallback: detect iframe navigating to the redirect_url */
+  iframeEl.addEventListener('load', function () {
+    try {
+      var href = iframeEl.contentWindow.location.href;
+      if (href && href.indexOf('/active') !== -1) {
+        setStep(3);
+        window.location.href = CONFIRM;
+      }
+    } catch (err) {
+      /* cross-origin before redirect — ignore */
+    }
+  });
 
   /* ── SUBMIT ──────────────────────────────────────────────────── */
   function handleSubmit() {
@@ -1054,9 +1212,9 @@
     setStep(2);
 
     fetch(WORKER_URL, {
-      method: 'POST',
+      method:  'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
+      body:    JSON.stringify(data)
     })
     .then(function (res) {
       return res.json().then(function (body) {
@@ -1067,26 +1225,7 @@
     .then(function (result) {
       btn.classList.remove('loading');
       btn.disabled = false;
-
-      cbInstance.openCheckout({
-        hostedPage: function () { return Promise.resolve(result.hosted_page); },
-        success: function (id) {
-          sessionStorage.setItem('m4l_cb_page', id);
-          setStep(3);
-          window.location.href = CONFIRM;
-        },
-        close: function () {
-          btn.classList.remove('loading');
-          btn.disabled = false;
-          setStep(1);
-        },
-        error: function (err) {
-          console.error('Chargebee error:', err);
-          btn.classList.remove('loading');
-          btn.disabled = false;
-          setStep(1);
-        }
-      });
+      showIframe(result.hosted_page.url);
     })
     .catch(function (err) {
       console.error(err);
