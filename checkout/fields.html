@@ -586,58 +586,39 @@
        PAYMENT STEP CARD — Chargebee.js embedded card fields
     ───────────────────────────────────────────────────────────── */
 
-    /* Hide/show step panels */
     .step-panel { display: none; }
     .step-panel.active { display: block; }
 
-    /* Chargebee field wrapper — mirrors .field input styling */
+    /* Chargebee field wrapper */
     .cb-field-wrap {
       width: 100%;
       height: 44px;
+      /* flex + align-items centres the iframe content vertically */
+      display: flex;
+      align-items: center;
       padding: 0 14px;
       border: 1.5px solid var(--border);
       border-radius: 12px;
       background: #fff;
       transition: border-color 0.2s ease, box-shadow 0.2s ease;
-      display: block;
-      position: relative;
-      overflow: visible;
-      pointer-events: auto;
+      box-sizing: border-box;
+      /* No position:relative / overflow:hidden — let Chargebee size naturally */
     }
+    .cb-field-wrap.focus  { border-color: var(--brand-red); box-shadow: 0 0 0 3px var(--brand-red-glow); }
+    .cb-field-wrap.err    { border-color: var(--brand-red); box-shadow: 0 0 0 3px var(--brand-red-glow); }
 
-    .cb-field-wrap.focus {
-      border-color: var(--brand-red);
-      box-shadow: 0 0 0 3px var(--brand-red-glow);
-    }
-
-    .cb-field-wrap.err {
-      border-color: var(--brand-red);
-      box-shadow: 0 0 0 3px var(--brand-red-glow);
-    }
-
+    /* The iframe Chargebee injects — fill the wrapper, centred by flexbox */
     .cb-field-wrap iframe {
-      position: absolute !important;
-      top: 0 !important; left: 0 !important;
       width: 100% !important;
-      height: 100% !important;
+      height: 26px !important;   /* fixed px height keeps text vertically centred */
       border: none !important;
-      background: transparent !important;
-      pointer-events: auto !important;
+      display: block !important;
+      flex-shrink: 0;
     }
 
-    /* Card brand icon row */
-    .card-brand-row {
-      display: flex; align-items: center; gap: 6px;
-      margin-bottom: 16px;
-    }
-
-    .card-brand-row svg {
-      width: 32px; height: 20px;
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 2px 3px;
-      color: var(--text-faint);
-    }
+    /* Card brand icons */
+    .card-brand-row { display: flex; align-items: center; gap: 6px; margin-bottom: 18px; }
+    .card-brand-row svg { width: 36px; height: 22px; border: 1px solid var(--border); border-radius: 4px; }
 
     /* Back link */
     .back-link {
@@ -645,12 +626,62 @@
       font-size: 0.78rem; font-weight: 600; color: var(--text-muted);
       cursor: pointer; margin-bottom: 20px;
       background: none; border: none; padding: 0;
-      font-family: 'Figtree', sans-serif;
-      transition: color 0.2s;
+      font-family: 'Figtree', sans-serif; transition: color 0.2s;
     }
     .back-link:hover { color: var(--text-dark); }
     .back-link svg { width: 13px; height: 13px; stroke: currentColor; stroke-width: 2; fill: none; }
 
+    /* Section divider inside panel-card */
+    .field-section-title {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--text-faint);
+      margin: 22px 0 14px; padding-top: 18px;
+      border-top: 1px solid var(--border-soft);
+    }
+    .field-section-title:first-of-type { margin-top: 0; padding-top: 0; border-top: none; }
+
+    /* Same-as-billing checkbox row */
+    .checkbox-row {
+      display: flex; align-items: center; gap: 10px;
+      margin: 14px 0 4px; cursor: pointer;
+    }
+    .checkbox-row input[type="checkbox"] {
+      width: 17px; height: 17px; accent-color: var(--brand-red);
+      cursor: pointer; flex-shrink: 0;
+    }
+    .checkbox-row span { font-size: 0.82rem; font-weight: 500; color: var(--text-dark); }
+
+    /* Collapsible shipping section */
+    #shipping-fields { display: none; }
+    #shipping-fields.shown { display: block; }
+
+    /* Order summary box above pay button */
+    .pay-summary {
+      background: var(--bg-summary);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px 18px;
+      margin: 20px 0 18px;
+    }
+    .pay-summary-row {
+      display: flex; justify-content: space-between; align-items: baseline;
+      font-size: 0.82rem; color: var(--text-muted);
+      padding: 5px 0;
+    }
+    .pay-summary-row + .pay-summary-row { border-top: 1px solid var(--border-soft); }
+    .pay-summary-row strong { color: var(--text-dark); font-weight: 600; }
+    .pay-summary-total {
+      display: flex; justify-content: space-between; align-items: baseline;
+      margin-top: 10px; padding-top: 10px;
+      border-top: 1.5px solid var(--border);
+      font-size: 0.9rem; font-weight: 700; color: var(--text-dark);
+    }
+    .pay-summary-total-fig { font-size: 1.35rem; font-weight: 800; letter-spacing: -0.03em; }
+    .pay-summary-recurring {
+      margin-top: 8px; font-size: 0.73rem; color: var(--text-muted);
+      display: flex; align-items: center; gap: 5px;
+    }
+    .pay-summary-recurring svg { width: 11px; height: 11px; stroke: var(--text-muted); stroke-width: 1.8; fill: none; flex-shrink: 0; }
     /* ─────────────────────────────────────────────────────────────
        KEYFRAMES
     ───────────────────────────────────────────────────────────── */
@@ -857,7 +888,7 @@
 
       </div><!-- /panel-step-1 -->
 
-      <!-- ── STEP 2: Payment (Chargebee.js embedded fields) ──── -->
+      <!-- ── STEP 2: Payment ───────────────────────────────────── -->
       <div class="step-panel" id="panel-step-2">
 
         <button class="back-link" id="backBtn">
@@ -868,31 +899,27 @@
           Back to Your Details
         </button>
 
+        <!-- ── Card Details ───────────────────────────────────── -->
         <div class="panel-card">
           <div class="panel-title">Payment Information</div>
 
-          <!-- Accepted card brands -->
           <div class="card-brand-row">
-            <!-- Visa -->
             <svg viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Visa">
               <rect width="38" height="24" rx="3" fill="#1A1F71"/>
               <text x="6" y="17" font-family="Arial" font-size="10" font-weight="bold" fill="#FFFFFF">VISA</text>
             </svg>
-            <!-- Mastercard -->
             <svg viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mastercard">
               <rect width="38" height="24" rx="3" fill="#252525"/>
               <circle cx="15" cy="12" r="7" fill="#EB001B"/>
               <circle cx="23" cy="12" r="7" fill="#F79E1B"/>
               <path d="M19 6.8a7 7 0 0 1 0 10.4A7 7 0 0 1 19 6.8z" fill="#FF5F00"/>
             </svg>
-            <!-- Amex -->
             <svg viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Amex">
               <rect width="38" height="24" rx="3" fill="#2E77BC"/>
               <text x="4" y="17" font-family="Arial" font-size="8" font-weight="bold" fill="#FFFFFF">AMEX</text>
             </svg>
           </div>
 
-          <!-- Card Number — Chargebee mounts here -->
           <div class="field">
             <label>Card Number</label>
             <div class="cb-field-wrap" id="cb-card-number"></div>
@@ -900,13 +927,11 @@
           </div>
 
           <div class="field-row">
-            <!-- Expiry -->
             <div class="field">
               <label>Expiry</label>
               <div class="cb-field-wrap" id="cb-card-expiry"></div>
               <div class="field-err" id="err-card-expiry">Invalid expiry date.</div>
             </div>
-            <!-- CVV -->
             <div class="field">
               <label>CVV</label>
               <div class="cb-field-wrap" id="cb-card-cvv"></div>
@@ -914,21 +939,159 @@
             </div>
           </div>
 
-          <!-- Cardholder name -->
           <div class="field">
             <label for="f-card-name">Name on Card</label>
-            <input type="text" id="f-card-name" placeholder="Jane Smith"
-                   autocomplete="cc-name" spellcheck="false">
+            <input type="text" id="f-card-name" placeholder="Jane Smith" autocomplete="cc-name" spellcheck="false">
+            <div class="field-err">Required.</div>
+          </div>
+        </div>
+
+        <!-- ── Billing Address ────────────────────────────────── -->
+        <div class="panel-card">
+          <div class="panel-title">Billing Address</div>
+
+          <div class="field-row">
+            <div class="field" id="fg-bill-first">
+              <label for="f-bill-first">First Name</label>
+              <input type="text" id="f-bill-first" placeholder="Jane" autocomplete="billing given-name">
+              <div class="field-err">Required.</div>
+            </div>
+            <div class="field" id="fg-bill-last">
+              <label for="f-bill-last">Last Name</label>
+              <input type="text" id="f-bill-last" placeholder="Smith" autocomplete="billing family-name">
+              <div class="field-err">Required.</div>
+            </div>
+          </div>
+
+          <div class="field" id="fg-bill-line1">
+            <label for="f-bill-line1">Address Line 1</label>
+            <input type="text" id="f-bill-line1" placeholder="123 Main St" autocomplete="billing address-line1">
             <div class="field-err">Required.</div>
           </div>
 
-          <br>
+          <div class="field">
+            <label for="f-bill-line2">Address Line 2 <span style="font-weight:400;color:var(--text-faint);">(optional)</span></label>
+            <input type="text" id="f-bill-line2" placeholder="Apt 4B" autocomplete="billing address-line2">
+          </div>
+
+          <div class="field-row">
+            <div class="field" id="fg-bill-city">
+              <label for="f-bill-city">City</label>
+              <input type="text" id="f-bill-city" placeholder="Toronto" autocomplete="billing address-level2">
+              <div class="field-err">Required.</div>
+            </div>
+            <div class="field" id="fg-bill-province">
+              <label for="f-bill-province">Province</label>
+              <input type="text" id="f-bill-province" placeholder="ON" autocomplete="billing address-level1" maxlength="2" style="text-transform:uppercase">
+              <div class="field-err">Required.</div>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field" id="fg-bill-zip">
+              <label for="f-bill-zip">Postal Code</label>
+              <input type="text" id="f-bill-zip" placeholder="M5V 3A5" autocomplete="billing postal-code" maxlength="7">
+              <div class="field-err">Required.</div>
+            </div>
+            <div class="field">
+              <label>Country</label>
+              <input type="text" value="Canada" readonly style="background:var(--bg-summary);color:var(--text-muted);cursor:default;">
+            </div>
+          </div>
+
+          <!-- ── Shipping Address ─────────────────────────────── -->
+          <div class="field-section-title">Shipping Address</div>
+
+          <label class="checkbox-row" id="same-as-billing-row">
+            <input type="checkbox" id="same-as-billing" checked>
+            <span>Same as billing address</span>
+          </label>
+
+          <div id="shipping-fields">
+            <div class="field-row" style="margin-top:14px;">
+              <div class="field" id="fg-ship-first">
+                <label for="f-ship-first">First Name</label>
+                <input type="text" id="f-ship-first" placeholder="Jane" autocomplete="shipping given-name">
+                <div class="field-err">Required.</div>
+              </div>
+              <div class="field" id="fg-ship-last">
+                <label for="f-ship-last">Last Name</label>
+                <input type="text" id="f-ship-last" placeholder="Smith" autocomplete="shipping family-name">
+                <div class="field-err">Required.</div>
+              </div>
+            </div>
+            <div class="field" id="fg-ship-line1">
+              <label for="f-ship-line1">Address Line 1</label>
+              <input type="text" id="f-ship-line1" placeholder="123 Main St" autocomplete="shipping address-line1">
+              <div class="field-err">Required.</div>
+            </div>
+            <div class="field">
+              <label for="f-ship-line2">Address Line 2 <span style="font-weight:400;color:var(--text-faint);">(optional)</span></label>
+              <input type="text" id="f-ship-line2" placeholder="Apt 4B" autocomplete="shipping address-line2">
+            </div>
+            <div class="field-row">
+              <div class="field" id="fg-ship-city">
+                <label for="f-ship-city">City</label>
+                <input type="text" id="f-ship-city" placeholder="Toronto" autocomplete="shipping address-level2">
+                <div class="field-err">Required.</div>
+              </div>
+              <div class="field" id="fg-ship-province">
+                <label for="f-ship-province">Province</label>
+                <input type="text" id="f-ship-province" placeholder="ON" autocomplete="shipping address-level1" maxlength="2" style="text-transform:uppercase">
+                <div class="field-err">Required.</div>
+              </div>
+            </div>
+            <div class="field-row">
+              <div class="field" id="fg-ship-zip">
+                <label for="f-ship-zip">Postal Code</label>
+                <input type="text" id="f-ship-zip" placeholder="M5V 3A5" autocomplete="shipping postal-code" maxlength="7">
+                <div class="field-err">Required.</div>
+              </div>
+              <div class="field">
+                <label>Country</label>
+                <input type="text" value="Canada" readonly style="background:var(--bg-summary);color:var(--text-muted);cursor:default;">
+              </div>
+            </div>
+          </div><!-- /shipping-fields -->
+
+        </div><!-- /billing panel-card -->
+
+        <!-- ── Order Summary + Pay Button ────────────────────── -->
+        <div class="panel-card">
+          <div class="panel-title">Order Summary</div>
+
+          <div class="pay-summary">
+            <div class="pay-summary-row">
+              <span>NETGEAR Nighthawk M1 <small style="color:var(--text-faint)">(device)</small></span>
+              <strong>$199.00</strong>
+            </div>
+            <div class="pay-summary-row">
+              <span>First Month's Internet</span>
+              <strong style="color:var(--green)">Included</strong>
+            </div>
+            <div class="pay-summary-row">
+              <span>Activation &amp; Shipping</span>
+              <strong style="color:var(--green)">$0.00</strong>
+            </div>
+            <div class="pay-summary-total">
+              <span>Due Today</span>
+              <span class="pay-summary-total-fig"><sup style="font-size:0.65em;font-weight:700;vertical-align:super">$</sup>199<sup style="font-size:0.5em;font-weight:600;vertical-align:super">.00</sup></span>
+            </div>
+            <div class="pay-summary-recurring">
+              <svg viewBox="0 0 16 16" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2.5 8a5.5 5.5 0 0 1 9.5-3.8"/>
+                <path d="M13.5 8a5.5 5.5 0 0 1-9.5 3.8"/>
+                <polyline points="9.5,1.5 11.5,4.2 8.5,4.8"/>
+                <polyline points="6.5,14.5 4.5,11.8 7.5,11.2"/>
+              </svg>
+              Then <strong>$110 / month</strong> for unlimited internet — cancel anytime, no contract.
+            </div>
+          </div>
 
           <button class="btn-submit" id="payBtn" onclick="handlePay()">
             <span class="btn-lbl">Pay $199 — Complete Order</span>
             <div class="btn-spin"></div>
-            <svg class="btn-arr" viewBox="0 0 16 16" fill="none"
-                 stroke-linecap="round" stroke-linejoin="round">
+            <svg class="btn-arr" viewBox="0 0 16 16" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <line x1="2" y1="8" x2="13" y2="8"/>
               <polyline points="9,4 13,8 9,12"/>
             </svg>
@@ -946,7 +1109,6 @@
       </div><!-- /panel-step-2 -->
 
     </div><!-- /form-panel -->
-
     <!-- ── RIGHT — order summary ──────────────────────────────── -->
     <div class="summary-panel">
 
@@ -1102,22 +1264,15 @@
   var WORKER_URL = '/api/checkout-embedded';
   var CONFIRM    = '/lease-confirmed';
 
-  /* ── INIT ───────────────────────────────────────────────────── */
   var cbInstance = Chargebee.init({
     site: CB_SITE,
     publishableKey: 'live_9xoL0GUAJyfaZddNn5cdFhI4hrLAGhyIh'
   });
 
-  /* Pre-load the components module immediately so it's ready
-     by the time the user reaches step 2. We do NOT mount yet —
-     Chargebee measures the container at mount time, and mounting
-     into a display:none panel produces 0x0 iframes. */
+  /* Pre-load module — don't mount yet (panel is display:none) */
   var componentsReady = false;
-  cbInstance.load('components').then(function () {
-    componentsReady = true;
-  }).catch(function (err) {
-    console.error('Chargebee load failed:', err);
-  });
+  cbInstance.load('components').then(function () { componentsReady = true; })
+    .catch(function (e) { console.error('CB load failed:', e); });
 
   /* ── MOBILE MENU ─────────────────────────────────────────────── */
   var trigger = document.getElementById('menuTrigger');
@@ -1132,26 +1287,19 @@
     if (!e.target.closest('a') && mobileOverlay.classList.contains('active')) toggleMenu();
   });
 
+  /* ── SAME-AS-BILLING TOGGLE ──────────────────────────────────── */
+  var sameChk = document.getElementById('same-as-billing');
+  var shipDiv = document.getElementById('shipping-fields');
+  sameChk.addEventListener('change', function () {
+    shipDiv.classList.toggle('shown', !this.checked);
+  });
+
   /* ── CARD COMPONENT ──────────────────────────────────────────── */
   var cardComponent = null;
   var cardMounted   = false;
 
-  function mountCardFields() {
-    if (cardMounted) return;
-    if (!componentsReady) {
-      /* Module still loading — wait for it then try again */
-      cbInstance.load('components').then(function () {
-        componentsReady = true;
-        doMount();
-      });
-      return;
-    }
-    doMount();
-  }
-
   function doMount() {
     cardMounted = true;
-
     cardComponent = cbInstance.createComponent('card', {
       style: {
         base: {
@@ -1159,6 +1307,7 @@
           fontFamily: 'Figtree, sans-serif',
           fontSize: '15px',
           fontSmoothing: 'antialiased',
+          lineHeight: '26px',
           '::placeholder': { color: '#c4c4ca' }
         },
         invalid: { color: '#D73C59' }
@@ -1167,59 +1316,65 @@
       fonts: ['https://fonts.googleapis.com/css2?family=Figtree:wght@400;500&display=swap'],
       placeholder: { number: '1234 5678 9012 3456', expiry: 'MM / YY', cvv: '•••' }
     });
-
     cardComponent.createField('number').at('#cb-card-number');
     cardComponent.createField('expiry').at('#cb-card-expiry');
     cardComponent.createField('cvv').at('#cb-card-cvv');
     cardComponent.mount();
   }
 
+  function mountCardFields() {
+    if (cardMounted) return;
+    if (!componentsReady) {
+      cbInstance.load('components').then(function () { componentsReady = true; doMount(); });
+      return;
+    }
+    doMount();
+  }
+
   /* ── STEP MACHINE ────────────────────────────────────────────── */
   function setStep(n) {
     [['st-1',1],['st-2',2],['st-3',3]].forEach(function(p) {
-      document.getElementById(p[0]).className = 'step-item' + (p[1]<n?' done':p[1]===n?' active':'');
+      document.getElementById(p[0]).className = 'step-item'+(p[1]<n?' done':p[1]===n?' active':'');
     });
     [['cn-1',1],['cn-2',2]].forEach(function(p) {
       document.getElementById(p[0]).className = 'step-connector'+(p[1]<n?' done':'');
     });
-
-    var p1 = document.getElementById('panel-step-1');
-    var p2 = document.getElementById('panel-step-2');
-
-    if (n === 1) {
-      p1.classList.add('active');
-      p2.classList.remove('active');
-    } else if (n === 2) {
-      p1.classList.remove('active');
-      p2.classList.add('active');
-      /* Panel is now visible in the DOM with real dimensions —
-         mount the card fields NOW, not before */
+    document.getElementById('panel-step-1').classList.toggle('active', n===1);
+    document.getElementById('panel-step-2').classList.toggle('active', n===2);
+    if (n === 2) {
+      /* Two rAFs ensure panel has painted with real dimensions before mount */
       requestAnimationFrame(function () {
-        requestAnimationFrame(function () {
-          mountCardFields();
-        });
+        requestAnimationFrame(function () { mountCardFields(); });
       });
     }
-
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
-
   document.getElementById('backBtn').addEventListener('click', function () { setStep(1); });
 
-  /* ── VALIDATION ──────────────────────────────────────────────── */
+  /* ── VALIDATION HELPERS ──────────────────────────────────────── */
   function clearErrors() {
     document.querySelectorAll('.field.has-err').forEach(function(el){ el.classList.remove('has-err'); });
     document.querySelectorAll('input.err').forEach(function(el){ el.classList.remove('err'); });
   }
   function flagErr(inputId, groupId) {
     var i = document.getElementById(inputId);
-    var g = document.getElementById(groupId);
+    var g = groupId ? document.getElementById(groupId) : null;
     if (i) i.classList.add('err');
     if (g) g.classList.add('has-err');
   }
+  function req(id, gid) {
+    var v = document.getElementById(id).value.trim();
+    if (!v) { flagErr(id, gid); return false; }
+    return true;
+  }
   function isPhone(v) { return v.replace(/[\s\-()+.]/g,'').length >= 7; }
   function isEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
-  ['f-first','f-last','f-phone','f-email'].forEach(function(id) {
+
+  ['f-first','f-last','f-phone','f-email',
+   'f-bill-first','f-bill-last','f-bill-line1','f-bill-city','f-bill-province','f-bill-zip',
+   'f-ship-first','f-ship-last','f-ship-line1','f-ship-city','f-ship-province','f-ship-zip',
+   'f-card-name'
+  ].forEach(function(id) {
     var el = document.getElementById(id);
     if (!el) return;
     el.addEventListener('input', function() {
@@ -1243,33 +1398,85 @@
     if (!ok) { var f=document.querySelector('.field.has-err input'); if(f) f.focus(); return null; }
     return { plan_id:CB_PLAN_ID, sim_type:'physical', first_name:first, last_name:last, phone:phone, email:email };
   }
-
   function handleSubmit() {
-    var data = collect();
-    if (!data) return;
+    var data = collect(); if (!data) return;
     sessionStorage.setItem('m4l_order', JSON.stringify(data));
+    /* Pre-fill billing name from contact info */
+    document.getElementById('f-bill-first').value = data.first_name;
+    document.getElementById('f-bill-last').value  = data.last_name;
     setStep(2);
   }
   window.handleSubmit = handleSubmit;
 
-  /* ── STEP 2: pay ─────────────────────────────────────────────── */
+  /* ── STEP 2 VALIDATION ───────────────────────────────────────── */
+  function collectBilling() {
+    var ok = true;
+    ok = req('f-bill-first','fg-bill-first') && ok;
+    ok = req('f-bill-last', 'fg-bill-last')  && ok;
+    ok = req('f-bill-line1','fg-bill-line1') && ok;
+    ok = req('f-bill-city', 'fg-bill-city')  && ok;
+    ok = req('f-bill-province','fg-bill-province') && ok;
+    ok = req('f-bill-zip','fg-bill-zip')     && ok;
+    if (!ok) return null;
+    return {
+      first_name:  document.getElementById('f-bill-first').value.trim(),
+      last_name:   document.getElementById('f-bill-last').value.trim(),
+      line1:       document.getElementById('f-bill-line1').value.trim(),
+      line2:       document.getElementById('f-bill-line2').value.trim(),
+      city:        document.getElementById('f-bill-city').value.trim(),
+      state_code:  document.getElementById('f-bill-province').value.trim().toUpperCase(),
+      zip:         document.getElementById('f-bill-zip').value.trim()
+    };
+  }
+
+  function collectShipping(billing) {
+    if (document.getElementById('same-as-billing').checked) return billing;
+    var ok = true;
+    ok = req('f-ship-first','fg-ship-first') && ok;
+    ok = req('f-ship-last', 'fg-ship-last')  && ok;
+    ok = req('f-ship-line1','fg-ship-line1') && ok;
+    ok = req('f-ship-city', 'fg-ship-city')  && ok;
+    ok = req('f-ship-province','fg-ship-province') && ok;
+    ok = req('f-ship-zip','fg-ship-zip')     && ok;
+    if (!ok) return null;
+    return {
+      first_name: document.getElementById('f-ship-first').value.trim(),
+      last_name:  document.getElementById('f-ship-last').value.trim(),
+      line1:      document.getElementById('f-ship-line1').value.trim(),
+      line2:      document.getElementById('f-ship-line2').value.trim(),
+      city:       document.getElementById('f-ship-city').value.trim(),
+      state_code: document.getElementById('f-ship-province').value.trim().toUpperCase(),
+      zip:        document.getElementById('f-ship-zip').value.trim()
+    };
+  }
+
+  /* ── STEP 2: Tokenize → worker → redirect ────────────────────── */
   function handlePay() {
-    if (!cardComponent) {
-      alert('Card fields still loading — please wait a moment and try again.');
-      return;
-    }
+    if (!cardComponent) { alert('Card fields still loading — please wait a moment.'); return; }
+
+    clearErrors();
     var cardName = document.getElementById('f-card-name').value.trim();
-    if (!cardName) { document.getElementById('f-card-name').classList.add('err'); return; }
+    if (!cardName) { flagErr('f-card-name', null); return; }
+
+    var billing  = collectBilling();
+    if (!billing) { var f=document.querySelector('#panel-step-2 .field.has-err input'); if(f) f.focus(); return; }
+    var shipping = collectShipping(billing);
+    if (!shipping) { var f=document.querySelector('#panel-step-2 .field.has-err input'); if(f) f.focus(); return; }
 
     var payBtn = document.getElementById('payBtn');
-    payBtn.classList.add('loading');
-    payBtn.disabled = true;
+    payBtn.classList.add('loading'); payBtn.disabled = true;
 
     var contact = JSON.parse(sessionStorage.getItem('m4l_order') || '{}');
 
     cardComponent.tokenize({
-      firstName: contact.first_name || '',
-      lastName:  contact.last_name  || ''
+      firstName:    contact.first_name || '',
+      lastName:     contact.last_name  || '',
+      billingAddr1: billing.line1,
+      billingAddr2: billing.line2 || '',
+      billingCity:  billing.city,
+      billingState: billing.state_code,
+      billingZip:   billing.zip,
+      billingCountry: 'CA'
     })
     .then(function (data) {
       return fetch(WORKER_URL, {
@@ -1282,7 +1489,16 @@
           first_name: contact.first_name,
           last_name:  contact.last_name,
           phone:      contact.phone,
-          email:      contact.email
+          email:      contact.email,
+          shipping: {
+            first_name: shipping.first_name,
+            last_name:  shipping.last_name,
+            line1:      shipping.line1,
+            line2:      shipping.line2 || '',
+            city:       shipping.city,
+            state_code: shipping.state_code,
+            zip:        shipping.zip
+          }
         })
       });
     })
@@ -1293,15 +1509,13 @@
       });
     })
     .then(function () {
-      payBtn.classList.remove('loading');
-      payBtn.disabled = false;
+      payBtn.classList.remove('loading'); payBtn.disabled = false;
       window.location.href = CONFIRM;
     })
     .catch(function (err) {
       console.error(err);
-      payBtn.classList.remove('loading');
-      payBtn.disabled = false;
-      alert('Payment failed — ' + (err.message || 'please check your card details and try again.'));
+      payBtn.classList.remove('loading'); payBtn.disabled = false;
+      alert('Payment failed — ' + (err.message || 'please check your details and try again.'));
     });
   }
   window.handlePay = handlePay;
