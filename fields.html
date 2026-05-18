@@ -17,6 +17,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://js.chargebee.com/v2/chargebee.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNt4XeQ5roadq0L-IpadA6s9e4CPm9FwI&libraries=places"></script>
 
   <style>
     /* ─────────────────────────────────────────────────────────────
@@ -1354,44 +1355,30 @@
           <div class="panel-card">
             <div class="panel-title">Billing Address</div>
 
+            <!-- Google Places autocomplete search -->
             <div class="field" id="fg-bill-street">
               <label for="f-bill-street">Street Address</label>
-              <input type="text" id="f-bill-street" placeholder="123 Main St"
-                     autocomplete="billing street-address" spellcheck="false">
-              <div class="field-err">Required.</div>
+              <input type="text" id="f-bill-street" placeholder="Start typing your address…"
+                     autocomplete="off" spellcheck="false">
+              <div class="field-err">Please select a valid Canadian address.</div>
             </div>
 
             <div class="field">
               <label for="f-bill-apt">Apt / Suite / Unit <span style="font-weight:400;color:var(--text-faint)">(optional)</span></label>
-              <input type="text" id="f-bill-apt" placeholder="Apt 4B"
-                     autocomplete="billing address-line2" spellcheck="false">
+              <input type="text" id="f-bill-apt" placeholder="Apt 4B" spellcheck="false">
             </div>
 
             <div class="field-row">
               <div class="field" id="fg-bill-city">
                 <label for="f-bill-city">City</label>
-                <input type="text" id="f-bill-city" placeholder="Toronto"
-                       autocomplete="billing address-level2" spellcheck="false">
+                <input type="text" id="f-bill-city" placeholder="Toronto" readonly
+                       style="background:var(--bg-summary);color:var(--text-muted);">
                 <div class="field-err">Required.</div>
               </div>
               <div class="field" id="fg-bill-province">
                 <label for="f-bill-province">Province</label>
-                <select id="f-bill-province" autocomplete="billing address-level1">
-                  <option value="">Select…</option>
-                  <option value="AB">Alberta</option>
-                  <option value="BC">British Columbia</option>
-                  <option value="MB">Manitoba</option>
-                  <option value="NB">New Brunswick</option>
-                  <option value="NL">Newfoundland and Labrador</option>
-                  <option value="NS">Nova Scotia</option>
-                  <option value="NT">Northwest Territories</option>
-                  <option value="NU">Nunavut</option>
-                  <option value="ON">Ontario</option>
-                  <option value="PE">Prince Edward Island</option>
-                  <option value="QC">Quebec</option>
-                  <option value="SK">Saskatchewan</option>
-                  <option value="YT">Yukon</option>
-                </select>
+                <input type="text" id="f-bill-province" placeholder="ON" readonly
+                       style="background:var(--bg-summary);color:var(--text-muted);">
                 <div class="field-err">Required.</div>
               </div>
             </div>
@@ -1399,13 +1386,13 @@
             <div class="field-row">
               <div class="field" id="fg-bill-postal">
                 <label for="f-bill-postal">Postal Code</label>
-                <input type="text" id="f-bill-postal" placeholder="M5V 2T6"
-                       autocomplete="billing postal-code" spellcheck="false">
+                <input type="text" id="f-bill-postal" placeholder="M5V 2T6" readonly
+                       style="background:var(--bg-summary);color:var(--text-muted);">
                 <div class="field-err">Required.</div>
               </div>
-              <div class="field" id="fg-bill-country">
-                <label for="f-bill-country">Country</label>
-                <input type="text" id="f-bill-country" value="Canada" readonly
+              <div class="field">
+                <label>Country</label>
+                <input type="text" value="Canada" readonly
                        style="background:var(--bg-summary);color:var(--text-muted);cursor:default;">
               </div>
             </div>
@@ -1421,44 +1408,30 @@
             </label>
 
             <div class="shipping-fields hidden" id="shipping-fields">
+
               <div class="field" id="fg-ship-street">
                 <label for="f-ship-street">Street Address</label>
-                <input type="text" id="f-ship-street" placeholder="123 Main St"
-                       autocomplete="shipping street-address" spellcheck="false">
-                <div class="field-err">Required.</div>
+                <input type="text" id="f-ship-street" placeholder="Start typing your address…"
+                       autocomplete="off" spellcheck="false">
+                <div class="field-err">Please select a valid Canadian address.</div>
               </div>
 
               <div class="field">
                 <label for="f-ship-apt">Apt / Suite / Unit <span style="font-weight:400;color:var(--text-faint)">(optional)</span></label>
-                <input type="text" id="f-ship-apt" placeholder="Apt 4B"
-                       autocomplete="shipping address-line2" spellcheck="false">
+                <input type="text" id="f-ship-apt" placeholder="Apt 4B" spellcheck="false">
               </div>
 
               <div class="field-row">
                 <div class="field" id="fg-ship-city">
                   <label for="f-ship-city">City</label>
-                  <input type="text" id="f-ship-city" placeholder="Toronto"
-                         autocomplete="shipping address-level2" spellcheck="false">
+                  <input type="text" id="f-ship-city" placeholder="Toronto" readonly
+                         style="background:var(--bg-summary);color:var(--text-muted);">
                   <div class="field-err">Required.</div>
                 </div>
                 <div class="field" id="fg-ship-province">
                   <label for="f-ship-province">Province</label>
-                  <select id="f-ship-province" autocomplete="shipping address-level1">
-                    <option value="">Select…</option>
-                    <option value="AB">Alberta</option>
-                    <option value="BC">British Columbia</option>
-                    <option value="MB">Manitoba</option>
-                    <option value="NB">New Brunswick</option>
-                    <option value="NL">Newfoundland and Labrador</option>
-                    <option value="NS">Nova Scotia</option>
-                    <option value="NT">Northwest Territories</option>
-                    <option value="NU">Nunavut</option>
-                    <option value="ON">Ontario</option>
-                    <option value="PE">Prince Edward Island</option>
-                    <option value="QC">Quebec</option>
-                    <option value="SK">Saskatchewan</option>
-                    <option value="YT">Yukon</option>
-                  </select>
+                  <input type="text" id="f-ship-province" placeholder="ON" readonly
+                         style="background:var(--bg-summary);color:var(--text-muted);">
                   <div class="field-err">Required.</div>
                 </div>
               </div>
@@ -1466,16 +1439,17 @@
               <div class="field-row">
                 <div class="field" id="fg-ship-postal">
                   <label for="f-ship-postal">Postal Code</label>
-                  <input type="text" id="f-ship-postal" placeholder="M5V 2T6"
-                         autocomplete="shipping postal-code" spellcheck="false">
+                  <input type="text" id="f-ship-postal" placeholder="M5V 2T6" readonly
+                         style="background:var(--bg-summary);color:var(--text-muted);">
                   <div class="field-err">Required.</div>
                 </div>
                 <div class="field">
-                  <label for="f-ship-country">Country</label>
-                  <input type="text" id="f-ship-country" value="Canada" readonly
+                  <label>Country</label>
+                  <input type="text" value="Canada" readonly
                          style="background:var(--bg-summary);color:var(--text-muted);cursor:default;">
                 </div>
               </div>
+
             </div><!-- /shipping-fields -->
           </div>
 
@@ -1967,16 +1941,84 @@
     setStep(2);
   };
 
+  /* ── GOOGLE PLACES AUTOCOMPLETE ─────────────────────────────── */
+  var billPlaceSelected = false;
+  var shipPlaceSelected = false;
+
+  function initPlacesAutocomplete(inputId, cityId, provinceId, postalId, isBilling) {
+    var input = document.getElementById(inputId);
+
+    var ac = new google.maps.places.Autocomplete(input, {
+      componentRestrictions: { country: 'ca' },
+      fields: ['address_components'],
+      types: ['address']
+    });
+
+    // Reset selected flag if user manually edits after selecting
+    input.addEventListener('input', function () {
+      if (isBilling) billPlaceSelected = false;
+      else           shipPlaceSelected = false;
+      document.getElementById(cityId).value     = '';
+      document.getElementById(provinceId).value = '';
+      document.getElementById(postalId).value   = '';
+    });
+
+    ac.addListener('place_changed', function () {
+      var place = ac.getPlace();
+      if (!place.address_components) return;
+
+      var streetNumber = '', route = '', city = '', province = '', postal = '';
+
+      place.address_components.forEach(function (c) {
+        var t = c.types[0];
+        if (t === 'street_number')               streetNumber = c.long_name;
+        if (t === 'route')                       route        = c.short_name;
+        if (t === 'locality')                    city         = c.long_name;
+        if (t === 'administrative_area_level_1') province     = c.short_name;
+        if (t === 'postal_code')                 postal       = c.long_name;
+      });
+
+      input.value = (streetNumber + ' ' + route).trim();
+      document.getElementById(cityId).value     = city;
+      document.getElementById(provinceId).value = province;
+      document.getElementById(postalId).value   = postal;
+
+      // Clear errors on the street field
+      input.classList.remove('err');
+      var fg = document.getElementById(inputId.replace('f-', 'fg-'));
+      if (fg) fg.classList.remove('has-err');
+
+      if (isBilling) billPlaceSelected = true;
+      else           shipPlaceSelected = true;
+    });
+  }
+
+  function initAllAutocomplete() {
+    initPlacesAutocomplete('f-bill-street', 'f-bill-city', 'f-bill-province', 'f-bill-postal', true);
+    initPlacesAutocomplete('f-ship-street', 'f-ship-city', 'f-ship-province', 'f-ship-postal', false);
+  }
+
+  if (window.google && window.google.maps && window.google.maps.places) {
+    initAllAutocomplete();
+  } else {
+    window.addEventListener('load', function () {
+      if (window.google && window.google.maps) initAllAutocomplete();
+    });
+  }
+
   /* ── STEP 2: Address ─────────────────────────────────────────── */
   function collectAddress() {
     clearErrors();
-    var billStreet   = document.getElementById('f-bill-street').value.trim();
-    var billCity     = document.getElementById('f-bill-city').value.trim();
-    var billProvince = document.getElementById('f-bill-province').value;
-    var billPostal   = document.getElementById('f-bill-postal').value.trim();
     var ok = true;
 
-    if (!billStreet)   { flagErr('f-bill-street',   'fg-bill-street');   ok = false; }
+    var billStreet   = document.getElementById('f-bill-street').value.trim();
+    var billCity     = document.getElementById('f-bill-city').value.trim();
+    var billProvince = document.getElementById('f-bill-province').value.trim();
+    var billPostal   = document.getElementById('f-bill-postal').value.trim();
+
+    if (!billPlaceSelected || !billStreet) {
+      flagErr('f-bill-street', 'fg-bill-street'); ok = false;
+    }
     if (!billCity)     { flagErr('f-bill-city',     'fg-bill-city');     ok = false; }
     if (!billProvince) { flagErr('f-bill-province', 'fg-bill-province'); ok = false; }
     if (!billPostal)   { flagErr('f-bill-postal',   'fg-bill-postal');   ok = false; }
@@ -1988,16 +2030,18 @@
     if (!sameAsBilling) {
       shipStreet   = document.getElementById('f-ship-street').value.trim();
       shipCity     = document.getElementById('f-ship-city').value.trim();
-      shipProvince = document.getElementById('f-ship-province').value;
+      shipProvince = document.getElementById('f-ship-province').value.trim();
       shipPostal   = document.getElementById('f-ship-postal').value.trim();
 
-      if (!shipStreet)   { flagErr('f-ship-street',   'fg-ship-street');   ok = false; }
+      if (!shipPlaceSelected || !shipStreet) {
+        flagErr('f-ship-street', 'fg-ship-street'); ok = false;
+      }
       if (!shipCity)     { flagErr('f-ship-city',     'fg-ship-city');     ok = false; }
       if (!shipProvince) { flagErr('f-ship-province', 'fg-ship-province'); ok = false; }
       if (!shipPostal)   { flagErr('f-ship-postal',   'fg-ship-postal');   ok = false; }
     }
 
-    if (!ok) { var f = document.querySelector('.field.has-err input, .field.has-err select'); if (f) f.focus(); return null; }
+    if (!ok) { var f = document.querySelector('.field.has-err input'); if (f) f.focus(); return null; }
 
     return {
       billing: {
@@ -2132,14 +2176,6 @@
 
     var contact = JSON.parse(sessionStorage.getItem('m4l_order') || '{}');
 
-    // Failsafe: billing address must be present before attempting payment
-    if (!contact.billing || !contact.billing.line1 || !contact.billing.city || !contact.billing.state_code || !contact.billing.zip) {
-      payBtn.classList.remove('loading'); payBtn.disabled = false;
-      alert('Billing address is missing. Please go back to Step 2 and complete your address.');
-      setStep(2);
-      return;
-    }
-
     cardComponent.tokenize({
       firstName: contact.first_name || '',
       lastName:  contact.last_name  || ''
@@ -2149,16 +2185,15 @@
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-  token:            data.token,
-  plan_id:          CB_PLAN_ID,
-  sim_type:         'physical',
-  first_name:       contact.first_name,
-  last_name:        contact.last_name,
-  phone:            contact.phone,
-  email:            contact.email,
-  billing_address:  contact.billing,
+  token:           data.token,
+  plan_id:         CB_PLAN_ID,
+  sim_type:        'physical',
+  first_name:      contact.first_name,
+  last_name:       contact.last_name,
+  phone:           contact.phone,
+  email:           contact.email,
   shipping_address: contact.shipping,
-  coupon_id:        appliedCoupon || undefined
+  coupon_id:       appliedCoupon || undefined
 })
       });
     })
