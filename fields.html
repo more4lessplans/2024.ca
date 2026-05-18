@@ -221,7 +221,6 @@
       padding: 52px 28px 80px;
     }
 
-    /* On desktop, two-column: product hero left, order details right */
     .order-card-wrap {
       display: grid;
       grid-template-columns: 1fr 420px;
@@ -233,7 +232,6 @@
       animation: fadeUp 0.7s ease 0.1s both;
     }
 
-    /* Left hero panel */
     .order-hero-panel {
       background: var(--bg-summary);
       border: 1px solid var(--border);
@@ -274,7 +272,6 @@
 
     .order-hero-sub { font-size: 0.73rem; color: var(--text-muted); margin-top: 4px; }
 
-    /* Right details panel */
     .order-card {
       background: #fff;
       border: 1px solid var(--border);
@@ -282,14 +279,12 @@
       overflow: hidden;
     }
 
-    /* Mobile: single column, hero collapses into card header */
     @media (max-width: 900px) {
       .order-landing    { padding: 28px 16px 60px; align-items: flex-start; justify-content: center; }
       .order-card-wrap  { grid-template-columns: 1fr; gap: 0; }
-      .order-hero-panel { display: none; } /* hero panel hidden on mobile; card has its own compact header */
+      .order-hero-panel { display: none; }
     }
 
-    /* Mobile-only compact header inside the order card */
     .order-card-mobile-header {
       display: none;
       background: var(--bg-summary);
@@ -955,7 +950,6 @@
     /* ─────────────────────────────────────────────────────────────
        RESPONSIVE
     ───────────────────────────────────────────────────────────── */
-    /* Desktop: features/renewal live in the hero panel, hide duplicates in the card */
     .order-features-mobile,
     .order-renewal-mobile { display: none; }
 
@@ -1034,13 +1028,10 @@
 <!-- ── PAGE ─────────────────────────────────────────────────────── -->
 <div class="page">
 
-  <!-- ══════════════════════════════════════════════════════════════
-       STEP 0 — ORDER CARD (shown first)
-  ═══════════════════════════════════════════════════════════════ -->
+  <!-- STEP 0 -->
   <div id="screen-0" class="order-landing">
     <div class="order-card-wrap">
 
-      <!-- LEFT: product hero (desktop only) -->
       <div class="order-hero-panel">
         <div class="order-hero-device">
           <img src="assets/img/products/mr1100.png" alt="Netgear Nighthawk M1" class="order-hero-img">
@@ -1053,51 +1044,26 @@
 
         <div class="summary-section">
           <div class="summary-section-label">Everything Included</div>
-          <div class="feature-item">
-            <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-            Up To 1 Gbps LTE Speeds
-          </div>
-          <div class="feature-item">
-            <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-            Truly Unlimited Data — No Caps Or Slowdowns
-          </div>
-          <div class="feature-item">
-            <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-            Connect Up To 20 Devices
-          </div>
-          <div class="feature-item">
-            <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-            All-Day Battery Life — Home Or On The Go
-          </div>
-          <div class="feature-item">
-            <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-            Dual-Band Wi-Fi · 2.4 GHz + 5 GHz
-          </div>
-          <div class="feature-item">
-            <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-            30-Day Money-Back Guarantee
-          </div>
+          <div class="feature-item"><div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>Up To 1 Gbps LTE Speeds</div>
+          <div class="feature-item"><div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>Truly Unlimited Data — No Caps Or Slowdowns</div>
+          <div class="feature-item"><div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>Connect Up To 20 Devices</div>
+          <div class="feature-item"><div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>All-Day Battery Life — Home Or On The Go</div>
+          <div class="feature-item"><div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>Dual-Band Wi-Fi · 2.4 GHz + 5 GHz</div>
+          <div class="feature-item"><div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>30-Day Money-Back Guarantee</div>
         </div>
 
         <div class="summary-renewal" style="border-bottom:none;">
           <div class="renewal-icon">
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M2.5 8a5.5 5.5 0 0 1 9.5-3.8"/>
-              <path d="M13.5 8a5.5 5.5 0 0 1-9.5 3.8"/>
-              <polyline points="9.5,1.5 11.5,4.2 8.5,4.8"/>
-              <polyline points="6.5,14.5 4.5,11.8 7.5,11.2"/>
+              <path d="M2.5 8a5.5 5.5 0 0 1 9.5-3.8"/><path d="M13.5 8a5.5 5.5 0 0 1-9.5 3.8"/>
+              <polyline points="9.5,1.5 11.5,4.2 8.5,4.8"/><polyline points="6.5,14.5 4.5,11.8 7.5,11.2"/>
             </svg>
           </div>
-          <div class="renewal-text">
-            After the first month, unlimited internet renews at <strong>$110 / month</strong>. No contract — cancel anytime.
-          </div>
+          <div class="renewal-text">After the first month, unlimited internet renews at <strong>$110 / month</strong>. No contract — cancel anytime.</div>
         </div>
       </div>
 
-      <!-- RIGHT: order details + CTA -->
       <div class="order-card">
-
-        <!-- Mobile-only compact device header -->
         <div class="order-card-mobile-header">
           <img src="assets/img/products/mr1100.png" alt="Netgear Nighthawk M1" class="order-card-mobile-img">
           <div>
@@ -1107,411 +1073,269 @@
         </div>
 
         <div class="order-card-body">
-
-        <div class="order-row">
-          <div class="order-row-label">
-            <strong>NETGEAR Nighthawk M1</strong>
-            <small>Portable Gigabit LTE Wi-Fi Router</small>
+          <div class="order-row">
+            <div class="order-row-label"><strong>NETGEAR Nighthawk M1</strong><small>Portable Gigabit LTE Wi-Fi Router</small></div>
+            <span class="order-row-val">$199</span>
           </div>
-          <span class="order-row-val">$199</span>
-        </div>
-
-        <div class="order-row">
-          <div class="order-row-label">
-            <strong>First Month's Internet</strong>
-            <small>Unlimited — ready to use out of the box</small>
+          <div class="order-row">
+            <div class="order-row-label"><strong>First Month's Internet</strong><small>Unlimited — ready to use out of the box</small></div>
+            <span class="order-row-val free">Included</span>
           </div>
-          <span class="order-row-val free">Included</span>
-        </div>
+          <div class="order-row"><span class="order-row-label">Activation</span><span class="order-row-val free">$0</span></div>
+          <div class="order-row"><span class="order-row-label">Shipping</span><span class="order-row-val free">$0</span></div>
+          <div class="order-row"><span class="order-row-label">Contract</span><span class="order-row-val tag">No Contract Required</span></div>
 
-        <div class="order-row">
-          <span class="order-row-label">Activation</span>
-          <span class="order-row-val free">$0</span>
-        </div>
+          <div class="order-total-row">
+            <div>
+              <div class="order-total-label">Due Today</div>
+              <div class="order-total-note">Device + first month included</div>
+            </div>
+            <div>
+              <div class="order-total-fig"><sup>$</sup>199</div>
+              <div style="font-size:0.68rem;color:var(--text-faint);text-align:right;margin-top:2px;">+ applicable tax</div>
+            </div>
+          </div>
 
-        <div class="order-row">
-          <span class="order-row-label">Shipping</span>
-          <span class="order-row-val free">$0</span>
-        </div>
+          <div class="order-features order-features-mobile">
+            <div class="order-feature"><div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>Up To 1 Gbps LTE Speeds</div>
+            <div class="order-feature"><div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>Truly Unlimited Data — No Caps Or Slowdowns</div>
+            <div class="order-feature"><div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>Connect Up To 20 Devices · Dual-Band Wi-Fi</div>
+            <div class="order-feature"><div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>30-Day Money-Back Guarantee</div>
+          </div>
 
-        <div class="order-row">
-          <span class="order-row-label">Contract</span>
-          <span class="order-row-val tag">No Contract Required</span>
-        </div>
+          <div class="order-renewal order-renewal-mobile">
+            <svg viewBox="0 0 16 16" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2.5 8a5.5 5.5 0 0 1 9.5-3.8"/><path d="M13.5 8a5.5 5.5 0 0 1-9.5 3.8"/>
+              <polyline points="9.5,1.5 11.5,4.2 8.5,4.8"/><polyline points="6.5,14.5 4.5,11.8 7.5,11.2"/>
+            </svg>
+            After the first month, unlimited internet renews at <strong>&nbsp;$110 / month</strong>. No contract — cancel anytime.
+          </div>
 
-        <div class="order-total-row">
-          <div>
-            <div class="order-total-label">Due Today</div>
-            <div class="order-total-note">Device + first month included</div>
-          </div>
-          <div>
-            <div class="order-total-fig"><sup>$</sup>199</div>
-            <div style="font-size:0.68rem;color:var(--text-faint);text-align:right;margin-top:2px;">+ applicable tax</div>
-          </div>
-        </div>
+          <button class="btn-submit" onclick="proceedToCheckout()">
+            <span class="btn-lbl">Proceed with Order</span>
+            <div class="btn-spin"></div>
+            <svg class="btn-arr" viewBox="0 0 16 16" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/>
+            </svg>
+          </button>
 
-        <div class="order-features order-features-mobile">
-          <div class="order-feature">
-            <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-            Up To 1 Gbps LTE Speeds
-          </div>
-          <div class="order-feature">
-            <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-            Truly Unlimited Data — No Caps Or Slowdowns
-          </div>
-          <div class="order-feature">
-            <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-            Connect Up To 20 Devices · Dual-Band Wi-Fi
-          </div>
-          <div class="order-feature">
-            <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-            30-Day Money-Back Guarantee
+          <div class="btn-secure" style="margin-top:14px;">
+            <svg viewBox="0 0 14 14" fill="none" stroke-linecap="round">
+              <rect x="2" y="6" width="10" height="7" rx="1.5"/><path d="M4.5 6V4.5a2.5 2.5 0 015 0V6"/>
+            </svg>
+            SSL encrypted — payment handled by Chargebee
           </div>
         </div>
+      </div>
 
-        <div class="order-renewal order-renewal-mobile">
-          <svg viewBox="0 0 16 16" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M2.5 8a5.5 5.5 0 0 1 9.5-3.8"/>
-            <path d="M13.5 8a5.5 5.5 0 0 1-9.5 3.8"/>
-            <polyline points="9.5,1.5 11.5,4.2 8.5,4.8"/>
-            <polyline points="6.5,14.5 4.5,11.8 7.5,11.2"/>
-          </svg>
-          After the first month, unlimited internet renews at <strong>&nbsp;$110 / month</strong>. No contract — cancel anytime.
-        </div>
-
-        <button class="btn-submit" onclick="proceedToCheckout()">
-          <span class="btn-lbl">Proceed with Order</span>
-          <div class="btn-spin"></div>
-          <svg class="btn-arr" viewBox="0 0 16 16" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="2" y1="8" x2="13" y2="8"/>
-            <polyline points="9,4 13,8 9,12"/>
-          </svg>
-        </button>
-
-        <div class="btn-secure" style="margin-top:14px;">
-          <svg viewBox="0 0 14 14" fill="none" stroke-linecap="round">
-            <rect x="2" y="6" width="10" height="7" rx="1.5"/>
-            <path d="M4.5 6V4.5a2.5 2.5 0 015 0V6"/>
-          </svg>
-          SSL encrypted — payment handled by Chargebee
-        </div>
-
-      </div><!-- /order-card-body -->
-      </div><!-- /order-card -->
-    </div><!-- /order-card-wrap -->
+    </div>
   </div><!-- /screen-0 -->
 
 
-  <!-- ══════════════════════════════════════════════════════════════
-       STEPS 1–3 — Two-column checkout
-  ═══════════════════════════════════════════════════════════════ -->
+  <!-- STEPS 1–3 -->
   <div id="screen-checkout" style="display:none;">
     <div class="checkout-wrap">
 
-      <!-- ── LEFT — form ──────────────────────────────────────── -->
       <div class="form-panel" id="formPanel">
 
-        <!-- Steps bar (3 steps: Details / Address / Payment) -->
         <div class="steps-bar">
           <div class="step-item active" id="st-1">
-            <div class="step-dot">
-              <span class="step-num">1</span>
-              <span class="step-check"></span>
-            </div>
+            <div class="step-dot"><span class="step-num">1</span><span class="step-check"></span></div>
             <span>Your Details</span>
           </div>
           <div class="step-connector" id="cn-1"></div>
           <div class="step-item" id="st-2">
-            <div class="step-dot">
-              <span class="step-num">2</span>
-              <span class="step-check"></span>
-            </div>
+            <div class="step-dot"><span class="step-num">2</span><span class="step-check"></span></div>
             <span>Address</span>
           </div>
           <div class="step-connector" id="cn-2"></div>
           <div class="step-item" id="st-3">
-            <div class="step-dot">
-              <span class="step-num">3</span>
-              <span class="step-check"></span>
-            </div>
+            <div class="step-dot"><span class="step-num">3</span><span class="step-check"></span></div>
             <span>Payment</span>
           </div>
         </div>
 
-        <!-- ── STEP 1: Contact Details ──────────────────────── -->
+        <!-- STEP 1 -->
         <div class="step-panel active" id="panel-step-1">
-
           <div class="panel-card">
             <div class="panel-title">Contact Information</div>
-
             <div class="field-row">
               <div class="field" id="fg-first">
                 <label for="f-first">First Name</label>
-                <input type="text" id="f-first" placeholder="Jane"
-                       autocomplete="given-name" spellcheck="false">
+                <input type="text" id="f-first" placeholder="Jane" autocomplete="given-name" spellcheck="false">
                 <div class="field-err">Required.</div>
               </div>
               <div class="field" id="fg-last">
                 <label for="f-last">Last Name</label>
-                <input type="text" id="f-last" placeholder="Smith"
-                       autocomplete="family-name" spellcheck="false">
+                <input type="text" id="f-last" placeholder="Smith" autocomplete="family-name" spellcheck="false">
                 <div class="field-err">Required.</div>
               </div>
             </div>
-
             <div class="field" id="fg-email">
               <label for="f-email">Email Address</label>
-              <input type="email" id="f-email" placeholder="jane@example.com"
-                     autocomplete="email" spellcheck="false">
+              <input type="email" id="f-email" placeholder="jane@example.com" autocomplete="email" spellcheck="false">
               <div class="field-err">Please enter a valid email address.</div>
             </div>
-
             <div class="field" id="fg-phone">
               <label for="f-phone">Phone Number</label>
-              <input type="tel" id="f-phone" placeholder="416-555-0123"
-                     autocomplete="tel">
+              <input type="tel" id="f-phone" placeholder="416-555-0123" autocomplete="tel">
               <div class="field-err">Please enter a valid phone number.</div>
             </div>
-
             <br>
-
             <button class="btn-submit" onclick="handleStep1()">
               <span class="btn-lbl">Continue to Address</span>
               <div class="btn-spin"></div>
-              <svg class="btn-arr" viewBox="0 0 16 16" fill="none"
-                   stroke-linecap="round" stroke-linejoin="round">
-                <line x1="2" y1="8" x2="13" y2="8"/>
-                <polyline points="9,4 13,8 9,12"/>
+              <svg class="btn-arr" viewBox="0 0 16 16" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/>
               </svg>
             </button>
-
             <div class="btn-secure">
               <svg viewBox="0 0 14 14" fill="none" stroke-linecap="round">
-                <rect x="2" y="6" width="10" height="7" rx="1.5"/>
-                <path d="M4.5 6V4.5a2.5 2.5 0 015 0V6"/>
+                <rect x="2" y="6" width="10" height="7" rx="1.5"/><path d="M4.5 6V4.5a2.5 2.5 0 015 0V6"/>
               </svg>
               SSL encrypted — payment handled by Chargebee, never stored by us
             </div>
           </div>
 
-          <!-- What happens next -->
           <div class="panel-card">
             <div class="panel-title">What Happens Next</div>
-
             <div class="next-step">
-              <div class="next-step-icon">
-                <svg viewBox="0 0 16 16" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M3 4h10a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/>
-                  <path d="M2 7h12"/>
-                </svg>
-              </div>
-              <div>
-                <div class="next-step-label">Secure Payment</div>
-                <div class="next-step-desc">Enter your card in the final step. Your details are never stored by More4Less.</div>
-              </div>
+              <div class="next-step-icon"><svg viewBox="0 0 16 16" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h10a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M2 7h12"/></svg></div>
+              <div><div class="next-step-label">Secure Payment</div><div class="next-step-desc">Enter your card in the final step. Your details are never stored by More4Less.</div></div>
             </div>
-
             <div class="next-step">
-              <div class="next-step-icon">
-                <svg viewBox="0 0 16 16" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M3 8.5l3.5 3.5 7-7"/>
-                </svg>
-              </div>
-              <div>
-                <div class="next-step-label">Instant Confirmation</div>
-                <div class="next-step-desc">You'll receive an email with your order summary and activation instructions right away.</div>
-              </div>
+              <div class="next-step-icon"><svg viewBox="0 0 16 16" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.5 3.5 7-7"/></svg></div>
+              <div><div class="next-step-label">Instant Confirmation</div><div class="next-step-desc">You'll receive an email with your order summary and activation instructions right away.</div></div>
             </div>
-
             <div class="next-step">
-              <div class="next-step-icon">
-                <svg viewBox="0 0 16 16" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M3 10l2-6h6l2 6"/>
-                  <path d="M1 10h14"/>
-                  <path d="M6 10v3m4-3v3"/>
-                </svg>
-              </div>
-              <div>
-                <div class="next-step-label">Device Ships To You</div>
-                <div class="next-step-desc">Your Nighthawk M1 ships pre-configured. Plug in and connect — it just works.</div>
-              </div>
+              <div class="next-step-icon"><svg viewBox="0 0 16 16" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l2-6h6l2 6"/><path d="M1 10h14"/><path d="M6 10v3m4-3v3"/></svg></div>
+              <div><div class="next-step-label">Device Ships To You</div><div class="next-step-desc">Your Nighthawk M1 ships pre-configured. Plug in and connect — it just works.</div></div>
             </div>
           </div>
-
         </div><!-- /panel-step-1 -->
 
-        <!-- ── STEP 2: Billing & Shipping Address ──────────── -->
+        <!-- STEP 2 -->
         <div class="step-panel" id="panel-step-2">
-
           <button class="back-link" onclick="setStep(1)">
-            <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="13" y1="8" x2="3" y2="8"/>
-              <polyline points="7,4 3,8 7,12"/>
-            </svg>
+            <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><line x1="13" y1="8" x2="3" y2="8"/><polyline points="7,4 3,8 7,12"/></svg>
             Back to Your Details
           </button>
 
-          <!-- Billing Address -->
           <div class="panel-card">
             <div class="panel-title">Billing Address</div>
-
-            <!-- Google Places autocomplete search -->
             <div class="field" id="fg-bill-street">
               <label for="f-bill-street">Street Address</label>
-              <input type="text" id="f-bill-street" placeholder="Start typing your address…"
-                     autocomplete="off" spellcheck="false">
+              <input type="text" id="f-bill-street" placeholder="Start typing your address…" autocomplete="off" spellcheck="false">
               <div class="field-err">Please select a valid Canadian address.</div>
             </div>
-
             <div class="field">
               <label for="f-bill-apt">Apt / Suite / Unit <span style="font-weight:400;color:var(--text-faint)">(optional)</span></label>
               <input type="text" id="f-bill-apt" placeholder="Apt 4B" spellcheck="false">
             </div>
-
             <div class="field-row">
               <div class="field" id="fg-bill-city">
                 <label for="f-bill-city">City</label>
-                <input type="text" id="f-bill-city" placeholder="Toronto" readonly
-                       style="background:var(--bg-summary);color:var(--text-muted);">
+                <input type="text" id="f-bill-city" placeholder="Toronto" readonly style="background:var(--bg-summary);color:var(--text-muted);">
                 <div class="field-err">Required.</div>
               </div>
               <div class="field" id="fg-bill-province">
                 <label for="f-bill-province">Province</label>
-                <input type="text" id="f-bill-province" placeholder="ON" readonly
-                       style="background:var(--bg-summary);color:var(--text-muted);">
+                <input type="text" id="f-bill-province" placeholder="ON" readonly style="background:var(--bg-summary);color:var(--text-muted);">
                 <div class="field-err">Required.</div>
               </div>
             </div>
-
             <div class="field-row">
               <div class="field" id="fg-bill-postal">
                 <label for="f-bill-postal">Postal Code</label>
-                <input type="text" id="f-bill-postal" placeholder="M5V 2T6" readonly
-                       style="background:var(--bg-summary);color:var(--text-muted);">
+                <input type="text" id="f-bill-postal" placeholder="M5V 2T6" readonly style="background:var(--bg-summary);color:var(--text-muted);">
                 <div class="field-err">Required.</div>
               </div>
               <div class="field">
                 <label>Country</label>
-                <input type="text" value="Canada" readonly
-                       style="background:var(--bg-summary);color:var(--text-muted);cursor:default;">
+                <input type="text" value="Canada" readonly style="background:var(--bg-summary);color:var(--text-muted);cursor:default;">
               </div>
             </div>
           </div>
 
-          <!-- Shipping Address -->
           <div class="panel-card">
             <div class="panel-title">Shipping Address</div>
-
             <label class="toggle-row" for="same-as-billing">
               <input type="checkbox" id="same-as-billing" checked onchange="toggleShipping()">
               <span>Ship to same address as billing</span>
             </label>
 
             <div class="shipping-fields hidden" id="shipping-fields">
-
               <div class="field" id="fg-ship-street">
                 <label for="f-ship-street">Street Address</label>
-                <input type="text" id="f-ship-street" placeholder="Start typing your address…"
-                       autocomplete="off" spellcheck="false">
+                <input type="text" id="f-ship-street" placeholder="Start typing your address…" autocomplete="off" spellcheck="false">
                 <div class="field-err">Please select a valid Canadian address.</div>
               </div>
-
               <div class="field">
                 <label for="f-ship-apt">Apt / Suite / Unit <span style="font-weight:400;color:var(--text-faint)">(optional)</span></label>
                 <input type="text" id="f-ship-apt" placeholder="Apt 4B" spellcheck="false">
               </div>
-
               <div class="field-row">
                 <div class="field" id="fg-ship-city">
                   <label for="f-ship-city">City</label>
-                  <input type="text" id="f-ship-city" placeholder="Toronto" readonly
-                         style="background:var(--bg-summary);color:var(--text-muted);">
+                  <input type="text" id="f-ship-city" placeholder="Toronto" readonly style="background:var(--bg-summary);color:var(--text-muted);">
                   <div class="field-err">Required.</div>
                 </div>
                 <div class="field" id="fg-ship-province">
                   <label for="f-ship-province">Province</label>
-                  <input type="text" id="f-ship-province" placeholder="ON" readonly
-                         style="background:var(--bg-summary);color:var(--text-muted);">
+                  <input type="text" id="f-ship-province" placeholder="ON" readonly style="background:var(--bg-summary);color:var(--text-muted);">
                   <div class="field-err">Required.</div>
                 </div>
               </div>
-
               <div class="field-row">
                 <div class="field" id="fg-ship-postal">
                   <label for="f-ship-postal">Postal Code</label>
-                  <input type="text" id="f-ship-postal" placeholder="M5V 2T6" readonly
-                         style="background:var(--bg-summary);color:var(--text-muted);">
+                  <input type="text" id="f-ship-postal" placeholder="M5V 2T6" readonly style="background:var(--bg-summary);color:var(--text-muted);">
                   <div class="field-err">Required.</div>
                 </div>
                 <div class="field">
                   <label>Country</label>
-                  <input type="text" value="Canada" readonly
-                         style="background:var(--bg-summary);color:var(--text-muted);cursor:default;">
+                  <input type="text" value="Canada" readonly style="background:var(--bg-summary);color:var(--text-muted);cursor:default;">
                 </div>
               </div>
-
-            </div><!-- /shipping-fields -->
+            </div>
           </div>
 
           <button class="btn-submit" onclick="handleStep2()">
             <span class="btn-lbl">Continue to Payment</span>
             <div class="btn-spin"></div>
-            <svg class="btn-arr" viewBox="0 0 16 16" fill="none"
-                 stroke-linecap="round" stroke-linejoin="round">
-              <line x1="2" y1="8" x2="13" y2="8"/>
-              <polyline points="9,4 13,8 9,12"/>
+            <svg class="btn-arr" viewBox="0 0 16 16" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/>
             </svg>
           </button>
-
           <div class="btn-secure" style="margin-top:14px;">
             <svg viewBox="0 0 14 14" fill="none" stroke-linecap="round">
-              <rect x="2" y="6" width="10" height="7" rx="1.5"/>
-              <path d="M4.5 6V4.5a2.5 2.5 0 015 0V6"/>
+              <rect x="2" y="6" width="10" height="7" rx="1.5"/><path d="M4.5 6V4.5a2.5 2.5 0 015 0V6"/>
             </svg>
             SSL encrypted — your information is never stored by us
           </div>
-
         </div><!-- /panel-step-2 -->
 
-        <!-- ── STEP 3: Payment ──────────────────────────────── -->
+        <!-- STEP 3 -->
         <div class="step-panel" id="panel-step-3">
-
           <button class="back-link" onclick="setStep(2)">
-            <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="13" y1="8" x2="3" y2="8"/>
-              <polyline points="7,4 3,8 7,12"/>
-            </svg>
+            <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><line x1="13" y1="8" x2="3" y2="8"/><polyline points="7,4 3,8 7,12"/></svg>
             Back to Address
           </button>
 
           <div class="panel-card">
             <div class="panel-title">Payment Information</div>
 
-            <!-- Accepted card brands -->
             <div class="card-brand-row">
-              <svg viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Visa">
-                <rect width="38" height="24" rx="3" fill="#1A1F71"/>
-                <text x="6" y="17" font-family="Arial" font-size="10" font-weight="bold" fill="#FFFFFF">VISA</text>
-              </svg>
-              <svg viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mastercard">
-                <rect width="38" height="24" rx="3" fill="#252525"/>
-                <circle cx="15" cy="12" r="7" fill="#EB001B"/>
-                <circle cx="23" cy="12" r="7" fill="#F79E1B"/>
-                <path d="M19 6.8a7 7 0 0 1 0 10.4A7 7 0 0 1 19 6.8z" fill="#FF5F00"/>
-              </svg>
-              <svg viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Amex">
-                <rect width="38" height="24" rx="3" fill="#2E77BC"/>
-                <text x="4" y="17" font-family="Arial" font-size="8" font-weight="bold" fill="#FFFFFF">AMEX</text>
-              </svg>
+              <svg viewBox="0 0 38 24" role="img" aria-label="Visa"><rect width="38" height="24" rx="3" fill="#1A1F71"/><text x="6" y="17" font-family="Arial" font-size="10" font-weight="bold" fill="#FFFFFF">VISA</text></svg>
+              <svg viewBox="0 0 38 24" role="img" aria-label="Mastercard"><rect width="38" height="24" rx="3" fill="#252525"/><circle cx="15" cy="12" r="7" fill="#EB001B"/><circle cx="23" cy="12" r="7" fill="#F79E1B"/><path d="M19 6.8a7 7 0 0 1 0 10.4A7 7 0 0 1 19 6.8z" fill="#FF5F00"/></svg>
+              <svg viewBox="0 0 38 24" role="img" aria-label="Amex"><rect width="38" height="24" rx="3" fill="#2E77BC"/><text x="4" y="17" font-family="Arial" font-size="8" font-weight="bold" fill="#FFFFFF">AMEX</text></svg>
             </div>
 
-            <!-- Card Number -->
             <div class="field">
               <label>Card Number</label>
               <div class="cb-field-wrap" id="cb-card-number"></div>
               <div class="field-err" id="err-card-number">Please enter a valid card number.</div>
             </div>
-
             <div class="field-row">
               <div class="field">
                 <label>Expiry</label>
@@ -1524,15 +1348,12 @@
                 <div class="field-err" id="err-card-cvv">Invalid CVV.</div>
               </div>
             </div>
-
             <div class="field">
               <label for="f-card-name">Name on Card</label>
-              <input type="text" id="f-card-name" placeholder="Jane Smith"
-                     autocomplete="cc-name" spellcheck="false">
+              <input type="text" id="f-card-name" placeholder="Jane Smith" autocomplete="cc-name" spellcheck="false">
               <div class="field-err">Required.</div>
             </div>
 
-            <!-- Promo Code -->
             <div style="margin-top:18px;">
               <label style="display:block;font-size:0.78rem;font-weight:600;color:var(--text-dark);margin-bottom:6px;">
                 Promo Code <span style="font-weight:400;color:var(--text-faint);">(optional)</span>
@@ -1550,29 +1371,22 @@
               </div>
             </div>
 
-            <!-- Order Summary -->
             <div style="margin-top:20px;background:var(--bg-summary);border:1px solid var(--border);border-radius:14px;padding:16px 18px;">
               <div style="font-size:0.67rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-faint);margin-bottom:12px;">Order Summary</div>
-
               <div style="display:flex;justify-content:space-between;font-size:0.82rem;color:var(--text-muted);padding:4px 0;">
                 <span>NETGEAR Nighthawk M1 <small style="color:var(--text-faint)">(device)</small></span>
                 <strong style="color:var(--text-dark)">$199.00</strong>
               </div>
               <div style="display:flex;justify-content:space-between;font-size:0.82rem;color:var(--text-muted);padding:4px 0;border-top:1px solid var(--border-soft);">
-                <span>First Month's Internet</span>
-                <strong style="color:var(--green)">Included</strong>
+                <span>First Month's Internet</span><strong style="color:var(--green)">Included</strong>
               </div>
               <div style="display:flex;justify-content:space-between;font-size:0.82rem;color:var(--text-muted);padding:4px 0;border-top:1px solid var(--border-soft);">
-                <span>Activation &amp; Shipping</span>
-                <strong style="color:var(--green)">$0.00</strong>
+                <span>Activation &amp; Shipping</span><strong style="color:var(--green)">$0.00</strong>
               </div>
-
-              <!-- Discount row — hidden until promo applied -->
               <div class="pay-summary-discount" id="promo-discount-row" style="display:none;">
                 <span id="promo-discount-label">Promo discount</span>
                 <strong id="promo-discount-val"></strong>
               </div>
-
               <div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:10px;padding-top:10px;border-top:1.5px solid var(--border);">
                 <span style="font-size:0.9rem;font-weight:700;color:var(--text-dark);">Due Today</span>
                 <span id="due-today-fig" style="font-size:1.35rem;font-weight:800;letter-spacing:-0.03em;color:var(--text-dark);">
@@ -1581,23 +1395,19 @@
               </div>
               <div style="margin-top:8px;font-size:0.73rem;color:var(--text-muted);display:flex;align-items:center;gap:5px;">
                 <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:11px;height:11px;flex-shrink:0;">
-                  <path d="M2.5 8a5.5 5.5 0 0 1 9.5-3.8"/>
-                  <path d="M13.5 8a5.5 5.5 0 0 1-9.5 3.8"/>
-                  <polyline points="9.5,1.5 11.5,4.2 8.5,4.8"/>
-                  <polyline points="6.5,14.5 4.5,11.8 7.5,11.2"/>
+                  <path d="M2.5 8a5.5 5.5 0 0 1 9.5-3.8"/><path d="M13.5 8a5.5 5.5 0 0 1-9.5 3.8"/>
+                  <polyline points="9.5,1.5 11.5,4.2 8.5,4.8"/><polyline points="6.5,14.5 4.5,11.8 7.5,11.2"/>
                 </svg>
                 Then <strong style="color:var(--text-dark);margin:0 2px;">$110 / month</strong> for unlimited internet — no contract, cancel anytime.
               </div>
             </div>
 
-            <!-- Terms & Conditions -->
             <div class="terms-row">
               <input type="checkbox" id="accept-terms">
               <label for="accept-terms">
                 I agree to the <a href="/terms" target="_blank">Terms of Service</a> and
                 <a href="/privacy" target="_blank">Privacy Policy</a>. I understand that my
-                subscription renews monthly at $110/month and I can cancel anytime from
-                my account portal.
+                subscription renews monthly at $110/month and I can cancel anytime from my account portal.
               </label>
             </div>
             <div class="terms-err" id="terms-err">You must accept the terms to continue.</div>
@@ -1605,75 +1415,39 @@
             <button class="btn-submit" id="payBtn" onclick="handlePay()" style="margin-top:18px;">
               <span class="btn-lbl" id="payBtn-lbl">Pay $199 — Complete Order</span>
               <div class="btn-spin"></div>
-              <svg class="btn-arr" viewBox="0 0 16 16" fill="none"
-                   stroke-linecap="round" stroke-linejoin="round">
-                <line x1="2" y1="8" x2="13" y2="8"/>
-                <polyline points="9,4 13,8 9,12"/>
+              <svg class="btn-arr" viewBox="0 0 16 16" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/>
               </svg>
             </button>
-
             <div class="btn-secure">
               <svg viewBox="0 0 14 14" fill="none" stroke-linecap="round">
-                <rect x="2" y="6" width="10" height="7" rx="1.5"/>
-                <path d="M4.5 6V4.5a2.5 2.5 0 015 0V6"/>
+                <rect x="2" y="6" width="10" height="7" rx="1.5"/><path d="M4.5 6V4.5a2.5 2.5 0 015 0V6"/>
               </svg>
               Card tokenized by Chargebee — never touches our servers
             </div>
           </div>
-
         </div><!-- /panel-step-3 -->
 
       </div><!-- /form-panel -->
 
-      <!-- ── RIGHT — order summary ──────────────────────────── -->
+      <!-- RIGHT SUMMARY -->
       <div class="summary-panel">
-
         <div class="summary-device">
-          <img src="assets/img/products/mr1100.png"
-               alt="Netgear Nighthawk M1"
-               class="summary-device-img">
+          <img src="assets/img/products/mr1100.png" alt="Netgear Nighthawk M1" class="summary-device-img">
           <div>
             <div class="summary-device-eyebrow">Your Order</div>
             <div class="summary-device-name">Nighthawk M1</div>
             <div class="summary-device-sub">Unlimited Wireless Internet</div>
           </div>
         </div>
-
         <div class="summary-section">
           <div class="summary-section-label">Included With Your Order</div>
-
-          <div class="breakdown-row">
-            <div class="bd-label">
-              <strong>NETGEAR Nighthawk M1</strong>
-              <small>Portable Gigabit LTE Wi-Fi Router</small>
-            </div>
-            <span class="bd-val">$199</span>
-          </div>
-
-          <div class="breakdown-row">
-            <div class="bd-label">
-              <strong>Unlimited Data — First Month Included</strong>
-              <small>Ready To Use Out Of The Box</small>
-            </div>
-            <span class="bd-val free">Included</span>
-          </div>
-
-          <div class="breakdown-row">
-            <span class="bd-label">Activation</span>
-            <span class="bd-val free">$0</span>
-          </div>
-
-          <div class="breakdown-row">
-            <span class="bd-label">Shipping</span>
-            <span class="bd-val free">$0</span>
-          </div>
-
-          <div class="breakdown-row">
-            <span class="bd-label">Contract Commitment</span>
-            <span class="bd-val tag">No Contract Required</span>
-          </div>
+          <div class="breakdown-row"><div class="bd-label"><strong>NETGEAR Nighthawk M1</strong><small>Portable Gigabit LTE Wi-Fi Router</small></div><span class="bd-val">$199</span></div>
+          <div class="breakdown-row"><div class="bd-label"><strong>Unlimited Data — First Month Included</strong><small>Ready To Use Out Of The Box</small></div><span class="bd-val free">Included</span></div>
+          <div class="breakdown-row"><span class="bd-label">Activation</span><span class="bd-val free">$0</span></div>
+          <div class="breakdown-row"><span class="bd-label">Shipping</span><span class="bd-val free">$0</span></div>
+          <div class="breakdown-row"><span class="bd-label">Contract Commitment</span><span class="bd-val tag">No Contract Required</span></div>
         </div>
-
         <div class="summary-total">
           <div>
             <div class="summary-total-label">Due Today</div>
@@ -1684,83 +1458,40 @@
             <div class="summary-total-tax">+ applicable tax</div>
           </div>
         </div>
-
         <div class="summary-renewal">
           <div class="renewal-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color:var(--text-muted)">
-              <path d="M2.5 8a5.5 5.5 0 0 1 9.5-3.8"/>
-              <path d="M13.5 8a5.5 5.5 0 0 1-9.5 3.8"/>
-              <polyline points="9.5,1.5 11.5,4.2 8.5,4.8"/>
-              <polyline points="6.5,14.5 4.5,11.8 7.5,11.2"/>
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2.5 8a5.5 5.5 0 0 1 9.5-3.8"/><path d="M13.5 8a5.5 5.5 0 0 1-9.5 3.8"/>
+              <polyline points="9.5,1.5 11.5,4.2 8.5,4.8"/><polyline points="6.5,14.5 4.5,11.8 7.5,11.2"/>
             </svg>
           </div>
-          <div class="renewal-text">
-            After the first month, unlimited internet renews at <strong>$110 / month</strong>. No contract — cancel anytime from your account portal.
-          </div>
+          <div class="renewal-text">After the first month, unlimited internet renews at <strong>$110 / month</strong>. No contract — cancel anytime from your account portal.</div>
         </div>
-
         <div class="summary-features">
           <div class="summary-section-label">Everything Included</div>
-          <div class="feature-item">
-            <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-            Up To 1 Gbps LTE Speeds
-          </div>
-          <div class="feature-item">
-            <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-            Truly Unlimited Data — No Caps Or Slowdowns
-          </div>
-          <div class="feature-item">
-            <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-            Connect Up To 20 Devices
-          </div>
-          <div class="feature-item">
-            <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-            All-Day Battery Life — Home Or On The Go
-          </div>
-          <div class="feature-item">
-            <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-            Dual-Band Wi-Fi · 2.4 GHz + 5 GHz
-          </div>
-          <div class="feature-item">
-            <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-            30-Day Money-Back Guarantee
-          </div>
+          <div class="feature-item"><div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>Up To 1 Gbps LTE Speeds</div>
+          <div class="feature-item"><div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>Truly Unlimited Data — No Caps Or Slowdowns</div>
+          <div class="feature-item"><div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>Connect Up To 20 Devices</div>
+          <div class="feature-item"><div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>All-Day Battery Life — Home Or On The Go</div>
+          <div class="feature-item"><div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>Dual-Band Wi-Fi · 2.4 GHz + 5 GHz</div>
+          <div class="feature-item"><div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>30-Day Money-Back Guarantee</div>
         </div>
-      </div><!-- /summary-panel -->
+      </div>
 
     </div><!-- /checkout-wrap -->
 
-    <!-- ── TRUST FOOTER ────────────────────────────────────────── -->
     <div class="trust-footer">
-      <div class="trust-item">
-        <svg viewBox="0 0 14 14" fill="none" stroke-linecap="round">
-          <rect x="2" y="6" width="10" height="7" rx="1.5"/>
-          <path d="M4.5 6V4.5a2.5 2.5 0 015 0V6"/>
-        </svg>
-        SSL Encrypted
-      </div>
+      <div class="trust-item"><svg viewBox="0 0 14 14" fill="none" stroke-linecap="round"><rect x="2" y="6" width="10" height="7" rx="1.5"/><path d="M4.5 6V4.5a2.5 2.5 0 015 0V6"/></svg>SSL Encrypted</div>
       <div class="trust-sep"></div>
-      <div class="trust-item">
-        <svg viewBox="0 0 14 14" fill="none" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="7" cy="7" r="5.5"/>
-          <path d="M7 4.5v3l1.5 1"/>
-        </svg>
-        Cancel Anytime
-      </div>
+      <div class="trust-item"><svg viewBox="0 0 14 14" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="5.5"/><path d="M7 4.5v3l1.5 1"/></svg>Cancel Anytime</div>
       <div class="trust-sep"></div>
-      <div class="trust-item">
-        <svg viewBox="0 0 14 14" fill="none" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M2 7l3.5 3.5L12 3"/>
-        </svg>
-        30-Day Money-Back
-      </div>
+      <div class="trust-item"><svg viewBox="0 0 14 14" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7l3.5 3.5L12 3"/></svg>30-Day Money-Back</div>
     </div>
 
   </div><!-- /screen-checkout -->
 
 </div><!-- /page -->
 
-<!-- ── SCRIPT ─────────────────────────────────────────────────────── -->
 <script>
 (function () {
   'use strict';
@@ -1793,16 +1524,15 @@
 
   /* ── SCREEN 0 → CHECKOUT ─────────────────────────────────────── */
   window.proceedToCheckout = function () {
-    document.getElementById('screen-0').style.display         = 'none';
-    document.getElementById('screen-checkout').style.display  = 'block';
+    document.getElementById('screen-0').style.display        = 'none';
+    document.getElementById('screen-checkout').style.display = 'block';
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   /* ── SHIPPING TOGGLE ─────────────────────────────────────────── */
   window.toggleShipping = function () {
     var checked = document.getElementById('same-as-billing').checked;
-    var fields  = document.getElementById('shipping-fields');
-    fields.classList.toggle('hidden', checked);
+    document.getElementById('shipping-fields').classList.toggle('hidden', checked);
   };
 
   /* ── CHARGEBEE CARD COMPONENT ────────────────────────────────── */
@@ -1851,7 +1581,7 @@
         var wrap = document.getElementById(item.wrapId);
         var err  = document.getElementById(item.errId);
         if (e.error) { wrap.classList.add('err'); if (err) err.style.display = 'block'; }
-        else          { wrap.classList.remove('err'); if (err) err.style.display = 'none'; }
+        else         { wrap.classList.remove('err'); if (err) err.style.display = 'none'; }
       });
     });
   }
@@ -1867,8 +1597,6 @@
 
   /* ── STEP MACHINE ────────────────────────────────────────────── */
   function setStep(n) {
-    window.setStep = setStep; // ensure global access for back buttons
-
     [['st-1',1],['st-2',2],['st-3',3]].forEach(function (p) {
       document.getElementById(p[0]).className =
         'step-item' + (p[1] < n ? ' done' : p[1] === n ? ' active' : '');
@@ -1877,22 +1605,18 @@
       document.getElementById(p[0]).className =
         'step-connector' + (p[1] < n ? ' done' : '');
     });
-
     ['panel-step-1','panel-step-2','panel-step-3'].forEach(function (id, i) {
       var el = document.getElementById(id);
       if (el) el.classList.toggle('active', i + 1 === n);
     });
-
     if (n === 3) {
       requestAnimationFrame(function () {
         requestAnimationFrame(function () { mountCardFields(); });
       });
     }
-
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  // expose for inline onclick on back buttons
   window.setStep = setStep;
 
   /* ── VALIDATION HELPERS ──────────────────────────────────────── */
@@ -1954,7 +1678,6 @@
       types: ['address']
     });
 
-    // Reset selected flag if user manually edits after selecting
     input.addEventListener('input', function () {
       if (isBilling) billPlaceSelected = false;
       else           shipPlaceSelected = false;
@@ -1983,7 +1706,6 @@
       document.getElementById(provinceId).value = province;
       document.getElementById(postalId).value   = postal;
 
-      // Clear errors on the street field
       input.classList.remove('err');
       var fg = document.getElementById(inputId.replace('f-', 'fg-'));
       if (fg) fg.classList.remove('has-err');
@@ -2016,9 +1738,7 @@
     var billProvince = document.getElementById('f-bill-province').value.trim();
     var billPostal   = document.getElementById('f-bill-postal').value.trim();
 
-    if (!billPlaceSelected || !billStreet) {
-      flagErr('f-bill-street', 'fg-bill-street'); ok = false;
-    }
+    if (!billPlaceSelected || !billStreet) { flagErr('f-bill-street', 'fg-bill-street'); ok = false; }
     if (!billCity)     { flagErr('f-bill-city',     'fg-bill-city');     ok = false; }
     if (!billProvince) { flagErr('f-bill-province', 'fg-bill-province'); ok = false; }
     if (!billPostal)   { flagErr('f-bill-postal',   'fg-bill-postal');   ok = false; }
@@ -2033,9 +1753,7 @@
       shipProvince = document.getElementById('f-ship-province').value.trim();
       shipPostal   = document.getElementById('f-ship-postal').value.trim();
 
-      if (!shipPlaceSelected || !shipStreet) {
-        flagErr('f-ship-street', 'fg-ship-street'); ok = false;
-      }
+      if (!shipPlaceSelected || !shipStreet) { flagErr('f-ship-street', 'fg-ship-street'); ok = false; }
       if (!shipCity)     { flagErr('f-ship-city',     'fg-ship-city');     ok = false; }
       if (!shipProvince) { flagErr('f-ship-province', 'fg-ship-province'); ok = false; }
       if (!shipPostal)   { flagErr('f-ship-postal',   'fg-ship-postal');   ok = false; }
@@ -2054,7 +1772,9 @@
       },
       shipping: {
         line1:      shipStreet,
-        line2:      sameAsBilling ? document.getElementById('f-bill-apt').value.trim() : document.getElementById('f-ship-apt').value.trim(),
+        line2:      sameAsBilling
+                      ? document.getElementById('f-bill-apt').value.trim()
+                      : document.getElementById('f-ship-apt').value.trim(),
         city:       shipCity,
         state_code: shipProvince,
         zip:        shipPostal,
@@ -2161,7 +1881,6 @@
     var cardName = document.getElementById('f-card-name').value.trim();
     if (!cardName) { flagErr('f-card-name', null); return; }
 
-    // Terms check
     var termsEl  = document.getElementById('accept-terms');
     var termsErr = document.getElementById('terms-err');
     if (!termsEl.checked) {
@@ -2176,32 +1895,34 @@
 
     var contact = JSON.parse(sessionStorage.getItem('m4l_order') || '{}');
 
- cardComponent.tokenize({
-  firstName:      contact.first_name        || '',
-  lastName:       contact.last_name         || '',
-  billingAddr1:   contact.billing.line1     || '',
-  billingAddr2:   contact.billing.line2     || '',
-  billingCity:    contact.billing.city      || '',
-  billingState:   contact.billing.state_code || '',
-  billingZip:     contact.billing.zip       || '',
-  billingCountry: 'CA'
-})
+    // Tokenize card with billing address baked in — ensures Chargebee
+    // sets billing address on the customer at the point of token creation
+    cardComponent.tokenize({
+      firstName:       contact.first_name          || '',
+      lastName:        contact.last_name           || '',
+      billingAddr1:    contact.billing?.line1      || '',
+      billingAddr2:    contact.billing?.line2      || '',
+      billingCity:     contact.billing?.city       || '',
+      billingState:    contact.billing?.state_code || '',
+      billingZip:      contact.billing?.zip        || '',
+      billingCountry:  'CA'
+    })
     .then(function (data) {
       return fetch(WORKER_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-  token:            data.token,
-  plan_id:          CB_PLAN_ID,
-  sim_type:         'physical',
-  first_name:       contact.first_name,
-  last_name:        contact.last_name,
-  phone:            contact.phone,
-  email:            contact.email,
-  billing_address:  contact.billing,   // ← ADD THIS
-  shipping_address: contact.shipping,
-  coupon_id:        appliedCoupon || undefined
-})
+          token:            data.token,
+          plan_id:          CB_PLAN_ID,
+          sim_type:         'physical',
+          first_name:       contact.first_name,
+          last_name:        contact.last_name,
+          phone:            contact.phone,
+          email:            contact.email,
+          billing_address:  contact.billing,
+          shipping_address: contact.shipping,
+          coupon_id:        appliedCoupon || undefined
+        })
       });
     })
     .then(function (res) {
@@ -2221,7 +1942,6 @@
     });
   };
 
-  // Clear terms error when checkbox is ticked
   document.getElementById('accept-terms').addEventListener('change', function () {
     if (this.checked) document.getElementById('terms-err').classList.remove('show');
   });
