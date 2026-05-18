@@ -1215,14 +1215,18 @@
   });
 
   /* ── CARD COMPONENT ──────────────────────────────────────────── */
+  /*
+   * FIX: Use ONE card component for all three fields.
+   * Previously three separate components were created, which meant
+   * expiry and CVV were orphaned — Chargebee can only tokenize from
+   * the single component that owns the number field.
+   */
   var componentsReady = false;
   cbInstance.load('components').then(function () { componentsReady = true; })
     .catch(function (e) { console.error('CB load failed:', e); });
 
-  var numberComponent = null;
-  var expiryComponent = null;
-  var cvvComponent    = null;
-  var cardMounted     = false;
+  var cardComponent = null;  // single component owns number + expiry + cvv
+  var cardMounted   = false;
 
   function doMount() {
     cardMounted = true;
@@ -1239,27 +1243,25 @@
     };
     var cbFonts = [{ fontFamily: 'Figtree', fontUrl: 'https://fonts.googleapis.com/css2?family=Figtree:wght@400;500&display=swap' }];
 
-    numberComponent = cbInstance.createComponent('card', { fonts: cbFonts });
-    expiryComponent = cbInstance.createComponent('card', { fonts: cbFonts });
-    cvvComponent    = cbInstance.createComponent('card', { fonts: cbFonts });
+    // ONE component — all three fields attached to it
+    cardComponent = cbInstance.createComponent('card', { fonts: cbFonts });
 
-    numberComponent.createField('number', { style: cbStyle, placeholder: '1234 5678 9012 3456' }).at('#cb-card-number');
-    expiryComponent.createField('expiry', { style: cbStyle, placeholder: 'MM / YY' }).at('#cb-card-expiry');
-    cvvComponent.createField('cvv',       { style: cbStyle, placeholder: '•••' }).at('#cb-card-cvv');
+    cardComponent.createField('number', { style: cbStyle, placeholder: '1234 5678 9012 3456' }).at('#cb-card-number');
+    cardComponent.createField('expiry', { style: cbStyle, placeholder: 'MM / YY' }).at('#cb-card-expiry');
+    cardComponent.createField('cvv',    { style: cbStyle, placeholder: '•••' }).at('#cb-card-cvv');
 
-    numberComponent.mount();
-    expiryComponent.mount();
-    cvvComponent.mount();
+    cardComponent.mount();
 
+    // Wire up focus/blur/error events for all three fields
     [
-      { comp: numberComponent, wrapId: 'cb-card-number', errId: 'err-card-number' },
-      { comp: expiryComponent, wrapId: 'cb-card-expiry', errId: 'err-card-expiry' },
-      { comp: cvvComponent,    wrapId: 'cb-card-cvv',    errId: 'err-card-cvv'    }
+      { type: 'number', wrapId: 'cb-card-number', errId: 'err-card-number' },
+      { type: 'expiry', wrapId: 'cb-card-expiry', errId: 'err-card-expiry' },
+      { type: 'cvv',    wrapId: 'cb-card-cvv',    errId: 'err-card-cvv'    }
     ].forEach(function (item) {
-      var field = item.comp.getField(item.wrapId === 'cb-card-number' ? 'number' : item.wrapId === 'cb-card-expiry' ? 'expiry' : 'cvv');
+      var field = cardComponent.getField(item.type);
       if (!field) return;
-      field.on('focus',  function ()  { document.getElementById(item.wrapId).classList.add('focus'); });
-      field.on('blur',   function ()  { document.getElementById(item.wrapId).classList.remove('focus'); });
+      field.on('focus',  function () { document.getElementById(item.wrapId).classList.add('focus'); });
+      field.on('blur',   function () { document.getElementById(item.wrapId).classList.remove('focus'); });
       field.on('change', function (e) {
         var wrap = document.getElementById(item.wrapId);
         var err  = document.getElementById(item.errId);
@@ -1444,7 +1446,7 @@
 
   /* ── STEP 2: Tokenize → worker → redirect ────────────────────── */
   function handlePay() {
-    if (!numberComponent) { alert('Card fields still loading — please wait a moment.'); return; }
+    if (!cardComponent) { alert('Card fields still loading — please wait a moment.'); return; }
 
     var cardName = document.getElementById('f-card-name').value.trim();
     if (!cardName) { flagErr('f-card-name', null); return; }
@@ -1454,7 +1456,8 @@
 
     var contact = JSON.parse(sessionStorage.getItem('m4l_order') || '{}');
 
-    numberComponent.tokenize({
+    // FIX: tokenize from cardComponent (the single component that owns all fields)
+    cardComponent.tokenize({
       firstName: contact.first_name || '',
       lastName:  contact.last_name  || ''
     })
@@ -1470,7 +1473,7 @@
           last_name:  contact.last_name,
           phone:      contact.phone,
           email:      contact.email,
-          coupon_id:  appliedCoupon || undefined
+          coupon_id:  appliedCoupon || undefined   // FIX: passed to worker
         })
       });
     })
