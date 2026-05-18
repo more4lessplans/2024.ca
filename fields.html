@@ -2086,7 +2086,7 @@
   }
 
   window.applyPromo = function () {
-    var code = document.getElementById('f-promo').value.trim().toUpperCase();
+    var code = document.getElementById('f-promo').value.trim();
     if (!code) { document.getElementById('f-promo').classList.add('err'); return; }
     document.getElementById('f-promo').classList.remove('err');
 
@@ -2168,7 +2168,7 @@
   last_name:       contact.last_name,
   phone:           contact.phone,
   email:           contact.email,
-  shipping:        contact.shipping, // Change 'shipping_address' to 'shipping'
+  shipping_address: contact.shipping,
   coupon_id:       appliedCoupon || undefined
 })
       });
