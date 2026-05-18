@@ -1108,6 +1108,17 @@
     publishableKey: 'live_9xoL0GUAJyfaZddNn5cdFhI4hrLAGhyIh'
   });
 
+  /* Pre-load the components module immediately so it's ready
+     by the time the user reaches step 2. We do NOT mount yet —
+     Chargebee measures the container at mount time, and mounting
+     into a display:none panel produces 0x0 iframes. */
+  var componentsReady = false;
+  cbInstance.load('components').then(function () {
+    componentsReady = true;
+  }).catch(function (err) {
+    console.error('Chargebee load failed:', err);
+  });
+
   /* ── MOBILE MENU ─────────────────────────────────────────────── */
   var trigger = document.getElementById('menuTrigger');
   var mobileOverlay = document.getElementById('mobileOverlay');
@@ -1121,18 +1132,78 @@
     if (!e.target.closest('a') && mobileOverlay.classList.contains('active')) toggleMenu();
   });
 
+  /* ── CARD COMPONENT ──────────────────────────────────────────── */
+  var cardComponent = null;
+  var cardMounted   = false;
+
+  function mountCardFields() {
+    if (cardMounted) return;
+    if (!componentsReady) {
+      /* Module still loading — wait for it then try again */
+      cbInstance.load('components').then(function () {
+        componentsReady = true;
+        doMount();
+      });
+      return;
+    }
+    doMount();
+  }
+
+  function doMount() {
+    cardMounted = true;
+
+    cardComponent = cbInstance.createComponent('card', {
+      style: {
+        base: {
+          color: '#1d1d1f',
+          fontFamily: 'Figtree, sans-serif',
+          fontSize: '15px',
+          fontSmoothing: 'antialiased',
+          '::placeholder': { color: '#c4c4ca' }
+        },
+        invalid: { color: '#D73C59' }
+      },
+      classes: { focus: 'focus', invalid: 'err', empty: '', complete: '' },
+      fonts: ['https://fonts.googleapis.com/css2?family=Figtree:wght@400;500&display=swap'],
+      placeholder: { number: '1234 5678 9012 3456', expiry: 'MM / YY', cvv: '•••' }
+    });
+
+    cardComponent.createField('number').at('#cb-card-number');
+    cardComponent.createField('expiry').at('#cb-card-expiry');
+    cardComponent.createField('cvv').at('#cb-card-cvv');
+    cardComponent.mount();
+  }
+
   /* ── STEP MACHINE ────────────────────────────────────────────── */
   function setStep(n) {
     [['st-1',1],['st-2',2],['st-3',3]].forEach(function(p) {
       document.getElementById(p[0]).className = 'step-item' + (p[1]<n?' done':p[1]===n?' active':'');
     });
     [['cn-1',1],['cn-2',2]].forEach(function(p) {
-      document.getElementById(p[0]).className = 'step-connector' + (p[1]<n?' done':'');
+      document.getElementById(p[0]).className = 'step-connector'+(p[1]<n?' done':'');
     });
-    document.getElementById('panel-step-1').classList.toggle('active', n===1);
-    document.getElementById('panel-step-2').classList.toggle('active', n===2);
+
+    var p1 = document.getElementById('panel-step-1');
+    var p2 = document.getElementById('panel-step-2');
+
+    if (n === 1) {
+      p1.classList.add('active');
+      p2.classList.remove('active');
+    } else if (n === 2) {
+      p1.classList.remove('active');
+      p2.classList.add('active');
+      /* Panel is now visible in the DOM with real dimensions —
+         mount the card fields NOW, not before */
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          mountCardFields();
+        });
+      });
+    }
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
+
   document.getElementById('backBtn').addEventListener('click', function () { setStep(1); });
 
   /* ── VALIDATION ──────────────────────────────────────────────── */
@@ -1172,6 +1243,7 @@
     if (!ok) { var f=document.querySelector('.field.has-err input'); if(f) f.focus(); return null; }
     return { plan_id:CB_PLAN_ID, sim_type:'physical', first_name:first, last_name:last, phone:phone, email:email };
   }
+
   function handleSubmit() {
     var data = collect();
     if (!data) return;
@@ -1180,60 +1252,10 @@
   }
   window.handleSubmit = handleSubmit;
 
-  /* ── CHARGEBEE FIELDS MODE ───────────────────────────────────────
-     Fields mode = one createComponent('card'), then createField() for
-     each of number/expiry/cvv, each mounted into its own container.
-     The `classes` option makes Chargebee add CSS classes directly to
-     the wrapper div (not the iframe), so our border styles work.
-
-     IMPORTANT: we mount into divs that are in the DOM immediately
-     (even though panel-step-2 is hidden). This is fine — Chargebee
-     renders the iframes and they become interactive once visible.
-  ──────────────────────────────────────────────────────────────── */
-  var cardComponent = null;
-
-  cbInstance.load('components').then(function () {
-
-    cardComponent = cbInstance.createComponent('card', {
-      style: {
-        base: {
-          color: '#1d1d1f',
-          fontFamily: 'Figtree, sans-serif',
-          fontSize: '15px',
-          fontSmoothing: 'antialiased',
-          '::placeholder': { color: '#c4c4ca' }
-        },
-        invalid: { color: '#D73C59' }
-      },
-      classes: {
-        focus:    'focus',
-        invalid:  'err',
-        empty:    '',
-        complete: ''
-      },
-      fonts: ['https://fonts.googleapis.com/css2?family=Figtree:wght@400;500&display=swap'],
-      placeholder: {
-        number: '1234 5678 9012 3456',
-        expiry: 'MM / YY',
-        cvv:    '•••'
-      }
-    });
-
-    /* Fields mode: create each field and mount to its own container */
-    cardComponent.createField('number').at('#cb-card-number');
-    cardComponent.createField('expiry').at('#cb-card-expiry');
-    cardComponent.createField('cvv').at('#cb-card-cvv');
-
-    cardComponent.mount();
-
-  }).catch(function (err) {
-    console.error('Chargebee components failed to load:', err);
-  });
-
   /* ── STEP 2: pay ─────────────────────────────────────────────── */
   function handlePay() {
     if (!cardComponent) {
-      alert('Card fields still loading — please wait a moment.');
+      alert('Card fields still loading — please wait a moment and try again.');
       return;
     }
     var cardName = document.getElementById('f-card-name').value.trim();
