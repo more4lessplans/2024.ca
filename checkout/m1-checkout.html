@@ -975,6 +975,26 @@
     /* ─────────────────────────────────────────────────────────────
        KEYFRAMES
     ───────────────────────────────────────────────────────────── */
+
+    /* ── Renewal price discount display ──────────────────────────── */
+    .renewal-orig {
+      text-decoration: line-through;
+      opacity: 0.45;
+      font-weight: 600;
+      margin-right: 4px;
+    }
+    .renewal-discounted {
+      color: var(--green);
+      font-weight: 700;
+    }
+    .renewal-qualifier {
+      display: inline-block;
+      font-size: 0.68em;
+      color: var(--text-faint);
+      margin-left: 3px;
+      font-weight: 400;
+    }
+
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(16px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -1038,7 +1058,13 @@
       <li><a href="/portal" class="btn-portal-top">Customer Portal</a></li>
     </ul>
 
-    
+    <div class="nav-secure-badge">
+      <svg viewBox="0 0 14 14" stroke-linecap="round">
+        <rect x="2" y="6" width="10" height="7" rx="1.5"/>
+        <path d="M4.5 6V4.5a2.5 2.5 0 015 0V6"/>
+      </svg>
+      Secure Checkout
+    </div>
 
     <button class="menu-trigger" id="menuTrigger" aria-label="Open menu">
       <div class="menu-icon"><span></span><span></span><span></span></div>
@@ -1113,7 +1139,7 @@
             </svg>
           </div>
           <div class="renewal-text">
-            After the first month, unlimited internet renews at <strong>$110 / month</strong>. No contract — cancel anytime.
+            After the first month, unlimited internet renews at <span id="renewal-price-hero"><strong>$110 / month</strong></span>. No contract — cancel anytime.
           </div>
         </div>
       </div>
@@ -1186,7 +1212,7 @@
             <polyline points="9.5,1.5 11.5,4.2 8.5,4.8"/>
             <polyline points="6.5,14.5 4.5,11.8 7.5,11.2"/>
           </svg>
-          <span>After the first month, unlimited internet renews at <strong>$110 / month</strong>. No contract — cancel anytime.</span>
+          <span>After the first month, unlimited internet renews at <span id="renewal-price-card"><strong>$110 / month</strong></span>. No contract — cancel anytime.</span>
         </div>
 
         <div class="order-features order-features-mobile">
@@ -1617,7 +1643,7 @@
                   <polyline points="9.5,1.5 11.5,4.2 8.5,4.8"/>
                   <polyline points="6.5,14.5 4.5,11.8 7.5,11.2"/>
                 </svg>
-                Then <strong style="color:var(--text-dark);margin:0 2px;">$110 / month</strong> for unlimited internet — no contract, cancel anytime.
+                Then <span id="renewal-price-pay"><strong style="color:var(--text-dark);margin:0 2px;">$110 / month</strong></span> for unlimited internet — no contract, cancel anytime.
               </div>
             </div>
 
@@ -1726,7 +1752,7 @@
             </svg>
           </div>
           <div class="renewal-text">
-            After the first month, unlimited internet renews at <strong>$110 / month</strong>. No contract — cancel anytime from your account portal.
+            After the first month, unlimited internet renews at <span id="renewal-price-summary"><strong>$110 / month</strong></span>. No contract — cancel anytime from your account portal.
           </div>
         </div>
 
@@ -1801,6 +1827,7 @@
   var WORKER_URL = '/api/checkout-embedded';
   var CONFIRM    = '/lease-confirmed';
   var BASE_PRICE = 199;
+  var RENEWAL_PRICE = 110;
 
   var cbInstance = Chargebee.init({
     site: CB_SITE,
@@ -2140,6 +2167,56 @@
     document.getElementById('promo-discount-row').style.display = 'none';
   }
 
+
+  var RENEWAL_DISCOUNT_AMOUNT = 0;
+
+  function fmtMoney(n) {
+    var d = Math.floor(n), c = Math.round((n - d) * 100);
+    return c === 0 ? '$' + d : '$' + d + '.' + (c < 10 ? '0' + c : c);
+  }
+
+  function updateRenewalPrice(discountType, discountValue, durationType) {
+    // durationType: 'one_time', 'limited_period', 'forever' — default assume 'forever' if unknown
+    var ids = ['renewal-price-hero', 'renewal-price-card', 'renewal-price-pay', 'renewal-price-summary'];
+    var discounted;
+    var qualifier = '';
+
+    if (discountType === 'fixed_amount') {
+      discounted = Math.max(0, RENEWAL_PRICE - discountValue);
+    } else if (discountType === 'percentage') {
+      discounted = RENEWAL_PRICE * (1 - discountValue / 100);
+    } else {
+      resetRenewalPrice(); return;
+    }
+
+    // If one-time coupon it only applies to the first invoice (the $199 device charge),
+    // not to recurring — so show no change on renewal
+    if (durationType === 'one_time') {
+      resetRenewalPrice(); return;
+    }
+
+    if (durationType === 'limited_period') {
+      qualifier = '<span class="renewal-qualifier">(first ' + (window._couponPeriod || 'few') + ' months)</span>';
+    }
+
+    var html = '<strong class="renewal-orig">$' + RENEWAL_PRICE + ' / month</strong>' +
+               '<strong class="renewal-discounted">' + fmtMoney(discounted) + ' / month</strong>' +
+               qualifier;
+
+    ids.forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.innerHTML = html;
+    });
+  }
+
+  function resetRenewalPrice() {
+    var ids = ['renewal-price-hero', 'renewal-price-card', 'renewal-price-pay', 'renewal-price-summary'];
+    ids.forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.innerHTML = '<strong>$110 / month</strong>';
+    });
+  }
+
   window.applyPromo = function () {
     var code = document.getElementById('f-promo').value.trim();
     if (!code) { document.getElementById('f-promo').classList.add('err'); return; }
@@ -2158,19 +2235,24 @@
       btn.classList.remove('loading'); btn.disabled = false;
       if (data.error || !data.valid) {
         appliedCoupon = null; discountAmount = 0;
-        hideDiscountRow(); updateDueToday(0);
+        hideDiscountRow(); updateDueToday(0); resetRenewalPrice();
         setPromoFeedback('bad', data.error || 'Invalid promo code.');
         return;
       }
       appliedCoupon = data.coupon_id;
+      var durationType = data.duration_type || data.apply_on || 'forever';
+      window._couponPeriod = data.period || '';
       if (data.discount_type === 'fixed_amount') {
         discountAmount = data.discount_amount / 100;
         showDiscountRow('Promo: ' + code, '−$' + discountAmount.toFixed(2));
+        updateRenewalPrice('fixed_amount', discountAmount, durationType);
       } else if (data.discount_type === 'percentage') {
         discountAmount = (BASE_PRICE * data.discount_percent) / 100;
         showDiscountRow('Promo: ' + code + ' (' + data.discount_percent + '% off)', '−$' + discountAmount.toFixed(2));
+        updateRenewalPrice('percentage', data.discount_percent, durationType);
       } else {
         discountAmount = 0;
+        resetRenewalPrice();
       }
       updateDueToday(discountAmount);
       setPromoFeedback('ok', data.description || 'Promo code applied!');
