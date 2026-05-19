@@ -2048,7 +2048,7 @@
         line1:      billStreet,
         line2:      document.getElementById('f-bill-apt').value.trim(),
         city:       billCity,
-        state_code: billProvince,
+        state: billProvince,
         zip:        billPostal,
         country:    'CA'
       },
@@ -2056,7 +2056,7 @@
         line1:      shipStreet,
         line2:      sameAsBilling ? document.getElementById('f-bill-apt').value.trim() : document.getElementById('f-ship-apt').value.trim(),
         city:       shipCity,
-        state_code: shipProvince,
+        state: shipProvince,
         zip:        shipPostal,
         country:    'CA'
       }
