@@ -2016,7 +2016,7 @@
     var billProvince = document.getElementById('f-bill-province').value.trim();
     var billPostal   = document.getElementById('f-bill-postal').value.trim();
 
-    if (!billPlaceSelected || !billStreet) {
+    if (!billStreet) {
       flagErr('f-bill-street', 'fg-bill-street'); ok = false;
     }
     if (!billCity)     { flagErr('f-bill-city',     'fg-bill-city');     ok = false; }
@@ -2033,7 +2033,7 @@
       shipProvince = document.getElementById('f-ship-province').value.trim();
       shipPostal   = document.getElementById('f-ship-postal').value.trim();
 
-      if (!shipPlaceSelected || !shipStreet) {
+      if (!shipStreet) {
         flagErr('f-ship-street', 'fg-ship-street'); ok = false;
       }
       if (!shipCity)     { flagErr('f-ship-city',     'fg-ship-city');     ok = false; }
