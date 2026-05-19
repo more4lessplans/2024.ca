@@ -1,0 +1,2416 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Secure Checkout — Nighthawk M1 | More4Less</title>
+  <meta name="description" content="Secure checkout for the Netgear Nighthawk M1 unlimited wireless internet package.">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon-32x32.png">
+  <link rel="shortcut icon" href="assets/img/favicons/favicon.ico">
+  <link rel="manifest" href="assets/img/favicons/site.webmanifest">
+  <meta name="theme-color" content="#2E2F33">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://js.chargebee.com/v2/chargebee.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNt4XeQ5roadq0L-IpadA6s9e4CPm9FwI&libraries=places"></script>
+
+  <style>
+    /* ─────────────────────────────────────────────────────────────
+       TOKENS
+    ───────────────────────────────────────────────────────────── */
+    :root {
+      --brand-red:      #D73C59;
+      --brand-red-dark: #b82e48;
+      --brand-red-glow: rgba(215, 60, 89, 0.10);
+      --bg-nav:         #2E2F33;
+      --bg-page:        #FBFBFD;
+      --bg-summary:     #F5F5F7;
+      --text-dark:      #1d1d1f;
+      --text-muted:     #6e6e73;
+      --text-faint:     #aeaeb2;
+      --green:          #1a9b5f;
+      --green-bg:       rgba(26, 155, 95, 0.07);
+      --border:         #eaeaec;
+      --border-soft:    #f2f2f4;
+      --nav-h:          68px;
+      --card-radius:    20px;
+      --ease-spring:    cubic-bezier(0.34, 1.4, 0.64, 1);
+      --ease-out:       cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 15px; scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 24px); }
+
+    body {
+      font-family: 'Figtree', sans-serif;
+      background: var(--bg-page);
+      color: var(--text-dark);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* ─────────────────────────────────────────────────────────────
+       NAVBAR
+    ───────────────────────────────────────────────────────────── */
+    .navbar-custom {
+      background-color: var(--bg-nav);
+      padding: 1.2rem 0;
+      position: fixed;
+      width: 100%; top: 0;
+      z-index: 4000;
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 25px;
+    }
+
+    .navbar-brand img { height: 22px; }
+
+    .nav-secure-badge {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 0.75rem; font-weight: 500;
+      color: rgba(255, 255, 255, 0.38);
+      letter-spacing: 0.03em;
+    }
+    .nav-secure-badge svg {
+      width: 12px; height: 12px;
+      stroke: rgba(255, 255, 255, 0.32);
+      stroke-width: 1.8; fill: none; flex-shrink: 0;
+    }
+
+    .nav-links-desktop { display: flex; align-items: center; list-style: none; }
+
+    .nav-links-desktop li a {
+      color: #ffffff;
+      font-weight: 500;
+      font-size: 0.85rem;
+      margin: 0 18px;
+      text-decoration: none;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+      position: relative;
+    }
+
+    .nav-links-desktop li a:hover { opacity: 1; }
+
+    .nav-links-desktop li a::after {
+      content: '';
+      position: absolute;
+      width: 0; height: 2px;
+      bottom: -4px; left: 0;
+      background-color: var(--brand-red);
+      transition: width 0.4s cubic-bezier(0.2, 1, 0.2, 1);
+    }
+
+    .nav-links-desktop li a:hover::after { width: 100%; }
+    .btn-portal-top::after { display: none !important; }
+
+    .btn-portal-top {
+      background: var(--brand-red);
+      color: white !important;
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-weight: 600;
+      opacity: 1 !important;
+      transition: all 0.3s ease !important;
+    }
+
+    .btn-portal-top:hover {
+      background: #ffffff !important;
+      color: var(--text-dark) !important;
+      transform: translateY(-2px);
+    }
+
+    .menu-trigger {
+      display: none;
+      cursor: pointer;
+      padding: 10px;
+      z-index: 5001;
+      position: relative;
+      background: none; border: none;
+      outline: none;
+      -webkit-appearance: none; appearance: none;
+    }
+
+    .menu-icon {
+      width: 26px; height: 18px;
+      display: flex; flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .menu-icon span {
+      display: block; width: 100%; height: 2px;
+      background: #fff; border-radius: 10px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .menu-trigger.menu-active .menu-icon span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .menu-trigger.menu-active .menu-icon span:nth-child(2) { opacity: 0; transform: translateX(10px); }
+    .menu-trigger.menu-active .menu-icon span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    .mobile-overlay {
+      position: fixed; inset: 0;
+      background: rgba(29, 29, 31, 0.98);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      z-index: 4500;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+
+    .mobile-overlay.active { opacity: 1; visibility: visible; }
+
+    .mobile-nav-links { list-style: none; padding: 0; text-align: center; }
+
+    .mobile-nav-links li {
+      margin: 25px 0;
+      transform: translateY(20px); opacity: 0;
+      transition: 0.4s ease;
+    }
+
+    .mobile-overlay.active .mobile-nav-links li { transform: translateY(0); opacity: 1; }
+    .mobile-nav-links li:nth-child(1) { transition-delay: 0.10s; }
+    .mobile-nav-links li:nth-child(2) { transition-delay: 0.15s; }
+    .mobile-nav-links li:nth-child(3) { transition-delay: 0.20s; }
+
+    .mobile-nav-links a {
+      color: #fff;
+      font-size: 2.2rem;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: -0.03em;
+      position: relative; display: inline-block;
+    }
+
+    .mobile-nav-links a::after {
+      content: '';
+      position: absolute; width: 0; height: 3px;
+      bottom: -4px; left: 0;
+      background-color: var(--brand-red);
+      transition: width 0.4s cubic-bezier(0.2, 1, 0.2, 1);
+    }
+
+    .mobile-nav-links a:hover::after { width: 100%; }
+
+    /* ─────────────────────────────────────────────────────────────
+       PAGE
+    ───────────────────────────────────────────────────────────── */
+    .page { padding-top: var(--nav-h); }
+
+    /* ─────────────────────────────────────────────────────────────
+       STEP 0 — ORDER CARD (full-page centered)
+    ───────────────────────────────────────────────────────────── */
+    .order-landing {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: calc(100vh - var(--nav-h));
+      padding: 40px 28px;
+    }
+
+    /* On desktop, two-column: equal-height cards, centered */
+    .order-card-wrap {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 36px;
+      max-width: 1080px;
+      width: 100%;
+      align-items: stretch;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.1s both;
+    }
+
+    /* Left hero panel — flex column so it fills full height */
+    .order-hero-panel {
+      background: var(--bg-summary);
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .order-hero-device {
+      padding: 20px 22px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .order-hero-img {
+      width: 75px; height: 75px;
+      object-fit: contain;
+      filter: drop-shadow(0 6px 16px rgba(0,0,0,0.09));
+      flex-shrink: 0;
+      transition: transform 1.2s cubic-bezier(0.34, 1.08, 0.64, 1);
+    }
+
+    .order-hero-img:hover { transform: scale(1.07) translateY(-3px); }
+
+    .order-hero-eyebrow {
+      font-size: 0.6rem; font-weight: 700;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--text-faint); margin-bottom: 3px;
+    }
+
+    .order-hero-name {
+      font-size: 1rem; font-weight: 700;
+      letter-spacing: -0.02em; color: var(--text-dark); line-height: 1.1;
+    }
+
+    .order-hero-sub { font-size: 0.72rem; color: var(--text-muted); margin-top: 2px; }
+
+    /* Right details panel — flex column, fills same height as hero panel */
+    .order-card {
+      background: var(--bg-summary);
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Body section grows to fill space, pushing total+cta to bottom */
+    /* Mobile: single column, natural height stacking */
+    @media (max-width: 900px) {
+      .order-landing    { padding: 28px 16px 48px; align-items: flex-start; }
+      .order-card-wrap  { grid-template-columns: 1fr; gap: 0; align-items: start; }
+      .order-hero-panel { display: none; }
+      .order-card       { display: block; }
+    }
+
+    /* Mobile-only compact header inside the order card */
+    .order-card-mobile-header {
+      display: none;
+      background: var(--bg-summary);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 22px;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .order-card-mobile-img {
+      width: 75px; height: 75px;
+      object-fit: contain;
+      filter: drop-shadow(0 6px 16px rgba(0,0,0,0.09));
+      flex-shrink: 0;
+    }
+
+    .order-card-mobile-eyebrow {
+      font-size: 0.6rem; font-weight: 700;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--text-faint); margin-bottom: 3px;
+    }
+
+    .order-card-mobile-name {
+      font-size: 1rem; font-weight: 700;
+      letter-spacing: -0.02em; color: var(--text-dark); line-height: 1.1;
+    }
+
+    .order-card-mobile-sub { font-size: 0.72rem; color: var(--text-muted); margin-top: 2px; }
+
+    @media (max-width: 900px) {
+      .order-card-mobile-header { display: flex; }
+    }
+
+    .order-card-body { flex: 1; padding: 18px 22px 22px; }
+
+    @media (max-width: 640px) {
+      .order-card-body { padding: 18px 18px 22px; }
+    }
+
+    /* Breakdown rows — identical to .breakdown-row in reference */
+    .order-row {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border-soft);
+      font-size: 0.83rem;
+    }
+
+    .order-row:first-of-type { padding-top: 0; }
+    .order-row:last-of-type  { border-bottom: none; padding-bottom: 0; }
+
+    .order-row-label { color: var(--text-muted); font-weight: 400; line-height: 1.5; }
+    .order-row-label strong { color: var(--text-dark); font-weight: 600; display: block; }
+    .order-row-label small { font-size: 0.71rem; }
+    .order-row-val { color: var(--text-dark); font-weight: 600; white-space: nowrap; }
+    .order-row-val.free { color: var(--green); font-weight: 700; }
+    .order-row-val.tag {
+      background: rgba(215, 60, 89, 0.07);
+      color: var(--brand-red);
+      border: 1px solid rgba(215, 60, 89, 0.14);
+      border-radius: 50px; padding: 1px 9px;
+      font-size: 0.7rem; font-weight: 600;
+    }
+
+    /* Section label */
+    .order-section-label {
+      font-size: 0.6rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--text-faint); margin-bottom: 12px;
+    }
+
+    /* Total row — standalone padded block, no negative margins */
+    .order-total-row {
+      padding: 18px 22px;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+
+    .order-total-label { font-size: 0.82rem; font-weight: 700; color: var(--text-dark); }
+    .order-total-note  { font-size: 0.68rem; color: var(--text-faint); margin-top: 2px; }
+
+    .order-total-fig {
+      font-size: 1.9rem; font-weight: 800;
+      letter-spacing: -0.04em; color: var(--text-dark); line-height: 1; text-align: right;
+    }
+
+    .order-total-fig sup { font-size: 0.9rem; font-weight: 700; vertical-align: super; letter-spacing: 0; }
+    .order-total-tax { font-size: 0.68rem; color: var(--text-faint); text-align: right; margin-top: 2px; }
+
+    /* Renewal notice — standalone padded block */
+    .order-renewal {
+      display: flex; align-items: flex-start; gap: 9px;
+      padding: 14px 22px;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.74rem; color: var(--text-muted); line-height: 1.6;
+    }
+    .order-renewal svg { width: 13px; height: 13px; stroke: var(--text-muted); stroke-width: 1.8; fill: none; flex-shrink: 0; margin-top: 1px; }
+    .order-renewal strong { color: var(--text-dark); font-weight: 600; }
+
+    /* Features list — standalone padded block */
+    .order-features {
+      padding: 16px 22px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .order-features .order-section-label { margin-bottom: 8px; }
+
+    .order-feature {
+      display: flex; align-items: center; gap: 9px;
+      padding: 7px 0;
+      font-size: 0.78rem; color: var(--text-dark);
+      border-bottom: 1px solid var(--border-soft); font-weight: 400;
+    }
+
+    .order-feature:first-of-type { padding-top: 4px; }
+    .order-feature:last-child  { border-bottom: none; padding-bottom: 0; }
+
+    .feat-check {
+      width: 17px; height: 17px; border-radius: 50%;
+      background: var(--green-bg); border: 1px solid rgba(26, 155, 95, 0.2);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+
+    .feat-check svg { width: 8px; height: 8px; stroke: var(--green); stroke-width: 3; fill: none; }
+
+    /* CTA section at bottom of order card */
+    .order-cta {
+      padding: 18px 22px 22px;
+    }
+
+    /* ─────────────────────────────────────────────────────────────
+       TWO-COLUMN LAYOUT (steps 1–3)
+    ───────────────────────────────────────────────────────────── */
+    .checkout-wrap {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 52px 28px 80px;
+      gap: 36px;
+      align-items: start;
+    }
+
+    .form-panel {
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.1s both;
+    }
+
+    .form-panel.anim-done {
+      opacity: 1;
+      transform: none;
+      animation: none;
+      will-change: auto;
+    }
+
+    /* ─────────────────────────────────────────────────────────────
+       STEPS BAR
+    ───────────────────────────────────────────────────────────── */
+    .steps-bar {
+      display: flex; align-items: center;
+      margin-bottom: 32px;
+    }
+
+    .step-item {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.78rem; font-weight: 600;
+      color: var(--text-muted); letter-spacing: 0.02em;
+      transition: color 0.3s ease;
+    }
+
+    .step-item.active { color: var(--brand-red); }
+    .step-item.done   { color: var(--text-dark); }
+
+    .step-dot {
+      width: 26px; height: 26px; border-radius: 50%;
+      border: 2px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem; font-weight: 700;
+      background: #fff; flex-shrink: 0;
+      transition: all 0.3s ease;
+    }
+
+    .step-item.active .step-dot { border-color: var(--brand-red); color: var(--brand-red); }
+    .step-item.done .step-dot   { background: var(--text-dark); border-color: var(--text-dark); color: #fff; }
+
+    .step-connector {
+      flex: 1; height: 1px;
+      background: var(--border);
+      margin: 0 10px; min-width: 20px;
+      position: relative; overflow: hidden;
+    }
+
+    .step-connector::after {
+      content: ''; position: absolute; inset: 0;
+      background: var(--text-dark);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.5s var(--ease-out);
+    }
+
+    .step-connector.done::after { transform: scaleX(1); }
+
+    .step-check { display: none; width: 9px; height: 5px; border-left: 2px solid #fff; border-bottom: 2px solid #fff; transform: rotate(-45deg) translate(1px, -1px); }
+    .step-item.done .step-num   { display: none; }
+    .step-item.done .step-check { display: block; }
+
+    /* ─────────────────────────────────────────────────────────────
+       PANEL CARDS
+    ───────────────────────────────────────────────────────────── */
+    .panel-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      padding: 28px 28px 24px;
+      margin-bottom: 14px;
+    }
+
+    .panel-card:last-child { margin-bottom: 0; }
+
+    .panel-title {
+      font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--text-faint); margin-bottom: 20px;
+      display: flex; align-items: center; gap: 10px;
+    }
+
+    .panel-title::after {
+      content: ''; flex: 1; height: 1px;
+      background: var(--border-soft);
+    }
+
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 11px; margin-bottom: 11px; }
+    .field { margin-bottom: 11px; }
+    .field:last-of-type { margin-bottom: 0; }
+
+    .field label {
+      display: block; font-size: 0.78rem;
+      font-weight: 600; color: var(--text-dark);
+      margin-bottom: 6px;
+    }
+
+    .field input, .field select {
+      width: 100%; padding: 12px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      font-family: 'Figtree', sans-serif;
+      font-size: 0.9rem; color: var(--text-dark);
+      background: #fff; outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      -webkit-appearance: none; appearance: none;
+    }
+
+    .field select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%236e6e73' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='4,6 8,10 12,6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 16px;
+      padding-right: 36px;
+      cursor: pointer;
+    }
+
+    .field input::placeholder { color: #c4c4ca; }
+    .field input:hover:not(:focus),
+    .field select:hover:not(:focus) { border-color: #d8d8dc; }
+
+    .field input:focus, .field select:focus {
+      border-color: var(--brand-red);
+      box-shadow: 0 0 0 3px var(--brand-red-glow);
+    }
+
+    .field input.err, .field select.err {
+      border-color: var(--brand-red);
+      box-shadow: 0 0 0 3px var(--brand-red-glow);
+    }
+
+    .field-err {
+      font-size: 0.72rem; color: var(--brand-red);
+      font-weight: 500; margin-top: 4px; display: none;
+    }
+
+    .field.has-err .field-err { display: block; }
+
+    /* ─────────────────────────────────────────────────────────────
+       SAME AS BILLING TOGGLE
+    ───────────────────────────────────────────────────────────── */
+    .toggle-row {
+      display: flex; align-items: center; gap: 10px;
+      margin: 4px 0 18px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .toggle-row input[type="checkbox"] {
+      width: 18px; height: 18px;
+      accent-color: var(--brand-red);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .toggle-row span {
+      font-size: 0.82rem; font-weight: 500; color: var(--text-dark);
+    }
+
+    .shipping-fields {
+      overflow: hidden;
+      transition: max-height 0.4s var(--ease-out), opacity 0.3s ease;
+      max-height: 600px;
+      opacity: 1;
+    }
+
+    .shipping-fields.hidden {
+      max-height: 0;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* ─────────────────────────────────────────────────────────────
+       TERMS CHECKBOX
+    ───────────────────────────────────────────────────────────── */
+    .terms-row {
+      display: flex; align-items: flex-start; gap: 10px;
+      margin: 18px 0 0;
+      padding: 14px 16px;
+      background: var(--bg-summary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+
+    .terms-row input[type="checkbox"] {
+      width: 17px; height: 17px;
+      accent-color: var(--brand-red);
+      cursor: pointer;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .terms-row label {
+      font-size: 0.77rem; line-height: 1.55;
+      color: var(--text-muted); cursor: pointer;
+      font-weight: 400;
+    }
+
+    .terms-row label a {
+      color: var(--brand-red); text-decoration: none; font-weight: 500;
+    }
+
+    .terms-row label a:hover { text-decoration: underline; }
+
+    .terms-err {
+      font-size: 0.72rem; color: var(--brand-red);
+      font-weight: 500; margin-top: 6px; display: none;
+    }
+
+    .terms-err.show { display: block; }
+
+    /* ─────────────────────────────────────────────────────────────
+       BUTTONS
+    ───────────────────────────────────────────────────────────── */
+    .btn-submit {
+      display: flex; align-items: center; justify-content: center;
+      gap: 10px; width: 100%;
+      padding: 14px 28px; margin-top: 6px;
+      background: var(--brand-red); color: #fff;
+      border: none; border-radius: 50px;
+      font-family: 'Figtree', sans-serif;
+      font-size: 0.95rem; font-weight: 600;
+      letter-spacing: 0.01em; cursor: pointer;
+      position: relative; overflow: hidden;
+      transition: background 0.3s ease,
+                  transform 0.4s var(--ease-spring),
+                  box-shadow 0.4s ease;
+      will-change: transform;
+    }
+
+    .btn-submit::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(105deg, transparent 38%, rgba(255,255,255,0.09) 50%, transparent 62%);
+      transform: translateX(-100%);
+      transition: transform 0.55s var(--ease-out);
+    }
+
+    .btn-submit:hover::before  { transform: translateX(100%); }
+    .btn-submit:hover { background: var(--brand-red-dark); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(215, 60, 89, 0.22); }
+    .btn-submit:active { transform: translateY(0); transition-duration: 0.1s; }
+    .btn-submit:disabled { background: #c4c4c8; transform: none; box-shadow: none; cursor: not-allowed; }
+    .btn-submit:disabled::before { display: none; }
+
+    .btn-submit svg.btn-arr { width: 15px; height: 15px; stroke: #fff; stroke-width: 2; fill: none; transition: transform 0.3s var(--ease-spring); }
+    .btn-submit:hover svg.btn-arr { transform: translateX(4px); }
+
+    .btn-lbl { display: block; }
+    .btn-spin {
+      display: none; width: 17px; height: 17px;
+      border: 1.5px solid rgba(255,255,255,0.25);
+      border-top-color: #fff; border-radius: 50%;
+      animation: spin 0.6s linear infinite; flex-shrink: 0;
+    }
+
+    .btn-submit.loading .btn-lbl,
+    .btn-submit.loading .btn-arr  { display: none; }
+    .btn-submit.loading .btn-spin { display: block; }
+
+    .btn-secure {
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      margin-top: 12px; font-size: 0.71rem;
+      color: var(--text-faint); letter-spacing: 0.01em;
+    }
+
+    .btn-secure svg {
+      width: 11px; height: 11px;
+      stroke: var(--text-faint); stroke-width: 1.8;
+      fill: none; flex-shrink: 0;
+    }
+
+    .back-link {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 0.78rem; font-weight: 600; color: var(--text-muted);
+      cursor: pointer; margin-bottom: 20px;
+      background: none; border: none; padding: 0;
+      font-family: 'Figtree', sans-serif;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--text-dark); }
+    .back-link svg { width: 13px; height: 13px; stroke: currentColor; stroke-width: 2; fill: none; }
+
+    /* ─────────────────────────────────────────────────────────────
+       STEP PANELS
+    ───────────────────────────────────────────────────────────── */
+    .step-panel { display: none; }
+    .step-panel.active { display: block; }
+
+    /* ─────────────────────────────────────────────────────────────
+       RIGHT — ORDER SUMMARY
+    ───────────────────────────────────────────────────────────── */
+    .summary-panel {
+      background: var(--bg-summary);
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      overflow: hidden;
+      position: sticky; top: calc(var(--nav-h) + 20px);
+      opacity: 0; animation: fadeUp 0.7s ease 0.18s forwards;
+    }
+
+    .summary-device {
+      padding: 20px 22px;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 16px;
+    }
+
+    .summary-device-img {
+      width: 75px; height: 75px;
+      object-fit: contain;
+      filter: drop-shadow(0 6px 16px rgba(0,0,0,0.09));
+      flex-shrink: 0;
+      transition: transform 1.2s cubic-bezier(0.34, 1.08, 0.64, 1);
+    }
+
+    .summary-device-img:hover { transform: scale(1.07) translateY(-3px); }
+
+    .summary-device-eyebrow {
+      font-size: 0.6rem; font-weight: 700;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--text-faint); margin-bottom: 3px;
+    }
+
+    .summary-device-name {
+      font-size: 1rem; font-weight: 700;
+      letter-spacing: -0.02em; color: var(--text-dark); line-height: 1.1;
+    }
+
+    .summary-device-sub { font-size: 0.72rem; color: var(--text-muted); margin-top: 2px; }
+
+    .summary-section { padding: 18px 22px; border-bottom: 1px solid var(--border); }
+
+    .summary-section-label {
+      font-size: 0.6rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--text-faint); margin-bottom: 12px;
+    }
+
+    .breakdown-row {
+      display: flex; justify-content: space-between;
+      align-items: baseline;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border-soft);
+      font-size: 0.83rem;
+    }
+
+    .breakdown-row:first-of-type { padding-top: 0; }
+    .breakdown-row:last-of-type  { border-bottom: none; padding-bottom: 0; }
+
+    .bd-label { color: var(--text-muted); font-weight: 400; line-height: 1.5; }
+    .bd-label strong { color: var(--text-dark); font-weight: 600; display: block; }
+    .bd-label small  { font-size: 0.71rem; }
+
+    .bd-val { color: var(--text-dark); font-weight: 600; white-space: nowrap; }
+    .bd-val.free { color: var(--green); font-weight: 700; }
+    .bd-val.tag {
+      background: rgba(215, 60, 89, 0.07);
+      color: var(--brand-red);
+      border: 1px solid rgba(215, 60, 89, 0.14);
+      border-radius: 50px; padding: 1px 9px;
+      font-size: 0.7rem; font-weight: 600;
+    }
+
+    .summary-total {
+      padding: 18px 22px;
+      border-bottom: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+
+    .summary-total-label { font-size: 0.82rem; font-weight: 700; color: var(--text-dark); }
+    .summary-total-note  { font-size: 0.68rem; color: var(--text-faint); margin-top: 2px; }
+
+    .summary-total-fig {
+      font-size: 1.9rem; font-weight: 800;
+      letter-spacing: -0.04em; color: var(--text-dark); line-height: 1; text-align: right;
+    }
+
+    .summary-total-fig sup { font-size: 0.9rem; font-weight: 700; vertical-align: super; letter-spacing: 0; }
+    .summary-total-tax { font-size: 0.68rem; color: var(--text-faint); text-align: right; margin-top: 2px; }
+
+    .summary-renewal {
+      padding: 14px 22px;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: flex-start; gap: 9px;
+    }
+
+    .renewal-icon { flex-shrink: 0; margin-top: 1px; }
+    .renewal-icon svg { width: 13px; height: 13px; stroke: var(--text-muted); stroke-width: 1.8; fill: none; }
+    .renewal-text { font-size: 0.74rem; color: var(--text-muted); line-height: 1.6; }
+    .renewal-text strong { color: var(--text-dark); font-weight: 600; }
+
+    .summary-features { padding: 16px 22px; }
+
+    .feature-item {
+      display: flex; align-items: center; gap: 9px;
+      padding: 6px 0; font-size: 0.78rem; color: var(--text-dark);
+      border-bottom: 1px solid var(--border-soft); font-weight: 400;
+    }
+
+    .feature-item:first-child { padding-top: 0; }
+    .feature-item:last-child  { border-bottom: none; padding-bottom: 0; }
+
+    /* ─────────────────────────────────────────────────────────────
+       CHARGEBEE FIELDS
+    ───────────────────────────────────────────────────────────── */
+    .cb-field-wrap {
+      width: 100%; height: 44px;
+      display: flex; align-items: center;
+      padding: 0 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      background: #fff;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      box-sizing: border-box;
+      cursor: text;
+    }
+    .cb-field-wrap.focus { border-color: var(--brand-red); box-shadow: 0 0 0 3px var(--brand-red-glow); }
+    .cb-field-wrap.err   { border-color: var(--brand-red); box-shadow: 0 0 0 3px var(--brand-red-glow); }
+    .cb-field-wrap iframe { flex-shrink: 0; border: none !important; display: block !important; }
+
+    .card-brand-row {
+      display: flex; align-items: center; gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .card-brand-row svg {
+      width: 32px; height: 20px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2px 3px;
+      color: var(--text-faint);
+    }
+
+    /* ─────────────────────────────────────────────────────────────
+       PROMO CODE
+    ───────────────────────────────────────────────────────────── */
+    .promo-row {
+      display: flex; gap: 8px; align-items: flex-start;
+      margin-bottom: 6px;
+    }
+    .promo-row input {
+      flex: 1; padding: 11px 14px;
+      border: 1.5px solid var(--border); border-radius: 12px;
+      font-family: "Figtree", sans-serif; font-size: 0.88rem;
+      color: var(--text-dark); background: #fff; outline: none;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .promo-row input:focus { border-color: var(--brand-red); box-shadow: 0 0 0 3px var(--brand-red-glow); }
+    .promo-row input.err  { border-color: var(--brand-red); }
+    .promo-apply {
+      padding: 11px 16px; border-radius: 12px; border: 1.5px solid var(--border);
+      background: #fff; font-family: "Figtree", sans-serif;
+      font-size: 0.82rem; font-weight: 600; color: var(--text-dark);
+      cursor: pointer; white-space: nowrap;
+      transition: background 0.2s, border-color 0.2s;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .promo-apply:hover { background: var(--bg-summary); border-color: #d0d0d4; }
+    .promo-apply:disabled { opacity: 0.5; cursor: not-allowed; }
+    .promo-apply .promo-spin {
+      display: none; width: 13px; height: 13px;
+      border: 1.5px solid var(--border); border-top-color: var(--brand-red);
+      border-radius: 50%; animation: spin 0.6s linear infinite;
+    }
+    .promo-apply.loading .promo-spin { display: block; }
+    .promo-apply.loading .promo-apply-lbl { display: none; }
+
+    .promo-feedback {
+      font-size: 0.78rem; font-weight: 500; margin-top: 2px;
+      display: none; align-items: center; gap: 5px;
+      padding: 7px 10px; border-radius: 8px;
+    }
+    .promo-feedback.ok  { display: flex; color: var(--green); background: var(--green-bg); }
+    .promo-feedback.bad { display: flex; color: var(--brand-red); background: var(--brand-red-glow); }
+    .promo-feedback svg { width: 12px; height: 12px; stroke: currentColor; stroke-width: 2.2; fill: none; flex-shrink: 0; }
+
+    .pay-summary-discount {
+      display: flex; justify-content: space-between; align-items: baseline;
+      font-size: 0.82rem; color: var(--green); padding: 5px 0;
+      border-top: 1px solid var(--border-soft);
+    }
+
+    /* ─────────────────────────────────────────────────────────────
+       NEXT STEPS (step 1 card)
+    ───────────────────────────────────────────────────────────── */
+    .next-step {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 13px 0;
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .next-step:first-of-type { padding-top: 0; }
+    .next-step:last-of-type  { border-bottom: none; padding-bottom: 0; }
+
+    .next-step-icon {
+      width: 30px; height: 30px; border-radius: 8px;
+      background: var(--bg-summary); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+    }
+
+    .next-step-icon svg { width: 13px; height: 13px; stroke: var(--text-muted); stroke-width: 1.8; fill: none; }
+    .next-step-label { font-size: 0.8rem; font-weight: 700; color: var(--text-dark); margin-bottom: 2px; }
+    .next-step-desc  { font-size: 0.74rem; color: var(--text-muted); line-height: 1.55; }
+
+    /* ─────────────────────────────────────────────────────────────
+       TRUST FOOTER
+    ───────────────────────────────────────────────────────────── */
+    .trust-footer {
+      max-width: 1080px; margin: 0 auto;
+      padding: 0 28px 52px;
+      display: flex; align-items: center;
+      justify-content: center;
+      gap: 0; flex-wrap: nowrap;
+      white-space: nowrap;
+      opacity: 0; animation: fadeUp 0.7s ease 0.4s forwards;
+    }
+
+    .trust-item {
+      display: flex; align-items: center; gap: 7px;
+      font-size: 0.71rem; font-weight: 500;
+      color: var(--text-faint); letter-spacing: 0.02em;
+      padding: 0 24px;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    .trust-item svg {
+      width: 13px; height: 13px;
+      stroke: var(--text-faint); stroke-width: 1.7;
+      fill: none; flex-shrink: 0;
+    }
+
+    .trust-sep { width: 1px; height: 16px; background: var(--border); flex-shrink: 0; }
+
+    /* ─────────────────────────────────────────────────────────────
+       KEYFRAMES
+    ───────────────────────────────────────────────────────────── */
+
+    /* ── Renewal price discount display ──────────────────────────── */
+    .renewal-orig {
+      text-decoration: line-through;
+      opacity: 0.45;
+      font-weight: 600;
+      margin-right: 4px;
+    }
+    .renewal-discounted {
+      color: var(--green);
+      font-weight: 700;
+    }
+    .renewal-qualifier {
+      display: inline-block;
+      font-size: 0.68em;
+      color: var(--text-faint);
+      margin-left: 3px;
+      font-weight: 400;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ─────────────────────────────────────────────────────────────
+       RESPONSIVE
+    ───────────────────────────────────────────────────────────── */
+    /* Desktop: features/renewal live in the hero panel, hide duplicates in the card */
+    .order-features-mobile,
+    .order-renewal-mobile { display: none; }
+
+    @media (max-width: 900px) {
+      .order-features-mobile { display: block; }
+      .order-renewal-mobile  { display: flex; }
+      .order-card            { max-width: 520px; width: 100%; margin: 0 auto; }
+    }
+
+    @media (max-width: 900px) {
+      .checkout-wrap      { grid-template-columns: 1fr; padding: 32px 20px 60px; gap: 24px; }
+      .summary-panel      { display: none; }
+      .summary-device-img { width: 75px; height: 75px; }
+    }
+
+    @media (max-width: 640px) {
+      .nav-links-desktop { display: none; }
+      .menu-trigger      { display: block; }
+      .nav-secure-badge  { display: none; }
+      .field-row         { grid-template-columns: 1fr; }
+      .panel-card        { padding: 22px 18px; border-radius: 16px; }
+      .summary-section,
+      .summary-total,
+      .summary-renewal,
+      .summary-features  { padding-left: 18px; padding-right: 18px; }
+      .summary-device    { padding: 18px; }
+      .step-item > span  { display: none; }
+      .step-item.active > span,
+      .step-item.done   > span { display: block; }
+      .trust-item        { padding: 0 10px; font-size: 0.62rem; letter-spacing: 0; }
+      .trust-item svg    { width: 11px; height: 11px; }
+      .order-card-body   { padding: 18px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAVBAR ───────────────────────────────────────────────────── -->
+<nav class="navbar-custom">
+  <div class="nav-container">
+    <a class="navbar-brand" href="/"><img src="assets/img/logos/logo.png" alt="More4Less"></a>
+
+    <ul class="nav-links-desktop">
+      <li><a href="/#pricing">Pricing</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/portal" class="btn-portal-top">Customer Portal</a></li>
+    </ul>
+
+    <div class="nav-secure-badge">
+      <svg viewBox="0 0 14 14" stroke-linecap="round">
+        <rect x="2" y="6" width="10" height="7" rx="1.5"/>
+        <path d="M4.5 6V4.5a2.5 2.5 0 015 0V6"/>
+      </svg>
+      Secure Checkout
+    </div>
+
+    <button class="menu-trigger" id="menuTrigger" aria-label="Open menu">
+      <div class="menu-icon"><span></span><span></span><span></span></div>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile overlay -->
+<div class="mobile-overlay" id="mobileOverlay">
+  <ul class="mobile-nav-links">
+    <li><a href="/#pricing">Pricing</a></li>
+    <li><a href="/contact">Contact</a></li>
+    <li><a href="/portal">Customer Portal</a></li>
+  </ul>
+</div>
+
+<!-- ── PAGE ─────────────────────────────────────────────────────── -->
+<div class="page">
+
+  <!-- ══════════════════════════════════════════════════════════════
+       STEP 0 — ORDER CARD (shown first)
+  ═══════════════════════════════════════════════════════════════ -->
+  <div id="screen-0" class="order-landing">
+    <div class="order-card-wrap">
+
+      <!-- LEFT: product hero (desktop only) -->
+      <div class="order-hero-panel">
+        <div class="order-hero-device">
+          <img src="assets/img/products/mr1100.png" alt="Netgear Nighthawk M1" class="order-hero-img">
+          <div>
+            <div class="order-hero-eyebrow">Your Order</div>
+            <div class="order-hero-name">Nighthawk M1</div>
+            <div class="order-hero-sub">Unlimited Wireless Internet Package</div>
+          </div>
+        </div>
+
+        <div class="summary-section">
+          <div class="summary-section-label">Everything Included</div>
+          <div class="feature-item">
+            <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+            Up To 1 Gbps LTE Speeds
+          </div>
+          <div class="feature-item">
+            <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+            Truly Unlimited Data — No Caps Or Slowdowns
+          </div>
+          <div class="feature-item">
+            <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+            Connect Up To 20 Devices
+          </div>
+          <div class="feature-item">
+            <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+            All-Day Battery Life — Home Or On The Go
+          </div>
+          <div class="feature-item">
+            <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+            Dual-Band Wi-Fi · 2.4 GHz + 5 GHz
+          </div>
+          <div class="feature-item">
+            <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+            30-Day Money-Back Guarantee
+          </div>
+        </div>
+
+        <div class="summary-renewal" style="border-bottom:none;">
+          <div class="renewal-icon">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2.5 8a5.5 5.5 0 0 1 9.5-3.8"/>
+              <path d="M13.5 8a5.5 5.5 0 0 1-9.5 3.8"/>
+              <polyline points="9.5,1.5 11.5,4.2 8.5,4.8"/>
+              <polyline points="6.5,14.5 4.5,11.8 7.5,11.2"/>
+            </svg>
+          </div>
+          <div class="renewal-text">
+            After the first month, unlimited internet renews at <span id="renewal-price-hero"><strong>$110 / month</strong></span>. No contract — cancel anytime.
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: order details + CTA -->
+      <div class="order-card">
+
+        <!-- Mobile-only compact device header -->
+        <div class="order-card-mobile-header">
+          <img src="assets/img/products/mr1100.png" alt="Netgear Nighthawk M1" class="order-card-mobile-img">
+          <div>
+            <div class="order-card-mobile-eyebrow">Your Order</div>
+            <div class="order-card-mobile-name">Nighthawk M1</div>
+            <div class="order-card-mobile-sub">Unlimited Wireless Internet Package</div>
+          </div>
+        </div>
+
+        <div class="order-card-body">
+
+          <div class="order-section-label">Included With Your Order</div>
+
+          <div class="order-row">
+            <div class="order-row-label">
+              <strong>NETGEAR Nighthawk M1</strong>
+              <small>Portable Gigabit LTE Wi-Fi Router</small>
+            </div>
+            <span class="order-row-val">$199</span>
+          </div>
+
+          <div class="order-row">
+            <div class="order-row-label">
+              <strong>First Month's Internet</strong>
+              <small>Unlimited — ready to use out of the box</small>
+            </div>
+            <span class="order-row-val free">Included</span>
+          </div>
+
+          <div class="order-row">
+            <span class="order-row-label">Activation</span>
+            <span class="order-row-val free">$0</span>
+          </div>
+
+          <div class="order-row">
+            <span class="order-row-label">Shipping</span>
+            <span class="order-row-val free">$0</span>
+          </div>
+
+          <div class="order-row">
+            <span class="order-row-label">Contract</span>
+            <span class="order-row-val tag">No Contract Required</span>
+          </div>
+
+        </div><!-- /order-card-body -->
+
+        <div class="order-total-row">
+          <div>
+            <div class="order-total-label">Due Today</div>
+            <div class="order-total-note">Device + first month included</div>
+          </div>
+          <div>
+            <div class="order-total-fig"><sup>$</sup>199</div>
+            <div class="order-total-tax">+ applicable tax</div>
+          </div>
+        </div>
+
+        <div class="order-renewal order-renewal-mobile">
+          <svg viewBox="0 0 16 16" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2.5 8a5.5 5.5 0 0 1 9.5-3.8"/>
+            <path d="M13.5 8a5.5 5.5 0 0 1-9.5 3.8"/>
+            <polyline points="9.5,1.5 11.5,4.2 8.5,4.8"/>
+            <polyline points="6.5,14.5 4.5,11.8 7.5,11.2"/>
+          </svg>
+          <span>After the first month, unlimited internet renews at <span id="renewal-price-card"><strong>$110 / month</strong></span>. No contract — cancel anytime.</span>
+        </div>
+
+        <div class="order-features order-features-mobile">
+          <div class="order-section-label">Everything Included</div>
+          <div class="order-feature">
+            <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+            Up To 1 Gbps LTE Speeds
+          </div>
+          <div class="order-feature">
+            <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+            Truly Unlimited Data — No Caps Or Slowdowns
+          </div>
+          <div class="order-feature">
+            <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+            Connect Up To 20 Devices · Dual-Band Wi-Fi
+          </div>
+          <div class="order-feature">
+            <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+            30-Day Money-Back Guarantee
+          </div>
+        </div>
+
+        <div class="order-cta">
+          <button class="btn-submit" onclick="proceedToCheckout()">
+            <span class="btn-lbl">Proceed with Order</span>
+            <div class="btn-spin"></div>
+            <svg class="btn-arr" viewBox="0 0 16 16" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="2" y1="8" x2="13" y2="8"/>
+              <polyline points="9,4 13,8 9,12"/>
+            </svg>
+          </button>
+
+          <div class="btn-secure" style="margin-top:12px;">
+            <svg viewBox="0 0 14 14" fill="none" stroke-linecap="round">
+              <rect x="2" y="6" width="10" height="7" rx="1.5"/>
+              <path d="M4.5 6V4.5a2.5 2.5 0 015 0V6"/>
+            </svg>
+            SSL encrypted — payment handled by Chargebee
+          </div>
+        </div><!-- /order-cta -->
+
+      </div><!-- /order-card -->
+    </div><!-- /order-card-wrap -->
+  </div><!-- /screen-0 -->
+
+
+  <!-- ══════════════════════════════════════════════════════════════
+       STEPS 1–3 — Two-column checkout
+  ═══════════════════════════════════════════════════════════════ -->
+  <div id="screen-checkout" style="display:none;">
+    <div class="checkout-wrap">
+
+      <!-- ── LEFT — form ──────────────────────────────────────── -->
+      <div class="form-panel" id="formPanel">
+
+        <!-- Steps bar (3 steps: Details / Address / Payment) -->
+        <div class="steps-bar">
+          <div class="step-item active" id="st-1">
+            <div class="step-dot">
+              <span class="step-num">1</span>
+              <span class="step-check"></span>
+            </div>
+            <span>Your Details</span>
+          </div>
+          <div class="step-connector" id="cn-1"></div>
+          <div class="step-item" id="st-2">
+            <div class="step-dot">
+              <span class="step-num">2</span>
+              <span class="step-check"></span>
+            </div>
+            <span>Address</span>
+          </div>
+          <div class="step-connector" id="cn-2"></div>
+          <div class="step-item" id="st-3">
+            <div class="step-dot">
+              <span class="step-num">3</span>
+              <span class="step-check"></span>
+            </div>
+            <span>Payment</span>
+          </div>
+        </div>
+
+        <!-- ── STEP 1: Contact Details ──────────────────────── -->
+        <div class="step-panel active" id="panel-step-1">
+
+          <div class="panel-card">
+            <div class="panel-title">Contact Information</div>
+
+            <div class="field-row">
+              <div class="field" id="fg-first">
+                <label for="f-first">First Name</label>
+                <input type="text" id="f-first" placeholder="Jane"
+                       autocomplete="given-name" spellcheck="false">
+                <div class="field-err">Required.</div>
+              </div>
+              <div class="field" id="fg-last">
+                <label for="f-last">Last Name</label>
+                <input type="text" id="f-last" placeholder="Smith"
+                       autocomplete="family-name" spellcheck="false">
+                <div class="field-err">Required.</div>
+              </div>
+            </div>
+
+            <div class="field" id="fg-email">
+              <label for="f-email">Email Address</label>
+              <input type="email" id="f-email" placeholder="jane@example.com"
+                     autocomplete="email" spellcheck="false">
+              <div class="field-err">Please enter a valid email address.</div>
+            </div>
+
+            <div class="field" id="fg-phone">
+              <label for="f-phone">Phone Number</label>
+              <input type="tel" id="f-phone" placeholder="416-555-0123"
+                     autocomplete="tel">
+              <div class="field-err">Please enter a valid phone number.</div>
+            </div>
+
+            <br>
+
+            <button class="btn-submit" onclick="handleStep1()">
+              <span class="btn-lbl">Continue to Address</span>
+              <div class="btn-spin"></div>
+              <svg class="btn-arr" viewBox="0 0 16 16" fill="none"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <line x1="2" y1="8" x2="13" y2="8"/>
+                <polyline points="9,4 13,8 9,12"/>
+              </svg>
+            </button>
+
+            <div class="btn-secure">
+              <svg viewBox="0 0 14 14" fill="none" stroke-linecap="round">
+                <rect x="2" y="6" width="10" height="7" rx="1.5"/>
+                <path d="M4.5 6V4.5a2.5 2.5 0 015 0V6"/>
+              </svg>
+              SSL encrypted — payment handled by Chargebee, never stored by us
+            </div>
+          </div>
+
+          <!-- What happens next -->
+          <div class="panel-card">
+            <div class="panel-title">What Happens Next</div>
+
+            <div class="next-step">
+              <div class="next-step-icon">
+                <svg viewBox="0 0 16 16" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 4h10a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/>
+                  <path d="M2 7h12"/>
+                </svg>
+              </div>
+              <div>
+                <div class="next-step-label">Secure Payment</div>
+                <div class="next-step-desc">Enter your card in the final step. Your details are never stored by More4Less.</div>
+              </div>
+            </div>
+
+            <div class="next-step">
+              <div class="next-step-icon">
+                <svg viewBox="0 0 16 16" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 8.5l3.5 3.5 7-7"/>
+                </svg>
+              </div>
+              <div>
+                <div class="next-step-label">Instant Confirmation</div>
+                <div class="next-step-desc">You'll receive an email with your order summary and activation instructions right away.</div>
+              </div>
+            </div>
+
+            <div class="next-step">
+              <div class="next-step-icon">
+                <svg viewBox="0 0 16 16" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 10l2-6h6l2 6"/>
+                  <path d="M1 10h14"/>
+                  <path d="M6 10v3m4-3v3"/>
+                </svg>
+              </div>
+              <div>
+                <div class="next-step-label">Device Ships To You</div>
+                <div class="next-step-desc">Your Nighthawk M1 ships pre-configured. Plug in and connect — it just works.</div>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /panel-step-1 -->
+
+        <!-- ── STEP 2: Billing & Shipping Address ──────────── -->
+        <div class="step-panel" id="panel-step-2">
+
+          <button class="back-link" onclick="setStep(1)">
+            <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="13" y1="8" x2="3" y2="8"/>
+              <polyline points="7,4 3,8 7,12"/>
+            </svg>
+            Back to Your Details
+          </button>
+
+          <!-- Billing Address -->
+          <div class="panel-card">
+            <div class="panel-title">Billing Address</div>
+
+            <!-- Google Places autocomplete search -->
+            <div class="field" id="fg-bill-street">
+              <label for="f-bill-street">Street Address</label>
+              <input type="text" id="f-bill-street" placeholder="Start typing your address…"
+                     autocomplete="off" spellcheck="false">
+              <div class="field-err">Please select a valid Canadian address.</div>
+            </div>
+
+            <div class="field">
+              <label for="f-bill-apt">Apt / Suite / Unit <span style="font-weight:400;color:var(--text-faint)">(optional)</span></label>
+              <input type="text" id="f-bill-apt" placeholder="Apt 4B" spellcheck="false">
+            </div>
+
+            <div class="field-row">
+              <div class="field" id="fg-bill-city">
+                <label for="f-bill-city">City</label>
+                <input type="text" id="f-bill-city" placeholder="Toronto" readonly
+                       style="background:var(--bg-summary);color:var(--text-muted);">
+                <div class="field-err">Required.</div>
+              </div>
+              <div class="field" id="fg-bill-province">
+                <label for="f-bill-province">Province</label>
+                <input type="text" id="f-bill-province" placeholder="ON" readonly
+                       style="background:var(--bg-summary);color:var(--text-muted);">
+                <div class="field-err">Required.</div>
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field" id="fg-bill-postal">
+                <label for="f-bill-postal">Postal Code</label>
+                <input type="text" id="f-bill-postal" placeholder="M5V 2T6" readonly
+                       style="background:var(--bg-summary);color:var(--text-muted);">
+                <div class="field-err">Required.</div>
+              </div>
+              <div class="field">
+                <label>Country</label>
+                <input type="text" value="Canada" readonly
+                       style="background:var(--bg-summary);color:var(--text-muted);cursor:default;">
+              </div>
+            </div>
+          </div>
+
+          <!-- Shipping Address -->
+          <div class="panel-card">
+            <div class="panel-title">Shipping Address</div>
+
+            <label class="toggle-row" for="same-as-billing">
+              <input type="checkbox" id="same-as-billing" checked onchange="toggleShipping()">
+              <span>Ship to same address as billing</span>
+            </label>
+
+            <div class="shipping-fields hidden" id="shipping-fields">
+
+              <div class="field" id="fg-ship-street">
+                <label for="f-ship-street">Street Address</label>
+                <input type="text" id="f-ship-street" placeholder="Start typing your address…"
+                       autocomplete="off" spellcheck="false">
+                <div class="field-err">Please select a valid Canadian address.</div>
+              </div>
+
+              <div class="field">
+                <label for="f-ship-apt">Apt / Suite / Unit <span style="font-weight:400;color:var(--text-faint)">(optional)</span></label>
+                <input type="text" id="f-ship-apt" placeholder="Apt 4B" spellcheck="false">
+              </div>
+
+              <div class="field-row">
+                <div class="field" id="fg-ship-city">
+                  <label for="f-ship-city">City</label>
+                  <input type="text" id="f-ship-city" placeholder="Toronto" readonly
+                         style="background:var(--bg-summary);color:var(--text-muted);">
+                  <div class="field-err">Required.</div>
+                </div>
+                <div class="field" id="fg-ship-province">
+                  <label for="f-ship-province">Province</label>
+                  <input type="text" id="f-ship-province" placeholder="ON" readonly
+                         style="background:var(--bg-summary);color:var(--text-muted);">
+                  <div class="field-err">Required.</div>
+                </div>
+              </div>
+
+              <div class="field-row">
+                <div class="field" id="fg-ship-postal">
+                  <label for="f-ship-postal">Postal Code</label>
+                  <input type="text" id="f-ship-postal" placeholder="M5V 2T6" readonly
+                         style="background:var(--bg-summary);color:var(--text-muted);">
+                  <div class="field-err">Required.</div>
+                </div>
+                <div class="field">
+                  <label>Country</label>
+                  <input type="text" value="Canada" readonly
+                         style="background:var(--bg-summary);color:var(--text-muted);cursor:default;">
+                </div>
+              </div>
+
+            </div><!-- /shipping-fields -->
+          </div>
+
+          <button class="btn-submit" onclick="handleStep2()">
+            <span class="btn-lbl">Continue to Payment</span>
+            <div class="btn-spin"></div>
+            <svg class="btn-arr" viewBox="0 0 16 16" fill="none"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <line x1="2" y1="8" x2="13" y2="8"/>
+              <polyline points="9,4 13,8 9,12"/>
+            </svg>
+          </button>
+
+          <div class="btn-secure" style="margin-top:14px;">
+            <svg viewBox="0 0 14 14" fill="none" stroke-linecap="round">
+              <rect x="2" y="6" width="10" height="7" rx="1.5"/>
+              <path d="M4.5 6V4.5a2.5 2.5 0 015 0V6"/>
+            </svg>
+            SSL encrypted — your information is never stored by us
+          </div>
+
+        </div><!-- /panel-step-2 -->
+
+        <!-- ── STEP 3: Payment ──────────────────────────────── -->
+        <div class="step-panel" id="panel-step-3">
+
+          <button class="back-link" onclick="setStep(2)">
+            <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="13" y1="8" x2="3" y2="8"/>
+              <polyline points="7,4 3,8 7,12"/>
+            </svg>
+            Back to Address
+          </button>
+
+          <div class="panel-card">
+            <div class="panel-title">Payment Information</div>
+
+            <!-- Accepted card brands -->
+            <div class="card-brand-row">
+              <svg viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Visa">
+                <rect width="38" height="24" rx="3" fill="#1A1F71"/>
+                <text x="6" y="17" font-family="Arial" font-size="10" font-weight="bold" fill="#FFFFFF">VISA</text>
+              </svg>
+              <svg viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mastercard">
+                <rect width="38" height="24" rx="3" fill="#252525"/>
+                <circle cx="15" cy="12" r="7" fill="#EB001B"/>
+                <circle cx="23" cy="12" r="7" fill="#F79E1B"/>
+                <path d="M19 6.8a7 7 0 0 1 0 10.4A7 7 0 0 1 19 6.8z" fill="#FF5F00"/>
+              </svg>
+              <svg viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Amex">
+                <rect width="38" height="24" rx="3" fill="#2E77BC"/>
+                <text x="4" y="17" font-family="Arial" font-size="8" font-weight="bold" fill="#FFFFFF">AMEX</text>
+              </svg>
+            </div>
+
+            <!-- Card Number -->
+            <div class="field">
+              <label>Card Number</label>
+              <div class="cb-field-wrap" id="cb-card-number"></div>
+              <div class="field-err" id="err-card-number">Please enter a valid card number.</div>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label>Expiry</label>
+                <div class="cb-field-wrap" id="cb-card-expiry"></div>
+                <div class="field-err" id="err-card-expiry">Invalid expiry date.</div>
+              </div>
+              <div class="field">
+                <label>CVV</label>
+                <div class="cb-field-wrap" id="cb-card-cvv"></div>
+                <div class="field-err" id="err-card-cvv">Invalid CVV.</div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="f-card-name">Name on Card</label>
+              <input type="text" id="f-card-name" placeholder="Jane Smith"
+                     autocomplete="cc-name" spellcheck="false">
+              <div class="field-err">Required.</div>
+            </div>
+
+            <!-- Promo Code -->
+            <div style="margin-top:18px;">
+              <label style="display:block;font-size:0.78rem;font-weight:600;color:var(--text-dark);margin-bottom:6px;">
+                Promo Code <span style="font-weight:400;color:var(--text-faint);">(optional)</span>
+              </label>
+              <div class="promo-row">
+                <input type="text" id="f-promo" placeholder="SUMMER25" autocomplete="off" spellcheck="false">
+                <button class="promo-apply" id="promoBtn" onclick="applyPromo()">
+                  <span class="promo-apply-lbl">Apply</span>
+                  <div class="promo-spin"></div>
+                </button>
+              </div>
+              <div class="promo-feedback" id="promo-feedback">
+                <svg id="promo-icon" viewBox="0 0 12 12"><polyline points="1,6 4,9 11,2"/></svg>
+                <span id="promo-msg"></span>
+              </div>
+            </div>
+
+            <!-- Order Summary -->
+            <div style="margin-top:20px;background:var(--bg-summary);border:1px solid var(--border);border-radius:14px;padding:16px 18px;">
+              <div style="font-size:0.67rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-faint);margin-bottom:12px;">Order Summary</div>
+
+              <div style="display:flex;justify-content:space-between;font-size:0.82rem;color:var(--text-muted);padding:4px 0;">
+                <span>NETGEAR Nighthawk M1 <small style="color:var(--text-faint)">(device)</small></span>
+                <strong style="color:var(--text-dark)">$199.00</strong>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:0.82rem;color:var(--text-muted);padding:4px 0;border-top:1px solid var(--border-soft);">
+                <span>First Month's Internet</span>
+                <strong style="color:var(--green)">Included</strong>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:0.82rem;color:var(--text-muted);padding:4px 0;border-top:1px solid var(--border-soft);">
+                <span>Activation &amp; Shipping</span>
+                <strong style="color:var(--green)">$0.00</strong>
+              </div>
+
+              <!-- Discount row — hidden until promo applied -->
+              <div class="pay-summary-discount" id="promo-discount-row" style="display:none;">
+                <span id="promo-discount-label">Promo discount</span>
+                <strong id="promo-discount-val"></strong>
+              </div>
+
+              <div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:10px;padding-top:10px;border-top:1.5px solid var(--border);">
+                <span style="font-size:0.9rem;font-weight:700;color:var(--text-dark);">Due Today</span>
+                <span id="due-today-fig" style="font-size:1.35rem;font-weight:800;letter-spacing:-0.03em;color:var(--text-dark);">
+                  <sup style="font-size:0.6em;vertical-align:super;font-weight:700">$</sup>199<sup style="font-size:0.45em;vertical-align:super;font-weight:600">.00</sup>
+                </span>
+              </div>
+              <div style="margin-top:8px;font-size:0.73rem;color:var(--text-muted);display:flex;align-items:center;gap:5px;">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:11px;height:11px;flex-shrink:0;">
+                  <path d="M2.5 8a5.5 5.5 0 0 1 9.5-3.8"/>
+                  <path d="M13.5 8a5.5 5.5 0 0 1-9.5 3.8"/>
+                  <polyline points="9.5,1.5 11.5,4.2 8.5,4.8"/>
+                  <polyline points="6.5,14.5 4.5,11.8 7.5,11.2"/>
+                </svg>
+                Then <span id="renewal-price-pay"><strong style="color:var(--text-dark);margin:0 2px;">$110 / month</strong></span> for unlimited internet — no contract, cancel anytime.
+              </div>
+            </div>
+
+            <!-- Terms & Conditions -->
+            <div class="terms-row">
+              <input type="checkbox" id="accept-terms">
+              <label for="accept-terms">
+                I agree to the <a href="/terms" target="_blank">Terms of Service</a> and
+                <a href="/privacy" target="_blank">Privacy Policy</a>. I understand that my
+                subscription renews monthly at <span id="renewal-price-terms">$110/month</span> and I can cancel anytime from
+                my account portal.
+              </label>
+            </div>
+            <div class="terms-err" id="terms-err">You must accept the terms to continue.</div>
+
+            <button class="btn-submit" id="payBtn" onclick="handlePay()" style="margin-top:18px;">
+              <span class="btn-lbl" id="payBtn-lbl">Pay $199 — Complete Order</span>
+              <div class="btn-spin"></div>
+              <svg class="btn-arr" viewBox="0 0 16 16" fill="none"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <line x1="2" y1="8" x2="13" y2="8"/>
+                <polyline points="9,4 13,8 9,12"/>
+              </svg>
+            </button>
+
+            <div class="btn-secure">
+              <svg viewBox="0 0 14 14" fill="none" stroke-linecap="round">
+                <rect x="2" y="6" width="10" height="7" rx="1.5"/>
+                <path d="M4.5 6V4.5a2.5 2.5 0 015 0V6"/>
+              </svg>
+              Card tokenized by Chargebee — never touches our servers
+            </div>
+          </div>
+
+        </div><!-- /panel-step-3 -->
+
+      </div><!-- /form-panel -->
+
+      <!-- ── RIGHT — order summary ──────────────────────────── -->
+      <div class="summary-panel">
+
+        <div class="summary-device">
+          <img src="assets/img/products/mr1100.png"
+               alt="Netgear Nighthawk M1"
+               class="summary-device-img">
+          <div>
+            <div class="summary-device-eyebrow">Your Order</div>
+            <div class="summary-device-name">Nighthawk M1</div>
+            <div class="summary-device-sub">Unlimited Wireless Internet</div>
+          </div>
+        </div>
+
+        <div class="summary-section">
+          <div class="summary-section-label">Included With Your Order</div>
+
+          <div class="breakdown-row">
+            <div class="bd-label">
+              <strong>NETGEAR Nighthawk M1</strong>
+              <small>Portable Gigabit LTE Wi-Fi Router</small>
+            </div>
+            <span class="bd-val">$199</span>
+          </div>
+
+          <div class="breakdown-row">
+            <div class="bd-label">
+              <strong>Unlimited Data — First Month Included</strong>
+              <small>Ready To Use Out Of The Box</small>
+            </div>
+            <span class="bd-val free">Included</span>
+          </div>
+
+          <div class="breakdown-row">
+            <span class="bd-label">Activation</span>
+            <span class="bd-val free">$0</span>
+          </div>
+
+          <div class="breakdown-row">
+            <span class="bd-label">Shipping</span>
+            <span class="bd-val free">$0</span>
+          </div>
+
+          <div class="breakdown-row">
+            <span class="bd-label">Contract Commitment</span>
+            <span class="bd-val tag">No Contract Required</span>
+          </div>
+        </div>
+
+        <div class="summary-total">
+          <div>
+            <div class="summary-total-label">Due Today</div>
+            <div class="summary-total-note">Device + first month included</div>
+          </div>
+          <div>
+            <div class="summary-total-fig"><sup>$</sup>199</div>
+            <div class="summary-total-tax">+ applicable tax</div>
+          </div>
+        </div>
+
+        <div class="summary-renewal">
+          <div class="renewal-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color:var(--text-muted)">
+              <path d="M2.5 8a5.5 5.5 0 0 1 9.5-3.8"/>
+              <path d="M13.5 8a5.5 5.5 0 0 1-9.5 3.8"/>
+              <polyline points="9.5,1.5 11.5,4.2 8.5,4.8"/>
+              <polyline points="6.5,14.5 4.5,11.8 7.5,11.2"/>
+            </svg>
+          </div>
+          <div class="renewal-text">
+            After the first month, unlimited internet renews at <span id="renewal-price-summary"><strong>$110 / month</strong></span>. No contract — cancel anytime from your account portal.
+          </div>
+        </div>
+
+        <div class="summary-features">
+          <div class="summary-section-label">Everything Included</div>
+          <div class="feature-item">
+            <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+            Up To 1 Gbps LTE Speeds
+          </div>
+          <div class="feature-item">
+            <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+            Truly Unlimited Data — No Caps Or Slowdowns
+          </div>
+          <div class="feature-item">
+            <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+            Connect Up To 20 Devices
+          </div>
+          <div class="feature-item">
+            <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+            All-Day Battery Life — Home Or On The Go
+          </div>
+          <div class="feature-item">
+            <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+            Dual-Band Wi-Fi · 2.4 GHz + 5 GHz
+          </div>
+          <div class="feature-item">
+            <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+            30-Day Money-Back Guarantee
+          </div>
+        </div>
+      </div><!-- /summary-panel -->
+
+    </div><!-- /checkout-wrap -->
+
+    <!-- ── TRUST FOOTER ────────────────────────────────────────── -->
+    <div class="trust-footer">
+      <div class="trust-item">
+        <svg viewBox="0 0 14 14" fill="none" stroke-linecap="round">
+          <rect x="2" y="6" width="10" height="7" rx="1.5"/>
+          <path d="M4.5 6V4.5a2.5 2.5 0 015 0V6"/>
+        </svg>
+        SSL Encrypted
+      </div>
+      <div class="trust-sep"></div>
+      <div class="trust-item">
+        <svg viewBox="0 0 14 14" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="7" cy="7" r="5.5"/>
+          <path d="M7 4.5v3l1.5 1"/>
+        </svg>
+        Cancel Anytime
+      </div>
+      <div class="trust-sep"></div>
+      <div class="trust-item">
+        <svg viewBox="0 0 14 14" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M2 7l3.5 3.5L12 3"/>
+        </svg>
+        30-Day Money-Back
+      </div>
+    </div>
+
+  </div><!-- /screen-checkout -->
+
+</div><!-- /page -->
+
+<!-- ── SCRIPT ─────────────────────────────────────────────────────── -->
+<script>
+(function () {
+  'use strict';
+
+  var CB_SITE    = 'more4lessplans';
+  var CB_PLAN_ID      = 'wireless-internet-m1';
+  var DEVICE_ADDON_ID = 'nighthawk-m1';  // Chargebee addon ID for the device
+  var WORKER_URL = '/api/checkout-embedded';
+  var CONFIRM    = '/lease-confirmed';
+  var BASE_PRICE = 199;
+  var RENEWAL_PRICE = 110;
+
+  var cbInstance = Chargebee.init({
+    site: CB_SITE,
+    publishableKey: 'live_9xoL0GUAJyfaZddNn5cdFhI4hrLAGhyIh'
+  });
+
+  /* ── MOBILE MENU ─────────────────────────────────────────────── */
+  var trigger       = document.getElementById('menuTrigger');
+  var mobileOverlay = document.getElementById('mobileOverlay');
+
+  function toggleMenu() {
+    var open = trigger.classList.toggle('menu-active');
+    mobileOverlay.classList.toggle('active', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+
+  trigger.addEventListener('click', function (e) { e.stopPropagation(); toggleMenu(); });
+  mobileOverlay.addEventListener('click', function (e) {
+    if (!e.target.closest('a') && mobileOverlay.classList.contains('active')) toggleMenu();
+  });
+
+  /* ── SCREEN 0 → CHECKOUT ─────────────────────────────────────── */
+  window.proceedToCheckout = function () {
+    document.getElementById('screen-0').style.display         = 'none';
+    document.getElementById('screen-checkout').style.display  = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  /* ── SHIPPING TOGGLE ─────────────────────────────────────────── */
+  window.toggleShipping = function () {
+    var checked = document.getElementById('same-as-billing').checked;
+    var fields  = document.getElementById('shipping-fields');
+    fields.classList.toggle('hidden', checked);
+  };
+
+  /* ── CHARGEBEE CARD COMPONENT ────────────────────────────────── */
+  var componentsReady = false;
+  cbInstance.load('components')
+    .then(function () { componentsReady = true; })
+    .catch(function (e) { console.error('CB load failed:', e); });
+
+  var cardComponent = null;
+  var cardMounted   = false;
+
+  function doMount() {
+    cardMounted = true;
+
+    var cbStyle = {
+      base: {
+        color: '#1d1d1f',
+        fontFamily: 'Figtree, sans-serif',
+        fontSize: '15px',
+        fontSmoothing: 'antialiased',
+        '::placeholder': { color: '#c4c4ca' }
+      },
+      invalid: { color: '#D73C59' }
+    };
+    var cbFonts = [{
+      fontFamily: 'Figtree',
+      fontUrl: 'https://fonts.googleapis.com/css2?family=Figtree:wght@400;500&display=swap'
+    }];
+
+    cardComponent = cbInstance.createComponent('card', { fonts: cbFonts });
+    cardComponent.createField('number', { style: cbStyle, placeholder: '1234 5678 9012 3456' }).at('#cb-card-number');
+    cardComponent.createField('expiry', { style: cbStyle, placeholder: 'MM / YY' }).at('#cb-card-expiry');
+    cardComponent.createField('cvv',    { style: cbStyle, placeholder: '•••' }).at('#cb-card-cvv');
+    cardComponent.mount();
+
+    [
+      { type: 'number', wrapId: 'cb-card-number', errId: 'err-card-number' },
+      { type: 'expiry', wrapId: 'cb-card-expiry', errId: 'err-card-expiry' },
+      { type: 'cvv',    wrapId: 'cb-card-cvv',    errId: 'err-card-cvv'    }
+    ].forEach(function (item) {
+      var field = cardComponent.getField(item.type);
+      if (!field) return;
+      field.on('focus',  function () { document.getElementById(item.wrapId).classList.add('focus'); });
+      field.on('blur',   function () { document.getElementById(item.wrapId).classList.remove('focus'); });
+      field.on('change', function (e) {
+        var wrap = document.getElementById(item.wrapId);
+        var err  = document.getElementById(item.errId);
+        if (e.error) { wrap.classList.add('err'); if (err) err.style.display = 'block'; }
+        else          { wrap.classList.remove('err'); if (err) err.style.display = 'none'; }
+      });
+    });
+  }
+
+  function mountCardFields() {
+    if (cardMounted) return;
+    if (!componentsReady) {
+      cbInstance.load('components').then(function () { componentsReady = true; doMount(); });
+      return;
+    }
+    doMount();
+  }
+
+  /* ── STEP MACHINE ────────────────────────────────────────────── */
+  function setStep(n) {
+    window.setStep = setStep; // ensure global access for back buttons
+
+    [['st-1',1],['st-2',2],['st-3',3]].forEach(function (p) {
+      document.getElementById(p[0]).className =
+        'step-item' + (p[1] < n ? ' done' : p[1] === n ? ' active' : '');
+    });
+    [['cn-1',1],['cn-2',2]].forEach(function (p) {
+      document.getElementById(p[0]).className =
+        'step-connector' + (p[1] < n ? ' done' : '');
+    });
+
+    ['panel-step-1','panel-step-2','panel-step-3'].forEach(function (id, i) {
+      var el = document.getElementById(id);
+      if (el) el.classList.toggle('active', i + 1 === n);
+    });
+
+    if (n === 3) {
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () { mountCardFields(); });
+      });
+    }
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // expose for inline onclick on back buttons
+  window.setStep = setStep;
+
+  /* ── VALIDATION HELPERS ──────────────────────────────────────── */
+  function clearErrors() {
+    document.querySelectorAll('.field.has-err').forEach(function (el) { el.classList.remove('has-err'); });
+    document.querySelectorAll('input.err, select.err').forEach(function (el) { el.classList.remove('err'); });
+  }
+
+  function flagErr(inputId, groupId) {
+    var i = document.getElementById(inputId);
+    var g = groupId ? document.getElementById(groupId) : null;
+    if (i) i.classList.add('err');
+    if (g) g.classList.add('has-err');
+  }
+
+  function isPhone(v) { return v.replace(/[\s\-()+.]/g, '').length >= 7; }
+  function isEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+
+  ['f-first','f-last','f-phone','f-email'].forEach(function (id) {
+    var el = document.getElementById(id); if (!el) return;
+    el.addEventListener('input', function () {
+      this.classList.remove('err');
+      var p = this.closest('.field'); if (p) p.classList.remove('has-err');
+    });
+  });
+
+  /* ── STEP 1: Contact ─────────────────────────────────────────── */
+  function collectContact() {
+    clearErrors();
+    var first = document.getElementById('f-first').value.trim();
+    var last  = document.getElementById('f-last').value.trim();
+    var phone = document.getElementById('f-phone').value.trim();
+    var email = document.getElementById('f-email').value.trim();
+    var ok = true;
+    if (!first)          { flagErr('f-first', 'fg-first'); ok = false; }
+    if (!last)           { flagErr('f-last',  'fg-last');  ok = false; }
+    if (!isPhone(phone)) { flagErr('f-phone', 'fg-phone'); ok = false; }
+    if (!isEmail(email)) { flagErr('f-email', 'fg-email'); ok = false; }
+    if (!ok) { var f = document.querySelector('.field.has-err input'); if (f) f.focus(); return null; }
+    return { plan_id: CB_PLAN_ID, sim_type: 'physical', first_name: first, last_name: last, phone: phone, email: email };
+  }
+
+  window.handleStep1 = function () {
+    var data = collectContact(); if (!data) return;
+    sessionStorage.setItem('m4l_order', JSON.stringify(data));
+    setStep(2);
+  };
+
+  /* ── GOOGLE PLACES AUTOCOMPLETE ─────────────────────────────── */
+  var billPlaceSelected = false;
+  var shipPlaceSelected = false;
+
+  function initPlacesAutocomplete(inputId, cityId, provinceId, postalId, isBilling) {
+    var input = document.getElementById(inputId);
+
+    var ac = new google.maps.places.Autocomplete(input, {
+      componentRestrictions: { country: 'ca' },
+      fields: ['address_components'],
+      types: ['address']
+    });
+
+    // Reset selected flag if user manually edits after selecting
+    input.addEventListener('input', function () {
+      if (isBilling) billPlaceSelected = false;
+      else           shipPlaceSelected = false;
+      document.getElementById(cityId).value     = '';
+      document.getElementById(provinceId).value = '';
+      document.getElementById(postalId).value   = '';
+    });
+
+    ac.addListener('place_changed', function () {
+      var place = ac.getPlace();
+      if (!place.address_components) return;
+
+      var streetNumber = '', route = '', city = '', province = '', postal = '';
+
+      place.address_components.forEach(function (c) {
+        var t = c.types[0];
+        if (t === 'street_number')               streetNumber = c.long_name;
+        if (t === 'route')                       route        = c.short_name;
+        if (t === 'locality')                    city         = c.long_name;
+        if (t === 'administrative_area_level_1') province     = c.short_name;
+        if (t === 'postal_code')                 postal       = c.long_name;
+      });
+
+      input.value = (streetNumber + ' ' + route).trim();
+      document.getElementById(cityId).value     = city;
+      document.getElementById(provinceId).value = province;
+      document.getElementById(postalId).value   = postal;
+
+      // Clear errors on the street field
+      input.classList.remove('err');
+      var fg = document.getElementById(inputId.replace('f-', 'fg-'));
+      if (fg) fg.classList.remove('has-err');
+
+      if (isBilling) billPlaceSelected = true;
+      else           shipPlaceSelected = true;
+    });
+  }
+
+  function initAllAutocomplete() {
+    initPlacesAutocomplete('f-bill-street', 'f-bill-city', 'f-bill-province', 'f-bill-postal', true);
+    initPlacesAutocomplete('f-ship-street', 'f-ship-city', 'f-ship-province', 'f-ship-postal', false);
+  }
+
+  if (window.google && window.google.maps && window.google.maps.places) {
+    initAllAutocomplete();
+  } else {
+    window.addEventListener('load', function () {
+      if (window.google && window.google.maps) initAllAutocomplete();
+    });
+  }
+
+  /* ── STEP 2: Address ─────────────────────────────────────────── */
+  function collectAddress() {
+    clearErrors();
+    var ok = true;
+
+    var billStreet   = document.getElementById('f-bill-street').value.trim();
+    var billCity     = document.getElementById('f-bill-city').value.trim();
+    var billProvince = document.getElementById('f-bill-province').value.trim();
+    var billPostal   = document.getElementById('f-bill-postal').value.trim();
+
+    if (!billStreet) {
+      flagErr('f-bill-street', 'fg-bill-street'); ok = false;
+    }
+    if (!billCity)     { flagErr('f-bill-city',     'fg-bill-city');     ok = false; }
+    if (!billProvince) { flagErr('f-bill-province', 'fg-bill-province'); ok = false; }
+    if (!billPostal)   { flagErr('f-bill-postal',   'fg-bill-postal');   ok = false; }
+
+    var sameAsBilling = document.getElementById('same-as-billing').checked;
+    var shipStreet = billStreet, shipCity = billCity,
+        shipProvince = billProvince, shipPostal = billPostal;
+
+    if (!sameAsBilling) {
+      shipStreet   = document.getElementById('f-ship-street').value.trim();
+      shipCity     = document.getElementById('f-ship-city').value.trim();
+      shipProvince = document.getElementById('f-ship-province').value.trim();
+      shipPostal   = document.getElementById('f-ship-postal').value.trim();
+
+      if (!shipStreet) {
+        flagErr('f-ship-street', 'fg-ship-street'); ok = false;
+      }
+      if (!shipCity)     { flagErr('f-ship-city',     'fg-ship-city');     ok = false; }
+      if (!shipProvince) { flagErr('f-ship-province', 'fg-ship-province'); ok = false; }
+      if (!shipPostal)   { flagErr('f-ship-postal',   'fg-ship-postal');   ok = false; }
+    }
+
+    if (!ok) { var f = document.querySelector('.field.has-err input'); if (f) f.focus(); return null; }
+
+    return {
+      billing: {
+        line1:      billStreet,
+        line2:      document.getElementById('f-bill-apt').value.trim(),
+        city:       billCity,
+        state_code: billProvince,
+        zip:        billPostal,
+        country:    'CA'
+      },
+      shipping: {
+        line1:      shipStreet,
+        line2:      sameAsBilling ? document.getElementById('f-bill-apt').value.trim() : document.getElementById('f-ship-apt').value.trim(),
+        city:       shipCity,
+        state_code: shipProvince,
+        zip:        shipPostal,
+        country:    'CA'
+      }
+    };
+  }
+
+  window.handleStep2 = function () {
+    var addr = collectAddress(); if (!addr) return;
+    var existing = JSON.parse(sessionStorage.getItem('m4l_order') || '{}');
+    Object.assign(existing, addr);
+    sessionStorage.setItem('m4l_order', JSON.stringify(existing));
+    setStep(3);
+  };
+
+  /* ── PROMO CODE ──────────────────────────────────────────────── */
+  var appliedCoupon  = null;
+  var discountAmount = 0;
+
+  function setPromoFeedback(type, msg) {
+    var fb   = document.getElementById('promo-feedback');
+    var icon = document.getElementById('promo-icon');
+    var text = document.getElementById('promo-msg');
+    fb.className = 'promo-feedback ' + type;
+    text.textContent = msg;
+    icon.innerHTML = type === 'ok'
+      ? '<polyline points="1,6 4,9 11,2"/>'
+      : '<line x1="1" y1="1" x2="11" y2="11"/><line x1="11" y1="1" x2="1" y2="11"/>';
+  }
+
+  function updateDueToday(discountDollars) {
+    var final    = Math.max(0, BASE_PRICE - discountDollars);
+    var dollars  = Math.floor(final);
+    var cents    = Math.round((final - dollars) * 100);
+    var centsStr = cents === 0 ? '00' : (cents < 10 ? '0' + cents : '' + cents);
+    document.getElementById('due-today-fig').innerHTML =
+      '<sup style="font-size:0.6em;vertical-align:super;font-weight:700">$</sup>' +
+      dollars +
+      '<sup style="font-size:0.45em;vertical-align:super;font-weight:600">.' + centsStr + '</sup>';
+    document.getElementById('payBtn-lbl').textContent =
+      'Pay $' + (cents === 0 ? dollars : (dollars + '.' + centsStr)) + ' — Complete Order';
+  }
+
+  function showDiscountRow(label, val) {
+    document.getElementById('promo-discount-label').textContent = label;
+    document.getElementById('promo-discount-val').textContent   = val;
+    document.getElementById('promo-discount-row').style.display = 'flex';
+  }
+
+  function hideDiscountRow() {
+    document.getElementById('promo-discount-row').style.display = 'none';
+  }
+
+
+  var RENEWAL_DISCOUNT_AMOUNT = 0;
+
+  function fmtMoney(n) {
+    var d = Math.floor(n), c = Math.round((n - d) * 100);
+    return c === 0 ? '$' + d : '$' + d + '.' + (c < 10 ? '0' + c : c);
+  }
+
+  function updateRenewalPrice(discountType, discountValue, durationType) {
+    // durationType: 'one_time', 'limited_period', 'forever' — default assume 'forever' if unknown
+    var ids = ['renewal-price-hero', 'renewal-price-card', 'renewal-price-pay', 'renewal-price-summary', 'renewal-price-terms'];
+    var discounted;
+    var qualifier = '';
+
+    if (discountType === 'fixed_amount') {
+      discounted = Math.max(0, RENEWAL_PRICE - discountValue);
+    } else if (discountType === 'percentage') {
+      discounted = RENEWAL_PRICE * (1 - discountValue / 100);
+    } else {
+      resetRenewalPrice(); return;
+    }
+
+    // If one-time coupon it only applies to the first invoice (the $199 device charge),
+    // not to recurring — so show no change on renewal
+    if (durationType === 'one_time') {
+      resetRenewalPrice(); return;
+    }
+
+    if (durationType === 'limited_period') {
+      qualifier = '<span class="renewal-qualifier">(first ' + (window._couponPeriod || 'few') + ' months)</span>';
+    }
+
+    var html = '<strong class="renewal-orig">$' + RENEWAL_PRICE + ' / month</strong>' +
+               '<strong class="renewal-discounted">' + fmtMoney(discounted) + ' / month</strong>' +
+               qualifier;
+
+    var termsHtml = '<s style="opacity:0.45;margin-right:3px;">$' + RENEWAL_PRICE + '/month</s>' +
+                    '<strong style="color:var(--green)">' + fmtMoney(discounted) + '/month</strong>';
+
+    ids.forEach(function(id) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      if (id === 'renewal-price-terms') {
+        el.innerHTML = termsHtml;
+      } else {
+        el.innerHTML = html;
+      }
+    });
+  }
+
+  function resetRenewalPrice() {
+    var ids = ['renewal-price-hero', 'renewal-price-card', 'renewal-price-pay', 'renewal-price-summary', 'renewal-price-terms'];
+    ids.forEach(function(id) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      if (id === 'renewal-price-terms') {
+        el.innerHTML = '$110/month';
+      } else {
+        el.innerHTML = '<strong>$110 / month</strong>';
+      }
+    });
+  }
+
+  window.applyPromo = function () {
+    var code = document.getElementById('f-promo').value.trim();
+    if (!code) { document.getElementById('f-promo').classList.add('err'); return; }
+    document.getElementById('f-promo').classList.remove('err');
+
+    var btn = document.getElementById('promoBtn');
+    btn.classList.add('loading'); btn.disabled = true;
+
+    fetch('/api/validate-coupon', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ coupon_id: code, plan_id: CB_PLAN_ID })
+    })
+    .then(function (res) { return res.json(); })
+    .then(function (data) {
+      btn.classList.remove('loading'); btn.disabled = false;
+      if (data.error || !data.valid) {
+        appliedCoupon = null; discountAmount = 0;
+        hideDiscountRow(); updateDueToday(0); resetRenewalPrice();
+        setPromoFeedback('bad', data.error || 'Invalid promo code.');
+        return;
+      }
+      appliedCoupon = data.coupon_id;
+      var durationType = data.duration_type || 'forever';
+      window._couponPeriod = data.period || '';
+
+      // ── Determine what the coupon targets ──────────────────────────
+      // Chargebee returns apply_on: 'invoice_amount' | 'each_specified_item'
+      // For each_specified_item, item_constraints lists which addons/plans apply.
+      // We infer: if the coupon's constrained items include the device addon → device discount.
+      // If they include a plan (or apply to invoice_amount broadly) → subscription discount.
+      var applyOn = data.apply_on || 'invoice_amount';
+      var addonIds = [];
+      var planIds  = [];
+
+      // item_constraints is Chargebee's v2 API field; addon_constraints is v1
+      var constraints = data.item_constraints || data.addon_constraints || [];
+      if (Array.isArray(constraints)) {
+        constraints.forEach(function(c) {
+          if (c.item_type === 'addon' || c.type === 'addon') {
+            (c.item_price_ids || c.ids || []).forEach(function(id) { addonIds.push(id); });
+          }
+          if (c.item_type === 'plan' || c.type === 'plan') {
+            (c.item_price_ids || c.ids || []).forEach(function(id) { planIds.push(id); });
+          }
+        });
+      }
+
+      // Also accept a flat applicable_addons array (some worker responses flatten this)
+      (data.applicable_addons || []).forEach(function(id) { addonIds.push(id); });
+
+      var targetsDevice = applyOn === 'invoice_amount' ||
+                          addonIds.some(function(id) { return id === DEVICE_ADDON_ID || id.indexOf('nighthawk') !== -1 || id.indexOf('m1') !== -1 || id.indexOf('device') !== -1; });
+      var targetsPlan   = applyOn === 'invoice_amount' ||
+                          planIds.length > 0 ||
+                          (!targetsDevice && addonIds.length === 0); // fallback: no specific items → treat as subscription
+
+      // invoice_amount hits everything; otherwise route specifically
+      if (applyOn === 'invoice_amount') { targetsDevice = true; targetsPlan = true; }
+
+      discountAmount = 0;
+
+      if (data.discount_type === 'fixed_amount') {
+        var rawDiscount = data.discount_amount / 100;
+        if (targetsDevice && !targetsPlan) {
+          // Device-only: reduces Due Today
+          discountAmount = rawDiscount;
+          showDiscountRow('Promo: ' + code, '−$' + rawDiscount.toFixed(2) + ' on device');
+          resetRenewalPrice();
+        } else if (targetsPlan && !targetsDevice) {
+          // Subscription-only: reduces renewal price
+          showDiscountRow('Promo: ' + code, '−$' + rawDiscount.toFixed(2) + '/mo on renewal');
+          updateRenewalPrice('fixed_amount', rawDiscount, durationType);
+        } else {
+          // Both: discount device today, and renewal
+          discountAmount = rawDiscount;
+          showDiscountRow('Promo: ' + code, '−$' + rawDiscount.toFixed(2));
+          updateRenewalPrice('fixed_amount', rawDiscount, durationType);
+        }
+      } else if (data.discount_type === 'percentage') {
+        var pct = data.discount_percent;
+        if (targetsDevice && !targetsPlan) {
+          discountAmount = (BASE_PRICE * pct) / 100;
+          showDiscountRow('Promo: ' + code + ' (' + pct + '% off device)', '−$' + discountAmount.toFixed(2));
+          resetRenewalPrice();
+        } else if (targetsPlan && !targetsDevice) {
+          var renewalDiscount = (RENEWAL_PRICE * pct) / 100;
+          showDiscountRow('Promo: ' + code + ' (' + pct + '% off renewal)', '−$' + renewalDiscount.toFixed(2) + '/mo');
+          updateRenewalPrice('percentage', pct, durationType);
+        } else {
+          discountAmount = (BASE_PRICE * pct) / 100;
+          showDiscountRow('Promo: ' + code + ' (' + pct + '% off)', '−$' + discountAmount.toFixed(2));
+          updateRenewalPrice('percentage', pct, durationType);
+        }
+      } else {
+        resetRenewalPrice();
+      }
+
+      updateDueToday(discountAmount);
+      setPromoFeedback('ok', data.description || 'Promo code applied!');
+    })
+    .catch(function () {
+      btn.classList.remove('loading'); btn.disabled = false;
+      setPromoFeedback('bad', 'Could not validate code — please try again.');
+    });
+  };
+
+  document.getElementById('f-promo').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') { e.preventDefault(); window.applyPromo(); }
+  });
+
+  /* ── STEP 3: Pay ─────────────────────────────────────────────── */
+  window.handlePay = function () {
+    if (!cardComponent) { alert('Card fields still loading — please wait a moment.'); return; }
+
+    var cardName = document.getElementById('f-card-name').value.trim();
+    if (!cardName) { flagErr('f-card-name', null); return; }
+
+    // Terms check
+    var termsEl  = document.getElementById('accept-terms');
+    var termsErr = document.getElementById('terms-err');
+    if (!termsEl.checked) {
+      termsErr.classList.add('show');
+      termsEl.focus();
+      return;
+    }
+    termsErr.classList.remove('show');
+
+    var payBtn = document.getElementById('payBtn');
+    payBtn.classList.add('loading'); payBtn.disabled = true;
+
+    var contact = JSON.parse(sessionStorage.getItem('m4l_order') || '{}');
+
+    console.log('PAYLOAD billing_address:', JSON.stringify(contact.billing));
+
+    cardComponent.tokenize({
+      firstName: contact.first_name || '',
+      lastName:  contact.last_name  || ''
+    })
+    .then(function (data) {
+      return fetch(WORKER_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+body: JSON.stringify({
+  token:            data.token,
+  plan_id:          CB_PLAN_ID,
+  sim_type:         'physical',
+  first_name:       contact.first_name,
+  last_name:        contact.last_name,
+  phone:            contact.phone,
+  email:            contact.email,
+  billing_address:  contact.billing,    // ✅ ADD THIS
+  shipping_address: contact.shipping,
+  coupon_id:        appliedCoupon || undefined
+})
+      });
+    })
+    .then(function (res) {
+      return res.json().then(function (body) {
+        if (!res.ok) throw new Error(body.error || 'Worker error');
+        return body;
+      });
+    })
+    .then(function () {
+      payBtn.classList.remove('loading'); payBtn.disabled = false;
+      window.location.href = CONFIRM;
+    })
+    .catch(function (err) {
+      console.error(err);
+      payBtn.classList.remove('loading'); payBtn.disabled = false;
+      alert('Payment failed — ' + (err.message || 'please check your card details and try again.'));
+    });
+  };
+
+  // Clear terms error when checkbox is ticked
+  document.getElementById('accept-terms').addEventListener('change', function () {
+    if (this.checked) document.getElementById('terms-err').classList.remove('show');
+  });
+
+})();
+</script>
+</body>
+</html>
