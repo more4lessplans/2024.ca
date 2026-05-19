@@ -1771,7 +1771,7 @@
   var CONFIRM    = '/lease-confirmed';
   var BASE_PRICE = 199;
 
-  // Correctly initialize Chargebee directly onto the instance used by the script
+  // Initialize Chargebee instance cleanly
   var cbInstance = Chargebee.init({ 
     site: CB_SITE,
     publishableKey: 'live_9xoL0GUAJyfaZddNn5cdFhI4hrLAGhyIh' 
@@ -2166,7 +2166,11 @@
   }
 
   /* ── STEP 3: Pay ─────────────────────────────────────────────── */
+  var isProcessingPayment = false; // Safety lock flag initialization
+
   window.handlePay = function () {
+    if (isProcessingPayment) return; // Terminate execution immediately if clicked again
+
     var urlParams = new URLSearchParams(window.location.search);
     var planId    = urlParams.get('plan_id') || CB_PLAN_ID;
 
@@ -2184,6 +2188,9 @@
       alert('Your checkout session data could not be parsed. Please navigate back and check your address entries.');
       return;
     }
+
+    // Lock payment process
+    isProcessingPayment = true;
 
     var payBtn = document.getElementById('payBtn');
     payBtn.classList.add('loading');
@@ -2219,11 +2226,13 @@
     })
     .then(function () {
       payBtn.classList.remove('loading'); payBtn.disabled = false;
+      isProcessingPayment = false;
       window.location.href = CONFIRM;
     })
     .catch(function (err) {
       console.error(err);
       payBtn.classList.remove('loading'); payBtn.disabled = false;
+      isProcessingPayment = false; // Unlock on error to allow retry
       alert('Payment failed — ' + (err.message || 'please check your card details and try again.'));
     });
   };
