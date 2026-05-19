@@ -1653,7 +1653,7 @@
               <label for="accept-terms">
                 I agree to the <a href="/terms" target="_blank">Terms of Service</a> and
                 <a href="/privacy" target="_blank">Privacy Policy</a>. I understand that my
-                subscription renews monthly at $110/month and I can cancel anytime from
+                subscription renews monthly at <span id="renewal-price-terms">$110/month</span> and I can cancel anytime from
                 my account portal.
               </label>
             </div>
@@ -2177,7 +2177,7 @@
 
   function updateRenewalPrice(discountType, discountValue, durationType) {
     // durationType: 'one_time', 'limited_period', 'forever' — default assume 'forever' if unknown
-    var ids = ['renewal-price-hero', 'renewal-price-card', 'renewal-price-pay', 'renewal-price-summary'];
+    var ids = ['renewal-price-hero', 'renewal-price-card', 'renewal-price-pay', 'renewal-price-summary', 'renewal-price-terms'];
     var discounted;
     var qualifier = '';
 
@@ -2203,17 +2203,30 @@
                '<strong class="renewal-discounted">' + fmtMoney(discounted) + ' / month</strong>' +
                qualifier;
 
+    var termsHtml = '<s style="opacity:0.45;margin-right:3px;">$' + RENEWAL_PRICE + '/month</s>' +
+                    '<strong style="color:var(--green)">' + fmtMoney(discounted) + '/month</strong>';
+
     ids.forEach(function(id) {
       var el = document.getElementById(id);
-      if (el) el.innerHTML = html;
+      if (!el) return;
+      if (id === 'renewal-price-terms') {
+        el.innerHTML = termsHtml;
+      } else {
+        el.innerHTML = html;
+      }
     });
   }
 
   function resetRenewalPrice() {
-    var ids = ['renewal-price-hero', 'renewal-price-card', 'renewal-price-pay', 'renewal-price-summary'];
+    var ids = ['renewal-price-hero', 'renewal-price-card', 'renewal-price-pay', 'renewal-price-summary', 'renewal-price-terms'];
     ids.forEach(function(id) {
       var el = document.getElementById(id);
-      if (el) el.innerHTML = '<strong>$110 / month</strong>';
+      if (!el) return;
+      if (id === 'renewal-price-terms') {
+        el.innerHTML = '$110/month';
+      } else {
+        el.innerHTML = '<strong>$110 / month</strong>';
+      }
     });
   }
 
@@ -2243,12 +2256,14 @@
       var durationType = data.duration_type || data.apply_on || 'forever';
       window._couponPeriod = data.period || '';
       if (data.discount_type === 'fixed_amount') {
-        discountAmount = data.discount_amount / 100;
-        showDiscountRow('Promo: ' + code, '−$' + discountAmount.toFixed(2));
-        updateRenewalPrice('fixed_amount', discountAmount, durationType);
+        discountAmount = 0; // coupon applies to subscription, not the one-time device charge
+        var renewalDiscount = data.discount_amount / 100;
+        showDiscountRow('Promo: ' + code, '−$' + renewalDiscount.toFixed(2) + '/mo on renewal');
+        updateRenewalPrice('fixed_amount', renewalDiscount, durationType);
       } else if (data.discount_type === 'percentage') {
-        discountAmount = (BASE_PRICE * data.discount_percent) / 100;
-        showDiscountRow('Promo: ' + code + ' (' + data.discount_percent + '% off)', '−$' + discountAmount.toFixed(2));
+        discountAmount = 0; // coupon applies to subscription, not the one-time device charge
+        var renewalDiscount = (RENEWAL_PRICE * data.discount_percent) / 100;
+        showDiscountRow('Promo: ' + code + ' (' + data.discount_percent + '% off renewal)', '−$' + renewalDiscount.toFixed(2) + '/mo');
         updateRenewalPrice('percentage', data.discount_percent, durationType);
       } else {
         discountAmount = 0;
