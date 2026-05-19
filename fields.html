@@ -2180,44 +2180,36 @@
       lastName:  contact.last_name  || ''
     })
     .then(function (data) {
-      // Clean mapping to perfectly match keys declared inside Worker execution scope
       return fetch(WORKER_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           token:            data.token,
-          plan_id:          CB_PLAN_ID,
+          plan_id:          planId, // Fixed: Now correctly maps to your active variable
           sim_type:         'physical',
           first_name:       contact.first_name,
           last_name:        contact.last_name,
           phone:            contact.phone,
           email:            contact.email,
-          billing_address:  contact.billing,     // Synced variable key name
-          shipping_address: contact.shipping,    // Synced variable key name
-          coupon_id:        appliedCoupon || undefined,
-          
-          // Fallbacks for optional custom tracking variables since fields aren't present on DOM
-          cf_specify_device: undefined,
-          cf_sim_:           undefined,
-          cf_imei_number:    undefined
+          billing_address:  contact.billing,
+          shipping_address: contact.shipping,
+          coupon_id:        appliedCoupon || undefined
         })
       });
     })
     .then(function (res) {
       return res.json().then(function (body) {
-        if (!res.ok) throw new Error(body.error || 'Worker execution error');
+        if (!res.ok) throw new Error(body.error || 'Worker error');
         return body;
       });
     })
     .then(function () {
-      payBtn.classList.remove('loading');
-      payBtn.disabled = false;
+      payBtn.classList.remove('loading'); payBtn.disabled = false;
       window.location.href = CONFIRM;
     })
     .catch(function (err) {
       console.error(err);
-      payBtn.classList.remove('loading');
-      payBtn.disabled = false;
+      payBtn.classList.remove('loading'); payBtn.disabled = false;
       alert('Payment failed — ' + (err.message || 'please check your card details and try again.'));
     });
   };
