@@ -1771,10 +1771,12 @@
   var CONFIRM    = '/lease-confirmed';
   var BASE_PRICE = 199;
 
-  var cbInstance = Chargebee.init({
-    site: CB_SITE,
-    publishableKey: 'live_9xoL0GUAJyfaZddNn5cdFhI4hrLAGhyIh'
+  // Hardcode your production values to remove script variable evaluation doubts
+  const chargebeeInstance = Chargebee.init({ 
+    site: 'more4lessplans',
+    publishableKey: 'live_9xoL0GUAJyfaZddNn5cdFhI4hrLAGhyIh' 
   });
+  const cbInstance = chargebeeInstance.cbInstance;
 
   /* ── MOBILE MENU ─────────────────────────────────────────────── */
   var trigger       = document.getElementById('menuTrigger');
@@ -1867,7 +1869,7 @@
 
   /* ── STEP MACHINE ────────────────────────────────────────────── */
   function setStep(n) {
-    window.setStep = setStep; // ensure global access for back buttons
+    window.setStep = setStep; 
 
     [['st-1',1],['st-2',2],['st-3',3]].forEach(function (p) {
       document.getElementById(p[0]).className =
@@ -1892,7 +1894,6 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  // expose for inline onclick on back buttons
   window.setStep = setStep;
 
   /* ── VALIDATION HELPERS ──────────────────────────────────────── */
@@ -1954,7 +1955,6 @@
       types: ['address']
     });
 
-    // Reset selected flag if user manually edits after selecting
     input.addEventListener('input', function () {
       if (isBilling) billPlaceSelected = false;
       else           shipPlaceSelected = false;
@@ -1983,8 +1983,7 @@
       document.getElementById(provinceId).value = province;
       document.getElementById(postalId).value   = postal;
 
-      // Clear errors on the street field
-      input.classList.remove('err');
+      input.value = (streetNumber + ' ' + route).trim();
       var fg = document.getElementById(inputId.replace('f-', 'fg-'));
       if (fg) fg.classList.remove('has-err');
 
@@ -2016,9 +2015,7 @@
     var billProvince = document.getElementById('f-bill-province').value.trim();
     var billPostal   = document.getElementById('f-bill-postal').value.trim();
 
-    if (!billStreet) {
-      flagErr('f-bill-street', 'fg-bill-street'); ok = false;
-    }
+    if (!billStreet)   { flagErr('f-bill-street', 'fg-bill-street'); ok = false; }
     if (!billCity)     { flagErr('f-bill-city',     'fg-bill-city');     ok = false; }
     if (!billProvince) { flagErr('f-bill-province', 'fg-bill-province'); ok = false; }
     if (!billPostal)   { flagErr('f-bill-postal',   'fg-bill-postal');   ok = false; }
@@ -2033,9 +2030,7 @@
       shipProvince = document.getElementById('f-ship-province').value.trim();
       shipPostal   = document.getElementById('f-ship-postal').value.trim();
 
-      if (!shipStreet) {
-        flagErr('f-ship-street', 'fg-ship-street'); ok = false;
-      }
+      if (!shipStreet)   { flagErr('f-ship-street', 'fg-ship-street'); ok = false; }
       if (!shipCity)     { flagErr('f-ship-city',     'fg-ship-city');     ok = false; }
       if (!shipProvince) { flagErr('f-ship-province', 'fg-ship-province'); ok = false; }
       if (!shipPostal)   { flagErr('f-ship-postal',   'fg-ship-postal');   ok = false; }
@@ -2155,10 +2150,9 @@
   });
 
   /* ── STEP 3: Pay ─────────────────────────────────────────────── */
-window.handlePay = function () {
-    // ⬇️ PASTE THESE TWO LINES RIGHT HERE
+  window.handlePay = function () {
     var urlParams = new URLSearchParams(window.location.search);
-    var planId    = urlParams.get('plan_id') || 'checkout-m1';
+    var planId    = urlParams.get('plan_id') || CB_PLAN_ID;
 
     var checkbox = document.getElementById('accept-terms');
     var errDiv = document.getElementById('terms-err');
@@ -2189,7 +2183,7 @@ window.handlePay = function () {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           token:            data.token,
-          plan_id:          planId, // Fixed: Now correctly maps to your active variable
+          plan_id:          planId, 
           sim_type:         'physical',
           first_name:       contact.first_name,
           last_name:        contact.last_name,
@@ -2217,12 +2211,13 @@ window.handlePay = function () {
       alert('Payment failed — ' + (err.message || 'please check your card details and try again.'));
     });
   };
+
   // Clear terms error when checkbox is ticked
   document.getElementById('accept-terms').addEventListener('change', function () {
     if (this.checked) document.getElementById('terms-err').classList.remove('show');
   });
 
-})();
+})(); // ── This closing tag locks your IIFE securely!
 </script>
 </body>
 </html>
