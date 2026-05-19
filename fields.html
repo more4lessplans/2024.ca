@@ -2155,7 +2155,11 @@
   });
 
   /* ── STEP 3: Pay ─────────────────────────────────────────────── */
-  window.handlePay = function () {
+window.handlePay = function () {
+    // ⬇️ PASTE THESE TWO LINES RIGHT HERE
+    var urlParams = new URLSearchParams(window.location.search);
+    var planId    = urlParams.get('plan_id') || 'checkout-m1';
+
     var checkbox = document.getElementById('accept-terms');
     var errDiv = document.getElementById('terms-err');
     if (!checkbox.checked) {
