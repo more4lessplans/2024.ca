@@ -2178,43 +2178,49 @@
 
     console.log('PAYLOAD billing_address:', JSON.stringify(contact.billing));
 
-    cardComponent.tokenize({
-      firstName: contact.first_name || '',
-      lastName:  contact.last_name  || ''
-    })
-    .then(function (data) {
-      return fetch(WORKER_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-body: JSON.stringify({
-  token:            data.token,
-  plan_id:          CB_PLAN_ID,
-  sim_type:         'physical',
-  first_name:       contact.first_name,
-  last_name:        contact.last_name,
-  phone:            contact.phone,
-  email:            contact.email,
-  billing_address:  contact.billing,    // ✅ ADD THIS
-  shipping_address: contact.shipping,
-  coupon_id:        appliedCoupon || undefined
+  // Ensure your tokenizing block inside fields.html passes data to the worker as follows:
+cardComponent.tokenize({
+  firstName: contact.first_name || '',
+  lastName:  contact.last_name  || ''
 })
-      });
+.then(function (data) {
+  return fetch(WORKER_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      token:            data.token,
+      plan_id:          CB_PLAN_ID,
+      sim_type:         'physical',
+      first_name:       contact.first_name,
+      last_name:        contact.last_name,
+      phone:            contact.phone,
+      email:            contact.email,
+      billing_address:  contact.billing,    // Passed cleanly to step 1
+      shipping_address: contact.shipping,   // Passed safely to step 4
+      coupon_id:        appliedCoupon || undefined,
+      
+      // Optional Meta Tracking Fields populated from your step forms:
+      cf_specify_device: document.getElementById('cf_specify_device')?.value || undefined,
+      cf_sim_:           document.getElementById('cf_sim_')?.value || undefined,
+      cf_imei_number:    document.getElementById('cf_imei_number')?.value || undefined
     })
-    .then(function (res) {
-      return res.json().then(function (body) {
-        if (!res.ok) throw new Error(body.error || 'Worker error');
-        return body;
-      });
-    })
-    .then(function () {
-      payBtn.classList.remove('loading'); payBtn.disabled = false;
-      window.location.href = CONFIRM;
-    })
-    .catch(function (err) {
-      console.error(err);
-      payBtn.classList.remove('loading'); payBtn.disabled = false;
-      alert('Payment failed — ' + (err.message || 'please check your card details and try again.'));
-    });
+  });
+})
+.then(function (res) {
+  return res.json().then(function (body) {
+    if (!res.ok) throw new Error(body.error || 'Worker error');
+    return body;
+  });
+})
+.then(function () {
+  payBtn.classList.remove('loading'); payBtn.disabled = false;
+  window.location.href = CONFIRM;
+})
+.catch(function (err) {
+  console.error(err);
+  payBtn.classList.remove('loading'); payBtn.disabled = false;
+  alert('Payment failed — ' + (err.message || 'please check your card details and try again.'));
+});
   };
 
   // Clear terms error when checkbox is ticked
