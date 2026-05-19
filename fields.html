@@ -1771,12 +1771,11 @@
   var CONFIRM    = '/lease-confirmed';
   var BASE_PRICE = 199;
 
-  // Hardcode your production values to remove script variable evaluation doubts
-  const chargebeeInstance = Chargebee.init({ 
-    site: 'more4lessplans',
+  // Correctly initialize Chargebee directly onto the instance used by the script
+  var cbInstance = Chargebee.init({ 
+    site: CB_SITE,
     publishableKey: 'live_9xoL0GUAJyfaZddNn5cdFhI4hrLAGhyIh' 
   });
-  const cbInstance = chargebeeInstance.cbInstance;
 
   /* ── MOBILE MENU ─────────────────────────────────────────────── */
   var trigger       = document.getElementById('menuTrigger');
@@ -1788,10 +1787,14 @@
     document.body.style.overflow = open ? 'hidden' : '';
   }
 
-  trigger.addEventListener('click', function (e) { e.stopPropagation(); toggleMenu(); });
-  mobileOverlay.addEventListener('click', function (e) {
-    if (!e.target.closest('a') && mobileOverlay.classList.contains('active')) toggleMenu();
-  });
+  if (trigger) {
+    trigger.addEventListener('click', function (e) { e.stopPropagation(); toggleMenu(); });
+  }
+  if (mobileOverlay) {
+    mobileOverlay.addEventListener('click', function (e) {
+      if (!e.target.closest('a') && mobileOverlay.classList.contains('active')) toggleMenu();
+    });
+  }
 
   /* ── SCREEN 0 → CHECKOUT ─────────────────────────────────────── */
   window.proceedToCheckout = function () {
@@ -1804,7 +1807,7 @@
   window.toggleShipping = function () {
     var checked = document.getElementById('same-as-billing').checked;
     var fields  = document.getElementById('shipping-fields');
-    fields.classList.toggle('hidden', checked);
+    if (fields) fields.classList.toggle('hidden', checked);
   };
 
   /* ── CHARGEBEE CARD COMPONENT ────────────────────────────────── */
@@ -1872,12 +1875,12 @@
     window.setStep = setStep; 
 
     [['st-1',1],['st-2',2],['st-3',3]].forEach(function (p) {
-      document.getElementById(p[0]).className =
-        'step-item' + (p[1] < n ? ' done' : p[1] === n ? ' active' : '');
+      var el = document.getElementById(p[0]);
+      if (el) el.className = 'step-item' + (p[1] < n ? ' done' : p[1] === n ? ' active' : '');
     });
     [['cn-1',1],['cn-2',2]].forEach(function (p) {
-      document.getElementById(p[0]).className =
-        'step-connector' + (p[1] < n ? ' done' : '');
+      var el = document.getElementById(p[0]);
+      if (el) el.className = 'step-connector' + (p[1] < n ? ' done' : '');
     });
 
     ['panel-step-1','panel-step-2','panel-step-3'].forEach(function (id, i) {
@@ -1948,6 +1951,7 @@
 
   function initPlacesAutocomplete(inputId, cityId, provinceId, postalId, isBilling) {
     var input = document.getElementById(inputId);
+    if (!input) return;
 
     var ac = new google.maps.places.Autocomplete(input, {
       componentRestrictions: { country: 'ca' },
@@ -1983,7 +1987,6 @@
       document.getElementById(provinceId).value = province;
       document.getElementById(postalId).value   = postal;
 
-      input.value = (streetNumber + ' ' + route).trim();
       var fg = document.getElementById(inputId.replace('f-', 'fg-'));
       if (fg) fg.classList.remove('has-err');
 
@@ -2074,6 +2077,7 @@
     var fb   = document.getElementById('promo-feedback');
     var icon = document.getElementById('promo-icon');
     var text = document.getElementById('promo-msg');
+    if (!fb || !icon || !text) return;
     fb.className = 'promo-feedback ' + type;
     text.textContent = msg;
     icon.innerHTML = type === 'ok'
@@ -2086,22 +2090,31 @@
     var dollars  = Math.floor(final);
     var cents    = Math.round((final - dollars) * 100);
     var centsStr = cents === 0 ? '00' : (cents < 10 ? '0' + cents : '' + cents);
-    document.getElementById('due-today-fig').innerHTML =
-      '<sup style="font-size:0.6em;vertical-align:super;font-weight:700">$</sup>' +
-      dollars +
-      '<sup style="font-size:0.45em;vertical-align:super;font-weight:600">.' + centsStr + '</sup>';
-    document.getElementById('payBtn-lbl').textContent =
-      'Pay $' + (cents === 0 ? dollars : (dollars + '.' + centsStr)) + ' — Complete Order';
+    
+    var fig = document.getElementById('due-today-fig');
+    if (fig) {
+      fig.innerHTML =
+        '<sup style="font-size:0.6em;vertical-align:super;font-weight:700">$</sup>' +
+        dollars +
+        '<sup style="font-size:0.45em;vertical-align:super;font-weight:600">.' + centsStr + '</sup>';
+    }
+    var lbl = document.getElementById('payBtn-lbl');
+    if (lbl) {
+      lbl.textContent = 'Pay $' + (cents === 0 ? dollars : (dollars + '.' + centsStr)) + ' — Complete Order';
+    }
   }
 
   function showDiscountRow(label, val) {
+    var row = document.getElementById('promo-discount-row');
+    if (!row) return;
     document.getElementById('promo-discount-label').textContent = label;
     document.getElementById('promo-discount-val').textContent   = val;
-    document.getElementById('promo-discount-row').style.display = 'flex';
+    row.style.display = 'flex';
   }
 
   function hideDiscountRow() {
-    document.getElementById('promo-discount-row').style.display = 'none';
+    var row = document.getElementById('promo-discount-row');
+    if (row) row.style.display = 'none';
   }
 
   window.applyPromo = function () {
@@ -2110,7 +2123,7 @@
     document.getElementById('f-promo').classList.remove('err');
 
     var btn = document.getElementById('promoBtn');
-    btn.classList.add('loading'); btn.disabled = true;
+    if (btn) { btn.classList.add('loading'); btn.disabled = true; }
 
     fetch('/api/validate-coupon', {
       method: 'POST',
@@ -2119,7 +2132,7 @@
     })
     .then(function (res) { return res.json(); })
     .then(function (data) {
-      btn.classList.remove('loading'); btn.disabled = false;
+      if (btn) { btn.classList.remove('loading'); btn.disabled = false; }
       if (data.error || !data.valid) {
         appliedCoupon = null; discountAmount = 0;
         hideDiscountRow(); updateDueToday(0);
@@ -2140,14 +2153,17 @@
       setPromoFeedback('ok', data.description || 'Promo code applied!');
     })
     .catch(function () {
-      btn.classList.remove('loading'); btn.disabled = false;
+      if (btn) { btn.classList.remove('loading'); btn.disabled = false; }
       setPromoFeedback('bad', 'Could not validate code — please try again.');
     });
   };
 
-  document.getElementById('f-promo').addEventListener('keydown', function (e) {
-    if (e.key === 'Enter') { e.preventDefault(); window.applyPromo(); }
-  });
+  var promoInput = document.getElementById('f-promo');
+  if (promoInput) {
+    promoInput.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { e.preventDefault(); window.applyPromo(); }
+    });
+  }
 
   /* ── STEP 3: Pay ─────────────────────────────────────────────── */
   window.handlePay = function () {
@@ -2212,12 +2228,14 @@
     });
   };
 
-  // Clear terms error when checkbox is ticked
-  document.getElementById('accept-terms').addEventListener('change', function () {
-    if (this.checked) document.getElementById('terms-err').classList.remove('show');
-  });
+  var termsCheckbox = document.getElementById('accept-terms');
+  if (termsCheckbox) {
+    termsCheckbox.addEventListener('change', function () {
+      if (this.checked) document.getElementById('terms-err').classList.remove('show');
+    });
+  }
 
-})(); // ── This closing tag locks your IIFE securely!
+})();
 </script>
 </body>
 </html>
