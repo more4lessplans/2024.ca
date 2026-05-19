@@ -2166,21 +2166,18 @@
   }
 
   /* ── STEP 3: Pay ─────────────────────────────────────────────── */
-  var isProcessingPayment = false; // Safety lock flag initialization
+  var isProcessingPayment = false;
 
-  window.handlePay = function () {
-    if (isProcessingPayment) return; // Terminate execution immediately if clicked again
-
-    var urlParams = new URLSearchParams(window.location.search);
-    var planId    = urlParams.get('plan_id') || CB_PLAN_ID;
+  window.handlePay = async function () {
+    if (isProcessingPayment) return;
 
     var checkbox = document.getElementById('accept-terms');
     var errDiv = document.getElementById('terms-err');
-    if (!checkbox.checked) {
-      errDiv.classList.add('show');
+    if (!checkbox || !checkbox.checked) {
+      if (errDiv) errDiv.classList.add('show');
       return;
     } else {
-      errDiv.classList.remove('show');
+      if (errDiv) errDiv.classList.remove('show');
     }
 
     var contact = JSON.parse(sessionStorage.getItem('m4l_order') || '{}');
@@ -2189,23 +2186,32 @@
       return;
     }
 
-    // Lock payment process
-    isProcessingPayment = true;
+    var urlParams = new URLSearchParams(window.location.search);
+    var planId    = urlParams.get('plan_id') || CB_PLAN_ID;
 
     var payBtn = document.getElementById('payBtn');
-    payBtn.classList.add('loading');
-    payBtn.disabled = true;
+    if (payBtn) {
+      payBtn.classList.add('loading');
+      payBtn.disabled = true;
+    }
+    
+    isProcessingPayment = true;
 
-    cardComponent.tokenize({
-      firstName: contact.first_name || '',
-      lastName:  contact.last_name  || ''
-    })
-    .then(function (data) {
-      return fetch(WORKER_URL, {
+    try {
+      // Force async resolution for Tokenization to ensure registration completes
+      var tokenData = await cardComponent.tokenize({
+        firstName: contact.first_name || '',
+        lastName:  contact.last_name  || ''
+      });
+
+      // Introduce a tiny 150ms structural delay before executing the worker call
+      await new Promise(function (resolve) { setTimeout(resolve, 150); });
+
+      var response = await fetch(WORKER_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          token:            data.token,
+          token:            tokenData.token,
           plan_id:          planId, 
           sim_type:         'physical',
           first_name:       contact.first_name,
@@ -2217,24 +2223,26 @@
           coupon_id:        appliedCoupon || undefined
         })
       });
-    })
-    .then(function (res) {
-      return res.json().then(function (body) {
-        if (!res.ok) throw new Error(body.error || 'Worker error');
-        return body;
-      });
-    })
-    .then(function () {
-      payBtn.classList.remove('loading'); payBtn.disabled = false;
+
+      var body = await response.json();
+      if (!response.ok) throw new Error(body.error || 'Worker error');
+
+      if (payBtn) {
+        payBtn.classList.remove('loading');
+        payBtn.disabled = false;
+      }
       isProcessingPayment = false;
       window.location.href = CONFIRM;
-    })
-    .catch(function (err) {
+
+    } catch (err) {
       console.error(err);
-      payBtn.classList.remove('loading'); payBtn.disabled = false;
-      isProcessingPayment = false; // Unlock on error to allow retry
+      if (payBtn) {
+        payBtn.classList.remove('loading');
+        payBtn.disabled = false;
+      }
+      isProcessingPayment = false;
       alert('Payment failed — ' + (err.message || 'please check your card details and try again.'));
-    });
+    }
   };
 
   var termsCheckbox = document.getElementById('accept-terms');
