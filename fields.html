@@ -17,7 +17,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://js.chargebee.com/v2/chargebee.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNt4XeQ5roadq0L-IpadA6s9e4CPm9FwI&libraries=places"></script>
 
   <style>
     /* ─────────────────────────────────────────────────────────────
@@ -1355,30 +1354,44 @@
           <div class="panel-card">
             <div class="panel-title">Billing Address</div>
 
-            <!-- Google Places autocomplete search -->
             <div class="field" id="fg-bill-street">
               <label for="f-bill-street">Street Address</label>
-              <input type="text" id="f-bill-street" placeholder="Start typing your address…"
-                     autocomplete="off" spellcheck="false">
-              <div class="field-err">Please select a valid Canadian address.</div>
+              <input type="text" id="f-bill-street" placeholder="123 Main St"
+                     autocomplete="billing street-address" spellcheck="false">
+              <div class="field-err">Required.</div>
             </div>
 
             <div class="field">
               <label for="f-bill-apt">Apt / Suite / Unit <span style="font-weight:400;color:var(--text-faint)">(optional)</span></label>
-              <input type="text" id="f-bill-apt" placeholder="Apt 4B" spellcheck="false">
+              <input type="text" id="f-bill-apt" placeholder="Apt 4B"
+                     autocomplete="billing address-line2" spellcheck="false">
             </div>
 
             <div class="field-row">
               <div class="field" id="fg-bill-city">
                 <label for="f-bill-city">City</label>
-                <input type="text" id="f-bill-city" placeholder="Toronto" readonly
-                       style="background:var(--bg-summary);color:var(--text-muted);">
+                <input type="text" id="f-bill-city" placeholder="Toronto"
+                       autocomplete="billing address-level2" spellcheck="false">
                 <div class="field-err">Required.</div>
               </div>
               <div class="field" id="fg-bill-province">
                 <label for="f-bill-province">Province</label>
-                <input type="text" id="f-bill-province" placeholder="ON" readonly
-                       style="background:var(--bg-summary);color:var(--text-muted);">
+                <select id="f-bill-province" autocomplete="billing address-level1">
+                  <option value="">Select…</option>
+                  <option value="AB">Alberta</option>
+                  <option value="BC">British Columbia</option>
+                  <option value="MB">Manitoba</option>
+                  <option value="NB">New Brunswick</option>
+                  <option value="NL">Newfoundland and Labrador</option>
+                  <option value="NS">Nova Scotia</option>
+                  <option value="NT">Northwest Territories</option>
+                  <option value="NU">Nunavut</option>
+                  <option value="ON">Ontario</option>
+                  <option value="PE">Prince Edward Island</option>
+                  <option value="QC">Quebec</option>
+                  <option value="SK">Saskatchewan</option>
+                  <option value="YT">Yukon</option>
+                </select>
                 <div class="field-err">Required.</div>
               </div>
             </div>
@@ -1386,13 +1399,13 @@
             <div class="field-row">
               <div class="field" id="fg-bill-postal">
                 <label for="f-bill-postal">Postal Code</label>
-                <input type="text" id="f-bill-postal" placeholder="M5V 2T6" readonly
-                       style="background:var(--bg-summary);color:var(--text-muted);">
+                <input type="text" id="f-bill-postal" placeholder="M5V 2T6"
+                       autocomplete="billing postal-code" spellcheck="false">
                 <div class="field-err">Required.</div>
               </div>
-              <div class="field">
-                <label>Country</label>
-                <input type="text" value="Canada" readonly
+              <div class="field" id="fg-bill-country">
+                <label for="f-bill-country">Country</label>
+                <input type="text" id="f-bill-country" value="Canada" readonly
                        style="background:var(--bg-summary);color:var(--text-muted);cursor:default;">
               </div>
             </div>
@@ -1408,30 +1421,44 @@
             </label>
 
             <div class="shipping-fields hidden" id="shipping-fields">
-
               <div class="field" id="fg-ship-street">
                 <label for="f-ship-street">Street Address</label>
-                <input type="text" id="f-ship-street" placeholder="Start typing your address…"
-                       autocomplete="off" spellcheck="false">
-                <div class="field-err">Please select a valid Canadian address.</div>
+                <input type="text" id="f-ship-street" placeholder="123 Main St"
+                       autocomplete="shipping street-address" spellcheck="false">
+                <div class="field-err">Required.</div>
               </div>
 
               <div class="field">
                 <label for="f-ship-apt">Apt / Suite / Unit <span style="font-weight:400;color:var(--text-faint)">(optional)</span></label>
-                <input type="text" id="f-ship-apt" placeholder="Apt 4B" spellcheck="false">
+                <input type="text" id="f-ship-apt" placeholder="Apt 4B"
+                       autocomplete="shipping address-line2" spellcheck="false">
               </div>
 
               <div class="field-row">
                 <div class="field" id="fg-ship-city">
                   <label for="f-ship-city">City</label>
-                  <input type="text" id="f-ship-city" placeholder="Toronto" readonly
-                         style="background:var(--bg-summary);color:var(--text-muted);">
+                  <input type="text" id="f-ship-city" placeholder="Toronto"
+                         autocomplete="shipping address-level2" spellcheck="false">
                   <div class="field-err">Required.</div>
                 </div>
                 <div class="field" id="fg-ship-province">
                   <label for="f-ship-province">Province</label>
-                  <input type="text" id="f-ship-province" placeholder="ON" readonly
-                         style="background:var(--bg-summary);color:var(--text-muted);">
+                  <select id="f-ship-province" autocomplete="shipping address-level1">
+                    <option value="">Select…</option>
+                    <option value="AB">Alberta</option>
+                    <option value="BC">British Columbia</option>
+                    <option value="MB">Manitoba</option>
+                    <option value="NB">New Brunswick</option>
+                    <option value="NL">Newfoundland and Labrador</option>
+                    <option value="NS">Nova Scotia</option>
+                    <option value="NT">Northwest Territories</option>
+                    <option value="NU">Nunavut</option>
+                    <option value="ON">Ontario</option>
+                    <option value="PE">Prince Edward Island</option>
+                    <option value="QC">Quebec</option>
+                    <option value="SK">Saskatchewan</option>
+                    <option value="YT">Yukon</option>
+                  </select>
                   <div class="field-err">Required.</div>
                 </div>
               </div>
@@ -1439,17 +1466,16 @@
               <div class="field-row">
                 <div class="field" id="fg-ship-postal">
                   <label for="f-ship-postal">Postal Code</label>
-                  <input type="text" id="f-ship-postal" placeholder="M5V 2T6" readonly
-                         style="background:var(--bg-summary);color:var(--text-muted);">
+                  <input type="text" id="f-ship-postal" placeholder="M5V 2T6"
+                         autocomplete="shipping postal-code" spellcheck="false">
                   <div class="field-err">Required.</div>
                 </div>
                 <div class="field">
-                  <label>Country</label>
-                  <input type="text" value="Canada" readonly
+                  <label for="f-ship-country">Country</label>
+                  <input type="text" id="f-ship-country" value="Canada" readonly
                          style="background:var(--bg-summary);color:var(--text-muted);cursor:default;">
                 </div>
               </div>
-
             </div><!-- /shipping-fields -->
           </div>
 
@@ -1766,15 +1792,14 @@
   'use strict';
 
   var CB_SITE    = 'more4lessplans';
-  var CB_PLAN_ID = 'checkout-m1';
-  var WORKER_URL = 'https://jsfields.hoses-legend-0w.workers.dev/';
+  var CB_PLAN_ID = 'wireless-internet-m1';
+  var WORKER_URL = '/api/checkout-embedded';
   var CONFIRM    = '/lease-confirmed';
   var BASE_PRICE = 199;
 
-  // Initialize Chargebee instance cleanly
-  var cbInstance = Chargebee.init({ 
+  var cbInstance = Chargebee.init({
     site: CB_SITE,
-    publishableKey: 'live_9xoL0GUAJyfaZddNn5cdFhI4hrLAGhyIh' 
+    publishableKey: 'live_9xoL0GUAJyfaZddNn5cdFhI4hrLAGhyIh'
   });
 
   /* ── MOBILE MENU ─────────────────────────────────────────────── */
@@ -1787,14 +1812,10 @@
     document.body.style.overflow = open ? 'hidden' : '';
   }
 
-  if (trigger) {
-    trigger.addEventListener('click', function (e) { e.stopPropagation(); toggleMenu(); });
-  }
-  if (mobileOverlay) {
-    mobileOverlay.addEventListener('click', function (e) {
-      if (!e.target.closest('a') && mobileOverlay.classList.contains('active')) toggleMenu();
-    });
-  }
+  trigger.addEventListener('click', function (e) { e.stopPropagation(); toggleMenu(); });
+  mobileOverlay.addEventListener('click', function (e) {
+    if (!e.target.closest('a') && mobileOverlay.classList.contains('active')) toggleMenu();
+  });
 
   /* ── SCREEN 0 → CHECKOUT ─────────────────────────────────────── */
   window.proceedToCheckout = function () {
@@ -1807,7 +1828,7 @@
   window.toggleShipping = function () {
     var checked = document.getElementById('same-as-billing').checked;
     var fields  = document.getElementById('shipping-fields');
-    if (fields) fields.classList.toggle('hidden', checked);
+    fields.classList.toggle('hidden', checked);
   };
 
   /* ── CHARGEBEE CARD COMPONENT ────────────────────────────────── */
@@ -1872,15 +1893,15 @@
 
   /* ── STEP MACHINE ────────────────────────────────────────────── */
   function setStep(n) {
-    window.setStep = setStep; 
+    window.setStep = setStep; // ensure global access for back buttons
 
     [['st-1',1],['st-2',2],['st-3',3]].forEach(function (p) {
-      var el = document.getElementById(p[0]);
-      if (el) el.className = 'step-item' + (p[1] < n ? ' done' : p[1] === n ? ' active' : '');
+      document.getElementById(p[0]).className =
+        'step-item' + (p[1] < n ? ' done' : p[1] === n ? ' active' : '');
     });
     [['cn-1',1],['cn-2',2]].forEach(function (p) {
-      var el = document.getElementById(p[0]);
-      if (el) el.className = 'step-connector' + (p[1] < n ? ' done' : '');
+      document.getElementById(p[0]).className =
+        'step-connector' + (p[1] < n ? ' done' : '');
     });
 
     ['panel-step-1','panel-step-2','panel-step-3'].forEach(function (id, i) {
@@ -1897,6 +1918,7 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
+  // expose for inline onclick on back buttons
   window.setStep = setStep;
 
   /* ── VALIDATION HELPERS ──────────────────────────────────────── */
@@ -1945,80 +1967,16 @@
     setStep(2);
   };
 
-  /* ── GOOGLE PLACES AUTOCOMPLETE ─────────────────────────────── */
-  var billPlaceSelected = false;
-  var shipPlaceSelected = false;
-
-  function initPlacesAutocomplete(inputId, cityId, provinceId, postalId, isBilling) {
-    var input = document.getElementById(inputId);
-    if (!input) return;
-
-    var ac = new google.maps.places.Autocomplete(input, {
-      componentRestrictions: { country: 'ca' },
-      fields: ['address_components'],
-      types: ['address']
-    });
-
-    input.addEventListener('input', function () {
-      if (isBilling) billPlaceSelected = false;
-      else           shipPlaceSelected = false;
-      document.getElementById(cityId).value     = '';
-      document.getElementById(provinceId).value = '';
-      document.getElementById(postalId).value   = '';
-    });
-
-    ac.addListener('place_changed', function () {
-      var place = ac.getPlace();
-      if (!place.address_components) return;
-
-      var streetNumber = '', route = '', city = '', province = '', postal = '';
-
-      place.address_components.forEach(function (c) {
-        var t = c.types[0];
-        if (t === 'street_number')               streetNumber = c.long_name;
-        if (t === 'route')                       route        = c.short_name;
-        if (t === 'locality')                    city         = c.long_name;
-        if (t === 'administrative_area_level_1') province     = c.short_name;
-        if (t === 'postal_code')                 postal       = c.long_name;
-      });
-
-      input.value = (streetNumber + ' ' + route).trim();
-      document.getElementById(cityId).value     = city;
-      document.getElementById(provinceId).value = province;
-      document.getElementById(postalId).value   = postal;
-
-      var fg = document.getElementById(inputId.replace('f-', 'fg-'));
-      if (fg) fg.classList.remove('has-err');
-
-      if (isBilling) billPlaceSelected = true;
-      else           shipPlaceSelected = true;
-    });
-  }
-
-  function initAllAutocomplete() {
-    initPlacesAutocomplete('f-bill-street', 'f-bill-city', 'f-bill-province', 'f-bill-postal', true);
-    initPlacesAutocomplete('f-ship-street', 'f-ship-city', 'f-ship-province', 'f-ship-postal', false);
-  }
-
-  if (window.google && window.google.maps && window.google.maps.places) {
-    initAllAutocomplete();
-  } else {
-    window.addEventListener('load', function () {
-      if (window.google && window.google.maps) initAllAutocomplete();
-    });
-  }
-
   /* ── STEP 2: Address ─────────────────────────────────────────── */
   function collectAddress() {
     clearErrors();
-    var ok = true;
-
     var billStreet   = document.getElementById('f-bill-street').value.trim();
     var billCity     = document.getElementById('f-bill-city').value.trim();
-    var billProvince = document.getElementById('f-bill-province').value.trim();
+    var billProvince = document.getElementById('f-bill-province').value;
     var billPostal   = document.getElementById('f-bill-postal').value.trim();
+    var ok = true;
 
-    if (!billStreet)   { flagErr('f-bill-street', 'fg-bill-street'); ok = false; }
+    if (!billStreet)   { flagErr('f-bill-street',   'fg-bill-street');   ok = false; }
     if (!billCity)     { flagErr('f-bill-city',     'fg-bill-city');     ok = false; }
     if (!billProvince) { flagErr('f-bill-province', 'fg-bill-province'); ok = false; }
     if (!billPostal)   { flagErr('f-bill-postal',   'fg-bill-postal');   ok = false; }
@@ -2030,16 +1988,16 @@
     if (!sameAsBilling) {
       shipStreet   = document.getElementById('f-ship-street').value.trim();
       shipCity     = document.getElementById('f-ship-city').value.trim();
-      shipProvince = document.getElementById('f-ship-province').value.trim();
+      shipProvince = document.getElementById('f-ship-province').value;
       shipPostal   = document.getElementById('f-ship-postal').value.trim();
 
-      if (!shipStreet)   { flagErr('f-ship-street', 'fg-ship-street'); ok = false; }
+      if (!shipStreet)   { flagErr('f-ship-street',   'fg-ship-street');   ok = false; }
       if (!shipCity)     { flagErr('f-ship-city',     'fg-ship-city');     ok = false; }
       if (!shipProvince) { flagErr('f-ship-province', 'fg-ship-province'); ok = false; }
       if (!shipPostal)   { flagErr('f-ship-postal',   'fg-ship-postal');   ok = false; }
     }
 
-    if (!ok) { var f = document.querySelector('.field.has-err input'); if (f) f.focus(); return null; }
+    if (!ok) { var f = document.querySelector('.field.has-err input, .field.has-err select'); if (f) f.focus(); return null; }
 
     return {
       billing: {
@@ -2077,7 +2035,6 @@
     var fb   = document.getElementById('promo-feedback');
     var icon = document.getElementById('promo-icon');
     var text = document.getElementById('promo-msg');
-    if (!fb || !icon || !text) return;
     fb.className = 'promo-feedback ' + type;
     text.textContent = msg;
     icon.innerHTML = type === 'ok'
@@ -2090,31 +2047,22 @@
     var dollars  = Math.floor(final);
     var cents    = Math.round((final - dollars) * 100);
     var centsStr = cents === 0 ? '00' : (cents < 10 ? '0' + cents : '' + cents);
-    
-    var fig = document.getElementById('due-today-fig');
-    if (fig) {
-      fig.innerHTML =
-        '<sup style="font-size:0.6em;vertical-align:super;font-weight:700">$</sup>' +
-        dollars +
-        '<sup style="font-size:0.45em;vertical-align:super;font-weight:600">.' + centsStr + '</sup>';
-    }
-    var lbl = document.getElementById('payBtn-lbl');
-    if (lbl) {
-      lbl.textContent = 'Pay $' + (cents === 0 ? dollars : (dollars + '.' + centsStr)) + ' — Complete Order';
-    }
+    document.getElementById('due-today-fig').innerHTML =
+      '<sup style="font-size:0.6em;vertical-align:super;font-weight:700">$</sup>' +
+      dollars +
+      '<sup style="font-size:0.45em;vertical-align:super;font-weight:600">.' + centsStr + '</sup>';
+    document.getElementById('payBtn-lbl').textContent =
+      'Pay $' + (cents === 0 ? dollars : (dollars + '.' + centsStr)) + ' — Complete Order';
   }
 
   function showDiscountRow(label, val) {
-    var row = document.getElementById('promo-discount-row');
-    if (!row) return;
     document.getElementById('promo-discount-label').textContent = label;
     document.getElementById('promo-discount-val').textContent   = val;
-    row.style.display = 'flex';
+    document.getElementById('promo-discount-row').style.display = 'flex';
   }
 
   function hideDiscountRow() {
-    var row = document.getElementById('promo-discount-row');
-    if (row) row.style.display = 'none';
+    document.getElementById('promo-discount-row').style.display = 'none';
   }
 
   window.applyPromo = function () {
@@ -2123,7 +2071,7 @@
     document.getElementById('f-promo').classList.remove('err');
 
     var btn = document.getElementById('promoBtn');
-    if (btn) { btn.classList.add('loading'); btn.disabled = true; }
+    btn.classList.add('loading'); btn.disabled = true;
 
     fetch('/api/validate-coupon', {
       method: 'POST',
@@ -2132,7 +2080,7 @@
     })
     .then(function (res) { return res.json(); })
     .then(function (data) {
-      if (btn) { btn.classList.remove('loading'); btn.disabled = false; }
+      btn.classList.remove('loading'); btn.disabled = false;
       if (data.error || !data.valid) {
         appliedCoupon = null; discountAmount = 0;
         hideDiscountRow(); updateDueToday(0);
@@ -2153,104 +2101,88 @@
       setPromoFeedback('ok', data.description || 'Promo code applied!');
     })
     .catch(function () {
-      if (btn) { btn.classList.remove('loading'); btn.disabled = false; }
+      btn.classList.remove('loading'); btn.disabled = false;
       setPromoFeedback('bad', 'Could not validate code — please try again.');
     });
   };
 
-  var promoInput = document.getElementById('f-promo');
-  if (promoInput) {
-    promoInput.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter') { e.preventDefault(); window.applyPromo(); }
-    });
-  }
+  document.getElementById('f-promo').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') { e.preventDefault(); window.applyPromo(); }
+  });
 
   /* ── STEP 3: Pay ─────────────────────────────────────────────── */
-  var isProcessingPayment = false;
+  window.handlePay = function () {
+    if (!cardComponent) { alert('Card fields still loading — please wait a moment.'); return; }
 
-  window.handlePay = async function () {
-    if (isProcessingPayment) return;
+    var cardName = document.getElementById('f-card-name').value.trim();
+    if (!cardName) { flagErr('f-card-name', null); return; }
 
-    var checkbox = document.getElementById('accept-terms');
-    var errDiv = document.getElementById('terms-err');
-    if (!checkbox || !checkbox.checked) {
-      if (errDiv) errDiv.classList.add('show');
-      return;
-    } else {
-      if (errDiv) errDiv.classList.remove('show');
-    }
-
-    var contact = JSON.parse(sessionStorage.getItem('m4l_order') || '{}');
-    if (!contact.email || !contact.billing || !contact.billing.line1) {
-      alert('Your checkout session data could not be parsed. Please navigate back and check your address entries.');
+    // Terms check
+    var termsEl  = document.getElementById('accept-terms');
+    var termsErr = document.getElementById('terms-err');
+    if (!termsEl.checked) {
+      termsErr.classList.add('show');
+      termsEl.focus();
       return;
     }
-
-    var urlParams = new URLSearchParams(window.location.search);
-    var planId    = urlParams.get('plan_id') || CB_PLAN_ID;
+    termsErr.classList.remove('show');
 
     var payBtn = document.getElementById('payBtn');
-    if (payBtn) {
-      payBtn.classList.add('loading');
-      payBtn.disabled = true;
+    payBtn.classList.add('loading'); payBtn.disabled = true;
+
+    var contact = JSON.parse(sessionStorage.getItem('m4l_order') || '{}');
+
+    // Failsafe: billing address must be present before attempting payment
+    if (!contact.billing || !contact.billing.line1 || !contact.billing.city || !contact.billing.state_code || !contact.billing.zip) {
+      payBtn.classList.remove('loading'); payBtn.disabled = false;
+      alert('Billing address is missing. Please go back to Step 2 and complete your address.');
+      setStep(2);
+      return;
     }
-    
-    isProcessingPayment = true;
 
-    try {
-      // Force async resolution for Tokenization to ensure registration completes
-      var tokenData = await cardComponent.tokenize({
-        firstName: contact.first_name || '',
-        lastName:  contact.last_name  || ''
-      });
-
-      // Introduce a tiny 150ms structural delay before executing the worker call
-      await new Promise(function (resolve) { setTimeout(resolve, 150); });
-
-      var response = await fetch(WORKER_URL, {
+    cardComponent.tokenize({
+      firstName: contact.first_name || '',
+      lastName:  contact.last_name  || ''
+    })
+    .then(function (data) {
+      return fetch(WORKER_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          token:            tokenData.token,
-          plan_id:          planId, 
-          sim_type:         'physical',
-          first_name:       contact.first_name,
-          last_name:        contact.last_name,
-          phone:            contact.phone,
-          email:            contact.email,
-          billing_address:  contact.billing,
-          shipping_address: contact.shipping,
-          coupon_id:        appliedCoupon || undefined
-        })
+  token:            data.token,
+  plan_id:          CB_PLAN_ID,
+  sim_type:         'physical',
+  first_name:       contact.first_name,
+  last_name:        contact.last_name,
+  phone:            contact.phone,
+  email:            contact.email,
+  billing_address:  contact.billing,
+  shipping_address: contact.shipping,
+  coupon_id:        appliedCoupon || undefined
+})
       });
-
-      var body = await response.json();
-      if (!response.ok) throw new Error(body.error || 'Worker error');
-
-      if (payBtn) {
-        payBtn.classList.remove('loading');
-        payBtn.disabled = false;
-      }
-      isProcessingPayment = false;
+    })
+    .then(function (res) {
+      return res.json().then(function (body) {
+        if (!res.ok) throw new Error(body.error || 'Worker error');
+        return body;
+      });
+    })
+    .then(function () {
+      payBtn.classList.remove('loading'); payBtn.disabled = false;
       window.location.href = CONFIRM;
-
-    } catch (err) {
+    })
+    .catch(function (err) {
       console.error(err);
-      if (payBtn) {
-        payBtn.classList.remove('loading');
-        payBtn.disabled = false;
-      }
-      isProcessingPayment = false;
+      payBtn.classList.remove('loading'); payBtn.disabled = false;
       alert('Payment failed — ' + (err.message || 'please check your card details and try again.'));
-    }
+    });
   };
 
-  var termsCheckbox = document.getElementById('accept-terms');
-  if (termsCheckbox) {
-    termsCheckbox.addEventListener('change', function () {
-      if (this.checked) document.getElementById('terms-err').classList.remove('show');
-    });
-  }
+  // Clear terms error when checkbox is ticked
+  document.getElementById('accept-terms').addEventListener('change', function () {
+    if (this.checked) document.getElementById('terms-err').classList.remove('show');
+  });
 
 })();
 </script>
