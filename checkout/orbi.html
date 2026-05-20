@@ -108,7 +108,7 @@
       display: flex;
       align-items: center;
       padding: 0 40px;
-      gap: 32px;
+      position: relative; /* for absolute-centered steps */
     }
 
     /* hide the old split strips */
@@ -117,12 +117,17 @@
 
     .nav-logo img { height: 20px; display: block; }
 
+    /* Steps: absolutely centered regardless of logo/hamburger widths */
     .nav-steps {
-      display: flex;
+      display: none; /* hidden by default on mobile; visible class added on load */
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
       align-items: center;
       gap: 0;
-      margin-left: 32px;
+      pointer-events: none;
     }
+    .nav-steps.visible { display: flex; }
 
     .nav-step {
       display: flex;
@@ -171,8 +176,25 @@
       margin: 0 6px;
       flex-shrink: 0;
     }
-
     .nav-sep.done { background: rgba(255,255,255,0.4); transition: background 0.4s ease; }
+
+    /* In-page step bar for mobile (shown below nav instead of in it) */
+    .page-steps-bar {
+      display: none; /* shown only on mobile, only during checkout */
+      background: var(--bg-right);
+      border-bottom: 1px solid var(--border-dark);
+      padding: 10px 20px;
+      position: sticky;
+      top: var(--nav-h);
+      z-index: 8900;
+    }
+    .page-steps-bar .nav-steps {
+      display: flex;
+      position: static;
+      transform: none;
+      justify-content: center;
+      pointer-events: all;
+    }
 
     /* Hamburger */
     .menu-trigger {
@@ -193,7 +215,7 @@
     /* Mobile overlay */
     .mobile-overlay {
       position: fixed; inset: 0;
-      background: rgba(10,10,11,0.97);
+      background: rgba(22,22,24,0.97);
       backdrop-filter: blur(30px);
       -webkit-backdrop-filter: blur(30px);
       display: flex; flex-direction: column;
@@ -203,33 +225,65 @@
       transition: opacity 0.4s ease, visibility 0.4s ease;
     }
     .mobile-overlay.active { opacity: 1; visibility: visible; }
-    .mobile-nav-links { list-style: none; text-align: center; }
-    .mobile-nav-links li { margin: 20px 0; transform: translateY(16px); opacity: 0; transition: 0.4s ease; }
+    .mobile-nav-links { list-style: none; text-align: center; padding: 0; margin: 0; }
+    .mobile-nav-links li { margin: 18px 0; transform: translateY(16px); opacity: 0; transition: 0.4s ease; }
     .mobile-overlay.active .mobile-nav-links li { transform: none; opacity: 1; }
     .mobile-nav-links li:nth-child(1) { transition-delay: 0.08s; }
     .mobile-nav-links li:nth-child(2) { transition-delay: 0.13s; }
     .mobile-nav-links li:nth-child(3) { transition-delay: 0.18s; }
-    .mobile-nav-links a { color: #fff; font-size: 2rem; font-weight: 600; text-decoration: none; letter-spacing: -0.03em; opacity: 0.85; transition: opacity 0.2s; }
-    .mobile-nav-links a:hover { opacity: 1; }
+    .mobile-nav-links a {
+      color: rgba(255,255,255,0.85);
+      font-size: 2rem;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: -0.03em;
+      position: relative;
+      display: inline-block;
+      transition: color 0.25s ease;
+    }
+    /* Red underline — same as index */
+    .mobile-nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 2.5px;
+      background: var(--red);
+      border-radius: 2px;
+      transition: width 0.3s cubic-bezier(0.22,1,0.36,1);
+    }
+    .mobile-nav-links a:hover,
+    .mobile-nav-links a:focus { color: #fff; }
+    .mobile-nav-links a:hover::after,
+    .mobile-nav-links a:focus::after,
+    .mobile-nav-links a.active::after { width: 100%; }
+    .mobile-nav-links .portal-link a { color: var(--red); }
+    .mobile-nav-links .portal-link a::after { background: var(--red); }
 
     /* ═══════════════════════════════════════════════════════════════
        SPLIT LAYOUT — FULL VIEWPORT
     ═══════════════════════════════════════════════════════════════ */
-    .checkout-root {
-      display: flex;
-      min-height: 100vh;
-      padding-top: var(--nav-h);
+
+    /* Push content below fixed nav */
+    #screen-checkout {
+      margin-top: var(--nav-h);
+      height: calc(100vh - var(--nav-h));
     }
 
-    /* LEFT — white form side */
+    .checkout-root {
+      display: flex;
+      height: 100%;
+    }
+
+    /* LEFT — white form side, scrolls independently */
     .checkout-left {
       flex: 1;
       min-width: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 52px 48px 80px;
+      padding: 48px 48px 72px;
       overflow-y: auto;
+      height: 100%;
     }
 
     .checkout-left-inner {
@@ -237,14 +291,12 @@
       max-width: 480px;
     }
 
-    /* RIGHT — permanently dark summary panel */
+    /* RIGHT — permanently dark summary panel, sticky full height */
     .checkout-right {
       width: var(--right-w);
       flex-shrink: 0;
       background: var(--bg-right);
-      position: sticky;
-      top: var(--nav-h);
-      height: calc(100vh - var(--nav-h));
+      height: 100%;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
@@ -257,10 +309,14 @@
     .checkout-right::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
 
     /* ═══════════════════════════════════════════════════════════════
-       SCREEN 0 — PRODUCT OVERVIEW (full split layout)
+       SCREEN 0 — full-height split hero (desktop)
     ═══════════════════════════════════════════════════════════════ */
-    #screen-0 .checkout-left {
-      justify-content: center;
+
+/* Subtle radial glow behind product image */
+
+    @keyframes floatProduct {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-10px); }
     }
 
     /* ═══════════════════════════════════════════════════════════════
@@ -293,74 +349,10 @@
     /* ═══════════════════════════════════════════════════════════════
        SCREEN 0 — ORDER PREVIEW (LEFT SIDE)
     ═══════════════════════════════════════════════════════════════ */
-    .order-hero {
-      opacity: 0;
-      animation: revealUp 0.7s var(--ease-out) 0.1s forwards;
-    }
-
-    .order-hero-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--green-bg);
-      border: 1px solid var(--green-border);
-      border-radius: var(--radius-full);
-      padding: 4px 12px;
-      font-size: 0.68rem;
-      font-weight: 600;
-      color: var(--green);
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      margin-bottom: 28px;
-    }
-    .order-hero-tag svg { width: 9px; height: 9px; stroke: var(--green); stroke-width: 2.5; fill: none; }
-
-    .order-hero-headline {
-      font-size: 2.4rem;
-      font-weight: 700;
-      letter-spacing: -0.04em;
-      line-height: 1.05;
-      color: var(--ink);
-      margin-bottom: 10px;
-    }
-    .order-hero-headline em {
-      font-style: normal;
-      color: var(--red);
-    }
-
-    .order-hero-sub {
-      font-size: 0.9rem;
-      color: var(--ink-3);
-      line-height: 1.6;
-      margin-bottom: 36px;
-      font-weight: 400;
-    }
 
     /* Feature pills */
-    .feature-pills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 36px;
-    }
-    .feature-pill {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 13px;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-full);
-      font-size: 0.75rem;
-      font-weight: 500;
-      color: var(--ink-2);
-      transition: border-color 0.2s ease, transform 0.2s var(--spring);
-    }
-    .feature-pill:hover { border-color: var(--ink-3); transform: translateY(-1px); }
-    .feature-pill svg { width: 11px; height: 11px; stroke: var(--green); stroke-width: 2.5; fill: none; flex-shrink: 0; }
 
     /* Proceed CTA */
-    .cta-block { display: flex; flex-direction: column; gap: 12px; }
 
     /* ═══════════════════════════════════════════════════════════════
        BUTTONS
@@ -429,6 +421,18 @@
     .btn-primary.loading .btn-arr { display: none; }
     .btn-primary.loading .btn-spin { display: block; }
 
+    .price-tax-note {
+      font-size: 0.65rem;
+      font-weight: 400;
+      color: var(--ink-4);
+      letter-spacing: 0.01em;
+    }
+    .btn-tax {
+      font-size: 0.68rem;
+      font-weight: 400;
+      opacity: 0.55;
+      letter-spacing: 0.01em;
+    }
     .btn-lock-note {
       display: flex;
       align-items: center;
@@ -534,6 +538,13 @@
       color: var(--ink-3);
       cursor: default;
     }
+    /* Editable address sub-fields (autofilled but user-editable) */
+    #f-bill-city, #f-bill-province, #f-bill-postal,
+    #f-ship-city, #f-ship-province, #f-ship-postal {
+      background: var(--bg-input);
+      color: var(--ink);
+      cursor: text;
+    }
 
     .field-err {
       font-size: 0.7rem;
@@ -571,12 +582,24 @@
     .card-brand-row {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       margin-bottom: 18px;
     }
-    .card-brand-row svg {
-      border-radius: 4px;
-      opacity: 0.7;
+    .card-brand-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3px 7px;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      color: var(--ink-4);
+      background: var(--bg);
+      height: 22px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .card-brand-badge:hover {
+      border-color: var(--ink-3);
+      color: var(--ink-2);
     }
 
     /* ═══════════════════════════════════════════════════════════════
@@ -988,160 +1011,16 @@
     /* ═══════════════════════════════════════════════════════════════
        UNIFIED PRODUCT CARD — screen 0
     ═══════════════════════════════════════════════════════════════ */
-    .product-card {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      overflow: hidden;
-      margin-bottom: 20px;
-      box-shadow:
-        0 1px 2px rgba(0,0,0,0.04),
-        0 4px 16px rgba(0,0,0,0.06),
-        0 12px 40px rgba(0,0,0,0.04);
-      opacity: 0;
-      animation: revealUp 0.65s var(--ease-out) 0.05s forwards;
-    }
 
-    /* Image zone — subtle tinted bg so product floats */
-    .pc-image-zone {
-      background: linear-gradient(160deg, #f5f5f7 0%, #ececef 100%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 32px 28px 24px;
-      gap: 16px;
-      position: relative;
-    }
+    /* ── Header: image + identity side by side ── */
 
-    .pc-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      background: rgba(22,160,90,0.10);
-      border: 1px solid rgba(22,160,90,0.22);
-      border-radius: 999px;
-      padding: 4px 12px;
-      font-size: 0.63rem;
-      font-weight: 700;
-      color: var(--green);
-      letter-spacing: 0.07em;
-      text-transform: uppercase;
-    }
-    .pc-badge svg { width: 8px; height: 8px; flex-shrink: 0; }
+    /* ── Divider ── */
 
-    .pc-img {
-      width: 148px;
-      height: 148px;
-      object-fit: contain;
-      filter: drop-shadow(0 12px 28px rgba(0,0,0,0.14));
-      transition: transform 0.7s cubic-bezier(0.34,1.2,0.64,1);
-    }
-    .pc-img:hover { transform: translateY(-6px) scale(1.04); }
+    /* ── Features ── */
 
-    /* Body — identity + price */
-    .pc-body {
-      padding: 26px 28px 24px;
-    }
+    /* ── Pricing footer ── */
 
-    .pc-eyebrow {
-      font-size: 0.62rem;
-      font-weight: 700;
-      letter-spacing: 0.11em;
-      text-transform: uppercase;
-      color: var(--ink-3);
-      margin-bottom: 7px;
-    }
-
-    .pc-title {
-      font-size: 2rem;
-      font-weight: 800;
-      letter-spacing: -0.045em;
-      line-height: 1.0;
-      color: var(--ink);
-      margin-bottom: 10px;
-    }
-
-    .pc-sub {
-      font-size: 0.84rem;
-      color: var(--ink-3);
-      line-height: 1.65;
-      margin-bottom: 22px;
-      max-width: 38ch;
-    }
-
-    .pc-price-row {
-      display: flex;
-      align-items: baseline;
-      gap: 11px;
-    }
-
-    .pc-price-fig {
-      font-size: 2.4rem;
-      font-weight: 800;
-      letter-spacing: -0.055em;
-      color: var(--ink);
-      line-height: 1;
-    }
-    .pc-price-fig sup {
-      font-size: 0.52em;
-      vertical-align: super;
-      font-weight: 700;
-      letter-spacing: 0;
-    }
-
-    .pc-price-meta { display: flex; flex-direction: column; gap: 2px; }
-    .pc-price-note { font-size: 0.71rem; color: var(--ink-3); font-weight: 400; }
-    .pc-price-renew { font-size: 0.71rem; color: var(--ink-4); }
-
-    /* Divider between body and features */
-    .pc-divider {
-      height: 1px;
-      background: var(--border);
-      margin: 0 28px;
-    }
-
-    /* Features section */
-    .pc-features {
-      padding: 6px 28px 24px;
-    }
-
-    .pc-feat {
-      display: flex;
-      align-items: flex-start;
-      gap: 13px;
-      padding: 11px 0;
-      border-bottom: 1px solid var(--border-soft);
-    }
-    .pc-feat:first-child { padding-top: 18px; }
-    .pc-feat:last-child { border-bottom: none; padding-bottom: 0; }
-
-    .pc-feat-check {
-      width: 20px; height: 20px;
-      border-radius: 50%;
-      background: rgba(22,160,90,0.08);
-      border: 1px solid rgba(22,160,90,0.20);
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
-    .pc-feat-check svg { width: 8px; height: 8px; stroke: var(--green); }
-
-    .pc-feat-text {
-      font-size: 0.85rem;
-      color: var(--ink-2);
-      line-height: 1.5;
-    }
-    .pc-feat-text strong { color: var(--ink); font-weight: 600; }
-
-    /* Mobile: stack image above body, make image a bit smaller */
     @media (max-width: 600px) {
-      .pc-image-zone { padding: 28px 24px 20px; }
-      .pc-img { width: 120px; height: 120px; }
-      .pc-body { padding: 22px 22px 20px; }
-      .pc-title { font-size: 1.75rem; }
-      .pc-price-fig { font-size: 2.1rem; }
-      .pc-divider { margin: 0 22px; }
-      .pc-features { padding: 4px 22px 22px; }
     }
 
     /* ═══════════════════════════════════════════════════════════════
@@ -1173,17 +1052,30 @@
        RESPONSIVE
     ═══════════════════════════════════════════════════════════════ */
 
-    /* Hide mobile drawer on desktop */
+    /* Hide mobile drawer on desktop — always, regardless of inline style */
     .mobile-summary-bar { display: none; }
+
+    @media (min-width: 901px) {
+      .mobile-summary-bar { display: none !important; }
+    }
 
     @media (max-width: 900px) {
       :root { --right-w: 100%; }
 
-      .checkout-root { flex-direction: column; }
+      #screen-checkout {
+        height: auto;
+        min-height: calc(100vh - var(--nav-h));
+      }
+
+      .checkout-root {
+        flex-direction: column;
+        height: auto;
+      }
 
       .checkout-left {
         padding: 28px 20px 130px;
-        min-height: auto;
+        height: auto;
+        overflow-y: visible;
         align-items: stretch;
       }
       .checkout-left-inner { max-width: 100%; }
@@ -1191,7 +1083,17 @@
       /* Hide full right panel on mobile */
       .checkout-right { display: none !important; }
 
-      /* ── MOBILE SUMMARY DRAWER ── */
+      /* Show in-page steps bar below nav on mobile */
+      .page-steps-bar { display: block; }
+
+      /* Nav adjustments */
+      .nav-inner { padding: 0 20px; }
+      .nav .nav-steps { display: none !important; }
+      .menu-trigger { display: block; }
+      .form-card { padding: 20px 18px; border-radius: var(--radius-lg); }
+    }
+
+
       .mobile-summary-bar {
         display: block;
         position: fixed;
@@ -1232,9 +1134,9 @@
         width: 36px; height: 4px;
         border-radius: 2px;
         background: rgba(255,255,255,0.2);
-        transition: background 0.2s;
+        transition: background 0.25s ease;
       }
-      .msb-handle-wrap:hover .msb-handle { background: rgba(255,255,255,0.4); }
+      .msb-handle-wrap:hover .msb-handle { background: rgba(255,255,255,0.45); }
 
       .msb-collapsed {
         display: flex;
@@ -1285,6 +1187,14 @@
         line-height: 1;
       }
       .msb-amount sup { font-size: 0.6em; vertical-align: super; font-weight: 700; }
+      .msb-tax-inline {
+        font-size: 0.6rem;
+        font-weight: 500;
+        color: var(--ink-on-dark-3);
+        letter-spacing: 0.01em;
+        vertical-align: baseline;
+        margin-left: 1px;
+      }
       .msb-tax {
         font-size: 0.58rem;
         color: var(--ink-on-dark-3);
@@ -1312,7 +1222,6 @@
 
       .msb-exp-rows {
         padding: 0 18px 12px;
-        border-bottom: 1px solid var(--border-dark);
       }
       .msb-exp-row {
         display: flex;
@@ -1324,13 +1233,14 @@
         border-bottom: 1px solid rgba(255,255,255,0.05);
       }
       .msb-exp-row:last-child { border-bottom: none; }
+      .msb-exp-row:nth-last-child(2) { border-bottom: none; }
       .msb-exp-row strong { font-weight: 600; color: var(--ink-on-dark); }
       .msb-exp-row strong.free { color: var(--green); }
       .msb-exp-row strong.discount { color: var(--red); }
       .msb-exp-total {
         margin-top: 4px;
         padding-top: 10px !important;
-        border-top: 1px solid var(--border-dark) !important;
+        border-top: 1px solid rgba(255,255,255,0.12) !important;
         font-weight: 600;
         color: var(--ink-on-dark) !important;
         font-size: 0.88rem !important;
@@ -1372,14 +1282,9 @@
       }
 
       .nav-inner { padding: 0 20px; }
-      .nav-steps { display: none; }
+      .nav .nav-steps { display: none !important; }
       .menu-trigger { display: block; }
-
-      #screen-0 .checkout-right { display: none !important; }
-      #screen-0 .checkout-left { min-height: calc(100vh - var(--nav-h)); padding-bottom: 40px; }
-      .order-hero-headline { font-size: 1.8rem; }
       .form-card { padding: 20px 18px; border-radius: var(--radius-lg); }
-    }
 
     @media (max-width: 640px) {
       .field-row { grid-template-columns: 1fr; }
@@ -1402,7 +1307,7 @@
   <div class="nav-inner">
     <a class="nav-logo" href="/"><img src="assets/img/logos/logo.png" alt="More4Less"></a>
 
-    <div class="nav-steps" id="navSteps">
+    <div class="nav-steps visible" id="navSteps">
       <div class="nav-step active" id="st-1">
         <div class="nav-step-num">
           <span class="nav-step-num-inner">1</span>
@@ -1434,225 +1339,38 @@
   </div>
 </nav>
 
-<!-- Mobile overlay -->
+<!-- In-page step indicator — mobile only -->
+<div class="page-steps-bar" id="pageStepsBar" style="display:none;">
+  <div class="nav-steps" style="display:flex;">
+    <div class="nav-step active" id="pst-1">
+      <div class="nav-step-num"><span class="nav-step-num-inner">1</span><span class="nav-step-check"></span></div>
+      <span>Your Details</span>
+    </div>
+    <div class="nav-sep" id="pcn-1"></div>
+    <div class="nav-step" id="pst-2">
+      <div class="nav-step-num"><span class="nav-step-num-inner">2</span><span class="nav-step-check"></span></div>
+      <span>Address</span>
+    </div>
+    <div class="nav-sep" id="pcn-2"></div>
+    <div class="nav-step" id="pst-3">
+      <div class="nav-step-num"><span class="nav-step-num-inner">3</span><span class="nav-step-check"></span></div>
+      <span>Payment</span>
+    </div>
+  </div>
+</div>
 <div class="mobile-overlay" id="mobileOverlay">
   <ul class="mobile-nav-links">
     <li><a href="/#pricing">Pricing</a></li>
     <li><a href="/contact">Contact</a></li>
-    <li><a href="/portal">Customer Portal</a></li>
+    <li class="portal-link"><a href="/portal">Customer Portal</a></li>
   </ul>
-</div>
-
-<!-- ══════════════════════════════════════════════════════════════════
-     SCREEN 0 — ORDER OVERVIEW
-═══════════════════════════════════════════════════════════════════ -->
-<div id="screen-0">
-  <div class="checkout-root">
-
-    <!-- LEFT: Product hero — mobile-first card presentation -->
-    <div class="checkout-left" style="background: var(--bg);">
-      <div class="checkout-left-inner">
-        <div class="order-hero">
-
-          <!-- Unified product card -->
-          <div class="product-card">
-
-            <!-- Top: image zone -->
-            <div class="pc-image-zone">
-              <div class="pc-badge">
-                <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2"/></svg>
-                First Month Included
-              </div>
-              <img src="assets/img/products/LBR20.png" alt="NETGEAR Orbi LBR20" class="pc-img">
-            </div>
-
-            <!-- Mid: identity + price -->
-            <div class="pc-body">
-              <div class="pc-eyebrow">Home &amp; Office Internet</div>
-              <h1 class="pc-title">Orbi LBR20</h1>
-              <p class="pc-sub">4G LTE Tri-Band Mesh WiFi — pre-configured and ready the moment it arrives. No technician. No contract.</p>
-
-              <div class="pc-price-row">
-                <div class="pc-price-fig"><sup>$</sup>249</div>
-                <div class="pc-price-meta">
-                  <div class="pc-price-note">+ tax · one-time</div>
-                  <div class="pc-price-renew">then $110/mo</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Divider -->
-            <div class="pc-divider"></div>
-
-            <!-- Bottom: features -->
-            <div class="pc-features">
-              <div class="pc-feat">
-                <div class="pc-feat-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-                <div class="pc-feat-text"><strong>Truly Unlimited Data</strong> — no caps, no slowdowns, ever</div>
-              </div>
-              <div class="pc-feat">
-                <div class="pc-feat-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-                <div class="pc-feat-text"><strong>Up to 64 devices</strong> — 2.4 + 5 + 5 GHz tri-band mesh</div>
-              </div>
-              <div class="pc-feat">
-                <div class="pc-feat-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-                <div class="pc-feat-text"><strong>Covers 2,000 sq. ft.</strong> — whole-home mesh WiFi</div>
-              </div>
-              <div class="pc-feat">
-                <div class="pc-feat-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-                <div class="pc-feat-text"><strong>Free shipping</strong> — pre-configured SIM, plug &amp; play</div>
-              </div>
-              <div class="pc-feat">
-                <div class="pc-feat-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-                <div class="pc-feat-text"><strong>30-day money-back guarantee</strong> — no questions asked</div>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="cta-block">
-            <button class="btn-primary red" onclick="proceedToCheckout()">
-              <span class="btn-lbl">Continue to Checkout</span>
-              <div class="btn-spin"></div>
-              <svg class="btn-arr" viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="currentColor" stroke-width="2">
-                <line x1="2" y1="8" x2="13" y2="8"/>
-                <polyline points="9,4 13,8 9,12"/>
-              </svg>
-            </button>
-            <div class="btn-lock-note">
-              <svg viewBox="0 0 14 14" stroke-linecap="round" fill="none" stroke="currentColor" stroke-width="1.8">
-                <rect x="2" y="6" width="10" height="7" rx="1.5"/>
-                <path d="M4.5 6V4.5a2.5 2.5 0 015 0V6"/>
-              </svg>
-              SSL encrypted · Powered by Chargebee · Cancel anytime
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-    <!-- RIGHT: Dark summary (desktop only on screen 0) -->
-    <div class="checkout-right">
-      <div class="summary-inner summary-anim">
-
-        <div class="summary-product">
-          <div class="summary-product-img-wrap">
-            <img src="assets/img/products/LBR20.png" alt="NETGEAR Orbi LBR20" class="summary-product-img">
-          </div>
-          <div>
-            <div class="summary-product-eyebrow">Your Order</div>
-            <div class="summary-product-name">Orbi LBR20</div>
-            <div class="summary-product-sub">4G LTE Tri-Band Mesh WiFi Router</div>
-          </div>
-        </div>
-
-        <div class="summary-rows">
-          <div class="summary-section-label">Included With Your Order</div>
-
-          <div class="summary-row">
-            <div class="sr-label">
-              <strong>NETGEAR Orbi LBR20</strong>
-              <small>4G LTE Tri-Band Mesh WiFi Router</small>
-            </div>
-            <span class="sr-val">$249</span>
-          </div>
-          <div class="summary-row">
-            <div class="sr-label">
-              <strong>Unlimited Data — First Month</strong>
-              <small>Ready to use out of the box</small>
-            </div>
-            <span class="sr-val free">Included</span>
-          </div>
-          <div class="summary-row">
-            <span class="sr-label">Activation</span>
-            <span class="sr-val free">$0</span>
-          </div>
-          <div class="summary-row">
-            <span class="sr-label">Shipping</span>
-            <span class="sr-val free">$0</span>
-          </div>
-          <div class="summary-row">
-            <span class="sr-label">Contract</span>
-            <span class="sr-val tag">None Required</span>
-          </div>
-        </div>
-
-        <div class="summary-total-block">
-          <div>
-            <div class="summary-total-label">Due Today</div>
-            <div class="summary-total-note">Device + first month</div>
-          </div>
-          <div>
-            <div class="summary-total-fig"><sup>$</sup>249</div>
-            <div class="summary-total-tax">+ applicable tax</div>
-          </div>
-        </div>
-
-        <div class="summary-renewal">
-          <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M2.5 8a5.5 5.5 0 0 1 9.5-3.8"/>
-            <path d="M13.5 8a5.5 5.5 0 0 1-9.5 3.8"/>
-            <polyline points="9.5,1.5 11.5,4.2 8.5,4.8"/>
-            <polyline points="6.5,14.5 4.5,11.8 7.5,11.2"/>
-          </svg>
-          <p>After the first month, renews at <strong><span id="renewal-price-hero">$110 / month</span></strong>. No contract — cancel anytime from your portal.</p>
-        </div>
-
-        <div class="summary-features-label">Everything Included</div>
-        <div class="summary-feature">
-          <div class="sf-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-          Up To 2.2 Gbps Tri-Band WiFi (AC2200)
-        </div>
-        <div class="summary-feature">
-          <div class="sf-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-          Truly Unlimited Data — No Caps Or Slowdowns
-        </div>
-        <div class="summary-feature">
-          <div class="sf-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-          Connect Up To 64 Devices
-        </div>
-        <div class="summary-feature">
-          <div class="sf-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-          Covers Up To 2,000 Sq. Ft.
-        </div>
-        <div class="summary-feature">
-          <div class="sf-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-          Tri-Band Mesh · 2.4 + 5 + 5 GHz Backhaul
-        </div>
-        <div class="summary-feature">
-          <div class="sf-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-          30-Day Money-Back Guarantee
-        </div>
-
-      </div>
-
-      <div class="summary-trust">
-        <div class="trust-badge">
-          <svg viewBox="0 0 14 14" stroke-linecap="round"><rect x="2" y="6" width="10" height="7" rx="1.5"/><path d="M4.5 6V4.5a2.5 2.5 0 015 0V6"/></svg>
-          SSL Encrypted
-        </div>
-        <div class="trust-div"></div>
-        <div class="trust-badge">
-          <svg viewBox="0 0 14 14" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="5.5"/><path d="M7 4.5v3l1.5 1"/></svg>
-          Cancel Anytime
-        </div>
-        <div class="trust-div"></div>
-        <div class="trust-badge">
-          <svg viewBox="0 0 14 14" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7l3.5 3.5L12 3"/></svg>
-          30-Day Guarantee
-        </div>
-      </div>
-    </div>
-
-  </div>
 </div>
 
 
 <!-- ══════════════════════════════════════════════════════════════════
      SCREEN: CHECKOUT (Steps 1-3)
 ═══════════════════════════════════════════════════════════════════ -->
-<div id="screen-checkout" style="display:none;">
+<div id="screen-checkout">
   <div class="checkout-root">
 
     <!-- LEFT: Form -->
@@ -1728,7 +1446,7 @@
 
           <div style="margin-top:16px;" class="anim-step">
             <button class="btn-primary" onclick="handleStep1()">
-              <span class="btn-lbl">Continue to Address</span>
+              <span class="btn-lbl">Continue</span>
               <div class="btn-spin"></div>
               <svg class="btn-arr" viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/>
@@ -1768,19 +1486,19 @@
             <div class="field-row">
               <div class="field" id="fg-bill-city">
                 <label for="f-bill-city">City</label>
-                <input type="text" id="f-bill-city" placeholder="Toronto" readonly>
+                <input type="text" id="f-bill-city" placeholder="Toronto">
                 <div class="field-err">Required.</div>
               </div>
               <div class="field" id="fg-bill-province">
                 <label for="f-bill-province">Province</label>
-                <input type="text" id="f-bill-province" placeholder="ON" readonly>
+                <input type="text" id="f-bill-province" placeholder="ON">
                 <div class="field-err">Required.</div>
               </div>
             </div>
             <div class="field-row">
               <div class="field" id="fg-bill-postal">
                 <label for="f-bill-postal">Postal Code</label>
-                <input type="text" id="f-bill-postal" placeholder="M5V 2T6" readonly>
+                <input type="text" id="f-bill-postal" placeholder="M5V 2T6">
                 <div class="field-err">Required.</div>
               </div>
               <div class="field">
@@ -1812,19 +1530,19 @@
               <div class="field-row">
                 <div class="field" id="fg-ship-city">
                   <label for="f-ship-city">City</label>
-                  <input type="text" id="f-ship-city" placeholder="Toronto" readonly>
+                  <input type="text" id="f-ship-city" placeholder="Toronto">
                   <div class="field-err">Required.</div>
                 </div>
                 <div class="field" id="fg-ship-province">
                   <label for="f-ship-province">Province</label>
-                  <input type="text" id="f-ship-province" placeholder="ON" readonly>
+                  <input type="text" id="f-ship-province" placeholder="ON">
                   <div class="field-err">Required.</div>
                 </div>
               </div>
               <div class="field-row">
                 <div class="field" id="fg-ship-postal">
                   <label for="f-ship-postal">Postal Code</label>
-                  <input type="text" id="f-ship-postal" placeholder="M5V 2T6" readonly>
+                  <input type="text" id="f-ship-postal" placeholder="M5V 2T6">
                   <div class="field-err">Required.</div>
                 </div>
                 <div class="field">
@@ -1837,7 +1555,7 @@
 
           <div style="margin-top:16px;" class="anim-step">
             <button class="btn-primary" onclick="handleStep2()">
-              <span class="btn-lbl">Continue to Payment</span>
+              <span class="btn-lbl">Continue</span>
               <div class="btn-spin"></div>
               <svg class="btn-arr" viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/>
@@ -1865,20 +1583,26 @@
             <div class="form-card-title">Card Details</div>
 
             <div class="card-brand-row">
-              <svg viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Visa">
-                <rect width="38" height="24" rx="3" fill="#1A1F71"/>
-                <text x="6" y="17" font-family="Arial" font-size="10" font-weight="bold" fill="#FFFFFF">VISA</text>
-              </svg>
-              <svg viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mastercard">
-                <rect width="38" height="24" rx="3" fill="#252525"/>
-                <circle cx="15" cy="12" r="7" fill="#EB001B"/>
-                <circle cx="23" cy="12" r="7" fill="#F79E1B"/>
-                <path d="M19 6.8a7 7 0 0 1 0 10.4A7 7 0 0 1 19 6.8z" fill="#FF5F00"/>
-              </svg>
-              <svg viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Amex">
-                <rect width="38" height="24" rx="3" fill="#2E77BC"/>
-                <text x="4" y="17" font-family="Arial" font-size="8" font-weight="bold" fill="#FFFFFF">AMEX</text>
-              </svg>
+              <!-- Visa wordmark -->
+              <span class="card-brand-badge" aria-label="Visa">
+                <svg viewBox="0 0 40 14" xmlns="http://www.w3.org/2000/svg" width="34" height="12">
+                  <text x="0" y="11" font-family="Arial" font-size="12" font-weight="900" fill="currentColor" letter-spacing="-0.5">VISA</text>
+                </svg>
+              </span>
+              <!-- Mastercard two circles -->
+              <span class="card-brand-badge" aria-label="Mastercard">
+                <svg viewBox="0 0 28 18" xmlns="http://www.w3.org/2000/svg" width="26" height="16">
+                  <circle cx="10" cy="9" r="7" fill="currentColor" opacity="0.55"/>
+                  <circle cx="18" cy="9" r="7" fill="currentColor" opacity="0.55"/>
+                  <ellipse cx="14" cy="9" rx="3" ry="7" fill="currentColor" opacity="0.7"/>
+                </svg>
+              </span>
+              <!-- Amex wordmark -->
+              <span class="card-brand-badge" aria-label="American Express">
+                <svg viewBox="0 0 42 14" xmlns="http://www.w3.org/2000/svg" width="36" height="12">
+                  <text x="0" y="11" font-family="Arial" font-size="9.5" font-weight="700" fill="currentColor" letter-spacing="0.4">AMEX</text>
+                </svg>
+              </span>
             </div>
 
             <div class="field">
@@ -1943,8 +1667,11 @@
               </div>
               <div class="mini-row total">
                 <span>Due Today</span>
-                <span id="due-today-fig">
-                  <sup style="font-size:0.6em;vertical-align:super;font-weight:700">$</sup>249<sup style="font-size:0.45em;vertical-align:super;font-weight:600">.00</sup>
+                <span style="display:flex;align-items:baseline;gap:4px;">
+                  <span id="due-today-fig">
+                    <sup style="font-size:0.6em;vertical-align:super;font-weight:700">$</sup>249<sup style="font-size:0.45em;vertical-align:super;font-weight:600">.00</sup>
+                  </span>
+                  <span class="price-tax-note">+ tax</span>
                 </span>
               </div>
               <div class="mini-renewal">
@@ -1971,7 +1698,7 @@
             <div class="terms-err" id="terms-err">You must accept the terms to continue.</div>
 
             <button class="btn-primary red" id="payBtn" onclick="handlePay()" style="margin-top:14px;">
-              <span class="btn-lbl" id="payBtn-lbl">Pay $249 — Complete Order</span>
+              <span class="btn-lbl" id="payBtn-lbl">Pay $249 <span class="btn-tax">+ tax</span></span>
               <div class="btn-spin"></div>
               <svg class="btn-arr" viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/>
@@ -2133,8 +1860,8 @@
         </div>
       </div>
       <div class="msb-price">
-        <div class="msb-amount"><sup>$</sup><span id="msb-amount-val">249</span></div>
-        <div class="msb-tax">+ tax · due today</div>
+        <div class="msb-amount"><sup>$</sup><span id="msb-amount-val">249</span> <span class="msb-tax-inline">+ tax</span></div>
+        <div class="msb-tax">due today</div>
       </div>
       <button class="msb-chevron" id="msbChevron" aria-label="Show order details">
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -2215,6 +1942,11 @@
     var open = trigger.classList.toggle('menu-active');
     mobileOverlay.classList.toggle('active', open);
     document.body.style.overflow = open ? 'hidden' : '';
+    // Hide step indicators while nav overlay is open
+    var navStepsEl  = document.getElementById('navSteps');
+    var pageStepsEl = document.getElementById('pageStepsBar');
+    if (navStepsEl)  navStepsEl.style.visibility  = open ? 'hidden' : '';
+    if (pageStepsEl) pageStepsEl.style.visibility = open ? 'hidden' : '';
   }
 
   trigger.addEventListener('click', function (e) { e.stopPropagation(); toggleMenu(); });
@@ -2222,17 +1954,18 @@
     if (!e.target.closest('a') && mobileOverlay.classList.contains('active')) toggleMenu();
   });
 
-  /* ── SCREEN 0 → CHECKOUT ──────────────────────────────────────── */
-  window.proceedToCheckout = function () {
-    document.getElementById('screen-0').style.display        = 'none';
-    document.getElementById('screen-checkout').style.display = 'block';
-    document.getElementById('navSteps').style.display        = 'flex';
+  /* ── INIT ON LOAD ─────────────────────────────────────────────── */
+  // Show nav steps immediately
+  var navSteps = document.getElementById('navSteps');
+  if (navSteps) navSteps.classList.add('visible');
+  // Show mobile steps bar
+  var pageBar = document.getElementById('pageStepsBar');
+  if (pageBar) pageBar.style.display = 'block';
+  // Show mobile summary drawer on mobile
+  (function () {
     var bar = document.getElementById('mobileSummaryBar');
-    if (bar) bar.style.display = 'block';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  /* ── MOBILE SUMMARY DRAWER ────────────────────────────────────── */
+    if (bar && window.innerWidth <= 900) bar.style.display = 'block';
+  })();
   var msbBar      = document.getElementById('mobileSummaryBar');
   var msbBackdrop = document.getElementById('msbBackdrop');
   var msbHandle   = document.getElementById('msbHandleWrap');
@@ -2252,8 +1985,57 @@
   if (msbCollapsed) msbCollapsed.addEventListener('click', function() { toggleDrawer(); });
   if (msbBackdrop) msbBackdrop.addEventListener('click',  function() { toggleDrawer(true); });
 
-  /* Hide nav steps on screen 0 */
-  document.getElementById('navSteps').style.display = 'none';
+  /* ── TOUCH DRAG — pull up/down on the drawer ─────────────────── */
+  (function () {
+    if (!msbBar) return;
+    var drawer    = document.getElementById('msbDrawer');
+    var startY    = 0;
+    var startOpen = false;
+    var dragging  = false;
+    var THRESHOLD = 48; // px of drag to trigger toggle
+
+    function onTouchStart(e) {
+      startY    = e.touches[0].clientY;
+      startOpen = msbBar.classList.contains('expanded');
+      dragging  = true;
+      // Disable transition during drag for instant feel
+      drawer.style.transition = 'none';
+    }
+
+    function onTouchMove(e) {
+      if (!dragging) return;
+      var dy = startY - e.touches[0].clientY; // positive = dragging up
+      // Only intercept if dragging up when closed, or down when open
+      if (!startOpen && dy > 0) {
+        e.preventDefault(); // stop page scroll
+      }
+      if (startOpen && dy < 0) {
+        e.preventDefault();
+      }
+    }
+
+    function onTouchEnd(e) {
+      if (!dragging) return;
+      dragging = false;
+      drawer.style.transition = ''; // restore CSS transition
+      var dy = startY - e.changedTouches[0].clientY; // positive = up
+      if (!startOpen && dy > THRESHOLD) {
+        // Dragged up enough — open
+        msbBar.classList.add('expanded');
+      } else if (startOpen && dy < -THRESHOLD) {
+        // Dragged down enough — close
+        msbBar.classList.remove('expanded');
+      }
+      // Otherwise snap back (CSS transition handles it automatically)
+    }
+
+    var target = drawer;
+    target.addEventListener('touchstart', onTouchStart, { passive: true });
+    target.addEventListener('touchmove',  onTouchMove,  { passive: false });
+    target.addEventListener('touchend',   onTouchEnd,   { passive: true });
+  })();
+
+
 
   /* ── SHIPPING TOGGLE ──────────────────────────────────────────── */
   window.toggleShipping = function () {
@@ -2322,13 +2104,20 @@
 
   /* ── STEP MACHINE ─────────────────────────────────────────────── */
   function setStep(n) {
-    [['st-1',1],['st-2',2],['st-3',3]].forEach(function (p) {
-      document.getElementById(p[0]).className =
-        'nav-step' + (p[1] < n ? ' done' : p[1] === n ? ' active' : '');
+    // Sync both nav steps (desktop) and page steps bar (mobile)
+    [['st-1','pst-1',1],['st-2','pst-2',2],['st-3','pst-3',3]].forEach(function (p) {
+      var cls = 'nav-step' + (p[2] < n ? ' done' : p[2] === n ? ' active' : '');
+      var nav = document.getElementById(p[0]);
+      var page = document.getElementById(p[1]);
+      if (nav) nav.className = cls;
+      if (page) page.className = cls;
     });
-    [['cn-1',1],['cn-2',2]].forEach(function (p) {
-      document.getElementById(p[0]).className =
-        'nav-sep' + (p[1] < n ? ' done' : '');
+    [['cn-1','pcn-1',1],['cn-2','pcn-2',2]].forEach(function (p) {
+      var cls = 'nav-sep' + (p[2] < n ? ' done' : '');
+      var nav = document.getElementById(p[0]);
+      var page = document.getElementById(p[1]);
+      if (nav) nav.className = cls;
+      if (page) page.className = cls;
     });
     ['panel-step-1','panel-step-2','panel-step-3'].forEach(function (id, i) {
       var el = document.getElementById(id);
@@ -2526,8 +2315,8 @@
       '<sup style="font-size:0.6em;vertical-align:super;font-weight:700">$</sup>' +
       dollars +
       '<sup style="font-size:0.45em;vertical-align:super;font-weight:600">.' + centsStr + '</sup>';
-    document.getElementById('payBtn-lbl').textContent =
-      'Pay $' + (cents === 0 ? dollars : (dollars + '.' + centsStr)) + ' — Complete Order';
+    document.getElementById('payBtn-lbl').innerHTML =
+      'Pay $' + (cents === 0 ? dollars : (dollars + '.' + centsStr)) + ' <span class="btn-tax">+ tax</span>';
     // Sync mobile bar collapsed amount
     var msbVal = document.getElementById('msb-amount-val');
     if (msbVal) msbVal.textContent = cents === 0 ? dollars : (dollars + '.' + centsStr);
