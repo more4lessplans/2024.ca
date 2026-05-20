@@ -986,166 +986,162 @@
     .renewal-qualifier { font-size: 0.65em; color: var(--ink-on-dark-3); margin-left: 4px; }
 
     /* ═══════════════════════════════════════════════════════════════
-       PRODUCT SHOWCASE — screen 0, mobile-first
+       UNIFIED PRODUCT CARD — screen 0
     ═══════════════════════════════════════════════════════════════ */
-    .product-showcase {
-      display: flex;
-      gap: 28px;
-      align-items: flex-start;
-      background: var(--bg-card);
+    .product-card {
+      background: #fff;
       border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      padding: 28px;
-      margin-bottom: 16px;
-      box-shadow: 0 2px 20px rgba(0,0,0,0.04);
+      border-radius: 22px;
+      overflow: hidden;
+      margin-bottom: 20px;
+      box-shadow:
+        0 1px 2px rgba(0,0,0,0.04),
+        0 4px 16px rgba(0,0,0,0.06),
+        0 12px 40px rgba(0,0,0,0.04);
+      opacity: 0;
+      animation: revealUp 0.65s var(--ease-out) 0.05s forwards;
     }
 
-    .product-showcase-img-zone {
-      flex-shrink: 0;
+    /* Image zone — subtle tinted bg so product floats */
+    .pc-image-zone {
+      background: linear-gradient(160deg, #f5f5f7 0%, #ececef 100%);
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 12px;
-      width: 140px;
+      padding: 32px 28px 24px;
+      gap: 16px;
+      position: relative;
     }
 
-    .product-showcase-badge {
+    .pc-badge {
       display: inline-flex;
       align-items: center;
       gap: 5px;
-      background: var(--green-bg);
-      border: 1px solid var(--green-border);
-      border-radius: var(--radius-full);
-      padding: 3px 10px;
-      font-size: 0.62rem;
-      font-weight: 600;
+      background: rgba(22,160,90,0.10);
+      border: 1px solid rgba(22,160,90,0.22);
+      border-radius: 999px;
+      padding: 4px 12px;
+      font-size: 0.63rem;
+      font-weight: 700;
       color: var(--green);
-      letter-spacing: 0.04em;
+      letter-spacing: 0.07em;
       text-transform: uppercase;
-      white-space: nowrap;
-      text-align: center;
     }
-    .product-showcase-badge svg { width: 8px; height: 8px; flex-shrink: 0; }
+    .pc-badge svg { width: 8px; height: 8px; flex-shrink: 0; }
 
-    .product-showcase-img {
-      width: 120px;
-      height: 120px;
+    .pc-img {
+      width: 148px;
+      height: 148px;
       object-fit: contain;
-      filter: drop-shadow(0 8px 20px rgba(0,0,0,0.12));
-      transition: transform 0.6s cubic-bezier(0.34,1.2,0.64,1);
+      filter: drop-shadow(0 12px 28px rgba(0,0,0,0.14));
+      transition: transform 0.7s cubic-bezier(0.34,1.2,0.64,1);
     }
-    .product-showcase-img:hover { transform: translateY(-4px) scale(1.03); }
+    .pc-img:hover { transform: translateY(-6px) scale(1.04); }
 
-    .product-showcase-body {
-      flex: 1;
-      min-width: 0;
+    /* Body — identity + price */
+    .pc-body {
+      padding: 26px 28px 24px;
     }
 
-    .product-showcase-eyebrow {
+    .pc-eyebrow {
       font-size: 0.62rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
+      font-weight: 700;
+      letter-spacing: 0.11em;
       text-transform: uppercase;
       color: var(--ink-3);
-      margin-bottom: 6px;
+      margin-bottom: 7px;
     }
 
-    .product-showcase-title {
-      font-size: 1.85rem;
+    .pc-title {
+      font-size: 2rem;
       font-weight: 800;
-      letter-spacing: -0.04em;
-      line-height: 1.05;
+      letter-spacing: -0.045em;
+      line-height: 1.0;
       color: var(--ink);
       margin-bottom: 10px;
     }
 
-    .product-showcase-sub {
-      font-size: 0.82rem;
+    .pc-sub {
+      font-size: 0.84rem;
       color: var(--ink-3);
-      line-height: 1.6;
-      margin-bottom: 20px;
+      line-height: 1.65;
+      margin-bottom: 22px;
+      max-width: 38ch;
     }
 
-    .product-price-row {
+    .pc-price-row {
       display: flex;
       align-items: baseline;
-      gap: 10px;
+      gap: 11px;
     }
 
-    .product-price-fig {
-      font-size: 2.2rem;
+    .pc-price-fig {
+      font-size: 2.4rem;
       font-weight: 800;
-      letter-spacing: -0.05em;
+      letter-spacing: -0.055em;
       color: var(--ink);
       line-height: 1;
     }
-    .product-price-fig sup { font-size: 0.55em; vertical-align: super; font-weight: 700; letter-spacing: 0; }
-
-    .product-price-note {
-      font-size: 0.7rem;
-      color: var(--ink-3);
-      font-weight: 400;
-    }
-    .product-price-renew {
-      font-size: 0.7rem;
-      color: var(--ink-4);
+    .pc-price-fig sup {
+      font-size: 0.52em;
+      vertical-align: super;
+      font-weight: 700;
+      letter-spacing: 0;
     }
 
-    /* Feature checklist */
-    .product-features-list {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      padding: 20px 24px;
-      margin-bottom: 16px;
+    .pc-price-meta { display: flex; flex-direction: column; gap: 2px; }
+    .pc-price-note { font-size: 0.71rem; color: var(--ink-3); font-weight: 400; }
+    .pc-price-renew { font-size: 0.71rem; color: var(--ink-4); }
+
+    /* Divider between body and features */
+    .pc-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 0 28px;
     }
 
-    .pfl-item {
+    /* Features section */
+    .pc-features {
+      padding: 6px 28px 24px;
+    }
+
+    .pc-feat {
       display: flex;
       align-items: flex-start;
-      gap: 12px;
-      padding: 9px 0;
+      gap: 13px;
+      padding: 11px 0;
       border-bottom: 1px solid var(--border-soft);
-      font-size: 0.84rem;
-      color: var(--ink-2);
-      line-height: 1.5;
     }
-    .pfl-item:first-child { padding-top: 0; }
-    .pfl-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .pc-feat:first-child { padding-top: 18px; }
+    .pc-feat:last-child { border-bottom: none; padding-bottom: 0; }
 
-    .pfl-check {
-      width: 18px; height: 18px;
+    .pc-feat-check {
+      width: 20px; height: 20px;
       border-radius: 50%;
-      background: var(--green-bg);
-      border: 1px solid var(--green-border);
+      background: rgba(22,160,90,0.08);
+      border: 1px solid rgba(22,160,90,0.20);
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;
       margin-top: 1px;
     }
-    .pfl-check svg { width: 8px; height: 8px; stroke: var(--green); }
+    .pc-feat-check svg { width: 8px; height: 8px; stroke: var(--green); }
 
-    .pfl-text strong { color: var(--ink); font-weight: 600; }
+    .pc-feat-text {
+      font-size: 0.85rem;
+      color: var(--ink-2);
+      line-height: 1.5;
+    }
+    .pc-feat-text strong { color: var(--ink); font-weight: 600; }
 
-    /* Mobile overrides for product showcase */
+    /* Mobile: stack image above body, make image a bit smaller */
     @media (max-width: 600px) {
-      .product-showcase {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        padding: 24px 20px;
-        gap: 20px;
-      }
-      .product-showcase-img-zone {
-        width: 100%;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        gap: 14px;
-      }
-      .product-showcase-img { width: 100px; height: 100px; }
-      .product-showcase-body { text-align: left; width: 100%; }
-      .product-showcase-title { font-size: 1.6rem; }
-      .product-price-row { justify-content: flex-start; }
+      .pc-image-zone { padding: 28px 24px 20px; }
+      .pc-img { width: 120px; height: 120px; }
+      .pc-body { padding: 22px 22px 20px; }
+      .pc-title { font-size: 1.75rem; }
+      .pc-price-fig { font-size: 2.1rem; }
+      .pc-divider { margin: 0 22px; }
+      .pc-features { padding: 4px 22px 22px; }
     }
 
     /* ═══════════════════════════════════════════════════════════════
@@ -1458,52 +1454,60 @@
       <div class="checkout-left-inner">
         <div class="order-hero">
 
-          <!-- Product card — prominent image + identity -->
-          <div class="product-showcase">
-            <div class="product-showcase-img-zone">
-              <div class="product-showcase-badge">
+          <!-- Unified product card -->
+          <div class="product-card">
+
+            <!-- Top: image zone -->
+            <div class="pc-image-zone">
+              <div class="pc-badge">
                 <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2"/></svg>
                 First Month Included
               </div>
-              <img src="assets/img/products/LBR20.png" alt="NETGEAR Orbi LBR20" class="product-showcase-img">
+              <img src="assets/img/products/LBR20.png" alt="NETGEAR Orbi LBR20" class="pc-img">
             </div>
-            <div class="product-showcase-body">
-              <div class="product-showcase-eyebrow">Home &amp; Office Internet</div>
-              <h1 class="product-showcase-title">Orbi LBR20</h1>
-              <p class="product-showcase-sub">4G LTE Tri-Band Mesh WiFi — pre-configured and ready the moment it arrives. No technician. No contract.</p>
 
-              <div class="product-price-row">
-                <div class="product-price-fig"><sup>$</sup>249</div>
-                <div class="product-price-meta">
-                  <div class="product-price-note">+ tax · one-time</div>
-                  <div class="product-price-renew">then $110/mo</div>
+            <!-- Mid: identity + price -->
+            <div class="pc-body">
+              <div class="pc-eyebrow">Home &amp; Office Internet</div>
+              <h1 class="pc-title">Orbi LBR20</h1>
+              <p class="pc-sub">4G LTE Tri-Band Mesh WiFi — pre-configured and ready the moment it arrives. No technician. No contract.</p>
+
+              <div class="pc-price-row">
+                <div class="pc-price-fig"><sup>$</sup>249</div>
+                <div class="pc-price-meta">
+                  <div class="pc-price-note">+ tax · one-time</div>
+                  <div class="pc-price-renew">then $110/mo</div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <!-- Feature checklist -->
-          <div class="product-features-list">
-            <div class="pfl-item">
-              <div class="pfl-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-              <div class="pfl-text"><strong>Truly Unlimited Data</strong> — no caps, no slowdowns, ever</div>
+            <!-- Divider -->
+            <div class="pc-divider"></div>
+
+            <!-- Bottom: features -->
+            <div class="pc-features">
+              <div class="pc-feat">
+                <div class="pc-feat-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+                <div class="pc-feat-text"><strong>Truly Unlimited Data</strong> — no caps, no slowdowns, ever</div>
+              </div>
+              <div class="pc-feat">
+                <div class="pc-feat-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+                <div class="pc-feat-text"><strong>Up to 64 devices</strong> — 2.4 + 5 + 5 GHz tri-band mesh</div>
+              </div>
+              <div class="pc-feat">
+                <div class="pc-feat-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+                <div class="pc-feat-text"><strong>Covers 2,000 sq. ft.</strong> — whole-home mesh WiFi</div>
+              </div>
+              <div class="pc-feat">
+                <div class="pc-feat-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+                <div class="pc-feat-text"><strong>Free shipping</strong> — pre-configured SIM, plug &amp; play</div>
+              </div>
+              <div class="pc-feat">
+                <div class="pc-feat-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+                <div class="pc-feat-text"><strong>30-day money-back guarantee</strong> — no questions asked</div>
+              </div>
             </div>
-            <div class="pfl-item">
-              <div class="pfl-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-              <div class="pfl-text"><strong>Up to 64 devices</strong> — 2.4 + 5 + 5 GHz tri-band mesh</div>
-            </div>
-            <div class="pfl-item">
-              <div class="pfl-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-              <div class="pfl-text"><strong>Covers 2,000 sq. ft.</strong> — whole-home mesh WiFi</div>
-            </div>
-            <div class="pfl-item">
-              <div class="pfl-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-              <div class="pfl-text"><strong>Free shipping</strong> — pre-configured SIM, plug &amp; play</div>
-            </div>
-            <div class="pfl-item">
-              <div class="pfl-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-              <div class="pfl-text"><strong>30-day money-back guarantee</strong> — no questions asked</div>
-            </div>
+
           </div>
 
           <div class="cta-block">
