@@ -546,7 +546,35 @@
       cursor: text;
     }
 
-    .field-err {
+    .field select {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--bg-input);
+      font-family: 'Figtree', sans-serif;
+      font-size: 0.88rem;
+      color: var(--ink);
+      outline: none;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpolyline points='1,1 6,7 11,1' fill='none' stroke='%2387878c' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+      cursor: pointer;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .field select:focus {
+      border-color: var(--ink);
+      box-shadow: 0 0 0 3px rgba(10,10,11,0.06);
+    }
+    .field select.err {
+      border-color: var(--red);
+      box-shadow: 0 0 0 3px var(--red-glow);
+    }
+    .field select option { color: var(--ink); }
+
       font-size: 0.7rem;
       color: var(--red);
       font-weight: 500;
@@ -1406,8 +1434,8 @@
 
             <div class="field" id="fg-phone">
               <label for="f-phone">Phone Number</label>
-              <input type="tel" id="f-phone" placeholder="416-555-0123" autocomplete="tel">
-              <div class="field-err">Please enter a valid phone number.</div>
+              <input type="tel" id="f-phone" placeholder="(416) 555-0123" autocomplete="tel">
+              <div class="field-err">Please enter a valid 10-digit Canadian phone number.</div>
             </div>
           </div>
 
@@ -1491,15 +1519,30 @@
               </div>
               <div class="field" id="fg-bill-province">
                 <label for="f-bill-province">Province</label>
-                <input type="text" id="f-bill-province" placeholder="ON">
+                <select id="f-bill-province">
+                  <option value="">Select…</option>
+                  <option value="AB">AB — Alberta</option>
+                  <option value="BC">BC — British Columbia</option>
+                  <option value="MB">MB — Manitoba</option>
+                  <option value="NB">NB — New Brunswick</option>
+                  <option value="NL">NL — Newfoundland &amp; Labrador</option>
+                  <option value="NS">NS — Nova Scotia</option>
+                  <option value="NT">NT — Northwest Territories</option>
+                  <option value="NU">NU — Nunavut</option>
+                  <option value="ON">ON — Ontario</option>
+                  <option value="PE">PE — Prince Edward Island</option>
+                  <option value="QC">QC — Quebec</option>
+                  <option value="SK">SK — Saskatchewan</option>
+                  <option value="YT">YT — Yukon</option>
+                </select>
                 <div class="field-err">Required.</div>
               </div>
             </div>
             <div class="field-row">
               <div class="field" id="fg-bill-postal">
                 <label for="f-bill-postal">Postal Code</label>
-                <input type="text" id="f-bill-postal" placeholder="M5V 2T6">
-                <div class="field-err">Required.</div>
+                <input type="text" id="f-bill-postal" placeholder="M5V 2T6" maxlength="7">
+                <div class="field-err">Enter a valid Canadian postal code (e.g. M5V 2T6).</div>
               </div>
               <div class="field">
                 <label>Country</label>
@@ -1535,15 +1578,30 @@
                 </div>
                 <div class="field" id="fg-ship-province">
                   <label for="f-ship-province">Province</label>
-                  <input type="text" id="f-ship-province" placeholder="ON">
+                  <select id="f-ship-province">
+                    <option value="">Select…</option>
+                    <option value="AB">AB — Alberta</option>
+                    <option value="BC">BC — British Columbia</option>
+                    <option value="MB">MB — Manitoba</option>
+                    <option value="NB">NB — New Brunswick</option>
+                    <option value="NL">NL — Newfoundland &amp; Labrador</option>
+                    <option value="NS">NS — Nova Scotia</option>
+                    <option value="NT">NT — Northwest Territories</option>
+                    <option value="NU">NU — Nunavut</option>
+                    <option value="ON">ON — Ontario</option>
+                    <option value="PE">PE — Prince Edward Island</option>
+                    <option value="QC">QC — Quebec</option>
+                    <option value="SK">SK — Saskatchewan</option>
+                    <option value="YT">YT — Yukon</option>
+                  </select>
                   <div class="field-err">Required.</div>
                 </div>
               </div>
               <div class="field-row">
                 <div class="field" id="fg-ship-postal">
                   <label for="f-ship-postal">Postal Code</label>
-                  <input type="text" id="f-ship-postal" placeholder="M5V 2T6">
-                  <div class="field-err">Required.</div>
+                  <input type="text" id="f-ship-postal" placeholder="M5V 2T6" maxlength="7">
+                  <div class="field-err">Enter a valid Canadian postal code (e.g. M5V 2T6).</div>
                 </div>
                 <div class="field">
                   <label>Country</label>
@@ -2133,7 +2191,6 @@
 
   window.setStep = setStep;
 
-  /* ── VALIDATION HELPERS ───────────────────────────────────────── */
   function clearErrors() {
     document.querySelectorAll('.field.has-err').forEach(function (el) { el.classList.remove('has-err'); });
     document.querySelectorAll('input.err, select.err').forEach(function (el) { el.classList.remove('err'); });
@@ -2146,18 +2203,74 @@
     if (g) g.classList.add('has-err');
   }
 
-  function isPhone(v) { return v.replace(/[\s\-()+.]/g, '').length >= 7; }
+  /* Phone: require exactly 10 digits, format as (NXX) NXX-XXXX */
+  function formatPhone(raw) {
+    var digits = raw.replace(/\D/g, '').slice(0, 10);
+    if (digits.length <= 3) return digits.length ? '(' + digits : '';
+    if (digits.length <= 6) return '(' + digits.slice(0,3) + ') ' + digits.slice(3);
+    return '(' + digits.slice(0,3) + ') ' + digits.slice(3,6) + '-' + digits.slice(6);
+  }
+  function isPhone(v) { return v.replace(/\D/g,'').length === 10; }
+
+  /* Postal code: auto-format A1A 1A1, validate regex */
+  var POSTAL_RE = /^[A-Za-z]\d[A-Za-z] \d[A-Za-z]\d$/;
+  function formatPostal(raw) {
+    var clean = raw.replace(/\s/g,'').toUpperCase().slice(0,6);
+    if (clean.length <= 3) return clean;
+    return clean.slice(0,3) + ' ' + clean.slice(3);
+  }
+  function isPostal(v) { return POSTAL_RE.test(v); }
+
   function isEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
 
-  ['f-first','f-last','f-phone','f-email'].forEach(function (id) {
+  /* Live phone formatting */
+  (function () {
+    var ph = document.getElementById('f-phone');
+    if (!ph) return;
+    ph.addEventListener('input', function () {
+      var pos = this.selectionStart;
+      var prev = this.value;
+      var formatted = formatPhone(this.value);
+      this.value = formatted;
+      // Adjust caret: if we added chars before caret, nudge it
+      var diff = formatted.length - prev.length;
+      try { this.setSelectionRange(pos + diff, pos + diff); } catch(e){}
+      this.classList.remove('err');
+      var p = this.closest('.field'); if (p) p.classList.remove('has-err');
+    });
+  })();
+
+  /* Live postal formatting for billing & shipping */
+  ['f-bill-postal','f-ship-postal'].forEach(function (id) {
+    var el = document.getElementById(id); if (!el) return;
+    el.addEventListener('input', function () {
+      var pos = this.selectionStart;
+      var prev = this.value;
+      this.value = formatPostal(this.value);
+      var diff = this.value.length - prev.length;
+      try { this.setSelectionRange(pos + diff, pos + diff); } catch(e){}
+      this.classList.remove('err');
+      var p = this.closest('.field'); if (p) p.classList.remove('has-err');
+    });
+  });
+
+  /* Clear-error listeners */
+  ['f-first','f-last','f-email'].forEach(function (id) {
     var el = document.getElementById(id); if (!el) return;
     el.addEventListener('input', function () {
       this.classList.remove('err');
       var p = this.closest('.field'); if (p) p.classList.remove('has-err');
     });
   });
+  ['f-bill-province','f-ship-province'].forEach(function (id) {
+    var el = document.getElementById(id); if (!el) return;
+    el.addEventListener('change', function () {
+      this.classList.remove('err');
+      var p = this.closest('.field'); if (p) p.classList.remove('has-err');
+    });
+  });
 
-  /* ── STEP 1: Contact ──────────────────────────────────────────── */
+
   function collectContact() {
     clearErrors();
     var first = document.getElementById('f-first').value.trim();
@@ -2170,7 +2283,9 @@
     if (!isPhone(phone)) { flagErr('f-phone', 'fg-phone'); ok = false; }
     if (!isEmail(email)) { flagErr('f-email', 'fg-email'); ok = false; }
     if (!ok) { var f = document.querySelector('.field.has-err input'); if (f) f.focus(); return null; }
-    return { plan_id: CB_PLAN_ID, sim_type: 'physical', first_name: first, last_name: last, phone: phone, email: email };
+    // Store phone as digits-only for the worker
+    var phoneDigits = phone.replace(/\D/g,'');
+    return { plan_id: CB_PLAN_ID, sim_type: 'physical', first_name: first, last_name: last, phone: phoneDigits, email: email };
   }
 
   window.handleStep1 = function () {
@@ -2210,12 +2325,17 @@
         if (t === 'postal_code')                 postal       = c.long_name;
       });
       input.value = (streetNumber + ' ' + route).trim();
-      document.getElementById(cityId).value     = city;
-      document.getElementById(provinceId).value = province;
-      document.getElementById(postalId).value   = postal;
+      document.getElementById(cityId).value = city;
+      // Province is now a <select> — set by value (2-letter code)
+      var provSel = document.getElementById(provinceId);
+      if (provSel) provSel.value = province;
+      // Postal: format as A1A 1A1
+      document.getElementById(postalId).value = formatPostal(postal);
       input.classList.remove('err');
       var fg = document.getElementById(inputId.replace('f-', 'fg-'));
       if (fg) fg.classList.remove('has-err');
+      if (provSel) { provSel.classList.remove('err'); var pfg = provSel.closest('.field'); if (pfg) pfg.classList.remove('has-err'); }
+      var posEl = document.getElementById(postalId); if (posEl) { posEl.classList.remove('err'); var pgfg = posEl.closest('.field'); if (pgfg) pgfg.classList.remove('has-err'); }
       if (isBilling) billPlaceSelected = true;
       else           shipPlaceSelected = true;
     });
@@ -2242,10 +2362,10 @@
     var billCity     = document.getElementById('f-bill-city').value.trim();
     var billProvince = document.getElementById('f-bill-province').value.trim();
     var billPostal   = document.getElementById('f-bill-postal').value.trim();
-    if (!billStreet)   { flagErr('f-bill-street',   'fg-bill-street');   ok = false; }
-    if (!billCity)     { flagErr('f-bill-city',     'fg-bill-city');     ok = false; }
-    if (!billProvince) { flagErr('f-bill-province', 'fg-bill-province'); ok = false; }
-    if (!billPostal)   { flagErr('f-bill-postal',   'fg-bill-postal');   ok = false; }
+    if (!billStreet)              { flagErr('f-bill-street',   'fg-bill-street');   ok = false; }
+    if (!billCity)                { flagErr('f-bill-city',     'fg-bill-city');     ok = false; }
+    if (!billProvince)            { flagErr('f-bill-province', 'fg-bill-province'); ok = false; }
+    if (!isPostal(billPostal))    { flagErr('f-bill-postal',   'fg-bill-postal');   ok = false; }
 
     var sameAsBilling = document.getElementById('same-as-billing').checked;
     var shipStreet = billStreet, shipCity = billCity, shipProvince = billProvince, shipPostal = billPostal;
@@ -2255,13 +2375,17 @@
       shipCity     = document.getElementById('f-ship-city').value.trim();
       shipProvince = document.getElementById('f-ship-province').value.trim();
       shipPostal   = document.getElementById('f-ship-postal').value.trim();
-      if (!shipStreet)   { flagErr('f-ship-street',   'fg-ship-street');   ok = false; }
-      if (!shipCity)     { flagErr('f-ship-city',     'fg-ship-city');     ok = false; }
-      if (!shipProvince) { flagErr('f-ship-province', 'fg-ship-province'); ok = false; }
-      if (!shipPostal)   { flagErr('f-ship-postal',   'fg-ship-postal');   ok = false; }
+      if (!shipStreet)           { flagErr('f-ship-street',   'fg-ship-street');   ok = false; }
+      if (!shipCity)             { flagErr('f-ship-city',     'fg-ship-city');     ok = false; }
+      if (!shipProvince)         { flagErr('f-ship-province', 'fg-ship-province'); ok = false; }
+      if (!isPostal(shipPostal)) { flagErr('f-ship-postal',   'fg-ship-postal');   ok = false; }
     }
 
-    if (!ok) { var f = document.querySelector('.field.has-err input'); if (f) f.focus(); return null; }
+    if (!ok) { var f = document.querySelector('.field.has-err input, .field.has-err select'); if (f) f.focus(); return null; }
+
+    // Normalise postal codes: uppercase with space
+    var normBillPostal = formatPostal(billPostal);
+    var normShipPostal = formatPostal(shipPostal);
 
     return {
       billing: {
@@ -2269,7 +2393,7 @@
         line2:      document.getElementById('f-bill-apt').value.trim(),
         city:       billCity,
         state_code: billProvince,
-        zip:        billPostal,
+        zip:        normBillPostal,
         country:    'CA'
       },
       shipping: {
@@ -2277,7 +2401,7 @@
         line2:      sameAsBilling ? document.getElementById('f-bill-apt').value.trim() : document.getElementById('f-ship-apt').value.trim(),
         city:       shipCity,
         state_code: shipProvince,
-        zip:        shipPostal,
+        zip:        normShipPostal,
         country:    'CA'
       }
     };
