@@ -1058,13 +1058,7 @@
       <li><a href="/portal" class="btn-portal-top">Customer Portal</a></li>
     </ul>
 
-    <div class="nav-secure-badge">
-      <svg viewBox="0 0 14 14" stroke-linecap="round">
-        <rect x="2" y="6" width="10" height="7" rx="1.5"/>
-        <path d="M4.5 6V4.5a2.5 2.5 0 015 0V6"/>
-      </svg>
-      Secure Checkout
-    </div>
+
 
     <button class="menu-trigger" id="menuTrigger" aria-label="Open menu">
       <div class="menu-icon"><span></span><span></span><span></span></div>
@@ -1823,7 +1817,8 @@
   'use strict';
 
   var CB_SITE    = 'more4lessplans';
-  var CB_PLAN_ID = 'wireless-internet-m1';
+  var CB_PLAN_ID      = 'wireless-internet-m1';
+  var DEVICE_ADDON_ID = 'nighthawk-m1';  // Chargebee addon ID for the device
   var WORKER_URL = '/api/checkout-embedded';
   var CONFIRM    = '/lease-confirmed';
   var BASE_PRICE = 199;
@@ -2253,22 +2248,81 @@
         return;
       }
       appliedCoupon = data.coupon_id;
-      var durationType = data.duration_type || data.apply_on || 'forever';
+      var durationType = data.duration_type || 'forever';
       window._couponPeriod = data.period || '';
+
+      // ── Determine what the coupon targets ──────────────────────────
+      // Chargebee returns apply_on: 'invoice_amount' | 'each_specified_item'
+      // For each_specified_item, item_constraints lists which addons/plans apply.
+      // We infer: if the coupon's constrained items include the device addon → device discount.
+      // If they include a plan (or apply to invoice_amount broadly) → subscription discount.
+      var applyOn = data.apply_on || 'invoice_amount';
+      var addonIds = [];
+      var planIds  = [];
+
+      // item_constraints is Chargebee's v2 API field; addon_constraints is v1
+      var constraints = data.item_constraints || data.addon_constraints || [];
+      if (Array.isArray(constraints)) {
+        constraints.forEach(function(c) {
+          if (c.item_type === 'addon' || c.type === 'addon') {
+            (c.item_price_ids || c.ids || []).forEach(function(id) { addonIds.push(id); });
+          }
+          if (c.item_type === 'plan' || c.type === 'plan') {
+            (c.item_price_ids || c.ids || []).forEach(function(id) { planIds.push(id); });
+          }
+        });
+      }
+
+      // Also accept a flat applicable_addons array (some worker responses flatten this)
+      (data.applicable_addons || []).forEach(function(id) { addonIds.push(id); });
+
+      var targetsDevice = applyOn === 'invoice_amount' ||
+                          addonIds.some(function(id) { return id === DEVICE_ADDON_ID || id.indexOf('nighthawk') !== -1 || id.indexOf('m1') !== -1 || id.indexOf('device') !== -1; });
+      var targetsPlan   = applyOn === 'invoice_amount' ||
+                          planIds.length > 0 ||
+                          (!targetsDevice && addonIds.length === 0); // fallback: no specific items → treat as subscription
+
+      // invoice_amount hits everything; otherwise route specifically
+      if (applyOn === 'invoice_amount') { targetsDevice = true; targetsPlan = true; }
+
+      discountAmount = 0;
+
       if (data.discount_type === 'fixed_amount') {
-        discountAmount = 0; // coupon applies to subscription, not the one-time device charge
-        var renewalDiscount = data.discount_amount / 100;
-        showDiscountRow('Promo: ' + code, '−$' + renewalDiscount.toFixed(2) + '/mo on renewal');
-        updateRenewalPrice('fixed_amount', renewalDiscount, durationType);
+        var rawDiscount = data.discount_amount / 100;
+        if (targetsDevice && !targetsPlan) {
+          // Device-only: reduces Due Today
+          discountAmount = rawDiscount;
+          showDiscountRow('Promo: ' + code, '−$' + rawDiscount.toFixed(2) + ' on device');
+          resetRenewalPrice();
+        } else if (targetsPlan && !targetsDevice) {
+          // Subscription-only: reduces renewal price
+          showDiscountRow('Promo: ' + code, '−$' + rawDiscount.toFixed(2) + '/mo on renewal');
+          updateRenewalPrice('fixed_amount', rawDiscount, durationType);
+        } else {
+          // Both: discount device today, and renewal
+          discountAmount = rawDiscount;
+          showDiscountRow('Promo: ' + code, '−$' + rawDiscount.toFixed(2));
+          updateRenewalPrice('fixed_amount', rawDiscount, durationType);
+        }
       } else if (data.discount_type === 'percentage') {
-        discountAmount = 0; // coupon applies to subscription, not the one-time device charge
-        var renewalDiscount = (RENEWAL_PRICE * data.discount_percent) / 100;
-        showDiscountRow('Promo: ' + code + ' (' + data.discount_percent + '% off renewal)', '−$' + renewalDiscount.toFixed(2) + '/mo');
-        updateRenewalPrice('percentage', data.discount_percent, durationType);
+        var pct = data.discount_percent;
+        if (targetsDevice && !targetsPlan) {
+          discountAmount = (BASE_PRICE * pct) / 100;
+          showDiscountRow('Promo: ' + code + ' (' + pct + '% off device)', '−$' + discountAmount.toFixed(2));
+          resetRenewalPrice();
+        } else if (targetsPlan && !targetsDevice) {
+          var renewalDiscount = (RENEWAL_PRICE * pct) / 100;
+          showDiscountRow('Promo: ' + code + ' (' + pct + '% off renewal)', '−$' + renewalDiscount.toFixed(2) + '/mo');
+          updateRenewalPrice('percentage', pct, durationType);
+        } else {
+          discountAmount = (BASE_PRICE * pct) / 100;
+          showDiscountRow('Promo: ' + code + ' (' + pct + '% off)', '−$' + discountAmount.toFixed(2));
+          updateRenewalPrice('percentage', pct, durationType);
+        }
       } else {
-        discountAmount = 0;
         resetRenewalPrice();
       }
+
       updateDueToday(discountAmount);
       setPromoFeedback('ok', data.description || 'Promo code applied!');
     })
