@@ -4,13 +4,95 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Wireless Internet Plans — More4Less</title>
-  <meta name="description" content="Truly unlimited wireless internet across Canada. Free device rental, $0 activation, no contract. Starting at $80/month.">
 
+  <!-- ═══ Primary SEO ═══ -->
+  <title>Unlimited Wireless Internet Plans — More4Less Canada</title>
+  <meta name="description" content="Get truly unlimited wireless internet anywhere in Canada. Free device rental, $0 activation, no contracts, no hidden fees. Portable or home plans from $80/month. Check your coverage now.">
+  <meta name="keywords" content="unlimited wireless internet Canada, no contract internet, wireless home internet, portable wifi Canada, mobile hotspot plan, More4Less internet">
+  <meta name="author" content="More4Less">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://more4less.ca/internet">
+
+  <!-- ═══ Open Graph (Facebook, iMessage, WhatsApp, LinkedIn) ═══ -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="More4Less">
+  <meta property="og:title" content="Internet Without the Fine Print — More4Less">
+  <meta property="og:description" content="Truly unlimited wireless internet across Canada. Free device rental, $0 activation, no contracts. Plans from $80/month. Check coverage at your address.">
+  <meta property="og:url" content="https://more4less.ca/internet">
+  <meta property="og:image" content="https://more4less.ca/assets/img/og/internet-plans.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="More4Less — Unlimited Wireless Internet Plans across Canada">
+  <meta property="og:locale" content="en_CA">
+
+  <!-- ═══ Twitter / X Card ═══ -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@More4LessCA">
+  <meta name="twitter:title" content="Internet Without the Fine Print — More4Less">
+  <meta name="twitter:description" content="Truly unlimited wireless internet across Canada. Free device rental, $0 activation, no contracts. From $80/month.">
+  <meta name="twitter:image" content="https://more4less.ca/assets/img/og/internet-plans.jpg">
+  <meta name="twitter:image:alt" content="More4Less — Unlimited Wireless Internet Plans">
+
+  <!-- ═══ Favicons ═══ -->
   <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicons/favicon-16x16.png">
   <link rel="shortcut icon" href="assets/img/favicons/favicon.ico">
   <meta name="theme-color" content="#2E2F33">
+
+  <!-- ═══ Structured Data (JSON-LD) ═══ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "More4Less Unlimited Wireless Internet",
+    "description": "Truly unlimited wireless internet plans across Canada. No contracts, no hidden fees. Free device rental and $0 activation.",
+    "provider": {
+      "@type": "Organization",
+      "name": "More4Less",
+      "url": "https://more4less.ca",
+      "logo": "https://more4less.ca/assets/img/logos/logo.png",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer support",
+        "url": "https://more4less.ca/contact",
+        "areaServed": "CA"
+      }
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "Canada"
+    },
+    "offers": [
+      {
+        "@type": "Offer",
+        "name": "Mobile Essential — On-The-Go Plan",
+        "description": "Portable unlimited internet with NETGEAR Nighthawk M1. Runs on battery, connects up to 20 devices.",
+        "price": "80.00",
+        "priceCurrency": "CAD",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "price": "80.00",
+          "priceCurrency": "CAD",
+          "unitText": "month"
+        }
+      },
+      {
+        "@type": "Offer",
+        "name": "Home & Office — Fixed Location Plan",
+        "description": "Whole-home wireless internet with NETGEAR Orbi LBR20. Connects up to 64 devices.",
+        "price": "80.00",
+        "priceCurrency": "CAD",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "price": "80.00",
+          "priceCurrency": "CAD",
+          "unitText": "month"
+        }
+      }
+    ]
+  }
+  </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -221,33 +303,30 @@
     /* Hero background image — graceful: shows gradient if image is missing */
     .hero-bg {
       position: absolute; inset: 0;
-      background-image: url('assets/img/gallery/mr1100.webp');
+      background-image: url('assets/img/gallery/m1.webp');
       background-size: cover;
       background-position: center 40%;
       background-repeat: no-repeat;
       z-index: 0;
     }
-    /* Overlay: tints the photo to keep the hero readable; also acts as the
-       full background if the image fails to load */
+    /* Overlay: deep dark tint for a premium, dramatic look */
     .hero-bg::before {
       content: '';
       position: absolute; inset: 0;
       background:
         linear-gradient(180deg,
-          rgba(248,248,249,0.92) 0%,
-          rgba(248,248,249,0.82) 50%,
-          rgba(248,248,249,0.96) 100%),
-        radial-gradient(ellipse 80% 60% at 50% -10%, rgba(215,60,89,0.06) 0%, transparent 70%),
-        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(22,160,90,0.04) 0%, transparent 60%);
+          rgba(18,18,22,0.84) 0%,
+          rgba(18,18,22,0.68) 45%,
+          rgba(18,18,22,0.94) 100%),
+        radial-gradient(ellipse 70% 50% at 50% 0%, rgba(215,60,89,0.13) 0%, transparent 65%),
+        radial-gradient(ellipse 50% 40% at 80% 80%, rgba(22,160,90,0.06) 0%, transparent 60%);
     }
-    /* Fallback gradient shown when image can't load (matches --bg) */
+    /* Fallback gradient when image fails to load */
     .hero-bg::after {
       content: '';
       position: absolute; inset: 0;
       z-index: -1;
-      background:
-        radial-gradient(ellipse 80% 60% at 50% -10%, rgba(215,60,89,0.06) 0%, transparent 70%),
-        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(22,160,90,0.04) 0%, transparent 60%);
+      background: linear-gradient(160deg, #16161a 0%, #1e1e26 100%);
     }
     .hero-inner {
       max-width: 760px;
@@ -262,14 +341,16 @@
       align-items: center;
       gap: 7px;
       padding: 6px 14px 6px 10px;
-      border: 1px solid var(--border);
+      border: 1px solid rgba(255,255,255,0.14);
       border-radius: var(--radius-full);
-      background: var(--bg-card);
+      background: rgba(255,255,255,0.07);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       font-size: 0.69rem;
       font-weight: 600;
       letter-spacing: 0.09em;
       text-transform: uppercase;
-      color: var(--ink-3);
+      color: rgba(255,255,255,0.65);
       margin-bottom: 32px;
       opacity: 0;
       transform: translateY(12px);
@@ -292,7 +373,7 @@
       font-weight: 900;
       letter-spacing: -0.04em;
       line-height: 1.05;
-      color: var(--ink);
+      color: #f0f0f4;
       margin-bottom: 22px;
       opacity: 0;
       transform: translateY(16px);
@@ -303,7 +384,7 @@
     .hero-sub {
       font-size: 1.08rem;
       font-weight: 400;
-      color: var(--ink-3);
+      color: rgba(240,240,244,0.62);
       line-height: 1.7;
       max-width: 540px;
       margin: 0 auto 48px;
@@ -322,21 +403,21 @@
     }
 
     .coverage-module {
-      background: rgba(255,255,255,0.9);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.10);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.16);
       border-radius: var(--radius-xl);
       padding: 6px;
       display: flex;
       align-items: center;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.07), 0 2px 8px rgba(0,0,0,0.04);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.25), 0 2px 8px rgba(0,0,0,0.15);
       margin-bottom: 10px;
       transition: box-shadow 0.3s ease, border-color 0.3s ease;
     }
     .coverage-module:focus-within {
-      border-color: var(--ink-3);
-      box-shadow: 0 8px 40px rgba(0,0,0,0.10), 0 0 0 3px rgba(10,10,11,0.05);
+      border-color: rgba(255,255,255,0.30);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.35), 0 0 0 3px rgba(255,255,255,0.06);
     }
     .coverage-module input {
       flex: 1;
@@ -346,10 +427,10 @@
       padding: 13px 16px;
       font-family: 'Figtree', sans-serif;
       font-size: 0.92rem;
-      color: var(--ink);
+      color: #f0f0f4;
       outline: none;
     }
-    .coverage-module input::placeholder { color: var(--ink-4); }
+    .coverage-module input::placeholder { color: rgba(240,240,244,0.38); }
 
     .btn-coverage {
       padding: 12px 22px;
@@ -396,7 +477,7 @@
     }
     .status-available::before { content: '✓'; font-weight: 700; }
     .status-unavailable { color: var(--red); }
-    .status-warning { color: var(--ink-3); }
+    .status-warning { color: rgba(240,240,244,0.55); }
 
     /* Trust pills */
     .hero-trust {
@@ -413,15 +494,15 @@
     .htrust-item {
       display: flex; align-items: center; gap: 7px;
       font-size: 0.75rem; font-weight: 600;
-      color: var(--ink-2); letter-spacing: 0.01em;
+      color: rgba(240,240,244,0.70); letter-spacing: 0.01em;
       padding: 0 20px; white-space: nowrap;
     }
     .htrust-item svg {
       width: 13px; height: 13px;
-      stroke: var(--ink-3); stroke-width: 2;
+      stroke: rgba(240,240,244,0.45); stroke-width: 2;
       fill: none; flex-shrink: 0;
     }
-    .htrust-div { width: 1px; height: 14px; background: var(--border); flex-shrink: 0; }
+    .htrust-div { width: 1px; height: 14px; background: rgba(255,255,255,0.12); flex-shrink: 0; }
 
     /* ═══════════════════════════════════════════════════════════
        VALUE STRIP
@@ -874,7 +955,7 @@
 
     <div class="hero-badge">
       <span class="hero-badge-dot"></span>
-      Now Available Across North America
+      Now Available Across Canada
     </div>
 
     <h1 class="hero-title">
@@ -905,8 +986,8 @@
 
         <!-- Hidden JotForm fields -->
         <div style="display:none;">
-          <input type="text" name="q3_name[first]" value="Website">
-          <input type="text" name="q3_name[last]" value="Lead">
+          <input type="text" name="q3_name[first]" value="Device">
+          <input type="text" name="q3_name[last]" value="Rental">
           <input type="text" name="q5_address[addr_line1]" id="jf_street">
           <input type="text" name="q5_address[city]" id="jf_city">
           <input type="text" name="q5_address[state]" id="jf_state">
