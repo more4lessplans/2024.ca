@@ -303,30 +303,28 @@
     /* Hero background image — graceful: shows gradient if image is missing */
     .hero-bg {
       position: absolute; inset: 0;
-      background-image: url('assets/img/gallery/m1.webp');
+      background-image: url('/assets/img/gallery/m1.webp');
       background-size: cover;
       background-position: center 40%;
       background-repeat: no-repeat;
       z-index: 0;
     }
-    /* Overlay: deep dark tint for a premium, dramatic look */
+    /* Overlay: very light dark tint — image shows clearly, slightly moodier */
     .hero-bg::before {
       content: '';
       position: absolute; inset: 0;
       background:
         linear-gradient(180deg,
-          rgba(18,18,22,0.84) 0%,
-          rgba(18,18,22,0.68) 45%,
-          rgba(18,18,22,0.94) 100%),
-        radial-gradient(ellipse 70% 50% at 50% 0%, rgba(215,60,89,0.13) 0%, transparent 65%),
-        radial-gradient(ellipse 50% 40% at 80% 80%, rgba(22,160,90,0.06) 0%, transparent 60%);
+          rgba(18,18,22,0.30) 0%,
+          rgba(18,18,22,0.1) 45%,
+          rgba(18,18,22,0.40) 100%);
     }
-    /* Fallback gradient when image fails to load */
+    /* Fallback: sits behind the image, only visible if image fails to load */
     .hero-bg::after {
       content: '';
       position: absolute; inset: 0;
       z-index: -1;
-      background: linear-gradient(160deg, #16161a 0%, #1e1e26 100%);
+      background: #16161a;
     }
     .hero-inner {
       max-width: 760px;
