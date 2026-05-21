@@ -319,13 +319,17 @@
           rgba(18,18,22,0.1) 45%,
           rgba(18,18,22,0.40) 100%);
     }
-    /* Fallback: sits behind the image, only visible if image fails to load */
-    .hero-bg::after {
-      content: '';
-      position: absolute; inset: 0;
-      z-index: -1;
-      background: #16161a;
-    }
+
+    .hero-bg {
+  position: absolute; inset: 0;
+  background-color: #16161a; /* Moves the fallback color here */
+  background-image: url('assets/img/gallery/m1.webp');
+  background-size: cover;
+  background-position: center 40%;
+  background-repeat: no-repeat;
+  z-index: 0;
+}
+ 
     .hero-inner {
       max-width: 760px;
       margin: 0 auto;
