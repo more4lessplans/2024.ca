@@ -456,21 +456,155 @@
     #email-module .coverage-module { margin-bottom: 0; }
     #email-module .coverage-module input { font-size: 0.9rem; }
 
-    /* Status */
+    /* Status — inline fallback (warning/error only) */
     .coverage-status {
-      min-height: 28px;
+      min-height: 20px;
       margin-top: 10px;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 500;
       text-align: center;
     }
-    .status-available {
-      color: var(--green);
-      display: flex; align-items: center; justify-content: center; gap: 6px;
-    }
-    .status-available::before { content: '✓'; font-weight: 700; }
     .status-unavailable { color: var(--red); }
     .status-warning { color: rgba(240,240,244,0.55); }
+
+    /* ── Premium Coverage Result Panel ── */
+    #coverage-result-panel {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(10,10,12,0.80);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      transition: opacity 0.4s var(--ease-out);
+    }
+    #coverage-result-panel.visible {
+      display: flex;
+      opacity: 1;
+    }
+    .crp-card {
+      background: #fff;
+      border-radius: 28px;
+      max-width: 480px;
+      width: 100%;
+      padding: 52px 44px 44px;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 40px 120px rgba(0,0,0,0.35), 0 8px 32px rgba(0,0,0,0.12);
+      transform: translateY(32px) scale(0.96);
+      transition: transform 0.5s var(--spring), opacity 0.4s var(--ease-out);
+      opacity: 0;
+    }
+    #coverage-result-panel.visible .crp-card {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+    .crp-close {
+      position: absolute;
+      top: 18px; right: 18px;
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: #f2f2f4;
+      border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: #87878c; font-size: 18px; line-height: 1;
+      transition: background 0.2s, color 0.2s;
+    }
+    .crp-close:hover { background: #e8e8ec; color: #1a1a1c; }
+
+    /* Success state */
+    .crp-icon-ring {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: var(--green-bg);
+      border: 2px solid var(--green-border);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 24px;
+      animation: ringPulse 2.5s ease infinite;
+    }
+    @keyframes ringPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(22,160,90,0.18); }
+      50%       { box-shadow: 0 0 0 12px rgba(22,160,90,0.06); }
+    }
+    .crp-icon-ring svg {
+      width: 28px; height: 28px;
+      stroke: var(--green); stroke-width: 2.5;
+      fill: none;
+      stroke-dasharray: 60;
+      stroke-dashoffset: 60;
+      animation: drawCheck 0.55s var(--ease-out) 0.25s forwards;
+    }
+    @keyframes drawCheck {
+      to { stroke-dashoffset: 0; }
+    }
+
+    .crp-eyebrow {
+      font-size: 0.62rem; font-weight: 700;
+      letter-spacing: 0.13em; text-transform: uppercase;
+      color: var(--green); margin-bottom: 12px;
+    }
+    .crp-headline {
+      font-size: 1.85rem; font-weight: 900;
+      letter-spacing: -0.045em; color: var(--ink);
+      line-height: 1.1; margin-bottom: 10px;
+    }
+    .crp-address-line {
+      font-size: 0.82rem; color: var(--ink-3);
+      margin-bottom: 32px; line-height: 1.5;
+    }
+    .crp-address-line strong { color: var(--ink-2); font-weight: 600; }
+
+    /* Speed chips */
+    .crp-chips {
+      display: flex; gap: 10px; justify-content: center;
+      margin-bottom: 32px; flex-wrap: wrap;
+    }
+    .crp-chip {
+      display: flex; flex-direction: column; align-items: center;
+      background: #f8f8f9; border: 1px solid var(--border);
+      border-radius: 14px; padding: 14px 20px; flex: 1; min-width: 90px;
+    }
+    .crp-chip-val {
+      font-size: 1.25rem; font-weight: 900;
+      letter-spacing: -0.04em; color: var(--ink); line-height: 1;
+    }
+    .crp-chip-val span { color: var(--green); }
+    .crp-chip-lbl {
+      font-size: 0.62rem; font-weight: 600; color: var(--ink-3);
+      letter-spacing: 0.06em; text-transform: uppercase; margin-top: 4px;
+    }
+
+    /* CTA button */
+    .crp-cta {
+      display: flex; align-items: center; justify-content: center; gap: 9px;
+      width: 100%; padding: 18px 28px;
+      background: var(--ink); color: #fff;
+      border: none; border-radius: var(--radius-full);
+      font-family: 'Figtree', sans-serif;
+      font-size: 0.95rem; font-weight: 700;
+      letter-spacing: -0.01em; cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.4s var(--spring), box-shadow 0.4s ease, background 0.25s ease;
+      position: relative; overflow: hidden;
+      margin-bottom: 14px;
+    }
+    .crp-cta::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.08) 50%, transparent 65%);
+      transform: translateX(-130%); transition: transform 0.55s var(--ease-out);
+    }
+    .crp-cta:hover::before { transform: translateX(130%); }
+    .crp-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,0,0,0.18); background: #1a1a1c; }
+    .crp-cta svg { width: 15px; height: 15px; stroke: currentColor; stroke-width: 2.2; fill: none; transition: transform 0.3s var(--spring); }
+    .crp-cta:hover svg { transform: translateX(4px); }
+
+    .crp-fine {
+      font-size: 0.7rem; color: var(--ink-4); line-height: 1.5;
+    }
 
     /* Trust pills */
     .hero-trust {
@@ -951,12 +1085,12 @@
       Limited Time Offer
     </div>
 
-    <h1 class="hero-title">
-      Unlimited Freedom.<br>Zero <em>Boundaries.</em>
-    </h1>
+   <h1 class="hero-title">
+  Internet That Moves.<br><em>With You.</em>
+</h1>
 
     <p class="hero-sub">
-      Try our wireless internet 100% free for 30 days — no contracts, no data caps, no surprises. Free device rental, free activation, free shipping. Just fast internet.
+      Start with one month free. No contracts or surprise fees. Free activation, free device rental, and free shipping — simply fast wireless internet.
     </p>
 
     <!-- Coverage Checker (lead capture) -->
@@ -979,8 +1113,8 @@
 
         <!-- Hidden JotForm fields -->
         <div style="display:none;">
-          <input type="text" name="q3_name[first]" value="Device">
-          <input type="text" name="q3_name[last]" value="Rental">
+          <input type="text" name="q3_name[first]" value="Free">
+          <input type="text" name="q3_name[last]" value="Trial">
           <input type="text" name="q5_address[addr_line1]" id="jf_street">
           <input type="text" name="q5_address[city]" id="jf_city">
           <input type="text" name="q5_address[state]" id="jf_state">
@@ -1031,18 +1165,21 @@
 ═══════════════════════════════════════════════════════════ -->
 <div class="value-strip">
   <div class="value-strip-inner">
-  <div class="value-item">
-  <div class="vi-number"><span>No Surprises</span></div>
-  <div class="vi-label"><strong>Clear, upfront pricing.</strong><br>Activation, device rental, and shipping are all included.</div>
+ <div class="value-item">
+  <div class="vi-number">No <span>Limits</span></div>
+  <div class="vi-label"><strong>No Limits.</strong><br>No data caps, no throttling, and no surprise overage charges.</div>
 </div>
-    <div class="value-item">
-      <div class="vi-number">1<span>Gbps</span></div>
-      <div class="vi-label"><strong>Enterprise-Grade Speeds.</strong><br>Up to 1 Gbps high-speed wireless. Unlimited data, no throttling, no soft caps.</div>
-    </div>
-    <div class="value-item">
-      <div class="vi-number">64<span>+</span></div>
-      <div class="vi-label"><strong>Devices, Simultaneously.</strong><br>Dual-band Wi-Fi 2.4 + 5 GHz. Stream, work, and game all at once.</div>
-    </div>
+<div class="value-item">
+  <div class="vi-number">North <span>America</span></div>
+  <div class="vi-label">
+    <strong>Coverage Across Borders.</strong><br>
+    Canada • United States • Mexico
+  </div>
+</div>
+  <div class="value-item">
+  <div class="vi-number">No <span>Surprises</span></div>
+  <div class="vi-label"><strong>Clear Monthly Pricing.</strong><br>No hidden fees, no overage charges, and nothing unexpected.</div>
+</div>
   </div>
 </div>
 
@@ -1223,9 +1360,8 @@
         </a>
       </div>
 
-     <!-- Accordion List -->
+<!-- Accordion List -->
 <div class="faq-list">
-  
 
   <div class="accordion-item">
     <button class="accordion-header">
@@ -1233,7 +1369,7 @@
       <div class="accordion-toggle"></div>
     </button>
     <div class="accordion-body">
-      <p>Yes. No data caps, no slowdowns after a limit, and no peak-hour throttling. Stream, work, game, and video call freely — without tracking your usage.</p>
+      <p>Yes. No data caps, no throttling, and no reduced speeds. Use it freely for streaming, work, gaming, and video calls.</p>
     </div>
   </div>
 
@@ -1243,7 +1379,7 @@
       <div class="accordion-toggle"></div>
     </button>
     <div class="accordion-body">
-      <p>Powered by major Canadian carrier networks. If your phone gets a strong cellular signal, you’ll likely have reliable high-speed internet. Typical speeds range from 50–500+ Mbps depending on location and signal strength. Every plan includes a 30-day money-back guarantee.</p>
+      <p>Powered by major Canadian carrier networks. Where cellular service is strong, you’ll typically see reliable high-speed internet. Speeds vary by location and signal strength, often ranging from 50–500+ Mbps.</p>
     </div>
   </div>
 
@@ -1253,17 +1389,19 @@
       <div class="accordion-toggle"></div>
     </button>
     <div class="accordion-body">
-      <p>Your device ships within 1–2 business days with tracked delivery at no extra cost. Tracking details are sent by email once your order ships.</p>
+      <p>Devices ship within 1–2 business days with tracked delivery at no extra cost. Tracking is emailed as soon as your order leaves our facility.</p>
     </div>
   </div>
 
   <div class="accordion-item">
     <button class="accordion-header">
-      <span>What Happens If I Cancel?</span>
+      <span>Pricing & Cancellation</span>
       <div class="accordion-toggle"></div>
     </button>
     <div class="accordion-body">
-      <p>Cancel anytime from your customer portal with no fees or penalties. Cancel within the first month for a full refund. After the free trial, the plan renews at $60/month. After cancellation, return the device within 30 days in original condition to avoid a $250 replacement charge.</p>
+      <p>$0 due today. This includes device rental, shipping and handling, and activation — everything needed to get started.</p>
+      <p>After the first month, service renews at $60/month on a month-to-month basis with no contract. Cancel anytime with no penalties.</p>
+      <p>If the device is returned after cancellation, it must be sent back within 30 days in original condition to avoid a $250 replacement fee.</p>
     </div>
   </div>
 
@@ -1273,14 +1411,52 @@
       <div class="accordion-toggle"></div>
     </button>
     <div class="accordion-body">
-      <p><strong>Mobile Essential</strong> (Nighthawk M1) is built for life on the move — travel, camping, job sites, and remote work. Battery-powered and portable. <strong>Home &amp; Office</strong> (Orbi LBR20) is designed for fixed locations, with stronger whole-home Wi-Fi coverage for up to 64 connected devices.</p>
+      <p><strong>Mobile Essential</strong> (Nighthawk M1) is designed for travel, job sites, and remote use — compact and battery-powered.</p>
+      <p><strong>Home &amp; Office</strong> (Orbi LBR20) is built for fixed locations with stronger whole-home Wi-Fi coverage and support for multiple connected devices.</p>
     </div>
   </div>
+
 </div>
 
+<!-- ═══════════════════════════════════════════════════════════
+     COVERAGE RESULT PANEL (modal)
+═══════════════════════════════════════════════════════════ -->
+<div id="coverage-result-panel" role="dialog" aria-modal="true" aria-label="Coverage confirmed">
+  <div class="crp-card">
+    <button class="crp-close" id="crpClose" aria-label="Close">&#x2715;</button>
+
+    <div class="crp-icon-ring">
+      <svg viewBox="0 0 28 28" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="5,14 11,21 23,8"/>
+      </svg>
     </div>
+
+    <div class="crp-eyebrow">Coverage Confirmed</div>
+    <h2 class="crp-headline">High-Speed Internet<br>Is Available.</h2>
+    <p class="crp-address-line">Great news — we service your area.<br><strong id="crpAddressDisplay"></strong></p>
+
+    <div class="crp-chips">
+      <div class="crp-chip">
+        <div class="crp-chip-val">1<span>Gbps</span></div>
+        <div class="crp-chip-lbl">Max Speed</div>
+      </div>
+      <div class="crp-chip">
+        <div class="crp-chip-val">∞</div>
+        <div class="crp-chip-lbl">Unlimited Data</div>
+      </div>
+      <div class="crp-chip">
+        <div class="crp-chip-val">$<span>0</span></div>
+        <div class="crp-chip-lbl">Activation Fee</div>
+      </div>
+    </div>
+
+    <a href="#pricing" class="crp-cta" id="crpOrderBtn">
+      Order Now — Start Free
+      <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="8" x2="14" y2="8"/><polyline points="9,3 14,8 9,13"/></svg>
+    </a>
+    <p class="crp-fine">First month free · Cancel anytime · No contracts</p>
   </div>
-</section>
+</div>
 
 <!-- ═══════════════════════════════════════════════════════════
      FOOTER
@@ -1363,12 +1539,41 @@
   var submitBtn     = document.getElementById('submitBtn');
   var statusBox     = document.getElementById('coverageResult');
   var mainForm      = document.getElementById('jotformCoverage');
+  var resultPanel   = document.getElementById('coverage-result-panel');
+  var crpClose      = document.getElementById('crpClose');
+  var crpOrderBtn   = document.getElementById('crpOrderBtn');
+  var crpAddress    = document.getElementById('crpAddressDisplay');
   var addressSelected = false;
 
   function showStatus(msg, cls) {
     statusBox.className = 'coverage-status';
     statusBox.innerHTML = '<span class="' + cls + '">' + msg + '</span>';
   }
+
+  function showResultPanel(address) {
+    if (crpAddress) crpAddress.textContent = address || '';
+    resultPanel.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        resultPanel.classList.add('visible');
+      });
+    });
+  }
+
+  function hideResultPanel() {
+    resultPanel.classList.remove('visible');
+    document.body.style.overflow = '';
+    setTimeout(function () { resultPanel.style.display = 'none'; }, 400);
+  }
+
+  crpClose.addEventListener('click', hideResultPanel);
+  resultPanel.addEventListener('click', function (e) {
+    if (e.target === resultPanel) hideResultPanel();
+  });
+  crpOrderBtn.addEventListener('click', function () {
+    hideResultPanel();
+  });
 
   /* Google Places autocomplete */
   function initAutocomplete() {
@@ -1444,7 +1649,7 @@
         if (country && country.short_name === 'CA') {
           /* Submit lead to JotForm silently */
           HTMLFormElement.prototype.submit.call(mainForm);
-          showStatus('High-Speed Wireless Internet Is Available At Your Address! <a href="#pricing" style="color:var(--green);font-weight:600;text-decoration:none;">View Plans ↓</a>', 'status-available');
+          showResultPanel(addressInput.value);
           submitBtn.textContent = '✓ Available';
           submitBtn.style.background = 'var(--green)';
         } else {
