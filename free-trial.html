@@ -406,6 +406,9 @@
       align-items: center;
       box-shadow: 0 8px 32px rgba(0,0,0,0.25), 0 2px 8px rgba(0,0,0,0.15);
       margin-bottom: 10px;
+      /* Prevent transparency flash: force compositing layer from the start */
+      transform: translateZ(0);
+      will-change: box-shadow, border-color;
       transition: box-shadow 0.3s ease, border-color 0.3s ease;
     }
     .coverage-module:focus-within {
@@ -420,13 +423,41 @@
       padding: 13px 16px;
       font-family: 'Figtree', sans-serif;
       font-size: 0.92rem;
+      line-height: 1.4;
       color: #f0f0f4;
       outline: none;
+      vertical-align: middle;
+      /* Prevent Google Places autocomplete pac-container misalignment */
+      position: relative;
     }
     .coverage-module input::placeholder { color: rgba(240,240,244,0.38); }
 
+    /* Fix Google Places autocomplete dropdown alignment */
+    .pac-container {
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(255,255,255,0.12);
+      background: #2E2F33;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.35);
+      font-family: 'Figtree', sans-serif;
+      margin-top: 4px;
+    }
+    .pac-item {
+      color: var(--ink-on-dark-2);
+      font-size: 0.82rem;
+      padding: 8px 14px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      cursor: pointer;
+    }
+    .pac-item:first-child { border-top: none; }
+    .pac-item:hover, .pac-item-selected { background: rgba(255,255,255,0.06); color: #fff; }
+    .pac-item-query { color: var(--ink-on-dark); }
+    .pac-icon { display: none; }
+    .pac-logo::after { display: none; }
+
     .btn-coverage {
       padding: 12px 22px;
+      height: 44px;
+      min-width: 140px;
       background: var(--ink);
       color: #fff;
       border: none;
@@ -437,6 +468,7 @@
       letter-spacing: 0.01em;
       cursor: pointer;
       white-space: nowrap;
+      align-self: center;
       transition: background 0.25s ease, transform 0.3s var(--spring), box-shadow 0.3s ease;
       flex-shrink: 0;
     }
@@ -469,7 +501,6 @@
 
     /* ── Premium Coverage Result Panel ── */
     #coverage-result-panel {
-      display: none;
       position: fixed;
       inset: 0;
       z-index: 9999;
@@ -480,11 +511,15 @@
       justify-content: center;
       padding: 24px;
       opacity: 0;
-      transition: opacity 0.4s var(--ease-out);
+      visibility: hidden;
+      display: flex;
+      pointer-events: none;
+      transition: opacity 0.4s var(--ease-out), visibility 0.4s var(--ease-out);
     }
     #coverage-result-panel.visible {
-      display: flex;
       opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
     }
     .crp-card {
       background: #fff;
@@ -1437,17 +1472,17 @@
 
    <div class="crp-chips">
   <div class="crp-chip">
-    <div class="crp-chip-val">Plug<span>&amp; Play</span></div>
+    <div class="crp-chip-val">Plug &amp; Play</div>
     <div class="crp-chip-lbl">Easy Setup</div>
   </div>
 
   <div class="crp-chip">
-    <div class="crp-chip-val">∞</div>
-    <div class="crp-chip-lbl">Unlimited Data</div>
+    <div class="crp-chip-val">Priority Data</div>
+    <div class="crp-chip-lbl">No Slowdowns</div>
   </div>
 
   <div class="crp-chip">
-    <div class="crp-chip-val">No<span>Contracts</span></div>
+    <div class="crp-chip-val">No Contracts</div>
     <div class="crp-chip-lbl">Stay Flexible</div>
   </div>
 </div>
@@ -1554,19 +1589,15 @@
 
   function showResultPanel(address) {
     if (crpAddress) crpAddress.textContent = address || '';
-    resultPanel.style.display = 'flex';
     document.body.style.overflow = 'hidden';
     requestAnimationFrame(function () {
-      requestAnimationFrame(function () {
-        resultPanel.classList.add('visible');
-      });
+      resultPanel.classList.add('visible');
     });
   }
 
   function hideResultPanel() {
     resultPanel.classList.remove('visible');
     document.body.style.overflow = '';
-    setTimeout(function () { resultPanel.style.display = 'none'; }, 400);
   }
 
   crpClose.addEventListener('click', hideResultPanel);
