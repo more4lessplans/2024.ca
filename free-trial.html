@@ -601,16 +601,18 @@
     .crp-chip {
       display: flex; flex-direction: column; align-items: center;
       background: #f8f8f9; border: 1px solid var(--border);
-      border-radius: 14px; padding: 14px 20px; flex: 1; min-width: 90px;
+      border-radius: 14px; padding: 14px 16px; flex: 1; min-width: 0;
     }
     .crp-chip-val {
-      font-size: 1.25rem; font-weight: 900;
-      letter-spacing: -0.04em; color: var(--ink); line-height: 1;
+      font-size: 1.1rem; font-weight: 900;
+      letter-spacing: -0.03em; color: var(--ink); line-height: 1;
+      white-space: nowrap;
     }
     .crp-chip-val span { color: var(--green); }
     .crp-chip-lbl {
       font-size: 0.62rem; font-weight: 600; color: var(--ink-3);
       letter-spacing: 0.06em; text-transform: uppercase; margin-top: 4px;
+      white-space: nowrap;
     }
 
     /* CTA button */
@@ -1135,7 +1137,7 @@
         <input type="hidden" name="formID" value="223076752019051">
 
         <div class="coverage-module" id="addressModule">
-          <input type="text" id="addressInput" name="q5_address[addr_line1_search]" placeholder="Enter your address to check coverage…" autocomplete="off">
+          <input type="text" id="addressInput" name="q5_address[addr_line1_search]" placeholder="Enter your full street address…" autocomplete="off">
           <button type="button" class="btn-coverage" id="searchBtn">Check Coverage</button>
         </div>
 
@@ -1477,13 +1479,13 @@
   </div>
 
   <div class="crp-chip">
-    <div class="crp-chip-val">Priority Data</div>
+    <div class="crp-chip-val">Full Speed</div>
     <div class="crp-chip-lbl">No Slowdowns</div>
   </div>
 
   <div class="crp-chip">
-    <div class="crp-chip-val">No Contracts</div>
-    <div class="crp-chip-lbl">Stay Flexible</div>
+    <div class="crp-chip-val">Month&nbsp;to&nbsp;Month</div>
+    <div class="crp-chip-lbl">No Contracts</div>
   </div>
 </div>
 
@@ -1581,6 +1583,7 @@
   var crpOrderBtn   = document.getElementById('crpOrderBtn');
   var crpAddress    = document.getElementById('crpAddressDisplay');
   var addressSelected = false;
+  var hasStreetNumber = false;
 
   function showStatus(msg, cls) {
     statusBox.className = 'coverage-status';
@@ -1621,16 +1624,25 @@
       var place = autocomplete.getPlace();
       if (!place || !place.geometry) return;
 
-      addressSelected = true;
       var street = '', city = '', prov = '', post = '';
+      hasStreetNumber = false;
       (place.address_components || []).forEach(function (c) {
         var t = c.types;
-        if (t.includes('street_number')) street = c.long_name + ' ';
+        if (t.includes('street_number')) { street = c.long_name + ' '; hasStreetNumber = true; }
         if (t.includes('route'))         street += c.long_name;
         if (t.includes('locality'))      city = c.long_name;
         if (t.includes('administrative_area_level_1')) prov = c.long_name;
         if (t.includes('postal_code'))   post = c.long_name;
       });
+
+      if (!hasStreetNumber) {
+        addressSelected = false;
+        showStatus('Please enter a full street address including a house or unit number.', 'status-warning');
+        addressInput.focus();
+        return;
+      }
+
+      addressSelected = true;
       document.getElementById('jf_street').value = street;
       document.getElementById('jf_city').value   = city;
       document.getElementById('jf_state').value  = prov;
@@ -1639,6 +1651,12 @@
       emailModule.style.display = 'block';
       showStatus('Address found — enter your email to confirm coverage.', 'status-warning');
       emailInput.focus();
+    });
+
+    /* Reset flags if user manually edits the address field */
+    addressInput.addEventListener('input', function () {
+      addressSelected = false;
+      hasStreetNumber = false;
     });
   }
 
@@ -1653,8 +1671,8 @@
 
   /* Search button — validate address was selected from dropdown */
   searchBtn.addEventListener('click', function () {
-    if (!addressSelected) {
-      showStatus('Please select an address from the dropdown list.', 'status-warning');
+    if (!addressSelected || !hasStreetNumber) {
+      showStatus('Please enter a full street address (including house number) and select it from the dropdown.', 'status-warning');
       addressInput.focus();
       return;
     }
