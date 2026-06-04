@@ -412,6 +412,8 @@
       align-items: center;
       box-shadow: 0 8px 32px rgba(0,0,0,0.25), 0 2px 8px rgba(0,0,0,0.15);
       margin-bottom: 10px;
+      transform: translateZ(0);
+      will-change: box-shadow, border-color;
       transition: box-shadow 0.3s ease, border-color 0.3s ease;
     }
     .coverage-module:focus-within {
@@ -433,6 +435,8 @@
 
     .btn-coverage {
       padding: 12px 22px;
+      height: 44px;
+      min-width: 140px;
       background: var(--ink);
       color: #fff;
       border: none;
@@ -443,6 +447,7 @@
       letter-spacing: 0.01em;
       cursor: pointer;
       white-space: nowrap;
+      align-self: center;
       transition: background 0.25s ease, transform 0.3s var(--spring), box-shadow 0.3s ease;
       flex-shrink: 0;
     }
@@ -477,6 +482,147 @@
     .status-available::before { content: '✓'; font-weight: 700; }
     .status-unavailable { color: var(--red); }
     .status-warning { color: rgba(240,240,244,0.55); }
+
+    /* ── Premium Coverage Result Panel ── */
+    #coverage-result-panel {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(10,10,12,0.80);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      visibility: hidden;
+      display: flex;
+      pointer-events: none;
+      transition: opacity 0.4s var(--ease-out), visibility 0.4s var(--ease-out);
+    }
+    #coverage-result-panel.visible {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+    .crp-card {
+      background: #fff;
+      border-radius: 28px;
+      max-width: 480px;
+      width: 100%;
+      padding: 52px 44px 44px;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 40px 120px rgba(0,0,0,0.35), 0 8px 32px rgba(0,0,0,0.12);
+      transform: translateY(32px) scale(0.96);
+      transition: transform 0.5s var(--spring), opacity 0.4s var(--ease-out);
+      opacity: 0;
+    }
+    #coverage-result-panel.visible .crp-card {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+    .crp-close {
+      position: absolute;
+      top: 18px; right: 18px;
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: #f2f2f4;
+      border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: #87878c; font-size: 18px; line-height: 1;
+      transition: background 0.2s, color 0.2s;
+    }
+    .crp-close:hover { background: #e8e8ec; color: #1a1a1c; }
+
+    .crp-icon-ring {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: var(--green-bg);
+      border: 2px solid var(--green-border);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 24px;
+      animation: ringPulse 2.5s ease infinite;
+    }
+    @keyframes ringPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(22,160,90,0.18); }
+      50%       { box-shadow: 0 0 0 12px rgba(22,160,90,0.06); }
+    }
+    .crp-icon-ring svg {
+      width: 28px; height: 28px;
+      stroke: var(--green); stroke-width: 2.5;
+      fill: none;
+      stroke-dasharray: 60;
+      stroke-dashoffset: 60;
+      animation: drawCheck 0.55s var(--ease-out) 0.25s forwards;
+    }
+    @keyframes drawCheck {
+      to { stroke-dashoffset: 0; }
+    }
+
+    .crp-eyebrow {
+      font-size: 0.62rem; font-weight: 700;
+      letter-spacing: 0.13em; text-transform: uppercase;
+      color: var(--green); margin-bottom: 12px;
+    }
+    .crp-headline {
+      font-size: 1.85rem; font-weight: 900;
+      letter-spacing: -0.045em; color: var(--ink);
+      line-height: 1.1; margin-bottom: 10px;
+    }
+    .crp-address-line {
+      font-size: 0.82rem; color: var(--ink-3);
+      margin-bottom: 32px; line-height: 1.5;
+    }
+    .crp-address-line strong { color: var(--ink-2); font-weight: 600; }
+
+    .crp-chips {
+      display: flex; gap: 10px; justify-content: center;
+      margin-bottom: 32px; flex-wrap: nowrap;
+    }
+    .crp-chip {
+      display: flex; flex-direction: column; align-items: center;
+      background: #f8f8f9; border: 1px solid var(--border);
+      border-radius: 14px; padding: 14px 16px; flex: 1; min-width: 0;
+    }
+    .crp-chip-val {
+      font-size: 1.1rem; font-weight: 900;
+      letter-spacing: -0.03em; color: var(--ink); line-height: 1;
+      white-space: nowrap;
+    }
+    .crp-chip-val span { color: var(--green); }
+    .crp-chip-lbl {
+      font-size: 0.62rem; font-weight: 600; color: var(--ink-3);
+      letter-spacing: 0.06em; text-transform: uppercase; margin-top: 4px;
+      white-space: nowrap;
+    }
+
+    .crp-cta {
+      display: flex; align-items: center; justify-content: center; gap: 9px;
+      width: 100%; padding: 18px 28px;
+      background: var(--ink); color: #fff;
+      border: none; border-radius: var(--radius-full);
+      font-family: 'Figtree', sans-serif;
+      font-size: 0.95rem; font-weight: 700;
+      letter-spacing: -0.01em; cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.4s var(--spring), box-shadow 0.4s ease, background 0.25s ease;
+      position: relative; overflow: hidden;
+      margin-bottom: 14px;
+    }
+    .crp-cta::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.08) 50%, transparent 65%);
+      transform: translateX(-130%); transition: transform 0.55s var(--ease-out);
+    }
+    .crp-cta:hover::before { transform: translateX(130%); }
+    .crp-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,0,0,0.18); background: #1a1a1c; }
+    .crp-cta svg { width: 15px; height: 15px; stroke: currentColor; stroke-width: 2.2; fill: none; transition: transform 0.3s var(--spring); }
+    .crp-cta:hover svg { transform: translateX(4px); }
+
+    .crp-fine {
+      font-size: 0.7rem; color: var(--ink-4); line-height: 1.5;
+    }
 
     /* Trust pills */
     .hero-trust {
@@ -972,7 +1118,7 @@
         <input type="hidden" name="formID" value="223076752019051">
 
         <div class="coverage-module" id="addressModule">
-          <input type="text" id="addressInput" name="q5_address[addr_line1_search]" placeholder="Enter your address to check coverage…" autocomplete="off">
+          <input type="text" id="addressInput" name="q5_address[addr_line1_search]" placeholder="Enter your full street address…" autocomplete="off">
           <button type="button" class="btn-coverage" id="searchBtn">Check Coverage</button>
         </div>
 
@@ -1297,6 +1443,46 @@
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════
+     COVERAGE RESULT PANEL (modal)
+═══════════════════════════════════════════════════════════ -->
+<div id="coverage-result-panel" role="dialog" aria-modal="true" aria-label="Coverage confirmed">
+  <div class="crp-card">
+    <button class="crp-close" id="crpClose" aria-label="Close">&#x2715;</button>
+
+    <div class="crp-icon-ring">
+      <svg viewBox="0 0 28 28" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="5,14 11,21 23,8"/>
+      </svg>
+    </div>
+
+    <div class="crp-eyebrow">Coverage Confirmed</div>
+    <h2 class="crp-headline">High-Speed Internet<br>Is Available.</h2>
+    <p class="crp-address-line">Great news — we service your area.<br><strong id="crpAddressDisplay"></strong></p>
+
+    <div class="crp-chips">
+      <div class="crp-chip">
+        <div class="crp-chip-val">Plug &amp; Play</div>
+        <div class="crp-chip-lbl">Easy Setup</div>
+      </div>
+      <div class="crp-chip">
+        <div class="crp-chip-val">Full Speed</div>
+        <div class="crp-chip-lbl">No Slowdowns</div>
+      </div>
+      <div class="crp-chip">
+        <div class="crp-chip-val">Month&nbsp;to&nbsp;Month</div>
+        <div class="crp-chip-lbl">No Contracts</div>
+      </div>
+    </div>
+
+    <a href="#pricing" class="crp-cta" id="crpOrderBtn">
+      Order Now — Start Free
+      <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="8" x2="14" y2="8"/><polyline points="9,3 14,8 9,13"/></svg>
+    </a>
+    <p class="crp-fine">First month free · Cancel anytime · No contracts</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
      FOOTER
 ═══════════════════════════════════════════════════════════ -->
 <footer class="footer">
@@ -1377,12 +1563,38 @@
   var submitBtn     = document.getElementById('submitBtn');
   var statusBox     = document.getElementById('coverageResult');
   var mainForm      = document.getElementById('jotformCoverage');
+  var resultPanel   = document.getElementById('coverage-result-panel');
+  var crpClose      = document.getElementById('crpClose');
+  var crpOrderBtn   = document.getElementById('crpOrderBtn');
+  var crpAddress    = document.getElementById('crpAddressDisplay');
   var addressSelected = false;
+  var hasStreetNumber = false;
 
   function showStatus(msg, cls) {
     statusBox.className = 'coverage-status';
     statusBox.innerHTML = '<span class="' + cls + '">' + msg + '</span>';
   }
+
+  function showResultPanel(address) {
+    if (crpAddress) crpAddress.textContent = address || '';
+    document.body.style.overflow = 'hidden';
+    requestAnimationFrame(function () {
+      resultPanel.classList.add('visible');
+    });
+  }
+
+  function hideResultPanel() {
+    resultPanel.classList.remove('visible');
+    document.body.style.overflow = '';
+  }
+
+  crpClose.addEventListener('click', hideResultPanel);
+  resultPanel.addEventListener('click', function (e) {
+    if (e.target === resultPanel) hideResultPanel();
+  });
+  crpOrderBtn.addEventListener('click', function () {
+    hideResultPanel();
+  });
 
   /* Google Places autocomplete */
   function initAutocomplete() {
@@ -1397,16 +1609,25 @@
       var place = autocomplete.getPlace();
       if (!place || !place.geometry) return;
 
-      addressSelected = true;
       var street = '', city = '', prov = '', post = '';
+      hasStreetNumber = false;
       (place.address_components || []).forEach(function (c) {
         var t = c.types;
-        if (t.includes('street_number')) street = c.long_name + ' ';
+        if (t.includes('street_number')) { street = c.long_name + ' '; hasStreetNumber = true; }
         if (t.includes('route'))         street += c.long_name;
         if (t.includes('locality'))      city = c.long_name;
         if (t.includes('administrative_area_level_1')) prov = c.long_name;
         if (t.includes('postal_code'))   post = c.long_name;
       });
+
+      if (!hasStreetNumber) {
+        addressSelected = false;
+        showStatus('Please enter a full street address including a house or unit number.', 'status-warning');
+        addressInput.focus();
+        return;
+      }
+
+      addressSelected = true;
       document.getElementById('jf_street').value = street;
       document.getElementById('jf_city').value   = city;
       document.getElementById('jf_state').value  = prov;
@@ -1415,6 +1636,12 @@
       emailModule.style.display = 'block';
       showStatus('Address found — enter your email to confirm coverage.', 'status-warning');
       emailInput.focus();
+    });
+
+    /* Reset flags if user manually edits the address field */
+    addressInput.addEventListener('input', function () {
+      addressSelected = false;
+      hasStreetNumber = false;
     });
   }
 
@@ -1429,8 +1656,8 @@
 
   /* Search button — validate address was selected from dropdown */
   searchBtn.addEventListener('click', function () {
-    if (!addressSelected) {
-      showStatus('Please select an address from the dropdown list.', 'status-warning');
+    if (!addressSelected || !hasStreetNumber) {
+      showStatus('Please enter a full street address (including house number) and select it from the dropdown.', 'status-warning');
       addressInput.focus();
       return;
     }
@@ -1458,7 +1685,7 @@
         if (country && country.short_name === 'CA') {
           /* Submit lead to JotForm silently */
           HTMLFormElement.prototype.submit.call(mainForm);
-          showStatus('High-Speed Wireless Internet Is Available At Your Address! <a href="#pricing" style="color:var(--green);font-weight:600;text-decoration:none;">View Plans ↓</a>', 'status-available');
+          showResultPanel(addressInput.value);
           submitBtn.textContent = '✓ Available';
           submitBtn.style.background = 'var(--green)';
         } else {
