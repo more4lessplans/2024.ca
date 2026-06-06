@@ -647,23 +647,38 @@
     .crp-address-line strong { color: var(--ink-2); font-weight: 600; }
 
     .crp-chips {
-      display: flex; gap: 10px; justify-content: center;
-      margin-bottom: 32px; flex-wrap: nowrap;
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      margin: 0 -4px 36px;
+      gap: 0;
     }
     .crp-chip {
-      display: flex; flex-direction: column; align-items: center;
-      background: #f8f8f9; border: 1px solid var(--border);
-      border-radius: 14px; padding: 14px 16px; flex: 1; min-width: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      padding: 20px 12px;
+      gap: 6px;
+      position: relative;
+    }
+    .crp-chip + .crp-chip::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 16%; bottom: 16%;
+      width: 1px;
+      background: var(--border);
     }
     .crp-chip-val {
-      font-size: 1.1rem; font-weight: 900;
-      letter-spacing: -0.03em; color: var(--ink); line-height: 1;
+      font-size: 1rem; font-weight: 800;
+      letter-spacing: -0.025em; color: var(--ink); line-height: 1;
       white-space: nowrap;
     }
     .crp-chip-val span { color: var(--green); }
     .crp-chip-lbl {
-      font-size: 0.62rem; font-weight: 600; color: var(--ink-3);
-      letter-spacing: 0.06em; text-transform: uppercase; margin-top: 4px;
+      font-size: 0.6rem; font-weight: 600; color: var(--ink-4);
+      letter-spacing: 0.08em; text-transform: uppercase;
       white-space: nowrap;
     }
 
@@ -1223,8 +1238,8 @@
 
         <!-- Hidden JotForm fields -->
         <div style="display:none;">
-          <input type="text" name="q3_name[first]" value="Device">
-          <input type="text" name="q3_name[last]" value="Rental">
+          <input type="text" name="q3_name[first]" value="Coupon">
+          <input type="text" name="q3_name[last]" value="Page">
           <input type="text" name="q5_address[addr_line1]" id="jf_street">
           <input type="text" name="q5_address[city]" id="jf_city">
           <input type="text" name="q5_address[state]" id="jf_state">
