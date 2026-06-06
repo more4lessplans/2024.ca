@@ -2,11 +2,10 @@
 <html lang="en-US">
 <head>
   <meta charset="utf-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Secure Checkout — Nighthawk M1 | More4Less</title>
-  <meta name="description" content="Secure checkout for the Netgear Nighthawk M1 unlimited wireless internet package. Special offer: $60/month for 24 months (regular $80/month). No contract. First month included.">
-  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="Secure checkout for the Netgear Nighthawk M1 unlimited wireless internet package. No contract. First month included.">
 
   <link rel="apple-touch-icon" sizes="180x180" href="../assets/img/favicons/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicons/favicon-32x32.png">
@@ -18,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <script src="https://js.chargebee.com/v2/chargebee.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNt4XeQ5roadq0L-IpadA6s9e4CPm9FwI&libraries=places" defer></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNt4XeQ5roadq0L-IpadA6s9e4CPm9FwI&libraries=places"></script>
 
   <style>
     /* ═══════════════════════════════════════════════════════════════
@@ -1035,6 +1034,9 @@
 
     /* ── Pricing footer ── */
 
+    @media (max-width: 600px) {
+    }
+
     /* ═══════════════════════════════════════════════════════════════
        KEYFRAMES
     ═══════════════════════════════════════════════════════════════ */
@@ -1103,8 +1105,9 @@
       .nav .nav-steps { display: none !important; }
       .menu-trigger { display: block; }
       .form-card { padding: 20px 18px; border-radius: var(--radius-lg); }
+    }
 
-      /* Mobile summary drawer */
+
       .mobile-summary-bar {
         display: block;
         position: fixed;
@@ -1223,6 +1226,7 @@
       .msb-chevron svg { width: 18px; height: 18px; }
       .mobile-summary-bar.expanded .msb-chevron { transform: rotate(180deg); color: var(--ink-on-dark); }
 
+      /* Expanded panel */
       .msb-expanded {
         max-height: 0;
         overflow: hidden;
@@ -1230,7 +1234,9 @@
       }
       .mobile-summary-bar.expanded .msb-expanded { max-height: 560px; }
 
-      .msb-exp-rows { padding: 0 18px 12px; }
+      .msb-exp-rows {
+        padding: 0 18px 12px;
+      }
       .msb-exp-row {
         display: flex;
         justify-content: space-between;
@@ -1288,7 +1294,11 @@
         flex-shrink: 0;
         font-size: 0.8rem;
       }
-    }
+
+      .nav-inner { padding: 0 20px; }
+      .nav .nav-steps { display: none !important; }
+      .menu-trigger { display: block; }
+      .form-card { padding: 20px 18px; border-radius: var(--radius-lg); }
 
     @media (max-width: 640px) {
       .field-row { grid-template-columns: 1fr; }
@@ -1669,7 +1679,7 @@
           <div class="form-card anim-step">
             <div class="form-card-title">Promo Code</div>
             <div class="promo-row">
-              <input type="text" id="f-promo" value="SAVE20-24M-F9T2Q" autocomplete="off" spellcheck="false" aria-label="Promo code">
+              <input type="text" id="f-promo" placeholder="Enter code" autocomplete="off" spellcheck="false" value="SAVE20-24M-F9T2Q">
               <button class="promo-apply" id="promoBtn" onclick="applyPromo()">
                 <span class="promo-apply-lbl">Apply</span>
                 <div class="promo-spin"></div>
@@ -1689,7 +1699,7 @@
               </div>
               <div class="mini-row">
                 <span>First Month's Internet</span>
-                <strong>$60.00</strong>
+                <strong>$80.00</strong>
               </div>
               <div class="mini-row">
                 <span>Activation & Shipping</span>
@@ -1703,7 +1713,7 @@
                 <span>Due Today</span>
                 <span style="display:flex;align-items:baseline;gap:4px;">
                   <span id="due-today-fig">
-                    <sup style="font-size:0.6em;vertical-align:super;font-weight:700">$</sup>60<sup style="font-size:0.45em;vertical-align:super;font-weight:600">.00</sup>
+                    <sup style="font-size:0.6em;vertical-align:super;font-weight:700">$</sup>80<sup style="font-size:0.45em;vertical-align:super;font-weight:600">.00</sup>
                   </span>
                   <span class="price-tax-note">+ tax</span>
                 </span>
@@ -1715,7 +1725,7 @@
                   <polyline points="9.5,1.5 11.5,4.2 8.5,4.8"/>
                   <polyline points="6.5,14.5 4.5,11.8 7.5,11.2"/>
                 </svg>
-                Then <span id="renewal-price-pay" style="margin:0 3px;font-weight:600;color:var(--ink-2)">$60 / month</span> for 24 months, then $80/mo — no contract, cancel anytime.
+                Then <span id="renewal-price-pay" style="margin:0 3px;font-weight:600;color:var(--ink-2)">$60 / month for 24 months</span>, then $80/mo — no contract, cancel anytime.
               </div>
             </div>
           </div>
@@ -1726,13 +1736,13 @@
               <input type="checkbox" id="accept-terms">
               <label for="accept-terms">
                 I agree to the <a href="/terms" target="_blank">Terms of Service</a> and
-                <a href="/privacy" target="_blank">Privacy Policy</a>. My subscription is <span id="renewal-price-terms">$60/month</span> for 24 months, then $80/month, and I can cancel anytime.
+                <a href="/privacy" target="_blank">Privacy Policy</a>. My subscription is <span id="renewal-price-terms">$60/month for 24 months</span>, then $80/month, and I can cancel anytime.
               </label>
             </div>
             <div class="terms-err" id="terms-err">You must accept the terms to continue.</div>
 
             <button class="btn-primary red" id="payBtn" onclick="handlePay()" style="margin-top:14px;">
-              <span class="btn-lbl" id="payBtn-lbl">Pay $60 <span class="btn-tax">+ tax</span></span>
+              <span class="btn-lbl" id="payBtn-lbl">Pay $80 <span class="btn-tax">+ tax</span></span>
               <div class="btn-spin"></div>
               <svg class="btn-arr" viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/>
@@ -1773,12 +1783,12 @@
             </div>
             <span class="sr-val free">Free Rental</span>
           </div>
-            <div class="summary-row">
+          <div class="summary-row">
             <div class="sr-label">
               <strong>Unlimited Data — First Month of Service</strong>
               <small>Ready to use out of the box</small>
             </div>
-            <span class="sr-val">$60</span>
+            <span class="sr-val">$80</span>
           </div>
           <div class="summary-row">
             <span class="sr-label">Activation</span>
@@ -1792,19 +1802,15 @@
             <span class="sr-label">Contract</span>
             <span class="sr-val tag">None Required</span>
           </div>
-          <div class="summary-row" id="summary-discount-row" style="display:none;">
-            <span class="sr-label" id="summary-discount-label">Promo</span>
-            <span class="sr-val" style="color:var(--red);" id="summary-discount-val"></span>
-          </div>
         </div>
 
         <div class="summary-total-block">
           <div>
             <div class="summary-total-label">Due Today</div>
-            <div class="summary-total-note">Special offer · 24-month price</div>
+            <div class="summary-total-note">Device rental + first month of service</div>
           </div>
           <div>
-            <div class="summary-total-fig"><sup>$</sup>60</div>
+            <div class="summary-total-fig"><sup>$</sup>80</div>
             <div class="summary-total-tax">+ applicable tax</div>
           </div>
         </div>
@@ -1816,7 +1822,7 @@
             <polyline points="9.5,1.5 11.5,4.2 8.5,4.8"/>
             <polyline points="6.5,14.5 4.5,11.8 7.5,11.2"/>
           </svg>
-          <p>Special offer: <strong>$60/month for 24 months</strong> (save $20/mo). After 24 months, renews at <strong><span id="renewal-price-summary">$80 / month</span></strong>. No contract — cancel anytime from your account portal.</p>
+          <p>Special offer: <strong>$60/month for 24 months</strong>, then renews at <strong><span id="renewal-price-summary">$80 / month</span></strong>. No contract — cancel anytime from your account portal.</p>
         </div>
 
         <div class="summary-features-label">Everything Included</div>
@@ -1898,7 +1904,7 @@
         </div>
       </div>
       <div class="msb-price">
-        <div class="msb-amount"><sup>$</sup><span id="msb-amount-val">60</span> <span class="msb-tax-inline">+ tax</span></div>
+        <div class="msb-amount"><sup>$</sup><span id="msb-amount-val">80</span> <span class="msb-tax-inline">+ tax</span></div>
         <div class="msb-tax">due today</div>
       </div>
       <button class="msb-chevron" id="msbChevron" aria-label="Show order details">
@@ -1917,7 +1923,7 @@
         </div>
         <div class="msb-exp-row">
           <span>First Month's Internet</span>
-          <strong>$60</strong>
+          <strong>$80</strong>
         </div>
         <div class="msb-exp-row">
           <span>Activation & Shipping</span>
@@ -1929,7 +1935,7 @@
         </div>
         <div class="msb-exp-row msb-exp-total">
           <span>Due Today</span>
-          <strong>$<span id="msb-exp-total-val">60</span> + tax</strong>
+          <strong>$<span id="msb-exp-total-val">80</span> + tax</strong>
         </div>
       </div>
       <div class="msb-exp-renewal">
@@ -1964,7 +1970,7 @@
   var DEVICE_ADDON_ID = 'nighthawk-m1';
   var WORKER_URL      = '/api/checkout-embedded';
   var CONFIRM         = '/lease-confirmed';
-  var BASE_PRICE      = 60;
+  var BASE_PRICE      = 80;
   var RENEWAL_PRICE   = 80;
 
   var cbInstance = Chargebee.init({
@@ -2424,14 +2430,7 @@
     document.getElementById('promo-discount-label').textContent = label;
     document.getElementById('promo-discount-val').textContent   = val;
     document.getElementById('promo-discount-row').style.display = 'flex';
-    // Sync right panel summary row
-    var spRow = document.getElementById('summary-discount-row');
-    var spLbl = document.getElementById('summary-discount-label');
-    var spVal = document.getElementById('summary-discount-val');
-    if (spRow) spRow.style.display = 'flex';
-    if (spLbl) spLbl.textContent = label;
-    if (spVal) spVal.textContent = val;
-    // Sync mobile drawer expanded panel
+    // sync drawer expanded panel
     var msbRow = document.getElementById('msb-exp-discount-row');
     var msbLbl = document.getElementById('msb-exp-discount-label');
     var msbVal = document.getElementById('msb-exp-discount-val');
@@ -2441,8 +2440,6 @@
   }
   function hideDiscountRow() {
     document.getElementById('promo-discount-row').style.display = 'none';
-    var spRow = document.getElementById('summary-discount-row');
-    if (spRow) spRow.style.display = 'none';
     var msbRow = document.getElementById('msb-exp-discount-row');
     if (msbRow) msbRow.style.display = 'none';
   }
@@ -2453,7 +2450,7 @@
   }
 
   function updateRenewalPrice(discountType, discountValue, durationType) {
-    var ids = ['renewal-price-pay','renewal-price-summary','renewal-price-terms'];
+    var ids = ['renewal-price-hero','renewal-price-pay','renewal-price-summary','renewal-price-terms'];
     var discounted;
     var qualifier = '';
     if (discountType === 'fixed_amount') {
@@ -2478,7 +2475,7 @@
   }
 
   function resetRenewalPrice() {
-    var ids = ['renewal-price-pay','renewal-price-summary','renewal-price-terms'];
+    var ids = ['renewal-price-hero','renewal-price-pay','renewal-price-summary','renewal-price-terms'];
     ids.forEach(function(id) {
       var el = document.getElementById(id); if (!el) return;
       el.innerHTML = (id === 'renewal-price-terms') ? '$80/month' : '$80 / month';
@@ -2572,6 +2569,14 @@
 
   document.getElementById('f-promo').addEventListener('keydown', function (e) {
     if (e.key === 'Enter') { e.preventDefault(); window.applyPromo(); }
+  });
+
+  /* ── AUTO-APPLY PREFILLED COUPON ─────────────────────────────── */
+  window.addEventListener('load', function () {
+    var promoInput = document.getElementById('f-promo');
+    if (promoInput && promoInput.value.trim()) {
+      window.applyPromo();
+    }
   });
 
   /* ── STEP 3: Pay ──────────────────────────────────────────────── */
