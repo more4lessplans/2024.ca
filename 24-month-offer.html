@@ -979,14 +979,15 @@
     .btn-lock svg { width: 9px; height: 9px; stroke: currentColor; stroke-width: 1.8; fill: none; }
 
     .renewal-note {
-      display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 12px;
-      font-size: 0.69rem; color: var(--ink-3); line-height: 1.4;
+      display: flex; align-items: flex-start; justify-content: center; gap: 6px; margin-top: 12px;
+      font-size: 0.69rem; color: var(--ink-3); line-height: 1.5;
       letter-spacing: 0.01em; text-align: center;
+      flex-wrap: wrap;
     }
     .plan-card.featured .renewal-note {
       color: var(--ink-on-dark-3);
     }
-    .renewal-note svg { width: 10px; height: 10px; stroke: currentColor; stroke-width: 1.8; fill: none; flex-shrink: 0; }
+    .renewal-note svg { width: 10px; height: 10px; stroke: currentColor; stroke-width: 1.8; fill: none; flex-shrink: 0; margin-top: 2px; }
     .renewal-note strong { color: var(--ink-2); font-weight: 600; }
     .plan-card.featured .renewal-note strong { color: var(--ink-on-dark-2); }
 
@@ -1154,6 +1155,7 @@
     @media (max-width: 640px) {
       .plan-card { padding: 28px 22px 26px; }
       .htrust-item { font-size: 0.7rem; padding: 0 12px; }
+      .coverage-wrap { padding: 0 20px; }
       .coverage-module { flex-direction: column; align-items: stretch; gap: 6px; padding: 10px; }
       .btn-coverage { width: 100%; padding: 14px; border-radius: var(--radius-md); }
     }
@@ -1251,13 +1253,8 @@
     </div>
 
     <div class="hero-trust">
-      <div class="htrust-item">
-        <svg viewBox="0 0 14 14" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="2,7 5,10.5 12,3.5"/>
-        </svg>
-        $0 Activation
-      </div>
-      <div class="htrust-div"></div>
+   
+    
       <div class="htrust-item">
         <svg viewBox="0 0 14 14" stroke-linecap="round" stroke-linejoin="round">
           <rect x="1.5" y="3.5" width="11" height="8" rx="1.5"/>
@@ -1375,7 +1372,7 @@
         </li>
       </ul>
 
-      <a href="/checkout/lease/essential" class="btn-cta dark">
+      <a href="/checkout/coupon/essential" class="btn-cta dark">
         Get Started
         <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round">
           <line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/>
@@ -1389,7 +1386,7 @@
           <polyline points="9.5,1.5 11.5,4.2 8.5,4.8"/>
           <polyline points="6.5,14.5 4.5,11.8 7.5,11.2"/>
         </svg>
-        Renews at <strong>$80/mo</strong> after 24 months · Cancel anytime from your portal
+        Renews at <strong>$80/mo</strong> after 24 months · Cancel anytime
       </div>
 
       <div class="btn-lock">
@@ -1448,7 +1445,7 @@
         </li>
       </ul>
 
-      <a href="/checkout/lease/home" class="btn-cta accent">
+      <a href="/home" class="btn-cta accent">
         Get Started
         <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round">
           <line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/>
@@ -1462,7 +1459,7 @@
           <polyline points="9.5,1.5 11.5,4.2 8.5,4.8"/>
           <polyline points="6.5,14.5 4.5,11.8 7.5,11.2"/>
         </svg>
-        Renews at <strong>$80/mo</strong> after 24 months · Cancel anytime from your portal
+        Renews at <strong>$80/mo</strong> after 24 months · Cancel anytime 
       </div>
 
       <div class="btn-lock">
