@@ -1967,8 +1967,8 @@
 
   var CB_SITE         = 'more4lessplans';
   var CB_PLAN_ID      = 'gta-m1-lease';
-  var DEVICE_ADDON_ID = 'orbi-lbr20';
-  var WORKER_URL      = '/api/secure-checkout-inline';
+  var DEVICE_ADDON_ID = 'leased_LBR20';
+  var WORKER_URL      = '/api/checkout-embedded';
   var CONFIRM         = '/lease-confirmed';
   var BASE_PRICE      = 80;
   var RENEWAL_PRICE   = 80;
@@ -2522,7 +2522,7 @@
       }
       (data.applicable_addons || []).forEach(function(id) { addonIds.push(id); });
       var targetsDevice = applyOn === 'invoice_amount' ||
-        addonIds.some(function(id) { return id === DEVICE_ADDON_ID || id.indexOf('orbi') !== -1 || id.indexOf('lbr20') !== -1 || id.indexOf('device') !== -1; });
+        addonIds.some(function(id) { return id === DEVICE_ADDON_ID || id.indexOf('nighthawk') !== -1 || id.indexOf('m1') !== -1 || id.indexOf('device') !== -1; });
       var targetsPlan = applyOn === 'invoice_amount' || planIds.length > 0 || (!targetsDevice && addonIds.length === 0);
       if (applyOn === 'invoice_amount') { targetsDevice = true; targetsPlan = true; }
       discountAmount = 0;
