@@ -997,7 +997,7 @@
       <input type="hidden" name="formID" value="223076752019051">
 
       <div class="coverage-module" id="addressModule">
-        <input type="text" id="addressInput" placeholder="Enter your address to check coverage…" autocomplete="off">
+        <input type="text" id="addressInput" placeholder="Enter your street address to check coverage…" autocomplete="off">
         <button type="button" class="btn-coverage" id="searchBtn">Check Coverage</button>
       </div>
 
@@ -1522,6 +1522,7 @@
   var crpOrderBtn   = document.getElementById('crpOrderBtn');
   var crpAddress    = document.getElementById('crpAddressDisplay');
   var addressSelected = false;
+  var addressHasStreetNumber = false;
 
   function showStatus(msg, cls) {
     statusBox.className = 'coverage-status';
@@ -1555,10 +1556,11 @@
       if (!place || !place.geometry) return;
 
       addressSelected = true;
+      addressHasStreetNumber = false;
       var street = '', city = '', prov = '', post = '';
       (place.address_components || []).forEach(function (c) {
         var t = c.types;
-        if (t.includes('street_number')) street = c.long_name + ' ';
+        if (t.includes('street_number')) { street = c.long_name + ' '; addressHasStreetNumber = true; }
         if (t.includes('route'))         street += c.long_name;
         if (t.includes('locality'))      city = c.long_name;
         if (t.includes('administrative_area_level_1')) prov = c.long_name;
@@ -1570,10 +1572,12 @@
       document.getElementById('jf_state').value  = prov;
       document.getElementById('jf_postal').value = post;
 
-      emailModule.style.display = 'block';
+      if (addressHasStreetNumber) {
+        emailModule.style.display = 'block';
+      }
     });
 
-    addressInput.addEventListener('input', function () { addressSelected = false; });
+    addressInput.addEventListener('input', function () { addressSelected = false; addressHasStreetNumber = false; });
   }
 
   if (typeof google !== 'undefined') {
@@ -1588,6 +1592,11 @@
   searchBtn.addEventListener('click', function () {
     if (!addressSelected) {
       showStatus('Please select an address from the dropdown list.', 'status-warning');
+      addressInput.focus();
+      return;
+    }
+    if (!addressHasStreetNumber) {
+      showStatus('Please enter a full street address, including the street number.', 'status-warning');
       addressInput.focus();
       return;
     }
