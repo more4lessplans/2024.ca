@@ -796,26 +796,19 @@
 
     /* Two-column accordion grid */
     .faq-list {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      column-gap: 48px;
+      display: flex;
+      gap: 48px;
+      align-items: flex-start;
+    }
+    .faq-col {
+      flex: 1;
+      min-width: 0;
     }
     /* Each accordion item spans full column width */
     .accordion-item {
       border-bottom: 1px solid var(--border);
-      break-inside: avoid;
     }
-    /* Top border only on the very first item in each column.
-       In a 2-col grid that's :first-child and :nth-child(2) — but
-       we keep a single rule that fires for :first-child, then use
-       a column-aware rule for the second column's opener. */
-    .accordion-item:first-child {
-      border-top: 1px solid var(--border);
-    }
-    /* nth-child(2) is the top of the right column only when the
-       grid has 2 columns; the media query below removes this rule
-       when we collapse to single-column. */
-    .faq-list .accordion-item:nth-child(2) {
+    .faq-col .accordion-item:first-child {
       border-top: 1px solid var(--border);
     }
     .accordion-header {
@@ -918,9 +911,8 @@
         margin-bottom: 36px;
       }
       .faq-header-right { text-align: left; max-width: none; }
-      .faq-list { grid-template-columns: 1fr; }
-      /* In single-column, nth-child(2) is no longer a column opener */
-      .faq-list .accordion-item:nth-child(2) { border-top: none; }
+      .faq-list { flex-direction: column; gap: 0; }
+      .faq-col + .faq-col .accordion-item:first-child { border-top: none; }
 
       .footer { flex-direction: column; text-align: center; padding: 28px 24px; }
       .footer-links { justify-content: center; }
@@ -957,7 +949,7 @@
       <li><a href="#pricing">Pricing</a></li>
       <li><a href="#faq">FAQ</a></li>
       <li><a href="/contact">Contact</a></li>
-      <li class="nav-portal"><a href="/portal">Customer Portal</a></li>
+      <li class="nav-portal"><a href="/portal">Dashboard</a></li>
     </ul>
     <button class="menu-trigger" id="menuTrigger" aria-label="Open menu">
       <div class="menu-icon"><span></span><span></span><span></span></div>
@@ -970,7 +962,7 @@
     <li><a href="#pricing">Pricing</a></li>
     <li><a href="#faq">FAQ</a></li>
     <li><a href="/contact">Contact</a></li>
-    <li class="portal-link"><a href="/portal">Customer Portal</a></li>
+    <li class="portal-link"><a href="/portal">Dashboard</a></li>
   </ul>
 </div>
 
@@ -1010,8 +1002,8 @@
 
       <!-- Hidden JotForm fields -->
       <div style="display:none;">
-        <input type="text" name="q3_name[first]" value="Website">
-        <input type="text" name="q3_name[last]" value="Lead">
+        <input type="text" name="q3_name[first]" value="Main">
+        <input type="text" name="q3_name[last]" value="Page">
         <input type="text" name="q5_address[addr_line1]" id="jf_street">
         <input type="text" name="q5_address[city]" id="jf_city">
         <input type="text" name="q5_address[state]" id="jf_state">
@@ -1308,63 +1300,69 @@
     <!-- Two-column accordion grid -->
     <div class="faq-list">
 
-      <div class="accordion-item">
-        <button class="accordion-header">
-          <span>Do I Need To Schedule An Installation?</span>
-          <div class="accordion-toggle"></div>
-        </button>
-        <div class="accordion-body">
-          <p><strong>No installation required.</strong> Your device is plug-and-play — just power it on and connect.</p>
+      <!-- Left column -->
+      <div class="faq-col">
+        <div class="accordion-item">
+          <button class="accordion-header">
+            <span>Do I Need To Schedule An Installation?</span>
+            <div class="accordion-toggle"></div>
+          </button>
+          <div class="accordion-body">
+            <p><strong>No installation required.</strong> Your device is plug-and-play — just power it on and connect.</p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-header">
+            <span>Are There Contracts?</span>
+            <div class="accordion-toggle"></div>
+          </button>
+          <div class="accordion-body">
+            <p><strong>No contracts.</strong> Service is month-to-month, with full control to cancel anytime.</p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-header">
+            <span>How Does Billing Work?</span>
+            <div class="accordion-toggle"></div>
+          </button>
+          <div class="accordion-body">
+            <p><strong>Simple monthly renewal.</strong> Your first payment includes hardware and service. After that, service renews at $110 + tax per month.</p>
+          </div>
         </div>
       </div>
 
-      <div class="accordion-item">
-        <button class="accordion-header">
-          <span>What Speeds Can I Expect?</span>
-          <div class="accordion-toggle"></div>
-        </button>
-        <div class="accordion-body">
-          <p><strong>Speeds vary by location.</strong> Most users see 50–150 Mbps, with higher performance in strong 5G areas. We can provide a coverage estimate on request.</p>
+      <!-- Right column -->
+      <div class="faq-col">
+        <div class="accordion-item">
+          <button class="accordion-header">
+            <span>What Speeds Can I Expect?</span>
+            <div class="accordion-toggle"></div>
+          </button>
+          <div class="accordion-body">
+            <p><strong>Speeds vary by location.</strong> Most users see 50–150 Mbps, with higher performance in strong 5G areas. We can provide a coverage estimate on request.</p>
+          </div>
         </div>
-      </div>
 
-      <div class="accordion-item">
-        <button class="accordion-header">
-          <span>Are There Contracts?</span>
-          <div class="accordion-toggle"></div>
-        </button>
-        <div class="accordion-body">
-          <p><strong>No contracts.</strong> Service is month-to-month, with full control to cancel anytime.</p>
+        <div class="accordion-item">
+          <button class="accordion-header">
+            <span>Does Service Only Work In Canada?</span>
+            <div class="accordion-toggle"></div>
+          </button>
+          <div class="accordion-body">
+            <p><strong>Service is designed to travel with you.</strong> Taking your service abroad? Ask us about our Global Roaming package for seamless connectivity in destinations around the world.</p>
+          </div>
         </div>
-      </div>
 
-      <div class="accordion-item">
-        <button class="accordion-header">
-          <span>Does Service Only Work In Canada?</span>
-          <div class="accordion-toggle"></div>
-        </button>
-        <div class="accordion-body">
-          <p><strong>Service is designed to travel with you.</strong> With our roaming add-on, coverage is available across Canada, the USA, and Mexico.</p>
-        </div>
-      </div>
-
-      <div class="accordion-item">
-        <button class="accordion-header">
-          <span>How Does Billing Work?</span>
-          <div class="accordion-toggle"></div>
-        </button>
-        <div class="accordion-body">
-          <p><strong>Simple monthly renewal.</strong> Your first payment includes hardware and service. After that, service renews at $110 + tax per month.</p>
-        </div>
-      </div>
-
-      <div class="accordion-item">
-        <button class="accordion-header">
-          <span>Is This Satellite Internet?</span>
-          <div class="accordion-toggle"></div>
-        </button>
-        <div class="accordion-body">
-          <p><strong>No.</strong> This is LTE/5G cellular internet, offering lower latency and more stable performance than satellite.</p>
+        <div class="accordion-item">
+          <button class="accordion-header">
+            <span>Is This Satellite Internet?</span>
+            <div class="accordion-toggle"></div>
+          </button>
+          <div class="accordion-body">
+            <p><strong>No.</strong> This is LTE/5G cellular internet, offering lower latency and more stable performance than satellite.</p>
+          </div>
         </div>
       </div>
 
@@ -1463,35 +1461,13 @@
   document.querySelectorAll('.accordion-header').forEach(function (btn) {
     btn.addEventListener('click', function () {
       var item = btn.closest('.accordion-item');
-      var list = item.closest('.faq-list');
+      var col  = item.closest('.faq-col') || item.closest('.faq-list');
       var wasActive = item.classList.contains('active');
 
-      var allItems = list
-        ? Array.prototype.slice.call(list.querySelectorAll('.accordion-item'))
-        : [];
-
-      /* Detect two-column layout by comparing top positions of the first two items.
-         If item[0] and item[1] share the same top offset they are side-by-side. */
-      var isTwoCol = allItems.length >= 2 &&
-        allItems[0].getBoundingClientRect().top === allItems[1].getBoundingClientRect().top;
-
-      if (isTwoCol) {
-        /* Find which column this item is in by comparing its left edge to the
-           left edge of the first item. Same left = left column, else right column. */
-        var itemLeft  = item.getBoundingClientRect().left;
-        var firstLeft = allItems[0].getBoundingClientRect().left;
-        var sameCol   = itemLeft === firstLeft;
-
-        allItems.forEach(function (sibling) {
-          var sibLeft = sibling.getBoundingClientRect().left;
-          if ((sibLeft === firstLeft) === sameCol) {
-            sibling.classList.remove('active');
-          }
-        });
-      } else {
-        /* Single column — close all */
-        allItems.forEach(function (i) { i.classList.remove('active'); });
-      }
+      /* Close all items in the same column */
+      col.querySelectorAll('.accordion-item').forEach(function (i) {
+        i.classList.remove('active');
+      });
 
       if (!wasActive) item.classList.add('active');
     });
