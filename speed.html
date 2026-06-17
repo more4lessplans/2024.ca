@@ -497,60 +497,60 @@
     .crp-cta:hover svg { transform: translateX(4px); }
     .crp-fine { font-size: 0.7rem; color: var(--ink-4); line-height: 1.5; }
 
-    /* Speed estimate request link + inline form */
+    /* Speed estimate request — quiet, label-style trigger consistent with the card's own typographic system */
+    .crp-speed-divider {
+      margin: 24px 0 0;
+      border-top: 1px solid var(--border-soft);
+    }
     .crp-speed-link {
-      display: inline-flex; align-items: center; gap: 4px;
-      margin-top: 16px;
+      display: inline-flex; align-items: center; gap: 5px;
+      margin-top: 18px;
       font-family: 'Figtree', sans-serif;
-      font-size: 0.76rem; font-weight: 600;
-      color: var(--ink-3); text-decoration: none;
+      font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.07em;
+      color: var(--ink-4); text-decoration: none;
       background: none; border: none; cursor: pointer;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 2px;
-      transition: color 0.2s ease, border-color 0.2s ease;
+      transition: color 0.25s ease, letter-spacing 0.25s ease;
     }
-    .crp-speed-link:hover { color: var(--red); border-color: var(--red-glow); }
+    .crp-speed-link:hover { color: var(--ink-2); }
     .crp-speed-link svg {
-      width: 10px; height: 10px; stroke: currentColor;
-      stroke-width: 2.4; fill: none;
-      transition: transform 0.28s var(--spring);
+      width: 9px; height: 9px; stroke: currentColor;
+      stroke-width: 2.6; fill: none;
+      transition: transform 0.32s var(--spring);
     }
-    .crp-speed-link:hover svg { transform: translateX(2px); }
-    .crp-speed-link.is-hidden { display: none; }
+    .crp-speed-link.is-open svg { transform: rotate(90deg); }
 
     .crp-speed-form {
-      margin-top: 18px;
       text-align: left;
       max-height: 0; opacity: 0;
       overflow: hidden;
-      transition: max-height 0.4s var(--ease-out), opacity 0.3s ease;
+      transition: max-height 0.45s var(--ease-out), opacity 0.3s ease, margin-top 0.45s var(--ease-out);
     }
-    .crp-speed-form.open { max-height: 280px; opacity: 1; }
-    .crp-speed-form-inner { padding-top: 18px; border-top: 1px solid var(--border); }
-    .crp-speed-label {
-      font-size: 0.64rem; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--ink-3); margin-bottom: 10px;
-    }
+    .crp-speed-form.open { max-height: 320px; opacity: 1; margin-top: 18px; }
+    .crp-speed-form-inner { padding-top: 4px; }
     .crp-speed-fields { display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
     .crp-speed-error {
       font-size: 0.72rem; color: var(--red); font-weight: 600;
-      margin-bottom: 10px; line-height: 1.4;
+      margin-bottom: 10px; line-height: 1.4; text-align: center;
     }
     .crp-speed-fields input {
-      width: 100%; padding: 11px 14px;
-      border: 1.5px solid var(--border); border-radius: var(--radius-md);
+      width: 100%; padding: 12px 16px;
+      border: 1.5px solid var(--border); border-radius: var(--radius-full);
       font-family: 'Figtree', sans-serif; font-size: 0.84rem; color: var(--ink);
-      background: var(--bg); outline: none;
-      transition: border-color 0.2s ease, background 0.2s ease;
+      background: var(--bg); outline: none; text-align: left;
+      transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
     }
-    .crp-speed-fields input:focus { border-color: var(--red); background: #fff; }
+    .crp-speed-fields input::placeholder { color: var(--ink-4); }
+    .crp-speed-fields input:focus { border-color: var(--ink); background: #fff; box-shadow: 0 0 0 3px rgba(0,0,0,0.04); }
     .crp-speed-submit {
-      width: 100%; padding: 12px;
-      background: var(--ink); color: #fff; border: none; border-radius: var(--radius-md);
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      width: 100%; padding: 13px;
+      background: var(--ink); color: #fff; border: none; border-radius: var(--radius-full);
       font-family: 'Figtree', sans-serif; font-size: 0.84rem; font-weight: 700;
-      cursor: pointer; transition: background 0.2s ease, opacity 0.2s ease;
+      letter-spacing: -0.01em;
+      cursor: pointer; transition: background 0.2s ease, opacity 0.2s ease, transform 0.3s var(--spring);
     }
-    .crp-speed-submit:hover { background: #1a1a1c; }
+    .crp-speed-submit:hover { background: #1a1a1c; transform: translateY(-1px); }
     .crp-speed-submit:disabled { opacity: 0.6; cursor: default; }
     .crp-speed-confirm {
       font-size: 0.8rem; color: var(--green); font-weight: 600;
@@ -1466,15 +1466,16 @@
     </a>
     <p class="crp-fine">From $199 upfront · First month included · Renews at $110/mo · No contracts</p>
 
+    <div class="crp-speed-divider"></div>
+
     <!-- Speed Estimate Request -->
     <button type="button" class="crp-speed-link" id="crpSpeedToggle">
-      Want a personalized speed estimate? Request one
-      <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="8" x2="14" y2="8"/><polyline points="9,3 14,8 9,13"/></svg>
+      <span id="crpSpeedToggleLabel">Get a Personalized Speed Estimate</span>
+      <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><polyline points="6,3 11,8 6,13"/></svg>
     </button>
 
     <div class="crp-speed-form" id="crpSpeedForm">
       <div class="crp-speed-form-inner">
-        <div class="crp-speed-label">Get Your Speed Estimate</div>
 
         <iframe name="hidden_iframe_speed" id="hidden_iframe_speed" style="display:none;"></iframe>
         <form action="https://submit.jotform.com/submit/223076752019051/" method="post" target="hidden_iframe_speed" id="jotformSpeedEstimate">
@@ -1613,7 +1614,8 @@
     var se = document.getElementById('crpSpeedError');
     if (sf && st && sc && sb) {
       sf.classList.remove('open');
-      st.classList.remove('is-hidden');
+      st.classList.remove('is-open');
+      document.getElementById('crpSpeedToggleLabel').textContent = 'Get a Personalized Speed Estimate';
       sf.querySelector('.crp-speed-fields').style.display = '';
       sb.style.display = '';
       sb.disabled = false;
@@ -1746,7 +1748,8 @@
   speedToggle.addEventListener('click', function () {
     var opening = !speedForm.classList.contains('open');
     speedForm.classList.toggle('open');
-    speedToggle.classList.toggle('is-hidden', opening);
+    speedToggle.classList.toggle('is-open', opening);
+    document.getElementById('crpSpeedToggleLabel').textContent = opening ? 'Hide Speed Estimate Form' : 'Get a Personalized Speed Estimate';
     if (opening) speedNameEl.focus();
   });
 
