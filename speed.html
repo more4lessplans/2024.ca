@@ -1057,13 +1057,15 @@
 
   <!-- Coverage Checker -->
   <div class="coverage-wrap">
-    <!-- Address field lives outside the <form> on purpose: iOS Safari/Chrome
-         apply system-level Contact Info autofill to address-like fields inside
-         forms almost regardless of autocomplete attributes. It isn't submitted
-         directly anyway — Google Places autocomplete writes the parsed result
-         into the hidden jf_* fields inside the form below. -->
+    <!-- Address field lives outside the <form> on purpose, and starts as
+         readonly: Safari's autofill bar attaches to a field as soon as it
+         parses it, regardless of autocomplete attributes. Making it readonly
+         until the user actually focuses it prevents Safari from offering
+         autofill at all, since it can't write into a readonly field. The
+         field isn't submitted directly anyway — Google Places autocomplete
+         writes the parsed result into the hidden jf_* fields in the form below. -->
     <div class="coverage-module" id="addressModule">
-      <input type="text" id="locationLookup" placeholder="Enter your street address to check coverage…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-form-type="other">
+      <input type="text" id="locationLookup" placeholder="Enter your street address to check coverage…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-form-type="other" readonly onfocus="this.removeAttribute('readonly'); var el=this; setTimeout(function(){ el.focus(); }, 0);">
       <button type="button" class="btn-coverage" id="searchBtn">Check Coverage</button>
     </div>
 
