@@ -532,6 +532,10 @@
       text-transform: uppercase; color: var(--ink-3); margin-bottom: 10px;
     }
     .crp-speed-fields { display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
+    .crp-speed-error {
+      font-size: 0.72rem; color: var(--red); font-weight: 600;
+      margin-bottom: 10px; line-height: 1.4;
+    }
     .crp-speed-fields input {
       width: 100%; padding: 11px 14px;
       border: 1.5px solid var(--border); border-radius: var(--radius-md);
@@ -1478,8 +1482,9 @@
 
           <div class="crp-speed-fields">
             <input type="text" id="speedName" placeholder="Full name" autocomplete="name">
-            <input type="tel" id="speedPhone" placeholder="Phone number (e.g. 555-1234)" autocomplete="tel">
+            <input type="tel" id="speedPhone" placeholder="Phone number (e.g. 416-555-1234)" autocomplete="tel">
           </div>
+          <div class="crp-speed-error" id="crpSpeedError" style="display:none;">Please enter your name and a valid 10-digit phone number.</div>
           <button type="submit" class="crp-speed-submit" id="crpSpeedSubmit">Request Speed Estimate</button>
 
           <!-- Carried over from coverage check -->
@@ -1605,6 +1610,7 @@
     var st = document.getElementById('crpSpeedToggle');
     var sc = document.getElementById('crpSpeedConfirm');
     var sb = document.getElementById('crpSpeedSubmit');
+    var se = document.getElementById('crpSpeedError');
     if (sf && st && sc && sb) {
       sf.classList.remove('open');
       st.classList.remove('is-hidden');
@@ -1613,6 +1619,7 @@
       sb.disabled = false;
       sb.textContent = 'Request Speed Estimate';
       sc.style.display = 'none';
+      if (se) se.style.display = 'none';
       document.getElementById('speedName').value = '';
       document.getElementById('speedPhone').value = '';
     }
@@ -1734,6 +1741,7 @@
   var speedSubmitBtn= document.getElementById('crpSpeedSubmit');
   var speedConfirm  = document.getElementById('crpSpeedConfirm');
   var speedFormTag  = document.getElementById('jotformSpeedEstimate');
+  var speedError    = document.getElementById('crpSpeedError');
 
   speedToggle.addEventListener('click', function () {
     var opening = !speedForm.classList.contains('open');
@@ -1745,11 +1753,15 @@
   speedFormTag.addEventListener('submit', function (e) {
     var name  = speedNameEl.value.trim();
     var phone = speedPhoneEl.value.trim();
-    if (!name || !phone) {
+    var phoneDigits = phone.replace(/\D/g, '');
+
+    if (!name || phoneDigits.length !== 10) {
       e.preventDefault();
+      speedError.style.display = 'block';
       if (!name) { speedNameEl.focus(); } else { speedPhoneEl.focus(); }
       return;
     }
+    speedError.style.display = 'none';
 
     /* Split name into first/last for q3_name */
     var parts = name.split(/\s+/);
@@ -1765,11 +1777,13 @@
     document.getElementById('speedStateHidden').value  = document.getElementById('jf_state').value;
     document.getElementById('speedPostalHidden').value = document.getElementById('jf_postal').value;
 
-    /* Phone field on the form only accepts the local 7-digit part (###-####) */
+    /* Send the full 10-digit number as-is (bypassing JotForm's 7-digit mask,
+       since we're posting directly rather than through their rendered widget) */
+    var formattedPhone = phoneDigits.slice(0,3) + '-' + phoneDigits.slice(3,6) + '-' + phoneDigits.slice(6,10);
     var phoneInput = document.createElement('input');
     phoneInput.type = 'hidden';
     phoneInput.name = 'q6_phoneNumber[full]';
-    phoneInput.value = phone;
+    phoneInput.value = formattedPhone;
     speedFormTag.appendChild(phoneInput);
 
     speedSubmitBtn.disabled = true;
