@@ -568,6 +568,8 @@
       visibility: hidden;
       display: flex;
       pointer-events: none;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
       transition: opacity 0.4s var(--ease-out), visibility 0.4s var(--ease-out);
     }
     #coverage-result-panel.visible {
@@ -587,6 +589,7 @@
       transform: translateY(32px) scale(0.96);
       transition: transform 0.5s var(--spring), opacity 0.4s var(--ease-out);
       opacity: 0;
+      margin: auto;
     }
     #coverage-result-panel.visible .crp-card {
       transform: translateY(0) scale(1);
@@ -707,6 +710,66 @@
 
     .crp-fine {
       font-size: 0.7rem; color: var(--ink-4); line-height: 1.5;
+    }
+
+    /* Speed estimate request — quiet, label-style trigger consistent with the card's own typographic system */
+    .crp-speed-divider {
+      margin: 24px 0 0;
+      border-top: 1px solid var(--border-soft);
+    }
+    .crp-speed-link {
+      display: inline-flex; align-items: center; gap: 5px;
+      margin-top: 18px;
+      font-family: 'Figtree', sans-serif;
+      font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.07em;
+      color: var(--ink-4); text-decoration: none;
+      background: none; border: none; cursor: pointer;
+      transition: color 0.25s ease, letter-spacing 0.25s ease;
+    }
+    .crp-speed-link:hover { color: var(--ink-2); }
+    .crp-speed-link svg {
+      width: 9px; height: 9px; stroke: currentColor;
+      stroke-width: 2.6; fill: none;
+      transition: transform 0.32s var(--spring);
+    }
+    .crp-speed-link.is-open svg { transform: rotate(90deg); }
+
+    .crp-speed-form {
+      text-align: left;
+      max-height: 0; opacity: 0;
+      overflow: hidden;
+      transition: max-height 0.45s var(--ease-out), opacity 0.3s ease, margin-top 0.45s var(--ease-out);
+    }
+    .crp-speed-form.open { max-height: 320px; opacity: 1; margin-top: 18px; }
+    .crp-speed-form-inner { padding-top: 4px; }
+    .crp-speed-fields { display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
+    .crp-speed-error {
+      font-size: 0.72rem; color: var(--red); font-weight: 600;
+      margin-bottom: 10px; line-height: 1.4; text-align: center;
+    }
+    .crp-speed-fields input {
+      width: 100%; padding: 12px 16px;
+      border: 1.5px solid var(--border); border-radius: var(--radius-full);
+      font-family: 'Figtree', sans-serif; font-size: 0.84rem; color: var(--ink);
+      background: var(--bg); outline: none; text-align: left;
+      transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+    }
+    .crp-speed-fields input::placeholder { color: var(--ink-4); }
+    .crp-speed-fields input:focus { border-color: var(--ink); background: #fff; box-shadow: 0 0 0 3px rgba(0,0,0,0.04); }
+    .crp-speed-submit {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      width: 100%; padding: 13px;
+      background: var(--ink); color: #fff; border: none; border-radius: var(--radius-full);
+      font-family: 'Figtree', sans-serif; font-size: 0.84rem; font-weight: 700;
+      letter-spacing: -0.01em;
+      cursor: pointer; transition: background 0.2s ease, opacity 0.2s ease, transform 0.3s var(--spring);
+    }
+    .crp-speed-submit:hover { background: #1a1a1c; transform: translateY(-1px); }
+    .crp-speed-submit:disabled { opacity: 0.6; cursor: default; }
+    .crp-speed-confirm {
+      font-size: 0.8rem; color: var(--green); font-weight: 600;
+      text-align: center; padding: 10px 0 2px;
     }
 
     /* Trust pills */
@@ -1158,6 +1221,16 @@
       .coverage-wrap { padding: 0 20px; }
       .coverage-module { flex-direction: column; align-items: stretch; gap: 6px; padding: 10px; }
       .btn-coverage { width: 100%; padding: 14px; border-radius: var(--radius-md); }
+
+      /* Coverage result modal — tighter, naturally scrollable on small screens */
+      #coverage-result-panel { align-items: flex-start; padding: 16px; }
+      .crp-card { padding: 40px 24px 28px; border-radius: 22px; margin-top: 12px; margin-bottom: 12px; }
+      .crp-icon-ring { width: 60px; height: 60px; margin-bottom: 18px; }
+      .crp-icon-ring svg { width: 24px; height: 24px; }
+      .crp-headline { font-size: 1.5rem; }
+      .crp-address-line { margin-bottom: 24px; }
+      .crp-chips { margin-bottom: 28px; }
+      .crp-speed-form.open { max-height: 420px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1222,14 +1295,21 @@
 
     <!-- Coverage Checker (lead capture) -->
     <div class="coverage-wrap">
+      <!-- Address field lives outside the <form> on purpose, and starts as
+           readonly: Safari's autofill bar attaches to a field as soon as it
+           parses it, regardless of autocomplete attributes. Making it readonly
+           until the user actually focuses it prevents Safari from offering
+           autofill at all, since it can't write into a readonly field. The
+           field isn't submitted directly anyway — Google Places autocomplete
+           writes the parsed result into the hidden jf_* fields in the form below. -->
+      <div class="coverage-module" id="addressModule">
+        <input type="text" id="locationLookup" placeholder="Enter your full street address…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-form-type="other" readonly onfocus="this.removeAttribute('readonly'); var el=this; setTimeout(function(){ el.focus(); }, 0);">
+        <button type="button" class="btn-coverage" id="searchBtn">Check Coverage</button>
+      </div>
+
       <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
       <form action="https://submit.jotform.com/submit/223076752019051/" method="post" target="hidden_iframe" id="jotformCoverage">
         <input type="hidden" name="formID" value="223076752019051">
-
-        <div class="coverage-module" id="addressModule">
-          <input type="text" id="addressInput" placeholder="Enter your full street address…" autocomplete="off">
-          <button type="button" class="btn-coverage" id="searchBtn">Check Coverage</button>
-        </div>
 
         <div id="email-module">
           <div class="coverage-module">
@@ -1591,10 +1671,46 @@
     </div>
 
     <a href="#pricing" class="crp-cta" id="crpOrderBtn">
-      Order Now — Start Free
+      Order Now — Start Risk Free
       <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="8" x2="14" y2="8"/><polyline points="9,3 14,8 9,13"/></svg>
     </a>
     <p class="crp-fine">$60/mo for 24 months · Regular $80/mo · Cancel anytime · No contracts</p>
+
+    <div class="crp-speed-divider"></div>
+
+    <!-- Speed Estimate Request -->
+    <button type="button" class="crp-speed-link" id="crpSpeedToggle">
+      <span id="crpSpeedToggleLabel">Get a Personalized Speed Estimate</span>
+      <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><polyline points="6,3 11,8 6,13"/></svg>
+    </button>
+
+    <div class="crp-speed-form" id="crpSpeedForm">
+      <div class="crp-speed-form-inner">
+
+        <iframe name="hidden_iframe_speed" id="hidden_iframe_speed" style="display:none;"></iframe>
+        <form action="https://submit.jotform.com/submit/223076752019051/" method="post" target="hidden_iframe_speed" id="jotformSpeedEstimate">
+          <input type="hidden" name="formID" value="223076752019051">
+
+          <div class="crp-speed-fields">
+            <input type="text" id="speedName" placeholder="Full name" autocomplete="name">
+            <input type="tel" id="speedPhone" placeholder="Phone number (e.g. 416-555-1234)" autocomplete="tel">
+          </div>
+          <div class="crp-speed-error" id="crpSpeedError" style="display:none;">Please enter your name and a valid 10-digit phone number.</div>
+          <button type="submit" class="crp-speed-submit" id="crpSpeedSubmit">Request Speed Estimate</button>
+
+          <!-- Carried over from coverage check -->
+          <input type="hidden" name="q3_name[first]" id="speedFirstHidden">
+          <input type="hidden" name="q3_name[last]" id="speedLastHidden">
+          <input type="hidden" name="q4_email" id="speedEmailHidden">
+          <input type="hidden" name="q5_address[addr_line1]" id="speedStreetHidden">
+          <input type="hidden" name="q5_address[city]" id="speedCityHidden">
+          <input type="hidden" name="q5_address[state]" id="speedStateHidden">
+          <input type="hidden" name="q5_address[postal]" id="speedPostalHidden">
+        </form>
+
+        <div class="crp-speed-confirm" id="crpSpeedConfirm" style="display:none;">✓ Thanks — we'll be in touch with your estimate shortly.</div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -1672,7 +1788,7 @@
   });
 
   /* ── Coverage Checker / Lead Capture ── */
-  var addressInput  = document.getElementById('addressInput');
+  var addressInput  = document.getElementById('locationLookup');
   var emailInput    = document.getElementById('emailInput');
   var emailModule   = document.getElementById('email-module');
   var searchBtn     = document.getElementById('searchBtn');
@@ -1694,9 +1810,30 @@
   function showResultPanel(address) {
     if (crpAddress) crpAddress.textContent = address || '';
     document.body.style.overflow = 'hidden';
+    resultPanel.scrollTop = 0;
     requestAnimationFrame(function () {
       resultPanel.classList.add('visible');
     });
+
+    /* Reset speed estimate mini-form to its initial state */
+    var sf = document.getElementById('crpSpeedForm');
+    var st = document.getElementById('crpSpeedToggle');
+    var sc = document.getElementById('crpSpeedConfirm');
+    var sb = document.getElementById('crpSpeedSubmit');
+    var se = document.getElementById('crpSpeedError');
+    if (sf && st && sc && sb) {
+      sf.classList.remove('open');
+      st.classList.remove('is-open');
+      document.getElementById('crpSpeedToggleLabel').textContent = 'Get a Personalized Speed Estimate';
+      sf.querySelector('.crp-speed-fields').style.display = '';
+      sb.style.display = '';
+      sb.disabled = false;
+      sb.textContent = 'Request Speed Estimate';
+      sc.style.display = 'none';
+      if (se) se.style.display = 'none';
+      document.getElementById('speedName').value = '';
+      document.getElementById('speedPhone').value = '';
+    }
   }
 
   function hideResultPanel() {
@@ -1820,6 +1957,77 @@
   /* Enter key on email field triggers submit */
   emailInput.addEventListener('keydown', function (e) {
     if (e.key === 'Enter') { e.preventDefault(); submitBtn.click(); }
+  });
+
+  /* ── Speed Estimate Request (inline mini-form in success modal) ── */
+  var speedToggle    = document.getElementById('crpSpeedToggle');
+  var speedForm      = document.getElementById('crpSpeedForm');
+  var speedNameEl    = document.getElementById('speedName');
+  var speedPhoneEl   = document.getElementById('speedPhone');
+  var speedSubmitBtn = document.getElementById('crpSpeedSubmit');
+  var speedConfirm   = document.getElementById('crpSpeedConfirm');
+  var speedFormTag   = document.getElementById('jotformSpeedEstimate');
+  var speedError     = document.getElementById('crpSpeedError');
+
+  speedToggle.addEventListener('click', function () {
+    var opening = !speedForm.classList.contains('open');
+    speedForm.classList.toggle('open');
+    speedToggle.classList.toggle('is-open', opening);
+    document.getElementById('crpSpeedToggleLabel').textContent = opening ? 'Hide Speed Estimate Form' : 'Get a Personalized Speed Estimate';
+    if (opening) {
+      /* Bring the newly revealed fields into view — important on mobile
+         where the whole panel scrolls rather than the card floating centered. */
+      setTimeout(function () {
+        speedForm.scrollIntoView({ behavior: 'smooth', block: 'end' });
+        speedNameEl.focus({ preventScroll: true });
+      }, 120);
+    }
+  });
+
+  speedFormTag.addEventListener('submit', function (e) {
+    var name  = speedNameEl.value.trim();
+    var phone = speedPhoneEl.value.trim();
+    var phoneDigits = phone.replace(/\D/g, '');
+
+    if (!name || phoneDigits.length !== 10) {
+      e.preventDefault();
+      speedError.style.display = 'block';
+      if (!name) { speedNameEl.focus(); } else { speedPhoneEl.focus(); }
+      return;
+    }
+    speedError.style.display = 'none';
+
+    /* Split name into first/last for q3_name */
+    var parts = name.split(/\s+/);
+    var first = parts.shift() || '';
+    var last  = parts.join(' ');
+    document.getElementById('speedFirstHidden').value = first;
+    document.getElementById('speedLastHidden').value  = last;
+
+    /* Carry over address + email captured during coverage check */
+    document.getElementById('speedEmailHidden').value  = emailInput.value.trim();
+    document.getElementById('speedStreetHidden').value = document.getElementById('jf_street').value;
+    document.getElementById('speedCityHidden').value   = document.getElementById('jf_city').value;
+    document.getElementById('speedStateHidden').value  = document.getElementById('jf_state').value;
+    document.getElementById('speedPostalHidden').value = document.getElementById('jf_postal').value;
+
+    /* Send the full 10-digit number as-is (bypassing JotForm's 7-digit mask,
+       since we're posting directly rather than through their rendered widget) */
+    var formattedPhone = phoneDigits.slice(0,3) + '-' + phoneDigits.slice(3,6) + '-' + phoneDigits.slice(6,10);
+    var phoneInput = document.createElement('input');
+    phoneInput.type = 'hidden';
+    phoneInput.name = 'q6_phoneNumber[full]';
+    phoneInput.value = formattedPhone;
+    speedFormTag.appendChild(phoneInput);
+
+    speedSubmitBtn.disabled = true;
+    speedSubmitBtn.textContent = 'Sending…';
+
+    setTimeout(function () {
+      speedForm.querySelector('.crp-speed-fields').style.display = 'none';
+      speedSubmitBtn.style.display = 'none';
+      speedConfirm.style.display = 'block';
+    }, 400);
   });
 
 })();
