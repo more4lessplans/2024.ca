@@ -433,6 +433,8 @@
       align-items: center; justify-content: center;
       padding: 24px; opacity: 0; visibility: hidden;
       display: flex; pointer-events: none;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
       transition: opacity 0.4s var(--ease-out), visibility 0.4s var(--ease-out);
     }
     #coverage-result-panel.visible { opacity: 1; visibility: visible; pointer-events: auto; }
@@ -445,6 +447,7 @@
       transform: translateY(32px) scale(0.96);
       transition: transform 0.5s var(--spring), opacity 0.4s var(--ease-out);
       opacity: 0;
+      margin: auto;
     }
     #coverage-result-panel.visible .crp-card { transform: translateY(0) scale(1); opacity: 1; }
     .crp-close {
@@ -989,6 +992,16 @@
       .btn-coverage { width: 100%; padding: 14px; border-radius: var(--radius-md); }
 
       .faq-main-title { font-size: 1.8rem; }
+
+      /* Coverage result modal — tighter, naturally scrollable on small screens */
+      #coverage-result-panel { align-items: flex-start; padding: 16px; }
+      .crp-card { padding: 40px 24px 28px; border-radius: 22px; margin-top: 12px; margin-bottom: 12px; }
+      .crp-icon-ring { width: 60px; height: 60px; margin-bottom: 18px; }
+      .crp-icon-ring svg { width: 24px; height: 24px; }
+      .crp-headline { font-size: 1.5rem; }
+      .crp-address-line { margin-bottom: 24px; }
+      .crp-chips { margin-bottom: 28px; }
+      .crp-speed-form.open { max-height: 420px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1604,6 +1617,7 @@
   function showResultPanel(address) {
     if (crpAddress) crpAddress.textContent = address || '';
     document.body.style.overflow = 'hidden';
+    resultPanel.scrollTop = 0;
     requestAnimationFrame(function () { resultPanel.classList.add('visible'); });
 
     /* Reset speed estimate mini-form to its initial state */
@@ -1750,7 +1764,15 @@
     speedForm.classList.toggle('open');
     speedToggle.classList.toggle('is-open', opening);
     document.getElementById('crpSpeedToggleLabel').textContent = opening ? 'Hide Speed Estimate Form' : 'Get a Personalized Speed Estimate';
-    if (opening) speedNameEl.focus();
+    if (opening) {
+      /* Give the expand transition a moment to start, then bring the
+         newly revealed fields into view — critical on mobile where the
+         whole panel scrolls rather than the card floating centered. */
+      setTimeout(function () {
+        speedForm.scrollIntoView({ behavior: 'smooth', block: 'end' });
+        speedNameEl.focus({ preventScroll: true });
+      }, 120);
+    }
   });
 
   speedFormTag.addEventListener('submit', function (e) {
