@@ -424,6 +424,35 @@
       background: var(--red); flex-shrink: 0;
     }
 
+    /* Eyebrow row (label + back button together) */
+    .eyebrow-row {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; margin-bottom: 10px;
+    }
+    .eyebrow-row .section-eyebrow { margin-bottom: 0; }
+
+    /* Back to device selection */
+    .back-btn {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: none; border: none; cursor: pointer;
+      font-family: 'Figtree', sans-serif;
+      font-size: 0.74rem; font-weight: 600;
+      color: var(--ink-3);
+      padding: 5px 10px 5px 6px;
+      border-radius: var(--rFull);
+      transition: color 0.2s ease, background 0.2s ease;
+      flex-shrink: 0;
+    }
+    .back-btn:hover { color: var(--ink); background: var(--bg); }
+    .guide-section.dark .back-btn { color: var(--on-dark-3); }
+    .guide-section.dark .back-btn:hover { color: var(--on-dark); background: rgba(255,255,255,0.06); }
+    .back-btn svg {
+      width: 12px; height: 12px; stroke: currentColor;
+      stroke-width: 2.2; fill: none;
+      transition: transform 0.28s var(--spring);
+    }
+    .back-btn:hover svg { transform: translateX(-3px); }
+
     .section-title {
       font-size: clamp(1.6rem, 3vw, 2.2rem);
       font-weight: 900; letter-spacing: -0.04em; line-height: 1.1;
@@ -741,7 +770,7 @@
   <div class="nav-inner">
     <a class="nav-logo" href="/"><img src="assets/img/logos/logo.png" alt="More4Less"></a>
     <ul class="nav-links" id="navLinks">
-      <li><a href="/#pricing">Pricing</a></li>
+     
       <li><a href="/contact">Contact</a></li>
       <li class="nav-portal"><a href="/portal">Dashboard</a></li>
     </ul>
@@ -753,7 +782,7 @@
 
 <div class="mobile-overlay" id="mobileOverlay">
   <ul class="mobile-nav-links">
-    <li><a href="/#pricing">Pricing</a></li>
+   
     <li><a href="/contact">Contact</a></li>
     <li class="portal-link"><a href="/portal">Dashboard</a></li>
   </ul>
@@ -803,7 +832,13 @@
   <!-- ── SECTION 1: Hardware & Power ─────────────────────────── -->
   <div class="guide-section" id="sec-hardware">
     <div class="guide-inner">
-      <div class="section-eyebrow"><span class="eyebrow-dot"></span> Step 1</div>
+      <div class="eyebrow-row">
+        <div class="section-eyebrow"><span class="eyebrow-dot"></span> Step 1</div>
+        <button type="button" class="back-btn" onclick="goBackToDeviceSelect()">
+          <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><line x1="13" y1="8" x2="3" y2="8"/><polyline points="7,4 3,8 7,12"/></svg>
+          Change Device
+        </button>
+      </div>
       <h2 class="section-title" id="hwTitle">Hardware &amp; Power</h2>
 
       <!-- MOBILE STEPS -->
@@ -1159,6 +1194,29 @@
     setTimeout(function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }, 300);
+  };
+
+  /* ── Back to device selection ────────────────────── */
+  window.goBackToDeviceSelect = function () {
+    var hero         = document.getElementById('hero');
+    var heroSub      = document.getElementById('heroSub');
+    var heroHeadline = document.getElementById('heroHeadline');
+    var guideWrap    = document.getElementById('guideWrap');
+
+    /* Hide guide */
+    guideWrap.classList.remove('animated');
+    guideWrap.classList.remove('visible');
+
+    /* Restore hero */
+    hero.classList.remove('compact');
+    heroSub.classList.remove('hidden');
+    heroHeadline.innerHTML = 'Setup<br><em>Made Simple.</em>';
+
+    /* Clear device selection state */
+    document.getElementById('card-mobile').className = 'device-card';
+    document.getElementById('card-fixed').className = 'device-card';
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
 })();
