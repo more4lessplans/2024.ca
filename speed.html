@@ -1057,14 +1057,19 @@
 
   <!-- Coverage Checker -->
   <div class="coverage-wrap">
+    <!-- Address field lives outside the <form> on purpose: iOS Safari/Chrome
+         apply system-level Contact Info autofill to address-like fields inside
+         forms almost regardless of autocomplete attributes. It isn't submitted
+         directly anyway — Google Places autocomplete writes the parsed result
+         into the hidden jf_* fields inside the form below. -->
+    <div class="coverage-module" id="addressModule">
+      <input type="text" id="locationLookup" placeholder="Enter your street address to check coverage…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-form-type="other">
+      <button type="button" class="btn-coverage" id="searchBtn">Check Coverage</button>
+    </div>
+
     <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
     <form action="https://submit.jotform.com/submit/223076752019051/" method="post" target="hidden_iframe" id="jotformCoverage">
       <input type="hidden" name="formID" value="223076752019051">
-
-      <div class="coverage-module" id="addressModule">
-        <input type="text" id="addressInput" placeholder="Enter your street address to check coverage…" autocomplete="new-password" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-form-type="other">
-        <button type="button" class="btn-coverage" id="searchBtn">Check Coverage</button>
-      </div>
 
       <div id="email-module">
         <div class="coverage-module">
@@ -1595,7 +1600,7 @@
   });
 
   /* Coverage Checker / JotForm Lead Capture */
-  var addressInput  = document.getElementById('addressInput');
+  var addressInput  = document.getElementById('locationLookup');
   var emailInput    = document.getElementById('emailInput');
   var emailModule   = document.getElementById('email-module');
   var searchBtn     = document.getElementById('searchBtn');
