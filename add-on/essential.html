@@ -1,0 +1,3314 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Secure Checkout — Nighthawk M1 | More4Less</title>
+  <meta name="description" content="Secure checkout for the Netgear Nighthawk M1 unlimited wireless internet package. No contract. First month included.">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/img/favicons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicons/favicon-32x32.png">
+  <link rel="shortcut icon" href="../assets/img/favicons/favicon.ico">
+  <link rel="manifest" href="../assets/img/favicons/site.webmanifest">
+  <meta name="theme-color" content="#2E2F33">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://js.chargebee.com/v2/chargebee.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNt4XeQ5roadq0L-IpadA6s9e4CPm9FwI&libraries=places"></script>
+
+  <style>
+    /* ═══════════════════════════════════════════════════════════════
+       DESIGN TOKENS
+    ═══════════════════════════════════════════════════════════════ */
+    :root {
+      /* Brand */
+      --red:          #D73C59;
+      --red-deep:     #b82e48;
+      --red-glow:     rgba(215,60,89,0.12);
+      --red-glow-sm:  rgba(215,60,89,0.07);
+      --green:        #16a05a;
+      --green-bg:     rgba(22,160,90,0.08);
+      --green-border: rgba(22,160,90,0.18);
+
+      /* Surfaces — right panel stays dark always */
+      --bg:           #f8f8f9;
+      --bg-card:      #ffffff;
+      --bg-input:     #ffffff;
+      --bg-right:     #2E2F33;
+      --bg-right-card:#38393e;
+      --bg-right-line:rgba(255,255,255,0.08);
+
+      /* Text */
+      --ink:          #1a1a1c;
+      --ink-2:        #3d3d40;
+      --ink-3:        #87878c;
+      --ink-4:        #b8b8bc;
+      --ink-on-dark:  #f0f0f2;
+      --ink-on-dark-2:#b8b8c4;
+      --ink-on-dark-3:#78787e;
+
+      /* Borders */
+      --border:       #e8e8ec;
+      --border-soft:  #f0f0f4;
+      --border-dark:  rgba(255,255,255,0.10);
+
+      /* Layout */
+      --nav-h:        60px;
+      --right-w:      420px;
+      --radius-xl:    18px;
+      --radius-lg:    14px;
+      --radius-md:    10px;
+      --radius-sm:    8px;
+      --radius-full:  999px;
+
+      /* Easing */
+      --spring:       cubic-bezier(0.34,1.5,0.64,1);
+      --ease-out:     cubic-bezier(0.22,1,0.36,1);
+      --ease-in-out:  cubic-bezier(0.65,0,0.35,1);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       RESET & BASE
+    ═══════════════════════════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html {
+      font-size: 15px;
+      scroll-behavior: smooth;
+      height: 100%;
+    }
+    body {
+      font-family: 'Figtree', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+      min-height: 100%;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       NAV — matches index navbar-custom
+    ═══════════════════════════════════════════════════════════════ */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      z-index: 9000;
+      background: var(--bg-right);
+      border-bottom: 1px solid var(--border-dark);
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-inner {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      padding: 0 40px;
+      position: relative; /* for absolute-centered steps */
+    }
+
+    /* hide the old split strips */
+    .nav-left { display: contents; }
+    .nav-right-strip { display: none !important; }
+
+    .nav-logo img { height: 20px; display: block; }
+
+    /* Steps: absolutely centered regardless of logo/hamburger widths */
+    .nav-steps {
+      display: none; /* hidden by default on mobile; visible class added on load */
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      align-items: center;
+      gap: 0;
+      pointer-events: none;
+    }
+    .nav-steps.visible { display: flex; }
+
+    .nav-step {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--ink-on-dark-3);
+      transition: color 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .nav-step.active { color: var(--ink-on-dark); }
+    .nav-step.done   { color: var(--ink-on-dark-2); }
+
+    .nav-step-num {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,0.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.68rem; font-weight: 600;
+      color: var(--ink-on-dark-3);
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .nav-step.active .nav-step-num {
+      border-color: var(--red);
+      color: var(--red);
+      background: var(--red-glow-sm);
+    }
+
+    .nav-step.done .nav-step-num {
+      border-color: rgba(255,255,255,0.6);
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+    }
+
+    .nav-step-check { display: none; width: 8px; height: 5px; border-left: 1.5px solid #fff; border-bottom: 1.5px solid #fff; transform: rotate(-45deg) translate(1px,-1px); }
+    .nav-step.done .nav-step-num-inner { display: none; }
+    .nav-step.done .nav-step-check { display: block; }
+
+    .nav-sep {
+      width: 24px; height: 1px;
+      background: rgba(255,255,255,0.15);
+      margin: 0 6px;
+      flex-shrink: 0;
+    }
+    .nav-sep.done { background: rgba(255,255,255,0.4); transition: background 0.4s ease; }
+
+    /* In-page step bar for mobile (shown below nav instead of in it) */
+    .page-steps-bar {
+      display: none; /* shown only on mobile, only during checkout */
+      background: var(--bg-right);
+      border-bottom: 1px solid var(--border-dark);
+      padding: 10px 20px;
+      position: sticky;
+      top: var(--nav-h);
+      z-index: 8900;
+    }
+    .page-steps-bar .nav-steps {
+      display: flex;
+      position: static;
+      transform: none;
+      justify-content: center;
+      pointer-events: all;
+    }
+
+    /* Hamburger */
+    .menu-trigger {
+      display: none;
+      cursor: pointer;
+      padding: 8px;
+      background: none; border: none;
+      outline: none;
+      -webkit-appearance: none;
+      margin-left: auto;
+    }
+    .menu-icon { width: 22px; height: 16px; display: flex; flex-direction: column; justify-content: space-between; }
+    .menu-icon span { display: block; width: 100%; height: 1.5px; background: rgba(255,255,255,0.8); border-radius: 4px; transition: all 0.3s ease; }
+    .menu-trigger.menu-active .menu-icon span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .menu-trigger.menu-active .menu-icon span:nth-child(2) { opacity: 0; }
+    .menu-trigger.menu-active .menu-icon span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile overlay */
+    .mobile-overlay {
+      position: fixed; inset: 0;
+      background: rgba(22,22,24,0.97);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      z-index: 8500;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+    .mobile-overlay.active { opacity: 1; visibility: visible; }
+    .mobile-nav-links { list-style: none; text-align: center; padding: 0; margin: 0; }
+    .mobile-nav-links li { margin: 18px 0; transform: translateY(16px); opacity: 0; transition: 0.4s ease; }
+    .mobile-overlay.active .mobile-nav-links li { transform: none; opacity: 1; }
+    .mobile-nav-links li:nth-child(1) { transition-delay: 0.08s; }
+    .mobile-nav-links li:nth-child(2) { transition-delay: 0.13s; }
+    .mobile-nav-links li:nth-child(3) { transition-delay: 0.18s; }
+    .mobile-nav-links a {
+      color: rgba(255,255,255,0.85);
+      font-size: 2rem;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: -0.03em;
+      position: relative;
+      display: inline-block;
+      transition: color 0.25s ease;
+    }
+    /* Red underline — same as index */
+    .mobile-nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 2.5px;
+      background: var(--red);
+      border-radius: 2px;
+      transition: width 0.3s cubic-bezier(0.22,1,0.36,1);
+    }
+    .mobile-nav-links a:hover,
+    .mobile-nav-links a:focus { color: #fff; }
+    .mobile-nav-links a:hover::after,
+    .mobile-nav-links a:focus::after,
+    .mobile-nav-links a.active::after { width: 100%; }
+    .mobile-nav-links .portal-link a { color: var(--red); }
+    .mobile-nav-links .portal-link a::after { background: var(--red); }
+
+    /* ═══════════════════════════════════════════════════════════════
+       SPLIT LAYOUT — FULL VIEWPORT
+    ═══════════════════════════════════════════════════════════════ */
+
+    /* Push content below fixed nav */
+    #screen-checkout {
+      margin-top: var(--nav-h);
+      height: calc(100vh - var(--nav-h));
+    }
+
+    .checkout-root {
+      display: flex;
+      height: 100%;
+    }
+
+    /* LEFT — white form side, scrolls independently */
+    .checkout-left {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 48px 48px 72px;
+      overflow-y: auto;
+      height: 100%;
+    }
+
+    .checkout-left-inner {
+      width: 100%;
+      max-width: 480px;
+    }
+
+    /* RIGHT — permanently dark summary panel, sticky full height */
+    .checkout-right {
+      width: var(--right-w);
+      flex-shrink: 0;
+      background: var(--bg-right);
+      height: 100%;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      border-left: 1px solid var(--border-dark);
+    }
+
+    /* Custom scrollbar on right */
+    .checkout-right::-webkit-scrollbar { width: 4px; }
+    .checkout-right::-webkit-scrollbar-track { background: transparent; }
+    .checkout-right::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       SCREEN 0 — full-height split hero (desktop)
+    ═══════════════════════════════════════════════════════════════ */
+
+/* Subtle radial glow behind product image */
+
+    @keyframes floatProduct {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-10px); }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       STEP PANELS (left side)
+    ═══════════════════════════════════════════════════════════════ */
+    .step-panel { display: none; }
+    .step-panel.active { display: block; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       SECTION HEADING
+    ═══════════════════════════════════════════════════════════════ */
+    .section-eyebrow {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-eyebrow::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       SCREEN 0 — ORDER PREVIEW (LEFT SIDE)
+    ═══════════════════════════════════════════════════════════════ */
+
+    /* Feature pills */
+
+    /* Proceed CTA */
+
+    /* ═══════════════════════════════════════════════════════════════
+       BUTTONS
+    ═══════════════════════════════════════════════════════════════ */
+    .btn-primary {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 15px 28px;
+      background: var(--ink);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-full);
+      font-family: 'Figtree', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition:
+        background 0.25s ease,
+        transform 0.4s var(--spring),
+        box-shadow 0.4s ease;
+      will-change: transform;
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.07) 50%, transparent 65%);
+      transform: translateX(-120%);
+      transition: transform 0.6s var(--ease-out);
+    }
+    .btn-primary:hover::before { transform: translateX(120%); }
+    .btn-primary:hover {
+      background: #1a1a1c;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.18);
+    }
+    .btn-primary:active { transform: translateY(0); transition-duration: 0.1s; }
+    .btn-primary:disabled { background: #c8c8cc; transform: none; box-shadow: none; cursor: not-allowed; }
+    .btn-primary:disabled::before { display: none; }
+
+    .btn-primary.red {
+      background: var(--red);
+    }
+    .btn-primary.red:hover { background: var(--red-deep); box-shadow: 0 12px 32px rgba(215,60,89,0.25); }
+
+    .btn-arr { width: 14px; height: 14px; stroke: currentColor; stroke-width: 2; fill: none; transition: transform 0.3s var(--spring); flex-shrink: 0; }
+    .btn-primary:hover .btn-arr { transform: translateX(4px); }
+
+    .btn-lbl { display: block; }
+    .btn-spin {
+      display: none;
+      width: 16px; height: 16px;
+      border: 1.5px solid rgba(255,255,255,0.25);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.65s linear infinite;
+      flex-shrink: 0;
+    }
+    .btn-primary.loading .btn-lbl,
+    .btn-primary.loading .btn-arr { display: none; }
+    .btn-primary.loading .btn-spin { display: block; }
+
+    .price-tax-note {
+      font-size: 0.65rem;
+      font-weight: 400;
+      color: var(--ink-4);
+      letter-spacing: 0.01em;
+    }
+    .btn-tax {
+      font-size: 0.68rem;
+      font-weight: 400;
+      opacity: 0.55;
+      letter-spacing: 0.01em;
+    }
+    .btn-lock-note {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 0.69rem;
+      color: var(--ink-4);
+      letter-spacing: 0.01em;
+    }
+    .btn-lock-note svg { width: 10px; height: 10px; stroke: var(--ink-4); stroke-width: 1.8; fill: none; }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--ink-3);
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      font-family: 'Figtree', sans-serif;
+      margin-bottom: 28px;
+      transition: color 0.2s ease;
+    }
+    .back-btn:hover { color: var(--ink); }
+    .back-btn svg { width: 13px; height: 13px; stroke: currentColor; stroke-width: 2; fill: none; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       FORM CARDS
+    ═══════════════════════════════════════════════════════════════ */
+    .form-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 26px;
+      margin-bottom: 12px;
+      transition: box-shadow 0.3s ease;
+    }
+    .form-card:last-child { margin-bottom: 0; }
+    .form-card:hover { box-shadow: 0 4px 24px rgba(0,0,0,0.05); }
+
+    .form-card-title {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .form-card-title::after { content: ''; flex: 1; height: 1px; background: var(--border-soft); }
+
+    /* ═══════════════════════════════════════════════════════════════
+       FIELDS
+    ═══════════════════════════════════════════════════════════════ */
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+    .field { margin-bottom: 10px; }
+    .field:last-of-type { margin-bottom: 0; }
+
+    .field label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--ink-2);
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+
+    .field input, .field select {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      font-family: 'Figtree', sans-serif;
+      font-size: 0.88rem;
+      color: var(--ink);
+      background: var(--bg-input);
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .field input::placeholder { color: var(--ink-4); }
+    .field input:hover:not(:focus) { border-color: #d0d0d6; }
+
+    /* Custom dropdown arrow for select */
+    .field select {
+      padding-right: 36px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpolyline points='1,1 6,7 11,1' fill='none' stroke='%2387878c' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      cursor: pointer;
+    }
+    .field select:hover:not(:focus) { border-color: #d0d0d6; }
+    .field select.err {
+      border-color: var(--red);
+      box-shadow: 0 0 0 3px var(--red-glow);
+    }
+
+    .field input:focus, .field select:focus {
+      border-color: var(--ink);
+      box-shadow: 0 0 0 3px rgba(10,10,11,0.06);
+    }
+
+    .field input.err {
+      border-color: var(--red);
+      box-shadow: 0 0 0 3px var(--red-glow);
+    }
+
+    .field input[readonly] {
+      background: var(--bg);
+      color: var(--ink-3);
+      cursor: default;
+    }
+    /* Editable address sub-fields (autofilled but user-editable) */
+    #f-bill-city, #f-bill-province, #f-bill-postal,
+    #f-ship-city, #f-ship-province, #f-ship-postal {
+      background: var(--bg-input);
+      color: var(--ink);
+      cursor: text;
+    }
+
+    .field-err {
+      font-size: 0.7rem;
+      color: var(--red);
+      font-weight: 500;
+      margin-top: 4px;
+      display: none;
+    }
+    .field.has-err .field-err { display: block; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       CHARGEBEE CARD FIELDS
+    ═══════════════════════════════════════════════════════════════ */
+    .cb-field-wrap {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--bg-input);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      min-height: 42px;
+    }
+    .cb-field-wrap.focus {
+      border-color: var(--ink);
+      box-shadow: 0 0 0 3px rgba(10,10,11,0.06);
+    }
+    .cb-field-wrap.err {
+      border-color: var(--red);
+      box-shadow: 0 0 0 3px var(--red-glow);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       CARD BRAND ROW
+    ═══════════════════════════════════════════════════════════════ */
+    .card-brand-row {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 18px;
+    }
+    .card-brand-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3px 7px;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      color: var(--ink-4);
+      background: var(--bg);
+      height: 22px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .card-brand-badge:hover {
+      border-color: var(--ink-3);
+      color: var(--ink-2);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       SHIPPING TOGGLE
+    ═══════════════════════════════════════════════════════════════ */
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 16px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .toggle-row input[type="checkbox"] {
+      width: 17px; height: 17px;
+      accent-color: var(--ink);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .toggle-row span {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--ink-2);
+    }
+
+    .shipping-fields {
+      overflow: hidden;
+      transition: max-height 0.45s var(--ease-out), opacity 0.3s ease;
+      max-height: 800px;
+      opacity: 1;
+    }
+    .shipping-fields.hidden { max-height: 0; opacity: 0; pointer-events: none; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       PROMO CODE
+    ═══════════════════════════════════════════════════════════════ */
+    .promo-row {
+      display: flex;
+      gap: 8px;
+    }
+    .promo-row input {
+      flex: 1;
+      padding: 10px 13px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.82rem;
+      color: var(--ink);
+      background: var(--bg-input);
+      outline: none;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .promo-row input::placeholder { font-family: 'DM Sans', sans-serif; letter-spacing: 0; text-transform: none; color: var(--ink-4); }
+    .promo-row input:focus { border-color: var(--ink); box-shadow: 0 0 0 3px rgba(10,10,11,0.06); }
+    .promo-row input.err { border-color: var(--red); }
+
+    .promo-apply {
+      padding: 10px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      font-family: 'Figtree', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--ink);
+      background: var(--bg-card);
+      cursor: pointer;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+    .promo-apply:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
+    .promo-spin { display: none; width: 13px; height: 13px; border: 1.5px solid rgba(0,0,0,0.15); border-top-color: var(--ink); border-radius: 50%; animation: spin 0.65s linear infinite; }
+    .promo-apply.loading .promo-apply-lbl { display: none; }
+    .promo-apply.loading .promo-spin { display: block; }
+
+    .promo-feedback {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.73rem;
+      font-weight: 500;
+      margin-top: 8px;
+      opacity: 0;
+      height: 0;
+      overflow: hidden;
+      transition: opacity 0.3s ease, height 0.3s ease;
+    }
+    .promo-feedback.ok  { color: var(--green); opacity: 1; height: auto; }
+    .promo-feedback.bad { color: var(--red);   opacity: 1; height: auto; }
+    .promo-feedback svg { width: 12px; height: 12px; stroke: currentColor; stroke-width: 2.5; fill: none; flex-shrink: 0; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       TERMS
+    ═══════════════════════════════════════════════════════════════ */
+    .terms-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin: 16px 0 0;
+      padding: 13px 15px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+    }
+    .terms-row input[type="checkbox"] {
+      width: 16px; height: 16px;
+      accent-color: var(--ink);
+      cursor: pointer;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .terms-row label {
+      font-size: 0.75rem;
+      line-height: 1.55;
+      color: var(--ink-3);
+      cursor: pointer;
+      font-weight: 400;
+    }
+    .terms-row label a {
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .terms-row label a:hover { text-decoration: underline; }
+    .terms-err {
+      font-size: 0.7rem;
+      color: var(--red);
+      font-weight: 500;
+      margin-top: 5px;
+      display: none;
+    }
+    .terms-err.show { display: block; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       PAYMENT SUMMARY (in-form mini summary)
+    ═══════════════════════════════════════════════════════════════ */
+    .mini-summary {
+      margin-top: 18px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 15px 17px;
+    }
+    .mini-summary-label {
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      color: var(--ink-4);
+      margin-bottom: 10px;
+    }
+    .mini-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 0.8rem;
+      color: var(--ink-3);
+      padding: 3px 0;
+    }
+    .mini-row.total {
+      margin-top: 8px;
+      padding-top: 10px;
+      border-top: 1.5px solid var(--border);
+      font-size: 0.9rem;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .mini-row.discount { color: var(--red); }
+    .pay-summary-discount { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--red); padding: 3px 0; }
+    .mini-renewal {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      margin-top: 9px;
+      font-size: 0.71rem;
+      color: var(--ink-3);
+      padding-top: 9px;
+      border-top: 1px solid var(--border-soft);
+    }
+    .mini-renewal svg { width: 10px; height: 10px; stroke: currentColor; stroke-width: 1.8; fill: none; flex-shrink: 0; margin-top: 1px; }
+    .mini-renewal-text { line-height: 1.55; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       WHAT HAPPENS NEXT (on screen 1)
+    ═══════════════════════════════════════════════════════════════ */
+    .next-steps { margin-top: 12px; }
+
+    .next-step-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border-soft);
+    }
+    .next-step-item:first-child { padding-top: 0; }
+    .next-step-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+    .next-step-icon {
+      width: 32px; height: 32px;
+      border-radius: var(--radius-sm);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .next-step-icon svg { width: 13px; height: 13px; stroke: var(--ink-3); stroke-width: 1.8; fill: none; }
+    .next-step-title { font-size: 0.82rem; font-weight: 600; color: var(--ink); margin-bottom: 3px; }
+    .next-step-desc { font-size: 0.74rem; color: var(--ink-3); line-height: 1.55; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       RIGHT PANEL — DARK ORDER SUMMARY
+    ═══════════════════════════════════════════════════════════════ */
+    .summary-inner {
+      padding: 32px 28px;
+      flex: 1;
+    }
+
+    /* Product hero in summary */
+    .summary-product {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 28px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border-dark);
+    }
+
+    .summary-product-img-wrap {
+      width: 68px; height: 68px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+      transition: transform 1.2s cubic-bezier(0.34,1.1,0.64,1);
+    }
+    .summary-product-img-wrap:hover { transform: scale(1.06) translateY(-2px); }
+
+    .summary-product-img {
+      width: 52px; height: 52px;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
+    }
+
+    .summary-product-eyebrow {
+      font-size: 0.58rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-on-dark-3);
+      margin-bottom: 4px;
+    }
+    .summary-product-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--ink-on-dark);
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+    }
+    .summary-product-sub {
+      font-size: 0.72rem;
+      color: var(--ink-on-dark-2);
+      margin-top: 3px;
+    }
+
+    /* Breakdown rows */
+    .summary-rows { margin-bottom: 20px; }
+
+    .summary-section-label {
+      font-size: 0.58rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-on-dark-3);
+      margin-bottom: 10px;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--bg-right-line);
+      font-size: 0.82rem;
+    }
+    .summary-row:first-of-type { padding-top: 0; }
+    .summary-row:last-of-type { border-bottom: none; }
+
+    .sr-label { color: var(--ink-on-dark-2); font-weight: 400; line-height: 1.45; }
+    .sr-label strong { color: var(--ink-on-dark); font-weight: 600; display: block; }
+    .sr-label small { font-size: 0.69rem; }
+
+    .sr-val { color: var(--ink-on-dark); font-weight: 600; white-space: nowrap; }
+    .sr-val.free { color: var(--green); font-weight: 600; }
+    .sr-val.tag {
+      background: rgba(215,60,89,0.12);
+      color: var(--red);
+      border: 1px solid rgba(215,60,89,0.2);
+      border-radius: var(--radius-full);
+      padding: 1px 8px;
+      font-size: 0.68rem;
+      font-weight: 600;
+    }
+
+    /* Total */
+    .summary-total-block {
+      padding: 18px 0;
+      border-top: 1px solid var(--border-dark);
+      border-bottom: 1px solid var(--border-dark);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .summary-total-label { font-size: 0.82rem; font-weight: 700; color: var(--ink-on-dark); }
+    .summary-total-note  { font-size: 0.67rem; color: var(--ink-on-dark-3); margin-top: 2px; }
+    .summary-total-fig {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.05em;
+      color: var(--ink-on-dark);
+      line-height: 1;
+      text-align: right;
+    }
+    .summary-total-fig sup { font-size: 0.85rem; font-weight: 700; vertical-align: super; letter-spacing: 0; }
+    .summary-total-tax { font-size: 0.66rem; color: var(--ink-on-dark-3); text-align: right; margin-top: 2px; }
+
+    /* Renewal notice */
+    .summary-renewal {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      padding: 14px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border-dark);
+      border-radius: var(--radius-md);
+      margin-bottom: 20px;
+    }
+    .summary-renewal svg { width: 12px; height: 12px; stroke: var(--ink-on-dark-3); stroke-width: 1.8; fill: none; flex-shrink: 0; margin-top: 1px; }
+    .summary-renewal p { font-size: 0.73rem; color: var(--ink-on-dark-2); line-height: 1.6; }
+    .summary-renewal p strong { color: var(--ink-on-dark); font-weight: 600; }
+
+    /* Features */
+    .summary-features-label {
+      font-size: 0.58rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-on-dark-3);
+      margin-bottom: 10px;
+    }
+
+    .summary-feature {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 0;
+      font-size: 0.77rem;
+      color: var(--ink-on-dark-2);
+      border-bottom: 1px solid var(--bg-right-line);
+      font-weight: 400;
+    }
+    .summary-feature:last-child { border-bottom: none; }
+
+    .sf-check {
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: rgba(22,160,90,0.1);
+      border: 1px solid rgba(22,160,90,0.2);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .sf-check svg { width: 7px; height: 7px; stroke: var(--green); stroke-width: 3; fill: none; }
+
+    /* Trust badges at bottom of right panel */
+    .summary-trust {
+      padding: 20px 28px;
+      border-top: 1px solid var(--border-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      flex-wrap: nowrap;
+    }
+    .trust-badge {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.67rem;
+      color: var(--ink-on-dark-3);
+      font-weight: 500;
+      padding: 0 14px;
+      white-space: nowrap;
+    }
+    .trust-badge svg { width: 10px; height: 10px; stroke: var(--ink-on-dark-3); stroke-width: 1.7; fill: none; flex-shrink: 0; }
+    .trust-div { width: 1px; height: 12px; background: var(--border-dark); flex-shrink: 0; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       RENEWAL PRICE STYLES (promo applied)
+    ═══════════════════════════════════════════════════════════════ */
+    .renewal-orig { text-decoration: line-through; opacity: 0.45; margin-right: 4px; }
+    .renewal-discounted { color: var(--green); }
+    .renewal-qualifier { font-size: 0.65em; color: var(--ink-on-dark-3); margin-left: 4px; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       UNIFIED PRODUCT CARD — screen 0
+    ═══════════════════════════════════════════════════════════════ */
+
+    /* ── Header: image + identity side by side ── */
+
+    /* ── Divider ── */
+
+    /* ── Features ── */
+
+    /* ── Pricing footer ── */
+
+    @media (max-width: 600px) {
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       CHARGE TYPE TAGS — one-time vs monthly/recurring
+    ═══════════════════════════════════════════════════════════════ */
+    .charge-tag {
+      display: inline-block;
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border-radius: var(--radius-full);
+      padding: 2px 7px;
+      margin-left: 6px;
+      line-height: 1.5;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+    .charge-tag-onetime {
+      background: var(--bg);
+      color: var(--ink-3);
+      border: 1px solid var(--border);
+    }
+    .charge-tag-monthly {
+      background: var(--red-glow-sm);
+      color: var(--red);
+      border: 1px solid var(--red-glow);
+    }
+    .charge-tag.on-dark.charge-tag-onetime {
+      background: rgba(255,255,255,0.07);
+      color: var(--ink-on-dark-2);
+      border-color: var(--border-dark);
+    }
+    .charge-tag.on-dark.charge-tag-monthly {
+      background: rgba(215,60,89,0.18);
+      color: #ff8fa0;
+      border-color: rgba(215,60,89,0.34);
+    }
+    .charge-subtext {
+      display: block;
+      font-size: 0.66rem;
+      font-weight: 400;
+      margin-top: 2px;
+    }
+    .charge-subtext.on-light { color: var(--ink-4); }
+    .charge-subtext.on-dark  { color: var(--ink-on-dark-3); }
+
+    /* ═══════════════════════════════════════════════════════════════
+       KEYFRAMES
+    ═══════════════════════════════════════════════════════════════ */
+    @keyframes revealUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes revealRight {
+      from { opacity: 0; transform: translateX(20px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Staggered entrance for form panels */
+    .anim-step { opacity: 0; animation: revealUp 0.55s var(--ease-out) both; }
+    .anim-step:nth-child(1) { animation-delay: 0.05s; }
+    .anim-step:nth-child(2) { animation-delay: 0.12s; }
+    .anim-step:nth-child(3) { animation-delay: 0.19s; }
+    .anim-step:nth-child(4) { animation-delay: 0.26s; }
+
+    .summary-anim {
+      opacity: 0;
+      animation: revealRight 0.7s var(--ease-out) 0.15s forwards;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════════════════════════════ */
+
+    /* Hide mobile drawer on desktop — always, regardless of inline style */
+    .mobile-summary-bar { display: none; }
+
+    @media (min-width: 901px) {
+      .mobile-summary-bar { display: none !important; }
+    }
+
+    @media (max-width: 900px) {
+      :root { --right-w: 100%; }
+
+      #screen-checkout {
+        height: auto;
+        min-height: calc(100vh - var(--nav-h));
+      }
+
+      .checkout-root {
+        flex-direction: column;
+        height: auto;
+      }
+
+      .checkout-left {
+        padding: 28px 20px 130px;
+        height: auto;
+        overflow-y: visible;
+        align-items: stretch;
+      }
+      .checkout-left-inner { max-width: 100%; }
+
+      /* Hide full right panel on mobile */
+      .checkout-right { display: none !important; }
+
+      /* Show in-page steps bar below nav on mobile */
+      .page-steps-bar { display: block; }
+
+      /* Nav adjustments */
+      .nav-inner { padding: 0 20px; }
+      .nav .nav-steps { display: none !important; }
+      .menu-trigger { display: block; }
+      .form-card { padding: 20px 18px; border-radius: var(--radius-lg); }
+    }
+
+
+      .mobile-summary-bar {
+        display: block;
+        position: fixed;
+        bottom: 0; left: 0; right: 0;
+        z-index: 8000;
+      }
+
+      .msb-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.5);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.35s ease;
+        z-index: -1;
+      }
+      .mobile-summary-bar.expanded .msb-backdrop {
+        opacity: 1;
+        pointer-events: all;
+      }
+
+      .msb-drawer {
+        background: var(--bg-right);
+        border-top: 1px solid var(--border-dark);
+        border-radius: 18px 18px 0 0;
+        overflow: hidden;
+      }
+
+      .msb-handle-wrap {
+        display: flex;
+        justify-content: center;
+        padding: 10px 0 2px;
+        cursor: pointer;
+      }
+      .msb-handle {
+        width: 36px; height: 4px;
+        border-radius: 2px;
+        background: rgba(255,255,255,0.2);
+        transition: background 0.25s ease;
+      }
+      .msb-handle-wrap:hover .msb-handle { background: rgba(255,255,255,0.45); }
+
+      .msb-collapsed {
+        display: flex;
+        align-items: center;
+        padding: 8px 18px 14px;
+        gap: 10px;
+        cursor: pointer;
+      }
+
+      .msb-product {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex: 1;
+        min-width: 0;
+      }
+      .msb-img {
+        width: 40px; height: 40px;
+        background: rgba(255,255,255,0.07);
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 10px;
+        display: flex; align-items: center; justify-content: center;
+        flex-shrink: 0;
+      }
+      .msb-img img { width: 30px; height: 30px; object-fit: contain; }
+      .msb-name {
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: var(--ink-on-dark);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .msb-sub {
+        font-size: 0.66rem;
+        color: var(--ink-on-dark-2);
+        margin-top: 1px;
+      }
+      .msb-price {
+        text-align: right;
+        flex-shrink: 0;
+      }
+      .msb-amount {
+        font-size: 1.1rem;
+        font-weight: 800;
+        color: var(--ink-on-dark);
+        letter-spacing: -0.03em;
+        line-height: 1;
+      }
+      .msb-amount sup { font-size: 0.6em; vertical-align: super; font-weight: 700; }
+      .msb-tax-inline {
+        font-size: 0.6rem;
+        font-weight: 500;
+        color: var(--ink-on-dark-3);
+        letter-spacing: 0.01em;
+        vertical-align: baseline;
+        margin-left: 1px;
+      }
+      .msb-tax {
+        font-size: 0.58rem;
+        color: var(--ink-on-dark-3);
+        margin-top: 2px;
+      }
+      .msb-chevron {
+        background: none; border: none;
+        color: var(--ink-on-dark-3);
+        cursor: pointer;
+        padding: 4px;
+        display: flex; align-items: center;
+        flex-shrink: 0;
+        transition: color 0.2s, transform 0.35s cubic-bezier(0.22,1,0.36,1);
+      }
+      .msb-chevron svg { width: 18px; height: 18px; }
+      .mobile-summary-bar.expanded .msb-chevron { transform: rotate(180deg); color: var(--ink-on-dark); }
+
+      /* Expanded panel */
+      .msb-expanded {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s cubic-bezier(0.22,1,0.36,1);
+      }
+      .mobile-summary-bar.expanded .msb-expanded { max-height: 560px; }
+
+      .msb-exp-rows {
+        padding: 0 18px 12px;
+      }
+      .msb-exp-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        padding: 7px 0;
+        font-size: 0.8rem;
+        color: var(--ink-on-dark-2);
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+      }
+      .msb-exp-row:last-child { border-bottom: none; }
+      .msb-exp-row:nth-last-child(2) { border-bottom: none; }
+      .msb-exp-row strong { font-weight: 600; color: var(--ink-on-dark); }
+      .msb-exp-row strong.free { color: var(--green); }
+      .msb-exp-row strong.discount { color: var(--red); }
+      .msb-exp-total {
+        margin-top: 4px;
+        padding-top: 10px !important;
+        border-top: 1px solid rgba(255,255,255,0.12) !important;
+        font-weight: 600;
+        color: var(--ink-on-dark) !important;
+        font-size: 0.88rem !important;
+      }
+      .msb-exp-total strong { font-size: 1rem; letter-spacing: -0.02em; }
+
+      .msb-exp-renewal {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 12px 18px;
+        font-size: 0.72rem;
+        color: var(--ink-on-dark-2);
+        line-height: 1.55;
+        border-bottom: 1px solid var(--border-dark);
+      }
+      .msb-exp-renewal svg { width: 12px; height: 12px; flex-shrink: 0; margin-top: 2px; }
+      .msb-exp-renewal strong { color: var(--ink-on-dark); font-weight: 600; }
+
+      .msb-exp-features {
+        padding: 12px 18px 18px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6px 12px;
+      }
+      .msb-exp-feat {
+        font-size: 0.72rem;
+        color: var(--ink-on-dark-2);
+        display: flex;
+        align-items: flex-start;
+        gap: 5px;
+        line-height: 1.4;
+      }
+      .msb-feat-check {
+        color: var(--green);
+        font-weight: 700;
+        flex-shrink: 0;
+        font-size: 0.8rem;
+      }
+
+      .nav-inner { padding: 0 20px; }
+      .nav .nav-steps { display: none !important; }
+      .menu-trigger { display: block; }
+      .form-card { padding: 20px 18px; border-radius: var(--radius-lg); }
+
+    @media (max-width: 640px) {
+      .field-row { grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       ADD-ON CARDS
+    ═══════════════════════════════════════════════════════════════ */
+    .addon-group-label {
+      font-size: 0.6rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--ink-4);
+      margin: 14px 0 8px;
+    }
+    .addon-group-label:first-child { margin-top: 4px; }
+
+    .addon-cards { display: flex; flex-direction: column; gap: 8px; }
+
+    .addon-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 13px 15px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--bg-card);
+      cursor: pointer;
+      transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+      user-select: none;
+    }
+    .addon-card:hover { border-color: var(--ink-3); }
+    .addon-card.selected {
+      border-color: var(--red);
+      background: var(--red-glow-sm);
+      box-shadow: 0 0 0 3px var(--red-glow);
+    }
+
+    .addon-check {
+      width: 18px; height: 18px;
+      border-radius: 5px;
+      border: 1.5px solid var(--border);
+      background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+      transition: all 0.2s ease;
+    }
+    .addon-card.selected .addon-check { background: var(--red); border-color: var(--red); }
+    .addon-check svg { width: 9px; height: 9px; stroke: #fff; stroke-width: 2.5; fill: none; opacity: 0; transition: opacity 0.15s ease; }
+    .addon-card.selected .addon-check svg { opacity: 1; }
+
+    /* Radio variant (shipping — one always selected) */
+    .addon-check.radio { border-radius: 50%; }
+    .addon-check.radio svg { display: none; }
+    .addon-check.radio::after {
+      content: '';
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: transparent;
+      transition: background 0.15s ease;
+    }
+    .addon-card.selected .addon-check.radio { background: var(--red); border-color: var(--red); }
+    .addon-card.selected .addon-check.radio::after { background: #fff; }
+
+    /* Coverage link inside global card */
+    .addon-coverage-link {
+      display: inline-block;
+      margin-top: 4px;
+      font-size: 0.68rem;
+      color: var(--ink-3);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      text-decoration-color: var(--border);
+      transition: color 0.2s ease, text-decoration-color 0.2s ease;
+    }
+    .addon-coverage-link:hover { color: var(--ink); text-decoration-color: var(--ink-3); }
+
+    .addon-body { flex: 1; min-width: 0; }
+    .addon-title {
+      font-size: 0.83rem; font-weight: 600; color: var(--ink);
+      margin-bottom: 2px;
+      display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+    }
+    .addon-desc { font-size: 0.71rem; color: var(--ink-3); line-height: 1.5; }
+    .addon-badge {
+      display: inline-block;
+      font-size: 0.58rem; font-weight: 700; letter-spacing: 0.05em;
+      background: rgba(22,160,90,0.08); color: var(--green);
+      border: 1px solid rgba(22,160,90,0.18);
+      border-radius: var(--radius-full);
+      padding: 1px 7px;
+    }
+
+    .addon-price { flex-shrink: 0; text-align: right; }
+    .addon-price-main { font-size: 0.88rem; font-weight: 700; color: var(--ink); white-space: nowrap; line-height: 1.2; }
+    .addon-price-sub  { font-size: 0.62rem; color: var(--ink-4); white-space: nowrap; }
+
+    /* Dynamic add-on rows in right summary panel */
+    .summary-addon-row {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--bg-right-line);
+      font-size: 0.82rem;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       COVERAGE MODAL
+    ═══════════════════════════════════════════════════════════════ */
+    .coverage-backdrop {
+      position: fixed; inset: 0;
+      background: rgba(10,10,12,0.55);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      z-index: 9500;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    .coverage-backdrop.open { opacity: 1; visibility: visible; }
+
+    .coverage-modal {
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -46%);
+      z-index: 9600;
+      width: min(680px, calc(100vw - 32px));
+      max-height: calc(100vh - 80px);
+      background: var(--bg-card);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border);
+      box-shadow: 0 32px 80px rgba(0,0,0,0.18), 0 8px 24px rgba(0,0,0,0.10);
+      display: flex; flex-direction: column;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.35s var(--ease-out);
+    }
+    .coverage-modal.open {
+      opacity: 1; visibility: visible;
+      transform: translate(-50%, -50%);
+    }
+
+    .coverage-modal-head {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      padding: 24px 26px 18px;
+      border-bottom: 1px solid var(--border-soft);
+      flex-shrink: 0;
+    }
+    .coverage-modal-eyebrow {
+      font-size: 0.6rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--ink-3);
+      margin-bottom: 5px;
+    }
+    .coverage-modal-title {
+      font-size: 1.1rem; font-weight: 700; color: var(--ink);
+      letter-spacing: -0.03em; line-height: 1.1;
+      margin-bottom: 4px;
+    }
+    .coverage-modal-sub {
+      font-size: 0.71rem; color: var(--ink-4); line-height: 1.5;
+    }
+    .coverage-close {
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; flex-shrink: 0; margin-top: 2px;
+      color: var(--ink-3);
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+    .coverage-close:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
+    .coverage-close svg { width: 11px; height: 11px; stroke: currentColor; stroke-width: 2; fill: none; }
+
+    .coverage-modal-body {
+      overflow-y: auto;
+      padding: 20px 26px 26px;
+      flex: 1;
+      -webkit-overflow-scrolling: touch;
+    }
+    .coverage-modal-body::-webkit-scrollbar { width: 4px; }
+    .coverage-modal-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+    .coverage-region { margin-bottom: 20px; }
+    .coverage-region:last-child { margin-bottom: 0; }
+    .coverage-region-title {
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--ink-3);
+      margin-bottom: 8px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .coverage-region-title::after {
+      content: ''; flex: 1; height: 1px; background: var(--border-soft);
+    }
+    .coverage-tags {
+      display: flex; flex-wrap: wrap; gap: 5px;
+    }
+    .coverage-tag {
+      display: inline-block;
+      font-size: 0.73rem; font-weight: 500; color: var(--ink-2);
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 4px 9px;
+      transition: border-color 0.15s ease, color 0.15s ease;
+    }
+    .coverage-tag:hover { border-color: var(--ink-3); color: var(--ink); }
+
+    .coverage-disclaimer {
+      font-size: 0.68rem; color: var(--ink-4); line-height: 1.55;
+      padding: 14px 16px;
+      background: var(--bg); border: 1px solid var(--border-soft);
+      border-radius: var(--radius-md);
+      margin-bottom: 18px;
+    }
+
+    @media (max-width: 640px) {
+      .coverage-modal { border-radius: 18px 18px 0 0; top: auto; bottom: 0; left: 0; right: 0; width: 100%; max-height: 85vh; transform: translateY(20px); }
+      .coverage-modal.open { transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     NAV
+═══════════════════════════════════════════════════════════════════ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="/"><img src="../assets/img/logos/logo.png" alt="More4Less"></a>
+
+    <div class="nav-steps visible" id="navSteps">
+      <div class="nav-step active" id="st-1">
+        <div class="nav-step-num">
+          <span class="nav-step-num-inner">1</span>
+          <span class="nav-step-check"></span>
+        </div>
+        <span>Your Details</span>
+      </div>
+      <div class="nav-sep" id="cn-1"></div>
+      <div class="nav-step" id="st-2">
+        <div class="nav-step-num">
+          <span class="nav-step-num-inner">2</span>
+          <span class="nav-step-check"></span>
+        </div>
+        <span>Address</span>
+      </div>
+      <div class="nav-sep" id="cn-2"></div>
+      <div class="nav-step" id="st-3">
+        <div class="nav-step-num">
+          <span class="nav-step-num-inner">3</span>
+          <span class="nav-step-check"></span>
+        </div>
+        <span>Payment</span>
+      </div>
+    </div>
+
+    <button class="menu-trigger" id="menuTrigger" aria-label="Open menu" style="margin-left:auto;">
+      <div class="menu-icon"><span></span><span></span><span></span></div>
+    </button>
+  </div>
+</nav>
+
+<!-- In-page step indicator — mobile only -->
+<div class="page-steps-bar" id="pageStepsBar" style="display:none;">
+  <div class="nav-steps" style="display:flex;">
+    <div class="nav-step active" id="pst-1">
+      <div class="nav-step-num"><span class="nav-step-num-inner">1</span><span class="nav-step-check"></span></div>
+      <span>Your Details</span>
+    </div>
+    <div class="nav-sep" id="pcn-1"></div>
+    <div class="nav-step" id="pst-2">
+      <div class="nav-step-num"><span class="nav-step-num-inner">2</span><span class="nav-step-check"></span></div>
+      <span>Address</span>
+    </div>
+    <div class="nav-sep" id="pcn-2"></div>
+    <div class="nav-step" id="pst-3">
+      <div class="nav-step-num"><span class="nav-step-num-inner">3</span><span class="nav-step-check"></span></div>
+      <span>Payment</span>
+    </div>
+  </div>
+</div>
+<div class="mobile-overlay" id="mobileOverlay">
+  <ul class="mobile-nav-links">
+    <li><a href="/#pricing">Pricing</a></li>
+    <li><a href="/contact">Contact</a></li>
+    <li class="portal-link"><a href="/portal">Customer Portal</a></li>
+  </ul>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════════
+     SCREEN: CHECKOUT (Steps 1-3)
+═══════════════════════════════════════════════════════════════════ -->
+<div id="screen-checkout">
+  <div class="checkout-root">
+
+    <!-- LEFT: Form -->
+    <div class="checkout-left" id="formLeft">
+      <div class="checkout-left-inner" id="formPanel">
+
+        <!-- STEP 1: Contact -->
+        <div class="step-panel active" id="panel-step-1">
+
+          <div class="section-eyebrow anim-step">Contact Information</div>
+
+          <div class="form-card anim-step">
+            <div class="form-card-title">Your Details</div>
+
+            <div class="field-row">
+              <div class="field" id="fg-first">
+                <label for="f-first">First Name</label>
+                <input type="text" id="f-first" placeholder="Jane" autocomplete="given-name" spellcheck="false">
+                <div class="field-err">Required.</div>
+              </div>
+              <div class="field" id="fg-last">
+                <label for="f-last">Last Name</label>
+                <input type="text" id="f-last" placeholder="Smith" autocomplete="family-name" spellcheck="false">
+                <div class="field-err">Required.</div>
+              </div>
+            </div>
+
+            <div class="field" id="fg-email">
+              <label for="f-email">Email Address</label>
+              <input type="email" id="f-email" placeholder="jane@example.com" autocomplete="email" spellcheck="false">
+              <div class="field-err">Please enter a valid email.</div>
+            </div>
+
+            <div class="field" id="fg-phone">
+              <label for="f-phone">Phone Number</label>
+              <input type="tel" id="f-phone" placeholder="(416) 555-0123" autocomplete="tel" maxlength="14">
+              <div class="field-err">Please enter a valid 10-digit Canadian phone number.</div>
+            </div>
+          </div>
+
+          <div class="form-card anim-step" style="margin-top:12px;">
+            <div class="form-card-title">What Happens Next</div>
+            <div class="next-steps">
+              <div class="next-step-item">
+                <div class="next-step-icon">
+                  <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h10a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M2 7h12"/></svg>
+                </div>
+                <div>
+                  <div class="next-step-title">Secure Payment</div>
+                  <div class="next-step-desc">Enter your card in the final step. Your details are never stored by More4Less.</div>
+                </div>
+              </div>
+              <div class="next-step-item">
+                <div class="next-step-icon">
+                  <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.5 3.5 7-7"/></svg>
+                </div>
+                <div>
+                  <div class="next-step-title">Instant Confirmation</div>
+                  <div class="next-step-desc">Email with order summary and activation instructions sent immediately.</div>
+                </div>
+              </div>
+              <div class="next-step-item">
+                <div class="next-step-icon">
+                  <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l2-6h6l2 6"/><path d="M1 10h14"/><path d="M6 10v3m4-3v3"/></svg>
+                </div>
+                <div>
+                  <div class="next-step-title">Device Ships To You</div>
+                  <div class="next-step-desc">Your Nighthawk M1 ships pre-configured with your SIM. Plug in and connect — it just works.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:16px;" class="anim-step">
+            <button class="btn-primary" onclick="handleStep1()">
+              <span class="btn-lbl">Continue</span>
+              <div class="btn-spin"></div>
+              <svg class="btn-arr" viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/>
+              </svg>
+            </button>
+            <div class="btn-lock-note" style="margin-top:10px;">
+              <svg viewBox="0 0 14 14" stroke-linecap="round"><rect x="2" y="6" width="10" height="7" rx="1.5"/><path d="M4.5 6V4.5a2.5 2.5 0 015 0V6"/></svg>
+              SSL encrypted — payment handled by Chargebee, never stored by us
+            </div>
+          </div>
+
+        </div><!-- /panel-step-1 -->
+
+        <!-- STEP 2: Address -->
+        <div class="step-panel" id="panel-step-2">
+
+          <button class="back-btn" onclick="setStep(1)">
+            <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><line x1="13" y1="8" x2="3" y2="8"/><polyline points="7,4 3,8 7,12"/></svg>
+            Back to Your Details
+          </button>
+
+          <div class="section-eyebrow">Shipping & Billing</div>
+
+          <!-- Billing Address -->
+          <div class="form-card anim-step">
+            <div class="form-card-title">Billing Address</div>
+
+            <div class="field" id="fg-bill-street">
+              <label for="f-bill-street">Street Address</label>
+              <input type="text" id="f-bill-street" placeholder="Start typing your address…" autocomplete="off" spellcheck="false">
+              <div class="field-err">Please select a valid Canadian address.</div>
+            </div>
+            <div class="field">
+              <label for="f-bill-apt">Apt / Suite / Unit <span style="font-weight:400;color:var(--ink-4)">(optional)</span></label>
+              <input type="text" id="f-bill-apt" placeholder="Apt 4B" spellcheck="false">
+            </div>
+            <div class="field-row">
+              <div class="field" id="fg-bill-city">
+                <label for="f-bill-city">City</label>
+                <input type="text" id="f-bill-city" placeholder="Toronto">
+                <div class="field-err">Required.</div>
+              </div>
+              <div class="field" id="fg-bill-province">
+                <label for="f-bill-province">Province</label>
+                <select id="f-bill-province">
+                  <option value="">— Select —</option>
+                  <option value="AB">Alberta</option>
+                  <option value="BC">British Columbia</option>
+                  <option value="MB">Manitoba</option>
+                  <option value="NB">New Brunswick</option>
+                  <option value="NL">Newfoundland and Labrador</option>
+                  <option value="NS">Nova Scotia</option>
+                  <option value="NT">Northwest Territories</option>
+                  <option value="NU">Nunavut</option>
+                  <option value="ON">Ontario</option>
+                  <option value="PE">Prince Edward Island</option>
+                  <option value="QC">Quebec</option>
+                  <option value="SK">Saskatchewan</option>
+                  <option value="YT">Yukon</option>
+                </select>
+                <div class="field-err">Required.</div>
+              </div>
+            </div>
+            <div class="field-row">
+              <div class="field" id="fg-bill-postal">
+                <label for="f-bill-postal">Postal Code</label>
+                <input type="text" id="f-bill-postal" placeholder="M5V 2T6" maxlength="7" autocomplete="postal-code" spellcheck="false">
+                <div class="field-err">Enter a valid Canadian postal code (e.g. M5V 2T6).</div>
+              </div>
+              <div class="field">
+                <label>Country</label>
+                <input type="text" value="Canada" readonly>
+              </div>
+            </div>
+          </div>
+
+          <!-- Shipping Address -->
+          <div class="form-card anim-step">
+            <div class="form-card-title">Shipping Address</div>
+
+            <label class="toggle-row" for="same-as-billing">
+              <input type="checkbox" id="same-as-billing" checked onchange="toggleShipping()">
+              <span>Ship to same address as billing</span>
+            </label>
+
+            <div class="shipping-fields hidden" id="shipping-fields">
+              <div class="field" id="fg-ship-street">
+                <label for="f-ship-street">Street Address</label>
+                <input type="text" id="f-ship-street" placeholder="Start typing your address…" autocomplete="off" spellcheck="false">
+                <div class="field-err">Please select a valid Canadian address.</div>
+              </div>
+              <div class="field">
+                <label for="f-ship-apt">Apt / Suite / Unit <span style="font-weight:400;color:var(--ink-4)">(optional)</span></label>
+                <input type="text" id="f-ship-apt" placeholder="Apt 4B" spellcheck="false">
+              </div>
+              <div class="field-row">
+                <div class="field" id="fg-ship-city">
+                  <label for="f-ship-city">City</label>
+                  <input type="text" id="f-ship-city" placeholder="Toronto">
+                  <div class="field-err">Required.</div>
+                </div>
+                <div class="field" id="fg-ship-province">
+                  <label for="f-ship-province">Province</label>
+                  <select id="f-ship-province">
+                    <option value="">— Select —</option>
+                    <option value="AB">Alberta</option>
+                    <option value="BC">British Columbia</option>
+                    <option value="MB">Manitoba</option>
+                    <option value="NB">New Brunswick</option>
+                    <option value="NL">Newfoundland and Labrador</option>
+                    <option value="NS">Nova Scotia</option>
+                    <option value="NT">Northwest Territories</option>
+                    <option value="NU">Nunavut</option>
+                    <option value="ON">Ontario</option>
+                    <option value="PE">Prince Edward Island</option>
+                    <option value="QC">Quebec</option>
+                    <option value="SK">Saskatchewan</option>
+                    <option value="YT">Yukon</option>
+                  </select>
+                  <div class="field-err">Required.</div>
+                </div>
+              </div>
+              <div class="field-row">
+                <div class="field" id="fg-ship-postal">
+                  <label for="f-ship-postal">Postal Code</label>
+                  <input type="text" id="f-ship-postal" placeholder="M5V 2T6" maxlength="7" autocomplete="postal-code" spellcheck="false">
+                  <div class="field-err">Enter a valid Canadian postal code (e.g. M5V 2T6).</div>
+                </div>
+                <div class="field">
+                  <label>Country</label>
+                  <input type="text" value="Canada" readonly>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:16px;" class="anim-step">
+            <button class="btn-primary" onclick="handleStep2()">
+              <span class="btn-lbl">Continue</span>
+              <div class="btn-spin"></div>
+              <svg class="btn-arr" viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/>
+              </svg>
+            </button>
+            <div class="btn-lock-note" style="margin-top:10px;">
+              <svg viewBox="0 0 14 14" stroke-linecap="round"><rect x="2" y="6" width="10" height="7" rx="1.5"/><path d="M4.5 6V4.5a2.5 2.5 0 015 0V6"/></svg>
+              SSL encrypted — your information is never stored by us
+            </div>
+          </div>
+
+        </div><!-- /panel-step-2 -->
+
+        <!-- STEP 3: Payment -->
+        <div class="step-panel" id="panel-step-3">
+
+          <button class="back-btn" onclick="setStep(2)">
+            <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><line x1="13" y1="8" x2="3" y2="8"/><polyline points="7,4 3,8 7,12"/></svg>
+            Back to Address
+          </button>
+
+          <div class="section-eyebrow">Payment</div>
+
+          <!-- Add-Ons -->
+          <div class="section-eyebrow" style="margin-bottom:16px;">Optional Add-Ons</div>
+
+          <div class="form-card anim-step" style="margin-bottom:16px;">
+            <div class="form-card-title">Enhance Your Plan</div>
+
+            <div class="addon-group-label">Shipping Speed</div>
+            <div class="addon-cards">
+              <div class="addon-card selected" id="ship-free" onclick="selectShipping('free', this)">
+                <div class="addon-check radio"></div>
+                <div class="addon-body">
+                  <div class="addon-title">
+                    Standard Shipping
+                    <span class="addon-badge">4–10 Business Days</span>
+                  </div>
+                  <div class="addon-desc">Your device ships pre-configured and ready to plug in.</div>
+                </div>
+                <div class="addon-price">
+                  <div class="addon-price-main" style="color:var(--green)">Free</div>
+                </div>
+              </div>
+              <div class="addon-card" id="ship-express" onclick="selectShipping('express', this)">
+                <div class="addon-check radio"></div>
+                <div class="addon-body">
+                  <div class="addon-title">
+                    Express Shipping
+                    <span class="addon-badge">1–4 Business Days</span>
+                  </div>
+                  <div class="addon-desc">Get your device sooner — same pre-configured setup, delivered faster.</div>
+                </div>
+                <div class="addon-price">
+                  <div class="addon-price-main">+$30</div>
+                  <div class="addon-price-sub">one-time</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="addon-group-label">International Roaming <span style="font-weight:400;letter-spacing:0;text-transform:none;font-size:0.7rem;color:var(--ink-4)">&nbsp;— optional, pick one</span></div>
+            <div class="addon-cards">
+              <div class="addon-card" id="addon-usa" onclick="selectRoaming('usa-access', this)">
+                <div class="addon-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+                <div class="addon-body">
+                  <div class="addon-title">USA &amp; Mexico Access</div>
+                  <div class="addon-desc">Use your plan when travelling to the United States or Mexico.</div>
+                </div>
+                <div class="addon-price">
+                  <div class="addon-price-main">+$10</div>
+                  <div class="addon-price-sub">per month</div>
+                </div>
+              </div>
+              <div class="addon-card" id="addon-global" onclick="selectRoaming('global-access', this)">
+                <div class="addon-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+                <div class="addon-body">
+                  <div class="addon-title">Global Roaming Access</div>
+                  <div class="addon-desc">Stay connected in 65+ countries &amp; territories worldwide. Includes USA &amp; Mexico.
+                    <br><a href="#" class="addon-coverage-link" onclick="openCoverageModal(); event.preventDefault(); event.stopPropagation();">View covered countries →</a>
+                  </div>
+                </div>
+                <div class="addon-price">
+                  <div class="addon-price-main">+$40</div>
+                  <div class="addon-price-sub">per month</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-card anim-step">
+            <div class="form-card-title">Card Details</div>
+
+            <div class="card-brand-row">
+              <!-- Visa wordmark -->
+              <span class="card-brand-badge" aria-label="Visa">
+                <svg viewBox="0 0 40 14" xmlns="http://www.w3.org/2000/svg" width="34" height="12">
+                  <text x="0" y="11" font-family="Arial" font-size="12" font-weight="900" fill="currentColor" letter-spacing="-0.5">VISA</text>
+                </svg>
+              </span>
+              <!-- Mastercard two circles -->
+              <span class="card-brand-badge" aria-label="Mastercard">
+                <svg viewBox="0 0 28 18" xmlns="http://www.w3.org/2000/svg" width="26" height="16">
+                  <circle cx="10" cy="9" r="7" fill="currentColor" opacity="0.55"/>
+                  <circle cx="18" cy="9" r="7" fill="currentColor" opacity="0.55"/>
+                  <ellipse cx="14" cy="9" rx="3" ry="7" fill="currentColor" opacity="0.7"/>
+                </svg>
+              </span>
+              <!-- Amex wordmark -->
+              <span class="card-brand-badge" aria-label="American Express">
+                <svg viewBox="0 0 42 14" xmlns="http://www.w3.org/2000/svg" width="36" height="12">
+                  <text x="0" y="11" font-family="Arial" font-size="9.5" font-weight="700" fill="currentColor" letter-spacing="0.4">AMEX</text>
+                </svg>
+              </span>
+            </div>
+
+            <div class="field">
+              <label>Card Number</label>
+              <div class="cb-field-wrap" id="cb-card-number"></div>
+              <div class="field-err" id="err-card-number">Please enter a valid card number.</div>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label>Expiry</label>
+                <div class="cb-field-wrap" id="cb-card-expiry"></div>
+                <div class="field-err" id="err-card-expiry">Invalid expiry.</div>
+              </div>
+              <div class="field">
+                <label>CVV</label>
+                <div class="cb-field-wrap" id="cb-card-cvv"></div>
+                <div class="field-err" id="err-card-cvv">Invalid CVV.</div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="f-card-name">Name on Card</label>
+              <input type="text" id="f-card-name" placeholder="Jane Smith" autocomplete="cc-name" spellcheck="false">
+              <div class="field-err">Required.</div>
+            </div>
+          </div>
+
+          <!-- Promo Code -->
+          <div class="form-card anim-step">
+            <div class="form-card-title">Promo Code</div>
+            <div class="promo-row">
+              <input type="text" id="f-promo" placeholder="Enter code" autocomplete="off" spellcheck="false" value="SAVE20-24M-F9T2Q">
+              <button class="promo-apply" id="promoBtn" onclick="applyPromo()">
+                <span class="promo-apply-lbl">Apply</span>
+                <div class="promo-spin"></div>
+              </button>
+            </div>
+            <div class="promo-feedback" id="promo-feedback">
+              <svg id="promo-icon" viewBox="0 0 12 12"><polyline points="1,6 4,9 11,2"/></svg>
+              <span id="promo-msg"></span>
+            </div>
+
+            <!-- Mini Order Summary -->
+            <div class="mini-summary">
+              <div class="mini-summary-label">Order Summary</div>
+
+              <div class="mini-row" style="align-items:flex-start;">
+                <span>
+                  NETGEAR Nighthawk M1
+                  <span class="charge-subtext on-light">Device rental — included at no cost, no purchase required</span>
+                </span>
+                <strong style="color:var(--green);white-space:nowrap;">$0</strong>
+              </div>
+
+              <div class="mini-row" style="align-items:flex-start;">
+                <span>
+                  First Month of Service <span class="charge-tag charge-tag-monthly">Monthly</span>
+                  <span class="charge-subtext on-light">Prepaid today — then billed automatically each month</span>
+                </span>
+                <strong style="white-space:nowrap;">$80.00</strong>
+              </div>
+
+              <div class="mini-row">
+                <span>Activation &amp; Shipping <span class="charge-tag charge-tag-onetime">One-Time</span></span>
+                <strong id="mini-shipping-val" style="color:var(--green)">$0.00</strong>
+              </div>
+              <div id="mini-addon-rows"></div>
+              <div class="pay-summary-discount" id="promo-discount-row" style="display:none;">
+                <span id="promo-discount-label">Promo</span>
+                <strong id="promo-discount-val"></strong>
+              </div>
+              <div class="mini-row total">
+                <span>Due Today</span>
+                <span style="display:flex;align-items:baseline;gap:4px;">
+                  <span id="due-today-fig">
+                    <sup style="font-size:0.6em;vertical-align:super;font-weight:700">$</sup>80<sup style="font-size:0.45em;vertical-align:super;font-weight:600">.00</sup>
+                  </span>
+                  <span class="price-tax-note">+ tax</span>
+                </span>
+              </div>
+              <div class="mini-renewal">
+                <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M2.5 8a5.5 5.5 0 0 1 9.5-3.8"/>
+                  <path d="M13.5 8a5.5 5.5 0 0 1-9.5 3.8"/>
+                  <polyline points="9.5,1.5 11.5,4.2 8.5,4.8"/>
+                  <polyline points="6.5,14.5 4.5,11.8 7.5,11.2"/>
+                </svg>
+                <span class="mini-renewal-text"><strong style="color:var(--ink-2)">No contract — cancel anytime.</strong> After today's prepaid first month, billing continues automatically at <span id="renewal-price-pay" style="font-weight:600;color:var(--ink-2)">$60 / month for 24 months</span>, then <span id="mini-renewal-after" style="font-weight:600;color:var(--ink-2)">$80/mo</span>.</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Terms -->
+          <div style="margin-top:0;" class="anim-step">
+            <div class="terms-row">
+              <input type="checkbox" id="accept-terms">
+              <label for="accept-terms">
+                I agree to the <a href="/terms" target="_blank">Terms of Service</a> and
+                <a href="/privacy" target="_blank">Privacy Policy</a>. My payment today is for the first month of service. Billing then renews automatically at <span id="renewal-price-terms">$60/month for 24 months</span>, then <span id="terms-renewal-after">$80/month</span>. No contract — I can cancel anytime.
+              </label>
+            </div>
+            <div class="terms-err" id="terms-err">You must accept the terms to continue.</div>
+
+            <button class="btn-primary red" id="payBtn" onclick="handlePay()" style="margin-top:14px;">
+              <span class="btn-lbl" id="payBtn-lbl">Pay $80 <span class="btn-tax">+ tax</span></span>
+              <div class="btn-spin"></div>
+              <svg class="btn-arr" viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/>
+              </svg>
+            </button>
+            <div class="btn-lock-note" style="margin-top:10px;">
+              <svg viewBox="0 0 14 14" stroke-linecap="round"><rect x="2" y="6" width="10" height="7" rx="1.5"/><path d="M4.5 6V4.5a2.5 2.5 0 015 0V6"/></svg>
+              Card tokenized by Chargebee — never touches our servers
+            </div>
+          </div>
+
+        </div><!-- /panel-step-3 -->
+
+      </div><!-- /formPanel -->
+    </div><!-- /checkout-left -->
+
+    <!-- RIGHT: Persistent dark summary -->
+    <div class="checkout-right">
+      <div class="summary-inner summary-anim">
+
+        <div class="summary-product">
+          <div class="summary-product-img-wrap">
+            <img src="../assets/img/products/mr1100.png" alt="Netgear Nighthawk M1" class="summary-product-img">
+          </div>
+          <div>
+            <div class="summary-product-eyebrow">Your Order</div>
+            <div class="summary-product-name">Nighthawk M1</div>
+            <div class="summary-product-sub">Unlimited Wireless Internet</div>
+          </div>
+        </div>
+
+        <div class="summary-rows">
+          <div class="summary-section-label">Included With Your Order</div>
+          <div class="summary-row">
+            <div class="sr-label">
+              <strong>NETGEAR Nighthawk M1</strong>
+              <small>Device rental — included at no cost, no purchase required</small>
+            </div>
+            <span class="sr-val free">$0</span>
+          </div>
+          <div class="summary-row">
+            <div class="sr-label">
+              <strong>First Month of Service <span class="charge-tag charge-tag-monthly on-dark">Monthly</span></strong>
+              <small>Prepaid today — then billed automatically each month</small>
+            </div>
+            <span class="sr-val">$80</span>
+          </div>
+          <div class="summary-row">
+            <div class="sr-label">
+              <strong>Activation &amp; Shipping <span class="charge-tag charge-tag-onetime on-dark">One-Time</span></strong>
+            </div>
+            <span class="sr-val free" id="summary-shipping-val">$0</span>
+          </div>
+          <div id="summary-addon-rows"></div>
+          <div class="summary-row">
+            <span class="sr-label">Contract</span>
+            <span class="sr-val tag">None Required</span>
+          </div>
+        </div>
+
+        <div class="summary-total-block">
+          <div>
+            <div class="summary-total-label">Due Today</div>
+            <div class="summary-total-note" id="summary-total-note">Device rental + first month of service</div>
+          </div>
+          <div>
+            <div class="summary-total-fig" id="summary-total-fig"><sup>$</sup>80</div>
+            <div class="summary-total-tax">+ applicable tax</div>
+          </div>
+        </div>
+
+        <div class="summary-renewal">
+          <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2.5 8a5.5 5.5 0 0 1 9.5-3.8"/>
+            <path d="M13.5 8a5.5 5.5 0 0 1-9.5 3.8"/>
+            <polyline points="9.5,1.5 11.5,4.2 8.5,4.8"/>
+            <polyline points="6.5,14.5 4.5,11.8 7.5,11.2"/>
+          </svg>
+          <p>Today's <strong>$80</strong> is your prepaid first month of service — the device itself is always free. Billing then renews automatically at <strong>$60/month for 24 months</strong>, then <strong><span id="renewal-price-summary">$80 / month</span></strong>. No contract — cancel anytime from your account portal.</p>
+        </div>
+
+        <div class="summary-features-label">Everything Included</div>
+        <div class="summary-feature">
+          <div class="sf-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+          Up To 1 Gbps LTE Speeds
+        </div>
+        <div class="summary-feature">
+          <div class="sf-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+          Truly Unlimited Data — No Caps Or Slowdowns
+        </div>
+        <div class="summary-feature">
+          <div class="sf-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+          Connect Up To 20 Devices
+        </div>
+        <div class="summary-feature">
+          <div class="sf-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+          All-Day Battery Life — Home Or On The Go
+        </div>
+        <div class="summary-feature">
+          <div class="sf-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+          Dual-Band Wi-Fi · 2.4 GHz + 5 GHz
+        </div>
+        <div class="summary-feature">
+          <div class="sf-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+          30-Day Money-Back Guarantee
+        </div>
+
+      </div><!-- /summary-inner -->
+
+      <div class="summary-trust">
+        <div class="trust-badge">
+          <svg viewBox="0 0 14 14" stroke-linecap="round"><rect x="2" y="6" width="10" height="7" rx="1.5"/><path d="M4.5 6V4.5a2.5 2.5 0 015 0V6"/></svg>
+          SSL Encrypted
+        </div>
+        <div class="trust-div"></div>
+        <div class="trust-badge">
+          <svg viewBox="0 0 14 14" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="5.5"/><path d="M7 4.5v3l1.5 1"/></svg>
+          Cancel Anytime
+        </div>
+        <div class="trust-div"></div>
+        <div class="trust-badge">
+          <svg viewBox="0 0 14 14" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7l3.5 3.5L12 3"/></svg>
+          30-Day Guarantee
+        </div>
+      </div>
+
+    </div><!-- /checkout-right -->
+
+  </div><!-- /checkout-root -->
+</div><!-- /screen-checkout -->
+
+
+<!-- ══════════════════════════════════════════════════════════════════
+     MOBILE STICKY SUMMARY DRAWER (shown during checkout steps on mobile)
+═══════════════════════════════════════════════════════════════════ -->
+<div class="mobile-summary-bar" id="mobileSummaryBar">
+
+  <!-- Backdrop (tap to close) -->
+  <div class="msb-backdrop" id="msbBackdrop"></div>
+
+  <!-- Drawer panel -->
+  <div class="msb-drawer" id="msbDrawer">
+
+    <!-- Drag handle / pill -->
+    <div class="msb-handle-wrap" id="msbHandleWrap">
+      <div class="msb-handle"></div>
+    </div>
+
+    <!-- Always-visible collapsed row -->
+    <div class="msb-collapsed" id="msbCollapsed">
+      <div class="msb-product">
+        <div class="msb-img">
+          <img src="../assets/img/products/mr1100.png" alt="Nighthawk M1">
+        </div>
+        <div>
+          <div class="msb-name">Nighthawk M1</div>
+          <div class="msb-sub">1st month included · Free shipping</div>
+        </div>
+      </div>
+      <div class="msb-price">
+        <div class="msb-amount"><sup>$</sup><span id="msb-amount-val">80</span> <span class="msb-tax-inline">+ tax</span></div>
+        <div class="msb-tax">due today</div>
+      </div>
+      <button class="msb-chevron" id="msbChevron" aria-label="Show order details">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="4,10 8,6 12,10"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Expanded details (hidden by default) -->
+    <div class="msb-expanded" id="msbExpanded">
+      <div class="msb-exp-rows">
+        <div class="msb-exp-row">
+          <span>NETGEAR Nighthawk M1</span>
+          <strong style="color:var(--green)">$0</strong>
+        </div>
+        <div class="msb-exp-row">
+          <span>First Month of Service <span class="charge-tag charge-tag-monthly on-dark">Monthly</span></span>
+          <strong>$80</strong>
+        </div>
+        <div class="msb-exp-row">
+          <span>Activation &amp; Shipping <span class="charge-tag charge-tag-onetime on-dark">One-Time</span></span>
+          <strong class="free" id="msb-shipping-val">$0</strong>
+        </div>
+        <div id="msb-addon-rows"></div>
+        <div class="msb-exp-row msb-exp-discount" id="msb-exp-discount-row" style="display:none;">
+          <span id="msb-exp-discount-label">Promo</span>
+          <strong class="discount" id="msb-exp-discount-val"></strong>
+        </div>
+        <div class="msb-exp-row msb-exp-total">
+          <span>Due Today</span>
+          <strong>$<span id="msb-exp-total-val">80</span> + tax</strong>
+        </div>
+      </div>
+      <div class="msb-exp-renewal">
+        <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="currentColor" stroke-width="1.7">
+          <path d="M2.5 8a5.5 5.5 0 0 1 9.5-3.8"/>
+          <path d="M13.5 8a5.5 5.5 0 0 1-9.5 3.8"/>
+          <polyline points="9.5,1.5 11.5,4.2 8.5,4.8"/>
+          <polyline points="6.5,14.5 4.5,11.8 7.5,11.2"/>
+        </svg>
+        <span><strong>No contract — cancel anytime.</strong> After today's prepaid first month, billing continues automatically at <span id="renewal-price-msb">$60/mo for 24 months</span>, then <span id="msb-renewal-after">$80/mo</span>.</span>
+      </div>
+      <div class="msb-exp-features">
+        <div class="msb-exp-feat"><span class="msb-feat-check">✓</span> Truly Unlimited Data — No Caps</div>
+        <div class="msb-exp-feat"><span class="msb-feat-check">✓</span> Up To 20 Devices Connected</div>
+        <div class="msb-exp-feat"><span class="msb-feat-check">✓</span> Dual-Band Wi-Fi · 2.4 + 5 GHz</div>
+        <div class="msb-exp-feat"><span class="msb-feat-check">✓</span> 30-Day Money-Back Guarantee</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     GLOBAL COVERAGE MODAL
+═══════════════════════════════════════════════════════════════════ -->
+<div class="coverage-backdrop" id="coverageBackdrop" onclick="closeCoverageModal()"></div>
+<div class="coverage-modal" id="coverageModal" role="dialog" aria-modal="true" aria-labelledby="coverage-modal-title">
+
+  <div class="coverage-modal-head">
+    <div>
+      <div class="coverage-modal-eyebrow">Global Roaming Access</div>
+      <div class="coverage-modal-title" id="coverage-modal-title">65+ Countries &amp; Territories</div>
+      <div class="coverage-modal-sub">Current eligible roaming destinations</div>
+    </div>
+    <button class="coverage-close" onclick="closeCoverageModal()" aria-label="Close">
+      <svg viewBox="0 0 12 12" stroke-linecap="round"><line x1="1" y1="1" x2="11" y2="11"/><line x1="11" y1="1" x2="1" y2="11"/></svg>
+    </button>
+  </div>
+
+  <div class="coverage-modal-body">
+
+    <div class="coverage-disclaimer">
+      Eligible coverage destinations are subject to change. Coverage availability and quality may vary by location.
+    </div>
+
+    <div class="coverage-region">
+      <div class="coverage-region-title">USA &amp; Territories</div>
+      <div class="coverage-tags">
+        <span class="coverage-tag">United States</span>
+        <span class="coverage-tag">Alaska</span>
+        <span class="coverage-tag">Hawaii</span>
+        <span class="coverage-tag">Puerto Rico</span>
+        <span class="coverage-tag">U.S. Virgin Islands</span>
+      </div>
+    </div>
+
+    <div class="coverage-region">
+      <div class="coverage-region-title">Mexico &amp; Caribbean</div>
+      <div class="coverage-tags">
+        <span class="coverage-tag">Mexico</span>
+        <span class="coverage-tag">Aruba</span>
+        <span class="coverage-tag">Bahamas</span>
+        <span class="coverage-tag">Barbados</span>
+        <span class="coverage-tag">Cuba</span>
+        <span class="coverage-tag">Dominican Republic</span>
+        <span class="coverage-tag">Guyana</span>
+        <span class="coverage-tag">Jamaica</span>
+        <span class="coverage-tag">Netherlands Antilles</span>
+        <span class="coverage-tag">St Lucia</span>
+        <span class="coverage-tag">Trinidad &amp; Tobago</span>
+        <span class="coverage-tag">Turks &amp; Caicos</span>
+      </div>
+    </div>
+
+    <div class="coverage-region">
+      <div class="coverage-region-title">Central &amp; South America</div>
+      <div class="coverage-tags">
+        <span class="coverage-tag">Argentina</span>
+        <span class="coverage-tag">Brazil</span>
+        <span class="coverage-tag">Chile</span>
+        <span class="coverage-tag">Colombia</span>
+        <span class="coverage-tag">Costa Rica</span>
+        <span class="coverage-tag">Panama</span>
+        <span class="coverage-tag">Peru</span>
+      </div>
+    </div>
+
+    <div class="coverage-region">
+      <div class="coverage-region-title">Europe</div>
+      <div class="coverage-tags">
+        <span class="coverage-tag">Austria</span>
+        <span class="coverage-tag">Belgium</span>
+        <span class="coverage-tag">Croatia</span>
+        <span class="coverage-tag">Cyprus</span>
+        <span class="coverage-tag">Czech Republic</span>
+        <span class="coverage-tag">Denmark</span>
+        <span class="coverage-tag">France</span>
+        <span class="coverage-tag">Germany</span>
+        <span class="coverage-tag">Greece</span>
+        <span class="coverage-tag">Hungary</span>
+        <span class="coverage-tag">Iceland</span>
+        <span class="coverage-tag">Ireland</span>
+        <span class="coverage-tag">Italy</span>
+        <span class="coverage-tag">Netherlands</span>
+        <span class="coverage-tag">Norway</span>
+        <span class="coverage-tag">Poland</span>
+        <span class="coverage-tag">Portugal</span>
+        <span class="coverage-tag">Romania</span>
+        <span class="coverage-tag">Serbia</span>
+        <span class="coverage-tag">Slovenia</span>
+        <span class="coverage-tag">Spain</span>
+        <span class="coverage-tag">Sweden</span>
+        <span class="coverage-tag">Switzerland</span>
+        <span class="coverage-tag">Ukraine</span>
+        <span class="coverage-tag">United Kingdom</span>
+      </div>
+    </div>
+
+    <div class="coverage-region">
+      <div class="coverage-region-title">Asia &amp; Middle East</div>
+      <div class="coverage-tags">
+        <span class="coverage-tag">China</span>
+        <span class="coverage-tag">Hong Kong</span>
+        <span class="coverage-tag">India</span>
+        <span class="coverage-tag">Indonesia</span>
+        <span class="coverage-tag">Israel</span>
+        <span class="coverage-tag">Japan</span>
+        <span class="coverage-tag">Malaysia</span>
+        <span class="coverage-tag">Pakistan</span>
+        <span class="coverage-tag">Philippines</span>
+        <span class="coverage-tag">Qatar</span>
+        <span class="coverage-tag">Saudi Arabia</span>
+        <span class="coverage-tag">Singapore</span>
+        <span class="coverage-tag">South Korea</span>
+        <span class="coverage-tag">Sri Lanka</span>
+        <span class="coverage-tag">Taiwan</span>
+        <span class="coverage-tag">Thailand</span>
+        <span class="coverage-tag">Turkey</span>
+        <span class="coverage-tag">United Arab Emirates</span>
+        <span class="coverage-tag">Vietnam</span>
+      </div>
+    </div>
+
+    <div class="coverage-region">
+      <div class="coverage-region-title">Oceania</div>
+      <div class="coverage-tags">
+        <span class="coverage-tag">Australia</span>
+        <span class="coverage-tag">Fiji</span>
+        <span class="coverage-tag">New Zealand</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     SCRIPT
+═══════════════════════════════════════════════════════════════════ -->
+<script>
+(function () {
+  'use strict';
+
+  var CB_SITE         = 'more4lessplans';
+  var CB_PLAN_ID      = 'gta-lease';
+  var DEVICE_ADDON_ID = 'nighthawk-m1';
+  var WORKER_URL      = '/api/checkout-embedded';
+  var CONFIRM         = '/lease-confirmed';
+  var BASE_PRICE      = 80;
+  var RENEWAL_PRICE   = 80;
+
+  /* ── ADD-ON STATE ─────────────────────────────────────────────── */
+  var selectedAddons    = {}; // { addonId: { price, type } }
+  var addonOneTimeTotal = 0;
+  var addonMonthlyTotal = 0;
+
+  var cbInstance = Chargebee.init({
+    site: CB_SITE,
+    publishableKey: 'live_9xoL0GUAJyfaZddNn5cdFhI4hrLAGhyIh'
+  });
+
+  /* ── MOBILE MENU ──────────────────────────────────────────────── */
+  var trigger       = document.getElementById('menuTrigger');
+  var mobileOverlay = document.getElementById('mobileOverlay');
+
+  function toggleMenu() {
+    var open = trigger.classList.toggle('menu-active');
+    mobileOverlay.classList.toggle('active', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+    // Hide step indicators while nav overlay is open
+    var navStepsEl  = document.getElementById('navSteps');
+    var pageStepsEl = document.getElementById('pageStepsBar');
+    if (navStepsEl)  navStepsEl.style.visibility  = open ? 'hidden' : '';
+    if (pageStepsEl) pageStepsEl.style.visibility = open ? 'hidden' : '';
+  }
+
+  trigger.addEventListener('click', function (e) { e.stopPropagation(); toggleMenu(); });
+  mobileOverlay.addEventListener('click', function (e) {
+    if (!e.target.closest('a') && mobileOverlay.classList.contains('active')) toggleMenu();
+  });
+
+  /* ── INIT ON LOAD ─────────────────────────────────────────────── */
+  // Show nav steps immediately
+  var navSteps = document.getElementById('navSteps');
+  if (navSteps) navSteps.classList.add('visible');
+  // Show mobile steps bar
+  var pageBar = document.getElementById('pageStepsBar');
+  if (pageBar) pageBar.style.display = 'block';
+  // Show mobile summary drawer on mobile
+  (function () {
+    var bar = document.getElementById('mobileSummaryBar');
+    if (bar && window.innerWidth <= 900) bar.style.display = 'block';
+  })();
+  var msbBar      = document.getElementById('mobileSummaryBar');
+  var msbBackdrop = document.getElementById('msbBackdrop');
+  var msbHandle   = document.getElementById('msbHandleWrap');
+  var msbCollapsed= document.getElementById('msbCollapsed');
+
+  function toggleDrawer(forceClose) {
+    if (!msbBar) return;
+    var isOpen = msbBar.classList.contains('expanded');
+    if (forceClose || isOpen) {
+      msbBar.classList.remove('expanded');
+    } else {
+      msbBar.classList.add('expanded');
+    }
+  }
+
+  if (msbHandle)   msbHandle.addEventListener('click',   function() { toggleDrawer(); });
+  if (msbCollapsed) msbCollapsed.addEventListener('click', function() { toggleDrawer(); });
+  if (msbBackdrop) msbBackdrop.addEventListener('click',  function() { toggleDrawer(true); });
+
+  /* ── TOUCH DRAG — pull up/down on the drawer ─────────────────── */
+  (function () {
+    if (!msbBar) return;
+    var drawer    = document.getElementById('msbDrawer');
+    var startY    = 0;
+    var startOpen = false;
+    var dragging  = false;
+    var THRESHOLD = 48; // px of drag to trigger toggle
+
+    function onTouchStart(e) {
+      startY    = e.touches[0].clientY;
+      startOpen = msbBar.classList.contains('expanded');
+      dragging  = true;
+      // Disable transition during drag for instant feel
+      drawer.style.transition = 'none';
+    }
+
+    function onTouchMove(e) {
+      if (!dragging) return;
+      var dy = startY - e.touches[0].clientY; // positive = dragging up
+      // Only intercept if dragging up when closed, or down when open
+      if (!startOpen && dy > 0) {
+        e.preventDefault(); // stop page scroll
+      }
+      if (startOpen && dy < 0) {
+        e.preventDefault();
+      }
+    }
+
+    function onTouchEnd(e) {
+      if (!dragging) return;
+      dragging = false;
+      drawer.style.transition = ''; // restore CSS transition
+      var dy = startY - e.changedTouches[0].clientY; // positive = up
+      if (!startOpen && dy > THRESHOLD) {
+        // Dragged up enough — open
+        msbBar.classList.add('expanded');
+      } else if (startOpen && dy < -THRESHOLD) {
+        // Dragged down enough — close
+        msbBar.classList.remove('expanded');
+      }
+      // Otherwise snap back (CSS transition handles it automatically)
+    }
+
+    var target = drawer;
+    target.addEventListener('touchstart', onTouchStart, { passive: true });
+    target.addEventListener('touchmove',  onTouchMove,  { passive: false });
+    target.addEventListener('touchend',   onTouchEnd,   { passive: true });
+  })();
+
+
+
+  /* ── SHIPPING TOGGLE ──────────────────────────────────────────── */
+  window.toggleShipping = function () {
+    var checked = document.getElementById('same-as-billing').checked;
+    document.getElementById('shipping-fields').classList.toggle('hidden', checked);
+  };
+
+  /* ── CHARGEBEE CARD COMPONENT ─────────────────────────────────── */
+  var componentsReady = false;
+  cbInstance.load('components')
+    .then(function () { componentsReady = true; })
+    .catch(function (e) { console.error('CB load failed:', e); });
+
+  var cardComponent = null;
+  var cardMounted   = false;
+
+  function doMount() {
+    cardMounted = true;
+    var cbStyle = {
+      base: {
+        color: '#1a1a1c',
+        fontFamily: 'Figtree, sans-serif',
+        fontSize: '14px',
+        fontSmoothing: 'antialiased',
+        '::placeholder': { color: '#b8b8bc' }
+      },
+      invalid: { color: '#D73C59' }
+    };
+    var cbFonts = [{
+      fontFamily: 'Figtree',
+      fontUrl: 'https://fonts.googleapis.com/css2?family=Figtree:wght@400;500&display=swap'
+    }];
+
+    cardComponent = cbInstance.createComponent('card', { fonts: cbFonts });
+    cardComponent.createField('number', { style: cbStyle, placeholder: '1234 5678 9012 3456' }).at('#cb-card-number');
+    cardComponent.createField('expiry', { style: cbStyle, placeholder: 'MM / YY' }).at('#cb-card-expiry');
+    cardComponent.createField('cvv',    { style: cbStyle, placeholder: '•••' }).at('#cb-card-cvv');
+    cardComponent.mount();
+
+    [
+      { type: 'number', wrapId: 'cb-card-number', errId: 'err-card-number' },
+      { type: 'expiry', wrapId: 'cb-card-expiry', errId: 'err-card-expiry' },
+      { type: 'cvv',    wrapId: 'cb-card-cvv',    errId: 'err-card-cvv'    }
+    ].forEach(function (item) {
+      var field = cardComponent.getField(item.type);
+      if (!field) return;
+      field.on('focus',  function () { document.getElementById(item.wrapId).classList.add('focus'); });
+      field.on('blur',   function () { document.getElementById(item.wrapId).classList.remove('focus'); });
+      field.on('change', function (e) {
+        var wrap = document.getElementById(item.wrapId);
+        var err  = document.getElementById(item.errId);
+        if (e.error) { wrap.classList.add('err'); if (err) err.style.display = 'block'; }
+        else         { wrap.classList.remove('err'); if (err) err.style.display = 'none'; }
+      });
+    });
+  }
+
+  function mountCardFields() {
+    if (cardMounted) return;
+    if (!componentsReady) {
+      cbInstance.load('components').then(function () { componentsReady = true; doMount(); });
+      return;
+    }
+    doMount();
+  }
+
+  /* ── STEP MACHINE ─────────────────────────────────────────────── */
+  function setStep(n) {
+    // Sync both nav steps (desktop) and page steps bar (mobile)
+    [['st-1','pst-1',1],['st-2','pst-2',2],['st-3','pst-3',3]].forEach(function (p) {
+      var cls = 'nav-step' + (p[2] < n ? ' done' : p[2] === n ? ' active' : '');
+      var nav = document.getElementById(p[0]);
+      var page = document.getElementById(p[1]);
+      if (nav) nav.className = cls;
+      if (page) page.className = cls;
+    });
+    [['cn-1','pcn-1',1],['cn-2','pcn-2',2]].forEach(function (p) {
+      var cls = 'nav-sep' + (p[2] < n ? ' done' : '');
+      var nav = document.getElementById(p[0]);
+      var page = document.getElementById(p[1]);
+      if (nav) nav.className = cls;
+      if (page) page.className = cls;
+    });
+    ['panel-step-1','panel-step-2','panel-step-3'].forEach(function (id, i) {
+      var el = document.getElementById(id);
+      if (el) el.classList.toggle('active', i + 1 === n);
+    });
+    if (n === 3) {
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () { mountCardFields(); });
+      });
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  window.setStep = setStep;
+
+  /* ── VALIDATION HELPERS ───────────────────────────────────────── */
+  function clearErrors() {
+    document.querySelectorAll('.field.has-err').forEach(function (el) { el.classList.remove('has-err'); });
+    document.querySelectorAll('input.err, select.err').forEach(function (el) { el.classList.remove('err'); });
+  }
+
+  function flagErr(inputId, groupId) {
+    var i = document.getElementById(inputId);
+    var g = groupId ? document.getElementById(groupId) : null;
+    if (i) i.classList.add('err');
+    if (g) g.classList.add('has-err');
+  }
+
+  /* Canadian phone: exactly 10 digits */
+  function isPhone(v) {
+    return v.replace(/\D/g, '').length === 10;
+  }
+
+  /* Canadian postal code: A1A 1A1 or A1A1A1 */
+  function isPostal(v) {
+    return /^[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTVWXYZ]\s?\d[ABCEGHJ-NPRSTVWXYZ]\d$/i.test(v.trim());
+  }
+
+  function isEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+
+  /* Phone: auto-format as (416) 555-0123 */
+  var phoneEl = document.getElementById('f-phone');
+  if (phoneEl) {
+    phoneEl.addEventListener('input', function () {
+      var digits = this.value.replace(/\D/g, '').slice(0, 10);
+      var fmt = '';
+      if (digits.length === 0)      fmt = '';
+      else if (digits.length <= 3)  fmt = '(' + digits;
+      else if (digits.length <= 6)  fmt = '(' + digits.slice(0,3) + ') ' + digits.slice(3);
+      else                           fmt = '(' + digits.slice(0,3) + ') ' + digits.slice(3,6) + '-' + digits.slice(6);
+      this.value = fmt;
+      this.classList.remove('err');
+      var p = this.closest('.field'); if (p) p.classList.remove('has-err');
+    });
+  }
+
+  /* Postal: auto-uppercase and insert space */
+  ['f-bill-postal','f-ship-postal'].forEach(function (id) {
+    var el = document.getElementById(id); if (!el) return;
+    el.addEventListener('input', function () {
+      var v = this.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+      if (v.length > 3) v = v.slice(0,3) + ' ' + v.slice(3,6);
+      this.value = v;
+      this.classList.remove('err');
+      var p = this.closest('.field'); if (p) p.classList.remove('has-err');
+    });
+  });
+
+  /* Clear errors on input/change for all other fields */
+  ['f-first','f-last','f-email','f-bill-street','f-bill-city','f-bill-province',
+   'f-ship-street','f-ship-city','f-ship-province'].forEach(function (id) {
+    var el = document.getElementById(id); if (!el) return;
+    el.addEventListener(el.tagName === 'SELECT' ? 'change' : 'input', function () {
+      this.classList.remove('err');
+      var p = this.closest('.field'); if (p) p.classList.remove('has-err');
+    });
+  });
+
+  /* ── STEP 1: Contact ──────────────────────────────────────────── */
+  function collectContact() {
+    clearErrors();
+    var first = document.getElementById('f-first').value.trim();
+    var last  = document.getElementById('f-last').value.trim();
+    var phone = document.getElementById('f-phone').value.trim();
+    var email = document.getElementById('f-email').value.trim();
+    var ok    = true;
+    if (!first)          { flagErr('f-first', 'fg-first'); ok = false; }
+    if (!last)           { flagErr('f-last',  'fg-last');  ok = false; }
+    if (!isPhone(phone)) { flagErr('f-phone', 'fg-phone'); ok = false; }
+    if (!isEmail(email)) { flagErr('f-email', 'fg-email'); ok = false; }
+    if (!ok) { var f = document.querySelector('.field.has-err input'); if (f) f.focus(); return null; }
+    return { plan_id: CB_PLAN_ID, sim_type: 'physical', first_name: first, last_name: last, phone: phone, email: email };
+  }
+
+  window.handleStep1 = function () {
+    var data = collectContact(); if (!data) return;
+    sessionStorage.setItem('m4l_order', JSON.stringify(data));
+    setStep(2);
+  };
+
+  /* ── GOOGLE PLACES AUTOCOMPLETE ───────────────────────────────── */
+  var billPlaceSelected = false;
+  var shipPlaceSelected = false;
+
+  function initPlacesAutocomplete(inputId, cityId, provinceId, postalId, isBilling) {
+    var input = document.getElementById(inputId);
+    var ac = new google.maps.places.Autocomplete(input, {
+      componentRestrictions: { country: 'ca' },
+      fields: ['address_components'],
+      types: ['address']
+    });
+    input.addEventListener('input', function () {
+      if (isBilling) billPlaceSelected = false;
+      else           shipPlaceSelected = false;
+      document.getElementById(cityId).value     = '';
+      var provEl = document.getElementById(provinceId);
+      if (provEl.tagName === 'SELECT') provEl.value = '';
+      else provEl.value = '';
+      document.getElementById(postalId).value   = '';
+    });
+    ac.addListener('place_changed', function () {
+      var place = ac.getPlace();
+      if (!place.address_components) return;
+      var streetNumber = '', route = '', city = '', province = '', postal = '';
+      place.address_components.forEach(function (c) {
+        var t = c.types[0];
+        if (t === 'street_number')               streetNumber = c.long_name;
+        if (t === 'route')                       route        = c.short_name;
+        if (t === 'locality')                    city         = c.long_name;
+        if (t === 'administrative_area_level_1') province     = c.short_name;
+        if (t === 'postal_code')                 postal       = c.long_name;
+      });
+      input.value = (streetNumber + ' ' + route).trim();
+      document.getElementById(cityId).value = city;
+      // Set province — works for both select and input
+      var provEl = document.getElementById(provinceId);
+      provEl.value = province;
+      // Auto-format postal from Places (already A1A 1A1 format)
+      var postalClean = postal.toUpperCase().replace(/[^A-Z0-9]/g, '');
+      document.getElementById(postalId).value = postalClean.length > 3
+        ? postalClean.slice(0,3) + ' ' + postalClean.slice(3,6)
+        : postalClean;
+      input.classList.remove('err');
+      var fg = document.getElementById(inputId.replace('f-', 'fg-'));
+      if (fg) fg.classList.remove('has-err');
+      if (isBilling) billPlaceSelected = true;
+      else           shipPlaceSelected = true;
+    });
+  }
+
+  function initAllAutocomplete() {
+    initPlacesAutocomplete('f-bill-street', 'f-bill-city', 'f-bill-province', 'f-bill-postal', true);
+    initPlacesAutocomplete('f-ship-street', 'f-ship-city', 'f-ship-province', 'f-ship-postal', false);
+  }
+
+  if (window.google && window.google.maps && window.google.maps.places) {
+    initAllAutocomplete();
+  } else {
+    window.addEventListener('load', function () {
+      if (window.google && window.google.maps) initAllAutocomplete();
+    });
+  }
+
+  /* ── STEP 2: Address ──────────────────────────────────────────── */
+  function collectAddress() {
+    clearErrors();
+    var ok = true;
+    var billStreet   = document.getElementById('f-bill-street').value.trim();
+    var billCity     = document.getElementById('f-bill-city').value.trim();
+    var billProvince = document.getElementById('f-bill-province').value.trim();
+    var billPostal   = document.getElementById('f-bill-postal').value.trim();
+    if (!billStreet)            { flagErr('f-bill-street',   'fg-bill-street');   ok = false; }
+    if (!billCity)              { flagErr('f-bill-city',     'fg-bill-city');     ok = false; }
+    if (!billProvince)          { flagErr('f-bill-province', 'fg-bill-province'); ok = false; }
+    if (!isPostal(billPostal))  { flagErr('f-bill-postal',   'fg-bill-postal');   ok = false; }
+
+    var sameAsBilling = document.getElementById('same-as-billing').checked;
+    var shipStreet = billStreet, shipCity = billCity, shipProvince = billProvince, shipPostal = billPostal;
+
+    if (!sameAsBilling) {
+      shipStreet   = document.getElementById('f-ship-street').value.trim();
+      shipCity     = document.getElementById('f-ship-city').value.trim();
+      shipProvince = document.getElementById('f-ship-province').value.trim();
+      shipPostal   = document.getElementById('f-ship-postal').value.trim();
+      if (!shipStreet)            { flagErr('f-ship-street',   'fg-ship-street');   ok = false; }
+      if (!shipCity)              { flagErr('f-ship-city',     'fg-ship-city');     ok = false; }
+      if (!shipProvince)          { flagErr('f-ship-province', 'fg-ship-province'); ok = false; }
+      if (!isPostal(shipPostal))  { flagErr('f-ship-postal',   'fg-ship-postal');   ok = false; }
+    }
+
+    if (!ok) {
+      var f = document.querySelector('.field.has-err input, .field.has-err select');
+      if (f) f.focus();
+      return null;
+    }
+
+    /* Normalise postal to uppercase with space */
+    function fmtPostal(p) {
+      var c = p.toUpperCase().replace(/[^A-Z0-9]/g,'');
+      return c.length >= 6 ? c.slice(0,3) + ' ' + c.slice(3,6) : c;
+    }
+
+    return {
+      billing: {
+        line1:      billStreet,
+        line2:      document.getElementById('f-bill-apt').value.trim(),
+        city:       billCity,
+        state_code: billProvince,
+        zip:        fmtPostal(billPostal),
+        country:    'CA'
+      },
+      shipping: {
+        line1:      shipStreet,
+        line2:      sameAsBilling ? document.getElementById('f-bill-apt').value.trim() : document.getElementById('f-ship-apt').value.trim(),
+        city:       shipCity,
+        state_code: shipProvince,
+        zip:        fmtPostal(shipPostal),
+        country:    'CA'
+      }
+    };
+  }
+
+  window.handleStep2 = function () {
+    var addr = collectAddress(); if (!addr) return;
+    var existing = JSON.parse(sessionStorage.getItem('m4l_order') || '{}');
+    Object.assign(existing, addr);
+    sessionStorage.setItem('m4l_order', JSON.stringify(existing));
+    setStep(3);
+  };
+
+  /* ── ADD-ON TOGGLE ────────────────────────────────────────────── */
+  var selectedShipping = 'free';  // 'free' | 'express'
+  var selectedRoaming  = null;    // null | 'usa-access' | 'global-access'
+
+  window.selectShipping = function (type, cardEl) {
+    if (selectedShipping === type) return; // already selected — do nothing
+    selectedShipping = type;
+    document.getElementById('ship-free').classList.toggle('selected',    type === 'free');
+    document.getElementById('ship-express').classList.toggle('selected', type === 'express');
+    if (type === 'express') {
+      selectedAddons['express-shipping'] = { price: 30, type: 'one_time' };
+    } else {
+      delete selectedAddons['express-shipping'];
+    }
+    recalcAndSync();
+  };
+
+  window.selectRoaming = function (id, cardEl) {
+    var usaEl    = document.getElementById('addon-usa');
+    var globalEl = document.getElementById('addon-global');
+    if (selectedRoaming === id) {
+      // Deselect current
+      selectedRoaming = null;
+      delete selectedAddons[id];
+      cardEl.classList.remove('selected');
+    } else {
+      // Deselect whichever was previously selected
+      if (selectedRoaming) {
+        delete selectedAddons[selectedRoaming];
+        if (usaEl)    usaEl.classList.remove('selected');
+        if (globalEl) globalEl.classList.remove('selected');
+      }
+      selectedRoaming = id;
+      var price = id === 'global-access' ? 40 : 10;
+      selectedAddons[id] = { price: price, type: 'recurring' };
+      cardEl.classList.add('selected');
+    }
+    recalcAndSync();
+  };
+
+  function recalcAndSync() {
+    addonOneTimeTotal = 0; addonMonthlyTotal = 0;
+    Object.keys(selectedAddons).forEach(function (id) {
+      var a = selectedAddons[id];
+      if (a.type === 'one_time') addonOneTimeTotal += a.price;
+      else addonMonthlyTotal += a.price;
+    });
+    updateDueToday(discountAmount);
+    syncAddonRows();
+  }
+
+  function addonLabel(id) {
+    if (id === 'express-shipping') return 'Express Shipping';
+    if (id === 'global-access')    return 'Global Roaming';
+    if (id === 'usa-access')       return 'USA & Mexico Access';
+    return id;
+  }
+
+  function syncAddonRows() {
+    var hasExpress = !!selectedAddons['express-shipping'];
+
+    // ── Right panel: shipping value ──
+    var sumShip = document.getElementById('summary-shipping-val');
+    if (sumShip) {
+      if (hasExpress) {
+        sumShip.textContent = '+$30';
+        sumShip.className   = 'sr-val';
+      } else {
+        sumShip.textContent = '$0';
+        sumShip.className   = 'sr-val free';
+      }
+    }
+
+    // ── Right panel: recurring add-on rows ──
+    var sumAddonRows = document.getElementById('summary-addon-rows');
+    if (sumAddonRows) {
+      sumAddonRows.innerHTML = '';
+      Object.keys(selectedAddons).forEach(function (id) {
+        var a = selectedAddons[id];
+        if (a.type === 'recurring') {
+          var row = document.createElement('div');
+          row.className = 'summary-addon-row';
+          row.innerHTML =
+            '<div class="sr-label"><small>' + addonLabel(id) + ' <span class="charge-tag charge-tag-monthly on-dark">Monthly</span></small></div>' +
+            '<span class="sr-val">+$' + a.price + '/mo</span>';
+          sumAddonRows.appendChild(row);
+        }
+      });
+    }
+
+    // ── Right panel: total figure ──
+    var sumFig  = document.getElementById('summary-total-fig');
+    var sumNote = document.getElementById('summary-total-note');
+    if (sumFig) {
+      var raw    = Math.max(0, BASE_PRICE - discountAmount) + addonOneTimeTotal + addonMonthlyTotal;
+      var dollars = Math.floor(raw);
+      sumFig.innerHTML = '<sup>$</sup>' + dollars;
+    }
+    if (sumNote) {
+      sumNote.textContent = (addonOneTimeTotal + addonMonthlyTotal) > 0
+        ? 'Service + shipping + 1st month add-ons'
+        : 'Device rental + first month of service';
+    }
+
+    // ── Mini summary (Step 3 card): shipping value ──
+    var miniShip = document.getElementById('mini-shipping-val');
+    if (miniShip) {
+      if (hasExpress) {
+        miniShip.textContent = '+$30.00';
+        miniShip.style.color = '';
+      } else {
+        miniShip.textContent = '$0.00';
+        miniShip.style.color = 'var(--green)';
+      }
+    }
+
+    // ── Mini summary: recurring add-on rows ──
+    var miniAddonRows = document.getElementById('mini-addon-rows');
+    if (miniAddonRows) {
+      miniAddonRows.innerHTML = '';
+      Object.keys(selectedAddons).forEach(function (id) {
+        var a = selectedAddons[id];
+        if (a.type === 'recurring') {
+          var row = document.createElement('div');
+          row.className = 'mini-row';
+          row.innerHTML =
+            '<span>' + addonLabel(id) + ' <span class="charge-tag charge-tag-monthly">Monthly</span></span>' +
+            '<strong>+$' + a.price + '.00/mo</strong>';
+          miniAddonRows.appendChild(row);
+        }
+      });
+    }
+
+    // ── Mobile drawer: shipping value ──
+    var msbShip = document.getElementById('msb-shipping-val');
+    if (msbShip) {
+      if (hasExpress) {
+        msbShip.textContent = '+$30';
+        msbShip.className   = '';
+      } else {
+        msbShip.textContent = '$0';
+        msbShip.className   = 'free';
+      }
+    }
+
+    // ── Mobile drawer: add-on rows ──
+    var msbAddonRows = document.getElementById('msb-addon-rows');
+    if (msbAddonRows) {
+      msbAddonRows.innerHTML = '';
+      Object.keys(selectedAddons).forEach(function (id) {
+        var a = selectedAddons[id];
+        if (a.type === 'recurring') {
+          var row = document.createElement('div');
+          row.className = 'msb-exp-row';
+          row.innerHTML =
+            '<span>' + addonLabel(id) + ' <span class="charge-tag charge-tag-monthly on-dark">Monthly</span></span>' +
+            '<strong>+$' + a.price + '/mo</strong>';
+          msbAddonRows.appendChild(row);
+        }
+      });
+    }
+
+    // ── Terms: "then $X/month" renewal line ──
+    var termsRenewalAfter = document.getElementById('terms-renewal-after');
+    if (termsRenewalAfter) {
+      termsRenewalAfter.textContent = '$' + (80 + addonMonthlyTotal) + '/month';
+    }
+    // ── Terms: promo price line (only when no coupon is overriding it) ──
+    var termsPromo = document.getElementById('renewal-price-terms');
+    if (termsPromo && !appliedCoupon) {
+      termsPromo.textContent = '$' + (60 + addonMonthlyTotal) + '/month for 24 months';
+    }
+    // ── Mini-summary "then $X/mo" line in step 3 ──
+    var miniRenewalAfter = document.getElementById('mini-renewal-after');
+    if (miniRenewalAfter) {
+      miniRenewalAfter.textContent = '$' + (80 + addonMonthlyTotal) + '/mo';
+    }
+    // ── Mobile drawer "then $X/mo" line ──
+    var msbRenewalAfter = document.getElementById('msb-renewal-after');
+    if (msbRenewalAfter) {
+      msbRenewalAfter.textContent = '$' + (80 + addonMonthlyTotal) + '/mo';
+    }
+  }
+
+  /* ── PROMO CODE ───────────────────────────────────────────────── */
+  var appliedCoupon  = null;
+  var discountAmount = 0;
+
+  function setPromoFeedback(type, msg) {
+    var fb   = document.getElementById('promo-feedback');
+    var icon = document.getElementById('promo-icon');
+    var text = document.getElementById('promo-msg');
+    fb.className = 'promo-feedback ' + type;
+    text.textContent = msg;
+    icon.innerHTML = type === 'ok'
+      ? '<polyline points="1,6 4,9 11,2"/>'
+      : '<line x1="1" y1="1" x2="11" y2="11"/><line x1="11" y1="1" x2="1" y2="11"/>';
+  }
+
+  function updateDueToday(discountDollars) {
+    var final    = Math.max(0, BASE_PRICE - discountDollars) + addonOneTimeTotal + addonMonthlyTotal;
+    var dollars  = Math.floor(final);
+    var cents    = Math.round((final - dollars) * 100);
+    var centsStr = cents === 0 ? '00' : (cents < 10 ? '0' + cents : '' + cents);
+    document.getElementById('due-today-fig').innerHTML =
+      '<sup style="font-size:0.6em;vertical-align:super;font-weight:700">$</sup>' +
+      dollars +
+      '<sup style="font-size:0.45em;vertical-align:super;font-weight:600">.' + centsStr + '</sup>';
+    document.getElementById('payBtn-lbl').innerHTML =
+      'Pay $' + (cents === 0 ? dollars : (dollars + '.' + centsStr)) + ' <span class="btn-tax">+ tax</span>';
+    // Sync mobile bar collapsed amount
+    var msbVal = document.getElementById('msb-amount-val');
+    if (msbVal) msbVal.textContent = cents === 0 ? dollars : (dollars + '.' + centsStr);
+    // Sync expanded total
+    var msbExpTotal = document.getElementById('msb-exp-total-val');
+    if (msbExpTotal) msbExpTotal.textContent = cents === 0 ? dollars : (dollars + '.' + centsStr);
+  }
+
+  function showDiscountRow(label, val) {
+    document.getElementById('promo-discount-label').textContent = label;
+    document.getElementById('promo-discount-val').textContent   = val;
+    document.getElementById('promo-discount-row').style.display = 'flex';
+    // sync drawer expanded panel
+    var msbRow = document.getElementById('msb-exp-discount-row');
+    var msbLbl = document.getElementById('msb-exp-discount-label');
+    var msbVal = document.getElementById('msb-exp-discount-val');
+    if (msbRow) { msbRow.style.display = 'flex'; }
+    if (msbLbl) msbLbl.textContent = label;
+    if (msbVal) msbVal.textContent = val;
+  }
+  function hideDiscountRow() {
+    document.getElementById('promo-discount-row').style.display = 'none';
+    var msbRow = document.getElementById('msb-exp-discount-row');
+    if (msbRow) msbRow.style.display = 'none';
+  }
+
+  function fmtMoney(n) {
+    var d = Math.floor(n), c = Math.round((n - d) * 100);
+    return c === 0 ? '$' + d : '$' + d + '.' + (c < 10 ? '0' + c : c);
+  }
+
+  function updateRenewalPrice(discountType, discountValue, durationType) {
+    var ids = ['renewal-price-pay','renewal-price-summary','renewal-price-terms','renewal-price-msb'];
+    var discounted;
+    var qualifier = '';
+    if (discountType === 'fixed_amount') {
+      discounted = Math.max(0, RENEWAL_PRICE - discountValue);
+    } else if (discountType === 'percentage') {
+      discounted = RENEWAL_PRICE * (1 - discountValue / 100);
+    } else {
+      resetRenewalPrice(); return;
+    }
+    if (durationType === 'one_time') { resetRenewalPrice(); return; }
+    if (durationType === 'limited_period') {
+      qualifier = '<span class="renewal-qualifier">(first ' + (window._couponPeriod || 'few') + ' months)</span>';
+    }
+    var html = '<strong class="renewal-orig">$' + RENEWAL_PRICE + ' / month</strong>' +
+               '<strong class="renewal-discounted">' + fmtMoney(discounted) + ' / month</strong>' + qualifier;
+    var termsHtml = '<s style="opacity:0.45;margin-right:3px;">$' + RENEWAL_PRICE + '/month</s>' +
+                    '<strong style="color:var(--green)">' + fmtMoney(discounted) + '/month</strong>';
+    ids.forEach(function(id) {
+      var el = document.getElementById(id); if (!el) return;
+      el.innerHTML = (id === 'renewal-price-terms') ? termsHtml : html;
+    });
+  }
+
+  function resetRenewalPrice() {
+    var ids = ['renewal-price-pay','renewal-price-summary','renewal-price-terms','renewal-price-msb'];
+    ids.forEach(function(id) {
+      var el = document.getElementById(id); if (!el) return;
+      if (id === 'renewal-price-terms') { el.innerHTML = '$80/month'; }
+      else if (id === 'renewal-price-msb') { el.innerHTML = '$60/mo for 24 months'; }
+      else { el.innerHTML = '$60 / month for 24 months'; }
+    });
+  }
+
+  window.applyPromo = function () {
+    var code = document.getElementById('f-promo').value.trim();
+    if (!code) { document.getElementById('f-promo').classList.add('err'); return; }
+    document.getElementById('f-promo').classList.remove('err');
+    var btn = document.getElementById('promoBtn');
+    btn.classList.add('loading'); btn.disabled = true;
+
+    fetch('/api/validate-coupon', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ coupon_id: code, plan_id: CB_PLAN_ID })
+    })
+    .then(function (res) { return res.json(); })
+    .then(function (data) {
+      btn.classList.remove('loading'); btn.disabled = false;
+      if (data.error || !data.valid) {
+        appliedCoupon = null; discountAmount = 0;
+        hideDiscountRow(); updateDueToday(0); resetRenewalPrice();
+        setPromoFeedback('bad', data.error || 'Invalid promo code.');
+        return;
+      }
+      appliedCoupon = data.coupon_id;
+      var durationType = data.duration_type || 'forever';
+      window._couponPeriod = data.period || '';
+      var applyOn     = data.apply_on || 'invoice_amount';
+      var addonIds    = [];
+      var planIds     = [];
+      var constraints = data.item_constraints || data.addon_constraints || [];
+      if (Array.isArray(constraints)) {
+        constraints.forEach(function(c) {
+          if (c.item_type === 'addon' || c.type === 'addon') {
+            (c.item_price_ids || c.ids || []).forEach(function(id) { addonIds.push(id); });
+          }
+          if (c.item_type === 'plan' || c.type === 'plan') {
+            (c.item_price_ids || c.ids || []).forEach(function(id) { planIds.push(id); });
+          }
+        });
+      }
+      (data.applicable_addons || []).forEach(function(id) { addonIds.push(id); });
+      var targetsDevice = applyOn === 'invoice_amount' ||
+        addonIds.some(function(id) { return id === DEVICE_ADDON_ID || id.indexOf('nighthawk') !== -1 || id.indexOf('m1') !== -1 || id.indexOf('device') !== -1; });
+      var targetsPlan = applyOn === 'invoice_amount' || planIds.length > 0 || (!targetsDevice && addonIds.length === 0);
+      if (applyOn === 'invoice_amount') { targetsDevice = true; targetsPlan = true; }
+      discountAmount = 0;
+      if (data.discount_type === 'fixed_amount') {
+        var rawDiscount = data.discount_amount / 100;
+        if (targetsDevice && !targetsPlan) {
+          discountAmount = rawDiscount;
+          showDiscountRow('Promo: ' + code, '−$' + rawDiscount.toFixed(2) + ' on device');
+          resetRenewalPrice();
+        } else if (targetsPlan && !targetsDevice) {
+          showDiscountRow('Promo: ' + code, '−$' + rawDiscount.toFixed(2) + '/mo on renewal');
+          updateRenewalPrice('fixed_amount', rawDiscount, durationType);
+        } else {
+          discountAmount = rawDiscount;
+          showDiscountRow('Promo: ' + code, '−$' + rawDiscount.toFixed(2));
+          updateRenewalPrice('fixed_amount', rawDiscount, durationType);
+        }
+      } else if (data.discount_type === 'percentage') {
+        var pct = data.discount_percent;
+        if (targetsDevice && !targetsPlan) {
+          discountAmount = (BASE_PRICE * pct) / 100;
+          showDiscountRow('Promo: ' + code + ' (' + pct + '% off device)', '−$' + discountAmount.toFixed(2));
+          resetRenewalPrice();
+        } else if (targetsPlan && !targetsDevice) {
+          var renewalDiscount = (RENEWAL_PRICE * pct) / 100;
+          showDiscountRow('Promo: ' + code + ' (' + pct + '% off renewal)', '−$' + renewalDiscount.toFixed(2) + '/mo');
+          updateRenewalPrice('percentage', pct, durationType);
+        } else {
+          discountAmount = (BASE_PRICE * pct) / 100;
+          showDiscountRow('Promo: ' + code + ' (' + pct + '% off)', '−$' + discountAmount.toFixed(2));
+          updateRenewalPrice('percentage', pct, durationType);
+        }
+      } else {
+        resetRenewalPrice();
+      }
+      updateDueToday(discountAmount);
+      setPromoFeedback('ok', data.description || 'Promo code applied!');
+    })
+    .catch(function () {
+      btn.classList.remove('loading'); btn.disabled = false;
+      setPromoFeedback('bad', 'Could not validate code — please try again.');
+    });
+  };
+
+  document.getElementById('f-promo').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') { e.preventDefault(); window.applyPromo(); }
+  });
+
+  /* ── AUTO-APPLY PREFILLED COUPON ─────────────────────────────── */
+  window.addEventListener('load', function () {
+    var promoInput = document.getElementById('f-promo');
+    if (promoInput && promoInput.value.trim()) {
+      window.applyPromo();
+    }
+  });
+
+  /* ── STEP 3: Pay ──────────────────────────────────────────────── */
+  window.handlePay = function () {
+    if (!cardComponent) { alert('Card fields still loading — please wait a moment.'); return; }
+    var cardName = document.getElementById('f-card-name').value.trim();
+    if (!cardName) { flagErr('f-card-name', null); return; }
+    var termsEl  = document.getElementById('accept-terms');
+    var termsErr = document.getElementById('terms-err');
+    if (!termsEl.checked) { termsErr.classList.add('show'); termsEl.focus(); return; }
+    termsErr.classList.remove('show');
+
+    var payBtn = document.getElementById('payBtn');
+    payBtn.classList.add('loading'); payBtn.disabled = true;
+
+    var contact = JSON.parse(sessionStorage.getItem('m4l_order') || '{}');
+
+    cardComponent.tokenize({ firstName: contact.first_name || '', lastName: contact.last_name || '' })
+    .then(function (data) {
+      return fetch(WORKER_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          token:            data.token,
+          plan_id:          CB_PLAN_ID,
+          sim_type:         'physical',
+          first_name:       contact.first_name,
+          last_name:        contact.last_name,
+          phone:            contact.phone,
+          email:            contact.email,
+          billing_address:  contact.billing,
+          shipping_address: contact.shipping,
+          coupon_id:        appliedCoupon || undefined,
+          addons:           Object.keys(selectedAddons)
+        })
+      });
+    })
+    .then(function (res) {
+      return res.json().then(function (body) {
+        if (!res.ok) throw new Error(body.error || 'Worker error');
+        return body;
+      });
+    })
+    .then(function () {
+      payBtn.classList.remove('loading'); payBtn.disabled = false;
+      window.location.href = CONFIRM;
+    })
+    .catch(function (err) {
+      console.error(err);
+      payBtn.classList.remove('loading'); payBtn.disabled = false;
+      alert('Payment failed — ' + (err.message || 'please check your card details and try again.'));
+    });
+  };
+
+  document.getElementById('accept-terms').addEventListener('change', function () {
+    if (this.checked) document.getElementById('terms-err').classList.remove('show');
+  });
+
+  /* ── COVERAGE MODAL ───────────────────────────────────────────── */
+  window.openCoverageModal = function () {
+    document.getElementById('coverageBackdrop').classList.add('open');
+    document.getElementById('coverageModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  };
+  window.closeCoverageModal = function () {
+    document.getElementById('coverageBackdrop').classList.remove('open');
+    document.getElementById('coverageModal').classList.remove('open');
+    document.body.style.overflow = '';
+  };
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeCoverageModal();
+  });
+
+})();
+</script>
+</body>
+</html>
