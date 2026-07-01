@@ -2572,27 +2572,84 @@
   });
 
   /* ── STEP 3: Pay ──────────────────────────────────────────────── */
+
+  // Guard: tracks whether a payment is currently in-flight.
+  // Prevents double-submission and ensures confirmation ONLY fires
+  // after a verified successful Chargebee subscription is created.
+  var paymentInFlight = false;
+
+  function resetPayBtn() {
+    paymentInFlight = false;
+    var payBtn = document.getElementById('payBtn');
+    payBtn.classList.remove('loading');
+    payBtn.disabled = false;
+  }
+
+  function showPayError(msg) {
+    resetPayBtn();
+    // Show inline error beneath the button instead of a bare alert
+    var errEl = document.getElementById('pay-error-msg');
+    if (!errEl) {
+      errEl = document.createElement('div');
+      errEl.id = 'pay-error-msg';
+      errEl.style.cssText = 'margin-top:10px;font-size:0.78rem;font-weight:600;color:var(--red);text-align:center;line-height:1.5;';
+      var payBtn = document.getElementById('payBtn');
+      payBtn.parentNode.insertBefore(errEl, payBtn.nextSibling);
+    }
+    errEl.textContent = msg;
+    errEl.style.display = 'block';
+  }
+
+  function clearPayError() {
+    var errEl = document.getElementById('pay-error-msg');
+    if (errEl) errEl.style.display = 'none';
+  }
+
   window.handlePay = function () {
-    if (!cardComponent) { alert('Card fields still loading — please wait a moment.'); return; }
+    // Hard guard: do nothing if a payment is already in-flight
+    if (paymentInFlight) return;
+
+    if (!cardComponent) {
+      showPayError('Card fields are still loading — please wait a moment and try again.');
+      return;
+    }
+
     var cardName = document.getElementById('f-card-name').value.trim();
     if (!cardName) { flagErr('f-card-name', null); return; }
+
     var termsEl  = document.getElementById('accept-terms');
     var termsErr = document.getElementById('terms-err');
     if (!termsEl.checked) { termsErr.classList.add('show'); termsEl.focus(); return; }
     termsErr.classList.remove('show');
+    clearPayError();
 
+    // Lock the button immediately — before any async work
+    paymentInFlight = true;
     var payBtn = document.getElementById('payBtn');
-    payBtn.classList.add('loading'); payBtn.disabled = true;
+    payBtn.classList.add('loading');
+    payBtn.disabled = true;
 
     var contact = JSON.parse(sessionStorage.getItem('m4l_order') || '{}');
 
+    // Validate we actually have the required contact/address data before charging
+    if (!contact.first_name || !contact.last_name || !contact.email || !contact.billing) {
+      showPayError('Your session has expired. Please go back to step 1 and re-enter your details.');
+      return;
+    }
+
+    // Step A: Tokenize card with Chargebee
     cardComponent.tokenize({ firstName: contact.first_name || '', lastName: contact.last_name || '' })
-    .then(function (data) {
+    .then(function (tokenData) {
+      if (!tokenData || !tokenData.token) {
+        throw new Error('Card tokenization failed — no token returned. Please check your card details.');
+      }
+
+      // Step B: Send token + order data to our Cloudflare Worker
       return fetch(WORKER_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          token:            data.token,
+          token:            tokenData.token,
           plan_id:          CB_PLAN_ID,
           sim_type:         'physical',
           first_name:       contact.first_name,
@@ -2606,21 +2663,45 @@
       });
     })
     .then(function (res) {
+      // Always parse the JSON body first, regardless of status
       return res.json().then(function (body) {
-        if (!res.ok) throw new Error(body.error || 'Worker error');
+        // Step C: Verify the HTTP status is 2xx
+        if (!res.ok) {
+          // Worker returned an error — surface its message
+          throw new Error(body.error || body.message || ('Server error ' + res.status + '. Please try again.'));
+        }
+        // Step D: Verify the body contains proof of a created subscription.
+        // We require either a subscription_id or customer_id in the response —
+        // this is what was missing before, causing the confirmation to fire
+        // even when the order didn't actually land in Chargebee.
+        var hasSubscription = body.subscription_id || body.subscriptionId ||
+          (body.subscription && body.subscription.id) ||
+          body.customer_id || body.customerId ||
+          (body.customer && body.customer.id);
+        if (!hasSubscription) {
+          // Response was 2xx but contained no Chargebee subscription proof —
+          // do NOT redirect to confirmation. Treat as a failure.
+          throw new Error('Order could not be confirmed. Please contact support if your card was charged.');
+        }
         return body;
       });
     })
-    .then(function () {
-      payBtn.classList.remove('loading'); payBtn.disabled = false;
+    .then(function (body) {
+      // ✅ Only reach here after verified success with a real subscription ID
+      // Clear session data so a back-button can't re-submit
+      try { sessionStorage.removeItem('m4l_order'); } catch(e) {}
+      // Redirect to confirmation
       window.location.href = CONFIRM;
     })
     .catch(function (err) {
-      console.error(err);
-      payBtn.classList.remove('loading'); payBtn.disabled = false;
-      alert('Payment failed — ' + (err.message || 'please check your card details and try again.'));
+      console.error('[M4L Checkout] Payment error:', err);
+      var msg = err && err.message ? err.message : 'Payment failed — please check your card details and try again.';
+      showPayError(msg);
     });
   };
+
+  // Clear pay error when user interacts with card fields or card name
+  document.getElementById('f-card-name').addEventListener('input', clearPayError);
 
   document.getElementById('accept-terms').addEventListener('change', function () {
     if (this.checked) document.getElementById('terms-err').classList.remove('show');
