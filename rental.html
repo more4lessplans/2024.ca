@@ -6,6 +6,51 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="robots" content="noindex, nofollow">
 
+  <!-- ═══════════════════════════════════════════════════════════
+       GOOGLE ADS / GA4 TRACKING
+       Conversion ID AW-10988139493 is filled in below.
+       If you also run GA4, uncomment the second gtag('config', ...) line
+       and replace G-XXXXXXXXXX with your GA4 Measurement ID.
+  ═══════════════════════════════════════════════════════════ -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-10988139493"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'AW-10988139493');
+    // gtag('config', 'G-XXXXXXXXXX');
+  </script>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       CAMPAIGN ATTRIBUTION CAPTURE
+       Grabs utm_source/medium/campaign/term/content and gclid from the
+       landing URL (the values Google Ads appends when someone clicks your
+       ad) and stores them for the length of the session, so they can be
+       attached to the lead forms below and to every tracked event.
+  ═══════════════════════════════════════════════════════════ -->
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      var keys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid'];
+      var attribution = {};
+      keys.forEach(function (k) {
+        var v = params.get(k);
+        if (v) {
+          sessionStorage.setItem('m4l_' + k, v);
+          attribution[k] = v;
+        } else {
+          var existing = sessionStorage.getItem('m4l_' + k);
+          if (existing) attribution[k] = existing;
+        }
+      });
+      if (!sessionStorage.getItem('m4l_landing_page')) {
+        sessionStorage.setItem('m4l_landing_page', window.location.href);
+      }
+      attribution.landing_page = sessionStorage.getItem('m4l_landing_page');
+      window.m4lAttribution = attribution;
+    })();
+  </script>
+
   <!-- ═══ Primary SEO ═══ -->
 <title>Fast, Unlimited Wireless Internet | More4Less</title>
   <meta name="description" content="Get fast, reliable internet anywhere you need it. More4Less offers unlimited data with a free device rental, zero hidden fees, and absolutely no contracts. Just $80/month!">
@@ -1200,6 +1245,19 @@
           <input type="text" name="q5_address[state]" id="jf_state">
           <input type="text" name="q5_address[postal]" id="jf_postal">
         </div>
+
+        <!-- Campaign attribution — NOTE: add matching fields named utm_source,
+             utm_medium, utm_campaign, utm_term, utm_content, gclid, landing_page
+             in the JotForm builder for these to actually save on JotForm's side. -->
+        <div style="display:none;">
+          <input type="text" name="utm_source"   id="jf_utm_source">
+          <input type="text" name="utm_medium"   id="jf_utm_medium">
+          <input type="text" name="utm_campaign" id="jf_utm_campaign">
+          <input type="text" name="utm_term"     id="jf_utm_term">
+          <input type="text" name="utm_content"  id="jf_utm_content">
+          <input type="text" name="gclid"        id="jf_gclid">
+          <input type="text" name="landing_page" id="jf_landing_page">
+        </div>
       </form>
 
       <div id="coverageResult" class="coverage-status"></div>
@@ -1563,6 +1621,12 @@
           <input type="hidden" name="q5_address[city]"       id="speedCityHidden">
           <input type="hidden" name="q5_address[state]"      id="speedStateHidden">
           <input type="hidden" name="q5_address[postal]"     id="speedPostalHidden">
+          <input type="hidden" name="utm_source"   id="speedUtmSource">
+          <input type="hidden" name="utm_medium"   id="speedUtmMedium">
+          <input type="hidden" name="utm_campaign" id="speedUtmCampaign">
+          <input type="hidden" name="utm_term"     id="speedUtmTerm">
+          <input type="hidden" name="utm_content"  id="speedUtmContent">
+          <input type="hidden" name="gclid"        id="speedGclid">
 
           <div class="crp-speed-fields">
             <input type="text"  id="speedName"  placeholder="Your full name" autocomplete="name">
@@ -1650,6 +1714,22 @@
     });
   });
 
+  /* ── Fill hidden attribution fields (utm_*, gclid) on both lead forms ── */
+  function fillAttributionFields() {
+    var a = window.m4lAttribution || {};
+    var map = {
+      jf_utm_source: a.utm_source, jf_utm_medium: a.utm_medium, jf_utm_campaign: a.utm_campaign,
+      jf_utm_term: a.utm_term, jf_utm_content: a.utm_content, jf_gclid: a.gclid, jf_landing_page: a.landing_page,
+      speedUtmSource: a.utm_source, speedUtmMedium: a.utm_medium, speedUtmCampaign: a.utm_campaign,
+      speedUtmTerm: a.utm_term, speedUtmContent: a.utm_content, speedGclid: a.gclid
+    };
+    Object.keys(map).forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el && map[id]) el.value = map[id];
+    });
+  }
+  fillAttributionFields();
+
   /* ── Coverage Checker / Lead Capture ── */
   var addressInput  = document.getElementById('addressInput');
   var emailInput    = document.getElementById('emailInput');
@@ -1709,6 +1789,19 @@
   });
   crpOrderBtn.addEventListener('click', function () {
     hideResultPanel();
+  });
+
+  /* ── Track clicks through to checkout on the pricing plan CTAs ── */
+  document.querySelectorAll('.btn-cta').forEach(function (link) {
+    link.addEventListener('click', function () {
+      if (typeof gtag !== 'function') return;
+      var plan = link.getAttribute('href').indexOf('essential') !== -1 ? 'Mobile Essential' : 'Home & Office';
+      gtag('event', 'begin_checkout', {
+        currency: 'CAD',
+        value: 80.00,
+        items: [{ item_name: plan, price: 80.00, quantity: 1 }]
+      });
+    });
   });
 
   /* Google Places autocomplete */
@@ -1778,6 +1871,10 @@
     }
     emailModule.style.display = 'block';
     emailInput.focus();
+
+    if (typeof gtag === 'function') {
+      gtag('event', 'check_coverage', { event_category: 'engagement', event_label: 'address_validated' });
+    }
   });
 
   /* Submit button — validate email then submit to JotForm */
@@ -1803,6 +1900,25 @@
           showResultPanel(addressInput.value);
           submitBtn.textContent = '✓ Available';
           submitBtn.style.background = 'var(--green)';
+
+          /* ── Primary conversion: coverage-qualified lead ──
+             TODO: replace the XXXXXXXXXXXXXXXXXXXX label below with the
+             label from Google Ads → Conversions → your "Lead form submit"
+             conversion action's tag setup (Conversion ID already filled in). */
+          if (typeof gtag === 'function') {
+            gtag('set', 'user_data', { email: email });
+            gtag('event', 'generate_lead', {
+              event_category: 'lead',
+              event_label: 'coverage_confirmed',
+              value: 1.0,
+              currency: 'CAD'
+            });
+            gtag('event', 'conversion', {
+              send_to: 'AW-10988139493/XXXXXXXXXXXXXXXXXXXX',
+              value: 1.0,
+              currency: 'CAD'
+            });
+          }
         } else {
           showStatus('We\'re currently available in Canada only.', 'status-unavailable');
           submitBtn.textContent = 'See Results';
@@ -1887,6 +2003,16 @@
       speedSubmitBtn.style.display = 'none';
       speedConfirm.style.display = 'block';
     }, 400);
+
+    /* ── Secondary conversion: speed-estimate request ──
+       TODO: if you want this tracked as its own Google Ads conversion
+       action, replace the send_to value below with that action's ID/label. */
+    if (typeof gtag === 'function') {
+      gtag('event', 'speed_estimate_request', {
+        event_category: 'lead', event_label: 'speed_estimate', value: 0.5, currency: 'CAD'
+      });
+      // gtag('event', 'conversion', { send_to: 'AW-10988139493/YYYYYYYYYYYYYYYYYYYY' });
+    }
   });
 
 })();
