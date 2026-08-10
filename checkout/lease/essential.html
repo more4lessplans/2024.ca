@@ -2657,8 +2657,26 @@
         window.location.href = CONFIRM;
       }
       if (typeof gtag === 'function') {
+        /* Enhanced conversions: hashed automatically by gtag.js before it leaves the browser */
+        var ecPhoneDigits = (contact.phone || '').replace(/\D/g, '');
+        gtag('set', 'user_data', {
+          'email': contact.email || '',
+          'phone_number': ecPhoneDigits ? ('+1' + ecPhoneDigits) : '',
+          'address': {
+            'first_name': contact.first_name || '',
+            'last_name':  contact.last_name || '',
+            'street':     contact.billing ? contact.billing.line1 : '',
+            'city':       contact.billing ? contact.billing.city : '',
+            'region':     contact.billing ? contact.billing.state_code : '',
+            'postal_code':contact.billing ? contact.billing.zip : '',
+            'country':    contact.billing ? contact.billing.country : ''
+          }
+        });
+
         gtag('event', 'conversion', {
           'send_to': 'AW-10988139493/6SK5CKTatN8cEOXnxvco',
+          'value': 80.00,
+          'currency': 'CAD',
           'transaction_id': (body && (body.id || body.subscription_id || body.order_id)) || '',
           'event_callback': goToConfirm
         });
