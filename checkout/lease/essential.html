@@ -4,13 +4,24 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-10988139493"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'AW-10988139493');
+  </script>
+
   <title>Secure Checkout — Nighthawk M1 | More4Less</title>
   <meta name="description" content="Secure checkout for the Netgear Nighthawk M1 unlimited wireless internet package. No contract. First month included.">
 
-  <link rel="apple-touch-icon" sizes="180x180" href="../assets/img/favicons/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicons/favicon-32x32.png">
-  <link rel="shortcut icon" href="../assets/img/favicons/favicon.ico">
-  <link rel="manifest" href="../assets/img/favicons/site.webmanifest">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon-32x32.png">
+  <link rel="shortcut icon" href="assets/img/favicons/favicon.ico">
+  <link rel="manifest" href="assets/img/favicons/site.webmanifest">
   <meta name="theme-color" content="#2E2F33">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -523,20 +534,6 @@
     .field input::placeholder { color: var(--ink-4); }
     .field input:hover:not(:focus) { border-color: #d0d0d6; }
 
-    /* Custom dropdown arrow for select */
-    .field select {
-      padding-right: 36px;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpolyline points='1,1 6,7 11,1' fill='none' stroke='%2387878c' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 12px center;
-      cursor: pointer;
-    }
-    .field select:hover:not(:focus) { border-color: #d0d0d6; }
-    .field select.err {
-      border-color: var(--red);
-      box-shadow: 0 0 0 3px var(--red-glow);
-    }
-
     .field input:focus, .field select:focus {
       border-color: var(--ink);
       box-shadow: 0 0 0 3px rgba(10,10,11,0.06);
@@ -559,6 +556,35 @@
       color: var(--ink);
       cursor: text;
     }
+
+    .field select {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--bg-input);
+      font-family: 'Figtree', sans-serif;
+      font-size: 0.88rem;
+      color: var(--ink);
+      outline: none;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpolyline points='1,1 6,7 11,1' fill='none' stroke='%2387878c' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+      cursor: pointer;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .field select:focus {
+      border-color: var(--ink);
+      box-shadow: 0 0 0 3px rgba(10,10,11,0.06);
+    }
+    .field select.err {
+      border-color: var(--red);
+      box-shadow: 0 0 0 3px var(--red-glow);
+    }
+    .field select option { color: var(--ink); }
 
     .field-err {
       font-size: 0.7rem;
@@ -1319,7 +1345,7 @@
 ═══════════════════════════════════════════════════════════════════ -->
 <nav class="nav">
   <div class="nav-inner">
-    <a class="nav-logo" href="/"><img src="../assets/img/logos/logo.png" alt="More4Less"></a>
+    <a class="nav-logo" href="/"><img src="assets/img/logos/logo.png" alt="More4Less"></a>
 
     <div class="nav-steps visible" id="navSteps">
       <div class="nav-step active" id="st-1">
@@ -1420,7 +1446,7 @@
 
             <div class="field" id="fg-phone">
               <label for="f-phone">Phone Number</label>
-              <input type="tel" id="f-phone" placeholder="(416) 555-0123" autocomplete="tel" maxlength="14">
+              <input type="tel" id="f-phone" placeholder="(416) 555-0123" autocomplete="tel">
               <div class="field-err">Please enter a valid 10-digit Canadian phone number.</div>
             </div>
           </div>
@@ -1506,20 +1532,20 @@
               <div class="field" id="fg-bill-province">
                 <label for="f-bill-province">Province</label>
                 <select id="f-bill-province">
-                  <option value="">— Select —</option>
-                  <option value="AB">Alberta</option>
-                  <option value="BC">British Columbia</option>
-                  <option value="MB">Manitoba</option>
-                  <option value="NB">New Brunswick</option>
-                  <option value="NL">Newfoundland and Labrador</option>
-                  <option value="NS">Nova Scotia</option>
-                  <option value="NT">Northwest Territories</option>
-                  <option value="NU">Nunavut</option>
-                  <option value="ON">Ontario</option>
-                  <option value="PE">Prince Edward Island</option>
-                  <option value="QC">Quebec</option>
-                  <option value="SK">Saskatchewan</option>
-                  <option value="YT">Yukon</option>
+                  <option value="">Select…</option>
+                  <option value="AB">AB — Alberta</option>
+                  <option value="BC">BC — British Columbia</option>
+                  <option value="MB">MB — Manitoba</option>
+                  <option value="NB">NB — New Brunswick</option>
+                  <option value="NL">NL — Newfoundland &amp; Labrador</option>
+                  <option value="NS">NS — Nova Scotia</option>
+                  <option value="NT">NT — Northwest Territories</option>
+                  <option value="NU">NU — Nunavut</option>
+                  <option value="ON">ON — Ontario</option>
+                  <option value="PE">PE — Prince Edward Island</option>
+                  <option value="QC">QC — Quebec</option>
+                  <option value="SK">SK — Saskatchewan</option>
+                  <option value="YT">YT — Yukon</option>
                 </select>
                 <div class="field-err">Required.</div>
               </div>
@@ -1527,7 +1553,7 @@
             <div class="field-row">
               <div class="field" id="fg-bill-postal">
                 <label for="f-bill-postal">Postal Code</label>
-                <input type="text" id="f-bill-postal" placeholder="M5V 2T6" maxlength="7" autocomplete="postal-code" spellcheck="false">
+                <input type="text" id="f-bill-postal" placeholder="M5V 2T6" maxlength="7">
                 <div class="field-err">Enter a valid Canadian postal code (e.g. M5V 2T6).</div>
               </div>
               <div class="field">
@@ -1565,20 +1591,20 @@
                 <div class="field" id="fg-ship-province">
                   <label for="f-ship-province">Province</label>
                   <select id="f-ship-province">
-                    <option value="">— Select —</option>
-                    <option value="AB">Alberta</option>
-                    <option value="BC">British Columbia</option>
-                    <option value="MB">Manitoba</option>
-                    <option value="NB">New Brunswick</option>
-                    <option value="NL">Newfoundland and Labrador</option>
-                    <option value="NS">Nova Scotia</option>
-                    <option value="NT">Northwest Territories</option>
-                    <option value="NU">Nunavut</option>
-                    <option value="ON">Ontario</option>
-                    <option value="PE">Prince Edward Island</option>
-                    <option value="QC">Quebec</option>
-                    <option value="SK">Saskatchewan</option>
-                    <option value="YT">Yukon</option>
+                    <option value="">Select…</option>
+                    <option value="AB">AB — Alberta</option>
+                    <option value="BC">BC — British Columbia</option>
+                    <option value="MB">MB — Manitoba</option>
+                    <option value="NB">NB — New Brunswick</option>
+                    <option value="NL">NL — Newfoundland &amp; Labrador</option>
+                    <option value="NS">NS — Nova Scotia</option>
+                    <option value="NT">NT — Northwest Territories</option>
+                    <option value="NU">NU — Nunavut</option>
+                    <option value="ON">ON — Ontario</option>
+                    <option value="PE">PE — Prince Edward Island</option>
+                    <option value="QC">QC — Quebec</option>
+                    <option value="SK">SK — Saskatchewan</option>
+                    <option value="YT">YT — Yukon</option>
                   </select>
                   <div class="field-err">Required.</div>
                 </div>
@@ -1586,7 +1612,7 @@
               <div class="field-row">
                 <div class="field" id="fg-ship-postal">
                   <label for="f-ship-postal">Postal Code</label>
-                  <input type="text" id="f-ship-postal" placeholder="M5V 2T6" maxlength="7" autocomplete="postal-code" spellcheck="false">
+                  <input type="text" id="f-ship-postal" placeholder="M5V 2T6" maxlength="7">
                   <div class="field-err">Enter a valid Canadian postal code (e.g. M5V 2T6).</div>
                 </div>
                 <div class="field">
@@ -1695,11 +1721,11 @@
               <div class="mini-summary-label">Order Summary</div>
               <div class="mini-row">
                 <span>NETGEAR Nighthawk M1</span>
-                <strong style="color:var(--green)">Free Rental</strong>
+                <strong>$199.00</strong>
               </div>
               <div class="mini-row">
                 <span>First Month's Internet</span>
-                <strong>$80.00</strong>
+                <strong style="color:var(--green)">Included</strong>
               </div>
               <div class="mini-row">
                 <span>Activation & Shipping</span>
@@ -1713,7 +1739,7 @@
                 <span>Due Today</span>
                 <span style="display:flex;align-items:baseline;gap:4px;">
                   <span id="due-today-fig">
-                    <sup style="font-size:0.6em;vertical-align:super;font-weight:700">$</sup>80<sup style="font-size:0.45em;vertical-align:super;font-weight:600">.00</sup>
+                    <sup style="font-size:0.6em;vertical-align:super;font-weight:700">$</sup>199<sup style="font-size:0.45em;vertical-align:super;font-weight:600">.00</sup>
                   </span>
                   <span class="price-tax-note">+ tax</span>
                 </span>
@@ -1725,7 +1751,7 @@
                   <polyline points="9.5,1.5 11.5,4.2 8.5,4.8"/>
                   <polyline points="6.5,14.5 4.5,11.8 7.5,11.2"/>
                 </svg>
-                Then <span id="renewal-price-pay" style="margin:0 3px;font-weight:600;color:var(--ink-2)">$80 / month</span> — no contract, cancel anytime.
+                Then <span id="renewal-price-pay" style="margin:0 3px;font-weight:600;color:var(--ink-2)">$110 / month</span> — no contract, cancel anytime.
               </div>
             </div>
           </div>
@@ -1736,13 +1762,13 @@
               <input type="checkbox" id="accept-terms">
               <label for="accept-terms">
                 I agree to the <a href="/terms" target="_blank">Terms of Service</a> and
-                <a href="/privacy" target="_blank">Privacy Policy</a>. My subscription renews monthly at <span id="renewal-price-terms">$80/month</span> and I can cancel anytime.
+                <a href="/privacy" target="_blank">Privacy Policy</a>. My subscription renews monthly at <span id="renewal-price-terms">$110/month</span> and I can cancel anytime.
               </label>
             </div>
             <div class="terms-err" id="terms-err">You must accept the terms to continue.</div>
 
             <button class="btn-primary red" id="payBtn" onclick="handlePay()" style="margin-top:14px;">
-              <span class="btn-lbl" id="payBtn-lbl">Pay $80 <span class="btn-tax">+ tax</span></span>
+              <span class="btn-lbl" id="payBtn-lbl">Pay $199 <span class="btn-tax">+ tax</span></span>
               <div class="btn-spin"></div>
               <svg class="btn-arr" viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/>
@@ -1765,7 +1791,7 @@
 
         <div class="summary-product">
           <div class="summary-product-img-wrap">
-            <img src="../assets/img/products/mr1100.png" alt="Netgear Nighthawk M1" class="summary-product-img">
+            <img src="assets/img/products/mr1100.png" alt="Netgear Nighthawk M1" class="summary-product-img">
           </div>
           <div>
             <div class="summary-product-eyebrow">Your Order</div>
@@ -1781,14 +1807,14 @@
               <strong>NETGEAR Nighthawk M1</strong>
               <small>Portable Gigabit LTE Wi-Fi Router</small>
             </div>
-            <span class="sr-val free">Free Rental</span>
+            <span class="sr-val">$199</span>
           </div>
           <div class="summary-row">
             <div class="sr-label">
-              <strong>Unlimited Data — First Month of Service</strong>
+              <strong>Unlimited Data — First Month</strong>
               <small>Ready to use out of the box</small>
             </div>
-            <span class="sr-val">$80</span>
+            <span class="sr-val free">Included</span>
           </div>
           <div class="summary-row">
             <span class="sr-label">Activation</span>
@@ -1807,10 +1833,10 @@
         <div class="summary-total-block">
           <div>
             <div class="summary-total-label">Due Today</div>
-            <div class="summary-total-note">Device rental + first month of service</div>
+            <div class="summary-total-note">Device + first month included</div>
           </div>
           <div>
-            <div class="summary-total-fig"><sup>$</sup>80</div>
+            <div class="summary-total-fig"><sup>$</sup>199</div>
             <div class="summary-total-tax">+ applicable tax</div>
           </div>
         </div>
@@ -1822,7 +1848,7 @@
             <polyline points="9.5,1.5 11.5,4.2 8.5,4.8"/>
             <polyline points="6.5,14.5 4.5,11.8 7.5,11.2"/>
           </svg>
-          <p>After the first month, renews at <strong><span id="renewal-price-summary">$80 / month</span></strong>. No contract — cancel anytime from your account portal.</p>
+          <p>After the first month, renews at <strong><span id="renewal-price-summary">$110 / month</span></strong>. No contract — cancel anytime from your account portal.</p>
         </div>
 
         <div class="summary-features-label">Everything Included</div>
@@ -1896,7 +1922,7 @@
     <div class="msb-collapsed" id="msbCollapsed">
       <div class="msb-product">
         <div class="msb-img">
-          <img src="../assets/img/products/mr1100.png" alt="Nighthawk M1">
+          <img src="assets/img/products/mr1100.png" alt="Nighthawk M1">
         </div>
         <div>
           <div class="msb-name">Nighthawk M1</div>
@@ -1904,7 +1930,7 @@
         </div>
       </div>
       <div class="msb-price">
-        <div class="msb-amount"><sup>$</sup><span id="msb-amount-val">80</span> <span class="msb-tax-inline">+ tax</span></div>
+        <div class="msb-amount"><sup>$</sup><span id="msb-amount-val">199</span> <span class="msb-tax-inline">+ tax</span></div>
         <div class="msb-tax">due today</div>
       </div>
       <button class="msb-chevron" id="msbChevron" aria-label="Show order details">
@@ -1919,11 +1945,11 @@
       <div class="msb-exp-rows">
         <div class="msb-exp-row">
           <span>NETGEAR Nighthawk M1</span>
-          <strong style="color:var(--green)">Free Rental</strong>
+          <strong>$199</strong>
         </div>
         <div class="msb-exp-row">
           <span>First Month's Internet</span>
-          <strong>$80</strong>
+          <strong class="free">Included</strong>
         </div>
         <div class="msb-exp-row">
           <span>Activation & Shipping</span>
@@ -1935,7 +1961,7 @@
         </div>
         <div class="msb-exp-row msb-exp-total">
           <span>Due Today</span>
-          <strong>$<span id="msb-exp-total-val">80</span> + tax</strong>
+          <strong>$<span id="msb-exp-total-val">199</span> + tax</strong>
         </div>
       </div>
       <div class="msb-exp-renewal">
@@ -1945,7 +1971,7 @@
           <polyline points="9.5,1.5 11.5,4.2 8.5,4.8"/>
           <polyline points="6.5,14.5 4.5,11.8 7.5,11.2"/>
         </svg>
-        <span>Renews at <strong>$80/mo</strong> after the first month. Cancel anytime.</span>
+        <span>Renews at <strong>$110/mo</strong> after the first month. Cancel anytime.</span>
       </div>
       <div class="msb-exp-features">
         <div class="msb-exp-feat"><span class="msb-feat-check">✓</span> Truly Unlimited Data — No Caps</div>
@@ -1966,12 +1992,12 @@
   'use strict';
 
   var CB_SITE         = 'more4lessplans';
-  var CB_PLAN_ID      = 'gta-lease';
+  var CB_PLAN_ID      = 'wireless-internet-m1';
   var DEVICE_ADDON_ID = 'nighthawk-m1';
   var WORKER_URL      = '/api/checkout-embedded';
   var CONFIRM         = '/lease-confirmed';
-  var BASE_PRICE      = 80;
-  var RENEWAL_PRICE   = 80;
+  var BASE_PRICE      = 199;
+  var RENEWAL_PRICE   = 110;
 
   var cbInstance = Chargebee.init({
     site: CB_SITE,
@@ -2177,7 +2203,6 @@
 
   window.setStep = setStep;
 
-  /* ── VALIDATION HELPERS ───────────────────────────────────────── */
   function clearErrors() {
     document.querySelectorAll('.field.has-err').forEach(function (el) { el.classList.remove('has-err'); });
     document.querySelectorAll('input.err, select.err').forEach(function (el) { el.classList.remove('err'); });
@@ -2190,57 +2215,74 @@
     if (g) g.classList.add('has-err');
   }
 
-  /* Canadian phone: exactly 10 digits */
-  function isPhone(v) {
-    return v.replace(/\D/g, '').length === 10;
+  /* Phone: require exactly 10 digits, format as (NXX) NXX-XXXX */
+  function formatPhone(raw) {
+    var digits = raw.replace(/\D/g, '').slice(0, 10);
+    if (digits.length <= 3) return digits.length ? '(' + digits : '';
+    if (digits.length <= 6) return '(' + digits.slice(0,3) + ') ' + digits.slice(3);
+    return '(' + digits.slice(0,3) + ') ' + digits.slice(3,6) + '-' + digits.slice(6);
   }
+  function isPhone(v) { return v.replace(/\D/g,'').length === 10; }
 
-  /* Canadian postal code: A1A 1A1 or A1A1A1 */
-  function isPostal(v) {
-    return /^[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTVWXYZ]\s?\d[ABCEGHJ-NPRSTVWXYZ]\d$/i.test(v.trim());
+  /* Postal code: auto-format A1A 1A1, validate regex */
+  var POSTAL_RE = /^[A-Za-z]\d[A-Za-z] \d[A-Za-z]\d$/;
+  function formatPostal(raw) {
+    var clean = raw.replace(/\s/g,'').toUpperCase().slice(0,6);
+    if (clean.length <= 3) return clean;
+    return clean.slice(0,3) + ' ' + clean.slice(3);
   }
+  function isPostal(v) { return POSTAL_RE.test(v); }
 
   function isEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
 
-  /* Phone: auto-format as (416) 555-0123 */
-  var phoneEl = document.getElementById('f-phone');
-  if (phoneEl) {
-    phoneEl.addEventListener('input', function () {
-      var digits = this.value.replace(/\D/g, '').slice(0, 10);
-      var fmt = '';
-      if (digits.length === 0)      fmt = '';
-      else if (digits.length <= 3)  fmt = '(' + digits;
-      else if (digits.length <= 6)  fmt = '(' + digits.slice(0,3) + ') ' + digits.slice(3);
-      else                           fmt = '(' + digits.slice(0,3) + ') ' + digits.slice(3,6) + '-' + digits.slice(6);
-      this.value = fmt;
+  /* Live phone formatting */
+  (function () {
+    var ph = document.getElementById('f-phone');
+    if (!ph) return;
+    ph.addEventListener('input', function () {
+      var pos = this.selectionStart;
+      var prev = this.value;
+      var formatted = formatPhone(this.value);
+      this.value = formatted;
+      // Adjust caret: if we added chars before caret, nudge it
+      var diff = formatted.length - prev.length;
+      try { this.setSelectionRange(pos + diff, pos + diff); } catch(e){}
       this.classList.remove('err');
       var p = this.closest('.field'); if (p) p.classList.remove('has-err');
     });
-  }
+  })();
 
-  /* Postal: auto-uppercase and insert space */
+  /* Live postal formatting for billing & shipping */
   ['f-bill-postal','f-ship-postal'].forEach(function (id) {
     var el = document.getElementById(id); if (!el) return;
     el.addEventListener('input', function () {
-      var v = this.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
-      if (v.length > 3) v = v.slice(0,3) + ' ' + v.slice(3,6);
-      this.value = v;
+      var pos = this.selectionStart;
+      var prev = this.value;
+      this.value = formatPostal(this.value);
+      var diff = this.value.length - prev.length;
+      try { this.setSelectionRange(pos + diff, pos + diff); } catch(e){}
       this.classList.remove('err');
       var p = this.closest('.field'); if (p) p.classList.remove('has-err');
     });
   });
 
-  /* Clear errors on input/change for all other fields */
-  ['f-first','f-last','f-email','f-bill-street','f-bill-city','f-bill-province',
-   'f-ship-street','f-ship-city','f-ship-province'].forEach(function (id) {
+  /* Clear-error listeners */
+  ['f-first','f-last','f-email'].forEach(function (id) {
     var el = document.getElementById(id); if (!el) return;
-    el.addEventListener(el.tagName === 'SELECT' ? 'change' : 'input', function () {
+    el.addEventListener('input', function () {
+      this.classList.remove('err');
+      var p = this.closest('.field'); if (p) p.classList.remove('has-err');
+    });
+  });
+  ['f-bill-province','f-ship-province'].forEach(function (id) {
+    var el = document.getElementById(id); if (!el) return;
+    el.addEventListener('change', function () {
       this.classList.remove('err');
       var p = this.closest('.field'); if (p) p.classList.remove('has-err');
     });
   });
 
-  /* ── STEP 1: Contact ──────────────────────────────────────────── */
+
   function collectContact() {
     clearErrors();
     var first = document.getElementById('f-first').value.trim();
@@ -2253,7 +2295,9 @@
     if (!isPhone(phone)) { flagErr('f-phone', 'fg-phone'); ok = false; }
     if (!isEmail(email)) { flagErr('f-email', 'fg-email'); ok = false; }
     if (!ok) { var f = document.querySelector('.field.has-err input'); if (f) f.focus(); return null; }
-    return { plan_id: CB_PLAN_ID, sim_type: 'physical', first_name: first, last_name: last, phone: phone, email: email };
+    // Store phone as digits-only for the worker
+    var phoneDigits = phone.replace(/\D/g,'');
+    return { plan_id: CB_PLAN_ID, sim_type: 'physical', first_name: first, last_name: last, phone: phoneDigits, email: email };
   }
 
   window.handleStep1 = function () {
@@ -2277,9 +2321,7 @@
       if (isBilling) billPlaceSelected = false;
       else           shipPlaceSelected = false;
       document.getElementById(cityId).value     = '';
-      var provEl = document.getElementById(provinceId);
-      if (provEl.tagName === 'SELECT') provEl.value = '';
-      else provEl.value = '';
+      document.getElementById(provinceId).value = '';
       document.getElementById(postalId).value   = '';
     });
     ac.addListener('place_changed', function () {
@@ -2296,17 +2338,16 @@
       });
       input.value = (streetNumber + ' ' + route).trim();
       document.getElementById(cityId).value = city;
-      // Set province — works for both select and input
-      var provEl = document.getElementById(provinceId);
-      provEl.value = province;
-      // Auto-format postal from Places (already A1A 1A1 format)
-      var postalClean = postal.toUpperCase().replace(/[^A-Z0-9]/g, '');
-      document.getElementById(postalId).value = postalClean.length > 3
-        ? postalClean.slice(0,3) + ' ' + postalClean.slice(3,6)
-        : postalClean;
+      // Province is now a <select> — set by value (2-letter code)
+      var provSel = document.getElementById(provinceId);
+      if (provSel) provSel.value = province;
+      // Postal: format as A1A 1A1
+      document.getElementById(postalId).value = formatPostal(postal);
       input.classList.remove('err');
       var fg = document.getElementById(inputId.replace('f-', 'fg-'));
       if (fg) fg.classList.remove('has-err');
+      if (provSel) { provSel.classList.remove('err'); var pfg = provSel.closest('.field'); if (pfg) pfg.classList.remove('has-err'); }
+      var posEl = document.getElementById(postalId); if (posEl) { posEl.classList.remove('err'); var pgfg = posEl.closest('.field'); if (pgfg) pgfg.classList.remove('has-err'); }
       if (isBilling) billPlaceSelected = true;
       else           shipPlaceSelected = true;
     });
@@ -2333,10 +2374,10 @@
     var billCity     = document.getElementById('f-bill-city').value.trim();
     var billProvince = document.getElementById('f-bill-province').value.trim();
     var billPostal   = document.getElementById('f-bill-postal').value.trim();
-    if (!billStreet)            { flagErr('f-bill-street',   'fg-bill-street');   ok = false; }
-    if (!billCity)              { flagErr('f-bill-city',     'fg-bill-city');     ok = false; }
-    if (!billProvince)          { flagErr('f-bill-province', 'fg-bill-province'); ok = false; }
-    if (!isPostal(billPostal))  { flagErr('f-bill-postal',   'fg-bill-postal');   ok = false; }
+    if (!billStreet)              { flagErr('f-bill-street',   'fg-bill-street');   ok = false; }
+    if (!billCity)                { flagErr('f-bill-city',     'fg-bill-city');     ok = false; }
+    if (!billProvince)            { flagErr('f-bill-province', 'fg-bill-province'); ok = false; }
+    if (!isPostal(billPostal))    { flagErr('f-bill-postal',   'fg-bill-postal');   ok = false; }
 
     var sameAsBilling = document.getElementById('same-as-billing').checked;
     var shipStreet = billStreet, shipCity = billCity, shipProvince = billProvince, shipPostal = billPostal;
@@ -2346,23 +2387,17 @@
       shipCity     = document.getElementById('f-ship-city').value.trim();
       shipProvince = document.getElementById('f-ship-province').value.trim();
       shipPostal   = document.getElementById('f-ship-postal').value.trim();
-      if (!shipStreet)            { flagErr('f-ship-street',   'fg-ship-street');   ok = false; }
-      if (!shipCity)              { flagErr('f-ship-city',     'fg-ship-city');     ok = false; }
-      if (!shipProvince)          { flagErr('f-ship-province', 'fg-ship-province'); ok = false; }
-      if (!isPostal(shipPostal))  { flagErr('f-ship-postal',   'fg-ship-postal');   ok = false; }
+      if (!shipStreet)           { flagErr('f-ship-street',   'fg-ship-street');   ok = false; }
+      if (!shipCity)             { flagErr('f-ship-city',     'fg-ship-city');     ok = false; }
+      if (!shipProvince)         { flagErr('f-ship-province', 'fg-ship-province'); ok = false; }
+      if (!isPostal(shipPostal)) { flagErr('f-ship-postal',   'fg-ship-postal');   ok = false; }
     }
 
-    if (!ok) {
-      var f = document.querySelector('.field.has-err input, .field.has-err select');
-      if (f) f.focus();
-      return null;
-    }
+    if (!ok) { var f = document.querySelector('.field.has-err input, .field.has-err select'); if (f) f.focus(); return null; }
 
-    /* Normalise postal to uppercase with space */
-    function fmtPostal(p) {
-      var c = p.toUpperCase().replace(/[^A-Z0-9]/g,'');
-      return c.length >= 6 ? c.slice(0,3) + ' ' + c.slice(3,6) : c;
-    }
+    // Normalise postal codes: uppercase with space
+    var normBillPostal = formatPostal(billPostal);
+    var normShipPostal = formatPostal(shipPostal);
 
     return {
       billing: {
@@ -2370,7 +2405,7 @@
         line2:      document.getElementById('f-bill-apt').value.trim(),
         city:       billCity,
         state_code: billProvince,
-        zip:        fmtPostal(billPostal),
+        zip:        normBillPostal,
         country:    'CA'
       },
       shipping: {
@@ -2378,7 +2413,7 @@
         line2:      sameAsBilling ? document.getElementById('f-bill-apt').value.trim() : document.getElementById('f-ship-apt').value.trim(),
         city:       shipCity,
         state_code: shipProvince,
-        zip:        fmtPostal(shipPostal),
+        zip:        normShipPostal,
         country:    'CA'
       }
     };
@@ -2478,7 +2513,7 @@
     var ids = ['renewal-price-hero','renewal-price-pay','renewal-price-summary','renewal-price-terms'];
     ids.forEach(function(id) {
       var el = document.getElementById(id); if (!el) return;
-      el.innerHTML = (id === 'renewal-price-terms') ? '$80/month' : '$80 / month';
+      el.innerHTML = (id === 'renewal-price-terms') ? '$110/month' : '$110 / month';
     });
   }
 
@@ -2611,9 +2646,28 @@
         return body;
       });
     })
-    .then(function () {
+    .then(function (body) {
       payBtn.classList.remove('loading'); payBtn.disabled = false;
-      window.location.href = CONFIRM;
+
+      /* Google Ads: purchase conversion — fires once, on confirmed payment */
+      var navigated = false;
+      function goToConfirm() {
+        if (navigated) return;
+        navigated = true;
+        window.location.href = CONFIRM;
+      }
+      if (typeof gtag === 'function') {
+        gtag('event', 'conversion', {
+          'send_to': 'AW-10988139493/REPLACE_WITH_PURCHASE_LABEL',
+          'value': 80.00,
+          'currency': 'CAD',
+          'transaction_id': (body && (body.id || body.subscription_id || body.order_id)) || '',
+          'event_callback': goToConfirm
+        });
+        setTimeout(goToConfirm, 1000); // fallback if tag is blocked/slow
+      } else {
+        goToConfirm();
+      }
     })
     .catch(function (err) {
       console.error(err);
