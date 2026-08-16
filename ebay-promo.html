@@ -320,6 +320,50 @@
     .promo-text strong { color: var(--ink-2); font-weight: 700; }
     .promo-text .accent { color: var(--red); font-weight: 700; }
 
+    /* Setup steps */
+    .setup-block {
+      border-top: 1px solid var(--border);
+      margin-top: 24px; padding-top: 22px;
+    }
+    .setup-list {
+      list-style: none;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .setup-list li {
+      display: grid; grid-template-columns: 22px 1fr;
+      gap: 0 12px; align-items: start;
+    }
+    .setup-num {
+      font-size: 0.68rem; font-weight: 800;
+      color: var(--red); padding-top: 1px;
+      letter-spacing: 0.02em;
+    }
+    .setup-text {
+      font-size: 0.88rem; color: var(--ink-2); line-height: 1.6;
+    }
+    .setup-text strong { color: var(--ink); font-weight: 700; }
+
+    /* Login credentials */
+    .login-strip {
+      display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+      margin-top: 16px;
+    }
+    .login-pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 7px 12px;
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: var(--rSM);
+    }
+    .login-key {
+      font-size: 0.62rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--ink-3);
+    }
+    .login-val {
+      font-family: 'Courier New', monospace;
+      font-weight: 700; color: var(--ink); font-size: 0.84rem;
+    }
+
     /* Credentials strip (promo code) */
     .cred-strip {
       border-top: 1px solid var(--border);
@@ -473,6 +517,35 @@
       <div class="promo-text">Explore our service with zero commitment.</div>
       <div class="promo-text">
         Love it? Continue for just <span class="accent">$80/month</span>, no contract.
+      </div>
+
+      <div class="setup-block">
+        <div class="section-eyebrow"><span class="eyebrow-dot"></span> Getting Online</div>
+        <ol class="setup-list">
+          <li>
+            <span class="setup-num">01</span>
+            <span class="setup-text">Power on your device — your SIM is <strong>already installed and active</strong>, no setup needed.</span>
+          </li>
+          <li>
+            <span class="setup-num">02</span>
+            <span class="setup-text">Connect to the Wi-Fi network printed on the back or bottom of your device.</span>
+          </li>
+          <li>
+            <span class="setup-num">03</span>
+            <span class="setup-text">To change Wi-Fi settings, log in to your device's admin page with the credentials below.</span>
+          </li>
+        </ol>
+
+        <div class="login-strip">
+          <span class="login-pill">
+            <span class="login-key">Username</span>
+            <span class="login-val">admin</span>
+          </span>
+          <span class="login-pill">
+            <span class="login-key">Password</span>
+            <span class="login-val">attadmin</span>
+          </span>
+        </div>
       </div>
 
       <div class="cred-strip">
