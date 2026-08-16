@@ -9,8 +9,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
 
   <!-- ── PRIMARY META ──────────────────────────────────────────── -->
-  <title>New Customer Promotion | More4Less Wireless Internet</title>
-  <meta name="description" content="Thank you for purchasing your More4Less router! Enjoy 7 days of FREE unlimited wireless internet. Try it with no commitment and subscribe for just $80/month, no contract.">
+  <title>Your Free Gift Is Activated | More4Less Wireless Internet</title>
+  <meta name="description" content="Your router includes a free pre-installed SIM with 30 days of unlimited wireless internet. No credit card, no commitment. Continue after for just $80/month, no contract.">
   <meta name="keywords" content="wireless internet promotion, More4Less internet, free internet trial, router activation, high-speed internet, no contract internet, $80 internet plan">
   <meta name="robots" content="noindex, nofollow">
   <meta name="author" content="More4Less Wireless Internet">
@@ -20,8 +20,8 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="More4Less Wireless Internet">
   <meta property="og:url" content="https://more4lessplans.ca/promotion">
-  <meta property="og:title" content="New Customer Promotion | More4Less Wireless Internet">
-  <meta property="og:description" content="Thank you for purchasing your More4Less router! Enjoy 7 days of FREE unlimited wireless internet. Try it with no commitment and subscribe for just $80/month, no contract.">
+  <meta property="og:title" content="Your Free Gift Is Activated | More4Less Wireless Internet">
+  <meta property="og:description" content="Your router includes a free pre-installed SIM with 30 days of unlimited wireless internet. No credit card, no commitment.">
   <meta property="og:image" content="https://more4lessplans.ca/assets/img/og-main.webp">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -29,8 +29,8 @@
 
   <!-- ── TWITTER / X CARD ──────────────────────────────────────── -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="New Customer Promotion | More4Less Wireless Internet">
-  <meta name="twitter:description" content="Thank you for purchasing your More4Less router! Enjoy 7 days of FREE unlimited wireless internet. Try it with no commitment and subscribe for just $80/month, no contract.">
+  <meta name="twitter:title" content="Your Free Gift Is Activated | More4Less Wireless Internet">
+  <meta name="twitter:description" content="Your router includes a free pre-installed SIM with 30 days of unlimited wireless internet. No credit card, no commitment.">
   <meta name="twitter:image" content="https://more4lessplans.ca/assets/img/og-main.webp">
 
   <!-- ── THEME & APP ────────────────────────────────────────────── -->
@@ -61,12 +61,15 @@
       --red:           #D73C59;
       --red-deep:      #b82e48;
       --red-glow:      rgba(215,60,89,0.12);
+      --red-glow-2:    rgba(215,60,89,0.06);
 
       --green:         #16a05a;
+      --green-glow:    rgba(22,160,90,0.12);
       --amber:         #f5a623;
 
       --bg:            #f8f8f9;
       --bg-card:       #ffffff;
+      --bg-tint:       #fbfbfc;
       --dark:          #2E2F33;
       --dark-card:     #38393e;
       --dark-line:     rgba(255,255,255,0.08);
@@ -111,6 +114,10 @@
     @keyframes pulse {
       0%, 100% { box-shadow: 0 0 0 3px rgba(22,160,90,0.18); }
       50%       { box-shadow: 0 0 0 6px rgba(22,160,90,0.08); }
+    }
+    @keyframes barRise {
+      from { transform: scaleY(0.25); }
+      to   { transform: scaleY(1); }
     }
 
     /* ── NAV ────────────────────────────────────────────────────── */
@@ -220,7 +227,7 @@
       position: relative;
       background: var(--dark);
       overflow: hidden;
-      padding: calc(var(--nav-h) + 64px) 24px 88px;
+      padding: calc(var(--nav-h) + 60px) 24px 96px;
       display: flex; flex-direction: column; align-items: center;
       text-align: center;
     }
@@ -244,6 +251,25 @@
       max-width: 620px; width: 100%;
       display: flex; flex-direction: column; align-items: center;
     }
+
+    /* Signal-bars glyph — the page's signature graphic */
+    .signal-glyph {
+      display: flex; align-items: flex-end; gap: 3px;
+      height: 22px; margin-bottom: 20px;
+      opacity: 0; transform: translateY(10px);
+      animation: revealUp 0.7s var(--ease-out) 0.02s forwards;
+    }
+    .signal-glyph i {
+      display: block; width: 4px; border-radius: 2px;
+      background: rgba(255,255,255,0.22);
+      transform-origin: bottom;
+      animation: barRise 0.6s var(--ease-out) both;
+    }
+    .signal-glyph i:nth-child(1) { height: 8px;  animation-delay: 0.05s; }
+    .signal-glyph i:nth-child(2) { height: 13px; animation-delay: 0.13s; }
+    .signal-glyph i:nth-child(3) { height: 18px; animation-delay: 0.21s; background: var(--green); }
+    .signal-glyph i:nth-child(4) { height: 22px; animation-delay: 0.29s; background: var(--green); }
+
     .hero-badge {
       display: inline-flex; align-items: center; gap: 7px;
       padding: 6px 14px 6px 10px;
@@ -255,7 +281,7 @@
       font-size: 0.69rem; font-weight: 600;
       letter-spacing: 0.09em; text-transform: uppercase;
       color: rgba(255,255,255,0.65);
-      margin-bottom: 24px;
+      margin-bottom: 22px;
       opacity: 0; transform: translateY(12px);
       animation: revealUp 0.7s var(--ease-out) 0.1s forwards;
     }
@@ -280,11 +306,12 @@
       opacity: 0; transform: translateY(14px);
       animation: revealUp 0.75s var(--ease-out) 0.34s forwards;
     }
+    .hero-sub strong { color: var(--on-dark); font-weight: 700; }
 
     /* ── PROMO CARD ──────────────────────────────────────────────── */
     .promo-wrap {
-      max-width: 640px; margin: -56px auto 0;
-      padding: 0 24px 96px;
+      max-width: 660px; margin: -60px auto 0;
+      padding: 0 20px 96px;
       position: relative; z-index: 3;
     }
     .promo-card {
@@ -296,7 +323,7 @@
       opacity: 0; transform: translateY(20px);
       animation: revealUp 0.7s var(--ease-out) 0.4s forwards;
     }
-    .promo-card-inner { padding: 40px 36px 32px; }
+    .promo-card-inner { padding: 40px 36px 34px; }
 
     .section-eyebrow {
       display: inline-flex; align-items: center; gap: 6px;
@@ -311,42 +338,80 @@
     .promo-title {
       font-size: clamp(1.35rem, 2.6vw, 1.6rem);
       font-weight: 900; letter-spacing: -0.03em; line-height: 1.2;
-      color: var(--ink); margin-bottom: 18px;
+      color: var(--ink); margin-bottom: 4px;
     }
-    .promo-text {
-      font-size: 0.92rem; color: var(--ink-3); line-height: 1.85;
+    .promo-title-sub {
+      font-size: 0.86rem; color: var(--ink-3);
+      line-height: 1.6; margin-bottom: 22px;
     }
-    .promo-text + .promo-text { margin-top: 12px; }
-    .promo-text strong { color: var(--ink-2); font-weight: 700; }
-    .promo-text .accent { color: var(--red); font-weight: 700; }
 
-    /* Setup steps */
-    .setup-block {
+    /* Feature grid — replaces the old paragraph block */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .feature-card {
+      display: flex; flex-direction: column; gap: 10px;
+      padding: 16px; border-radius: var(--rLG);
+      background: var(--bg-tint);
+      border: 1px solid var(--border);
+    }
+    .feature-icon {
+      width: 34px; height: 34px; border-radius: var(--rSM);
+      background: var(--red-glow);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .feature-icon svg { width: 17px; height: 17px; stroke: var(--red); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .feature-icon.is-green { background: var(--green-glow); }
+    .feature-icon.is-green svg { stroke: var(--green); }
+    .feature-name {
+      font-size: 0.86rem; font-weight: 800; color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+    .feature-desc {
+      font-size: 0.78rem; color: var(--ink-3); line-height: 1.55;
+    }
+
+    /* Divider between sections */
+    .promo-divider {
       border-top: 1px solid var(--border);
-      margin-top: 24px; padding-top: 22px;
+      margin: 28px 0 24px;
     }
-    .setup-list {
+
+    /* Quickstart */
+    .quickstart-list {
       list-style: none;
-      display: flex; flex-direction: column; gap: 14px;
+      display: flex; flex-direction: column; gap: 4px;
     }
-    .setup-list li {
-      display: grid; grid-template-columns: 22px 1fr;
-      gap: 0 12px; align-items: start;
+    .qs-step {
+      display: grid; grid-template-columns: 34px 1fr;
+      gap: 0 14px; align-items: flex-start;
+      padding: 12px 0;
+      position: relative;
     }
-    .setup-num {
-      font-size: 0.68rem; font-weight: 800;
-      color: var(--red); padding-top: 1px;
-      letter-spacing: 0.02em;
+    .qs-step:not(:last-child)::after {
+      content: '';
+      position: absolute; left: 17px; top: 44px; bottom: -4px;
+      width: 1px; background: var(--border);
     }
-    .setup-text {
-      font-size: 0.88rem; color: var(--ink-2); line-height: 1.6;
+    .qs-icon {
+      width: 34px; height: 34px; border-radius: 50%;
+      background: var(--dark); color: var(--on-dark);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; position: relative; z-index: 1;
     }
-    .setup-text strong { color: var(--ink); font-weight: 700; }
+    .qs-icon svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .qs-body { padding-top: 5px; }
+    .qs-title { font-size: 0.88rem; font-weight: 800; color: var(--ink); margin-bottom: 3px; letter-spacing: -0.01em; }
+    .qs-text { font-size: 0.83rem; color: var(--ink-3); line-height: 1.6; }
+    .qs-text strong { color: var(--ink-2); font-weight: 700; }
 
     /* Login credentials */
     .login-strip {
       display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
-      margin-top: 16px;
+      margin-top: 10px;
     }
     .login-pill {
       display: inline-flex; align-items: center; gap: 8px;
@@ -364,10 +429,35 @@
       font-weight: 700; color: var(--ink); font-size: 0.84rem;
     }
 
-    /* Credentials strip (promo code) */
+    /* Pricing / continue-service block */
+    .price-card {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; flex-wrap: wrap;
+      background: linear-gradient(135deg, var(--dark) 0%, #232427 100%);
+      border-radius: var(--rLG);
+      padding: 22px 24px;
+      margin-top: 6px;
+    }
+    .price-left { display: flex; flex-direction: column; gap: 6px; }
+    .price-tag {
+      display: flex; align-items: baseline; gap: 5px;
+    }
+    .price-num { font-size: 2.1rem; font-weight: 900; color: #fff; letter-spacing: -0.03em; line-height: 1; }
+    .price-unit { font-size: 0.85rem; font-weight: 600; color: var(--on-dark-2); }
+    .price-note { font-size: 0.76rem; color: var(--on-dark-3); }
+    .price-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
+    .price-chip {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 0.68rem; font-weight: 700; color: var(--on-dark-2);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: var(--rFull); padding: 4px 10px;
+    }
+    .price-chip svg { width: 10px; height: 10px; stroke: var(--green); fill: none; stroke-width: 2.6; }
+
+    /* Promo code */
     .cred-strip {
-      border-top: 1px solid var(--border);
-      margin-top: 24px; padding-top: 20px;
+      margin-top: 22px;
       display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
     }
     .cred-label {
@@ -398,7 +488,7 @@
 
     .btn-cta {
       display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-      margin-top: 28px; width: 100%;
+      margin-top: 20px; width: 100%;
       background: var(--red); color: #fff;
       font-weight: 700; font-size: 0.92rem;
       padding: 15px 26px; border-radius: var(--rFull);
@@ -417,6 +507,10 @@
       transition: transform 0.28s var(--spring);
     }
     .btn-cta:hover svg { transform: translateX(2px); }
+    .btn-sub {
+      text-align: center; margin-top: 10px;
+      font-size: 0.72rem; color: var(--ink-4);
+    }
 
     .promo-foot {
       text-align: center; margin-top: 18px;
@@ -451,9 +545,11 @@
     }
 
     @media (max-width: 640px) {
-      .promo-hero { padding: calc(var(--nav-h) + 48px) 20px 72px; }
-      .promo-wrap { margin-top: -44px; padding: 0 16px 64px; }
-      .promo-card-inner { padding: 30px 22px 26px; }
+      .promo-hero { padding: calc(var(--nav-h) + 44px) 20px 76px; }
+      .promo-wrap { margin-top: -48px; padding: 0 14px 64px; }
+      .promo-card-inner { padding: 30px 20px 26px; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .price-card { flex-direction: column; align-items: flex-start; }
       .cred-strip { flex-direction: column; align-items: flex-start; gap: 8px; }
     }
 
@@ -491,15 +587,16 @@
 <!-- ══ HERO ═════════════════════════════════════════════════════ -->
 <section class="promo-hero">
   <div class="hero-inner">
+    <div class="signal-glyph" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
     <div class="hero-badge">
       <span class="badge-dot"></span>
-      Welcome Gift Activated
+      Included With Your Router — 100% Free
     </div>
     <h1 class="hero-headline">
       Your Internet Is<br><em>Already On.</em>
     </h1>
     <p class="hero-sub">
-      Thanks for purchasing this router! We've included a special gift.
+      Your router shipped with a SIM already installed and active. <strong>No credit card. No signup. No catch.</strong>
     </p>
   </div>
 </section>
@@ -508,43 +605,112 @@
 <div class="promo-wrap">
   <div class="promo-card">
     <div class="promo-card-inner">
-      <div class="section-eyebrow"><span class="eyebrow-dot"></span> New Customer Promotion</div>
-      <h2 class="promo-title">Experience Seamless Connectivity</h2>
 
-      <div class="promo-text">
-        Your router includes a <strong>pre-activated SIM card</strong> with <span class="accent">30 days of FREE unlimited high-speed internet</span>.
+      <!-- What's included -->
+      <div class="section-eyebrow"><span class="eyebrow-dot"></span> What's Included</div>
+      <h2 class="promo-title">30 days on us. Truly free.</h2>
+      <p class="promo-title-sub">No card on file, no auto-charge — this trial costs you nothing unless you choose to continue.</p>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="13" rx="1.5"/><path d="M3 12h18"/><path d="M12 8v13"/><path d="M12 8c-1.5-3-4.2-4.5-5.5-3.2C5.2 6 6.8 8 12 8Z"/><path d="M12 8c1.5-3 4.2-4.5 5.5-3.2C18.8 6 17.2 8 12 8Z"/></svg>
+          </div>
+          <div class="feature-name">30 Days Free</div>
+          <div class="feature-desc">A full month of service, pre-loaded on your SIM before it ever shipped.</div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon is-green">
+            <svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8-7 9-4-1-7-4.5-7-9V6l7-3Z"/><path d="M9 12l2 2 4-4"/></svg>
+          </div>
+          <div class="feature-name">No Card Needed</div>
+          <div class="feature-desc">Nothing to enter, nothing to remember to cancel. Zero risk to try it.</div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><path d="M18 8a6 4 0 0 0-12 0"/><path d="M18 8a6 5.5 0 0 1-6 6a6 5.5 0 0 1-6-6"/><path d="M6 8a6 4 0 0 1 12 0"/></svg>
+          </div>
+          <div class="feature-name">Truly Unlimited</div>
+          <div class="feature-desc">No data caps, no throttling, no slowdowns — ever, at any usage level.</div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon is-green">
+            <svg viewBox="0 0 24 24"><path d="M12 21s7-6.1 7-12a7 7 0 0 0-14 0c0 5.9 7 12 7 12Z"/><circle cx="12" cy="9" r="2.4"/></svg>
+          </div>
+          <div class="feature-name">CA · US · MX</div>
+          <div class="feature-desc">Roams seamlessly between major towers across all three countries.</div>
+        </div>
       </div>
-      <div class="promo-text">Explore our service with zero commitment.</div>
-      <div class="promo-text">
-        Love it? Continue for just <span class="accent">$80/month</span>, no contract.
-      </div>
 
-      <div class="setup-block">
-        <div class="section-eyebrow"><span class="eyebrow-dot"></span> Getting Online</div>
-        <ol class="setup-list">
-          <li>
-            <span class="setup-num">01</span>
-            <span class="setup-text">Power on your device — your SIM is <strong>already installed and active</strong>, no setup needed.</span>
-          </li>
-          <li>
-            <span class="setup-num">02</span>
-            <span class="setup-text">Connect to the Wi-Fi network printed on the back or bottom of your device.</span>
-          </li>
-          <li>
-            <span class="setup-num">03</span>
-            <span class="setup-text">To change Wi-Fi settings, log in to your device's admin page with the credentials below.</span>
-          </li>
-        </ol>
+      <div class="promo-divider"></div>
 
-        <div class="login-strip">
-          <span class="login-pill">
-            <span class="login-key">Username</span>
-            <span class="login-val">admin</span>
+      <!-- Quickstart -->
+      <div class="section-eyebrow"><span class="eyebrow-dot"></span> Quickstart</div>
+      <h2 class="promo-title">Online in three steps.</h2>
+      <p class="promo-title-sub">Most people are connected before they've finished unboxing.</p>
+
+      <ol class="quickstart-list">
+        <li class="qs-step">
+          <span class="qs-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2v9"/><path d="M18.4 6.6a8 8 0 1 1-12.8 0"/></svg>
           </span>
-          <span class="login-pill">
-            <span class="login-key">Password</span>
-            <span class="login-val">attadmin</span>
+          <div class="qs-body">
+            <div class="qs-title">Power it on</div>
+            <div class="qs-text">Your SIM is <strong>already installed and active</strong> — there's nothing to insert or configure.</div>
+          </div>
+        </li>
+        <li class="qs-step">
+          <span class="qs-icon">
+            <svg viewBox="0 0 24 24"><path d="M2 8.5a16 16 0 0 1 20 0"/><path d="M5 12.5a11 11 0 0 1 14 0"/><path d="M8.5 16.5a6 6 0 0 1 7 0"/><circle cx="12" cy="20" r="1"/></svg>
           </span>
+          <div class="qs-body">
+            <div class="qs-title">Join the Wi-Fi</div>
+            <div class="qs-text">Connect using the network name and password displayed on the screen of your device or behind the battery.</div>
+          </div>
+        </li>
+        <li class="qs-step">
+          <span class="qs-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.6-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.6V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.6 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.6 1Z"/></svg>
+          </span>
+          <div class="qs-body">
+            <div class="qs-title">Customize (optional)</div>
+            <div class="qs-text">Log in to the admin page to rename your network or change the password.</div>
+            <div class="login-strip">
+              <span class="login-pill">
+                <span class="login-key">Username</span>
+                <span class="login-val">admin</span>
+              </span>
+              <span class="login-pill">
+                <span class="login-key">Password</span>
+                <span class="login-val">attadmin</span>
+              </span>
+            </div>
+          </div>
+        </li>
+      </ol>
+
+      <div class="promo-divider"></div>
+
+      <!-- Continue service -->
+      <div class="section-eyebrow"><span class="eyebrow-dot"></span> Love It? Keep It</div>
+      <h2 class="promo-title">No pressure, ever.</h2>
+      <p class="promo-title-sub">If you'd like to continue after your free month, here's the honest price — no surprises.</p>
+
+      <div class="price-card">
+        <div class="price-left">
+          <div class="price-tag">
+            <span class="price-num">$80</span>
+            <span class="price-unit">/ month</span>
+          </div>
+          <div class="price-note">Promotional rate · no contract</div>
+          <div class="price-chips">
+            <span class="price-chip"><svg viewBox="0 0 16 16"><polyline points="2,8 6,12 14,4"/></svg>Unlimited data</span>
+            <span class="price-chip"><svg viewBox="0 0 16 16"><polyline points="2,8 6,12 14,4"/></svg>No throttling</span>
+            <span class="price-chip"><svg viewBox="0 0 16 16"><polyline points="2,8 6,12 14,4"/></svg>Cancel anytime</span>
+          </div>
         </div>
       </div>
 
@@ -562,6 +728,7 @@
         Subscribe Now
         <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg>
       </a>
+      <p class="btn-sub">You won't be charged during your free 30 days — subscribing just locks in the rate for after.</p>
     </div>
   </div>
 
