@@ -1,203 +1,547 @@
 <!DOCTYPE html>
-<html data-bs-theme="light" lang="en-US" dir="ltr">
+<html lang="en-CA">
 <head>
+  <!-- ── CHARACTER & COMPATIBILITY ────────────────────────────── -->
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- SEO and Meta Tags -->
+  <!-- ── VIEWPORT ──────────────────────────────────────────────── -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+
+  <!-- ── PRIMARY META ──────────────────────────────────────────── -->
   <title>New Customer Promotion | More4Less Wireless Internet</title>
-  <meta name="keywords" content="wireless internet promotion, More4Less internet, free internet trial, router activation, high-speed internet, no contract internet, $80 internet plan">
   <meta name="description" content="Thank you for purchasing your More4Less router! Enjoy 7 days of FREE unlimited wireless internet. Try it with no commitment and subscribe for just $80/month, no contract.">
+  <meta name="keywords" content="wireless internet promotion, More4Less internet, free internet trial, router activation, high-speed internet, no contract internet, $80 internet plan">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="author" content="More4Less Wireless Internet">
+  <link rel="canonical" href="https://more4lessplans.ca/promotion">
+
+  <!-- ── OPEN GRAPH ─────────────────────────────────────────────── -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="More4Less Wireless Internet">
+  <meta property="og:url" content="https://more4lessplans.ca/promotion">
   <meta property="og:title" content="New Customer Promotion | More4Less Wireless Internet">
   <meta property="og:description" content="Thank you for purchasing your More4Less router! Enjoy 7 days of FREE unlimited wireless internet. Try it with no commitment and subscribe for just $80/month, no contract.">
-  <meta property="og:image" content="https://more4lessplans.ca/main.jpg">
-  <meta property="og:url" content="https://more4lessplans.ca/promotion">
-  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://more4lessplans.ca/assets/img/og-main.webp">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="en_CA">
+
+  <!-- ── TWITTER / X CARD ──────────────────────────────────────── -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="New Customer Promotion | More4Less Wireless Internet">
   <meta name="twitter:description" content="Thank you for purchasing your More4Less router! Enjoy 7 days of FREE unlimited wireless internet. Try it with no commitment and subscribe for just $80/month, no contract.">
-  <meta name="twitter:image" content="https://more4lessplans.ca/main.jpg">
+  <meta name="twitter:image" content="https://more4lessplans.ca/assets/img/og-main.webp">
 
-  <!-- Favicons -->
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon-32x32.png">
+  <!-- ── THEME & APP ────────────────────────────────────────────── -->
+  <meta name="theme-color" content="#2E2F33">
+  <meta name="color-scheme" content="dark">
+  <meta name="application-name" content="More4Less">
+  <meta name="apple-mobile-web-app-title" content="More4Less">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+
+  <!-- ── FAVICONS ───────────────────────────────────────────────── -->
+  <link rel="icon" type="image/x-icon" href="assets/img/favicons/favicon.ico">
   <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicons/favicon-16x16.png">
-  <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicons/favicon.ico">
-  <link rel="manifest" href="assets/img/favicons/manifest.json">
-  <meta name="msapplication-TileImage" content="assets/img/favicons/mstile-150x150.png">
-  <meta name="theme-color" content="#2E2F34">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon.png">
+  <link rel="manifest" href="assets/img/favicons/site.webmanifest">
 
-  <!-- Bootstrap CSS -->
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="/navbar.css">
-  <link rel="stylesheet" href="/footer.css">
+  <!-- ── FONTS ─────────────────────────────────────────────────── -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
-  <link href="assets/css/theme.min.css" rel="stylesheet" id="style-default">
-  <link href="assets/css/user.min.css" rel="stylesheet" id="user-style-default">
-  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400&display=swap" rel="stylesheet">
 
-  <!-- Page-Specific CSS -->
   <style>
+    /* ── TOKENS ─────────────────────────────────────────────────── */
+    :root {
+      --red:           #D73C59;
+      --red-deep:      #b82e48;
+      --red-glow:      rgba(215,60,89,0.12);
+
+      --green:         #16a05a;
+      --amber:         #f5a623;
+
+      --bg:            #f8f8f9;
+      --bg-card:       #ffffff;
+      --dark:          #2E2F33;
+      --dark-card:     #38393e;
+      --dark-line:     rgba(255,255,255,0.08);
+
+      --ink:           #1a1a1c;
+      --ink-2:         #3d3d40;
+      --ink-3:         #87878c;
+      --ink-4:         #b8b8bc;
+      --on-dark:       #f0f0f2;
+      --on-dark-2:     #b8b8c4;
+      --on-dark-3:     #78787e;
+
+      --border:        #e8e8ec;
+      --border-dark:   rgba(255,255,255,0.10);
+
+      --nav-h:         60px;
+      --rXL:           18px;
+      --rLG:           14px;
+      --rMD:           10px;
+      --rSM:           8px;
+      --rFull:         999px;
+
+      --spring:        cubic-bezier(0.34,1.5,0.64,1);
+      --ease-out:      cubic-bezier(0.22,1,0.36,1);
+    }
+
+    /* ── RESET ──────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 15px; scroll-behavior: smooth; }
     body {
-      padding-top: 70px;
+      font-family: 'Figtree', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
-    @media (max-width: 576px) {
-      body { padding-top: 60px; }
+
+    @keyframes revealUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
-    .text-muted { color: #565656 !important; }
-    .btn-primary {
-      border: 2px solid #2E2F33;
-      background-color: #2E2F33;
-      color: #fff;
-      font-weight: 600;
-      border-radius: 9px;
-      padding: 15px 45px;
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 3px rgba(22,160,90,0.18); }
+      50%       { box-shadow: 0 0 0 6px rgba(22,160,90,0.08); }
+    }
+
+    /* ── NAV ────────────────────────────────────────────────────── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--nav-h); z-index: 9000;
+      background: var(--dark);
+      border-bottom: 1px solid var(--border-dark);
+      display: flex; align-items: center;
+    }
+    .nav-inner {
+      width: 100%; display: flex; align-items: center;
+      padding: 0 40px;
+    }
+    .nav-logo img { height: 20px; display: block; }
+    .nav-links {
+      display: flex; align-items: center;
+      gap: 0; list-style: none; margin-left: auto;
+    }
+    .nav-links li a {
+      font-size: 0.82rem; font-weight: 500;
+      color: var(--on-dark-2); text-decoration: none;
+      letter-spacing: 0.01em; padding: 0 18px;
+      white-space: nowrap; position: relative;
+      display: inline-block; transition: color 0.2s ease;
+    }
+    .nav-links li a::after {
+      content: ''; position: absolute;
+      bottom: -3px; left: 18px; right: 18px;
+      width: 0; height: 1.5px;
+      background: var(--red); border-radius: 2px;
+      transition: width 0.3s var(--ease-out);
+    }
+    .nav-links li a:hover { color: var(--on-dark); }
+    .nav-links li a:hover::after { width: calc(100% - 36px); }
+    .nav-links .nav-portal a {
+      color: #fff; font-weight: 600;
+      border: 1.5px solid rgba(255,255,255,0.28);
+      border-radius: var(--rFull);
+      padding: 6px 16px; margin-left: 10px;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .nav-links .nav-portal a::after { display: none; }
+    .nav-links .nav-portal a:hover {
+      background: rgba(255,255,255,0.10);
+      border-color: rgba(255,255,255,0.50);
+    }
+
+    /* Hamburger */
+    .menu-trigger {
+      display: none; cursor: pointer;
+      padding: 8px; background: none;
+      border: none; outline: none; margin-left: auto;
+    }
+    .menu-icon {
+      width: 22px; height: 16px;
+      display: flex; flex-direction: column;
+      justify-content: space-between;
+    }
+    .menu-icon span {
+      display: block; width: 100%; height: 1.5px;
+      background: rgba(255,255,255,0.8); border-radius: 4px;
       transition: all 0.3s ease;
-      text-transform: none;
     }
-    .btn-primary:hover, .btn-primary:focus {
-      background-color: transparent;
-      color: #000;
-      border: 2px solid #000;
+    .menu-trigger.menu-active .menu-icon span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .menu-trigger.menu-active .menu-icon span:nth-child(2) { opacity: 0; }
+    .menu-trigger.menu-active .menu-icon span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile overlay */
+    .mobile-overlay {
+      position: fixed; inset: 0;
+      background: rgba(22,22,24,0.97);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      z-index: 8500;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
     }
-    .promotion-card {
-      background: #F9F9F9;
-      border: none;
-      border-radius: 15px;
-      padding: 30px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-      transition: box-shadow 0.3s ease;
-      text-align: center;
+    .mobile-overlay.active { opacity: 1; visibility: visible; }
+    .mobile-nav-links { list-style: none; text-align: center; }
+    .mobile-nav-links li { margin: 18px 0; transform: translateY(16px); opacity: 0; transition: 0.4s ease; }
+    .mobile-overlay.active .mobile-nav-links li { transform: none; opacity: 1; }
+    .mobile-nav-links li:nth-child(1) { transition-delay: 0.08s; }
+    .mobile-nav-links li:nth-child(2) { transition-delay: 0.13s; }
+    .mobile-nav-links a {
+      color: rgba(255,255,255,0.85);
+      font-size: 2rem; font-weight: 700;
+      text-decoration: none; letter-spacing: -0.03em;
+      position: relative; display: inline-block;
+      transition: color 0.25s ease;
     }
-    .promotion-card:hover { box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); }
-    .section-title h3 {
+    .mobile-nav-links a::after {
+      content: ''; position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 2.5px;
+      background: var(--red); border-radius: 2px;
+      transition: width 0.3s var(--ease-out);
+    }
+    .mobile-nav-links a:hover { color: #fff; }
+    .mobile-nav-links a:hover::after { width: 100%; }
+    .mobile-nav-links .portal-link a { color: var(--red); }
+
+    /* ── PROMO HERO ──────────────────────────────────────────────── */
+    .promo-hero {
       position: relative;
-      display: inline-block;
-      padding-bottom: 10px;
-      color: #2E2F33;
+      background: var(--dark);
+      overflow: hidden;
+      padding: calc(var(--nav-h) + 64px) 24px 88px;
+      display: flex; flex-direction: column; align-items: center;
       text-align: center;
     }
-    .section-title h3::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 250px;
-      height: 3px;
-      background: linear-gradient(90deg, #313C59, #2E2F33);
-      border-radius: 2px;
+    .promo-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.065) 1px, transparent 1px);
+      background-size: 28px 28px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 0%, black 30%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 0%, black 30%, transparent 100%);
+      pointer-events: none;
     }
-    .section-title p {
-      font-family: 'Rubik', sans-serif;
-      font-weight: 400;
-      letter-spacing: 0.5px;
-      text-align: center;
+    .promo-hero::after {
+      content: ''; position: absolute;
+      width: 700px; height: 700px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(215,60,89,0.09) 0%, transparent 70%);
+      top: -160px; left: 50%; transform: translateX(-50%);
+      pointer-events: none;
     }
-    .promotion-content p {
-      font-size: 1rem;
-      line-height: 1.6;
-      color: #565656;
-      margin-bottom: 1.5rem;
-      text-align: center;
+    .hero-inner {
+      position: relative; z-index: 2;
+      max-width: 620px; width: 100%;
+      display: flex; flex-direction: column; align-items: center;
     }
-    @media (max-width: 991.98px) {
-      #promotion-section { padding-top: 80px; }
-      .section-title { padding-top: 16px; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 6px 14px 6px 10px;
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: var(--rFull);
+      background: rgba(255,255,255,0.07);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      font-size: 0.69rem; font-weight: 600;
+      letter-spacing: 0.09em; text-transform: uppercase;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 24px;
+      opacity: 0; transform: translateY(12px);
+      animation: revealUp 0.7s var(--ease-out) 0.1s forwards;
     }
-    .more-info-text {
-      font-size: 0.9rem;
-      color: #9CA3AF;
-      text-align: center;
-      margin-top: 1.5rem;
+    .badge-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 3px rgba(22,160,90,0.18);
+      animation: pulse 2.5s ease infinite;
     }
-    .more-info-text a {
-      color: #2E2F33;
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.3s ease;
+    .hero-headline {
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 900; letter-spacing: -0.04em; line-height: 1.08;
+      color: var(--on-dark); margin-bottom: 16px;
+      opacity: 0; transform: translateY(16px);
+      animation: revealUp 0.75s var(--ease-out) 0.22s forwards;
     }
-    .more-info-text a:hover {
-      color: #D73C59;
+    .hero-headline em { font-style: normal; color: var(--red); }
+    .hero-sub {
+      font-size: 1.02rem; color: var(--on-dark-2);
+      line-height: 1.7; max-width: 440px;
+      margin: 0 auto; font-weight: 400;
+      opacity: 0; transform: translateY(14px);
+      animation: revealUp 0.75s var(--ease-out) 0.34s forwards;
     }
-    @media (max-width: 576px) {
-      .promotion-card {
-        max-width: 98% !important;
+
+    /* ── PROMO CARD ──────────────────────────────────────────────── */
+    .promo-wrap {
+      max-width: 640px; margin: -56px auto 0;
+      padding: 0 24px 96px;
+      position: relative; z-index: 3;
+    }
+    .promo-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--rXL);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.14);
+      overflow: hidden;
+      opacity: 0; transform: translateY(20px);
+      animation: revealUp 0.7s var(--ease-out) 0.4s forwards;
+    }
+    .promo-card-inner { padding: 40px 36px 32px; }
+
+    .section-eyebrow {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.64rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--ink-3); margin-bottom: 12px;
+    }
+    .eyebrow-dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--red); flex-shrink: 0;
+    }
+    .promo-title {
+      font-size: clamp(1.35rem, 2.6vw, 1.6rem);
+      font-weight: 900; letter-spacing: -0.03em; line-height: 1.2;
+      color: var(--ink); margin-bottom: 18px;
+    }
+    .promo-text {
+      font-size: 0.92rem; color: var(--ink-3); line-height: 1.85;
+    }
+    .promo-text + .promo-text { margin-top: 12px; }
+    .promo-text strong { color: var(--ink-2); font-weight: 700; }
+    .promo-text .accent { color: var(--red); font-weight: 700; }
+
+    /* Credentials strip (promo code) */
+    .cred-strip {
+      border-top: 1px solid var(--border);
+      margin-top: 24px; padding-top: 20px;
+      display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    }
+    .cred-label {
+      font-size: 0.62rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--ink-3); flex-shrink: 0;
+    }
+    .cred-pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 12px;
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: var(--rSM);
+      font-size: 0.86rem; color: var(--ink-2);
+    }
+    .cred-val {
+      font-family: 'Courier New', monospace;
+      font-weight: 700; color: var(--red); font-size: 0.88rem;
+      letter-spacing: 0.02em;
+    }
+    .copy-btn {
+      background: none; border: none; cursor: pointer;
+      padding: 2px 4px; color: var(--ink-4);
+      display: inline-flex; align-items: center;
+      transition: color 0.18s;
+    }
+    .copy-btn:hover { color: var(--ink); }
+    .copy-btn svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 1.8; }
+
+    .btn-cta {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      margin-top: 28px; width: 100%;
+      background: var(--red); color: #fff;
+      font-weight: 700; font-size: 0.92rem;
+      padding: 15px 26px; border-radius: var(--rFull);
+      text-decoration: none; letter-spacing: 0.01em;
+      transition: background 0.22s, transform 0.28s var(--spring), box-shadow 0.28s;
+      box-shadow: 0 8px 22px rgba(215,60,89,0.28);
+    }
+    .btn-cta:hover {
+      background: var(--red-deep);
+      transform: translateY(-1px);
+      box-shadow: 0 12px 30px rgba(215,60,89,0.35);
+    }
+    .btn-cta svg {
+      width: 14px; height: 14px; stroke: currentColor;
+      fill: none; stroke-width: 2.5;
+      transition: transform 0.28s var(--spring);
+    }
+    .btn-cta:hover svg { transform: translateX(2px); }
+
+    .promo-foot {
+      text-align: center; margin-top: 18px;
+      font-size: 0.8rem; color: var(--ink-4);
+    }
+    .promo-foot a {
+      color: var(--ink-2); font-weight: 600; text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .promo-foot a:hover { color: var(--red); border-color: var(--red); }
+
+    /* ── FOOTER ──────────────────────────────────────────────────── */
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 40px;
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    }
+    .footer-links { display: flex; align-items: center; gap: 24px; }
+    .footer-links a { font-size: 0.74rem; color: var(--ink-3); text-decoration: none; font-weight: 500; transition: color 0.18s; }
+    .footer-links a:hover { color: var(--ink); }
+    .footer-copy { font-size: 0.71rem; color: var(--ink-4); }
+
+    /* ── RESPONSIVE ──────────────────────────────────────────────── */
+    @media (max-width: 960px) {
+      .nav-links  { display: none; }
+      .menu-trigger { display: block; }
+      .nav-inner  { padding: 0 20px; }
+      .footer     { flex-direction: column; text-align: center; padding: 28px 20px; }
+      .footer-links { justify-content: center; }
+    }
+
+    @media (max-width: 640px) {
+      .promo-hero { padding: calc(var(--nav-h) + 48px) 20px 72px; }
+      .promo-wrap { margin-top: -44px; padding: 0 16px 64px; }
+      .promo-card-inner { padding: 30px 22px 26px; }
+      .cred-strip { flex-direction: column; align-items: flex-start; gap: 8px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
       }
     }
   </style>
 </head>
-
 <body>
-  <div id="navbar-container"></div>
 
-  <main class="main" id="top">
-    <div class="content">
-      <section class="bg-gradient-to-b from-gray-50 to-white py-8 py-lg-10" id="promotion-section">
-        <div class="container">
-          <div class="row justify-content-center text-center mb-4 section-title">
-            <div class="col-md-10 col-lg-8">
-              <h3 class="fs-3 fs-lg-2 fw-bold mb-3 lh-sm" style="font-family: 'Rubik', sans-serif; color: #1A1A1A; letter-spacing: -0.5px;">Your Exclusive Welcome Gift</h3>
-              <p class="fs-7 lh-lg text-muted" style="font-family: 'Figtree', sans-serif; color: #4B4B4B;">Thanks For Your Purchase!</p>
-            </div>
-          </div>
-          <div class="row justify-content-center">
-            <div class="col-md-10 col-lg-8">
-              <div class="promotion-card" style="background: #FFFFFF; border-radius: 16px; padding: 40px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); transition: transform 0.3s ease, box-shadow 0.3s ease; max-width: 90%; width: 100%; margin: 0 auto;">
-                <div class="promotion-content">
-                  <h4 class="mb-4" style="font-family: 'Rubik', sans-serif; font-size: 1.75rem; font-weight: 600; color: #1A1A1A;">Experience Seamless Connectivity</h4>
-                  <p style="font-family: 'Figtree', sans-serif; font-size: 1.1rem; color: #4B4B4B; margin-bottom: 1.2rem;">Your router includes a <strong>pre-activated SIM card</strong> with:<strong style="color: #E53E3E;"> 7 days of FREE unlimited high-speed internet</strong>. </p>
-       
-                  <p style="font-family: 'Figtree', sans-serif; font-size: 1.1rem; color: #4B4B4B; margin-bottom: 1.2rem;">Explore our service with zero commitment.</p>
-                  <p style="font-family: 'Figtree', sans-serif; font-size: 1.1rem; color: #4B4B4B; margin-bottom: 1.2rem;">Love it? Continue for just <strong style="color: #E53E3E;">$80/month</strong>, no contract.</p>
-                  <p style="font-family: 'Figtree', sans-serif; font-size: 1.1rem; color: #4B4B4B; margin-bottom: 2rem;">Apply promo code <strong style="color: #E53E3E;">SAVE30FOR12</strong> at checkout.</p>
-                  <a href="https://more4lessplans.chargebee.com/hosted_pages/plans/home-internet?coupon=SAVE30FOR12" class="btn btn-dark mt-4" style="font-family: 'Rubik', sans-serif; font-size: 1rem; font-weight: 500; background: #1A1A1A; border: none; border-radius: 12px; padding: 14px 48px; transition: background 0.3s ease, transform 0.2s ease;">Subscribe Now</a>
-                </div>
-              </div>
-              <p class="more-info-text mt-4" style="font-family: 'Figtree', sans-serif; font-size: 0.9rem; color: #6B7280;">Got Questions? <a href="/contact" style="color: #1A1A1A; text-decoration: none; font-weight: 500; transition: color 0.3s ease;">Contact Us →</a></p>
-            </div>
-          </div>
-        </div>
-      </section>
+<!-- ══ NAV ══════════════════════════════════════════════════════ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="/"><img src="assets/img/logos/logo.png" alt="More4Less"></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/contact">Contact</a></li>
+      <li class="nav-portal"><a href="/portal">Dashboard</a></li>
+    </ul>
+    <button class="menu-trigger" id="menuTrigger" aria-label="Open menu">
+      <div class="menu-icon"><span></span><span></span><span></span></div>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-overlay" id="mobileOverlay">
+  <ul class="mobile-nav-links">
+    <li><a href="/contact">Contact</a></li>
+    <li class="portal-link"><a href="/portal">Dashboard</a></li>
+  </ul>
+</div>
+
+<!-- ══ HERO ═════════════════════════════════════════════════════ -->
+<section class="promo-hero">
+  <div class="hero-inner">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      Welcome Gift Activated
     </div>
-  </main>
+    <h1 class="hero-headline">
+      Your Internet Is<br><em>Already On.</em>
+    </h1>
+    <p class="hero-sub">
+      Thanks for purchasing this router! We've included a special gift.
+    </p>
+  </div>
+</section>
 
-  <div id="footer-container"></div>
+<!-- ══ PROMO CARD ═══════════════════════════════════════════════ -->
+<div class="promo-wrap">
+  <div class="promo-card">
+    <div class="promo-card-inner">
+      <div class="section-eyebrow"><span class="eyebrow-dot"></span> New Customer Promotion</div>
+      <h2 class="promo-title">Experience Seamless Connectivity</h2>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script src="assets/js/theme.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      // Load navbar
-      fetch('/navbar.html')
-        .then(response => response.ok ? response.text() : Promise.reject(`Failed to load navbar.html: ${response.status}`))
-        .then(data => {
-          document.getElementById('navbar-container').innerHTML = data;
-          const navbarScript = document.createElement('script');
-          navbarScript.src = '/navbar.js';
-          navbarScript.async = true;
-          navbarScript.onload = () => typeof initializeNavbar === 'function' ? initializeNavbar() : console.warn('initializeNavbar not found');
-          document.body.appendChild(navbarScript);
-        })
-        .catch(error => console.error('Error loading navbar:', error));
+      <div class="promo-text">
+        Your router includes a <strong>pre-activated SIM card</strong> with <span class="accent">30 days of FREE unlimited high-speed internet</span>.
+      </div>
+      <div class="promo-text">Explore our service with zero commitment.</div>
+      <div class="promo-text">
+        Love it? Continue for just <span class="accent">$80/month</span>, no contract.
+      </div>
 
-      // Load footer
-      fetch('/footer.html')
-        .then(response => response.ok ? response.text() : Promise.reject(`Failed to load footer.html: ${response.status}`))
-        .then(data => {
-          document.getElementById('footer-container').innerHTML = data;
-          const currentYearElement = document.getElementById('currentYear');
-          if (currentYearElement) currentYearElement.textContent = new Date().getFullYear();
-        })
-        .catch(error => console.error('Error loading footer:', error));
+      <div class="cred-strip">
+        <span class="cred-label">Promo Code</span>
+        <span class="cred-pill">
+          <span class="cred-val" id="promoCode">SAVE30FOR12</span>
+          <button class="copy-btn" type="button" onclick="copyText('SAVE30FOR12', this)" aria-label="Copy promo code">
+            <svg viewBox="0 0 16 16"><rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5"/></svg>
+          </button>
+        </span>
+      </div>
+
+      <a href="https://more4lessplans.chargebee.com/hosted_pages/plans/home-internet?coupon=SAVE30FOR12" class="btn-cta">
+        Subscribe Now
+        <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <p class="promo-foot">Got questions? <a href="/contact">Contact us →</a></p>
+</div>
+
+<!-- ══ FOOTER ═══════════════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="footer-links">
+    <a href="/contact">Contact</a>
+    <a href="/portal">Dashboard</a>
+  </div>
+  <div class="footer-copy">© <span id="year"></span> More4Less Wireless Internet</div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  /* Year */
+  var y = document.getElementById('year');
+  if (y) y.textContent = new Date().getFullYear();
+
+  /* ── Mobile menu ─────────────────────────────────── */
+  var trigger = document.getElementById('menuTrigger');
+  var overlay = document.getElementById('mobileOverlay');
+
+  function toggleMenu() {
+    var open = trigger.classList.toggle('menu-active');
+    overlay.classList.toggle('active', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  trigger.addEventListener('click', function (e) { e.stopPropagation(); toggleMenu(); });
+  overlay.addEventListener('click', function (e) {
+    if (!e.target.closest('a') && overlay.classList.contains('active')) toggleMenu();
+  });
+  overlay.querySelectorAll('a').forEach(function (a) {
+    a.addEventListener('click', function () { if (overlay.classList.contains('active')) toggleMenu(); });
+  });
+
+  /* ── Copy to clipboard ───────────────────────────── */
+  window.copyText = function (text, btn) {
+    navigator.clipboard.writeText(text).then(function () {
+      var svg = btn.querySelector('svg');
+      svg.innerHTML = '<polyline points="1.5,5 4,7.5 8.5,2" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" stroke="currentColor" fill="none"/>';
+      btn.style.color = 'var(--green)';
+      setTimeout(function () {
+        svg.innerHTML = '<rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5"/>';
+        btn.style.color = '';
+      }, 1800);
     });
-  </script>
+  };
+})();
+</script>
 </body>
 </html>
