@@ -1,685 +1,871 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="en-CA">
 <head>
+  <!-- ── CHARACTER & COMPATIBILITY ────────────────────────────── -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!-- ── VIEWPORT ──────────────────────────────────────────────── -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+
+  <!-- ── PRIMARY META ──────────────────────────────────────────── -->
+  <title>Get the App | More4Less Wireless Internet</title>
+  <meta name="description" content="Download the app that matches your More4Less device. Manage Wi-Fi settings, check data usage, and monitor your connection in minutes.">
   <meta name="robots" content="noindex, nofollow">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Get the Netgear App | More4Less</title>
-
-
-
-    <!-- 5. Favicons & Theme -->
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicons/favicon-16x16.png">
-    <link rel="shortcut icon" href="assets/img/favicons/favicon.ico">
-    <link rel="manifest" href="assets/img/favicons/site.webmanifest">
-    <meta name="theme-color" content="#2E2F33">
-
-
-    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <style>
-        :root {
-            --brand-red:   #D73C59;
-            --bg-nav:      #2E2F33;
-            --bg-page:     #FBFBFD;
-            --text-dark:   #1d1d1f;
-            --text-muted:  #6e6e73;
-            --nav-h:       68px;
-            --border:      #eaeaec;
-            --card-radius: 28px;
-        }
-
-        *, *::before, *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            font-size: 15px;
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Figtree', sans-serif;
-            background: var(--bg-page);
-            color: var(--text-dark);
-            -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
-        }
-
-        /* ─── NAVBAR ─────────────────────────────────────────────── */
-        .navbar-custom {
-            background-color: var(--bg-nav);
-            padding: 1.2rem 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 4000;
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1140px;
-            margin: 0 auto;
-            padding: 0 25px;
-        }
-
-        .navbar-brand img { height: 22px; }
-
-        .nav-links-desktop {
-            display: flex;
-            align-items: center;
-            list-style: none;
-        }
-
-        .nav-links-desktop li a {
-            color: #ffffff;
-            font-weight: 500;
-            font-size: 0.85rem;
-            margin: 0 18px;
-            text-decoration: none;
-            opacity: 0.7;
-            transition: opacity 0.2s;
-            position: relative;
-        }
-
-        .nav-links-desktop li a:hover { opacity: 1; }
-
-        .nav-links-desktop li a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -4px;
-            left: 0;
-            background-color: var(--brand-red);
-            transition: width 0.4s cubic-bezier(0.2, 1, 0.2, 1);
-        }
-
-        .nav-links-desktop li a:hover::after { width: 100%; }
-
-        .btn-portal-top::after { display: none !important; }
-
-        .btn-portal-top {
-            background: var(--brand-red);
-            color: white !important;
-            padding: 8px 20px;
-            border-radius: 50px;
-            font-weight: 600;
-            opacity: 1 !important;
-            transition: all 0.3s ease !important;
-        }
-
-        .btn-portal-top:hover {
-            background: #ffffff !important;
-            color: var(--text-dark) !important;
-            transform: translateY(-2px);
-        }
-
-        .menu-trigger {
-            display: none;
-            cursor: pointer;
-            padding: 10px;
-            z-index: 5001;
-            position: relative;
-        }
-
-        .menu-icon {
-            width: 26px;
-            height: 18px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .menu-icon span {
-            display: block;
-            width: 100%;
-            height: 2px;
-            background: #fff;
-            border-radius: 10px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .menu-active .menu-icon span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
-        .menu-active .menu-icon span:nth-child(2) { opacity: 0; transform: translateX(10px); }
-        .menu-active .menu-icon span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
-
-        .mobile-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(29, 29, 31, 0.98);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 4500;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.4s ease, visibility 0.4s ease;
-        }
-
-        .mobile-overlay.active { opacity: 1; visibility: visible; }
-
-        .mobile-nav-links { list-style: none; padding: 0; text-align: center; }
-
-        .mobile-nav-links li {
-            margin: 25px 0;
-            transform: translateY(20px);
-            opacity: 0;
-            transition: 0.4s ease;
-        }
-
-        .mobile-overlay.active .mobile-nav-links li { transform: translateY(0); opacity: 1; }
-
-        .mobile-nav-links li:nth-child(1) { transition-delay: 0.10s; }
-        .mobile-nav-links li:nth-child(2) { transition-delay: 0.15s; }
-        .mobile-nav-links li:nth-child(3) { transition-delay: 0.20s; }
-
-        .mobile-nav-links a {
-            color: #fff;
-            font-size: 2.2rem;
-            font-weight: 700;
-            text-decoration: none;
-            letter-spacing: -0.03em;
-            position: relative;
-            display: inline-block;
-        }
-
-        .mobile-nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 3px;
-            bottom: -4px;
-            left: 0;
-            background-color: var(--brand-red);
-            transition: width 0.4s cubic-bezier(0.2, 1, 0.2, 1);
-        }
-
-        .mobile-nav-links a:hover::after { width: 100%; }
-
-        /* ─── PAGE CONTENT ───────────────────────────────────────── */
-        .app-wrap {
-            padding-top: var(--nav-h);
-            min-height: 100vh;
-        }
-
-        /* Hero */
-        .app-hero {
-            padding: 80px 24px 60px;
-            text-align: center;
-            background: linear-gradient(to bottom, #ffffff 0%, var(--bg-page) 100%);
-            border-bottom: 1px solid var(--border);
-            position: relative;
-        }
-
-        .app-hero::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
-            background-size: 28px 28px;
-            opacity: 0.4;
-            pointer-events: none;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            max-width: 680px;
-            margin: 0 auto;
-            opacity: 0;
-            animation: fadeUp 0.8s ease 0.1s forwards;
-        }
-
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-
-        .app-eyebrow {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--text-muted);
-            font-size: 0.72rem;
-            font-weight: 600;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            margin-bottom: 16px;
-        }
-
-        .app-eyebrow::before,
-        .app-eyebrow::after {
-            content: '';
-            width: 24px;
-            height: 1px;
-            background: var(--border);
-        }
-
-        .app-hero h1 {
-            font-size: clamp(2.2rem, 5vw, 2.8rem);
-            font-weight: 800;
-            letter-spacing: -0.04em;
-            line-height: 1.1;
-            margin-bottom: 14px;
-            color: var(--text-dark);
-        }
-
-        .app-subtitle {
-            font-size: 1.05rem;
-            color: var(--text-muted);
-            font-weight: 400;
-            line-height: 1.6;
-        }
-
-        /* Main content */
-        .app-content {
-            max-width: 720px;
-            margin: 0 auto;
-            padding: 70px 24px 100px;
-            opacity: 0;
-            animation: fadeUp 0.8s ease 0.25s forwards;
-        }
-
-        /* Tab switcher */
-        .tab-switcher {
-            background: #eeeeef;
-            border-radius: 14px;
-            padding: 4px;
-            display: flex;
-            position: relative;
-            margin-bottom: 48px;
-        }
-
-        .tab-btn {
-            flex: 1;
-            padding: 14px 10px;
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            background: none;
-            border: none;
-            cursor: pointer;
-            z-index: 2;
-            transition: color 0.3s ease;
-            position: relative;
-        }
-
-        .tab-btn.active { color: var(--text-dark); }
-
-        .tab-slider {
-            position: absolute;
-            height: calc(100% - 8px);
-            width: calc(50% - 4px);
-            background: #ffffff;
-            border-radius: 11px;
-            top: 4px;
-            left: 4px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-            z-index: 1;
-        }
-
-        .tab-switcher[data-active="orbi"] .tab-slider { transform: translateX(100%); }
-
-        /* Tab panes */
-        .tab-pane {
-            display: none;
-            text-align: center;
-        }
-
-        .tab-pane.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(12px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Image carousel for nighthawk */
-        .image-carousel {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 24px;
-            margin-bottom: 32px;
-        }
-
-        .carousel-arrow {
-            background: none;
-            border: none;
-            font-size: 2rem;
-            color: #d0d0d4;
-            cursor: pointer;
-            transition: color 0.2s ease, transform 0.2s ease;
-            padding: 8px;
-        }
-
-        .carousel-arrow:hover {
-            color: var(--text-dark);
-            transform: scale(1.15);
-        }
-
-        .carousel-arrow:active {
-            transform: scale(0.95);
-        }
-
-        .device-img-wrap {
-            height: 150px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .device-img {
-            max-height: 100%;
-            width: auto;
-            filter: drop-shadow(0 10px 25px rgba(0,0,0,0.08));
-            transition: opacity 0.3s ease;
-        }
-
-        /* Static image for orbi */
-        .static-device-img {
-            max-height: 150px;
-            width: auto;
-            margin-bottom: 32px;
-            filter: drop-shadow(0 10px 25px rgba(0,0,0,0.08));
-        }
-
-        /* Description */
-        .app-desc {
-            font-size: 1rem;
-            color: var(--text-muted);
-            line-height: 1.7;
-            margin-bottom: 28px;
-        }
-
-        /* Credentials box */
-        .cred-box {
-            background: #ffffff;
-            border: 1px solid var(--border);
-            border-radius: 18px;
-            padding: 24px;
-            margin-bottom: 32px;
-        }
-
-        .cred-label {
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            margin-bottom: 10px;
-        }
-
-        .cred-row {
-            display: flex;
-            gap: 24px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .cred-item {
-            font-size: 0.95rem;
-            color: var(--text-dark);
-        }
-
-        .cred-item strong {
-            font-weight: 600;
-            margin-right: 6px;
-        }
-
-        .cred-value {
-            background: rgba(215, 60, 89, 0.08);
-            color: var(--brand-red);
-            font-weight: 700;
-            padding: 3px 8px;
-            border-radius: 6px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-        }
-
-        /* Download button */
-        .btn-download {
-            display: inline-block;
-            background: var(--brand-red);
-            color: #ffffff;
-            font-weight: 700;
-            font-size: 0.95rem;
-            padding: 16px 42px;
-            border-radius: 50px;
-            text-decoration: none;
-            transition: all 0.25s ease;
-            box-shadow: 0 8px 24px rgba(215, 60, 89, 0.28);
-        }
-
-        .btn-download:hover {
-            background: var(--text-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
-            color: #ffffff;
-        }
-
-        /* Support link */
-        .support-link {
-            text-align: center;
-            margin-top: 48px;
-            font-size: 0.95rem;
-            color: var(--text-muted);
-        }
-
-        .support-link a {
-            color: var(--brand-red);
-            font-weight: 600;
-            text-decoration: none;
-            border-bottom: 1px solid rgba(215, 60, 89, 0.3);
-            transition: border-color 0.2s ease;
-        }
-
-        .support-link a:hover {
-            border-color: var(--brand-red);
-        }
-
-        /* ─── RESPONSIVE ─────────────────────────────────────────── */
-        @media (max-width: 768px) {
-            .nav-links-desktop { display: none; }
-            .menu-trigger { display: block; }
-
-            .app-hero { padding: 60px 20px 50px; }
-            .app-content { padding: 50px 20px 80px; }
-
-            .carousel-arrow { font-size: 1.6rem; }
-            .device-img-wrap { height: 120px; }
-            .static-device-img { max-height: 120px; }
-
-            .cred-row { flex-direction: column; gap: 10px; }
-        }
-    </style>
+  <meta name="author" content="More4Less Wireless Internet">
+  <link rel="canonical" href="https://more4lessplans.ca/app-download">
+
+  <!-- ── THEME & APP ────────────────────────────────────────────── -->
+  <meta name="theme-color" content="#2E2F33">
+  <meta name="color-scheme" content="dark">
+  <meta name="application-name" content="More4Less">
+  <meta name="apple-mobile-web-app-title" content="More4Less">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+
+  <!-- ── FAVICONS ───────────────────────────────────────────────── -->
+  <link rel="icon" type="image/x-icon" href="assets/img/favicons/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicons/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon.png">
+  <link rel="manifest" href="assets/img/favicons/site.webmanifest">
+
+  <!-- ── FONTS ─────────────────────────────────────────────────── -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── TOKENS ─────────────────────────────────────────────────── */
+    :root {
+      --red:           #D73C59;
+      --red-deep:      #b82e48;
+      --red-glow:      rgba(215,60,89,0.12);
+
+      --green:         #16a05a;
+      --amber:         #f5a623;
+      --amber-bg:      #fff8f0;
+      --amber-border:  rgba(245,166,35,0.35);
+      --amber-text:    #7a4a00;
+      --amber-label:   #b36a00;
+
+      --bg:            #f8f8f9;
+      --bg-card:       #ffffff;
+      --dark:          #2E2F33;
+      --dark-card:     #38393e;
+      --dark-line:     rgba(255,255,255,0.08);
+
+      --ink:           #1a1a1c;
+      --ink-2:         #3d3d40;
+      --ink-3:         #87878c;
+      --ink-4:         #b8b8bc;
+      --on-dark:       #f0f0f2;
+      --on-dark-2:     #b8b8c4;
+      --on-dark-3:     #78787e;
+
+      --border:        #e8e8ec;
+      --border-dark:   rgba(255,255,255,0.10);
+
+      --nav-h:         60px;
+      --rXL:           18px;
+      --rLG:           14px;
+      --rMD:           10px;
+      --rSM:           8px;
+      --rFull:         999px;
+
+      --spring:        cubic-bezier(0.34,1.5,0.64,1);
+      --ease-out:      cubic-bezier(0.22,1,0.36,1);
+    }
+
+    /* ── RESET ──────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 15px; scroll-behavior: smooth; }
+    body {
+      font-family: 'Figtree', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ────────────────────────────────────────────────────── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--nav-h); z-index: 9000;
+      background: var(--dark);
+      border-bottom: 1px solid var(--border-dark);
+      display: flex; align-items: center;
+    }
+    .nav-inner {
+      width: 100%; display: flex; align-items: center;
+      padding: 0 40px;
+    }
+    .nav-logo img { height: 20px; display: block; }
+    .nav-links {
+      display: flex; align-items: center;
+      gap: 0; list-style: none; margin-left: auto;
+    }
+    .nav-links li a {
+      font-size: 0.82rem; font-weight: 500;
+      color: var(--on-dark-2); text-decoration: none;
+      letter-spacing: 0.01em; padding: 0 18px;
+      white-space: nowrap; position: relative;
+      display: inline-block; transition: color 0.2s ease;
+    }
+    .nav-links li a::after {
+      content: ''; position: absolute;
+      bottom: -3px; left: 18px; right: 18px;
+      width: 0; height: 1.5px;
+      background: var(--red); border-radius: 2px;
+      transition: width 0.3s var(--ease-out);
+    }
+    .nav-links li a:hover { color: var(--on-dark); }
+    .nav-links li a:hover::after { width: calc(100% - 36px); }
+    .nav-links .nav-portal a {
+      color: #fff; font-weight: 600;
+      border: 1.5px solid rgba(255,255,255,0.28);
+      border-radius: var(--rFull);
+      padding: 6px 16px; margin-left: 10px;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .nav-links .nav-portal a::after { display: none; }
+    .nav-links .nav-portal a:hover {
+      background: rgba(255,255,255,0.10);
+      border-color: rgba(255,255,255,0.50);
+    }
+
+    /* Hamburger */
+    .menu-trigger {
+      display: none; cursor: pointer;
+      padding: 8px; background: none;
+      border: none; outline: none; margin-left: auto;
+    }
+    .menu-icon {
+      width: 22px; height: 16px;
+      display: flex; flex-direction: column;
+      justify-content: space-between;
+    }
+    .menu-icon span {
+      display: block; width: 100%; height: 1.5px;
+      background: rgba(255,255,255,0.8); border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+    .menu-trigger.menu-active .menu-icon span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .menu-trigger.menu-active .menu-icon span:nth-child(2) { opacity: 0; }
+    .menu-trigger.menu-active .menu-icon span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile overlay */
+    .mobile-overlay {
+      position: fixed; inset: 0;
+      background: rgba(22,22,24,0.97);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      z-index: 8500;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+    .mobile-overlay.active { opacity: 1; visibility: visible; }
+    .mobile-nav-links { list-style: none; text-align: center; }
+    .mobile-nav-links li { margin: 18px 0; transform: translateY(16px); opacity: 0; transition: 0.4s ease; }
+    .mobile-overlay.active .mobile-nav-links li { transform: none; opacity: 1; }
+    .mobile-nav-links li:nth-child(1) { transition-delay: 0.08s; }
+    .mobile-nav-links li:nth-child(2) { transition-delay: 0.13s; }
+    .mobile-nav-links li:nth-child(3) { transition-delay: 0.18s; }
+    .mobile-nav-links a {
+      color: rgba(255,255,255,0.85);
+      font-size: 2rem; font-weight: 700;
+      text-decoration: none; letter-spacing: -0.03em;
+      position: relative; display: inline-block;
+      transition: color 0.25s ease;
+    }
+    .mobile-nav-links a::after {
+      content: ''; position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 2.5px;
+      background: var(--red); border-radius: 2px;
+      transition: width 0.3s var(--ease-out);
+    }
+    .mobile-nav-links a:hover { color: #fff; }
+    .mobile-nav-links a:hover::after { width: 100%; }
+    .mobile-nav-links .portal-link a { color: var(--red); }
+
+    /* ── HERO ────────────────────────────────────────────────────── */
+    .setup-hero {
+      position: relative;
+      background: var(--dark);
+      overflow: hidden;
+      padding-top: var(--nav-h);
+    }
+    /* dot grid */
+    .setup-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.065) 1px, transparent 1px);
+      background-size: 28px 28px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 30%, black 30%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 30%, black 30%, transparent 100%);
+      pointer-events: none;
+    }
+    /* red glow */
+    .setup-hero::after {
+      content: ''; position: absolute;
+      width: 700px; height: 700px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(215,60,89,0.07) 0%, transparent 70%);
+      top: 10%; left: 50%; transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative; z-index: 2;
+      max-width: 860px; width: 100%;
+      margin: 0 auto;
+      padding: 56px 24px 64px;
+      display: flex; flex-direction: column; align-items: center;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 6px 14px 6px 10px;
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: var(--rFull);
+      background: rgba(255,255,255,0.07);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      font-size: 0.69rem; font-weight: 600;
+      letter-spacing: 0.09em; text-transform: uppercase;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 28px;
+      opacity: 0; transform: translateY(12px);
+      animation: revealUp 0.7s var(--ease-out) 0.1s forwards;
+    }
+    .badge-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 3px rgba(22,160,90,0.18);
+      animation: pulse 2.5s ease infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 3px rgba(22,160,90,0.18); }
+      50%       { box-shadow: 0 0 0 6px rgba(22,160,90,0.08); }
+    }
+
+    .hero-headline {
+      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      font-weight: 900; letter-spacing: -0.04em; line-height: 1.05;
+      color: var(--on-dark); margin-bottom: 16px;
+      opacity: 0; transform: translateY(16px);
+      animation: revealUp 0.75s var(--ease-out) 0.22s forwards;
+    }
+    .hero-headline em { font-style: normal; color: var(--red); }
+
+    .hero-sub {
+      font-size: 1.05rem; color: var(--on-dark-2);
+      line-height: 1.7; max-width: 440px;
+      margin: 0 auto 44px; font-weight: 400;
+      opacity: 0; transform: translateY(14px);
+      animation: revealUp 0.75s var(--ease-out) 0.34s forwards;
+    }
+
+    @keyframes revealUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── DEVICE CARDS (tab selector) ─────────────────────────────── */
+    .device-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 14px; width: 100%; max-width: 480px;
+      opacity: 0; transform: translateY(14px);
+      animation: revealUp 0.75s var(--ease-out) 0.44s forwards;
+    }
+
+    .device-card {
+      background: rgba(255,255,255,0.05);
+      border: 1.5px solid rgba(255,255,255,0.11);
+      border-radius: var(--rXL);
+      padding: 28px 20px 22px;
+      cursor: pointer;
+      display: flex; flex-direction: column; align-items: center;
+      text-align: center; position: relative; overflow: hidden;
+      transition:
+        border-color 0.28s ease,
+        background 0.28s ease,
+        box-shadow 0.28s ease,
+        transform 0.32s var(--spring),
+        opacity 0.32s ease;
+    }
+    .device-card::after {
+      content: ''; position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px; background: var(--red);
+      border-radius: 0 0 var(--rXL) var(--rXL);
+      transform: scaleX(0);
+      transition: transform 0.32s var(--ease-out);
+    }
+    .device-card:hover {
+      border-color: rgba(255,255,255,0.22);
+      background: rgba(255,255,255,0.08);
+      transform: translateY(-3px);
+      box-shadow: 0 18px 48px rgba(0,0,0,0.32);
+    }
+    .device-card:hover::after { transform: scaleX(1); }
+    .device-card.selected {
+      border-color: var(--red);
+      background: rgba(215,60,89,0.08);
+      box-shadow: 0 0 0 4px rgba(215,60,89,0.14), 0 18px 48px rgba(0,0,0,0.32);
+      transform: translateY(-3px);
+    }
+    .device-card.selected::after { transform: scaleX(1); }
+    .device-card.unselected { opacity: 0.4; transform: none; }
+
+    .sel-badge {
+      position: absolute; top: 12px; right: 12px;
+      background: var(--red); color: #fff;
+      font-size: 0.59rem; font-weight: 800;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 3px 9px; border-radius: var(--rFull);
+      opacity: 0; transform: scale(0.75) translateY(-4px);
+      transition: opacity 0.28s ease, transform 0.28s var(--spring);
+    }
+    .device-card.selected .sel-badge { opacity: 1; transform: scale(1) translateY(0); }
+
+    .card-img-wrap {
+      height: 90px; display: flex;
+      align-items: center; justify-content: center;
+      margin-bottom: 14px;
+    }
+    .card-img-wrap img {
+      max-height: 100%; width: auto;
+      filter: drop-shadow(0 10px 20px rgba(0,0,0,0.26));
+      transition: transform 0.38s var(--spring);
+    }
+    .device-card:hover .card-img-wrap img,
+    .device-card.selected .card-img-wrap img { transform: scale(1.06) translateY(-3px); }
+
+    .dc-title {
+      font-size: 0.95rem; font-weight: 800;
+      letter-spacing: -0.02em; color: var(--on-dark); margin-bottom: 4px;
+    }
+    .dc-desc { font-size: 0.76rem; color: var(--on-dark-3); line-height: 1.5; }
+
+    /* ── SECTION ─────────────────────────────────────────────────── */
+    .guide-section {
+      background: var(--bg-card);
+      padding: 0 24px;
+    }
+    .guide-inner { max-width: 620px; margin: 0 auto; padding: 64px 0 72px; }
+
+    /* Section label */
+    .section-eyebrow {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.64rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--ink-3); margin-bottom: 10px;
+    }
+    .eyebrow-dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--red); flex-shrink: 0;
+    }
+
+    .section-title {
+      font-size: clamp(1.5rem, 2.6vw, 1.9rem);
+      font-weight: 900; letter-spacing: -0.04em; line-height: 1.1;
+      color: var(--ink); margin-bottom: 36px;
+      transition: opacity 0.2s ease;
+    }
+
+    /* ── IMAGE CAROUSEL (Nighthawk) ─────────────────────────────── */
+    .image-carousel {
+      display: flex; align-items: center; justify-content: center;
+      gap: 18px;
+    }
+    .carousel-arrow {
+      background: none; border: none;
+      font-size: 1.7rem; color: var(--ink-4);
+      cursor: pointer; padding: 8px;
+      transition: color 0.2s ease, transform 0.2s ease;
+      line-height: 1;
+    }
+    .carousel-arrow:hover { color: var(--ink); transform: scale(1.12); }
+    .carousel-arrow:active { transform: scale(0.94); }
+    .device-img-wrap { height: 130px; display: flex; align-items: center; justify-content: center; }
+    .device-img {
+      max-height: 100%; width: auto;
+      filter: drop-shadow(0 10px 24px rgba(0,0,0,0.12));
+      transition: opacity 0.15s ease;
+    }
+    .static-device-img {
+      display: block; margin: 0 auto;
+      max-height: 130px; width: auto;
+      filter: drop-shadow(0 10px 24px rgba(0,0,0,0.12));
+    }
+
+    /* ── APP BLOCK ───────────────────────────────────────────────── */
+    .app-block {
+      margin-top: 28px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--rLG);
+      overflow: hidden;
+    }
+    .app-block-inner {
+      padding: 26px 24px 22px;
+      text-align: center;
+    }
+    .app-block-name {
+      font-size: 0.86rem; font-weight: 800;
+      letter-spacing: -0.01em; color: var(--ink); margin-bottom: 8px;
+    }
+    .app-block-desc {
+      font-size: 0.84rem; color: var(--ink-3); line-height: 1.7;
+      max-width: 460px; margin: 0 auto 20px;
+    }
+
+    /* Credentials strip */
+    .cred-strip {
+      border-top: 1px solid var(--border);
+      padding: 18px 24px;
+      display: flex; align-items: center; justify-content: center;
+      gap: 10px; flex-wrap: wrap;
+      background: var(--bg-card);
+    }
+    .cred-label {
+      font-size: 0.62rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--ink-3); flex-shrink: 0;
+      width: 100%; text-align: center; margin-bottom: 6px;
+    }
+    .cred-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 10px;
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: var(--rSM);
+      font-size: 0.77rem; color: var(--ink-2);
+    }
+    .cred-key { font-weight: 500; color: var(--ink-3); font-size: 0.71rem; }
+    .cred-val {
+      font-family: 'Courier New', monospace;
+      font-weight: 700; color: var(--red); font-size: 0.84rem;
+    }
+    .copy-btn {
+      background: none; border: none; cursor: pointer;
+      padding: 2px 4px; color: var(--ink-4);
+      display: inline-flex; align-items: center;
+      transition: color 0.18s;
+    }
+    .copy-btn:hover { color: var(--ink); }
+    .copy-btn svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 1.8; }
+
+    /* Download button */
+    .btn-cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 22px; background: var(--red); color: #fff;
+      font-weight: 700; font-size: 0.87rem;
+      padding: 12px 26px; border-radius: var(--rFull);
+      text-decoration: none; letter-spacing: 0.01em;
+      transition: background 0.22s, transform 0.28s var(--spring), box-shadow 0.28s;
+      box-shadow: 0 8px 22px rgba(215,60,89,0.28);
+    }
+    .btn-cta:hover {
+      background: var(--red-deep);
+      transform: translateY(-1px);
+      box-shadow: 0 12px 30px rgba(215,60,89,0.35);
+    }
+    .btn-cta svg {
+      width: 13px; height: 13px; stroke: currentColor;
+      fill: none; stroke-width: 2.5;
+      transition: transform 0.28s var(--spring);
+    }
+    .btn-cta:hover svg { transform: translateX(2px); }
+    .btn-cta.light {
+      background: var(--ink); box-shadow: none;
+    }
+    .btn-cta.light:hover { background: #000; }
+
+    /* ── PORTAL / FEATURE CARD ───────────────────────────────────── */
+    .portal-card {
+      margin-top: 18px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--rLG);
+      padding: 24px;
+    }
+    .portal-card-title {
+      font-size: 0.86rem; font-weight: 800;
+      letter-spacing: -0.01em; color: var(--ink);
+      margin-bottom: 14px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .portal-card-title svg {
+      width: 15px; height: 15px;
+      stroke: var(--red); fill: none; stroke-width: 2; flex-shrink: 0;
+    }
+    .portal-feature-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 8px 20px;
+    }
+    .portal-feature {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.81rem; color: var(--ink-3); line-height: 1.4;
+    }
+    .feat-dot {
+      width: 4px; height: 4px; border-radius: 50%;
+      background: var(--red); flex-shrink: 0;
+    }
+
+    /* ── SUPPORT / FINAL CTA ─────────────────────────────────────── */
+    .step-final {
+      background: var(--dark);
+      border-radius: var(--rXL);
+      padding: 36px 32px;
+      margin-top: 28px;
+      position: relative; overflow: hidden;
+      text-align: center;
+    }
+    .step-final::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 24px 24px; opacity: 0.6; pointer-events: none;
+    }
+    .step-final::after {
+      content: ''; position: absolute;
+      width: 360px; height: 360px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(215,60,89,0.10) 0%, transparent 70%);
+      right: -80px; bottom: -80px; pointer-events: none;
+    }
+    .sf-inner { position: relative; z-index: 1; }
+    .step-final .step-name {
+      font-size: 0.97rem; font-weight: 800; letter-spacing: -0.02em;
+      color: var(--on-dark); margin-bottom: 8px;
+    }
+    .step-final .step-text {
+      font-size: 0.875rem; color: var(--on-dark-2); line-height: 1.7;
+      max-width: 420px; margin: 0 auto;
+    }
+
+    /* ── VISIBILITY HELPERS ──────────────────────────────────────── */
+    .mobile-only, .fixed-only { display: none !important; }
+    .mobile-only.show, .fixed-only.show { display: block !important; }
+
+    /* ── FOOTER ──────────────────────────────────────────────────── */
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 40px;
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    }
+    .footer-links { display: flex; align-items: center; gap: 24px; }
+    .footer-links a { font-size: 0.74rem; color: var(--ink-3); text-decoration: none; font-weight: 500; transition: color 0.18s; }
+    .footer-links a:hover { color: var(--ink); }
+    .footer-copy { font-size: 0.71rem; color: var(--ink-4); }
+
+    /* ── RESPONSIVE ──────────────────────────────────────────────── */
+    @media (max-width: 960px) {
+      .nav-links  { display: none; }
+      .menu-trigger { display: block; }
+      .nav-inner  { padding: 0 20px; }
+      .footer     { flex-direction: column; text-align: center; padding: 28px 20px; }
+      .footer-links { justify-content: center; }
+    }
+
+    @media (max-width: 640px) {
+      .hero-inner  { padding: 44px 20px 52px; }
+      .device-grid { gap: 10px; }
+      .device-card { padding: 22px 12px 16px; border-radius: var(--rLG); }
+      .card-img-wrap { height: 74px; }
+      .dc-desc     { display: none; }
+      .guide-inner { padding: 48px 0 56px; }
+      .portal-feature-grid { grid-template-columns: 1fr; }
+      .step-final  { padding: 28px 22px; }
+      .cred-strip  { padding: 14px 20px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
 </head>
 <body>
 
-<!-- ── NAVBAR ─────────────────────────────────────────────────── -->
-<nav class="navbar-custom">
-    <div class="nav-container">
-        <a class="navbar-brand" href="/">
-            <img src="assets/img/logos/logo.png" alt="More4Less">
-        </a>
-
-        <ul class="nav-links-desktop">
-            <li><a href="/#pricing">Pricing</a></li>
-            <li><a href="/contact">Contact</a></li>
-            <li><a href="/portal" class="btn-portal-top">Customer Portal</a></li>
-        </ul>
-
-        <div class="menu-trigger" id="menuTrigger" onclick="toggleMenu()">
-            <div class="menu-icon">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-    </div>
+<!-- ══ NAV ══════════════════════════════════════════════════════ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="/"><img src="assets/img/logos/logo.png" alt="More4Less"></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/#pricing">Pricing</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li class="nav-portal"><a href="/portal">Dashboard</a></li>
+    </ul>
+    <button class="menu-trigger" id="menuTrigger" aria-label="Open menu">
+      <div class="menu-icon"><span></span><span></span><span></span></div>
+    </button>
+  </div>
 </nav>
 
 <div class="mobile-overlay" id="mobileOverlay">
-    <ul class="mobile-nav-links">
-        <li><a href="/#pricing">Pricing</a></li>
-        <li><a href="/contact">Contact</a></li>
-        <li><a href="/portal">Account Portal</a></li>
-    </ul>
+  <ul class="mobile-nav-links">
+    <li><a href="/#pricing">Pricing</a></li>
+    <li><a href="/contact">Contact</a></li>
+    <li class="portal-link"><a href="/portal">Dashboard</a></li>
+  </ul>
 </div>
 
-<!-- ── PAGE CONTENT ───────────────────────────────────────────── -->
-<div class="app-wrap">
-
-    <!-- Hero -->
-    <section class="app-hero">
-        <div class="hero-content">
-            <div class="app-eyebrow">Device Management</div>
-            <h1>App Download</h1>
-            <p class="app-subtitle">The easiest way to manage your device, check data usage, and update settings.</p>
-        </div>
-    </section>
-
-    <!-- Main Content -->
-    <div class="app-content">
-
-        <!-- Tab Switcher -->
-        <div class="tab-switcher" id="tabSwitcher" data-active="nighthawk">
-            <div class="tab-slider"></div>
-            <button class="tab-btn active" data-tab="nighthawk" onclick="switchTab('nighthawk')">On-The-Go Devices</button>
-            <button class="tab-btn" data-tab="orbi" onclick="switchTab('orbi')">Fixed Home Devices</button>
-        </div>
-
-        <!-- Nighthawk Tab -->
-        <div class="tab-pane active" id="nighthawk-pane">
-            <div class="image-carousel">
-                <button class="carousel-arrow" id="prevBtn" onclick="prevImage()">‹</button>
-                <div class="device-img-wrap">
-                    <img src="assets/img/products/mr1100.png" class="device-img" id="deviceImg" alt="Nighthawk Device">
-                </div>
-                <button class="carousel-arrow" id="nextBtn" onclick="nextImage()">›</button>
-            </div>
-
-            <p class="app-desc">Use the Nighthawk app to check real-time data usage, manage Wi-Fi settings, view connected devices, and monitor signal strength.</p>
-
-            <div class="cred-box">
-                <div class="cred-label">Admin Credentials</div>
-                <div class="cred-row">
-                    <div class="cred-item">
-                        <strong>User:</strong>
-                        <span class="cred-value">admin</span>
-                    </div>
-                    <div class="cred-item">
-                        <strong>Pass:</strong>
-                        <span class="cred-value">attadmin</span>
-                    </div>
-                </div>
-            </div>
-
-            <a href="https://www.netgear.com/support/product/netgear-mobile-app/" class="btn-download">Download Nighthawk App</a>
-        </div>
-
-        <!-- Orbi Tab -->
-        <div class="tab-pane" id="orbi-pane">
-            <img src="assets/img/products/LBR20.png" class="static-device-img" alt="Orbi Router">
-
-            <p class="app-desc">Use the Orbi app to optimise your home signal coverage, run speed tests, manage connected devices, and configure your mesh network.</p>
-
-            <div class="cred-box">
-                <div class="cred-label">Admin Credentials</div>
-                <div class="cred-row">
-                    <div class="cred-item">
-                        <strong>User:</strong>
-                        <span class="cred-value">admin</span>
-                    </div>
-                    <div class="cred-item">
-                        <strong>Pass:</strong>
-                        <span class="cred-value">more4less</span>
-                    </div>
-                </div>
-            </div>
-
-            <a href="https://www.netgear.com/home/services/orbi-app/" class="btn-download">Download Orbi App</a>
-        </div>
-
-        <!-- Support Link -->
-        <p class="support-link">Need more help? <a href="/contact">Contact Support →</a></p>
-
+<!-- ══ HERO / DEVICE SELECTOR ═══════════════════════════════════ -->
+<section class="setup-hero">
+  <div class="hero-inner">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      Device Management
     </div>
 
+    <h1 class="hero-headline">Get the <em>App</em>.</h1>
+
+    <p class="hero-sub">The easiest way to manage your device, check data usage, and update settings.</p>
+
+    <div class="device-grid">
+      <div class="device-card selected" id="card-mobile" onclick="selectDevice('mobile')">
+        <div class="sel-badge">Selected</div>
+        <div class="card-img-wrap">
+          <img src="assets/img/products/mr1100.png" alt="Mobile Hotspot" onerror="this.style.opacity='0'">
+        </div>
+        <div class="dc-title">Mobile Hotspot</div>
+        <div class="dc-desc">On-The-Go Devices</div>
+      </div>
+
+      <div class="device-card unselected" id="card-fixed" onclick="selectDevice('fixed')">
+        <div class="sel-badge">Selected</div>
+        <div class="card-img-wrap">
+          <img src="assets/img/products/LBR20.png" alt="Home Router" onerror="this.style.opacity='0'">
+        </div>
+        <div class="dc-title">Home Router</div>
+        <div class="dc-desc">Fixed Home Devices</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ APP DETAILS ═══════════════════════════════════════════════ -->
+<div class="guide-section">
+  <div class="guide-inner">
+    <div class="section-eyebrow"><span class="eyebrow-dot"></span> Your App</div>
+    <h2 class="section-title" id="appTitle">Nighthawk App</h2>
+
+    <!-- MOBILE (Nighthawk) -->
+    <div class="mobile-only show" id="mobile-content">
+      <div class="image-carousel">
+        <button class="carousel-arrow" id="prevBtn" onclick="prevImage()" aria-label="Previous device">‹</button>
+        <div class="device-img-wrap">
+          <img src="assets/img/products/mr1100.png" class="device-img" id="deviceImg" alt="Nighthawk Device">
+        </div>
+        <button class="carousel-arrow" id="nextBtn" onclick="nextImage()" aria-label="Next device">›</button>
+      </div>
+
+      <div class="app-block">
+        <div class="app-block-inner">
+          <div class="app-block-name">Nighthawk App</div>
+          <p class="app-block-desc">Check real-time data usage, manage Wi-Fi settings, view connected devices, and monitor signal strength — all from your phone.</p>
+          <a href="https://www.netgear.com/support/product/netgear-mobile-app/" class="btn-cta">
+            Download Nighthawk App
+            <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg>
+          </a>
+        </div>
+        <div class="cred-strip">
+          <div class="cred-label">Admin Credentials</div>
+          <div class="cred-pill">
+            <span class="cred-key">User:</span>
+            <span class="cred-val">admin</span>
+            <button class="copy-btn" onclick="copyText('admin', this)" aria-label="Copy username">
+              <svg viewBox="0 0 16 16"><rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5"/></svg>
+            </button>
+          </div>
+          <div class="cred-pill">
+            <span class="cred-key">Pass:</span>
+            <span class="cred-val">attadmin</span>
+            <button class="copy-btn" onclick="copyText('attadmin', this)" aria-label="Copy password">
+              <svg viewBox="0 0 16 16"><rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="portal-card">
+        <div class="portal-card-title">
+          <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.5"/><path d="M8 5v3.5l2 2"/></svg>
+          What you can do in the app:
+        </div>
+        <div class="portal-feature-grid">
+          <div class="portal-feature"><span class="feat-dot"></span> View real-time data usage</div>
+          <div class="portal-feature"><span class="feat-dot"></span> Manage Wi-Fi name &amp; password</div>
+          <div class="portal-feature"><span class="feat-dot"></span> View connected devices</div>
+          <div class="portal-feature"><span class="feat-dot"></span> Monitor signal strength</div>
+          <div class="portal-feature"><span class="feat-dot"></span> Run speed tests</div>
+          <div class="portal-feature"><span class="feat-dot"></span> Restart your device remotely</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FIXED (Orbi) -->
+    <div class="fixed-only" id="fixed-content">
+      <img src="assets/img/products/LBR20.png" class="static-device-img" alt="Orbi Router">
+
+      <div class="app-block">
+        <div class="app-block-inner">
+          <div class="app-block-name">Orbi App</div>
+          <p class="app-block-desc">Optimize your home signal coverage, run speed tests, manage connected devices, and configure your mesh network.</p>
+          <a href="https://www.netgear.com/home/services/orbi-app/" class="btn-cta">
+            Download Orbi App
+            <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg>
+          </a>
+        </div>
+        <div class="cred-strip">
+          <div class="cred-label">Admin Credentials</div>
+          <div class="cred-pill">
+            <span class="cred-key">User:</span>
+            <span class="cred-val">admin</span>
+            <button class="copy-btn" onclick="copyText('admin', this)" aria-label="Copy username">
+              <svg viewBox="0 0 16 16"><rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5"/></svg>
+            </button>
+          </div>
+          <div class="cred-pill">
+            <span class="cred-key">Pass:</span>
+            <span class="cred-val">more4less</span>
+            <button class="copy-btn" onclick="copyText('more4less', this)" aria-label="Copy password">
+              <svg viewBox="0 0 16 16"><rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="portal-card">
+        <div class="portal-card-title">
+          <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.5"/><path d="M8 5v3.5l2 2"/></svg>
+          What you can do in the app:
+        </div>
+        <div class="portal-feature-grid">
+          <div class="portal-feature"><span class="feat-dot"></span> Optimize whole-home coverage</div>
+          <div class="portal-feature"><span class="feat-dot"></span> Run speed tests</div>
+          <div class="portal-feature"><span class="feat-dot"></span> Manage connected devices</div>
+          <div class="portal-feature"><span class="feat-dot"></span> Configure mesh satellites</div>
+          <div class="portal-feature"><span class="feat-dot"></span> Set up parental controls</div>
+          <div class="portal-feature"><span class="feat-dot"></span> Monitor bandwidth per device</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Support CTA -->
+    <div class="step-final">
+      <div class="sf-inner">
+        <div class="step-name">Need more help?</div>
+        <p class="step-text">If the app isn't finding your device or the credentials above aren't working, our support team can help you get connected.</p>
+        <a href="/contact" class="btn-cta">
+          Contact Support
+          <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg>
+        </a>
+      </div>
+    </div>
+
+  </div>
 </div>
 
+<!-- ══ FOOTER ═══════════════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="footer-links">
+    <a href="/#pricing">Pricing</a>
+    <a href="/contact">Contact</a>
+    <a href="/portal">Dashboard</a>
+  </div>
+  <div class="footer-copy">&copy; <span id="year"></span> More4Less Wireless Internet</div>
+</footer>
+
 <script>
-    // ── Mobile menu ──
-    function toggleMenu() {
-        const trigger = document.getElementById('menuTrigger');
-        const overlay = document.getElementById('mobileOverlay');
-        const isOpen  = trigger.classList.contains('menu-active');
-        trigger.classList.toggle('menu-active');
-        overlay.classList.toggle('active');
-        document.body.style.overflow = isOpen ? '' : 'hidden';
-    }
+(function () {
+  'use strict';
 
-    document.getElementById('mobileOverlay').addEventListener('click', function(e) {
-        if (e.target === this) toggleMenu();
+  /* Year */
+  var y = document.getElementById('year');
+  if (y) y.textContent = new Date().getFullYear();
+
+  /* ── Mobile menu ─────────────────────────────────── */
+  var trigger = document.getElementById('menuTrigger');
+  var overlay = document.getElementById('mobileOverlay');
+
+  function toggleMenu() {
+    var open = trigger.classList.toggle('menu-active');
+    overlay.classList.toggle('active', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  trigger.addEventListener('click', function (e) { e.stopPropagation(); toggleMenu(); });
+  overlay.addEventListener('click', function (e) {
+    if (!e.target.closest('a') && overlay.classList.contains('active')) toggleMenu();
+  });
+  overlay.querySelectorAll('a').forEach(function (a) {
+    a.addEventListener('click', function () { if (overlay.classList.contains('active')) toggleMenu(); });
+  });
+
+  /* ── Copy to clipboard ───────────────────────────── */
+  window.copyText = function (text, btn) {
+    navigator.clipboard.writeText(text).then(function () {
+      var svg = btn.querySelector('svg');
+      svg.innerHTML = '<polyline points="1.5,5 4,7.5 8.5,2" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" stroke="currentColor" fill="none"/>';
+      btn.style.color = 'var(--green)';
+      setTimeout(function () {
+        svg.innerHTML = '<rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5"/>';
+        btn.style.color = '';
+      }, 1800);
     });
+  };
 
-    // ── Tab switching ──
-    function switchTab(tab) {
-        const switcher = document.getElementById('tabSwitcher');
-        const buttons  = document.querySelectorAll('.tab-btn');
-        const panes    = document.querySelectorAll('.tab-pane');
+  /* ── Device / app selection ──────────────────────── */
+  window.selectDevice = function (type) {
+    document.getElementById('card-mobile').className =
+      'device-card' + (type === 'mobile' ? ' selected' : ' unselected');
+    document.getElementById('card-fixed').className =
+      'device-card' + (type === 'fixed' ? ' selected' : ' unselected');
 
-        switcher.setAttribute('data-active', tab);
+    document.getElementById('appTitle').textContent =
+      type === 'mobile' ? 'Nighthawk App' : 'Orbi App';
 
-        buttons.forEach(btn => {
-            btn.classList.toggle('active', btn.getAttribute('data-tab') === tab);
-        });
+    document.querySelectorAll('.mobile-only, .fixed-only').forEach(function (el) {
+      el.classList.remove('show');
+    });
+    document.getElementById(type + '-content').classList.add('show');
+  };
 
-        panes.forEach(pane => {
-            pane.classList.toggle('active', pane.id === tab + '-pane');
-        });
-    }
+  /* ── Image carousel (Nighthawk only) ─────────────── */
+  var deviceImages = [
+    'assets/img/products/mr1100.png',
+    'assets/img/products/MR5100.png',
+    'assets/img/products/MR6500.png',
+    'assets/img/products/mr6110.png'
+  ];
+  var currentIndex = 0;
 
-    // ── Image carousel (Nighthawk only) ──
-    const deviceImages = [
-        'assets/img/products/mr1100.png',
-        'assets/img/products/MR5100.png',
-        'assets/img/products/MR6500.png',
-        'assets/img/products/mr6110.png'
-    ];
+  function updateImage(index) {
+    var img = document.getElementById('deviceImg');
+    img.style.opacity = '0';
+    setTimeout(function () {
+      img.src = deviceImages[index];
+      img.style.opacity = '1';
+    }, 150);
+  }
 
-    let currentIndex = 0;
+  window.nextImage = function () {
+    currentIndex = (currentIndex + 1) % deviceImages.length;
+    updateImage(currentIndex);
+  };
+  window.prevImage = function () {
+    currentIndex = (currentIndex - 1 + deviceImages.length) % deviceImages.length;
+    updateImage(currentIndex);
+  };
 
-    function updateImage(index) {
-        const img = document.getElementById('deviceImg');
-        img.style.opacity = '0';
-        setTimeout(() => {
-            img.src = deviceImages[index];
-            img.style.opacity = '1';
-        }, 150);
-    }
-
-    function nextImage() {
-        currentIndex = (currentIndex + 1) % deviceImages.length;
-        updateImage(currentIndex);
-    }
-
-    function prevImage() {
-        currentIndex = (currentIndex - 1 + deviceImages.length) % deviceImages.length;
-        updateImage(currentIndex);
-    }
+})();
 </script>
-
 </body>
 </html>
