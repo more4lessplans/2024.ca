@@ -4,15 +4,7 @@
   <meta charset="utf-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-10988139493"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'AW-10988139493');
-  </script>
+  <meta name="robots" content="noindex, nofollow">
 
   <!-- ═══ Primary SEO ═══ -->
 <title>Fast, Unlimited Wireless Internet | More4Less</title>
@@ -20,6 +12,8 @@
   <meta name="keywords" content="unlimited wireless internet Canada, no contract internet, wireless home internet, portable wifi Canada, mobile hotspot plan, More4Less plans">
   <meta name="author" content="More4Less">
   <meta name="robots" content="index, follow">
+
+
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="More4Less">
   <meta property="og:title" content="More4Less: Fast, Unlimited Wireless Internet">
@@ -1806,14 +1800,6 @@
         if (country && country.short_name === 'CA') {
           /* Submit lead to JotForm silently */
           HTMLFormElement.prototype.submit.call(mainForm);
-
-          /* Google Ads: lead conversion (coverage checker completed) */
-          if (typeof gtag === 'function') {
-            gtag('event', 'conversion', {
-              'send_to': 'AW-10988139493/znYuCMi-t98cEOXnxvco'
-            });
-          }
-
           showResultPanel(addressInput.value);
           submitBtn.textContent = '✓ Available';
           submitBtn.style.background = 'var(--green)';
