@@ -2588,6 +2588,28 @@
   // after a verified successful Chargebee subscription is created.
   var paymentInFlight = false;
 
+  // A single idempotency key per checkout attempt. Generated once, right
+  // before the first submit, then REUSED on every retry (timeout, network
+  // blip, etc.) of that same attempt — that's what lets the Worker/Chargebee
+  // tell "this is a retry of the same purchase" apart from "this is a new
+  // purchase", so a retry can never double-charge the customer.
+  var checkoutIdempotencyKey = null;
+
+  function getIdempotencyKey() {
+    if (checkoutIdempotencyKey) return checkoutIdempotencyKey;
+    if (window.crypto && typeof window.crypto.randomUUID === 'function') {
+      checkoutIdempotencyKey = window.crypto.randomUUID();
+    } else {
+      // Fallback UUIDv4 for older browsers without crypto.randomUUID
+      checkoutIdempotencyKey = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        var r = (Math.random() * 16) | 0;
+        var v = c === 'x' ? r : (r & 0x3) | 0x8;
+        return v.toString(16);
+      });
+    }
+    return checkoutIdempotencyKey;
+  }
+
   function resetPayBtn() {
     paymentInFlight = false;
     var payBtn = document.getElementById('payBtn');
@@ -2717,7 +2739,8 @@
           email:            contact.email,
           billing_address:  contact.billing,
           shipping_address: contact.shipping,
-          coupon_id:        appliedCoupon || undefined
+          coupon_id:        appliedCoupon || undefined,
+          idempotency_key:  getIdempotencyKey()
         })
       }, 20000);
     })
