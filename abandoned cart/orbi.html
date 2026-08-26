@@ -2297,6 +2297,13 @@
     // Require a plausible email OR a complete phone before this is worth sending —
     // a first name alone isn't enough to act on.
     if (!isEmail(email) && !isPhone(phone)) return null;
+
+    // "Same as billing" is checked by default, which means the ship-* inputs
+    // are hidden and empty — fall back to the billing values in that case so
+    // shipping_* always reflects where the order would actually go.
+    var sameAsBillingEl = document.getElementById('same-as-billing');
+    var sameAsBilling = sameAsBillingEl ? sameAsBillingEl.checked : true;
+
     return {
       page:        'orbi-checkout',
       step:        typeof currentStep !== 'undefined' ? currentStep : null,
@@ -2304,9 +2311,24 @@
       last_name:   v('f-last'),
       email:       email,
       phone:       phone,
+
+      shipping_same_as_billing: sameAsBilling,
+      shipping_street:   sameAsBilling ? v('f-bill-street')   : v('f-ship-street'),
+      shipping_apt:      sameAsBilling ? v('f-bill-apt')      : v('f-ship-apt'),
+      shipping_city:     sameAsBilling ? v('f-bill-city')     : v('f-ship-city'),
+      shipping_province: sameAsBilling ? v('f-bill-province') : v('f-ship-province'),
+      shipping_postal:   sameAsBilling ? v('f-bill-postal')   : v('f-ship-postal'),
+
+      billing_street:   v('f-bill-street'),
+      billing_apt:      v('f-bill-apt'),
       billing_city:     v('f-bill-city'),
       billing_province: v('f-bill-province'),
+      billing_postal:   v('f-bill-postal'),
+
       plan_id:     CB_PLAN_ID,
+      price:       typeof BASE_PRICE !== 'undefined' ? BASE_PRICE : null,
+      coupon_id:   typeof appliedCoupon !== 'undefined' ? appliedCoupon : null,
+
       url:         window.location.href,
       ts:          new Date().toISOString()
     };
