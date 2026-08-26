@@ -1195,7 +1195,7 @@
       <li><a href="#pricing">Pricing</a></li>
       <li><a href="#faq">FAQ</a></li>
       <li><a href="/contact">Contact</a></li>
-      <li class="nav-portal"><a href="/portal">Customer Portal</a></li>
+      <li class="nav-portal"><a href="/portal">Dashboard</a></li>
     </ul>
 
     <button class="menu-trigger" id="menuTrigger" aria-label="Open menu">
@@ -1209,7 +1209,7 @@
     <li><a href="#pricing">Pricing</a></li>
     <li><a href="#faq">FAQ</a></li>
     <li><a href="/contact">Contact</a></li>
-    <li class="portal-link"><a href="/portal">Customer Portal</a></li>
+    <li class="portal-link"><a href="/portal">Dashboard</a></li>
   </ul>
 </div>
 
@@ -1718,6 +1718,38 @@
   var submitBtn     = document.getElementById('submitBtn');
   var statusBox     = document.getElementById('coverageResult');
   var mainForm      = document.getElementById('jotformCoverage');
+
+  /* Google sizes/positions .pac-container to match the input field alone,
+     via inline styles it re-applies on every keystroke — so a static CSS
+     width rule gets fought and overwritten. Instead, keep it synced in JS
+     to the full bar (input + button) any time Google repositions it. */
+  (function syncPacContainerWidth() {
+    var bar = addressInput.closest('.coverage-module');
+    function applySize(pac) {
+      if (!bar) return;
+      var rect = bar.getBoundingClientRect();
+      pac.style.width = rect.width + 'px';
+      pac.style.left  = (rect.left + window.pageXOffset) + 'px';
+    }
+    var styleObserver = new MutationObserver(function (mutations) {
+      mutations.forEach(function (m) { applySize(m.target); });
+    });
+    var bodyObserver = new MutationObserver(function (mutations) {
+      mutations.forEach(function (m) {
+        m.addedNodes && Array.prototype.forEach.call(m.addedNodes, function (node) {
+          if (node.nodeType === 1 && node.classList && node.classList.contains('pac-container')) {
+            applySize(node);
+            styleObserver.observe(node, { attributes: true, attributeFilter: ['style'] });
+          }
+        });
+      });
+    });
+    bodyObserver.observe(document.body, { childList: true });
+    window.addEventListener('resize', function () {
+      var pac = document.querySelector('.pac-container');
+      if (pac) applySize(pac);
+    });
+  })();
   var resultPanel   = document.getElementById('coverage-result-panel');
   var crpClose      = document.getElementById('crpClose');
   var crpOrderBtn   = document.getElementById('crpOrderBtn');
