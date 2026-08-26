@@ -1958,7 +1958,7 @@
           <polyline points="9.5,1.5 11.5,4.2 8.5,4.8"/>
           <polyline points="6.5,14.5 4.5,11.8 7.5,11.2"/>
         </svg>
-        <span>Renews at <strong>$80/mo</strong> after the first month. Cancel anytime.</span>
+        <span>Renews at <strong id="renewal-price-msb">$80/mo</strong> after the first month. Cancel anytime.</span>
       </div>
       <div class="msb-exp-features">
         <div class="msb-exp-feat"><span class="msb-feat-check">✓</span> Truly Unlimited Data — No Caps</div>
@@ -2658,7 +2658,7 @@
   }
 
   function updateRenewalPrice(discountType, discountValue, durationType) {
-    var ids = ['renewal-price-hero','renewal-price-pay','renewal-price-summary','renewal-price-terms'];
+    var ids = ['renewal-price-hero','renewal-price-pay','renewal-price-summary','renewal-price-terms','renewal-price-msb'];
     var discounted;
     var qualifier = '';
     if (discountType === 'fixed_amount') {
@@ -2683,10 +2683,10 @@
   }
 
   function resetRenewalPrice() {
-    var ids = ['renewal-price-hero','renewal-price-pay','renewal-price-summary','renewal-price-terms'];
+    var ids = ['renewal-price-hero','renewal-price-pay','renewal-price-summary','renewal-price-terms','renewal-price-msb'];
     ids.forEach(function(id) {
       var el = document.getElementById(id); if (!el) return;
-      el.innerHTML = (id === 'renewal-price-terms') ? '$80/month' : '$80 / month';
+      el.innerHTML = (id === 'renewal-price-terms') ? '$80/month' : (id === 'renewal-price-msb') ? '$80/mo' : '$80 / month';
     });
   }
 
