@@ -1988,6 +1988,65 @@
     publishableKey: 'live_9xoL0GUAJyfaZddNn5cdFhI4hrLAGhyIh'
   });
 
+  /* ── PREFILL FROM ABANDONED-CART EMAIL LINK ───────────────────────
+     If the customer arrived via the "Finish My Order" link in the
+     abandoned-cart email, the checkout data captured earlier is
+     attached as URL query params (see the Make.com email template).
+     Fill the form with it so they don't have to retype anything,
+     then strip the params from the visible URL/history immediately
+     so their name/email/phone/address don't linger in the address
+     bar, browser history, or get forwarded if the link is shared.
+     Card/payment details are never part of this — those can't be
+     captured or restored, so step 3 always requires re-entry. */
+  (function prefillFromAbandonLink() {
+    var params = new URLSearchParams(window.location.search);
+    if (Array.from(params.keys()).length === 0) return;
+
+    function set(id, val) {
+      if (!val) return;
+      var el = document.getElementById(id);
+      if (el) el.value = val;
+    }
+
+    set('f-first', params.get('first_name'));
+    set('f-last',  params.get('last_name'));
+    set('f-email', params.get('email'));
+    set('f-phone', params.get('phone'));
+
+    set('f-bill-street',   params.get('billing_street'));
+    set('f-bill-apt',      params.get('billing_apt'));
+    set('f-bill-city',     params.get('billing_city'));
+    set('f-bill-province', params.get('billing_province'));
+    set('f-bill-postal',   params.get('billing_postal'));
+
+    if (params.get('shipping_same_as_billing') === 'false') {
+      var chk = document.getElementById('same-as-billing');
+      if (chk) {
+        chk.checked = false;
+        // toggleShipping is defined later in this file; function
+        // declarations are hoisted, so it's safe to call from here.
+        if (typeof toggleShipping === 'function') toggleShipping();
+      }
+      set('f-ship-street',   params.get('shipping_street'));
+      set('f-ship-apt',      params.get('shipping_apt'));
+      set('f-ship-city',     params.get('shipping_city'));
+      set('f-ship-province', params.get('shipping_province'));
+      set('f-ship-postal',   params.get('shipping_postal'));
+    }
+
+    var coupon = params.get('coupon_id');
+    if (coupon && coupon !== 'null' && coupon !== 'undefined') {
+      set('f-promo', coupon);
+      // applyPromo is exposed on window later in this file; defer
+      // the call so it exists by the time this timeout fires.
+      setTimeout(function () { if (window.applyPromo) window.applyPromo(); }, 300);
+    }
+
+    // Scrub the PII out of the visible URL / browser history now
+    // that it's been copied into the form fields.
+    history.replaceState(null, '', window.location.pathname);
+  })();
+
   /* ── MOBILE MENU ──────────────────────────────────────────────── */
   var trigger       = document.getElementById('menuTrigger');
   var mobileOverlay = document.getElementById('mobileOverlay');
