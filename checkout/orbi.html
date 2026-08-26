@@ -1429,7 +1429,7 @@
 
             <div class="field" id="fg-phone">
               <label for="f-phone">Phone Number</label>
-              <input type="tel" id="f-phone" placeholder="(416) 555-0123" autocomplete="tel" maxlength="14">
+              <input type="tel" id="f-phone" placeholder="(416) 555-0123" autocomplete="tel" maxlength="20">
               <div class="field-err">Please enter a valid 10-digit Canadian phone number.</div>
             </div>
           </div>
@@ -1443,7 +1443,7 @@
                 </div>
                 <div>
                   <div class="next-step-title">Secure Payment</div>
-                  <div class="next-step-desc">Enter your card in the final step. Your details are never stored by More4Less.</div>
+                  <div class="next-step-desc">Enter your card in the final step. Payment is processed securely by Chargebee.</div>
                 </div>
               </div>
               <div class="next-step-item">
@@ -1616,7 +1616,7 @@
             </button>
             <div class="btn-lock-note" style="margin-top:10px;">
               <svg viewBox="0 0 14 14" stroke-linecap="round"><rect x="2" y="6" width="10" height="7" rx="1.5"/><path d="M4.5 6V4.5a2.5 2.5 0 015 0V6"/></svg>
-              SSL encrypted — your information is never stored by us
+              SSL encrypted checkout
             </div>
           </div>
 
@@ -1811,6 +1811,10 @@
             <span class="sr-label">Contract</span>
             <span class="sr-val tag">None Required</span>
           </div>
+          <div class="pay-summary-discount" id="summary-discount-row" style="display:none;">
+            <span id="summary-discount-label">Promo</span>
+            <strong id="summary-discount-val"></strong>
+          </div>
         </div>
 
         <div class="summary-total-block">
@@ -1819,7 +1823,7 @@
             <div class="summary-total-note">Device rental + first month of service</div>
           </div>
           <div>
-            <div class="summary-total-fig"><sup>$</sup>80</div>
+            <div class="summary-total-fig" id="summary-total-fig"><sup>$</sup>80</div>
             <div class="summary-total-tax">+ applicable tax</div>
           </div>
         </div>
@@ -1954,7 +1958,7 @@
           <polyline points="9.5,1.5 11.5,4.2 8.5,4.8"/>
           <polyline points="6.5,14.5 4.5,11.8 7.5,11.2"/>
         </svg>
-        <span>Renews at <strong>$80/mo</strong> after the first month. Cancel anytime.</span>
+        <span>Renews at <strong id="renewal-price-msb">$80/mo</strong> after the first month. Cancel anytime.</span>
       </div>
       <div class="msb-exp-features">
         <div class="msb-exp-feat"><span class="msb-feat-check">✓</span> Truly Unlimited Data — No Caps</div>
@@ -2012,6 +2016,16 @@
     set('f-last',  params.get('last_name'));
     set('f-email', params.get('email'));
     set('f-phone', params.get('phone'));
+    // set() above assigns .value directly, which skips the phone input's
+    // 'input'-event formatter entirely — so a prefilled number carrying a
+    // leading "1" country code would never get normalized. Run it through
+    // the same normalizer/formatter used for typed input.
+    (function () {
+      var phoneField = document.getElementById('f-phone');
+      if (phoneField && phoneField.value) {
+        phoneField.value = formatPhoneDigits(normalizePhoneDigits(phoneField.value));
+      }
+    })();
 
     set('f-bill-street',   params.get('billing_street'));
     set('f-bill-apt',      params.get('billing_apt'));
@@ -2261,9 +2275,28 @@
     if (g) g.classList.add('has-err');
   }
 
-  /* Canadian phone: exactly 10 digits */
+  /* Canadian phone: exactly 10 digits.
+     normalizePhoneDigits() strips everything but digits and, if that leaves
+     11 digits starting with a "1" (a pasted/autofilled "+1 416 555 0123",
+     for example), drops the leading country code before capping at 10.
+     Without this, that leading "1" was counted as the first digit, which
+     bumped the real area code and the rest of the number over by one and
+     silently dropped the true last digit — the quirk this fixes. */
+  function normalizePhoneDigits(v) {
+    var digits = String(v || '').replace(/\D/g, '');
+    if (digits.length === 11 && digits.charAt(0) === '1') digits = digits.slice(1);
+    return digits.slice(0, 10);
+  }
+
+  function formatPhoneDigits(digits) {
+    if (digits.length === 0)     return '';
+    if (digits.length <= 3)      return '(' + digits;
+    if (digits.length <= 6)      return '(' + digits.slice(0,3) + ') ' + digits.slice(3);
+    return '(' + digits.slice(0,3) + ') ' + digits.slice(3,6) + '-' + digits.slice(6);
+  }
+
   function isPhone(v) {
-    return v.replace(/\D/g, '').length === 10;
+    return normalizePhoneDigits(v).length === 10;
   }
 
   /* Canadian postal code: A1A 1A1 or A1A1A1 */
@@ -2277,13 +2310,7 @@
   var phoneEl = document.getElementById('f-phone');
   if (phoneEl) {
     phoneEl.addEventListener('input', function () {
-      var digits = this.value.replace(/\D/g, '').slice(0, 10);
-      var fmt = '';
-      if (digits.length === 0)      fmt = '';
-      else if (digits.length <= 3)  fmt = '(' + digits;
-      else if (digits.length <= 6)  fmt = '(' + digits.slice(0,3) + ') ' + digits.slice(3);
-      else                           fmt = '(' + digits.slice(0,3) + ') ' + digits.slice(3,6) + '-' + digits.slice(6);
-      this.value = fmt;
+      this.value = formatPhoneDigits(normalizePhoneDigits(this.value));
       this.classList.remove('err');
       var p = this.closest('.field'); if (p) p.classList.remove('has-err');
     });
@@ -2316,7 +2343,12 @@
     clearErrors();
     var first = document.getElementById('f-first').value.trim();
     var last  = document.getElementById('f-last').value.trim();
-    var phone = document.getElementById('f-phone').value.trim();
+    var phoneEl2 = document.getElementById('f-phone');
+    // Re-normalize here too, as a safety net for autofill paths (e.g. some
+    // password managers) that set the field's value without firing the
+    // normal 'input' event the live formatter listens for.
+    phoneEl2.value = formatPhoneDigits(normalizePhoneDigits(phoneEl2.value));
+    var phone = phoneEl2.value.trim();
     var email = document.getElementById('f-email').value.trim();
     var ok    = true;
     if (!first)          { flagErr('f-first', 'fg-first'); ok = false; }
@@ -2583,6 +2615,14 @@
     // Sync expanded total
     var msbExpTotal = document.getElementById('msb-exp-total-val');
     if (msbExpTotal) msbExpTotal.textContent = cents === 0 ? dollars : (dollars + '.' + centsStr);
+    // Sync the persistent right-hand summary panel (desktop). This was
+    // previously left out, so on desktop the "Due Today" figure kept
+    // showing the original $80 even after a coupon was applied.
+    var summaryFig = document.getElementById('summary-total-fig');
+    if (summaryFig) {
+      summaryFig.innerHTML = '<sup>$</sup>' + dollars +
+        (cents === 0 ? '' : '<sup style="font-size:0.5em">.' + centsStr + '</sup>');
+    }
   }
 
   function showDiscountRow(label, val) {
@@ -2596,11 +2636,20 @@
     if (msbRow) { msbRow.style.display = 'flex'; }
     if (msbLbl) msbLbl.textContent = label;
     if (msbVal) msbVal.textContent = val;
+    // sync persistent right-hand summary panel (desktop)
+    var sumRow = document.getElementById('summary-discount-row');
+    var sumLbl = document.getElementById('summary-discount-label');
+    var sumVal = document.getElementById('summary-discount-val');
+    if (sumRow) sumRow.style.display = 'flex';
+    if (sumLbl) sumLbl.textContent = label;
+    if (sumVal) sumVal.textContent = val;
   }
   function hideDiscountRow() {
     document.getElementById('promo-discount-row').style.display = 'none';
     var msbRow = document.getElementById('msb-exp-discount-row');
     if (msbRow) msbRow.style.display = 'none';
+    var sumRow = document.getElementById('summary-discount-row');
+    if (sumRow) sumRow.style.display = 'none';
   }
 
   function fmtMoney(n) {
@@ -2609,7 +2658,7 @@
   }
 
   function updateRenewalPrice(discountType, discountValue, durationType) {
-    var ids = ['renewal-price-hero','renewal-price-pay','renewal-price-summary','renewal-price-terms'];
+    var ids = ['renewal-price-hero','renewal-price-pay','renewal-price-summary','renewal-price-terms','renewal-price-msb'];
     var discounted;
     var qualifier = '';
     if (discountType === 'fixed_amount') {
@@ -2634,10 +2683,10 @@
   }
 
   function resetRenewalPrice() {
-    var ids = ['renewal-price-hero','renewal-price-pay','renewal-price-summary','renewal-price-terms'];
+    var ids = ['renewal-price-hero','renewal-price-pay','renewal-price-summary','renewal-price-terms','renewal-price-msb'];
     ids.forEach(function(id) {
       var el = document.getElementById(id); if (!el) return;
-      el.innerHTML = (id === 'renewal-price-terms') ? '$80/month' : '$80 / month';
+      el.innerHTML = (id === 'renewal-price-terms') ? '$80/month' : (id === 'renewal-price-msb') ? '$80/mo' : '$80 / month';
     });
   }
 
