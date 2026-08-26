@@ -474,6 +474,46 @@
     #email-module .coverage-module { margin-bottom: 0; }
     #email-module .coverage-module input { font-size: 0.9rem; }
 
+    /* Google Places autocomplete dropdown — restyled to match site design
+       language. Google appends this to <body>, so it can't be scoped under
+       a parent selector; !important overrides Google's injected inline
+       styles where needed. The Google logo/attribution is left untouched
+       per their branding requirements — only layout, color, and type change. */
+    .pac-container {
+      font-family: 'Figtree', sans-serif !important;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 20px 48px rgba(0,0,0,0.16), 0 4px 12px rgba(0,0,0,0.08);
+      margin-top: 10px;
+      padding: 6px 6px 2px;
+      overflow: hidden;
+    }
+    .pac-item {
+      font-family: 'Figtree', sans-serif;
+      font-size: 0.86rem;
+      color: var(--ink-2);
+      padding: 11px 10px;
+      border-top: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      line-height: 1.4;
+    }
+    .pac-item:first-child { border-top: none; }
+    .pac-item:hover, .pac-item-selected {
+      background: var(--green-bg) !important;
+    }
+    .pac-icon {
+      margin-top: 3px;
+      filter: grayscale(1) opacity(0.55);
+    }
+    .pac-item-query {
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .pac-matched { font-weight: 800; color: var(--ink); }
+
     /* Status */
     .coverage-status {
       min-height: 28px;
@@ -584,23 +624,27 @@
     .crp-address-line strong { color: var(--ink-2); font-weight: 600; }
 
     .crp-chips {
-      display: flex; gap: 10px; justify-content: center;
-      margin-bottom: 32px; flex-wrap: nowrap;
+      display: flex; justify-content: center;
+      margin-bottom: 32px;
     }
     .crp-chip {
       display: flex; flex-direction: column; align-items: center;
-      background: #f8f8f9; border: 1px solid var(--border);
-      border-radius: 14px; padding: 14px 16px; flex: 1; min-width: 0;
+      flex: 1; min-width: 0; padding: 0 18px;
+      position: relative;
+    }
+    .crp-chip + .crp-chip::before {
+      content: ''; position: absolute; left: 0; top: 4px; bottom: 4px;
+      width: 1px; background: var(--border);
     }
     .crp-chip-val {
-      font-size: 1.1rem; font-weight: 900;
+      font-size: 1.05rem; font-weight: 900;
       letter-spacing: -0.03em; color: var(--ink); line-height: 1;
       white-space: nowrap;
     }
     .crp-chip-val span { color: var(--green); }
     .crp-chip-lbl {
-      font-size: 0.62rem; font-weight: 600; color: var(--ink-3);
-      letter-spacing: 0.06em; text-transform: uppercase; margin-top: 4px;
+      font-size: 0.6rem; font-weight: 600; color: var(--ink-3);
+      letter-spacing: 0.08em; text-transform: uppercase; margin-top: 6px;
       white-space: nowrap;
     }
 
@@ -1057,6 +1101,15 @@
       .htrust-item { font-size: 0.7rem; padding: 0 12px; }
       .coverage-module { flex-direction: column; align-items: stretch; gap: 6px; padding: 10px; }
       .btn-coverage { width: 100%; padding: 14px; border-radius: var(--radius-md); }
+
+      .crp-chips { flex-direction: column; gap: 0; }
+      .crp-chip {
+        flex-direction: row; align-items: baseline; justify-content: space-between;
+        width: 100%; padding: 14px 2px; border-top: 1px solid var(--border);
+      }
+      .crp-chip:first-child { border-top: none; padding-top: 0; }
+      .crp-chip + .crp-chip::before { display: none; }
+      .crp-chip-lbl { margin-top: 0; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1200,8 +1253,8 @@
 
         <!-- Hidden JotForm fields -->
         <div style="display:none;">
-          <input type="text" name="q3_name[first]" value="Device">
-          <input type="text" name="q3_name[last]" value="Rental">
+          <input type="text" name="q3_name[first]" value="Rent">
+          <input type="text" name="q3_name[last]" value="Page">
           <input type="text" name="q5_address[addr_line1]" id="jf_street">
           <input type="text" name="q5_address[city]" id="jf_city">
           <input type="text" name="q5_address[state]" id="jf_state">
