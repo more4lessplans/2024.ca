@@ -1978,6 +1978,7 @@
   var CB_PLAN_ID      = 'gta-m1-lease';
   var DEVICE_ADDON_ID = 'orbi-lbr20';
   var WORKER_URL      = '/api/google-ad-checkout';
+  var ABANDON_URL     = 'https://hook.us2.make.com/e2lhvyo9rdprsygiss7guhcaat1f9q41'; // Make.com "Custom Webhook" URL
   var CONFIRM         = '/lease-confirmed';
   var BASE_PRICE      = 80;
   var RENEWAL_PRICE   = 80;
@@ -1986,6 +1987,65 @@
     site: CB_SITE,
     publishableKey: 'live_9xoL0GUAJyfaZddNn5cdFhI4hrLAGhyIh'
   });
+
+  /* ── PREFILL FROM ABANDONED-CART EMAIL LINK ───────────────────────
+     If the customer arrived via the "Finish My Order" link in the
+     abandoned-cart email, the checkout data captured earlier is
+     attached as URL query params (see the Make.com email template).
+     Fill the form with it so they don't have to retype anything,
+     then strip the params from the visible URL/history immediately
+     so their name/email/phone/address don't linger in the address
+     bar, browser history, or get forwarded if the link is shared.
+     Card/payment details are never part of this — those can't be
+     captured or restored, so step 3 always requires re-entry. */
+  (function prefillFromAbandonLink() {
+    var params = new URLSearchParams(window.location.search);
+    if (Array.from(params.keys()).length === 0) return;
+
+    function set(id, val) {
+      if (!val) return;
+      var el = document.getElementById(id);
+      if (el) el.value = val;
+    }
+
+    set('f-first', params.get('first_name'));
+    set('f-last',  params.get('last_name'));
+    set('f-email', params.get('email'));
+    set('f-phone', params.get('phone'));
+
+    set('f-bill-street',   params.get('billing_street'));
+    set('f-bill-apt',      params.get('billing_apt'));
+    set('f-bill-city',     params.get('billing_city'));
+    set('f-bill-province', params.get('billing_province'));
+    set('f-bill-postal',   params.get('billing_postal'));
+
+    if (params.get('shipping_same_as_billing') === 'false') {
+      var chk = document.getElementById('same-as-billing');
+      if (chk) {
+        chk.checked = false;
+        // toggleShipping is defined later in this file; function
+        // declarations are hoisted, so it's safe to call from here.
+        if (typeof toggleShipping === 'function') toggleShipping();
+      }
+      set('f-ship-street',   params.get('shipping_street'));
+      set('f-ship-apt',      params.get('shipping_apt'));
+      set('f-ship-city',     params.get('shipping_city'));
+      set('f-ship-province', params.get('shipping_province'));
+      set('f-ship-postal',   params.get('shipping_postal'));
+    }
+
+    var coupon = params.get('coupon_id');
+    if (coupon && coupon !== 'null' && coupon !== 'undefined') {
+      set('f-promo', coupon);
+      // applyPromo is exposed on window later in this file; defer
+      // the call so it exists by the time this timeout fires.
+      setTimeout(function () { if (window.applyPromo) window.applyPromo(); }, 300);
+    }
+
+    // Scrub the PII out of the visible URL / browser history now
+    // that it's been copied into the form fields.
+    history.replaceState(null, '', window.location.pathname);
+  })();
 
   /* ── MOBILE MENU ──────────────────────────────────────────────── */
   var trigger       = document.getElementById('menuTrigger');
@@ -2156,7 +2216,9 @@
   }
 
   /* ── STEP MACHINE ─────────────────────────────────────────────── */
+  var currentStep = 1;
   function setStep(n) {
+    currentStep = n;
     // Sync both nav steps (desktop) and page steps bar (mobile)
     [['st-1','pst-1',1],['st-2','pst-2',2],['st-3','pst-3',3]].forEach(function (p) {
       var cls = 'nav-step' + (p[2] < n ? ' done' : p[2] === n ? ' active' : '');
@@ -2270,6 +2332,94 @@
     sessionStorage.setItem('m4l_order', JSON.stringify(data));
     setStep(2);
   };
+
+  /* ── ABANDONED CART TRACKING ──────────────────────────────────────
+     Sends ONE beacon per session, only when the visitor leaves the
+     page (tab close, back button, app switch, refresh) WITHOUT
+     having completed payment — and only if they'd entered enough to
+     be worth a follow-up (a valid email or phone). This intentionally
+     does NOT fire on every keystroke: that would also fire for every
+     normal customer who completes checkout, flooding your inbox.
+
+     ABANDON_URL should be your Make.com "Custom Webhook" URL —
+     create a scenario with a Webhook trigger, copy its URL in below,
+     then add an Email module after it (send to yourself) using the
+     fields from the JSON body: first_name, last_name, email, phone,
+     step, billing_city, billing_province, url, ts. */
+  var abandonSent = false;
+  var checkoutCompleted = false;
+
+  function collectAbandonSnapshot() {
+    function v(id) { var el = document.getElementById(id); return el ? el.value.trim() : ''; }
+    var email = v('f-email');
+    var phone = v('f-phone');
+    // Require a plausible email OR a complete phone before this is worth sending —
+    // a first name alone isn't enough to act on.
+    if (!isEmail(email) && !isPhone(phone)) return null;
+
+    // "Same as billing" is checked by default, which means the ship-* inputs
+    // are hidden and empty — fall back to the billing values in that case so
+    // shipping_* always reflects where the order would actually go.
+    var sameAsBillingEl = document.getElementById('same-as-billing');
+    var sameAsBilling = sameAsBillingEl ? sameAsBillingEl.checked : true;
+
+    return {
+      page:        'orbi-checkout',
+      step:        typeof currentStep !== 'undefined' ? currentStep : null,
+      first_name:  v('f-first'),
+      last_name:   v('f-last'),
+      email:       email,
+      phone:       phone,
+
+      shipping_same_as_billing: sameAsBilling,
+      shipping_street:   sameAsBilling ? v('f-bill-street')   : v('f-ship-street'),
+      shipping_apt:      sameAsBilling ? v('f-bill-apt')      : v('f-ship-apt'),
+      shipping_city:     sameAsBilling ? v('f-bill-city')     : v('f-ship-city'),
+      shipping_province: sameAsBilling ? v('f-bill-province') : v('f-ship-province'),
+      shipping_postal:   sameAsBilling ? v('f-bill-postal')   : v('f-ship-postal'),
+
+      billing_street:   v('f-bill-street'),
+      billing_apt:      v('f-bill-apt'),
+      billing_city:     v('f-bill-city'),
+      billing_province: v('f-bill-province'),
+      billing_postal:   v('f-bill-postal'),
+
+      plan_id:     CB_PLAN_ID,
+      price:       typeof BASE_PRICE !== 'undefined' ? BASE_PRICE : null,
+      coupon_id:   typeof appliedCoupon !== 'undefined' ? appliedCoupon : null,
+
+      url:         window.location.href,
+      ts:          new Date().toISOString()
+    };
+  }
+
+  function sendAbandonSnapshot() {
+    if (abandonSent || checkoutCompleted) return;
+    var snapshot = collectAbandonSnapshot();
+    if (!snapshot) return;
+    abandonSent = true; // one email per session, even if hide fires more than once
+    var body = JSON.stringify(snapshot);
+    try {
+      if (navigator.sendBeacon) {
+        // text/plain avoids a CORS preflight; Make.com's webhook parses
+        // the body as JSON regardless of the declared content type.
+        navigator.sendBeacon(ABANDON_URL, new Blob([body], { type: 'text/plain' }));
+      } else {
+        fetch(ABANDON_URL, { method: 'POST', mode: 'no-cors', body: body, keepalive: true })
+          .catch(function () { /* best-effort — never surface this to the customer */ });
+      }
+    } catch (e) { /* best-effort */ }
+  }
+
+  function markCheckoutCompleted() {
+    checkoutCompleted = true; // suppress the abandonment ping on the redirect's pagehide
+  }
+
+  // Fires when the visitor leaves — tab close, refresh, back button, app switch.
+  document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState === 'hidden') sendAbandonSnapshot();
+  });
+  window.addEventListener('pagehide', sendAbandonSnapshot);
 
   /* ── GOOGLE PLACES AUTOCOMPLETE ───────────────────────────────── */
   var billPlaceSelected = false;
@@ -2782,6 +2932,7 @@
       // ✅ Only reach here after verified success with a real subscription ID
       // Clear session data so a back-button can't re-submit
       try { sessionStorage.removeItem('m4l_order'); } catch(e) {}
+      markCheckoutCompleted();
 
       // Google Ads conversion tracking — fires once, only on a verified sale.
       var txId = body.subscription_id || body.subscriptionId ||
