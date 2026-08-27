@@ -2908,6 +2908,15 @@
     return checkoutIdempotencyKey;
   }
 
+  // Called after a DEFINITIVE rejection (declined card, bad request, an
+  // idempotency-key clash from switching cards, etc.) — never after an
+  // ambiguous network/timeout error, where reusing the key is what
+  // prevents a possible double charge. Clears the key so the customer's
+  // next attempt is treated as the new, distinct request that it is.
+  function resetIdempotencyKey() {
+    checkoutIdempotencyKey = null;
+  }
+
   function resetPayBtn() {
     paymentInFlight = false;
     var payBtn = document.getElementById('payBtn');
@@ -3013,6 +3022,9 @@
           var msg = (tokenErr && tokenErr.message) ? tokenErr.message : 'We couldn\'t process your card details. Please check them and try again.';
           var err = new Error(msg);
           err.safeMessage = true;
+          // A definitive rejection, not a network/timeout ambiguity — safe to
+          // issue a fresh idempotency key for the next attempt.
+          err.resetIdempotency = true;
           throw err;
         });
     })
@@ -3054,9 +3066,22 @@
         .then(function (body) {
           // Step C: Verify the HTTP status is 2xx
           if (!res.ok) {
-            // Worker returned an error — surface its message
-            var err = new Error(body.error || body.message || ('Server error ' + res.status + '. Please try again.'));
+            var rawMsg = body.error || body.message || ('Server error ' + res.status + '. Please try again.');
+            // The Worker/Chargebee reuses our idempotency key to dedupe retries of
+            // the SAME request. If the customer switches cards (e.g. after a
+            // decline) that key gets replayed against a different payload, and
+            // the raw error back is confusing technical jargon. Translate it,
+            // and force a fresh key so the next attempt goes through cleanly.
+            var isIdempotencyClash = /idempotency/i.test(rawMsg);
+            var err = new Error(isIdempotencyClash
+              ? 'Too many checkout attempts in this session. Please refresh the page and try checking out again.'
+              : rawMsg);
             err.safeMessage = true;
+            // A definitive rejection from the server (declined card, bad
+            // request, idempotency clash, etc.) — not a network/timeout
+            // ambiguity — so it's safe to issue a new idempotency key for
+            // whatever the customer tries next.
+            err.resetIdempotency = true;
             throw err;
           }
           // Step D: Verify the body contains proof of a created subscription.
@@ -3117,6 +3142,7 @@
       var msg = (err && err.safeMessage && err.message)
         ? err.message
         : 'Payment failed — please check your card details and try again.';
+      if (err && err.resetIdempotency) resetIdempotencyKey();
       showPayError(msg);
     });
   };
