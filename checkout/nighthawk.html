@@ -1443,8 +1443,8 @@
                   <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h10a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M2 7h12"/></svg>
                 </div>
                 <div>
-                  <div class="next-step-title">Secure Payment</div>
-                  <div class="next-step-desc">Enter your card in the final step. Your details are never stored by More4Less.</div>
+                  <div class="next-step-title">Complete Checkout</div>
+                  <div class="next-step-desc">Enter your details and securely complete your payment.</div>
                 </div>
               </div>
               <div class="next-step-item">
@@ -1452,8 +1452,8 @@
                   <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.5 3.5 7-7"/></svg>
                 </div>
                 <div>
-                  <div class="next-step-title">Instant Confirmation</div>
-                  <div class="next-step-desc">Email with order summary and activation instructions sent immediately.</div>
+                  <div class="next-step-title">Order Confirmation</div>
+                  <div class="next-step-desc">You'll receive an email with your shipping details and estimated delivery date.</div>
                 </div>
               </div>
               <div class="next-step-item">
@@ -1461,8 +1461,8 @@
                   <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l2-6h6l2 6"/><path d="M1 10h14"/><path d="M6 10v3m4-3v3"/></svg>
                 </div>
                 <div>
-                  <div class="next-step-title">Device Ships To You</div>
-                  <div class="next-step-desc">Your Nighthawk M1 ships pre-configured with your SIM. Plug in and connect — it just works.</div>
+                  <div class="next-step-title">Receive Your Device</div>
+                  <div class="next-step-desc">Your device arrives ready to go. Simply plug it in and connect. A pre-installed SIM card is already activated for internet access, and a Quick Start Guide is included.</div>
                 </div>
               </div>
             </div>
@@ -1967,7 +1967,7 @@
           <polyline points="9.5,1.5 11.5,4.2 8.5,4.8"/>
           <polyline points="6.5,14.5 4.5,11.8 7.5,11.2"/>
         </svg>
-        <span>Renews at <strong>$80/mo</strong><span class="price-tax-note">&nbsp;+ tax</span> after the first month. Cancel anytime.</span>
+        <span>Renews at <strong id="renewal-price-msb">$80/mo</strong><span class="price-tax-note">&nbsp;+ tax</span> after the first month. Cancel anytime.</span>
       </div>
       <div class="msb-exp-features">
         <div class="msb-exp-feat"><span class="msb-feat-check">✓</span> Truly Unlimited Data — No Caps</div>
@@ -2754,7 +2754,7 @@
   }
 
   function updateRenewalPrice(discountType, discountValue, durationType) {
-    var ids = ['renewal-price-hero','renewal-price-pay','renewal-price-summary','renewal-price-terms'];
+    var ids = ['renewal-price-hero','renewal-price-pay','renewal-price-summary','renewal-price-terms','renewal-price-msb'];
     var discounted;
     var qualifier = '';
     if (discountType === 'fixed_amount') {
@@ -2772,17 +2772,21 @@
                '<strong class="renewal-discounted">' + fmtMoney(discounted) + ' / month</strong>' + qualifier;
     var termsHtml = '<s style="opacity:0.45;margin-right:3px;">$' + RENEWAL_PRICE + '/month</s>' +
                     '<strong style="color:var(--green)">' + fmtMoney(discounted) + '/month</strong>';
+    var msbHtml = '<s style="opacity:0.45;margin-right:3px;">$' + RENEWAL_PRICE + '/mo</s>' +
+                  fmtMoney(discounted) + '/mo';
     ids.forEach(function(id) {
       var el = document.getElementById(id); if (!el) return;
-      el.innerHTML = (id === 'renewal-price-terms') ? termsHtml : html;
+      if (id === 'renewal-price-terms') { el.innerHTML = termsHtml; }
+      else if (id === 'renewal-price-msb') { el.innerHTML = msbHtml; }
+      else { el.innerHTML = html; }
     });
   }
 
   function resetRenewalPrice() {
-    var ids = ['renewal-price-hero','renewal-price-pay','renewal-price-summary','renewal-price-terms'];
+    var ids = ['renewal-price-hero','renewal-price-pay','renewal-price-summary','renewal-price-terms','renewal-price-msb'];
     ids.forEach(function(id) {
       var el = document.getElementById(id); if (!el) return;
-      el.innerHTML = (id === 'renewal-price-terms') ? '$80/month' : '$80 / month';
+      el.innerHTML = (id === 'renewal-price-terms') ? '$80/month' : (id === 'renewal-price-msb' ? '$80/mo' : '$80 / month');
     });
   }
 
