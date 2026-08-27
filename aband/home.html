@@ -1449,7 +1449,7 @@
                 </div>
                 <div>
                   <div class="next-step-title">Secure Payment</div>
-                  <div class="next-step-desc">Enter your card in the final step. Your details are never stored by More4Less.</div>
+                  <div class="next-step-desc">Enter your card in the final step. Payments are handled securely by Chargebee.</div>
                 </div>
               </div>
               <div class="next-step-item">
@@ -1483,7 +1483,7 @@
             </button>
             <div class="btn-lock-note" style="margin-top:10px;">
               <svg viewBox="0 0 14 14" stroke-linecap="round"><rect x="2" y="6" width="10" height="7" rx="1.5"/><path d="M4.5 6V4.5a2.5 2.5 0 015 0V6"/></svg>
-              SSL encrypted — payment handled by Chargebee, never stored by us
+              SSL encrypted — payment handled by Chargebee
             </div>
           </div>
 
@@ -1645,7 +1645,7 @@
               <!-- Visa wordmark -->
               <span class="card-brand-badge" aria-label="Visa">
                 <svg viewBox="0 0 40 14" xmlns="http://www.w3.org/2000/svg" width="34" height="12">
-                  <text x="0" y="11" font-family="Arial" font-size="12" font-weight="900" fill="currentColor" letter-spacing="-0.5">VISA</text>
+                  <text x="20" y="11" text-anchor="middle" font-family="Arial" font-size="12" font-weight="900" fill="currentColor" letter-spacing="-0.5">VISA</text>
                 </svg>
               </span>
               <!-- Mastercard two circles -->
@@ -1659,7 +1659,7 @@
               <!-- Amex wordmark -->
               <span class="card-brand-badge" aria-label="American Express">
                 <svg viewBox="0 0 42 14" xmlns="http://www.w3.org/2000/svg" width="36" height="12">
-                  <text x="0" y="11" font-family="Arial" font-size="9.5" font-weight="700" fill="currentColor" letter-spacing="0.4">AMEX</text>
+                  <text x="21" y="11" text-anchor="middle" font-family="Arial" font-size="9.5" font-weight="700" fill="currentColor" letter-spacing="0.4">AMEX</text>
                 </svg>
               </span>
             </div>
@@ -1825,7 +1825,7 @@
             <div class="summary-total-note">Device + first month included</div>
           </div>
           <div>
-            <div class="summary-total-fig"><sup>$</sup>249</div>
+            <div class="summary-total-fig" id="summary-total-fig"><sup>$</sup>249</div>
             <div class="summary-total-tax">+ applicable tax</div>
           </div>
         </div>
@@ -1960,7 +1960,7 @@
           <polyline points="9.5,1.5 11.5,4.2 8.5,4.8"/>
           <polyline points="6.5,14.5 4.5,11.8 7.5,11.2"/>
         </svg>
-        <span>Renews at <strong>$110/mo</strong> after the first month. Cancel anytime.</span>
+        <span>Renews at <strong id="renewal-price-msb">$110/mo</strong> after the first month. Cancel anytime.</span>
       </div>
       <div class="msb-exp-features">
         <div class="msb-exp-feat"><span class="msb-feat-check">✓</span> Truly Unlimited Data — No Caps</div>
@@ -2588,6 +2588,11 @@
     // Sync expanded total
     var msbExpTotal = document.getElementById('msb-exp-total-val');
     if (msbExpTotal) msbExpTotal.textContent = cents === 0 ? dollars : (dollars + '.' + centsStr);
+    // Sync desktop right-panel persistent summary total
+    var rightFig = document.getElementById('summary-total-fig');
+    if (rightFig) {
+      rightFig.innerHTML = '<sup>$</sup>' + (cents === 0 ? dollars : (dollars + '.' + centsStr));
+    }
   }
 
   function showDiscountRow(label, val) {
@@ -2614,7 +2619,7 @@
   }
 
   function updateRenewalPrice(discountType, discountValue, durationType) {
-    var ids = ['renewal-price-hero','renewal-price-pay','renewal-price-summary','renewal-price-terms'];
+    var ids = ['renewal-price-hero','renewal-price-pay','renewal-price-summary','renewal-price-terms','renewal-price-msb'];
     var discounted;
     var qualifier = '';
     if (discountType === 'fixed_amount') {
@@ -2632,17 +2637,23 @@
                '<strong class="renewal-discounted">' + fmtMoney(discounted) + ' / month</strong>' + qualifier;
     var termsHtml = '<s style="opacity:0.45;margin-right:3px;">$' + RENEWAL_PRICE + '/month</s>' +
                     '<strong style="color:var(--green)">' + fmtMoney(discounted) + '/month</strong>';
+    var mobileHtml = '<s style="opacity:0.45;margin-right:3px;">$' + RENEWAL_PRICE + '/mo</s>' +
+                     fmtMoney(discounted) + '/mo' + qualifier;
     ids.forEach(function(id) {
       var el = document.getElementById(id); if (!el) return;
-      el.innerHTML = (id === 'renewal-price-terms') ? termsHtml : html;
+      if (id === 'renewal-price-terms') { el.innerHTML = termsHtml; }
+      else if (id === 'renewal-price-msb') { el.innerHTML = mobileHtml; }
+      else { el.innerHTML = html; }
     });
   }
 
   function resetRenewalPrice() {
-    var ids = ['renewal-price-hero','renewal-price-pay','renewal-price-summary','renewal-price-terms'];
+    var ids = ['renewal-price-hero','renewal-price-pay','renewal-price-summary','renewal-price-terms','renewal-price-msb'];
     ids.forEach(function(id) {
       var el = document.getElementById(id); if (!el) return;
-      el.innerHTML = (id === 'renewal-price-terms') ? '$110/month' : '$110 / month';
+      if (id === 'renewal-price-terms') { el.innerHTML = '$110/month'; }
+      else if (id === 'renewal-price-msb') { el.innerHTML = '$110/mo'; }
+      else { el.innerHTML = '$110 / month'; }
     });
   }
 
