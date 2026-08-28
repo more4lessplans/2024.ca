@@ -767,34 +767,6 @@
     .terms-err.show { display: block; }
 
     /* ═══════════════════════════════════════════════════════════════
-       SHIPPING OPTIONS
-    ═══════════════════════════════════════════════════════════════ */
-    .ship-options { display: flex; flex-direction: column; gap: 10px; }
-    .ship-option {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 14px 16px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      cursor: pointer;
-      transition: border-color 0.2s ease, background 0.2s ease;
-    }
-    .ship-option:hover { border-color: var(--ink-4); }
-    .ship-option.selected { border-color: var(--ink); background: var(--bg); }
-    .ship-option input[type="radio"] {
-      width: 16px; height: 16px;
-      accent-color: var(--ink);
-      cursor: pointer;
-      flex-shrink: 0;
-    }
-    .ship-option-main { flex: 1; min-width: 0; }
-    .ship-option-name { font-size: 0.85rem; font-weight: 600; color: var(--ink); }
-    .ship-option-desc { font-size: 0.72rem; color: var(--ink-3); margin-top: 2px; }
-    .ship-option-price { font-size: 0.82rem; font-weight: 600; color: var(--ink-2); flex-shrink: 0; white-space: nowrap; }
-    .ship-option-price.free { color: var(--green); }
-
-    /* ═══════════════════════════════════════════════════════════════
        PAYMENT SUMMARY (in-form mini summary)
     ═══════════════════════════════════════════════════════════════ */
     .mini-summary {
@@ -1668,28 +1640,6 @@
           <div class="section-eyebrow">Payment</div>
 
           <div class="form-card anim-step">
-            <div class="form-card-title">Shipping</div>
-            <div class="ship-options">
-              <label class="ship-option selected" for="ship-standard">
-                <input type="radio" name="shipping" id="ship-standard" value="standard" checked>
-                <div class="ship-option-main">
-                  <div class="ship-option-name">Standard</div>
-                  <div class="ship-option-desc">4–10 business days</div>
-                </div>
-                <div class="ship-option-price free">Free</div>
-              </label>
-              <label class="ship-option" for="ship-express">
-                <input type="radio" name="shipping" id="ship-express" value="express">
-                <div class="ship-option-main">
-                  <div class="ship-option-name">Express</div>
-                  <div class="ship-option-desc">1–4 business days</div>
-                </div>
-                <div class="ship-option-price">+$30.00</div>
-              </label>
-            </div>
-          </div>
-
-          <div class="form-card anim-step">
             <div class="form-card-title">Card Details</div>
 
             <div class="card-brand-row">
@@ -1768,12 +1718,8 @@
                 <strong style="color:var(--green)">Included</strong>
               </div>
               <div class="mini-row">
-                <span>Activation</span>
+                <span>Activation & Shipping</span>
                 <strong style="color:var(--green)">$0.00</strong>
-              </div>
-              <div class="mini-row" id="shipping-summary-row">
-                <span id="shipping-summary-label">Shipping</span>
-                <strong id="shipping-summary-val" style="color:var(--green)">Free</strong>
               </div>
               <div class="pay-summary-discount" id="promo-discount-row" style="display:none;">
                 <span id="promo-discount-label">Promo</span>
@@ -2004,12 +1950,8 @@
           <strong class="free">Included</strong>
         </div>
         <div class="msb-exp-row">
-          <span>Activation</span>
+          <span>Activation & Shipping</span>
           <strong class="free">$0</strong>
-        </div>
-        <div class="msb-exp-row" id="msb-exp-shipping-row">
-          <span id="msb-exp-shipping-label">Shipping</span>
-          <strong class="free" id="msb-exp-shipping-val">Free</strong>
         </div>
         <div class="msb-exp-row msb-exp-discount" id="msb-exp-discount-row" style="display:none;">
           <span id="msb-exp-discount-label">Promo</span>
@@ -2058,11 +2000,6 @@
   var ABANDON_URL     = 'https://hook.us2.make.com/e2lhvyo9rdprsygiss7guhcaat1f9q41'; // Make.com "Custom Webhook" URL
   var CONFIRM         = '/lease-confirmed';
   var BASE_PRICE      = 299;
-
-  /* ── SHIPPING ─────────────────────────────────────────────────── */
-  var SHIPPING_ADDON_ID = 'express-shipping'; // Chargebee one-time addon id (Express only — Standard doesn't map to anything)
-  var SHIPPING_COST     = { standard: 0, express: 30 };
-  var selectedShipping  = 'standard';
   var RENEWAL_PRICE   = 110;
 
   /* ── CANADIAN SALES TAX (standard province-level rates) ──────────
@@ -2693,37 +2630,6 @@
     });
   }
 
-  /* ── SHIPPING OPTIONS ─────────────────────────────────────────── */
-  function updateShippingSummary() {
-    var isExpress = selectedShipping === 'express';
-    var cost      = SHIPPING_COST[selectedShipping] || 0;
-
-    var summaryVal = document.getElementById('shipping-summary-val');
-    if (summaryVal) {
-      summaryVal.textContent = isExpress ? fmtMoney(cost) : 'Free';
-      summaryVal.style.color = isExpress ? '' : 'var(--green)';
-    }
-    var msbVal = document.getElementById('msb-exp-shipping-val');
-    if (msbVal) {
-      msbVal.textContent = isExpress ? '$' + cost : 'Free';
-      msbVal.classList.toggle('free', !isExpress);
-    }
-  }
-
-  var shippingRadios = document.querySelectorAll('input[name="shipping"]');
-  shippingRadios.forEach(function (radio) {
-    radio.addEventListener('change', function () {
-      if (!this.checked) return;
-      selectedShipping = this.value;
-      shippingRadios.forEach(function (r) {
-        var opt = r.closest('.ship-option');
-        if (opt) opt.classList.toggle('selected', r.checked);
-      });
-      updateShippingSummary();
-      refreshTotals();
-    });
-  });
-
   /* ── PROMO CODE ───────────────────────────────────────────────── */
   var appliedCoupon  = null;
   var discountAmount = 0;
@@ -2742,7 +2648,7 @@
   function updateDueToday() {
     // Total = device/plan subtotal (after any promo discount) + tax.
     // Tax is $0 / hidden until we know the billing province.
-    var subtotal = Math.max(0, BASE_PRICE - discountAmount) + (SHIPPING_COST[selectedShipping] || 0);
+    var subtotal = Math.max(0, BASE_PRICE - discountAmount);
     var final    = subtotal + currentTaxAmount;
     var dollars  = Math.floor(final);
     var cents    = Math.round((final - dollars) * 100);
@@ -2809,7 +2715,7 @@
   // total on the page. Call this any time the province OR the discount
   // changes — both affect the tax amount.
   function refreshTotals() {
-    var subtotal = Math.max(0, BASE_PRICE - discountAmount) + (SHIPPING_COST[selectedShipping] || 0);
+    var subtotal = Math.max(0, BASE_PRICE - discountAmount);
     var info = currentTaxProvince ? CA_TAX_RATES[currentTaxProvince] : null;
     if (info) {
       currentTaxAmount = subtotal * info.rate;
@@ -3148,8 +3054,6 @@
           billing_address:  contact.billing,
           shipping_address: contact.shipping,
           coupon_id:        appliedCoupon || undefined,
-          shipping_method:  selectedShipping,
-          addon_id:         selectedShipping === 'express' ? SHIPPING_ADDON_ID : undefined,
           idempotency_key:  getIdempotencyKey()
         })
       }, 20000);
