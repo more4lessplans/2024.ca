@@ -1890,8 +1890,22 @@
       if (status === 'OK' && results[0]) {
         var country = results[0].address_components.find(function (c) { return c.types.includes('country'); });
         if (country && country.short_name === 'CA') {
-          /* Submit lead to JotForm silently */
-          HTMLFormElement.prototype.submit.call(mainForm);
+          /* Submit lead to Make.com webhook silently */
+          fetch('https://hook.us2.make.com/uy7j9g7p8t8rrfzbfrqpruo9iiwd7pdt', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              first: 'Googlead',
+              last: 'Lead',
+              email: email,
+              addr_line1: document.getElementById('jf_street').value,
+              city: document.getElementById('jf_city').value,
+              state: document.getElementById('jf_state').value,
+              postal: document.getElementById('jf_postal').value,
+              full_address: addressInput.value
+            })
+          }).catch(function (err) { console.error('Webhook submit failed:', err); });
+
           showResultPanel(addressInput.value);
           submitBtn.textContent = '✓ Available';
           submitBtn.style.background = 'var(--green)';
@@ -1942,39 +1956,42 @@
   });
 
   speedFormTag.addEventListener('submit', function (e) {
+    e.preventDefault();
+
     var name  = speedNameEl.value.trim();
     var phone = speedPhoneEl.value.trim();
     var phoneDigits = phone.replace(/\D/g, '');
 
     if (!name || phoneDigits.length !== 10) {
-      e.preventDefault();
       speedError.style.display = 'block';
       if (!name) { speedNameEl.focus(); } else { speedPhoneEl.focus(); }
       return;
     }
     speedError.style.display = 'none';
 
-    /* Split name into first/last for q3_name */
+    /* Split name into first/last */
     var parts = name.split(/\s+/);
     var first = parts.shift() || '';
     var last  = parts.join(' ');
-    document.getElementById('speedFirstHidden').value = first;
-    document.getElementById('speedLastHidden').value  = last;
-
-    /* Carry over address + email captured during coverage check */
-    document.getElementById('speedEmailHidden').value  = emailInput.value.trim();
-    document.getElementById('speedStreetHidden').value = document.getElementById('jf_street').value;
-    document.getElementById('speedCityHidden').value   = document.getElementById('jf_city').value;
-    document.getElementById('speedStateHidden').value  = document.getElementById('jf_state').value;
-    document.getElementById('speedPostalHidden').value = document.getElementById('jf_postal').value;
 
     /* Send formatted 10-digit phone */
     var formattedPhone = phoneDigits.slice(0,3) + '-' + phoneDigits.slice(3,6) + '-' + phoneDigits.slice(6,10);
-    var phoneInput = document.createElement('input');
-    phoneInput.type = 'hidden';
-    phoneInput.name = 'q6_phoneNumber[full]';
-    phoneInput.value = formattedPhone;
-    speedFormTag.appendChild(phoneInput);
+
+    fetch('https://hook.us2.make.com/uy7j9g7p8t8rrfzbfrqpruo9iiwd7pdt', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        type: 'speed_estimate',
+        first: first,
+        last: last,
+        email: emailInput.value.trim(),
+        addr_line1: document.getElementById('jf_street').value,
+        city: document.getElementById('jf_city').value,
+        state: document.getElementById('jf_state').value,
+        postal: document.getElementById('jf_postal').value,
+        phone: formattedPhone
+      })
+    }).catch(function (err) { console.error('Webhook submit failed:', err); });
 
     speedSubmitBtn.disabled = true;
     speedSubmitBtn.textContent = 'Sending…';
