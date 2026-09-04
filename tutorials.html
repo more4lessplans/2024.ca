@@ -452,21 +452,41 @@
     /* ── IMAGE CAROUSEL ──────────────────────────────────────────── */
     .image-carousel {
       display: flex; align-items: center; justify-content: center;
-      gap: 22px; margin-bottom: 30px;
+      margin-bottom: 14px;
     }
-    .carousel-arrow {
-      background: none; border: none;
-      font-size: 1.7rem; color: var(--ink-4);
-      cursor: pointer; padding: 8px; line-height: 1;
-      transition: color 0.2s ease, transform 0.2s var(--spring);
-    }
-    .carousel-arrow:hover { color: var(--ink); transform: scale(1.14); }
-    .carousel-arrow:active { transform: scale(0.94); }
-    .device-img-wrap { height: 150px; display: flex; align-items: center; justify-content: center; }
+    .device-img-wrap { height: 150px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
     .device-img {
       max-height: 100%; width: auto; opacity: 1;
       filter: drop-shadow(0 10px 24px rgba(0,0,0,0.12));
       transition: opacity 0.15s ease;
+    }
+
+    /* Auto-rotating variant (no controls) */
+    .device-carousel {
+      position: relative; height: 150px; width: 100%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .device-carousel .device-img {
+      position: absolute; opacity: 0;
+      transform: scale(0.94) translateY(8px);
+      transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+      pointer-events: none;
+    }
+    .device-carousel .device-img.active {
+      opacity: 1; transform: scale(1) translateY(0);
+      transition-delay: 0.08s;
+    }
+    .carousel-dots {
+      display: flex; align-items: center; justify-content: center;
+      gap: 6px; margin-bottom: 30px;
+    }
+    .carousel-dots span {
+      width: 6px; height: 6px; border-radius: var(--rFull);
+      background: var(--ink-4); opacity: 0.5;
+      transition: width 0.4s var(--spring), background 0.4s ease, opacity 0.4s ease;
+    }
+    .carousel-dots span.active {
+      width: 18px; background: var(--red); opacity: 1;
     }
 
     /* ── PILL TABS ────────────────────────────────────────────────── */
@@ -490,7 +510,7 @@
     }
 
     /* ── TUTORIAL PANES ───────────────────────────────────────────── */
-    .tutorial-pane { display: none; animation: fadeIn 0.35s ease; }
+    .tutorial-pane { display: none; animation: fadeIn 0.35s ease; margin-bottom: 40px; }
     .tutorial-pane.active { display: block; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -824,7 +844,7 @@
     </h1>
 
     <p class="hero-sub" id="heroSub">
-      Choose your device below for step-by-step setup and troubleshooting guides.
+      Tips and tricks, device guides, and ways to optimize your device — choose yours below to get started.
     </p>
 
     <div class="device-grid">
@@ -883,6 +903,12 @@
           <a href="#dashboard">Manage Your Plan</a>
         </div>
 
+        <div class="cred-strip" style="margin-top: 0; margin-bottom: 32px;">
+          <span class="cred-label">Router Login</span>
+          <span class="cred-pill"><span class="cred-key">Username</span> <span class="cred-val">admin</span> <button class="copy-btn" onclick="copyText('admin', this)" aria-label="Copy username"><svg viewBox="0 0 16 16"><rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5"/></svg></button></span>
+          <span class="cred-pill"><span class="cred-key">Password</span> <span class="cred-val">attadmin</span> <button class="copy-btn" onclick="copyText('attadmin', this)" aria-label="Copy password"><svg viewBox="0 0 16 16"><rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5"/></svg></button></span>
+        </div>
+
         <div class="subsection-label" id="tips-mobile">
           <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 21h4"/><path d="M12 2a6 6 0 0 0-4 10.5c.6.5 1 1.3 1 2.1V16h6v-1.4c0-.8.4-1.6 1-2.1A6 6 0 0 0 12 2Z"/></svg>
           Quick Tips
@@ -916,11 +942,15 @@
         </div>
 
         <div class="image-carousel">
-          <button class="carousel-arrow" id="prevBtn-mobile" aria-label="Previous device">‹</button>
-          <div class="device-img-wrap">
-            <img src="assets/img/products/mr1100.png" class="device-img" id="deviceImg-mobile" alt="Nighthawk Device">
+          <div class="device-carousel" id="deviceCarousel-mobile">
+            <img src="assets/img/products/mr1100.png" class="device-img active" alt="Nighthawk M1">
+            <img src="assets/img/products/MR5100.png" class="device-img" alt="Nighthawk M5">
+            <img src="assets/img/products/MR6500.png" class="device-img" alt="Nighthawk M6">
+            <img src="assets/img/products/mr6110.png" class="device-img" alt="Nighthawk M6 Pro">
           </div>
-          <button class="carousel-arrow" id="nextBtn-mobile" aria-label="Next device">›</button>
+        </div>
+        <div class="carousel-dots" id="carouselDots-mobile" aria-hidden="true">
+          <span class="active"></span><span></span><span></span><span></span>
         </div>
 
         <div class="nav-pills-custom">
@@ -1049,6 +1079,12 @@
           <a href="#dashboard">Manage Your Plan</a>
         </div>
 
+        <div class="cred-strip" style="margin-top: 0; margin-bottom: 32px;">
+          <span class="cred-label">Router Login</span>
+          <span class="cred-pill"><span class="cred-key">Username</span> <span class="cred-val">admin</span> <button class="copy-btn" onclick="copyText('admin', this)" aria-label="Copy username"><svg viewBox="0 0 16 16"><rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5"/></svg></button></span>
+          <span class="cred-pill"><span class="cred-key">Password</span> <span class="cred-val">more4less</span> <button class="copy-btn" onclick="copyText('more4less', this)" aria-label="Copy password"><svg viewBox="0 0 16 16"><rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5"/></svg></button></span>
+        </div>
+
         <div class="subsection-label" id="tips-fixed">
           <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 21h4"/><path d="M12 2a6 6 0 0 0-4 10.5c.6.5 1 1.3 1 2.1V16h6v-1.4c0-.8.4-1.6 1-2.1A6 6 0 0 0 12 2Z"/></svg>
           Quick Tips
@@ -1082,11 +1118,9 @@
         </div>
 
         <div class="image-carousel">
-          <button class="carousel-arrow" id="prevBtn-fixed" aria-label="Previous device">‹</button>
           <div class="device-img-wrap">
             <img src="assets/img/products/LBR20.png" class="device-img" id="deviceImg-fixed" alt="Orbi Device">
           </div>
-          <button class="carousel-arrow" id="nextBtn-fixed" aria-label="Next device">›</button>
         </div>
 
         <div class="nav-pills-custom">
@@ -1314,39 +1348,38 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  /* ── Image carousels ──────────────────────────────── */
-  function makeCarousel(prevId, nextId, imgId, images) {
-    var index = 0;
-    var img = document.getElementById(imgId);
-    function update() {
-      img.style.opacity = '0';
-      setTimeout(function () {
-        img.src = images[index];
-        img.style.opacity = '1';
-      }, 150);
+  /* ── Auto-rotating device carousel ────────────────── */
+  function initDeviceCarousel(wrapId, dotsId, delay) {
+    var wrap = document.getElementById(wrapId);
+    if (!wrap) return;
+    var imgs = wrap.querySelectorAll('.device-img');
+    if (imgs.length < 2) return;
+
+    var dotsWrap = document.getElementById(dotsId);
+    var dots = dotsWrap ? dotsWrap.querySelectorAll('span') : [];
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var i = 0, timer;
+
+    function show(next) {
+      imgs[i].classList.remove('active');
+      if (dots[i]) dots[i].classList.remove('active');
+      i = next;
+      imgs[i].classList.add('active');
+      if (dots[i]) dots[i].classList.add('active');
     }
-    document.getElementById(nextId).addEventListener('click', function () {
-      index = (index + 1) % images.length;
-      update();
-    });
-    document.getElementById(prevId).addEventListener('click', function () {
-      index = (index - 1 + images.length) % images.length;
-      update();
+    function tick() { show((i + 1) % imgs.length); }
+    function start() { if (!reduceMotion) timer = setInterval(tick, delay); }
+    function stop() { clearInterval(timer); }
+
+    start();
+    wrap.addEventListener('mouseenter', stop);
+    wrap.addEventListener('mouseleave', start);
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) stop(); else start();
     });
   }
 
-  makeCarousel('prevBtn-mobile', 'nextBtn-mobile', 'deviceImg-mobile', [
-    'assets/img/products/mr1100.png',
-    'assets/img/products/MR5100.png',
-    'assets/img/products/MR6500.png',
-    'assets/img/products/mr6110.png'
-  ]);
-
-  makeCarousel('prevBtn-fixed', 'nextBtn-fixed', 'deviceImg-fixed', [
-    'assets/img/products/LBR20.png',
-    'assets/img/products/NBR750.png',
-    'assets/img/products/NBK75.png'
-  ]);
+  initDeviceCarousel('deviceCarousel-mobile', 'carouselDots-mobile', 3200);
 
   /* ── Pill tab logic (scoped by data-group) ────────── */
   function switchTab(group, tabId) {
