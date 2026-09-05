@@ -460,28 +460,19 @@
     }
     .guide-section.dark .section-title { color: var(--on-dark); }
 
-    /* ── STEP ROWS ───────────────────────────────────────────────── */
+    /* ── CONTENT BLOCKS ──────────────────────────────────────────── */
     .step-row {
-      display: grid;
-      grid-template-columns: 28px 1fr;
-      gap: 0 20px;
-      padding: 28px 0;
+      padding: 26px 0;
       border-top: 1px solid var(--border);
     }
     .guide-section.dark .step-row { border-top-color: var(--border-dark); }
     .step-row:last-of-type { border-bottom: 1px solid var(--border); }
     .guide-section.dark .step-row:last-of-type { border-bottom-color: var(--border-dark); }
 
-    .step-num {
-      font-size: 0.63rem; font-weight: 800;
-      color: var(--red); padding-top: 4px;
-      letter-spacing: 0.06em; line-height: 1;
-    }
-
     .step-body { min-width: 0; }
 
     .step-name {
-      font-size: 0.97rem; font-weight: 800;
+      font-size: 1.05rem; font-weight: 800;
       letter-spacing: -0.02em; color: var(--ink);
       margin-bottom: 8px; line-height: 1.3;
     }
@@ -674,9 +665,6 @@
       border-radius: var(--rXL);
       padding: 40px 36px;
       margin-top: 20px;
-      display: grid;
-      grid-template-columns: 28px 1fr;
-      gap: 0 20px;
       position: relative; overflow: hidden;
     }
     .step-final::before {
@@ -690,9 +678,15 @@
       background: radial-gradient(circle, rgba(215,60,89,0.10) 0%, transparent 70%);
       right: -80px; bottom: -80px; pointer-events: none;
     }
-    .step-final .step-num { color: var(--red); padding-top: 4px; }
     .sf-inner { position: relative; z-index: 1; }
-    .step-final .step-name { color: var(--on-dark); }
+    .final-check {
+      width: 34px; height: 34px; border-radius: 50%;
+      background: rgba(215,60,89,0.16); color: var(--red);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 16px;
+    }
+    .final-check svg { width: 16px; height: 16px; stroke: currentColor; stroke-width: 2.6; fill: none; }
+    .step-final .step-name { color: var(--on-dark); font-size: 1.3rem; }
     .step-final .step-text { color: var(--on-dark-2); }
 
     .btn-cta {
@@ -801,7 +795,7 @@
     </h1>
 
     <p class="hero-sub" id="heroSub">
-      Choose your device below to view a step-by-step setup.
+      Select your device to get started.
     </p>
 
     <div class="device-grid">
@@ -829,29 +823,45 @@
 <!-- ══ GUIDE ═════════════════════════════════════════════════════ -->
 <div class="guide-wrap" id="guideWrap">
 
-  <!-- ── SECTION 1: Hardware & Power ─────────────────────────── -->
+  <!-- ── SECTION 1: Power It On ───────────────────────────────── -->
   <div class="guide-section" id="sec-hardware">
     <div class="guide-inner">
-      <div class="eyebrow-row">
-        <div class="section-eyebrow"><span class="eyebrow-dot"></span> Step 1</div>
+      <div class="eyebrow-row" style="justify-content: flex-end;">
         <button type="button" class="back-btn" onclick="goBackToDeviceSelect()">
           <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><line x1="13" y1="8" x2="3" y2="8"/><polyline points="7,4 3,8 7,12"/></svg>
           Change Device
         </button>
       </div>
-      <h2 class="section-title" id="hwTitle">Hardware &amp; Power</h2>
+      <h2 class="section-title" id="hwTitle">Power It On</h2>
 
       <!-- MOBILE STEPS -->
       <div class="step-row mobile-only" id="m-step-01">
-        <div class="step-num">01</div>
         <div class="step-body">
-          <div class="step-name">Do Not Factory Reset Your Device</div>
+          <div class="step-name">Power On</div>
+          <p class="step-text">
+            Press and hold the power button for about 3 seconds. It can take up to a minute to connect.
+          </p>
+        </div>
+      </div>
+
+      <div class="step-row mobile-only">
+        <div class="step-body">
+          <div class="step-name">The Battery</div>
+          <p class="step-text">
+            It's already installed. To remove it, slide the back cover up and off, then charge fully before first use.
+          </p>
+          <p class="step-text"><strong>Running it plugged in 24/7?</strong> We recommend taking the battery out.</p>
+        </div>
+      </div>
+
+      <div class="step-row mobile-only">
+        <div class="step-body">
           <div class="step-warning">
             <div class="warning-icon">⚠</div>
             <div>
-              <div class="warning-title">Critical Warning</div>
+              <div class="warning-title">Important</div>
               <p class="warning-text">
-                Your Nighthawk has been specially configured to work with your unlimited data plan. Never perform a factory reset using the reset pinhole or the device settings menu. A factory reset will erase these custom settings and immediately disconnect your service.
+                Your hotspot is set up specifically for your plan. Resetting it — from the pinhole or the settings menu — will erase that setup and disconnect your service.
               </p>
             </div>
           </div>
@@ -859,63 +869,38 @@
       </div>
 
       <div class="step-row mobile-only">
-        <div class="step-num">02</div>
         <div class="step-body">
-          <div class="step-name">The Battery</div>
+          <div class="step-name">Find a Good Spot</div>
           <p class="step-text">
-            The battery is pre-installed for your convenience. To access it, slide the back cover upward until it detaches from the device. Ensure the battery is firmly seated against the gold contacts, then replace the cover until it clicks securely into place. For optimal performance, fully charge the device before first use.
-          </p>
-          <p class="step-text"><strong>Note:</strong> If you plan to use the device plugged in continuously (24/7), we recommend removing the battery.</p>
-        </div>
-      </div>
-
-      <div class="step-row mobile-only">
-        <div class="step-num">03</div>
-        <div class="step-body">
-          <div class="step-name">Power On</div>
-          <p class="step-text">
-            Press and hold the Power button for approximately 3 seconds until the display turns on. Allow up to 60 seconds for the modem to connect to the network.
-          </p>
-        </div>
-      </div>
-
-      <div class="step-row mobile-only">
-        <div class="step-num">04</div>
-        <div class="step-body">
-          <div class="step-name">Choose The Best Location</div>
-          <p class="step-text">
-            For the strongest signal and fastest speeds, place the hotspot near a window or on an upper floor. Avoid metal cabinets, thick concrete walls, and large appliances that may interfere with cellular signal reception.
+            Keep it near a window or on a higher floor. Metal cabinets, concrete walls, and large appliances can weaken the signal.
           </p>
         </div>
       </div>
 
       <!-- FIXED STEPS -->
       <div class="step-row fixed-only">
-        <div class="step-num">01</div>
         <div class="step-body">
           <div class="step-name">Connect Power</div>
           <p class="step-text">
-            Connect the included power adapter to the <strong>power</strong> port on the rear of the Orbi and plug it into a wall outlet. Ensure the rear power switch is turned on. The LED ring will illuminate while the router starts up.
+            Plug in the included power adapter and make sure the switch on the back is on. The LED ring lights up as it starts.
           </p>
         </div>
       </div>
 
       <div class="step-row fixed-only">
-        <div class="step-num">02</div>
         <div class="step-body">
-          <div class="step-name">Choose The Best Location</div>
+          <div class="step-name">Find a Good Spot</div>
           <p class="step-text">
-            For optimal performance, place the Orbi near a window or on an upper floor. Avoid basements, metal enclosures, and locations near large appliances that can weaken the cellular signal.
+            Keep it near a window or on a higher floor — away from basements, metal enclosures, and large appliances.
           </p>
         </div>
       </div>
 
       <div class="step-row fixed-only">
-        <div class="step-num">03</div>
         <div class="step-body">
           <div class="step-name">Connect Your Devices</div>
           <p class="step-text">
-            Your Wi-Fi network name and password are printed on the label on the bottom of the router. Connect your phones, tablets, computers, and smart devices using these credentials. The Orbi supports up to 64 connected devices.
+            Your Wi-Fi name and password are printed on the bottom of the router. Connect up to 64 devices.
           </p>
         </div>
       </div>
@@ -923,19 +908,17 @@
     </div>
   </div>
 
-  <!-- ── SECTION 2: Device Management ─────────────────────────── -->
+  <!-- ── SECTION 2: Your App ──────────────────────────────────── -->
   <div class="guide-section" style="background: var(--bg); border-top: 1px solid var(--border);" id="sec-app">
     <div class="guide-inner">
-      <div class="section-eyebrow"><span class="eyebrow-dot"></span> Step 2</div>
-      <h2 class="section-title">Device Management</h2>
+      <h2 class="section-title">Your App</h2>
 
       <!-- MOBILE -->
       <div class="step-row mobile-only">
-        <div class="step-num">05</div>
         <div class="step-body">
-          <div class="step-name">Download The Nighthawk App</div>
+          <div class="step-name">Download the Nighthawk App</div>
           <p class="step-text">
-            The Nighthawk app gives you complete control of your hotspot. View data usage, monitor signal strength, see connected devices, and personalize your Wi-Fi name and password — all from your phone.
+            Manage everything from your phone — check data usage and signal strength, see what's connected, and update your Wi-Fi name and password.
           </p>
 
           <div class="app-block">
@@ -945,7 +928,7 @@
               </div>
               <div class="app-block-content">
                 <div class="app-block-name">NETGEAR Nighthawk App</div>
-                <div class="app-block-desc">Manage Wi-Fi settings, monitor data usage, check signal strength, and view connected devices.</div>
+                <div class="app-block-desc">Usage, signal, and connected devices — all in one place.</div>
                 <div class="app-dl-row">
                   <a href="https://itunes.apple.com/us/app/aircard-watcher-for-mobile/id457698895?mt=8" target="_blank" rel="noopener" class="btn-dl">
                     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
@@ -981,11 +964,10 @@
 
       <!-- FIXED -->
       <div class="step-row fixed-only">
-        <div class="step-num">04</div>
         <div class="step-body">
-          <div class="step-name">Download The Orbi App</div>
+          <div class="step-name">Download the Orbi App</div>
           <p class="step-text">
-            The Orbi app gives you complete control of your home network. Run speed tests, monitor connected devices, optimize Wi-Fi coverage, and manage your network settings from anywhere.
+            Manage your whole network from your phone — run speed tests, see what's connected, and fine-tune your Wi-Fi.
           </p>
 
           <div class="app-block">
@@ -995,7 +977,7 @@
               </div>
               <div class="app-block-content">
                 <div class="app-block-name">NETGEAR Orbi App</div>
-                <div class="app-block-desc">Run speed tests, optimize coverage, manage connected devices, and customize Wi-Fi settings.</div>
+                <div class="app-block-desc">Speed tests, connected devices, and Wi-Fi settings — all in one place.</div>
                 <div class="app-dl-row">
                   <a href="https://apps.apple.com/ca/app/netgear-orbi/id1182184397" target="_blank" rel="noopener" class="btn-dl">
                     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
@@ -1029,54 +1011,34 @@
         </div>
       </div>
 
-    </div>
-  </div>
-
-  <!-- ── SECTION 3: Your Subscription ─────────────────────────── -->
-  <div class="guide-section dark" id="sec-portal">
-    <div class="guide-inner">
-      <div class="section-eyebrow"><span class="eyebrow-dot"></span> Step 3</div>
-      <h2 class="section-title">Your Subscription</h2>
-
-      <!-- MOBILE -->
-      <div class="step-row mobile-only">
-        <div class="step-num">06</div>
+      <div class="step-row">
         <div class="step-body">
-          <div class="step-name">Everything you need, in one place</div>
-          <p class="step-text">Your dashboard is the primary tool for managing your unlimited internet plan.</p>
-
-          <div class="portal-card" style="background: var(--dark-card); border-color: var(--border-dark); margin-top: 18px;">
-            <div class="portal-card-title" style="color: var(--on-dark);">
-              <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.5"/><path d="M8 5v3.5l2 2"/></svg>
-              What you can do from the dashboard:
-            </div>
-            <div class="portal-feature-grid">
-              <div class="portal-feature" style="color: var(--on-dark-2);"><span class="feat-dot"></span> View &amp; download monthly invoices</div>
-              <div class="portal-feature" style="color: var(--on-dark-2);"><span class="feat-dot"></span> Check upcoming payment dates</div>
-              <div class="portal-feature" style="color: var(--on-dark-2);"><span class="feat-dot"></span> Update credit card or payment method</div>
-              <div class="portal-feature" style="color: var(--on-dark-2);"><span class="feat-dot"></span> Cancel or pause your subscription</div>
-              <div class="portal-feature" style="color: var(--on-dark-2);"><span class="feat-dot"></span> Access guides &amp; tech support</div>
-              <div class="portal-feature" style="color: var(--on-dark-2);"><span class="feat-dot"></span> Submit a return or replacement request</div>
-            </div>
-            <a href="/portal" class="step-link" style="margin-top: 0;">
-              Go to My Account Portal
-              <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg>
-            </a>
-          </div>
+          <div class="step-name">Tips &amp; Tricks</div>
+          <p class="step-text">Want even better performance? Our tutorials cover placement, Wi-Fi optimization, and troubleshooting.</p>
+          <a href="/tutorials" class="step-link">
+            Browse Tutorials
+            <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg>
+          </a>
         </div>
       </div>
 
-      <!-- FIXED -->
-      <div class="step-row fixed-only">
-        <div class="step-num">05</div>
+    </div>
+  </div>
+
+  <!-- ── SECTION 3: Your Plan ─────────────────────────────────── -->
+  <div class="guide-section dark" id="sec-portal">
+    <div class="guide-inner">
+      <h2 class="section-title">Your Plan</h2>
+
+      <div class="step-row">
         <div class="step-body">
-          <div class="step-name">Everything you need, in one place</div>
-          <p class="step-text">Your dashboard is the primary tool for managing your unlimited internet plan.</p>
+          <div class="step-name">Everything in One Place</div>
+          <p class="step-text">Your dashboard is where you manage your plan, anytime.</p>
 
           <div class="portal-card" style="background: var(--dark-card); border-color: var(--border-dark); margin-top: 18px;">
             <div class="portal-card-title" style="color: var(--on-dark);">
               <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.5"/><path d="M8 5v3.5l2 2"/></svg>
-              What you can do from the dashboard:
+              From your dashboard, you can:
             </div>
             <div class="portal-feature-grid">
               <div class="portal-feature" style="color: var(--on-dark-2);"><span class="feat-dot"></span> View &amp; download monthly invoices</div>
@@ -1087,7 +1049,7 @@
               <div class="portal-feature" style="color: var(--on-dark-2);"><span class="feat-dot"></span> Submit a return or replacement request</div>
             </div>
             <a href="/portal" class="step-link" style="margin-top: 0;">
-              Go to My Account Portal
+              Go to My Account
               <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg>
             </a>
           </div>
@@ -1096,10 +1058,12 @@
 
       <!-- Final CTA -->
       <div class="step-final">
-        <div class="step-num">✓</div>
         <div class="sf-inner">
-          <div class="step-name">You're all set.</div>
-          <p class="step-text">Your device is pre-configured and your SIM is active — you're already connected. Head to your dashboard any time to manage your plan, view billing, or get support.</p>
+          <div class="final-check">
+            <svg viewBox="0 0 16 16"><polyline points="2.5,8.5 6.5,12.5 13.5,3.5"/></svg>
+          </div>
+          <div class="step-name">You're All Set</div>
+          <p class="step-text">Your device is already connected and ready to use. Manage your plan, check billing, or get support anytime from your dashboard.</p>
           <a href="/portal" class="btn-cta">
             Go to Dashboard
             <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg>
@@ -1171,7 +1135,7 @@
       : 'Home Router <em>Setup</em>';
 
     /* Section title */
-    document.getElementById('hwTitle').textContent = 'Hardware & Power';
+    document.getElementById('hwTitle').textContent = 'Power It On';
 
     /* Show/hide device-specific steps */
     document.querySelectorAll('.mobile-only, .fixed-only').forEach(function (el) {
