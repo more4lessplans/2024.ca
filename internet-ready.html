@@ -1,198 +1,624 @@
 <!DOCTYPE html>
-<html data-bs-theme="light" lang="en-US" dir="ltr">
-
+<html lang="en-US">
 <head>
+  <meta name="robots" content="noindex, nofollow">
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+  <title>Activation Pending | More4Less</title>
 
-  <!-- SEO and Meta Tags -->
-  <title>Activation Success - More4Less Wireless Internet</title>
-  <meta name="keywords" content="wireless internet activation, high-speed LTE activation, 5G internet setup, Canada internet service, rural internet activation, mobile internet plans, More4Less wireless, internet without contracts, Canadian internet provider, fast internet setup">
-  <meta name="description" content="Your More4Less Wireless Internet service is now active! Enjoy high-speed LTE or 5G internet across Canada for rural homes, RVers, campers, and travelers with our flexible, no-contract plans.">
-  <meta property="og:title" content="Activation Success - More4Less Wireless Internet">
-  <meta property="og:description" content="Your More4Less Wireless Internet service is active. Plug in your router and connect to high-speed LTE or 5G internet anywhere in Canada with no contracts.">
-  <meta property="og:image" content="https://more4lessplans.ca/main.jpg">
-  <meta property="og:url" content="https://more4lessplans.ca/activation-success">
-  <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Activation Success - More4Less Wireless Internet">
-  <meta name="twitter:description" content="Your More4Less Wireless Internet service is active. Plug in your router and connect to high-speed LTE or 5G internet anywhere in Canada with no contracts.">
-  <meta name="twitter:image" content="https://more4lessplans.ca/main.jpg">
-
-  <!-- Favicons -->
   <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicons/favicon-16x16.png">
-  <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicons/favicon.ico">
-  <link rel="manifest" href="/img/favi/manifest.json">
-  <meta name="msapplication-TileImage" content="/img/favi/mstile-150x150.png">
-  <meta name="theme-color" content="#2E2F34">
+  <link rel="shortcut icon" href="assets/img/favicons/favicon.ico">
+  <link rel="manifest" href="assets/img/favicons/site.webmanifest">
+  <meta name="theme-color" content="#2E2F33">
 
-  <!-- Google Tag Manager -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-10988139493"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'AW-10988139493');
-  </script>
-
-  <!-- Bootstrap CSS -->
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- External Stylesheets -->
-  <link rel="stylesheet" href="/navbar.css">
-  <link rel="stylesheet" href="/footer.css">
-  <link rel="stylesheet" href="vendors/swiper/swiper-bundle.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
-  <link href="assets/css/theme.min.css" rel="stylesheet" id="style-default">
-  <link href="assets/css/user-rtl.min.css" rel="stylesheet" id="user-style-rtl">
-  <link href="assets/css/user.min.css" rel="stylesheet" id="user-style-default">
-  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-nCir1SeOabMFeNiu0p+Ox6gJo43v3K9sBZG+/IiYlL8TJ8BOAq0mGYCz5xg6PDe2jNwl9CTscC2vGQVQcR2qLg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-  <!-- Page-Specific CSS -->
   <style>
+    /* ═══════════════════════════════════════════════════════════
+       DESIGN TOKENS
+    ═══════════════════════════════════════════════════════════ */
+    :root {
+      --red:            #D73C59;
+      --red-deep:       #b82e48;
+      --amber:          #d97a06;
+      --amber-bg:       rgba(217,122,6,0.08);
+      --amber-border:   rgba(217,122,6,0.20);
+      --green:          #16a05a;
+      --green-bg:       rgba(22,160,90,0.08);
+      --green-border:   rgba(22,160,90,0.18);
+
+      --bg:             #f8f8f9;
+      --bg-card:        #ffffff;
+      --bg-right:       #2E2F33;
+
+      --ink:            #1a1a1c;
+      --ink-2:          #3d3d40;
+      --ink-3:          #87878c;
+      --ink-4:          #b8b8bc;
+      --ink-on-dark:    #f0f0f2;
+      --ink-on-dark-2:  #b8b8c4;
+      --ink-on-dark-3:  #78787e;
+
+      --border:         #e8e8ec;
+      --border-dark:    rgba(255,255,255,0.10);
+
+      --nav-h:          60px;
+      --radius-xl:      18px;
+      --radius-lg:      14px;
+      --radius-md:      10px;
+      --radius-sm:      8px;
+      --radius-full:    999px;
+
+      --spring:         cubic-bezier(0.34,1.5,0.64,1);
+      --ease-out:       cubic-bezier(0.22,1,0.36,1);
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       RESET & BASE
+    ═══════════════════════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 15px; }
     body {
-      padding-top: 70px;
+      font-family: 'Figtree', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
     }
-    #order-confirmation {
-      background-color: #ffffff;
+
+    /* Immersive light-mode field — dot grid + drifting glow, tuned amber
+       for a mid-flight/processing state rather than a completed one. */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: radial-gradient(circle, rgba(26,26,28,0.07) 1px, transparent 1px);
+      background-size: 26px 26px;
+      mask-image: radial-gradient(ellipse 75% 75% at 50% 46%, black 25%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 75% 75% at 50% 46%, black 25%, transparent 100%);
+      pointer-events: none;
+      z-index: 0;
     }
-    #order-confirmation .container {
-      min-height: calc(100vh - 70px);
+    body::after {
+      content: '';
+      position: fixed;
+      width: 780px; height: 780px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(217,122,6,0.10) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 0;
+      animation: driftGlow 14s ease-in-out infinite;
+    }
+    @keyframes driftGlow {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); }
+      50%      { transform: translate(-46%, -53%) scale(1.06); }
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       NAV
+    ═══════════════════════════════════════════════════════════ */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      z-index: 9000;
+      background: var(--bg-right);
+      border-bottom: 1px solid var(--border-dark);
       display: flex;
-      flex-direction: column;
+      align-items: center;
+    }
+    .nav-inner {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      padding: 0 40px;
+    }
+    .nav-logo img { height: 20px; display: block; }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      list-style: none;
+      margin-left: auto;
+    }
+    .nav-links li a {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--ink-on-dark-2);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      padding: 0 18px;
+      white-space: nowrap;
+      position: relative;
+      display: inline-block;
+      transition: color 0.2s ease;
+    }
+    .nav-links li a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 18px; right: 18px;
+      width: 0; height: 1.5px;
+      background: var(--red);
+      border-radius: 2px;
+      transition: width 0.3s var(--ease-out);
+    }
+    .nav-links li a:hover { color: var(--ink-on-dark); }
+    .nav-links li a:hover::after { width: calc(100% - 36px); }
+    .nav-links .nav-portal a {
+      color: #fff;
+      font-weight: 600;
+      background: transparent;
+      border: 1.5px solid rgba(255,255,255,0.28);
+      border-radius: var(--radius-full);
+      padding: 6px 16px;
+      margin-left: 10px;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+    .nav-links .nav-portal a::after { display: none; }
+    .nav-links .nav-portal a:hover {
+      background: rgba(255,255,255,0.10);
+      border-color: rgba(255,255,255,0.50);
+    }
+
+    /* Hamburger */
+    .menu-trigger {
+      display: none;
+      cursor: pointer;
+      padding: 8px;
+      background: none;
+      border: none;
+      outline: none;
+      margin-left: auto;
+    }
+    .menu-icon {
+      width: 22px; height: 16px;
+      display: flex; flex-direction: column;
+      justify-content: space-between;
+    }
+    .menu-icon span {
+      display: block; width: 100%; height: 1.5px;
+      background: rgba(255,255,255,0.8);
+      border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+    .menu-trigger.menu-active .menu-icon span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .menu-trigger.menu-active .menu-icon span:nth-child(2) { opacity: 0; }
+    .menu-trigger.menu-active .menu-icon span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile overlay */
+    .mobile-overlay {
+      position: fixed; inset: 0;
+      background: rgba(22,22,24,0.97);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      z-index: 8500;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+    .mobile-overlay.active { opacity: 1; visibility: visible; }
+    .mobile-nav-links { list-style: none; text-align: center; padding: 0; margin: 0; }
+    .mobile-nav-links li { margin: 18px 0; transform: translateY(16px); opacity: 0; transition: 0.4s ease; }
+    .mobile-overlay.active .mobile-nav-links li { transform: none; opacity: 1; }
+    .mobile-nav-links li:nth-child(1) { transition-delay: 0.08s; }
+    .mobile-nav-links li:nth-child(2) { transition-delay: 0.13s; }
+    .mobile-nav-links li:nth-child(3) { transition-delay: 0.18s; }
+    .mobile-nav-links li:nth-child(4) { transition-delay: 0.23s; }
+    .mobile-nav-links a {
+      color: rgba(255,255,255,0.85);
+      font-size: 2rem; font-weight: 700;
+      text-decoration: none; letter-spacing: -0.03em;
+      position: relative; display: inline-block;
+      transition: color 0.25s ease;
+    }
+    .mobile-nav-links a::after {
+      content: ''; position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 2.5px;
+      background: var(--red); border-radius: 2px;
+      transition: width 0.3s var(--ease-out);
+    }
+    .mobile-nav-links a:hover { color: #fff; }
+    .mobile-nav-links a:hover::after { width: 100%; }
+    .mobile-nav-links .portal-link a { color: var(--red); }
+    .mobile-nav-links .portal-link a::after { background: var(--red); }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .menu-trigger { display: block; }
+      .nav-inner { padding: 0 24px; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       CONFIRMATION CONTENT
+    ═══════════════════════════════════════════════════════════ */
+    @keyframes revealUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes ringPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(217,122,6,0.18); }
+      50%       { box-shadow: 0 0 0 12px rgba(217,122,6,0.06); }
+    }
+    @keyframes drawCheck { to { stroke-dashoffset: 0; } }
+    @keyframes tickRotate { to { transform: rotate(360deg); } }
+
+    /* Signature moment: a slow-sweeping clock hand instead of a signal
+       ping — the state is "in motion," not "arrived," so the icon reads
+       as work-in-progress rather than a completed handshake. */
+    .check-stage {
+      position: relative;
+      width: 96px; height: 96px;
+      margin: 0 auto 28px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .signal-arc {
+      position: absolute; inset: 0;
+      border: 1.5px solid var(--amber);
+      border-radius: 50%;
+      opacity: 0;
+      animation: signalArc 2.2s var(--ease-out) infinite;
+    }
+    @keyframes signalArc {
+      0%   { opacity: 0; transform: scale(0.72); }
+      35%  { opacity: 0.5; }
+      100% { opacity: 0; transform: scale(1.28); }
+    }
+    .signal-arc.a2 { animation-delay: 0.55s; }
+    .signal-arc.a3 { animation-delay: 1.1s; }
+
+    .check-ring {
+      position: relative;
+      width: 72px; height: 72px; border-radius: 50%;
+      background: var(--amber-bg);
+      border: 2px solid var(--amber-border);
+      display: flex; align-items: center; justify-content: center;
+      animation: ringPulse 2.5s ease infinite;
+    }
+    .check-ring svg {
+      width: 28px; height: 28px;
+      stroke: var(--amber); stroke-width: 2.5; fill: none;
+    }
+    .check-ring .tick-hand {
+      transform-origin: 12px 12.5px;
+      animation: tickRotate 4.5s linear infinite;
+    }
+
+    .confirm-badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 6px 14px 6px 10px;
+      border: 1px solid var(--amber-border);
+      border-radius: var(--radius-full);
+      background: rgba(217,122,6,0.07);
+      font-size: 0.66rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 22px;
+      opacity: 0;
+      animation: revealUp 0.6s var(--ease-out) 0.3s forwards;
+    }
+    .badge-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--amber);
+      box-shadow: 0 0 0 3px rgba(217,122,6,0.18);
+      animation: pulse 2.5s ease infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 3px rgba(217,122,6,0.18); }
+      50%       { box-shadow: 0 0 0 6px rgba(217,122,6,0.08); }
+    }
+
+    .wrap {
+      height: 100vh;
+      padding-top: var(--nav-h);
+      display: flex;
       align-items: center;
       justify-content: center;
+      padding-left: 24px;
+      padding-right: 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .confirm-card {
+      max-width: 460px;
+      width: 100%;
       text-align: center;
-      padding-top: 2rem;
-      padding-bottom: 2rem;
+      opacity: 0;
+      animation: revealUp 0.7s var(--ease-out) 0.1s forwards;
     }
-    #order-confirmation svg {
-      width: 60px;
-      height: 60px;
-      margin: 0 auto 20px;
-      fill: #2E2F33;
+
+    .confirm-headline {
+      font-size: clamp(2.1rem, 4.5vw, 2.9rem); font-weight: 900;
+      letter-spacing: -0.045em; line-height: 1.08;
+      color: var(--ink);
+      margin-bottom: 16px;
+      opacity: 0;
+      animation: revealUp 0.6s var(--ease-out) 0.38s forwards;
     }
-    #order-confirmation h3 {
-      font-size: 1.5rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-      color: #2E2F33;
-      line-height: 1.3;
+    .confirm-headline em { font-style: normal; color: var(--amber); }
+
+    .confirm-body {
+      font-size: 0.88rem;
+      color: var(--ink-3);
+      line-height: 1.7;
+      margin-bottom: 30px;
+      opacity: 0;
+      animation: revealUp 0.6s var(--ease-out) 0.46s forwards;
     }
-    #order-confirmation p {
-      line-height: 1.5;
-      color: #555;
+    .confirm-body strong { color: var(--ink-2); font-weight: 600; }
+
+    /* Activation status stepper */
+    .status-track {
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: revealUp 0.6s var(--ease-out) 0.54s forwards;
+    }
+    .status-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+    }
+    .status-node {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .status-dot {
+      width: 22px; height: 22px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      transform: scale(0.4); opacity: 0;
+      animation: popDot 0.4s var(--spring) forwards;
+    }
+    @keyframes popDot {
+      0%   { transform: scale(0.4); opacity: 0; }
+      60%  { transform: scale(1.15); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .status-dot.is-done {
+      background: var(--green);
+      animation-delay: 0.7s;
+    }
+    .status-dot.is-done svg {
+      width: 11px; height: 11px; stroke: #fff; stroke-width: 3; fill: none;
+    }
+    .status-dot.is-pending {
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      animation-delay: 0.95s;
+    }
+    .status-dot.is-pending .dot-core {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--ink-4);
+    }
+    .status-dot.is-next {
+      background: var(--amber-bg);
+      border: 1.5px solid var(--amber-border);
+      animation: popDot 0.4s var(--spring) forwards, nextPulse 2.2s ease 1.3s infinite;
+    }
+    .status-dot.is-next .dot-core {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--amber);
+    }
+    @keyframes nextPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(217,122,6,0.14); }
+      50%       { box-shadow: 0 0 0 6px rgba(217,122,6,0.08); }
+    }
+    .status-label {
+      font-size: 0.66rem; font-weight: 600;
+      letter-spacing: 0.01em;
+      color: var(--ink-4);
+      white-space: nowrap;
+    }
+    .status-node.is-done .status-label,
+    .status-node.is-active .status-label { color: var(--ink-2); }
+    .status-line {
+      width: 64px; height: 2px;
+      background: var(--border);
+      margin: 10px 6px 0;
+      border-radius: 2px;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .status-line::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: var(--green);
+      transform-origin: left center;
+      transform: scaleX(0);
+      animation: fillBar 0.5s var(--ease-out) 0.82s forwards;
+    }
+    @keyframes fillBar {
+      from { transform: scaleX(0); }
+      to   { transform: scaleX(1); }
+    }
+    .status-line.is-upcoming::after { background: var(--border); animation: none; transform: scaleX(0); }
+
+    .confirm-cta {
+      display: inline-flex;
+      align-items: center; justify-content: center; gap: 8px;
+      width: 100%; padding: 18px 28px;
+      background: var(--ink); color: #fff;
+      border: none; border-radius: var(--radius-full);
+      font-family: 'Figtree', sans-serif;
+      font-size: 0.95rem; font-weight: 700;
+      letter-spacing: -0.01em;
+      cursor: pointer; text-decoration: none;
+      transition: transform 0.4s var(--spring), box-shadow 0.4s ease, background 0.25s ease;
+      position: relative; overflow: hidden;
+      opacity: 0;
+      animation: revealUp 0.6s var(--ease-out) 0.62s forwards;
+    }
+    .confirm-cta::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.08) 50%, transparent 65%);
+      transform: translateX(-130%);
+      transition: transform 0.55s var(--ease-out);
+    }
+    .confirm-cta:hover::before { transform: translateX(130%); }
+    .confirm-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.14);
+      background: #1a1a1c;
+    }
+    .confirm-cta:focus-visible {
+      outline: 2px solid var(--ink);
+      outline-offset: 3px;
+    }
+    .confirm-cta svg {
+      width: 15px; height: 15px;
+      stroke: currentColor; stroke-width: 2.2; fill: none;
+      transition: transform 0.3s var(--spring);
+    }
+    .confirm-cta:hover svg { transform: translateX(4px); }
+
+    .confirm-footnote {
+      margin-top: 18px;
+      font-size: 0.76rem;
+      color: var(--ink-4);
+      opacity: 0;
+      animation: revealUp 0.6s var(--ease-out) 0.7s forwards;
+    }
+
+    @media (max-width: 540px) {
+      .confirm-headline { font-size: 1.7rem; }
+      .status-line { width: 40px; }
+      .status-label { font-size: 0.6rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .confirm-card, .confirm-badge, .confirm-headline, .confirm-body,
+      .status-track, .confirm-cta, .status-dot, .check-ring svg, .confirm-footnote {
+        opacity: 1; transform: none;
+      }
+      .signal-arc { display: none; }
+      .status-line::after { transform: scaleX(1); }
+      body::after { animation: none; }
     }
   </style>
 </head>
 
 <body>
-  <div id="navbar-container"></div>
 
-  <main class="main" id="top">
-    <div class="content">
-      <section id="order-confirmation">
-        <div class="container py-8 py-lg-10 d-flex flex-column align-items-center justify-content-center text-center">
-          <div>
-            <div>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M12 0C5.371 0 0 5.371 0 12s5.371 12 12 12 12-5.371 12-12S18.629 0 12 0zm-1.203 17.69l-4.902-4.902 1.414-1.414 3.488 3.488 6.588-6.588 1.414 1.414-8.002 8.002z" />
-              </svg>
-            </div>
-            <h3 class="fs-5 fw-semibold mb-2">Active</h3>
-            <p>Your service is now active and ready to go! <br>Simply plug in and turn on your router, then connect to the Wi-Fi network using the default credentials located on the router. It’s that easy! <br> If you have any questions or need assistance, we’re here to help. Enjoy!</p>
-          </div>
-        </div>
-      </section>
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="/">
+      <img src="assets/img/logos/logo.png" alt="More4Less">
+    </a>
+    <ul class="nav-links">
+      <li class="nav-portal"><a href="https://more4lessplans.ca/portal">Dashboard</a></li>
+    </ul>
+    <button class="menu-trigger" id="menuTrigger" aria-label="Open menu">
+      <div class="menu-icon">
+        <span></span><span></span><span></span>
+      </div>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-overlay" id="mobileOverlay">
+  <ul class="mobile-nav-links">
+    <li><a href="/#pricing">Pricing</a></li>
+    <li><a href="/#faq">FAQ</a></li>
+    <li><a href="/contact">Contact</a></li>
+    <li class="portal-link"><a href="https://more4lessplans.ca/portal">Dashboard</a></li>
+  </ul>
+</div>
+
+<!-- CONTENT -->
+<div class="wrap">
+  <div class="confirm-card">
+
+    <div class="check-stage" aria-hidden="true">
+      <span class="signal-arc a1"></span>
+      <span class="signal-arc a2"></span>
+      <span class="signal-arc a3"></span>
+      <div class="check-ring">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12.5" r="9"/>
+          <g class="tick-hand">
+            <line x1="12" y1="12.5" x2="12" y2="7"/>
+            <line x1="12" y1="12.5" x2="15.5" y2="14"/>
+          </g>
+        </svg>
+      </div>
     </div>
-  </main>
 
-  <div id="footer-container"></div>
+    <p class="confirm-badge"><span class="badge-dot"></span> Activation Pending</p>
+    <h1 class="confirm-headline">You're <em>almost there</em>.</h1>
+    <p class="confirm-body">
+      <strong>Your activation request has been received</strong> and is now being processed.
+      It may take a few business hours for your service to go live, and you'll receive an email once it's active.
+    </p>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script src="https://js.chargebee.com/v2/chargebee.js" data-cb-site="more4lessplans"></script>
-  <script src="vendors/is/is.min.js"></script>
-  <script src="vendors/countup/countUp.umd.js"></script>
-  <script src="vendors/swiper/swiper-bundle.min.js"></script>
-  <script src="vendors/lodash/lodash.min.js"></script>
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
-  <script src="assets/js/theme.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Load navbar
-      fetch('/navbar.html')
-        .then(response => {
-          if (!response.ok) throw new Error('Failed to load navbar.html: ' + response.status);
-          return response.text();
-        })
-        .then(data => {
-          document.getElementById('navbar-container').innerHTML = data;
-          const navbarScript = document.createElement('script');
-          navbarScript.src = '/navbar.js';
-          navbarScript.async = true;
-          navbarScript.onload = function() {
-            if (typeof initializeNavbar === 'function') {
-              initializeNavbar();
-            } else {
-              console.error('initializeNavbar function not found in navbar.js');
-            }
-          };
-          navbarScript.onerror = function() {
-            console.error('Failed to load navbar.js');
-          };
-          document.body.appendChild(navbarScript);
-        })
-        .catch(error => console.error('Error loading navbar:', error));
+    <div class="status-track">
+      <div class="status-row">
+        <div class="status-node is-done">
+          <span class="status-dot is-done">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          </span>
+          <span class="status-label">Received</span>
+        </div>
+        <span class="status-line"></span>
+        <div class="status-node is-active">
+          <span class="status-dot is-next"><span class="dot-core"></span></span>
+          <span class="status-label">Processing</span>
+        </div>
+        <span class="status-line is-upcoming"></span>
+        <div class="status-node">
+          <span class="status-dot is-pending"><span class="dot-core"></span></span>
+          <span class="status-label">Active</span>
+        </div>
+      </div>
+    </div>
 
-      // Load footer
-      fetch('/footer.html')
-        .then(response => {
-          if (!response.ok) throw new Error('Failed to load footer.html: ' + response.status);
-          return response.text();
-        })
-        .then(data => {
-          document.getElementById('footer-container').innerHTML = data;
-          const yearElement = document.getElementById('currentYear');
-          if (yearElement) {
-            yearElement.textContent = new Date().getFullYear();
-          }
-        })
-        .catch(error => console.error('Error loading footer:', error));
+    <a href="/" class="confirm-cta">
+      Back to Home
+      <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
 
-      // Initialize Chargebee
-      if (typeof Chargebee !== 'undefined') {
-        Chargebee.init({
-          site: "more4lessplans",
-          publishableKey: 'live_9xoL0GUAJyfaZddNn5cdFhI4hrLAGhyIh' // Replace with actual Chargebee publishable key
-        });
+    <p class="confirm-footnote">No action needed on your end — we'll email you the moment it's ready.</p>
 
-        const accountLoginLinks = document.querySelectorAll('.account-login-link');
-        accountLoginLinks.forEach(link => {
-          link.addEventListener('click', function(event) {
-            event.preventDefault();
-            const chargebeeInstance = Chargebee.getInstance();
-            if (chargebeeInstance) {
-              chargebeeInstance.openPortal({
-                onLoad: function() { console.log("Chargebee portal loaded"); },
-                onClose: function() { console.log("Chargebee portal closed"); }
-              });
-            } else {
-              console.error('Chargebee instance not initialized');
-            }
-          });
-        });
-      } else {
-        console.error("Chargebee script not loaded. Please ensure the Chargebee script is included.");
-      }
-    });
-  </script>
+  </div>
+</div>
+
+<script>
+(function () {
+  var trigger = document.getElementById('menuTrigger');
+  var overlay = document.getElementById('mobileOverlay');
+
+  function toggleMenu() {
+    var open = trigger.classList.toggle('menu-active');
+    overlay.classList.toggle('active', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+
+  trigger.addEventListener('click', function (e) { e.stopPropagation(); toggleMenu(); });
+  overlay.addEventListener('click', function (e) {
+    if (!e.target.closest('a') && overlay.classList.contains('active')) toggleMenu();
+  });
+  overlay.querySelectorAll('a').forEach(function (a) {
+    a.addEventListener('click', function () { if (overlay.classList.contains('active')) toggleMenu(); });
+  });
+})();
+</script>
+
 </body>
 </html>
