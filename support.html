@@ -512,6 +512,65 @@
             border-color: var(--brand-red);
         }
 
+        /* Info callout */
+        .info-note {
+            background: var(--bg-page);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--brand-red);
+            border-radius: 12px;
+            padding: 14px 18px;
+            font-size: 0.88rem;
+            line-height: 1.7;
+            color: var(--text-muted);
+            margin: 4px 0 24px;
+        }
+
+        .info-note strong { color: var(--text-dark); }
+
+        .info-note a {
+            color: var(--brand-red);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(215, 60, 89, 0.3);
+        }
+
+        .info-note a:hover { border-color: var(--brand-red); }
+
+        /* Device toggle (within Device Specific Issues card) */
+        .device-toggle {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0 28px;
+        }
+
+        .device-toggle-btn {
+            flex: 1;
+            padding: 14px 18px;
+            border-radius: 14px;
+            border: 1.5px solid var(--border);
+            background: #ffffff;
+            font-family: 'Figtree', sans-serif;
+            font-weight: 700;
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .device-toggle-btn:hover {
+            border-color: var(--text-dark);
+            color: var(--text-dark);
+        }
+
+        .device-toggle-btn.active {
+            border-color: var(--brand-red);
+            background: rgba(215, 60, 89, 0.06);
+            color: var(--brand-red);
+        }
+
+        .device-issue-panel { display: none; }
+        .device-issue-panel.active { display: block; animation: slideIn 0.4s ease; }
+
         /* ─── RESPONSIVE ─────────────────────────────────────────── */
         @media (max-width: 768px) {
             .nav-links-desktop { display: none; }
@@ -593,6 +652,7 @@
                         <option value="internet-not-working">Internet Not Working</option>
                         <option value="internet-too-slow">Internet Too Slow</option>
                         <option value="router-not-turning-on">Router Not Turning On</option>
+                        <option value="device-specific-issues">Device Won't Stay Connected (Hardware)</option>
                         <option value="change-wifi-name">Change Wi-Fi Name or Password</option>
                         <option value="streaming-services">Streaming Services Issues</option>
                         <option value="paused-service">Pause or Resume Service</option>
@@ -606,6 +666,25 @@
         <!-- Internet Not Working -->
         <div class="troubleshooting-card" id="internet-not-working">
             <h3>Fix Your 5G/LTE Internet Connection</h3>
+
+            <h4>Quick Settings Checklist</h4>
+            <ul>
+                <li><strong>Is your APN set correctly?</strong> An incorrect or missing APN is the most common cause of a connection that won't work at all.</li>
+                <li><strong>Is Band Lock set to "All" or "Auto"?</strong> If it's locked to a specific band that's no longer available in your area, your connection can disconnect entirely.</li>
+                <li><strong>Is Network mode set to Auto or Manual?</strong> On Manual, if your selected carrier becomes unavailable, the connection can drop. On Auto, the device picks a network for you — but it doesn't always choose the strongest one. If you already know which carrier gives you the best signal at your address, Manual is usually the better choice.</li>
+            </ul>
+            <div class="info-note">
+                Not sure where to find these settings? Follow the guide for your device —
+                <a href="tutorials#mobile-update-apn" target="_blank" rel="nofollow">Nighthawk APN</a>,
+                <a href="tutorials#mobile-band-locking" target="_blank" rel="nofollow">Nighthawk Band Locking</a>,
+                <a href="tutorials#mobile-manual-network" target="_blank" rel="nofollow">Nighthawk Manual Network</a>, or
+                <a href="tutorials#fixed-update-apn" target="_blank" rel="nofollow">Orbi APN</a> and
+                <a href="tutorials#fixed-manual-network" target="_blank" rel="nofollow">Orbi Manual Network</a>.
+            </div>
+
+            <h4>Check Your Cell Signal First</h4>
+            <p>Our service runs on the same cellular network as your phone. Check whether your phone also has weak or no signal in the same spot — if so, the issue is likely the local network rather than your device.</p>
+
             <ol>
                 <li><strong>Restart Your Device</strong>
                     <ul>
@@ -613,11 +692,11 @@
                         <li>Plug it back in or turn it on, wait for a full restart, then try connecting again.</li>
                     </ul>
                 </li>
-                <li><strong>Improve Signal Strength</strong>
+                <li><strong>Improve Signal Strength & Placement</strong>
                     <ul>
-                        <li>Place the hub near a window or outside wall, ideally toward the nearest cell tower.</li>
-                        <li>Avoid basements, cabinets, or metal objects.</li>
-                        <li>Elevate the hub (e.g., on a shelf) for better signal.</li>
+                        <li>Place the hub near a window, ideally on a higher floor and as close as possible to the nearest known cell tower.</li>
+                        <li>Avoid basements, cabinets, or metal objects that can block signal.</li>
+                        <li>Try a few different spots — small changes in placement can meaningfully change signal strength, so trial and error is worth it.</li>
                         <li>Check the hub's LEDs or app for signal strength. Aim for at least 3/5 bars.</li>
                     </ul>
                 </li>
@@ -627,10 +706,9 @@
                         <li>Peak hours (evenings/weekends) can slow speeds due to high network use.</li>
                     </ul>
                 </li>
-                <li><strong>Adjust Network Settings</strong>
+                <li><strong>Recheck the Settings Checklist Above</strong>
                     <ul>
-                        <li>Log into your router's settings via its app or web interface.</li>
-                        <li>Select a 5G/LTE band available in your area or set to "Auto" for best results.</li>
+                        <li>Confirm the APN, Band Lock, and Network mode settings against the checklist at the top of this guide.</li>
                         <li>Try switching to another major Canadian network provider for a stronger signal.</li>
                     </ul>
                 </li>
@@ -666,9 +744,11 @@
                         <li>Log into your router's settings via its app or web interface.</li>
                         <li>Find "Network Selection" or "Band Selection."</li>
                         <li>Select the strongest band or set to "Auto" for best performance.</li>
-                        <li>Follow our guide for detailed steps.</li>
                     </ul>
-                    <a href="tutorials" class="btn-primary" target="_blank" rel="nofollow" style="margin-top: 16px; display: inline-block;">View Guide</a>
+                    <div class="button-group" style="margin-top: 16px;">
+                        <a href="tutorials#mobile-band-locking" class="btn-primary" target="_blank" rel="nofollow">Nighthawk: Band Locking Guide</a>
+                        <a href="tutorials#fixed-manual-network" class="btn-primary" target="_blank" rel="nofollow">Orbi: Manual Network Guide</a>
+                    </div>
                 </li>
                 <li><strong>Optimize Hub Placement</strong>
                     <ul>
@@ -710,6 +790,7 @@
                         <li>Connect it to a power source using a USB-C cable and 3.0A power adapter (without the battery).</li>
                         <li>Wait 1–2 minutes and check for indicator lights or error codes on the screen.</li>
                     </ul>
+                    <a href="tutorials#mobile-battery-free" class="btn-primary" target="_blank" rel="nofollow" style="margin-top: 16px; display: inline-block;">Nighthawk Battery-Free Guide</a>
                 </li>
                 <li><strong>For Home Devices with a Power Adapter</strong>
                     <ul>
@@ -724,6 +805,7 @@
                         <li>Do not reset mobile devices unless instructed, as it may disconnect service.</li>
                         <li>For home devices, find the reset pinhole and press it with a paperclip while powered on.</li>
                     </ul>
+                    <a href="tutorials#fixed-factory-reset" class="btn-primary" target="_blank" rel="nofollow" style="margin-top: 16px; display: inline-block;">Orbi Factory Reset Guide</a>
                 </li>
                 <li><strong>Check for Other Issues</strong>
                     <ul>
@@ -778,6 +860,9 @@
                     </ul>
                 </li>
             </ol>
+            <div class="info-note">
+                Prefer a full walkthrough with screenshots? See the <a href="tutorials#fixed-wifi-name" target="_blank" rel="nofollow">Orbi Wi-Fi Name & Password guide</a>.
+            </div>
             <h4>Need More Help Changing Wi-Fi Settings?</h4>
             <div class="button-group">
                 <button type="button" class="btn-secondary" onclick="showInitialForm()">← Back</button>
@@ -815,6 +900,53 @@
                 <a href="/reactivate-service" class="btn-primary" target="_blank" rel="nofollow">Re-Activate Service</a>
             </div>
             <h4>Need More Help With Service Status?</h4>
+            <div class="button-group">
+                <button type="button" class="btn-secondary" onclick="showInitialForm()">← Back</button>
+                <a href="/contact" class="btn-primary">Contact Support</a>
+            </div>
+        </div>
+
+        <!-- Device Specific Issues -->
+        <div class="troubleshooting-card" id="device-specific-issues">
+            <h3>Device Won't Stay Connected (Hardware)</h3>
+            <p>Hardware troubleshooting looks a little different between our two device types. Select yours below for targeted steps.</p>
+
+            <div class="device-toggle">
+                <button type="button" class="device-toggle-btn active" data-device="nighthawk" onclick="selectIssueDevice('nighthawk')">Nighthawk</button>
+                <button type="button" class="device-toggle-btn" data-device="orbi" onclick="selectIssueDevice('orbi')">Orbi</button>
+            </div>
+
+            <div class="device-issue-panel active" data-device="nighthawk">
+                <h4>Nighthawk Battery & Power Issues</h4>
+                <ol>
+                    <li><strong>Bypass the Battery</strong>
+                        <ul>
+                            <li>Try running the device plugged in directly, with the battery removed.</li>
+                            <li>Test with a high-powered USB-C adapter (3.0A or higher), both with and without the battery installed, to isolate whether the battery is the problem.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Charge While Powered Off</strong>
+                        <ul>
+                            <li>Plug the device in while it's turned on, then switch it off while it stays connected to the charger.</li>
+                            <li>Leave it plugged in for a couple of hours before powering it back on.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Reinsert the Battery While Plugged In</strong>
+                        <ul>
+                            <li>With the device already connected to power, try inserting the battery rather than powering on with it already seated.</li>
+                        </ul>
+                    </li>
+                </ol>
+                <a href="tutorials#mobile-battery-free" class="btn-primary" target="_blank" rel="nofollow" style="margin-top: 8px; display: inline-block;">View Battery-Free Setup Guide</a>
+            </div>
+
+            <div class="device-issue-panel" data-device="orbi">
+                <h4>Orbi Connectivity Issues</h4>
+                <p>Most Orbi connection drops come down to network selection rather than a hardware fault. If you're losing connection or seeing a weak signal, switching from Automatic to Manual network selection lets you lock onto the strongest carrier in your area instead of waiting for the device to reselect one.</p>
+                <a href="tutorials#fixed-manual-network" class="btn-primary" target="_blank" rel="nofollow" style="margin-top: 8px; display: inline-block;">View Manual Network Selection Guide</a>
+            </div>
+
+            <h4>Need More Help With Your Device?</h4>
             <div class="button-group">
                 <button type="button" class="btn-secondary" onclick="showInitialForm()">← Back</button>
                 <a href="/contact" class="btn-primary">Contact Support</a>
@@ -894,6 +1026,16 @@
         window.scrollTo({
             top: document.querySelector('.support-content').offsetTop - 100,
             behavior: 'smooth'
+        });
+    }
+
+    // ── Device-specific issues toggle ──
+    function selectIssueDevice(type) {
+        document.querySelectorAll('#device-specific-issues .device-toggle-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.getAttribute('data-device') === type);
+        });
+        document.querySelectorAll('#device-specific-issues .device-issue-panel').forEach(panel => {
+            panel.classList.toggle('active', panel.getAttribute('data-device') === type);
         });
     }
 </script>
