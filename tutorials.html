@@ -491,22 +491,31 @@
 
     /* ── PILL TABS ────────────────────────────────────────────────── */
     .nav-pills-custom {
-      display: flex; background: var(--bg); padding: 5px;
-      border-radius: var(--rLG); margin-bottom: 32px;
-      flex-wrap: wrap; gap: 2px;
+      position: relative;
+      display: flex; align-items: stretch;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 32px;
+      overflow-x: auto; -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
     }
+    .nav-pills-custom::-webkit-scrollbar { display: none; }
     .nav-link-custom {
-      flex: 1; min-width: 118px; text-align: center; padding: 11px 12px;
+      flex: 0 0 auto; white-space: nowrap;
+      padding: 0 20px 14px 0; margin-right: 22px;
       cursor: pointer; font-family: 'Figtree', sans-serif;
-      font-weight: 600; font-size: 0.83rem;
-      border-radius: var(--rMD); color: var(--ink-3);
+      font-weight: 600; font-size: 0.83rem; letter-spacing: 0.005em;
+      color: var(--ink-3);
       border: none; background: none; outline: none;
-      transition: color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+      transition: color 0.2s ease;
     }
     .nav-link-custom:hover { color: var(--ink-2); }
-    .nav-link-custom.active {
-      background: var(--bg-card); color: var(--ink);
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    .nav-link-custom.active { color: var(--ink); }
+    .tab-indicator {
+      position: absolute; bottom: -1px; left: 0;
+      height: 2px; width: 0; border-radius: var(--rFull);
+      background: var(--red);
+      transition: transform 0.35s var(--ease-out), width 0.35s var(--ease-out);
+      will-change: transform, width;
     }
 
     /* ── TUTORIAL PANES ───────────────────────────────────────────── */
@@ -788,7 +797,6 @@
       .card-img-wrap { height: 82px; }
       .dc-desc     { display: none; }
       .guide-inner { padding: 44px 0 56px; }
-      .nav-link-custom { min-width: calc(50% - 2px); }
       .app-block-inner { flex-direction: column; text-align: center; gap: 14px; }
       .app-dl-row { justify-content: center; }
       .tips-grid { grid-template-columns: 1fr; }
@@ -954,6 +962,7 @@
         </div>
 
         <div class="nav-pills-custom">
+          <div class="tab-indicator"></div>
           <button class="nav-link-custom active" data-group="mobile" data-tab="update-apn">Update APN</button>
           <button class="nav-link-custom" data-group="mobile" data-tab="manual-network">Manual Network</button>
           <button class="nav-link-custom" data-group="mobile" data-tab="band-locking">Band Locking</button>
@@ -961,7 +970,7 @@
           <button class="nav-link-custom" data-group="mobile" data-tab="wifi-range">Wi-Fi Range</button>
         </div>
 
-        <div class="tutorial-pane active" data-group="mobile" data-tab="update-apn">
+        <div class="tutorial-pane active" id="mobile-update-apn" data-group="mobile" data-tab="update-apn">
           <p class="step-intro">Follow these steps to update the APN on your Nighthawk for reliable connectivity.</p>
           <ol class="steps-list">
             <li><strong>Download the NETGEAR Mobile App:</strong> If you haven't already, download and install the NETGEAR Mobile app.</li>
@@ -980,7 +989,7 @@
           <video controls><source src="tutorial-videos/APN - MR1100.mp4" type="video/mp4"></video>
         </div>
 
-        <div class="tutorial-pane" data-group="mobile" data-tab="manual-network">
+        <div class="tutorial-pane" id="mobile-manual-network" data-group="mobile" data-tab="manual-network">
           <p class="step-intro">Manually select a network if you are experiencing signal fluctuations.</p>
           <ol class="steps-list">
             <li><strong>Connect to Wi-Fi:</strong> Ensure your device is connected to the Nighthawk.</li>
@@ -998,7 +1007,7 @@
           <video controls><source src="tutorial-videos/MNS - MR1100.mp4" type="video/mp4"></video>
         </div>
 
-        <div class="tutorial-pane" data-group="mobile" data-tab="band-locking">
+        <div class="tutorial-pane" id="mobile-band-locking" data-group="mobile" data-tab="band-locking">
           <p class="step-intro">Lock specific LTE bands to prevent switching and improve stability.</p>
           <ol class="steps-list">
             <li><strong>Connect to Router:</strong> Connect to the router's Wi-Fi network.</li>
@@ -1016,7 +1025,7 @@
           <video controls><source src="tutorial-videos/Band Locking - MR1100.mp4" type="video/mp4"></video>
         </div>
 
-        <div class="tutorial-pane" data-group="mobile" data-tab="battery-free">
+        <div class="tutorial-pane" id="mobile-battery-free" data-group="mobile" data-tab="battery-free">
           <p class="step-intro">Optimize device longevity for home use by removing the battery.</p>
           <ol class="steps-list">
             <li><strong>Power Off:</strong> Completely shut down the Nighthawk and unplug the USB cable.</li>
@@ -1026,7 +1035,7 @@
           </ol>
         </div>
 
-        <div class="tutorial-pane" data-group="mobile" data-tab="wifi-range">
+        <div class="tutorial-pane" id="mobile-wifi-range" data-group="mobile" data-tab="wifi-range">
           <p class="step-intro">Adjust Wi-Fi transmit power based on your current environment.</p>
           <ol class="steps-list">
             <li><strong>Router Admin Login:</strong> Access the dashboard with the credentials below.</li>
@@ -1124,11 +1133,14 @@
         </div>
 
         <div class="nav-pills-custom">
+          <div class="tab-indicator"></div>
           <button class="nav-link-custom active" data-group="fixed" data-tab="update-apn">Update APN</button>
           <button class="nav-link-custom" data-group="fixed" data-tab="manual-network">Manual Network</button>
+          <button class="nav-link-custom" data-group="fixed" data-tab="wifi-name">Wi-Fi Name &amp; Password</button>
+          <button class="nav-link-custom" data-group="fixed" data-tab="factory-reset">Factory Reset</button>
         </div>
 
-        <div class="tutorial-pane active" data-group="fixed" data-tab="update-apn">
+        <div class="tutorial-pane active" id="fixed-update-apn" data-group="fixed" data-tab="update-apn">
           <p class="step-intro">Update the APN on your Orbi router for optimal connectivity.</p>
           <ol class="steps-list">
             <li><strong>Open the Orbi App:</strong> Launch the NETGEAR Orbi app on your smartphone.</li>
@@ -1146,7 +1158,7 @@
           <video controls><source src="tutorial-videos/APN - Orbi.mp4" type="video/mp4"></video>
         </div>
 
-        <div class="tutorial-pane" data-group="fixed" data-tab="manual-network">
+        <div class="tutorial-pane" id="fixed-manual-network" data-group="fixed" data-tab="manual-network">
           <p class="step-intro">Follow these steps to manually select a carrier if your signal is unstable.</p>
           <ol class="steps-list">
             <li><strong>Open the Orbi App:</strong> Ensure you are logged in and connected to the router.</li>
@@ -1162,6 +1174,45 @@
             <span class="cred-pill"><span class="cred-key">Password</span> <span class="cred-val">more4less</span> <button class="copy-btn" onclick="copyText('more4less', this)" aria-label="Copy password"><svg viewBox="0 0 16 16"><rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5"/></svg></button></span>
           </div>
           <video controls><source src="tutorial-videos/MNS - Orbi.mp4" type="video/mp4"></video>
+        </div>
+
+        <div class="tutorial-pane" id="fixed-wifi-name" data-group="fixed" data-tab="wifi-name">
+          <p class="step-intro">Change your Orbi's network name and password to keep your Wi-Fi secure and easy to remember.</p>
+          <ol class="steps-list">
+            <li><strong>Access Wireless Settings:</strong> Log into the web management portal at <strong>orbilogin.com</strong> or open the Orbi app, then navigate to <strong>Settings</strong> &gt; <strong>Wireless</strong> (or <strong>WiFi Settings</strong>).</li>
+            <li><strong>Update SSID and Passphrase:</strong> Enter your desired network name in the <strong>Name (SSID)</strong> field and your new secure password in the <strong>Password (Network Key)</strong> field.</li>
+            <li><strong>Apply Changes:</strong> Click <strong>Save</strong> or <strong>Apply</strong> to update your settings.</li>
+            <li><strong>Reconnect Your Devices:</strong> Your router will briefly restart the wireless radios, so you'll need to reconnect your phones, computers, and other devices using the new password.</li>
+          </ol>
+          <div class="cred-strip">
+            <span class="cred-label">Router Login</span>
+            <span class="cred-pill"><span class="cred-key">Username</span> <span class="cred-val">admin</span> <button class="copy-btn" onclick="copyText('admin', this)" aria-label="Copy username"><svg viewBox="0 0 16 16"><rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5"/></svg></button></span>
+            <span class="cred-pill"><span class="cred-key">Password</span> <span class="cred-val">more4less</span> <button class="copy-btn" onclick="copyText('more4less', this)" aria-label="Copy password"><svg viewBox="0 0 16 16"><rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5"/></svg></button></span>
+          </div>
+        </div>
+
+        <div class="tutorial-pane" id="fixed-factory-reset" data-group="fixed" data-tab="factory-reset">
+          <div class="step-warning">
+            <div class="warning-icon">⚠</div>
+            <div>
+              <div class="warning-title">Critical Warning</div>
+              <p class="warning-text">
+                Do not factory reset your device unless a support agent tells you to. This will erase your custom APN and network settings and require you to reprogram the router to restore service.
+              </p>
+            </div>
+          </div>
+          <ol class="steps-list">
+            <li><strong>Note Your APN Settings First:</strong> Before performing a factory reset, check and write down your current APN value from your settings or activation email. A factory reset wipes all custom configurations, and you will need this value to restore your connection afterward.</li>
+            <li><strong>Locate Reset Button:</strong> Find the recessed reset button on the back panel of the LBR20.</li>
+            <li><strong>Hold Reset (10 Seconds):</strong> Using a paperclip or SIM ejector tool, press and hold the button for about 10 seconds until the power LED blinks amber.</li>
+            <li><strong>Release and Wait:</strong> Release the button and wait 3 to 5 minutes for the device to fully reboot to factory defaults.</li>
+            <li><strong>Reconnect and Restore:</strong> Connect to the default Wi-Fi SSID printed on the bottom label, log back into the admin panel, and re-enter your saved APN settings to get back online.</li>
+          </ol>
+          <div class="cred-strip">
+            <span class="cred-label">Router Login</span>
+            <span class="cred-pill"><span class="cred-key">Username</span> <span class="cred-val">admin</span> <button class="copy-btn" onclick="copyText('admin', this)" aria-label="Copy username"><svg viewBox="0 0 16 16"><rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5"/></svg></button></span>
+            <span class="cred-pill"><span class="cred-key">Password</span> <span class="cred-val">more4less</span> <button class="copy-btn" onclick="copyText('more4less', this)" aria-label="Copy password"><svg viewBox="0 0 16 16"><rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5"/></svg></button></span>
+          </div>
         </div>
 
         <div class="subsection-label" id="app-fixed">
@@ -1316,6 +1367,8 @@
     });
     document.getElementById(type === 'mobile' ? 'nighthawk-guide' : 'orbi-guide').classList.add('show-block');
 
+    document.querySelectorAll('#' + (type === 'mobile' ? 'nighthawk-guide' : 'orbi-guide') + ' .nav-pills-custom').forEach(updateIndicator);
+
     var guideWrap = document.getElementById('guideWrap');
     guideWrap.classList.add('visible');
     requestAnimationFrame(function () {
@@ -1382,6 +1435,15 @@
   initDeviceCarousel('deviceCarousel-mobile', 'carouselDots-mobile', 3200);
 
   /* ── Pill tab logic (scoped by data-group) ────────── */
+  function updateIndicator(container) {
+    if (!container) return;
+    var active = container.querySelector('.nav-link-custom.active');
+    var indicator = container.querySelector('.tab-indicator');
+    if (!active || !indicator) return;
+    indicator.style.width = active.offsetWidth + 'px';
+    indicator.style.transform = 'translateX(' + active.offsetLeft + 'px)';
+  }
+
   function switchTab(group, tabId) {
     document.querySelectorAll('.nav-link-custom[data-group="' + group + '"]').forEach(function (btn) {
       btn.classList.toggle('active', btn.getAttribute('data-tab') === tabId);
@@ -1389,13 +1451,46 @@
     document.querySelectorAll('.tutorial-pane[data-group="' + group + '"]').forEach(function (pane) {
       pane.classList.toggle('active', pane.getAttribute('data-tab') === tabId);
     });
+    var firstBtn = document.querySelector('.nav-link-custom[data-group="' + group + '"]');
+    updateIndicator(firstBtn ? firstBtn.closest('.nav-pills-custom') : null);
   }
 
   document.querySelectorAll('.nav-link-custom').forEach(function (btn) {
     btn.addEventListener('click', function () {
-      switchTab(btn.getAttribute('data-group'), btn.getAttribute('data-tab'));
+      var group = btn.getAttribute('data-group');
+      var tab = btn.getAttribute('data-tab');
+      switchTab(group, tab);
+      history.replaceState(null, '', '#' + group + '-' + tab);
     });
   });
+
+  window.addEventListener('resize', function () {
+    document.querySelectorAll('.nav-pills-custom').forEach(function (container) {
+      if (container.offsetParent !== null) updateIndicator(container);
+    });
+  });
+
+  /* ── Direct-link routing (e.g. #fixed-wifi-name) ──── */
+  function routeToHash() {
+    var id = window.location.hash.replace('#', '');
+    if (!id) return;
+    var pane = document.getElementById(id);
+    if (!pane || !pane.classList.contains('tutorial-pane')) return;
+
+    var group = pane.getAttribute('data-group');
+    var tab = pane.getAttribute('data-tab');
+    var deviceType = group === 'fixed' ? 'fixed' : 'mobile';
+
+    selectDevice(deviceType);
+    switchTab(group, tab);
+
+    setTimeout(function () {
+      pane.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 650);
+  }
+
+  window.addEventListener('DOMContentLoaded', routeToHash);
+  window.addEventListener('hashchange', routeToHash);
 
 })();
 </script>
