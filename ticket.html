@@ -412,86 +412,131 @@
         }
         .submit-error.show { display: block; }
 
-        /* Success view — styled after the /active.html confirmation moment */
-        @keyframes revealUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes ringPulseGreen { 0%, 100% { box-shadow: 0 0 0 0 rgba(22,160,90,0.18); } 50% { box-shadow: 0 0 0 12px rgba(22,160,90,0.06); } }
+        /* Success view — premium, cardless, floats directly on the page background */
+        @keyframes revealUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes drawCheck { to { stroke-dashoffset: 0; } }
+        @keyframes orbBreathe {
+            0%, 100% { opacity: 0.55; transform: translate(-50%, -50%) scale(1); }
+            50%      { opacity: 1;    transform: translate(-50%, -50%) scale(1.1); }
+        }
+        @keyframes livePulse {
+            0%   { transform: scale(0.6); opacity: 0; }
+            12%  { opacity: 0.5; }
+            100% { transform: scale(1.55); opacity: 0; }
+        }
+        @keyframes dotPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(22,160,90,0.35); }
+            50%      { box-shadow: 0 0 0 5px rgba(22,160,90,0); }
+        }
 
-        .success-view { text-align: center; }
+        /* Hero recedes and the confirmation takes over the screen, full-bleed on the page bg */
+        .ticket-wrap.is-success .ticket-hero { display: none; }
+        .ticket-wrap.is-success .ticket-content { max-width: 480px; padding: 0 24px; }
+
+        .success-view {
+            position: relative;
+            text-align: center;
+            min-height: calc(100dvh - var(--nav-h) - var(--progress-h));
+            padding: clamp(40px, 9vh, 96px) 4px clamp(48px, 8vh, 80px);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+
+        .success-orb {
+            position: absolute; top: 30%; left: 50%; width: min(60vw, 460px); height: min(60vw, 460px);
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle, rgba(22,160,90,0.11) 0%, rgba(22,160,90,0) 70%);
+            pointer-events: none; z-index: 0;
+            animation: orbBreathe 5s ease-in-out infinite;
+        }
 
         .success-stage {
-            width: 88px; height: 88px; margin: 0 auto 24px;
+            position: relative; z-index: 1;
+            width: clamp(72px, 20vw, 96px); height: clamp(72px, 20vw, 96px);
+            margin: 0 auto clamp(22px, 4vh, 30px);
             display: flex; align-items: center; justify-content: center;
-            opacity: 0; animation: revealUp 0.6s var(--ease-out) 0.05s forwards;
+            opacity: 0; animation: revealUp 0.7s var(--ease-out) 0.05s forwards;
         }
+        .success-pulse {
+            position: absolute; inset: 0; border-radius: 50%;
+            border: 1px solid rgba(22,160,90,0.4);
+            animation: livePulse 2.6s ease-out 0.6s infinite;
+        }
+        .success-pulse-2 { animation-delay: 1.9s; }
         .success-ring {
-            width: 72px; height: 72px; border-radius: 50%;
-            background: var(--green-bg); border: 2px solid var(--green-border);
+            position: relative; z-index: 1;
+            width: 62%; height: 62%; border-radius: 50%;
+            background: radial-gradient(circle at 32% 26%, #26272b, #17181a);
+            border: 1px solid rgba(22,160,90,0.45);
             display: flex; align-items: center; justify-content: center;
-            animation: ringPulseGreen 2.5s ease 0.5s 2;
+            box-shadow: 0 1px 0 rgba(255,255,255,0.05) inset, 0 10px 28px -10px rgba(22,160,90,0.35);
         }
-        .success-ring svg { width: 28px; height: 28px; }
+        .success-ring svg { width: 38%; height: 38%; }
         .success-ring svg path {
-            stroke: var(--green); stroke-width: 2.4; fill: none; stroke-linecap: round; stroke-linejoin: round;
+            stroke: var(--green); stroke-width: 2.3; fill: none; stroke-linecap: round; stroke-linejoin: round;
             stroke-dasharray: 30; stroke-dashoffset: 30;
-            animation: drawCheck 0.5s var(--ease-out) 0.3s forwards;
+            animation: drawCheck 0.6s var(--ease-out) 0.55s forwards;
         }
 
-        .success-badge {
-            display: inline-flex; align-items: center; gap: 7px;
-            padding: 6px 14px 6px 10px; border: 1px solid var(--green-border);
-            border-radius: var(--radius-full); background: var(--green-bg);
-            font-size: 0.66rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
-            color: var(--green); margin-bottom: 18px;
-            opacity: 0; animation: revealUp 0.6s var(--ease-out) 0.14s forwards;
+        .success-live {
+            position: relative; z-index: 1;
+            display: inline-flex; align-items: center; gap: 8px;
+            font-size: 0.7rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+            color: var(--green); margin-bottom: clamp(14px, 3vh, 20px);
+            opacity: 0; animation: revealUp 0.6s var(--ease-out) 0.18s forwards;
         }
-        .success-badge .badge-dot {
+        .live-dot {
             width: 6px; height: 6px; border-radius: 50%; background: var(--green);
-            box-shadow: 0 0 0 3px rgba(22,160,90,0.18);
+            animation: dotPulse 2s ease-in-out infinite;
         }
 
         .success-headline {
-            font-size: clamp(1.6rem, 3.6vw, 2rem); font-weight: 800; letter-spacing: -0.03em;
-            margin-bottom: 12px;
-            opacity: 0; animation: revealUp 0.6s var(--ease-out) 0.2s forwards;
+            position: relative; z-index: 1;
+            font-size: clamp(1.7rem, 7.5vw, 2.5rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1.08;
+            margin-bottom: clamp(10px, 2vh, 14px);
+            opacity: 0; animation: revealUp 0.6s var(--ease-out) 0.24s forwards;
         }
         .success-headline em { font-style: normal; color: var(--green); }
 
         .success-body {
-            font-size: 0.94rem; line-height: 1.65; color: var(--ink-2);
-            opacity: 0; animation: revealUp 0.6s var(--ease-out) 0.26s forwards;
+            position: relative; z-index: 1;
+            font-size: clamp(0.92rem, 3vw, 1rem); line-height: 1.7; color: var(--ink-2);
+            max-width: 360px; margin: 0 auto;
+            opacity: 0; animation: revealUp 0.6s var(--ease-out) 0.3s forwards;
         }
 
         .ticket-number-display {
-            text-align: center; margin: 22px 0;
-            padding: 26px; background: var(--bg);
-            border: 1.5px dashed var(--border-dark, var(--border)); border-radius: var(--radius-lg);
-            opacity: 0; animation: revealUp 0.6s var(--ease-out) 0.32s forwards;
+            position: relative; z-index: 1;
+            width: 100%; max-width: 320px;
+            margin: clamp(26px, 5vh, 36px) 0;
+            padding: clamp(18px, 3vh, 22px) 0;
+            border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+            opacity: 0; animation: revealUp 0.6s var(--ease-out) 0.36s forwards;
         }
-        .ticket-number-display .label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 8px; }
-        .ticket-number-row { display: flex; align-items: center; justify-content: center; gap: 10px; }
-        .ticket-number-display .number { font-size: 1.9rem; font-weight: 800; letter-spacing: -0.01em; color: var(--ink); font-variant-numeric: tabular-nums; }
+        .ticket-number-display .label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 10px; }
+        .ticket-number-row { display: flex; align-items: center; justify-content: center; gap: 12px; }
+        .ticket-number-display .number { font-size: clamp(1.4rem, 6vw, 1.9rem); font-weight: 800; letter-spacing: -0.01em; color: var(--ink); font-variant-numeric: tabular-nums; }
         .copy-btn {
             display: flex; align-items: center; justify-content: center;
-            width: 32px; height: 32px; border-radius: var(--radius-full); border: 1.5px solid var(--border);
-            background: var(--bg-card); color: var(--ink-3); cursor: pointer; flex-shrink: 0;
+            width: 30px; height: 30px; border-radius: var(--radius-full); border: 1.5px solid var(--border);
+            background: transparent; color: var(--ink-3); cursor: pointer; flex-shrink: 0;
             transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease, transform 0.2s var(--spring-soft);
         }
         .copy-btn:hover { color: var(--ink); border-color: var(--ink-4); }
         .copy-btn:active { transform: scale(0.92); }
-        .copy-btn svg { width: 14px; height: 14px; stroke: currentColor; stroke-width: 2.1; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+        .copy-btn svg { width: 13px; height: 13px; stroke: currentColor; stroke-width: 2.1; fill: none; stroke-linecap: round; stroke-linejoin: round; }
         .copy-btn.is-copied { color: var(--green); border-color: var(--green-border); background: var(--green-bg); }
 
         .success-cta {
+            position: relative; z-index: 1;
             display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-            width: 100%; padding: 15px 28px;
+            width: auto; padding: 14px 30px;
             background: var(--ink); color: #fff !important;
             border: none; border-radius: var(--radius-full);
-            font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 0.9rem; letter-spacing: -0.01em;
+            font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 0.88rem; letter-spacing: -0.01em;
             cursor: pointer; text-decoration: none !important;
             transition: transform 0.3s var(--spring-soft), box-shadow 0.25s var(--ease-out), background 0.2s ease;
-            position: relative; overflow: hidden;
-            opacity: 0; animation: revealUp 0.6s var(--ease-out) 0.38s forwards;
+            overflow: hidden;
+            opacity: 0; animation: revealUp 0.6s var(--ease-out) 0.42s forwards;
         }
         .success-cta::before {
             content: ''; position: absolute; inset: 0;
@@ -504,13 +549,16 @@
         .success-cta:hover svg { transform: translateX(4px); }
 
         .success-footnote {
-            margin-top: 16px; font-size: 0.8rem; color: var(--ink-3);
-            opacity: 0; animation: revealUp 0.6s var(--ease-out) 0.44s forwards;
+            position: relative; z-index: 1;
+            margin-top: 18px; font-size: 0.78rem; line-height: 1.6; color: var(--ink-3);
+            max-width: 320px;
+            opacity: 0; animation: revealUp 0.6s var(--ease-out) 0.48s forwards;
         }
 
         @media (prefers-reduced-motion: reduce) {
-            .success-stage, .success-badge, .success-headline, .success-body,
-            .ticket-number-display, .success-cta, .success-footnote, .success-ring svg path {
+            .success-stage, .success-live, .success-headline, .success-body,
+            .ticket-number-display, .success-cta, .success-footnote, .success-ring svg path,
+            .success-orb, .success-pulse, .live-dot {
                 opacity: 1; animation: none; stroke-dashoffset: 0;
             }
         }
@@ -536,6 +584,7 @@
         @media (max-width: 640px) {
             .ticket-hero { padding: 40px 20px 32px; }
             .ticket-content { padding: 36px 18px 90px; }
+            .ticket-wrap.is-success .ticket-content { padding: 0 18px; }
             .ticket-card { padding: 26px 20px; }
             .recap-card { padding: 22px 20px; }
             .field-row { flex-direction: column; gap: 0; }
@@ -729,14 +778,18 @@
         </div>
 
         <!-- SUCCESS VIEW -->
-        <div class="ticket-card success-view hidden" id="successView">
+        <div class="success-view hidden" id="successView">
+            <div class="success-orb" aria-hidden="true"></div>
+
             <div class="success-stage" aria-hidden="true">
+                <span class="success-pulse"></span>
+                <span class="success-pulse success-pulse-2"></span>
                 <div class="success-ring">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg>
                 </div>
             </div>
 
-            <p class="success-badge"><span class="badge-dot"></span> Ticket Submitted</p>
+            <p class="success-live"><span class="live-dot" aria-hidden="true"></span>Ticket submitted</p>
             <h2 class="success-headline">You're <em>all set</em>.</h2>
             <p class="success-body">We've received your request and a support agent will follow up at <strong id="successEmail"></strong> as soon as possible.</p>
 
@@ -902,7 +955,7 @@
     // browsers. If that ever matters, swap this for a number assigned by the
     // Make.com scenario (e.g. a Google Sheets/Airtable auto-number) returned
     // in the webhook response instead.
-    function randomBase36(len) {
+    function randomDigits(len) {
         var bytes = new Uint8Array(len);
         if (window.crypto && window.crypto.getRandomValues) {
             window.crypto.getRandomValues(bytes);
@@ -910,8 +963,8 @@
             for (var i = 0; i < len; i++) bytes[i] = Math.floor(Math.random() * 256);
         }
         var out = '';
-        for (var j = 0; j < bytes.length; j++) out += (bytes[j] % 36).toString(36);
-        return out.toUpperCase();
+        for (var j = 0; j < bytes.length; j++) out += (bytes[j] % 10).toString();
+        return out;
     }
 
     function generateTicketNumber() {
@@ -925,7 +978,7 @@
 
         var num;
         do {
-            num = 'M4L-' + stamp + '-' + randomBase36(4);
+            num = stamp + randomDigits(4);
         } while (used.indexOf(num) !== -1);
 
         used.push(num);
@@ -990,6 +1043,7 @@
             document.getElementById('successEmail').textContent = payload.email;
             formView.classList.add('hidden');
             successView.classList.remove('hidden');
+            document.querySelector('.ticket-wrap').classList.add('is-success');
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
             var copyBtn = document.getElementById('copyTicketBtn');
