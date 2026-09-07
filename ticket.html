@@ -63,14 +63,11 @@
             --shadow-field:   0 1px 2px rgba(20,20,22,0.03);
 
             --focus-ring:     0 0 0 4px var(--red-glow);
-
-            --nav-bg-top:     rgba(46,47,51,1);
-            --nav-bg-scroll:  rgba(30,31,34,0.82);
             --progress-h:     2.5px;
         }
 
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-        html { font-size: 15px; scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+        html { font-size: 15px; scroll-behavior: smooth; -webkit-text-size-adjust: 100%; overflow-x: hidden; touch-action: pan-y; }
 
         body {
             font-family: 'Figtree', sans-serif;
@@ -79,6 +76,8 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             overflow-x: hidden;
+            overscroll-behavior-x: none;
+            touch-action: pan-y;
             -webkit-tap-highlight-color: transparent;
         }
 
@@ -99,18 +98,11 @@
 
         /* ─── NAVBAR ─────────────────────────────────────────────── */
         .navbar-custom {
-            background-color: var(--nav-bg-top);
+            background-color: var(--bg-right);
             border-bottom: 1px solid var(--border-dark);
             height: var(--nav-h);
             display: flex; align-items: center;
             position: fixed; width: 100%; top: 0; z-index: 4000;
-            transition: background-color 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out), border-color 0.4s var(--ease-out);
-        }
-        .navbar-custom.is-scrolled {
-            background-color: var(--nav-bg-scroll);
-            -webkit-backdrop-filter: saturate(180%) blur(16px);
-            backdrop-filter: saturate(180%) blur(16px);
-            box-shadow: 0 8px 24px -12px rgba(0,0,0,0.35);
         }
         .nav-progress {
             position: fixed; top: var(--nav-h); left: 0; width: 100%; height: var(--progress-h);
@@ -137,6 +129,71 @@
             transition: color 0.2s ease;
         }
         .nav-links-desktop li a:hover { color: var(--ink-on-dark); }
+
+        /* Hamburger */
+        .menu-trigger {
+            display: none;
+            cursor: pointer;
+            padding: 8px;
+            background: none;
+            border: none;
+            outline: none;
+        }
+        .menu-icon {
+            width: 22px; height: 16px;
+            display: flex; flex-direction: column;
+            justify-content: space-between;
+        }
+        .menu-icon span {
+            display: block; width: 100%; height: 1.5px;
+            background: rgba(255,255,255,0.8);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        .menu-trigger.menu-active .menu-icon span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .menu-trigger.menu-active .menu-icon span:nth-child(2) { opacity: 0; }
+        .menu-trigger.menu-active .menu-icon span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        /* Mobile overlay */
+        .mobile-overlay {
+            position: fixed; inset: 0;
+            background: rgba(22,22,24,0.97);
+            -webkit-backdrop-filter: blur(30px);
+            backdrop-filter: blur(30px);
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            z-index: 4500;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+        .mobile-overlay.active { opacity: 1; visibility: visible; }
+        .mobile-nav-links { list-style: none; text-align: center; padding: 0; margin: 0; }
+        .mobile-nav-links li { margin: 18px 0; transform: translateY(16px); opacity: 0; transition: 0.4s ease; }
+        .mobile-overlay.active .mobile-nav-links li { transform: none; opacity: 1; }
+        .mobile-nav-links li:nth-child(1) { transition-delay: 0.08s; }
+        .mobile-nav-links li:nth-child(2) { transition-delay: 0.13s; }
+        .mobile-nav-links a {
+            color: rgba(255,255,255,0.85);
+            font-size: 2rem; font-weight: 700;
+            text-decoration: none; letter-spacing: -0.03em;
+            position: relative; display: inline-block;
+            transition: color 0.25s ease;
+        }
+        .mobile-nav-links a::after {
+            content: ''; position: absolute;
+            bottom: -3px; left: 0;
+            width: 0; height: 2.5px;
+            background: var(--red); border-radius: 2px;
+            transition: width 0.3s var(--ease-out);
+        }
+        .mobile-nav-links a:hover { color: #fff; }
+        .mobile-nav-links a:hover::after { width: 100%; }
+
+        @media (max-width: 768px) {
+            .nav-links-desktop { display: none; }
+            .menu-trigger { display: block; }
+            .nav-container { padding: 0 24px; }
+        }
 
         /* ─── PAGE CONTENT ───────────────────────────────────────── */
         .ticket-wrap { padding-top: var(--nav-h); min-height: 100vh; }
@@ -278,6 +335,11 @@
             background-repeat: no-repeat; background-position: right 14px center; background-size: 10px 10px; padding-right: 36px;
         }
         .field textarea { resize: vertical; min-height: 90px; font-family: inherit; }
+        .field input[type="datetime-local"] {
+            -webkit-min-logical-width: 0%;
+            min-width: 0;
+        }
+        .field input[type="datetime-local"]::-webkit-date-and-time-value { text-align: right; }
         .field input:focus, .field select:focus, .field textarea:focus {
             outline: none; border-color: var(--ink-4); box-shadow: 0 0 0 4px rgba(26,26,28,0.06);
         }
@@ -473,6 +535,7 @@
             .field-row { flex-direction: column; gap: 0; }
             .field-row .field.field-narrow { flex: 1; }
             .footer { flex-direction: column; text-align: center; padding: 28px 24px; }
+            .field input, .field select, .field textarea { font-size: 16px; }
         }
     </style>
 </head>
@@ -488,8 +551,20 @@
             <li><a href="/support">Support</a></li>
             <li><a href="/contact">Contact</a></li>
         </ul>
+        <button class="menu-trigger" id="menuTrigger" aria-label="Open menu">
+            <div class="menu-icon">
+                <span></span><span></span><span></span>
+            </div>
+        </button>
     </div>
 </nav>
+
+<div class="mobile-overlay" id="mobileOverlay">
+    <ul class="mobile-nav-links">
+        <li><a href="/support">Support</a></li>
+        <li><a href="/contact">Contact</a></li>
+    </ul>
+</div>
 
 <div class="nav-progress" aria-hidden="true"><div class="nav-progress-fill" id="navProgressFill"></div></div>
 
@@ -696,6 +771,22 @@
     var yearEl = document.getElementById('year');
     if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 
+    // ── Mobile menu ──
+    var menuTrigger = document.getElementById('menuTrigger');
+    var mobileOverlay = document.getElementById('mobileOverlay');
+    function toggleMenu() {
+        var open = menuTrigger.classList.toggle('menu-active');
+        mobileOverlay.classList.toggle('active', open);
+        document.body.style.overflow = open ? 'hidden' : '';
+    }
+    menuTrigger.addEventListener('click', function (e) { e.stopPropagation(); toggleMenu(); });
+    mobileOverlay.addEventListener('click', function (e) {
+        if (!e.target.closest('a') && mobileOverlay.classList.contains('active')) toggleMenu();
+    });
+    mobileOverlay.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () { if (mobileOverlay.classList.contains('active')) toggleMenu(); });
+    });
+
     // ── Read hand-off params from /support.html ──
     var params = new URLSearchParams(location.search);
     var topic = params.get('topic') || '';
@@ -779,13 +870,7 @@
     wireValidationIcon('email', 'emailWrap', function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); });
     wireValidationIcon('addrPostal', 'postalWrap', function (v) { return /^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/.test(v); });
 
-    // ── Navbar glass state + top progress bar, driven by scroll and form completion ──
-    var navbarEl = document.querySelector('.navbar-custom');
-    function onScroll() { navbarEl.classList.toggle('is-scrolled', window.scrollY > 8); }
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-
-    var navProgressFill = document.getElementById('navProgressFill');
+    // ── Top progress bar, driven by form completion ──
     var progressForm = document.getElementById('ticketForm');
     function updateProgress() {
         var required = Array.prototype.slice.call(progressForm.querySelectorAll('[required]'));
