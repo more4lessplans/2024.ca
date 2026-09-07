@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Submit a Support Ticket | More4Less</title>
+    <meta name="description" content="Submit a support ticket to the More4Less team.">
+    <meta name="theme-color" content="#2E2F33">
+    <meta name="color-scheme" content="light">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232E2F33'/%3E%3Ccircle cx='22.5' cy='9.5' r='3' fill='%23D73C59'/%3E%3Cpath d='M8 22V10h2.6l4.4 6.4L19.4 10H22v12h-2.8v-7.7l-4.2 6.1h-.1l-4.1-6.1V22H8z' fill='%23fff'/%3E%3C/svg%3E">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        /* ═══════════════════════════════════════════════════════════
+           DESIGN TOKENS — mirrored from /support.html for consistency
+        ═══════════════════════════════════════════════════════════ */
+        :root {
+            --red:            #D73C59;
+            --red-deep:       #b82e48;
+            --red-glow:       rgba(215,60,89,0.12);
+            --red-glow-sm:    rgba(215,60,89,0.07);
+            --green:          #16a05a;
+            --green-bg:       rgba(22,160,90,0.08);
+            --green-border:   rgba(22,160,90,0.18);
+            --amber:          #d97a06;
+            --amber-bg:       rgba(217,122,6,0.08);
+            --amber-border:   rgba(217,122,6,0.20);
+
+            --bg:             #f8f8f9;
+            --bg-card:        #ffffff;
+            --bg-right:       #2E2F33;
+
+            --ink:            #1a1a1c;
+            --ink-2:          #3d3d40;
+            --ink-3:          #87878c;
+            --ink-4:          #b8b8bc;
+            --ink-on-dark:    #f0f0f2;
+            --ink-on-dark-2:  #b8b8c4;
+
+            --border:         #e8e8ec;
+            --border-soft:    #f0f0f4;
+            --border-dark:    rgba(255,255,255,0.10);
+
+            --nav-h:          60px;
+            --radius-xl:      18px;
+            --radius-lg:      14px;
+            --radius-md:      10px;
+            --radius-sm:      8px;
+            --radius-full:    999px;
+
+            --spring-soft:    cubic-bezier(0.22,1.15,0.36,1);
+            --ease-out:       cubic-bezier(0.22,1,0.36,1);
+            --ease-in-out:    cubic-bezier(0.65,0,0.35,1);
+
+            --shadow-xs:      0 1px 2px rgba(20,20,22,0.04);
+            --shadow-card:    0 1px 2px rgba(20,20,22,0.035), 0 14px 32px -12px rgba(20,20,22,0.10);
+            --shadow-card-lg: 0 2px 4px rgba(20,20,22,0.04), 0 24px 48px -16px rgba(20,20,22,0.14);
+            --shadow-btn:     0 1px 1px rgba(20,20,22,0.10), 0 8px 20px -6px rgba(20,20,22,0.22);
+            --shadow-btn-hi:  0 1px 1px rgba(20,20,22,0.12), 0 12px 26px -8px rgba(20,20,22,0.28);
+            --shadow-field:   0 1px 2px rgba(20,20,22,0.03);
+
+            --focus-ring:     0 0 0 4px var(--red-glow);
+
+            --nav-bg-top:     rgba(46,47,51,1);
+            --nav-bg-scroll:  rgba(30,31,34,0.82);
+            --progress-h:     2.5px;
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { font-size: 15px; scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+        body {
+            font-family: 'Figtree', sans-serif;
+            background: var(--bg);
+            color: var(--ink);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        a { color: inherit; }
+        button { -webkit-tap-highlight-color: transparent; }
+        svg { shape-rendering: geometricPrecision; display: block; }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        .hidden { display: none !important; }
+
+        /* ─── NAVBAR ─────────────────────────────────────────────── */
+        .navbar-custom {
+            background-color: var(--nav-bg-top);
+            border-bottom: 1px solid var(--border-dark);
+            height: var(--nav-h);
+            display: flex; align-items: center;
+            position: fixed; width: 100%; top: 0; z-index: 4000;
+            transition: background-color 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out), border-color 0.4s var(--ease-out);
+        }
+        .navbar-custom.is-scrolled {
+            background-color: var(--nav-bg-scroll);
+            -webkit-backdrop-filter: saturate(180%) blur(16px);
+            backdrop-filter: saturate(180%) blur(16px);
+            box-shadow: 0 8px 24px -12px rgba(0,0,0,0.35);
+        }
+        .nav-progress {
+            position: fixed; top: var(--nav-h); left: 0; width: 100%; height: var(--progress-h);
+            background: var(--border); z-index: 3999; overflow: hidden;
+        }
+        .nav-progress-fill {
+            height: 100%; width: 0%; background: var(--red);
+            transition: width 0.5s var(--ease-out);
+        }
+        .nav-container {
+            display: flex; justify-content: space-between; align-items: center;
+            width: 100%; max-width: 1140px; margin: 0 auto; padding: 0 25px;
+        }
+        .navbar-brand img { height: 20px; display: block; }
+        .navbar-brand-fallback {
+            display: none; font-size: 1.05rem; font-weight: 800;
+            letter-spacing: -0.03em; color: #fff;
+        }
+        .navbar-brand-fallback::after { content: '.'; color: var(--red); }
+        .nav-links-desktop { display: flex; align-items: center; gap: 0; list-style: none; }
+        .nav-links-desktop li a {
+            color: var(--ink-on-dark-2); font-weight: 500; font-size: 0.82rem;
+            padding: 0 18px; text-decoration: none; white-space: nowrap;
+            transition: color 0.2s ease;
+        }
+        .nav-links-desktop li a:hover { color: var(--ink-on-dark); }
+
+        /* ─── PAGE CONTENT ───────────────────────────────────────── */
+        .ticket-wrap { padding-top: var(--nav-h); min-height: 100vh; }
+
+        .ticket-hero {
+            position: relative;
+            padding: 72px 24px 48px;
+            text-align: center;
+            background: linear-gradient(to bottom, #ffffff 0%, var(--bg) 100%);
+            border-bottom: 1px solid var(--border);
+            overflow: hidden;
+        }
+        .hero-orb {
+            position: absolute; top: 50%; left: 50%; width: 640px; height: 640px;
+            transform: translate(-50%, -58%);
+            background: radial-gradient(circle, var(--red-glow-sm) 0%, rgba(215,60,89,0) 68%);
+            pointer-events: none; z-index: 0;
+            animation: orbDrift 14s ease-in-out infinite;
+        }
+        @keyframes orbDrift {
+            0%, 100% { transform: translate(-50%, -58%) scale(1); }
+            50%      { transform: translate(-50%, -54%) scale(1.08); }
+        }
+        .hero-content { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; }
+        .support-eyebrow {
+            display: inline-flex; align-items: center; gap: 7px;
+            padding: 6px 14px; border: 1px solid var(--border); border-radius: var(--radius-full);
+            background: var(--bg-card); box-shadow: var(--shadow-xs);
+            font-size: 0.69rem; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase;
+            color: var(--ink-3); margin-bottom: 20px;
+        }
+        .ticket-hero h1 {
+            font-size: clamp(2rem, 4.5vw, 2.7rem); font-weight: 800;
+            letter-spacing: -0.045em; line-height: 1.1; margin-bottom: 12px;
+        }
+        .ticket-subtitle { font-size: 1.02rem; color: var(--ink-3); line-height: 1.6; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .hero-orb { animation: none; }
+        }
+
+        .ticket-content { max-width: 640px; margin: 0 auto; padding: 52px 24px 120px; }
+
+        @keyframes contentReveal { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        #formView { opacity: 0; animation: contentReveal 0.7s var(--ease-out) 0.05s forwards; }
+        @media (prefers-reduced-motion: reduce) { #formView { opacity: 1; animation: none; } }
+
+        .ticket-card {
+            background: var(--bg-card); border-radius: var(--radius-xl);
+            border: 1px solid var(--border-soft);
+            padding: 38px 38px 34px; box-shadow: var(--shadow-card);
+            transition: box-shadow 0.35s var(--ease-out);
+        }
+        .ticket-card + .ticket-card { margin-top: 22px; }
+        form.ticket-card:focus-within { box-shadow: var(--shadow-card-lg); }
+
+        .ticket-card h2 {
+            font-size: 1.4rem; font-weight: 800; letter-spacing: -0.03em;
+            margin-bottom: 14px;
+        }
+        .ticket-card h3 {
+            font-size: 1rem; font-weight: 700; margin: 26px 0 14px;
+            color: var(--ink);
+        }
+        .ticket-card h3:first-child { margin-top: 0; }
+        .ticket-card p { font-size: 0.94rem; line-height: 1.65; color: var(--ink-2); }
+
+        /* Recap / friction card */
+        .recap-card {
+            background: var(--amber-bg); border: 1px solid var(--amber-border);
+            border-radius: var(--radius-xl); padding: 26px 28px;
+        }
+        .recap-card h2 { font-size: 1.15rem; margin-bottom: 6px; }
+        .recap-card .recap-lede { font-size: 0.9rem; color: var(--ink-2); margin-bottom: 16px; }
+        .category-pill {
+            display: inline-block; font-size: 0.7rem; font-weight: 700;
+            color: var(--red); background: var(--red-glow-sm);
+            border: 1px solid rgba(215,60,89,0.18); padding: 5px 12px;
+            border-radius: var(--radius-full); margin-bottom: 14px;
+        }
+        .recap-list { list-style: none; }
+        .recap-list li {
+            position: relative; padding-left: 22px; margin-bottom: 8px;
+            font-size: 0.9rem; line-height: 1.6; color: var(--ink-2);
+        }
+        .recap-list li::before {
+            content: ''; position: absolute; left: 0; top: 8px;
+            width: 5px; height: 5px; border-radius: 50%; background: var(--amber);
+        }
+
+        /* Confirmation gate */
+        .checkbox-gate {
+            display: flex; gap: 12px; align-items: flex-start;
+            padding: 18px 20px; background: var(--bg);
+            border: 1.5px solid var(--border); border-radius: var(--radius-lg);
+            margin-top: 20px;
+            transition: background 0.3s var(--ease-out), border-color 0.3s var(--ease-out);
+        }
+        .checkbox-gate.is-confirmed { background: var(--green-bg); border-color: var(--green-border); }
+        .visually-hidden-checkbox {
+            position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap;
+        }
+        .gate-label { display: flex; gap: 12px; align-items: flex-start; cursor: pointer; }
+        .gate-box {
+            flex-shrink: 0; width: 20px; height: 20px; margin-top: 1px; border-radius: 6px;
+            border: 1.5px solid var(--ink-4); background: var(--bg-card);
+            display: flex; align-items: center; justify-content: center;
+            transition: background 0.2s var(--ease-out), border-color 0.2s var(--ease-out), transform 0.2s var(--spring-soft);
+        }
+        .gate-box svg { width: 12px; height: 12px; stroke: #fff; stroke-width: 3; fill: none; stroke-linecap: round; stroke-linejoin: round;
+            stroke-dasharray: 16; stroke-dashoffset: 16; transition: stroke-dashoffset 0.25s var(--ease-out) 0.02s;
+        }
+        .visually-hidden-checkbox:checked ~ .gate-label .gate-box,
+        .gate-label:has(.visually-hidden-checkbox:checked) .gate-box {
+            background: var(--green); border-color: var(--green); transform: scale(1.04);
+        }
+        .visually-hidden-checkbox:checked ~ .gate-label .gate-box svg,
+        .gate-label:has(.visually-hidden-checkbox:checked) .gate-box svg { stroke-dashoffset: 0; }
+        .visually-hidden-checkbox:focus-visible ~ .gate-label .gate-box { box-shadow: var(--focus-ring); }
+        .gate-text { font-size: 0.88rem; font-weight: 600; color: var(--ink); line-height: 1.5; }
+
+        /* Form fields */
+        .field { margin-bottom: 22px; }
+        .field label {
+            display: block; font-size: 0.83rem; font-weight: 700;
+            color: var(--ink); margin-bottom: 7px;
+        }
+        .field .optional-tag { font-weight: 500; color: var(--ink-3); }
+        .field input, .field select, .field textarea {
+            width: 100%; font-family: 'Figtree', sans-serif; font-size: 0.94rem;
+            color: var(--ink); background: var(--bg);
+            border: 1.5px solid var(--border); border-radius: var(--radius-md);
+            padding: 12px 14px; box-shadow: var(--shadow-field);
+            transition: border-color 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out), background 0.2s ease;
+        }
+        .field input:hover, .field select:hover, .field textarea:hover { border-color: var(--ink-4); }
+        .field select { appearance: none; -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 4.5l3.5 3.5 3.5-3.5' fill='none' stroke='%2387878c' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat; background-position: right 14px center; background-size: 10px 10px; padding-right: 36px;
+        }
+        .field textarea { resize: vertical; min-height: 90px; font-family: inherit; }
+        .field input:focus, .field select:focus, .field textarea:focus {
+            outline: none; border-color: var(--ink-4); box-shadow: 0 0 0 4px rgba(26,26,28,0.06);
+        }
+        .field .hint { font-size: 0.78rem; color: var(--ink-3); margin-top: 6px; line-height: 1.5; }
+        .field-row { display: flex; gap: 14px; }
+        .field-row .field { flex: 1; margin-bottom: 22px; }
+        .field-row .field.field-narrow { flex: 0 0 130px; }
+
+        /* Inline validation affordance (email / postal) */
+        .field-check-wrap { position: relative; }
+        .field-check-wrap input { padding-right: 40px; }
+        .field-check-wrap .field-check {
+            position: absolute; right: 13px; top: 50%; transform: translateY(-50%) scale(0.6);
+            width: 18px; height: 18px; opacity: 0; pointer-events: none;
+            transition: opacity 0.25s var(--ease-out), transform 0.25s var(--spring-soft);
+        }
+        .field-check-wrap.is-valid .field-check { opacity: 1; transform: translateY(-50%) scale(1); }
+        .field-check svg { width: 100%; height: 100%; stroke: var(--green); stroke-width: 2.4; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+        .section-divider { border: none; border-top: 1px solid var(--border-soft); margin: 28px 0; }
+
+        /* Segmented control (urgency) */
+        .segmented { display: flex; flex-wrap: wrap; gap: 6px; padding: 4px; background: var(--bg); border: 1.5px solid var(--border); border-radius: var(--radius-md); }
+        .segmented-pill {
+            flex: 1 1 auto; text-align: center; white-space: nowrap;
+            font-size: 0.82rem; font-weight: 600; color: var(--ink-3);
+            padding: 8px 12px; border-radius: 7px; cursor: pointer;
+            transition: background 0.2s var(--ease-out), color 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
+        }
+        .segmented-pill:hover { color: var(--ink-2); }
+        .visually-hidden-checkbox:checked + .segmented-pill {
+            background: var(--bg-card); color: var(--ink); box-shadow: var(--shadow-xs), 0 0 0 1px var(--border-soft);
+        }
+        .visually-hidden-checkbox:focus-visible + .segmented-pill { box-shadow: var(--focus-ring); }
+        #urgencyHint { transition: color 0.2s ease; }
+
+        /* Buttons */
+        .btn-primary, .btn-secondary {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 0.9rem;
+            padding: 15px 28px; border-radius: var(--radius-full);
+            text-decoration: none !important; cursor: pointer; width: 100%;
+            transition: transform 0.2s var(--spring-soft), background 0.2s ease, box-shadow 0.25s var(--ease-out), opacity 0.2s ease;
+        }
+        .btn-primary { background: var(--ink); color: #fff !important; border: none; box-shadow: var(--shadow-btn); position: relative; overflow: hidden; }
+        .btn-primary::before {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.10) 50%, transparent 65%);
+            transform: translateX(-130%); transition: transform 0.55s var(--ease-out);
+        }
+        .btn-primary:hover:not(:disabled)::before { transform: translateX(130%); }
+        .btn-primary:hover:not(:disabled) { background: #1a1a1c; box-shadow: var(--shadow-btn-hi); transform: translateY(-1px); }
+        .btn-primary:active:not(:disabled) { transform: scale(0.98); }
+        .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; box-shadow: none; transform: none; }
+        .btn-primary:disabled::before { display: none; }
+        .btn-secondary { background: transparent; color: var(--ink) !important; border: 1.5px solid var(--border); }
+        .btn-secondary:hover { border-color: var(--ink-4); background: var(--bg); }
+
+        .submit-error {
+            display: none; margin-top: 14px; padding: 12px 16px;
+            font-size: 0.86rem; line-height: 1.5; color: var(--red-deep);
+            background: var(--red-glow-sm); border: 1px solid rgba(215,60,89,0.18);
+            border-radius: var(--radius-md);
+        }
+        .submit-error.show { display: block; }
+
+        /* Success view — styled after the /active.html confirmation moment */
+        @keyframes revealUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes ringPulseGreen { 0%, 100% { box-shadow: 0 0 0 0 rgba(22,160,90,0.18); } 50% { box-shadow: 0 0 0 12px rgba(22,160,90,0.06); } }
+        @keyframes drawCheck { to { stroke-dashoffset: 0; } }
+
+        .success-view { text-align: center; }
+
+        .success-stage {
+            width: 88px; height: 88px; margin: 0 auto 24px;
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; animation: revealUp 0.6s var(--ease-out) 0.05s forwards;
+        }
+        .success-ring {
+            width: 72px; height: 72px; border-radius: 50%;
+            background: var(--green-bg); border: 2px solid var(--green-border);
+            display: flex; align-items: center; justify-content: center;
+            animation: ringPulseGreen 2.5s ease 0.5s 2;
+        }
+        .success-ring svg { width: 28px; height: 28px; }
+        .success-ring svg path {
+            stroke: var(--green); stroke-width: 2.4; fill: none; stroke-linecap: round; stroke-linejoin: round;
+            stroke-dasharray: 30; stroke-dashoffset: 30;
+            animation: drawCheck 0.5s var(--ease-out) 0.3s forwards;
+        }
+
+        .success-badge {
+            display: inline-flex; align-items: center; gap: 7px;
+            padding: 6px 14px 6px 10px; border: 1px solid var(--green-border);
+            border-radius: var(--radius-full); background: var(--green-bg);
+            font-size: 0.66rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+            color: var(--green); margin-bottom: 18px;
+            opacity: 0; animation: revealUp 0.6s var(--ease-out) 0.14s forwards;
+        }
+        .success-badge .badge-dot {
+            width: 6px; height: 6px; border-radius: 50%; background: var(--green);
+            box-shadow: 0 0 0 3px rgba(22,160,90,0.18);
+        }
+
+        .success-headline {
+            font-size: clamp(1.6rem, 3.6vw, 2rem); font-weight: 800; letter-spacing: -0.03em;
+            margin-bottom: 12px;
+            opacity: 0; animation: revealUp 0.6s var(--ease-out) 0.2s forwards;
+        }
+        .success-headline em { font-style: normal; color: var(--green); }
+
+        .success-body {
+            font-size: 0.94rem; line-height: 1.65; color: var(--ink-2);
+            opacity: 0; animation: revealUp 0.6s var(--ease-out) 0.26s forwards;
+        }
+
+        .ticket-number-display {
+            text-align: center; margin: 22px 0;
+            padding: 26px; background: var(--bg);
+            border: 1.5px dashed var(--border-dark, var(--border)); border-radius: var(--radius-lg);
+            opacity: 0; animation: revealUp 0.6s var(--ease-out) 0.32s forwards;
+        }
+        .ticket-number-display .label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 8px; }
+        .ticket-number-row { display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .ticket-number-display .number { font-size: 1.9rem; font-weight: 800; letter-spacing: -0.01em; color: var(--ink); font-variant-numeric: tabular-nums; }
+        .copy-btn {
+            display: flex; align-items: center; justify-content: center;
+            width: 32px; height: 32px; border-radius: var(--radius-full); border: 1.5px solid var(--border);
+            background: var(--bg-card); color: var(--ink-3); cursor: pointer; flex-shrink: 0;
+            transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease, transform 0.2s var(--spring-soft);
+        }
+        .copy-btn:hover { color: var(--ink); border-color: var(--ink-4); }
+        .copy-btn:active { transform: scale(0.92); }
+        .copy-btn svg { width: 14px; height: 14px; stroke: currentColor; stroke-width: 2.1; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+        .copy-btn.is-copied { color: var(--green); border-color: var(--green-border); background: var(--green-bg); }
+
+        .success-cta {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            width: 100%; padding: 15px 28px;
+            background: var(--ink); color: #fff !important;
+            border: none; border-radius: var(--radius-full);
+            font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 0.9rem; letter-spacing: -0.01em;
+            cursor: pointer; text-decoration: none !important;
+            transition: transform 0.3s var(--spring-soft), box-shadow 0.25s var(--ease-out), background 0.2s ease;
+            position: relative; overflow: hidden;
+            opacity: 0; animation: revealUp 0.6s var(--ease-out) 0.38s forwards;
+        }
+        .success-cta::before {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.08) 50%, transparent 65%);
+            transform: translateX(-130%); transition: transform 0.55s var(--ease-out);
+        }
+        .success-cta:hover::before { transform: translateX(130%); }
+        .success-cta:hover { background: #1a1a1c; transform: translateY(-1px); box-shadow: var(--shadow-btn-hi); }
+        .success-cta svg { width: 15px; height: 15px; stroke: currentColor; stroke-width: 2.2; fill: none; transition: transform 0.3s var(--spring-soft); }
+        .success-cta:hover svg { transform: translateX(4px); }
+
+        .success-footnote {
+            margin-top: 16px; font-size: 0.8rem; color: var(--ink-3);
+            opacity: 0; animation: revealUp 0.6s var(--ease-out) 0.44s forwards;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .success-stage, .success-badge, .success-headline, .success-body,
+            .ticket-number-display, .success-cta, .success-footnote, .success-ring svg path {
+                opacity: 1; animation: none; stroke-dashoffset: 0;
+            }
+        }
+
+        :focus-visible { outline: 2px solid var(--red); outline-offset: 2px; border-radius: var(--radius-sm); }
+        .checkbox-gate input:focus-visible,
+        .field input:focus-visible, .field select:focus-visible, .field textarea:focus-visible,
+        .btn-primary:focus-visible, .btn-secondary:focus-visible {
+            outline: none; box-shadow: var(--focus-ring);
+        }
+
+        /* ─── FOOTER ─────────────────────────────────────────────── */
+        .footer {
+            border-top: 1px solid var(--border); padding: 32px 40px;
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 16px; flex-wrap: wrap;
+        }
+        .footer-links { display: flex; align-items: center; gap: 24px; }
+        .footer-links a { font-size: 0.75rem; color: var(--ink-3); text-decoration: none; font-weight: 500; }
+        .footer-links a:hover { color: var(--ink); }
+        .footer-copy { font-size: 0.72rem; color: var(--ink-4); }
+
+        @media (max-width: 640px) {
+            .ticket-hero { padding: 40px 20px 32px; }
+            .ticket-content { padding: 36px 18px 90px; }
+            .ticket-card { padding: 26px 20px; }
+            .recap-card { padding: 22px 20px; }
+            .field-row { flex-direction: column; gap: 0; }
+            .field-row .field.field-narrow { flex: 1; }
+            .footer { flex-direction: column; text-align: center; padding: 28px 24px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar-custom">
+    <div class="nav-container">
+        <a class="navbar-brand" href="/">
+            <img src="assets/img/logos/logo.png" alt="More4Less" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
+            <span class="navbar-brand-fallback">More4Less</span>
+        </a>
+        <ul class="nav-links-desktop">
+            <li><a href="/support">Support</a></li>
+            <li><a href="/contact">Contact</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="nav-progress" aria-hidden="true"><div class="nav-progress-fill" id="navProgressFill"></div></div>
+
+<div class="ticket-wrap">
+
+    <section class="ticket-hero">
+        <div class="hero-orb" aria-hidden="true"></div>
+        <div class="hero-content">
+            <div class="support-eyebrow">Support Ticket</div>
+            <h1>Submit a Support Ticket</h1>
+            <p class="ticket-subtitle">A few quick details so our team can pick this up with full context.</p>
+        </div>
+    </section>
+
+    <div class="ticket-content" id="ticketContent">
+
+        <!-- FORM VIEW -->
+        <div id="formView">
+
+            <div class="ticket-card recap-card" id="recapCard">
+                <span class="category-pill hidden" id="categoryPill"></span>
+                <h2 id="recapHeading">Before you submit</h2>
+                <p class="recap-lede" id="recapLede">Here's what our guided troubleshooting already walked you through:</p>
+                <ul class="recap-list" id="recapList"></ul>
+
+                <div class="checkbox-gate" id="checkboxGate">
+                    <input type="checkbox" id="stepsConfirmed" name="stepsConfirmed" class="visually-hidden-checkbox" required>
+                    <label for="stepsConfirmed" class="gate-label">
+                        <span class="gate-box" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg></span>
+                        <span class="gate-text" id="gateLabel">I've completed the steps above and still need help from a support agent.</span>
+                    </label>
+                </div>
+            </div>
+
+            <form class="ticket-card" id="ticketForm" novalidate>
+                <h3>Your details</h3>
+
+                <div class="field-row">
+                    <div class="field">
+                        <label for="fullName">Full name</label>
+                        <input type="text" id="fullName" name="fullName" autocomplete="name" required>
+                    </div>
+                </div>
+
+                <div class="field-row">
+                    <div class="field">
+                        <label for="email">Email associated with your account</label>
+                        <div class="field-check-wrap" id="emailWrap">
+                            <input type="email" id="email" name="email" autocomplete="email" required>
+                            <span class="field-check"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg></span>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="phone">Phone number</label>
+                        <input type="tel" id="phone" name="phone" autocomplete="tel" required>
+                    </div>
+                </div>
+
+                <h3>The issue</h3>
+
+                <div class="field">
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject" required>
+                </div>
+
+                <div class="field-row">
+                    <div class="field">
+                        <label for="deviceType">Device type</label>
+                        <select id="deviceType" name="deviceType" required>
+                            <option value="nighthawk">Nighthawk (mobile 5G/LTE hub)</option>
+                            <option value="orbi">Orbi (home fixed wireless)</option>
+                            <option value="not-sure">Not sure</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label id="urgencyLabel">Urgency</label>
+                        <div class="segmented" role="radiogroup" aria-labelledby="urgencyLabel">
+                            <input type="radio" class="visually-hidden-checkbox" name="urgency" id="urgencyLow" value="low" data-desc="Low — general question">
+                            <label for="urgencyLow" class="segmented-pill">Low</label>
+                            <input type="radio" class="visually-hidden-checkbox" name="urgency" id="urgencyMedium" value="medium" data-desc="Medium — intermittent issue" checked>
+                            <label for="urgencyMedium" class="segmented-pill">Medium</label>
+                            <input type="radio" class="visually-hidden-checkbox" name="urgency" id="urgencyHigh" value="high" data-desc="High — service completely down">
+                            <label for="urgencyHigh" class="segmented-pill">High</label>
+                            <input type="radio" class="visually-hidden-checkbox" name="urgency" id="urgencyEmergency" value="emergency" data-desc="Emergency — safety concern">
+                            <label for="urgencyEmergency" class="segmented-pill">Emergency</label>
+                        </div>
+                        <p class="hint" id="urgencyHint">Medium — intermittent issue</p>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="lastServiceWorkedAt">Last time service worked</label>
+                    <input type="datetime-local" id="lastServiceWorkedAt" name="lastServiceWorkedAt" required>
+                    <p class="hint">Defaults to right now — change it if service actually stopped working earlier.</p>
+                </div>
+
+                <div class="field">
+                    <label for="additionalDetails">Anything else we should know? <span class="optional-tag">(optional)</span></label>
+                    <textarea id="additionalDetails" name="additionalDetails" placeholder="Add any details that aren't covered above."></textarea>
+                </div>
+
+                <h3>Service address</h3>
+
+                <div class="field">
+                    <label for="addrStreet">Street address</label>
+                    <input type="text" id="addrStreet" name="addrStreet" autocomplete="address-line1" required>
+                </div>
+
+                <div class="field-row">
+                    <div class="field field-narrow">
+                        <label for="addrUnit">Unit / Apt <span class="optional-tag">(optional)</span></label>
+                        <input type="text" id="addrUnit" name="addrUnit" autocomplete="address-line2">
+                    </div>
+                    <div class="field">
+                        <label for="addrCity">City</label>
+                        <input type="text" id="addrCity" name="addrCity" autocomplete="address-level2" required>
+                    </div>
+                </div>
+
+                <div class="field-row">
+                    <div class="field">
+                        <label for="addrProvince">Province / Territory</label>
+                        <select id="addrProvince" name="addrProvince" required>
+                            <option value="" disabled selected>Select one</option>
+                            <option value="AB">Alberta</option>
+                            <option value="BC">British Columbia</option>
+                            <option value="MB">Manitoba</option>
+                            <option value="NB">New Brunswick</option>
+                            <option value="NL">Newfoundland and Labrador</option>
+                            <option value="NS">Nova Scotia</option>
+                            <option value="NT">Northwest Territories</option>
+                            <option value="NU">Nunavut</option>
+                            <option value="ON">Ontario</option>
+                            <option value="PE">Prince Edward Island</option>
+                            <option value="QC">Quebec</option>
+                            <option value="SK">Saskatchewan</option>
+                            <option value="YT">Yukon</option>
+                            <option value="OTHER">Other / outside Canada</option>
+                        </select>
+                    </div>
+                    <div class="field field-narrow">
+                        <label for="addrPostal">Postal code</label>
+                        <div class="field-check-wrap" id="postalWrap">
+                            <input type="text" id="addrPostal" name="addrPostal" autocomplete="postal-code" placeholder="A1A 1A1" required>
+                            <span class="field-check"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg></span>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary" id="submitBtn" disabled>Submit Ticket</button>
+                <div class="submit-error" id="submitError"></div>
+            </form>
+        </div>
+
+        <!-- SUCCESS VIEW -->
+        <div class="ticket-card success-view hidden" id="successView">
+            <div class="success-stage" aria-hidden="true">
+                <div class="success-ring">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg>
+                </div>
+            </div>
+
+            <p class="success-badge"><span class="badge-dot"></span> Ticket Submitted</p>
+            <h2 class="success-headline">You're <em>all set</em>.</h2>
+            <p class="success-body">We've received your request and a support agent will follow up at <strong id="successEmail"></strong> as soon as possible.</p>
+
+            <div class="ticket-number-display">
+                <div class="label">Your ticket number</div>
+                <div class="ticket-number-row">
+                    <div class="number" id="ticketNumberDisplay">—</div>
+                    <button type="button" class="copy-btn" id="copyTicketBtn" aria-label="Copy ticket number">
+                        <svg viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>
+                    </button>
+                </div>
+            </div>
+
+            <a href="/support" class="success-cta">
+                Return to Support Home
+                <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+
+            <p class="success-footnote">Keep this number for reference — mentioning it if you follow up will help us find your request faster.</p>
+        </div>
+
+    </div>
+
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="/support">Support</a>
+            <a href="/privacy">Privacy</a>
+            <a href="/terms">Terms</a>
+            <a href="/contact">Contact</a>
+        </div>
+        <div class="footer-copy">&copy; <span id="year"></span> More4Less. All Rights Reserved.</div>
+    </footer>
+
+</div>
+
+<script>
+(function () {
+    'use strict';
+
+    // ── Footer year ──
+    var yearEl = document.getElementById('year');
+    if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+    // ── Read hand-off params from /support.html ──
+    var params = new URLSearchParams(location.search);
+    var topic = params.get('topic') || '';
+    var category = params.get('category') || '';
+    var subjectParam = params.get('subject') || '';
+    var detailsParam = params.get('details') || '';
+    var deviceParam = params.get('device') || '';
+
+    // ── Populate the recap / friction card ──
+    var recapList = document.getElementById('recapList');
+    var categoryPill = document.getElementById('categoryPill');
+    var recapLede = document.getElementById('recapLede');
+    var gateLabel = document.getElementById('gateLabel');
+
+    if (category) {
+        categoryPill.textContent = category;
+        categoryPill.classList.remove('hidden');
+    }
+
+    if (detailsParam) {
+        detailsParam.split(/;\s*/).map(function (s) { return s.trim(); }).filter(Boolean).forEach(function (clause) {
+            var li = document.createElement('li');
+            var text = clause.charAt(0).toUpperCase() + clause.slice(1).replace(/\.$/, '');
+            li.textContent = text;
+            recapList.appendChild(li);
+        });
+        gateLabel.textContent = "I've completed the steps above and still need help from a support agent.";
+    } else {
+        recapLede.textContent = "Before you submit, please make sure you've tried the troubleshooting steps on our Support page.";
+        gateLabel.textContent = "I've tried the troubleshooting steps and still need help from a support agent.";
+    }
+
+    // ── Prefill fields from the hand-off ──
+    var subjectInput = document.getElementById('subject');
+    if (subjectParam) subjectInput.value = subjectParam;
+
+    var deviceSelect = document.getElementById('deviceType');
+    if (deviceParam === 'nighthawk' || deviceParam === 'orbi') {
+        deviceSelect.value = deviceParam;
+    }
+
+    // "Last time service worked" defaults to now, and can't be set in the future
+    var lastWorkedInput = document.getElementById('lastServiceWorkedAt');
+    function nowForDatetimeLocal() {
+        var d = new Date();
+        d.setSeconds(0, 0);
+        return new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+    }
+    var nowLocal = nowForDatetimeLocal();
+    lastWorkedInput.max = nowLocal;
+    lastWorkedInput.value = nowLocal;
+
+    // ── Confirmation gate controls the submit button ──
+    var gateCheckbox = document.getElementById('stepsConfirmed');
+    var submitBtn = document.getElementById('submitBtn');
+    var checkboxGate = document.getElementById('checkboxGate');
+    function updateSubmitState() {
+        submitBtn.disabled = !gateCheckbox.checked;
+        checkboxGate.classList.toggle('is-confirmed', gateCheckbox.checked);
+    }
+    gateCheckbox.addEventListener('change', updateSubmitState);
+    updateSubmitState();
+
+    // ── Urgency segmented control: sync the plain-language hint ──
+    var urgencyHint = document.getElementById('urgencyHint');
+    var urgencyRadios = document.querySelectorAll('input[name="urgency"]');
+    urgencyRadios.forEach(function (radio) {
+        radio.addEventListener('change', function () {
+            if (radio.checked) urgencyHint.textContent = radio.getAttribute('data-desc');
+        });
+    });
+
+    // ── Inline validation affordance for email / postal code ──
+    function wireValidationIcon(inputId, wrapId, testFn) {
+        var input = document.getElementById(inputId);
+        var wrap = document.getElementById(wrapId);
+        function check() { wrap.classList.toggle('is-valid', testFn(input.value.trim())); }
+        input.addEventListener('input', check);
+        check();
+    }
+    wireValidationIcon('email', 'emailWrap', function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); });
+    wireValidationIcon('addrPostal', 'postalWrap', function (v) { return /^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/.test(v); });
+
+    // ── Navbar glass state + top progress bar, driven by scroll and form completion ──
+    var navbarEl = document.querySelector('.navbar-custom');
+    function onScroll() { navbarEl.classList.toggle('is-scrolled', window.scrollY > 8); }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    var navProgressFill = document.getElementById('navProgressFill');
+    var progressForm = document.getElementById('ticketForm');
+    function updateProgress() {
+        var required = Array.prototype.slice.call(progressForm.querySelectorAll('[required]'));
+        if (!required.length) return;
+        var filled = required.filter(function (el) {
+            if (el.type === 'checkbox') return el.checked;
+            if (el.type === 'radio') return progressForm.querySelector('input[name="' + el.name + '"]:checked');
+            return el.value && el.value.trim().length > 0;
+        }).length;
+        navProgressFill.style.width = Math.round((filled / required.length) * 100) + '%';
+    }
+    progressForm.addEventListener('input', updateProgress);
+    progressForm.addEventListener('change', updateProgress);
+    updateProgress();
+
+    // ── Ticket number generation ──
+    // Client-side only (timestamp + random), per team decision — no server-side
+    // counter. Collision risk is effectively negligible at this volume, but
+    // isn't a global guarantee across simultaneous submissions from different
+    // browsers. If that ever matters, swap this for a number assigned by the
+    // Make.com scenario (e.g. a Google Sheets/Airtable auto-number) returned
+    // in the webhook response instead.
+    function randomBase36(len) {
+        var bytes = new Uint8Array(len);
+        if (window.crypto && window.crypto.getRandomValues) {
+            window.crypto.getRandomValues(bytes);
+        } else {
+            for (var i = 0; i < len; i++) bytes[i] = Math.floor(Math.random() * 256);
+        }
+        var out = '';
+        for (var j = 0; j < bytes.length; j++) out += (bytes[j] % 36).toString(36);
+        return out.toUpperCase();
+    }
+
+    function generateTicketNumber() {
+        var now = new Date();
+        var pad = function (n) { return String(n).padStart(2, '0'); };
+        var stamp = String(now.getFullYear()).slice(-2) + pad(now.getMonth() + 1) + pad(now.getDate())
+            + pad(now.getHours()) + pad(now.getMinutes()) + pad(now.getSeconds());
+
+        var used = [];
+        try { used = JSON.parse(sessionStorage.getItem('m4l_used_tickets') || '[]'); } catch (e) { used = []; }
+
+        var num;
+        do {
+            num = 'M4L-' + stamp + '-' + randomBase36(4);
+        } while (used.indexOf(num) !== -1);
+
+        used.push(num);
+        try { sessionStorage.setItem('m4l_used_tickets', JSON.stringify(used)); } catch (e) { /* ignore */ }
+
+        return num;
+    }
+
+    // ── Submit handler ──
+    var WEBHOOK_URL = 'https://hook.us1.make.com/0rrys4wzfifg3430seyyykmxr8yfabqv';
+    var form = document.getElementById('ticketForm');
+    var errorBox = document.getElementById('submitError');
+    var formView = document.getElementById('formView');
+    var successView = document.getElementById('successView');
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        if (!gateCheckbox.checked || !form.reportValidity()) {
+            return;
+        }
+
+        errorBox.classList.remove('show');
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submitting…';
+
+        var ticketNumber = generateTicketNumber();
+
+        // Every field is always sent, even when blank, so Make.com's data
+        // structure detection sees a consistent, complete shape on every run.
+        var payload = {
+            ticketNumber: ticketNumber,
+            submittedAt: new Date().toISOString(),
+            topic: topic,
+            category: category,
+            subject: subjectInput.value.trim(),
+            recommendedStepsShown: detailsParam,
+            stepsConfirmed: true,
+            fullName: document.getElementById('fullName').value.trim(),
+            email: document.getElementById('email').value.trim(),
+            phone: document.getElementById('phone').value.trim(),
+            deviceType: deviceSelect.value,
+            lastServiceWorkedAt: lastWorkedInput.value,
+            serviceAddressStreet: document.getElementById('addrStreet').value.trim(),
+            serviceAddressUnit: document.getElementById('addrUnit').value.trim(),
+            serviceAddressCity: document.getElementById('addrCity').value.trim(),
+            serviceAddressProvince: document.getElementById('addrProvince').value,
+            serviceAddressPostalCode: document.getElementById('addrPostal').value.trim(),
+            urgency: (document.querySelector('input[name="urgency"]:checked') || {}).value || '',
+            additionalDetails: document.getElementById('additionalDetails').value.trim(),
+            referrerUrl: document.referrer || ''
+        };
+
+        fetch(WEBHOOK_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        }).then(function (res) {
+            if (!res.ok) throw new Error('Webhook responded with status ' + res.status);
+
+            document.getElementById('ticketNumberDisplay').textContent = ticketNumber;
+            document.getElementById('successEmail').textContent = payload.email;
+            formView.classList.add('hidden');
+            successView.classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            var copyBtn = document.getElementById('copyTicketBtn');
+            var copyIcon = copyBtn.innerHTML;
+            copyBtn.addEventListener('click', function () {
+                var restore = function () {
+                    copyBtn.classList.remove('is-copied');
+                    copyBtn.innerHTML = copyIcon;
+                };
+                navigator.clipboard.writeText(ticketNumber).then(function () {
+                    copyBtn.classList.add('is-copied');
+                    copyBtn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>';
+                    setTimeout(restore, 1600);
+                }).catch(function () { /* clipboard unavailable — icon stays as-is */ });
+            });
+        }).catch(function () {
+            errorBox.textContent = "We couldn't submit your ticket — please check your connection and try again. If this keeps happening, email us directly from the Contact page.";
+            errorBox.classList.add('show');
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Submit Ticket';
+        });
+    });
+})();
+</script>
+
+</body>
+</html>

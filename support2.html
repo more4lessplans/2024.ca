@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Technical Support | More4Less</title>
+    <meta name="description" content="Get help with your More4Less internet, router and account — guided, step-by-step troubleshooting.">
+    <meta name="theme-color" content="#2E2F33">
+    <meta name="color-scheme" content="light">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232E2F33'/%3E%3Ccircle cx='22.5' cy='9.5' r='3' fill='%23D73C59'/%3E%3Cpath d='M8 22V10h2.6l4.4 6.4L19.4 10H22v12h-2.8v-7.7l-4.2 6.1h-.1l-4.1-6.1V22H8z' fill='%23fff'/%3E%3C/svg%3E">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        /* ═══════════════════════════════════════════════════════════
+           DESIGN TOKENS
+        ═══════════════════════════════════════════════════════════ */
+        :root {
+            --red:            #D73C59;
+            --red-deep:       #b82e48;
+            --red-glow:       rgba(215,60,89,0.12);
+            --red-glow-sm:    rgba(215,60,89,0.07);
+            --green:          #16a05a;
+            --green-bg:       rgba(22,160,90,0.08);
+            --green-border:   rgba(22,160,90,0.18);
+            --amber:          #d97a06;
+            --amber-bg:       rgba(217,122,6,0.08);
+            --amber-border:   rgba(217,122,6,0.20);
+
+            --bg:             #f8f8f9;
+            --bg-card:        #ffffff;
+            --bg-right:       #2E2F33;
+
+            --ink:            #1a1a1c;
+            --ink-2:          #3d3d40;
+            --ink-3:          #87878c;
+            --ink-4:          #b8b8bc;
+            --ink-on-dark:    #f0f0f2;
+            --ink-on-dark-2:  #b8b8c4;
+            --ink-on-dark-3:  #78787e;
+
+            --border:         #e8e8ec;
+            --border-soft:    #f0f0f4;
+            --border-dark:    rgba(255,255,255,0.10);
+
+            --nav-h:          60px;
+            --radius-xl:      18px;
+            --radius-lg:      14px;
+            --radius-md:      10px;
+            --radius-sm:      8px;
+            --radius-full:    999px;
+
+            --spring:         cubic-bezier(0.34,1.5,0.64,1);
+            --spring-soft:    cubic-bezier(0.22,1.15,0.36,1);
+            --ease-out:       cubic-bezier(0.22,1,0.36,1);
+            --ease-in-out:    cubic-bezier(0.65,0,0.35,1);
+
+            /* Layered, low-opacity shadows read as premium — a single hard
+               grey shadow reads as templated. Each surface gets a tight
+               contact shadow plus a soft ambient one. */
+            --shadow-xs:      0 1px 2px rgba(20,20,22,0.04);
+            --shadow-card:    0 1px 2px rgba(20,20,22,0.035), 0 14px 32px -12px rgba(20,20,22,0.10);
+            --shadow-card-hi: 0 2px 6px rgba(20,20,22,0.05), 0 22px 44px -14px rgba(20,20,22,0.16);
+            --shadow-btn:     0 1px 1px rgba(20,20,22,0.10), 0 8px 20px -6px rgba(20,20,22,0.22);
+            --shadow-btn-hi:  0 1px 1px rgba(20,20,22,0.12), 0 12px 26px -8px rgba(20,20,22,0.28);
+            --shadow-float:   0 4px 10px -2px rgba(20,20,22,0.10), 0 1px 2px rgba(20,20,22,0.06);
+
+            --focus-ring:     0 0 0 4px var(--red-glow);
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { font-size: 15px; scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+        body {
+            font-family: 'Figtree', sans-serif;
+            background: var(--bg);
+            color: var(--ink);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        a { color: inherit; }
+
+        button { -webkit-tap-highlight-color: transparent; }
+
+        svg { shape-rendering: geometricPrecision; display: block; }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        /* ─── NAVBAR ─────────────────────────────────────────────── */
+        .navbar-custom {
+            background-color: var(--bg-right);
+            border-bottom: 1px solid var(--border-dark);
+            height: var(--nav-h);
+            display: flex;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 4000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 25px;
+        }
+
+        .navbar-brand img { height: 20px; display: block; }
+        .navbar-brand-fallback {
+            display: none;
+            font-size: 1.05rem; font-weight: 800;
+            letter-spacing: -0.03em; color: #fff;
+        }
+        .navbar-brand-fallback::after { content: '.'; color: var(--red); }
+
+        .nav-links-desktop { display: flex; align-items: center; gap: 0; list-style: none; }
+
+        .nav-links-desktop li a {
+            color: var(--ink-on-dark-2);
+            font-weight: 500;
+            font-size: 0.82rem;
+            letter-spacing: 0.01em;
+            padding: 0 18px;
+            text-decoration: none;
+            position: relative;
+            display: inline-block;
+            white-space: nowrap;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links-desktop li a:hover { color: var(--ink-on-dark); }
+
+        .nav-links-desktop li a::after {
+            content: '';
+            position: absolute;
+            bottom: -3px; left: 18px; right: 18px;
+            width: 0; height: 1.5px;
+            background-color: var(--red);
+            border-radius: 2px;
+            transition: width 0.3s var(--ease-out);
+        }
+
+        .nav-links-desktop li a:hover::after { width: calc(100% - 36px); }
+
+        .btn-portal-top::after { display: none !important; }
+
+        .btn-portal-top {
+            color: #fff !important;
+            font-weight: 600;
+            background: transparent;
+            border: 1.5px solid rgba(255,255,255,0.28);
+            border-radius: var(--radius-full);
+            padding: 6px 16px;
+            margin-left: 10px;
+            transition: background 0.2s, border-color 0.2s, color 0.2s;
+        }
+
+        .btn-portal-top:hover {
+            background: rgba(255,255,255,0.10) !important;
+            border-color: rgba(255,255,255,0.50);
+            color: #fff !important;
+        }
+
+        .menu-trigger { display: none; cursor: pointer; padding: 10px; z-index: 5001; position: relative; background: none; border: none; }
+
+        .menu-icon { width: 22px; height: 16px; display: flex; flex-direction: column; justify-content: space-between; }
+
+        .menu-icon span {
+            display: block; width: 100%; height: 1.5px;
+            background: #fff; border-radius: 10px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .menu-active .menu-icon span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .menu-active .menu-icon span:nth-child(2) { opacity: 0; }
+        .menu-active .menu-icon span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        .mobile-overlay {
+            position: fixed; inset: 0;
+            background: rgba(22,22,24,0.97);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            z-index: 4500;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        .mobile-overlay.active { opacity: 1; visibility: visible; }
+
+        .mobile-nav-links { list-style: none; padding: 0; text-align: center; }
+
+        .mobile-nav-links li { margin: 18px 0; transform: translateY(16px); opacity: 0; transition: 0.4s ease; }
+
+        .mobile-overlay.active .mobile-nav-links li { transform: translateY(0); opacity: 1; }
+
+        .mobile-nav-links li:nth-child(1) { transition-delay: 0.08s; }
+        .mobile-nav-links li:nth-child(2) { transition-delay: 0.13s; }
+        .mobile-nav-links li:nth-child(3) { transition-delay: 0.18s; }
+
+        .mobile-nav-links a {
+            color: rgba(255,255,255,0.85);
+            font-size: 2rem; font-weight: 700;
+            text-decoration: none; letter-spacing: -0.03em;
+            position: relative; display: inline-block;
+            transition: color 0.25s ease;
+        }
+
+        .mobile-nav-links a::after {
+            content: ''; position: absolute;
+            width: 0; height: 2.5px; bottom: -3px; left: 0;
+            background-color: var(--red); border-radius: 2px;
+            transition: width 0.3s var(--ease-out);
+        }
+
+        .mobile-nav-links a:hover { color: #fff; }
+        .mobile-nav-links a:hover::after { width: 100%; }
+        .mobile-nav-links .portal-link a { color: var(--red); }
+        .mobile-nav-links .portal-link a::after { background: var(--red); }
+
+        /* ─── PAGE CONTENT ───────────────────────────────────────── */
+        .support-wrap { padding-top: var(--nav-h); min-height: 100vh; }
+
+        /* Hero */
+        .support-hero {
+            padding: 72px 24px 56px;
+            text-align: center;
+            background: linear-gradient(to bottom, #ffffff 0%, var(--bg) 100%);
+            border-bottom: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .support-hero::before {
+            content: '';
+            position: absolute; inset: 0;
+            background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
+            background-size: 28px 28px;
+            mask-image: radial-gradient(ellipse 70% 80% at 50% 20%, black 30%, transparent 100%);
+            -webkit-mask-image: radial-gradient(ellipse 70% 80% at 50% 20%, black 30%, transparent 100%);
+            pointer-events: none;
+        }
+
+        /* A near-invisible grain keeps the flat gradient from banding and
+           gives the hero the faint tactile quality of a physical surface —
+           the kind of detail you feel more than see. */
+        .support-hero::after {
+            content: '';
+            position: absolute; inset: 0;
+            opacity: 0.5;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+            mix-blend-mode: overlay;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative; z-index: 2;
+            max-width: 640px; margin: 0 auto;
+            opacity: 0;
+            animation: revealUp 0.75s var(--ease-out) 0.1s forwards;
+        }
+
+        @keyframes revealUp {
+            from { opacity: 0; transform: translateY(18px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .support-eyebrow {
+            display: inline-flex; align-items: center; gap: 7px;
+            padding: 6px 14px 6px 10px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-full);
+            background: var(--bg-card);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            font-size: 0.69rem; font-weight: 600;
+            letter-spacing: 0.09em; text-transform: uppercase;
+            color: var(--ink-3);
+            margin-bottom: 22px;
+        }
+
+        .eyebrow-dot {
+            width: 6px; height: 6px; border-radius: 50%;
+            background: var(--green);
+            box-shadow: 0 0 0 3px var(--green-bg);
+            animation: pulse 2.5s ease infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 3px var(--green-bg); }
+            50%       { box-shadow: 0 0 0 6px rgba(22,160,90,0.06); }
+        }
+
+        .support-hero h1 {
+            font-size: clamp(2.3rem, 5vw, 3rem);
+            font-weight: 800;
+            letter-spacing: -0.045em;
+            line-height: 1.08;
+            margin-bottom: 12px;
+            color: var(--ink);
+        }
+
+        .support-subtitle {
+            font-size: 1.05rem;
+            color: var(--ink-3);
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        /* Main content */
+        .support-content {
+            max-width: 660px;
+            margin: 0 auto;
+            padding: 64px 24px 110px;
+            opacity: 0;
+            animation: revealUp 0.8s var(--ease-out) 0.22s forwards;
+        }
+
+        .view-head { margin-bottom: 28px; }
+        .view-head h2 {
+            font-size: 1.6rem; font-weight: 800;
+            letter-spacing: -0.03em; line-height: 1.2;
+            color: var(--ink); margin-bottom: 6px;
+        }
+        .view-sub { font-size: 0.95rem; color: var(--ink-3); line-height: 1.6; }
+
+        /* View / screen transitions — a single deliberate motion per navigation */
+        .view.hidden { display: none; }
+        @keyframes viewFadeOut { to { opacity: 0; transform: translateY(-6px) scale(0.995); } }
+        @keyframes viewInForward { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes viewInBack    { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ─── TOPIC LIST (issue picker) ──────────────────────────── */
+        .topic-list {
+            background: var(--bg-card);
+            border-radius: var(--radius-xl);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+            overflow: hidden;
+        }
+
+        .topic-row {
+            width: 100%;
+            display: flex; align-items: center; gap: 16px;
+            padding: 18px 22px;
+            background: none; border: none;
+            border-bottom: 1px solid var(--border-soft);
+            font-family: 'Figtree', sans-serif;
+            text-align: left; cursor: pointer;
+            position: relative;
+            transition: background 0.2s ease;
+        }
+
+        .topic-row:last-child { border-bottom: none; }
+
+        /* A quiet inset rule per row already separates items, so hover only
+           needs a tint + the icon lifting — no extra border or shadow on
+           the row itself. */
+        .topic-row:hover { background: var(--bg); }
+        .topic-row:hover .topic-chevron { transform: translateX(3px); color: var(--red); }
+        .topic-row:hover .topic-icon {
+            color: var(--red);
+            border-color: transparent;
+            background: var(--red-glow-sm);
+            box-shadow: 0 0 0 1px var(--red-glow), 0 4px 10px -4px rgba(215,60,89,0.28);
+        }
+        .topic-row:active .topic-icon { transform: scale(0.94); }
+
+        .topic-row:active { background: var(--border-soft); }
+
+        .topic-icon {
+            flex-shrink: 0;
+            width: 38px; height: 38px;
+            border-radius: 50%;
+            border: 1.5px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--ink-3);
+            background: var(--bg-card);
+            transition: color 0.22s var(--ease-out), border-color 0.22s var(--ease-out),
+                        background 0.22s var(--ease-out), box-shadow 0.22s var(--ease-out),
+                        transform 0.15s var(--ease-out);
+        }
+
+        /* Icons share one 24-unit grid and one stroke weight so every glyph
+           reads as part of the same family regardless of who drew it. */
+        .topic-icon svg { width: 18px; height: 18px; stroke: currentColor; stroke-width: 1.75; fill: none; overflow: visible; }
+
+        .topic-text { flex: 1; min-width: 0; }
+        .topic-title {
+            font-size: 0.96rem; font-weight: 700; color: var(--ink);
+            letter-spacing: -0.01em; margin-bottom: 2px;
+            transition: color 0.2s ease;
+        }
+        .topic-subtitle { font-size: 0.8rem; color: var(--ink-3); line-height: 1.4; }
+
+        .topic-chevron { flex-shrink: 0; color: var(--ink-4); transition: transform 0.35s var(--spring-soft), color 0.2s ease; }
+        .topic-chevron svg { width: 9px; height: 9px; stroke: currentColor; stroke-width: 2.2; fill: none; overflow: visible; }
+
+        /* ─── Back link (top of each detail screen) ─────────────── */
+        .back-link {
+            display: inline-flex; align-items: center; gap: 6px;
+            font-family: 'Figtree', sans-serif;
+            font-size: 0.82rem; font-weight: 600;
+            color: var(--ink-3);
+            background: none; border: none; cursor: pointer;
+            padding: 0; margin-bottom: 22px;
+            transition: color 0.2s ease, gap 0.2s ease;
+        }
+        .back-link:hover { color: var(--ink); gap: 9px; }
+        .back-link svg { width: 8px; height: 8px; stroke: currentColor; stroke-width: 2.4; fill: none; }
+
+        /* ─── Detail card ────────────────────────────────────────── */
+        .troubleshooting-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-xl);
+            padding: 36px 36px 32px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+        }
+
+        .troubleshooting-card h3 {
+            font-size: 1.5rem; font-weight: 800;
+            letter-spacing: -0.03em; line-height: 1.2;
+            margin-bottom: 22px; color: var(--ink);
+        }
+
+        .troubleshooting-card h4 {
+            font-size: 1rem; font-weight: 700;
+            letter-spacing: -0.01em;
+            margin: 30px 0 14px; color: var(--ink);
+        }
+
+        .troubleshooting-card p { font-size: 0.96rem; line-height: 1.75; color: var(--ink-2); margin-bottom: 14px; }
+
+        .troubleshooting-card ol, .troubleshooting-card ul { margin: 14px 0 20px 0; padding-left: 0; list-style: none; }
+        .troubleshooting-card ol { counter-reset: step-counter; position: relative; }
+
+        .troubleshooting-card ol > li { position: relative; padding-left: 42px; margin-bottom: 26px; counter-increment: step-counter; }
+        .troubleshooting-card ol > li:last-child { margin-bottom: 0; }
+
+        .troubleshooting-card ol > li::before {
+            content: counter(step-counter);
+            position: absolute; left: 0; top: 0;
+            width: 27px; height: 27px;
+            border: 1.5px solid var(--border);
+            background: var(--bg-card);
+            color: var(--ink-2);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.76rem; font-weight: 700;
+            z-index: 1;
+        }
+
+        .troubleshooting-card ol > li:not(:last-child)::after {
+            content: '';
+            position: absolute; left: 13px; top: 27px; bottom: -26px;
+            width: 1px; background: var(--border);
+        }
+
+        .troubleshooting-card ol > li > strong { display: block; font-size: 0.98rem; font-weight: 700; color: var(--ink); margin-bottom: 6px; margin-top: 3px; }
+
+        .troubleshooting-card ul li {
+            position: relative; padding-left: 22px; margin-bottom: 9px;
+            font-size: 0.92rem; line-height: 1.65; color: var(--ink-3);
+        }
+
+        .troubleshooting-card ul li::before {
+            content: ''; position: absolute; left: 0; top: 9px;
+            width: 4px; height: 4px; border-radius: 50%;
+            background: var(--ink-4);
+        }
+
+        .troubleshooting-card strong { font-weight: 700; color: var(--ink); }
+        .troubleshooting-card em { font-style: normal; color: var(--red); font-weight: 600; }
+
+        .troubleshooting-card a:not(.btn-primary):not(.btn-secondary) {
+            color: var(--red); text-decoration: none;
+            border-bottom: 1px solid rgba(215,60,89,0.3);
+            transition: border-color 0.2s ease;
+        }
+        .troubleshooting-card a:not(.btn-primary):not(.btn-secondary):hover { border-color: var(--red); }
+
+        /* Inline note — editorial, not a boxed callout */
+        .note-inline {
+            display: flex; gap: 10px;
+            padding: 16px 0; margin: 4px 0 22px;
+            border-top: 1px solid var(--border-soft);
+            border-bottom: 1px solid var(--border-soft);
+            font-size: 0.86rem; line-height: 1.7; color: var(--ink-3);
+        }
+        .note-inline svg { flex-shrink: 0; width: 15px; height: 15px; margin-top: 2px; stroke: var(--ink-4); stroke-width: 1.6; fill: none; overflow: visible; }
+
+        /* One stroke language for every icon in the product: round caps and
+           round joins everywhere, no exceptions — this is what makes a
+           mixed icon set read as a single, deliberate system. */
+        .topic-icon svg, .topic-chevron svg, .back-link svg, .note-inline svg, .menu-icon-close svg {
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .note-inline a { color: var(--red); text-decoration: none; border-bottom: 1px solid rgba(215,60,89,0.3); }
+        .note-inline a:hover { border-color: var(--red); }
+
+        /* ─── Buttons ────────────────────────────────────────────── */
+        .btn-primary, .btn-secondary {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            font-family: 'Figtree', sans-serif;
+            font-weight: 700; font-size: 0.87rem; letter-spacing: -0.005em;
+            padding: 14px 28px;
+            border-radius: var(--radius-full);
+            text-decoration: none !important;
+            cursor: pointer;
+            transition: transform 0.2s var(--spring-soft), background 0.2s ease, border-color 0.2s ease, box-shadow 0.25s var(--ease-out), color 0.2s ease;
+        }
+        /* Press feedback settles slightly on release rather than snapping —
+           the small overshoot is what makes a tap feel acknowledged. */
+        .btn-primary:active, .btn-secondary:active { transform: scale(0.965) translateY(1px); transition-duration: 0.08s; }
+
+        .btn-primary { background: var(--ink); color: #ffffff !important; border: none; box-shadow: var(--shadow-btn); }
+        .btn-primary:hover { background: #1a1a1c; box-shadow: var(--shadow-btn-hi); transform: translateY(-1px); }
+        .btn-primary:active { box-shadow: var(--shadow-xs); }
+
+        .btn-secondary { background: transparent; color: var(--ink) !important; border: 1.5px solid var(--border); }
+        .btn-secondary:hover { border-color: var(--ink-4); background: var(--bg); transform: translateY(-1px); }
+
+        .button-group { display: flex; gap: 10px; margin-top: 6px; flex-wrap: wrap; }
+
+        a.btn-primary[target="_blank"], a.btn-secondary[target="_blank"] { margin-top: 14px; }
+
+        /* Still-need-help footer, shared across every detail screen */
+        .still-need-help {
+            display: flex; align-items: center; justify-content: space-between; gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 32px; padding-top: 24px;
+            border-top: 1px solid var(--border-soft);
+        }
+        .still-need-help p { margin: 0; font-size: 0.9rem; color: var(--ink-3); }
+
+        /* ─── Segmented control (device picker) ─────────────────── */
+        .segmented {
+            position: relative;
+            display: flex;
+            background: var(--bg);
+            border-radius: var(--radius-lg);
+            padding: 4px;
+            margin: 4px 0 28px;
+        }
+        .segmented-indicator {
+            position: absolute; top: 4px; bottom: 4px; left: 4px;
+            width: calc(50% - 4px);
+            background: #ffffff;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-float);
+            transition: transform 0.45s var(--spring);
+        }
+        .segmented.pos-2 .segmented-indicator { transform: translateX(100%); }
+        .segmented-btn {
+            position: relative; z-index: 1;
+            flex: 1; padding: 11px 16px;
+            background: none; border: none;
+            font-family: 'Figtree', sans-serif;
+            font-weight: 700; font-size: 0.88rem;
+            color: var(--ink-3); cursor: pointer;
+            text-align: center;
+            transition: color 0.25s ease, transform 0.15s var(--ease-out);
+        }
+        .segmented-btn.active { color: var(--ink); }
+        .segmented-btn:active { transform: scale(0.97); }
+
+        .device-issue-panel { display: none; }
+        .device-issue-panel.active { display: block; animation: revealUp 0.35s var(--ease-out); }
+
+        /* Keyboard accessibility — a soft halo rather than a hard ring reads
+           as intentional rather than a browser default, while staying
+           clearly visible for keyboard users. */
+        :focus-visible {
+            outline: 2px solid var(--red);
+            outline-offset: 2px;
+            border-radius: var(--radius-sm);
+        }
+
+        .topic-row:focus-visible,
+        .btn-primary:focus-visible,
+        .btn-secondary:focus-visible,
+        .btn-portal-top:focus-visible {
+            outline: none;
+            box-shadow: var(--focus-ring);
+        }
+
+        .segmented-btn:focus-visible { outline-offset: -2px; }
+
+        /* ═══════════════════════════════════════════════════════════
+           FOOTER
+        ═══════════════════════════════════════════════════════════ */
+        .footer {
+            border-top: 1px solid var(--border);
+            padding: 32px 40px;
+            display: flex; align-items: center;
+            justify-content: space-between; gap: 16px; flex-wrap: wrap;
+        }
+        .footer-links { display: flex; align-items: center; gap: 24px; }
+        .footer-links a { font-size: 0.75rem; color: var(--ink-3); text-decoration: none; font-weight: 500; transition: color 0.2s; }
+        .footer-links a:hover { color: var(--ink); }
+        .footer-copy { font-size: 0.72rem; color: var(--ink-4); }
+
+        /* ─── RESPONSIVE ─────────────────────────────────────────── */
+        @media (max-width: 768px) {
+            .nav-links-desktop { display: none; }
+            .menu-trigger { display: block; }
+
+            .support-hero { padding: 48px 20px 44px; }
+            .support-content { padding: 44px 20px 90px; }
+
+            .troubleshooting-card { padding: 26px 22px; }
+            .topic-row { padding: 16px 18px; }
+
+            .button-group { flex-direction: column; }
+            .btn-primary, .btn-secondary { width: 100%; text-align: center; }
+
+            .still-need-help { flex-direction: column; align-items: stretch; text-align: center; }
+
+            .footer { flex-direction: column; text-align: center; padding: 28px 24px; }
+            .footer-links { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ── NAVBAR ─────────────────────────────────────────────────── -->
+<nav class="navbar-custom">
+    <div class="nav-container">
+        <a class="navbar-brand" href="/">
+            <img src="assets/img/logos/logo.png" alt="More4Less" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
+            <span class="navbar-brand-fallback">More4Less</span>
+        </a>
+
+        <ul class="nav-links-desktop">
+            <li><a href="/#pricing">Pricing</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/portal" class="btn-portal-top">Customer Portal</a></li>
+        </ul>
+
+        <button class="menu-trigger" id="menuTrigger" onclick="toggleMenu()" aria-label="Open menu" aria-expanded="false" aria-controls="mobileOverlay">
+            <div class="menu-icon"><span></span><span></span><span></span></div>
+        </button>
+    </div>
+</nav>
+
+<div class="mobile-overlay" id="mobileOverlay" aria-hidden="true">
+    <ul class="mobile-nav-links">
+        <li><a href="/#pricing">Pricing</a></li>
+        <li><a href="/contact">Contact</a></li>
+        <li class="portal-link"><a href="/portal">Account Portal</a></li>
+    </ul>
+</div>
+
+<!-- ── PAGE CONTENT ───────────────────────────────────────────── -->
+<div class="support-wrap">
+
+    <!-- Hero -->
+    <section class="support-hero">
+        <div class="hero-content">
+            <div class="support-eyebrow"><span class="eyebrow-dot"></span>Help Centre</div>
+            <h1>Technical Support</h1>
+            <p class="support-subtitle">We're here to help you get back online quickly.</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="support-content" id="supportContent">
+
+        <!-- Topic picker -->
+        <div class="view" id="topicListView">
+            <div class="view-head">
+                <h2>What do you need help with?</h2>
+                <p class="view-sub">Choose a topic and we'll walk you through it, step by step.</p>
+            </div>
+            <div class="topic-list">
+                <button type="button" class="topic-row" onclick="goToView('internet-not-working','forward')">
+                    <span class="topic-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <circle cx="12" cy="19" r="1.3" fill="currentColor" stroke="none"/>
+                        <path d="M9 15.6a4.24 4.24 0 0 1 6 0" opacity="0.9"/>
+                        <path d="M5.2 13.4a8 8 0 0 1 4-2.8" opacity="0.4"/>
+                        <path d="M15.9 11.5a8 8 0 0 1 2.9 1.9" opacity="0.4"/>
+                        <path d="M3.4 10.7a12 12 0 0 1 4.2-2.9" opacity="0.4"/>
+                        <path d="M17.9 9a12 12 0 0 1 2.7 1.7" opacity="0.4"/>
+                        <path d="M3 21L21 3"/>
+                    </svg></span>
+                    <span class="topic-text">
+                        <span class="topic-title">Internet isn't working</span>
+                        <span class="topic-subtitle">Fix a connection that's completely down</span>
+                    </span>
+                    <span class="topic-chevron"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M4.5 2.5l4 3.5-4 3.5"/></svg></span>
+                </button>
+                <button type="button" class="topic-row" onclick="goToView('internet-too-slow','forward')">
+                    <span class="topic-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path d="M4.5 15.5a7.5 7.5 0 1 1 15 0"/>
+                        <path d="M12 15.5l3.6-4.6"/>
+                        <circle cx="12" cy="15.5" r="1.1" fill="currentColor" stroke="none"/>
+                    </svg></span>
+                    <span class="topic-text">
+                        <span class="topic-title">Internet is slow</span>
+                        <span class="topic-subtitle">Speed up a sluggish connection</span>
+                    </span>
+                    <span class="topic-chevron"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M4.5 2.5l4 3.5-4 3.5"/></svg></span>
+                </button>
+                <button type="button" class="topic-row" onclick="goToView('router-not-turning-on','forward')">
+                    <span class="topic-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path d="M12 3.6v7.2"/>
+                        <path d="M7.2 6.6a7.8 7.8 0 1 0 9.6 0"/>
+                    </svg></span>
+                    <span class="topic-text">
+                        <span class="topic-title">Router won't turn on</span>
+                        <span class="topic-subtitle">Troubleshoot power issues</span>
+                    </span>
+                    <span class="topic-chevron"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M4.5 2.5l4 3.5-4 3.5"/></svg></span>
+                </button>
+                <button type="button" class="topic-row" onclick="goToView('device-specific-issues','forward')">
+                    <span class="topic-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <rect x="4" y="8.5" width="16" height="9" rx="2.4"/>
+                        <path d="M8.4 8.5V7a1.4 1.4 0 0 1 1.4-1.4h4.4A1.4 1.4 0 0 1 15.6 7v1.5"/>
+                        <circle cx="8.6" cy="13" r="0.95" fill="currentColor" stroke="none"/>
+                        <circle cx="12" cy="13" r="0.95" fill="currentColor" stroke="none"/>
+                        <path d="M15.4 13h1.4" opacity="0.5"/>
+                    </svg></span>
+                    <span class="topic-text">
+                        <span class="topic-title">Device won't stay connected</span>
+                        <span class="topic-subtitle">Fix hardware connection drops</span>
+                    </span>
+                    <span class="topic-chevron"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M4.5 2.5l4 3.5-4 3.5"/></svg></span>
+                </button>
+                <button type="button" class="topic-row" onclick="goToView('change-wifi-name','forward')">
+                    <span class="topic-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path d="M14.3 5.7l4 4L8 20l-4.3.7.7-4.3z"/>
+                        <path d="M12.6 7.4l4 4" opacity="0.55"/>
+                    </svg></span>
+                    <span class="topic-text">
+                        <span class="topic-title">Change your Wi-Fi name or password</span>
+                        <span class="topic-subtitle">Update your network settings</span>
+                    </span>
+                    <span class="topic-chevron"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M4.5 2.5l4 3.5-4 3.5"/></svg></span>
+                </button>
+                <button type="button" class="topic-row" onclick="goToView('streaming-services','forward')">
+                    <span class="topic-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <circle cx="12" cy="12" r="9"/>
+                        <path d="M9.9 8.6a.5.5 0 0 1 .77-.42l4.7 3.16a.85.85 0 0 1 0 1.4l-4.7 3.16a.5.5 0 0 1-.77-.42z" fill="currentColor" stroke="none"/>
+                    </svg></span>
+                    <span class="topic-text">
+                        <span class="topic-title">Streaming or website issues</span>
+                        <span class="topic-subtitle">Access geo-restricted content</span>
+                    </span>
+                    <span class="topic-chevron"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M4.5 2.5l4 3.5-4 3.5"/></svg></span>
+                </button>
+                <button type="button" class="topic-row" onclick="goToView('paused-service','forward')">
+                    <span class="topic-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <circle cx="12" cy="12" r="9"/>
+                        <path d="M9.8 8.8v6.4M14.2 8.8v6.4"/>
+                    </svg></span>
+                    <span class="topic-text">
+                        <span class="topic-title">Pause or cancel your service</span>
+                        <span class="topic-subtitle">Manage your plan status</span>
+                    </span>
+                    <span class="topic-chevron"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M4.5 2.5l4 3.5-4 3.5"/></svg></span>
+                </button>
+                <button type="button" class="topic-row" onclick="goToView('other','forward')">
+                    <span class="topic-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path d="M4.2 5.4h15.6a1.2 1.2 0 0 1 1.2 1.2v8.4a1.2 1.2 0 0 1-1.2 1.2h-9l-4.2 3.4v-3.4H4.2a1.2 1.2 0 0 1-1.2-1.2V6.6a1.2 1.2 0 0 1 1.2-1.2z"/>
+                    </svg></span>
+                    <span class="topic-text">
+                        <span class="topic-title">Something else</span>
+                        <span class="topic-subtitle">Get in touch with our team</span>
+                    </span>
+                    <span class="topic-chevron"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M4.5 2.5l4 3.5-4 3.5"/></svg></span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Internet Not Working -->
+        <div class="view hidden troubleshooting-card" id="internet-not-working">
+            <button type="button" class="back-link" onclick="goToView('topicListView','back')"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M7.5 2.5L3.5 6l4 3.5"/></svg>All topics</button>
+            <h3>Fix Your 5G/LTE Internet Connection</h3>
+
+            <h4>Quick Settings Checklist</h4>
+            <ul>
+                <li><strong>Is your APN set correctly?</strong> An incorrect or missing APN is the most common cause of a connection that won't work at all.</li>
+                <li><strong>Is Band Lock set to "All" or "Auto"?</strong> If it's locked to a specific band that's no longer available in your area, your connection can disconnect entirely.</li>
+                <li><strong>Is Network mode set to Auto or Manual?</strong> On Manual, if your selected carrier becomes unavailable, the connection can drop. On Auto, the device picks a network for you — but it doesn't always choose the strongest one. If you already know which carrier gives you the best signal at your address, Manual is usually the better choice.</li>
+            </ul>
+            <div class="note-inline">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                <span>Not sure where to find these settings? Follow the guide for your device —
+                <a href="tutorials#mobile-update-apn" target="_blank" rel="nofollow">Nighthawk APN</a>,
+                <a href="tutorials#mobile-band-locking" target="_blank" rel="nofollow">Nighthawk Band Locking</a>,
+                <a href="tutorials#mobile-manual-network" target="_blank" rel="nofollow">Nighthawk Manual Network</a>, or
+                <a href="tutorials#fixed-update-apn" target="_blank" rel="nofollow">Orbi APN</a> and
+                <a href="tutorials#fixed-manual-network" target="_blank" rel="nofollow">Orbi Manual Network</a>.</span>
+            </div>
+
+            <h4>Check Your Cell Signal First</h4>
+            <p>Our service runs on the same cellular network as your phone. Check whether your phone also has weak or no signal in the same spot — if so, the issue is likely the local network rather than your device.</p>
+
+            <ol>
+                <li><strong>Restart Your Device</strong>
+                    <ul>
+                        <li>Unplug the device or turn it off for 10 seconds.</li>
+                        <li>Plug it back in or turn it on, wait for a full restart, then try connecting again.</li>
+                    </ul>
+                </li>
+                <li><strong>Improve Signal Strength & Placement</strong>
+                    <ul>
+                        <li>Place the hub near a window, ideally on a higher floor and as close as possible to the nearest known cell tower.</li>
+                        <li>Avoid basements, cabinets, or metal objects that can block signal.</li>
+                        <li>Try a few different spots — small changes in placement can meaningfully change signal strength, so trial and error is worth it.</li>
+                        <li>Check the hub's LEDs or app for signal strength. Aim for at least 3/5 bars.</li>
+                    </ul>
+                </li>
+                <li><strong>Know About Network Issues</strong>
+                    <ul>
+                        <li>Cell tower maintenance may cause temporary outages or slowdowns.</li>
+                        <li>Peak hours (evenings/weekends) can slow speeds due to high network use.</li>
+                    </ul>
+                </li>
+                <li><strong>Recheck the Settings Checklist Above</strong>
+                    <ul>
+                        <li>Confirm the APN, Band Lock, and Network mode settings against the checklist at the top of this guide.</li>
+                        <li>Try switching to another major Canadian network provider for a stronger signal.</li>
+                    </ul>
+                </li>
+                <li><strong>Inspect the SIM Card</strong>
+                    <ul>
+                        <li>Turn off and unplug the device.</li>
+                        <li>Remove the SIM card, clean it gently with a soft cloth, and reinsert it securely.</li>
+                        <li>Turn the device back on and check the connection.</li>
+                    </ul>
+                </li>
+                <li><strong>Test Your Speed</strong>
+                    <ul>
+                        <li>Measure your internet speed using a speed test tool.</li>
+                        <li>Test at different times (morning, afternoon, evening).</li>
+                        <li>Try moving the hub to different spots in your home.</li>
+                    </ul>
+                    <a href="https://speedtest.net" class="btn-secondary" target="_blank" rel="nofollow">Run Speed Test</a>
+                </li>
+            </ol>
+
+            <div class="still-need-help">
+                <p>Still stuck after trying these steps?</p>
+                <a href="/ticket.html" class="btn-primary" data-ticket-cta="internet-not-working">Contact Support</a>
+            </div>
+        </div>
+
+        <!-- Internet Too Slow -->
+        <div class="view hidden troubleshooting-card" id="internet-too-slow">
+            <button type="button" class="back-link" onclick="goToView('topicListView','back')"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M7.5 2.5L3.5 6l4 3.5"/></svg>All topics</button>
+            <h3>Internet Too Slow?</h3>
+            <ol>
+                <li><strong>Choose a Stronger Network</strong>
+                    <ul>
+                        <li>Log into your router's settings via its app or web interface.</li>
+                        <li>Find "Network Selection" or "Band Selection."</li>
+                        <li>Select the strongest band or set to "Auto" for best performance.</li>
+                    </ul>
+                    <div class="button-group" style="margin-top: 12px;">
+                        <a href="tutorials#mobile-band-locking" class="btn-secondary" target="_blank" rel="nofollow">Nighthawk: Band Locking Guide</a>
+                        <a href="tutorials#fixed-manual-network" class="btn-secondary" target="_blank" rel="nofollow">Orbi: Manual Network Guide</a>
+                    </div>
+                </li>
+                <li><strong>Optimize Hub Placement</strong>
+                    <ul>
+                        <li>Place the hub near a window or outside wall, toward the nearest cell tower.</li>
+                        <li>Avoid thick walls, metal objects, or appliances.</li>
+                        <li>Elevate the hub (e.g., on a shelf) away from other electronics.</li>
+                        <li>Test different locations with a speed test tool.</li>
+                    </ul>
+                    <a href="https://speedtest.net" class="btn-secondary" target="_blank" rel="nofollow">Run Speed Test</a>
+                </li>
+                <li><strong>Use a MIMO Antenna</strong>
+                    <ul>
+                        <li>Consider a 2x2 MIMO antenna from retailers like Amazon.</li>
+                        <li>Aim it toward the nearest cell tower or strongest signal direction.</li>
+                        <li>This can improve signal strength and speed.</li>
+                    </ul>
+                </li>
+                <li><strong>Avoid Peak Usage Times</strong>
+                    <ul>
+                        <li>Switch to another network (see step 1) if speeds are slow.</li>
+                        <li>Use the internet during off-peak hours for better performance.</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <div class="still-need-help">
+                <p>Still stuck after trying these steps?</p>
+                <a href="/ticket.html" class="btn-primary" data-ticket-cta="internet-too-slow">Contact Support</a>
+            </div>
+        </div>
+
+        <!-- Router Not Turning On -->
+        <div class="view hidden troubleshooting-card" id="router-not-turning-on">
+            <button type="button" class="back-link" onclick="goToView('topicListView','back')"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M7.5 2.5L3.5 6l4 3.5"/></svg>All topics</button>
+            <h3>Troubleshoot a Router That Won't Power On</h3>
+            <ol>
+                <li><strong>For Mobile Devices with a Battery</strong>
+                    <ul>
+                        <li>Remove the battery from the device.</li>
+                        <li>Connect it to a power source using a USB-C cable and 3.0A power adapter (without the battery).</li>
+                        <li>Wait 1–2 minutes and check for indicator lights or error codes on the screen.</li>
+                    </ul>
+                    <a href="tutorials#mobile-battery-free" class="btn-secondary" target="_blank" rel="nofollow">Nighthawk Battery-Free Guide</a>
+                </li>
+                <li><strong>For Home Devices with a Power Adapter</strong>
+                    <ul>
+                        <li>Ensure the power adapter is securely connected to the router and a working outlet.</li>
+                        <li>Try a different outlet to rule out power issues.</li>
+                        <li>Use a compatible adapter with the same voltage if available.</li>
+                        <li>Check for any indicator lights on the device.</li>
+                    </ul>
+                </li>
+                <li><strong>Reset the Device (Caution)</strong>
+                    <ul>
+                        <li>Do not reset mobile devices unless instructed, as it may disconnect service.</li>
+                        <li>For home devices, find the reset pinhole and press it with a paperclip while powered on.</li>
+                    </ul>
+                    <a href="tutorials#fixed-factory-reset" class="btn-secondary" target="_blank" rel="nofollow">Orbi Factory Reset Guide</a>
+                </li>
+                <li><strong>Check for Other Issues</strong>
+                    <ul>
+                        <li>Inspect cables and replace if possible.</li>
+                        <li>Confirm other devices work on the same outlet.</li>
+                        <li>Look for damage, burn marks, or unusual smells on the device.</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <div class="still-need-help">
+                <p>Still stuck after trying these steps?</p>
+                <a href="/ticket.html" class="btn-primary" data-ticket-cta="router-not-turning-on">Contact Support</a>
+            </div>
+        </div>
+
+        <!-- Change Wi-Fi Name -->
+        <div class="view hidden troubleshooting-card" id="change-wifi-name">
+            <button type="button" class="back-link" onclick="goToView('topicListView','back')"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M7.5 2.5L3.5 6l4 3.5"/></svg>All topics</button>
+            <h3>Change Your Wi-Fi Name or Password</h3>
+            <h4>Option 1: Use the NETGEAR App (Recommended)</h4>
+            <ul>
+                <li>For Nighthawk M1/M6, use the NETGEAR Mobile app.</li>
+                <li>For Orbi, use the NETGEAR Orbi app.</li>
+                <li>Download the app from the App Store or Google Play.</li>
+                <li>Open the app, connect to your device, and go to Wi-Fi Settings to update the name (SSID) or password.</li>
+                <li>Save changes, which apply immediately.</li>
+            </ul>
+            <a href="app-download" class="btn-secondary" target="_blank" rel="nofollow">Download App</a>
+            <h4>Option 2: Use a Web Browser</h4>
+            <ol>
+                <li><strong>Connect to Your Device</strong>
+                    <ul>
+                        <li>Connect to your device's Wi-Fi network.</li>
+                    </ul>
+                </li>
+                <li><strong>Access Settings Page</strong>
+                    <ul>
+                        <li>Open a browser and type <em>192.168.1.1</em> in the address bar.</li>
+                    </ul>
+                </li>
+                <li><strong>Log In</strong>
+                    <ul>
+                        <li>Nighthawk: Username <em>admin</em>, Password <em>attadmin</em></li>
+                        <li>Orbi: Username <em>admin</em>, Password <em>more4less</em></li>
+                    </ul>
+                </li>
+                <li><strong>Update Settings</strong>
+                    <ul>
+                        <li>Go to Wireless or Wi-Fi Settings.</li>
+                        <li>Update the Network Name (SSID) or Password, then save.</li>
+                        <li>Devices may need to reconnect.</li>
+                    </ul>
+                </li>
+            </ol>
+            <div class="note-inline">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                <span>Prefer a full walkthrough with screenshots? See the <a href="tutorials#fixed-wifi-name" target="_blank" rel="nofollow">Orbi Wi-Fi Name & Password guide</a>.</span>
+            </div>
+
+            <div class="still-need-help">
+                <p>Still stuck after trying these steps?</p>
+                <a href="/ticket.html" class="btn-primary" data-ticket-cta="change-wifi-name">Contact Support</a>
+            </div>
+        </div>
+
+        <!-- Streaming Services -->
+        <div class="view hidden troubleshooting-card" id="streaming-services">
+            <button type="button" class="back-link" onclick="goToView('topicListView','back')"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M7.5 2.5L3.5 6l4 3.5"/></svg>All topics</button>
+            <h3>Troubleshoot Website Access Issues</h3>
+            <h4>Why This Happens</h4>
+            <ul>
+                <li><strong>Canadian Content Limits:</strong> Some Canadian apps or websites may not load or show restricted content.</li>
+                <li><strong>U.S. Content Access:</strong> You may access U.S.-exclusive platforms (e.g., Hulu, Peacock shows) as a benefit.</li>
+            </ul>
+            <h4>Solution: Use a VPN</h4>
+            <ul>
+                <li>Set your IP address to appear in Canada.</li>
+                <li>Improve online privacy and security.</li>
+                <li>Access both Canadian and U.S. content easily.</li>
+            </ul>
+
+            <div class="still-need-help">
+                <p>Still stuck after trying these steps?</p>
+                <a href="/ticket.html" class="btn-primary" data-ticket-cta="streaming-services">Contact Support</a>
+            </div>
+        </div>
+
+        <!-- Pause Service -->
+        <div class="view hidden troubleshooting-card" id="paused-service">
+            <button type="button" class="back-link" onclick="goToView('topicListView','back')"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M7.5 2.5L3.5 6l4 3.5"/></svg>All topics</button>
+            <h3>Pause or Reactivate Your Service</h3>
+            <p>Our service is 100% contract-free. While there is no option to pause your service, you're free to cancel at any time without penalty. When you're ready to return, you can reactivate the service at any time. We recommend reaching out at least one week in advance of your preferred restart date to ensure a smooth reactivation process. A new SIM card is required to resume service, which costs $10.</p>
+            <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px; max-width: 280px;">
+                <a href="https://more4lessplans.chargebeeportal.com/portal/v2/login?forward=portal_main" class="btn-secondary" target="_blank" rel="nofollow" style="margin-top:0;">Cancel Service</a>
+                <a href="/reactivate-service" class="btn-primary" target="_blank" rel="nofollow">Re-Activate Service</a>
+            </div>
+
+            <div class="still-need-help">
+                <p>Still stuck after trying these steps?</p>
+                <a href="/ticket.html" class="btn-primary" data-ticket-cta="paused-service">Contact Support</a>
+            </div>
+        </div>
+
+        <!-- Device Specific Issues -->
+        <div class="view hidden troubleshooting-card" id="device-specific-issues">
+            <button type="button" class="back-link" onclick="goToView('topicListView','back')"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M7.5 2.5L3.5 6l4 3.5"/></svg>All topics</button>
+            <h3>Device Won't Stay Connected (Hardware)</h3>
+            <p>Hardware troubleshooting looks a little different between our two device types. Select yours below for targeted steps.</p>
+
+            <div class="segmented" id="deviceSegmented" role="tablist" aria-label="Device type">
+                <div class="segmented-indicator" aria-hidden="true"></div>
+                <button type="button" class="segmented-btn active" role="tab" aria-selected="true" data-device="nighthawk" onclick="selectIssueDevice('nighthawk')">Nighthawk</button>
+                <button type="button" class="segmented-btn" role="tab" aria-selected="false" data-device="orbi" onclick="selectIssueDevice('orbi')">Orbi</button>
+            </div>
+
+            <div class="device-issue-panel active" data-device="nighthawk">
+                <h4>Nighthawk Battery & Power Issues</h4>
+                <ol>
+                    <li><strong>Bypass the Battery</strong>
+                        <ul>
+                            <li>Try running the device plugged in directly, with the battery removed.</li>
+                            <li>Test with a high-powered USB-C adapter (3.0A or higher), both with and without the battery installed, to isolate whether the battery is the problem.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Charge While Powered Off</strong>
+                        <ul>
+                            <li>Plug the device in while it's turned on, then switch it off while it stays connected to the charger.</li>
+                            <li>Leave it plugged in for a couple of hours before powering it back on.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Reinsert the Battery While Plugged In</strong>
+                        <ul>
+                            <li>With the device already connected to power, try inserting the battery rather than powering on with it already seated.</li>
+                        </ul>
+                    </li>
+                </ol>
+                <a href="tutorials#mobile-battery-free" class="btn-secondary" target="_blank" rel="nofollow">View Battery-Free Setup Guide</a>
+            </div>
+
+            <div class="device-issue-panel" data-device="orbi">
+                <h4>Orbi Connectivity Issues</h4>
+                <p>Most Orbi connection drops come down to network selection rather than a hardware fault. If you're losing connection or seeing a weak signal, switching from Automatic to Manual network selection lets you lock onto the strongest carrier in your area instead of waiting for the device to reselect one.</p>
+                <a href="tutorials#fixed-manual-network" class="btn-secondary" target="_blank" rel="nofollow">View Manual Network Selection Guide</a>
+            </div>
+
+            <div class="still-need-help">
+                <p>Still stuck after trying these steps?</p>
+                <a href="/ticket.html" class="btn-primary" data-ticket-cta="device-specific-issues">Contact Support</a>
+            </div>
+        </div>
+
+        <!-- Other -->
+        <div class="view hidden troubleshooting-card" id="other">
+            <button type="button" class="back-link" onclick="goToView('topicListView','back')"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M7.5 2.5L3.5 6l4 3.5"/></svg>All topics</button>
+            <h3>Submit a Support Request</h3>
+            <p>Our support team is ready to help with any issue not covered in our troubleshooting guides.</p>
+
+            <div class="still-need-help">
+                <p>Get in touch and we'll take it from here.</p>
+                <a href="/ticket.html" class="btn-primary" data-ticket-cta="other">Contact Support</a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="/mobility">Mobility</a>
+            <a href="/privacy">Privacy</a>
+            <a href="/terms">Terms</a>
+            <a href="/contact">Contact</a>
+        </div>
+        <div class="footer-copy">&copy; <span id="year"></span> More4Less. All Rights Reserved.</div>
+    </footer>
+
+</div>
+
+<script>
+(function () {
+    'use strict';
+
+    var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // ── Mobile menu ──
+    var menuTrigger = document.getElementById('menuTrigger');
+    var mobileOverlay = document.getElementById('mobileOverlay');
+
+    function setMenu(open) {
+        if (!menuTrigger || !mobileOverlay) return;
+        menuTrigger.classList.toggle('menu-active', open);
+        menuTrigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+        mobileOverlay.classList.toggle('active', open);
+        mobileOverlay.setAttribute('aria-hidden', open ? 'false' : 'true');
+        document.body.style.overflow = open ? 'hidden' : '';
+    }
+
+    window.toggleMenu = function () {
+        if (!menuTrigger) return;
+        setMenu(!menuTrigger.classList.contains('menu-active'));
+    };
+
+    if (mobileOverlay) {
+        mobileOverlay.addEventListener('click', function (e) {
+            if (e.target === mobileOverlay) setMenu(false);
+        });
+    }
+
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && menuTrigger && menuTrigger.classList.contains('menu-active')) {
+            setMenu(false);
+        }
+    });
+
+    // ── Footer year ──
+    var yearEl = document.getElementById('year');
+    if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+    // ── Ticket hand-off ──────────────────────────────────────────
+    // /ticket.html (next phase) will read these query params to pre-fill
+    // its form, then POST the finished ticket to the Make.com webhook:
+    // https://hook.us1.make.com/0rrys4wzfifg3430seyyykmxr8yfabqv
+    //
+    // Each entry below maps a support topic to the ticket info it should
+    // hand off. `subject` / `details` can be a plain string or a function
+    // of the selected device (used only by device-specific-issues).
+    var TICKET_TOPICS = {
+        'internet-not-working': {
+            category: 'Internet Down',
+            subject: "Internet isn't working",
+            details: 'Already checked APN, Band Lock, and Network mode settings; verified cell signal strength and hub placement; reseated the SIM card and ran a speed test.'
+        },
+        'internet-too-slow': {
+            category: 'Slow Speeds',
+            subject: 'Internet is slow',
+            details: 'Already tried switching to a stronger network band, optimizing hub placement, and running a speed test.'
+        },
+        'router-not-turning-on': {
+            category: 'Hardware / Power',
+            subject: "Router won't turn on",
+            details: 'Already tried running the device without the battery on a 3.0A+ adapter, checked the power adapter/outlet, and inspected cables for damage.'
+        },
+        'change-wifi-name': {
+            category: 'Account / Network Settings',
+            subject: 'Need help changing Wi-Fi name or password',
+            details: 'Attempted to update the Wi-Fi name/password via the NETGEAR app and the 192.168.1.1 web admin page.'
+        },
+        'streaming-services': {
+            category: 'Streaming / Website Access',
+            subject: 'Streaming or website access issue',
+            details: 'Experiencing restricted access to Canadian or U.S. streaming content; was directed to VPN guidance.'
+        },
+        'paused-service': {
+            category: 'Billing / Account Status',
+            subject: 'Question about pausing or reactivating service',
+            details: 'Reviewed cancel/reactivate options; aware service is contract-free and a new SIM ($10) is required to resume.'
+        },
+        'device-specific-issues': {
+            category: 'Hardware Issue',
+            subject: function (device) {
+                return (device === 'orbi' ? 'Orbi' : 'Nighthawk') + " won't stay connected";
+            },
+            details: function (device) {
+                return device === 'orbi'
+                    ? 'Already tried switching from Automatic to Manual network selection.'
+                    : 'Already tried bypassing the battery, charging while powered off, and reinserting the battery while plugged in.';
+            }
+        },
+        'other': {
+            category: 'General Inquiry',
+            subject: '',
+            details: ''
+        }
+    };
+
+    function getActiveDevice() {
+        var activeBtn = document.querySelector('#device-specific-issues .segmented-btn.active');
+        return (activeBtn && activeBtn.getAttribute('data-device')) || 'nighthawk';
+    }
+
+    function buildTicketUrl(topicId) {
+        var topic = TICKET_TOPICS[topicId];
+        if (!topic) return '/ticket.html';
+
+        var device = topicId === 'device-specific-issues' ? getActiveDevice() : null;
+        var subject = typeof topic.subject === 'function' ? topic.subject(device) : topic.subject;
+        var details = typeof topic.details === 'function' ? topic.details(device) : topic.details;
+
+        var params = new URLSearchParams();
+        params.set('topic', topicId);
+        if (topic.category) params.set('category', topic.category);
+        if (subject) params.set('subject', subject);
+        if (details) params.set('details', details);
+        if (device) params.set('device', device);
+
+        return '/ticket.html?' + params.toString();
+    }
+
+    // Keeps every [data-ticket-cta] link's href current — called on load
+    // and again whenever the selected device changes, so a mid-click
+    // (new tab, copy link, etc.) always carries the right pre-fill.
+    window.refreshTicketLinks = function () {
+        document.querySelectorAll('[data-ticket-cta]').forEach(function (link) {
+            link.href = buildTicketUrl(link.getAttribute('data-ticket-cta'));
+        });
+    };
+
+    refreshTicketLinks();
+
+    // ── View navigation (single orchestrated screen transition) ──
+    var supportContent = document.getElementById('supportContent');
+    var isTransitioning = false;
+
+    // A live region announces the new screen's heading to screen-reader
+    // users, since the transition itself is purely visual.
+    var announcer = document.createElement('div');
+    announcer.setAttribute('aria-live', 'polite');
+    announcer.className = 'sr-only-announcer';
+    announcer.style.cssText = 'position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;';
+    document.body.appendChild(announcer);
+
+    window.goToView = function (targetId, direction) {
+        if (isTransitioning) return; // ignore rapid double-taps mid-transition
+        var current = document.querySelector('#supportContent .view:not(.hidden)');
+        var target = document.getElementById(targetId);
+        if (!target || current === target) return;
+
+        var finishSwitch = function () {
+            if (current) {
+                current.classList.add('hidden');
+                current.style.animation = '';
+            }
+            target.classList.remove('hidden');
+            target.style.animation = prefersReducedMotion
+                ? 'none'
+                : (direction === 'back' ? 'viewInBack' : 'viewInForward') + ' 0.4s var(--ease-out) forwards';
+
+            if (supportContent) {
+                window.scrollTo({ top: supportContent.offsetTop - 84, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+            }
+
+            if (history.replaceState) {
+                history.replaceState(null, '', targetId === 'topicListView' ? location.pathname : '#' + targetId);
+            }
+
+            var heading = target.querySelector('h2, h3');
+            announcer.textContent = heading ? heading.textContent : '';
+
+            isTransitioning = false;
+        };
+
+        isTransitioning = true;
+
+        if (prefersReducedMotion || !current) {
+            finishSwitch();
+            return;
+        }
+
+        current.style.animation = 'viewFadeOut 0.2s var(--ease-in-out) forwards';
+        var settled = false;
+        var settle = function () {
+            if (settled) return;
+            settled = true;
+            finishSwitch();
+        };
+        // animationend is the accurate signal; the timeout is a safety net
+        // in case the animation is interrupted (tab backgrounded, etc.)
+        // and never fires — either path always leaves the UI in a
+        // consistent state.
+        current.addEventListener('animationend', settle, { once: true });
+        setTimeout(settle, 260);
+    };
+
+    // Deep-link support: open a specific topic directly via URL hash
+    (function () {
+        var hash = location.hash.replace('#', '');
+        var topicList = document.getElementById('topicListView');
+        var target = hash ? document.getElementById(hash) : null;
+        if (target && topicList && target.classList.contains('troubleshooting-card')) {
+            topicList.classList.add('hidden');
+            target.classList.remove('hidden');
+        }
+    })();
+
+    // ── Device-specific issues segmented control ──
+    window.selectIssueDevice = function (type) {
+        var segmented = document.getElementById('deviceSegmented');
+        if (!segmented) return;
+        segmented.classList.toggle('pos-2', type === 'orbi');
+
+        document.querySelectorAll('#device-specific-issues .segmented-btn').forEach(function (btn) {
+            var active = btn.getAttribute('data-device') === type;
+            btn.classList.toggle('active', active);
+            btn.setAttribute('aria-selected', active ? 'true' : 'false');
+        });
+        document.querySelectorAll('#device-specific-issues .device-issue-panel').forEach(function (panel) {
+            panel.classList.toggle('active', panel.getAttribute('data-device') === type);
+        });
+
+        if (window.refreshTicketLinks) window.refreshTicketLinks();
+    };
+})();
+</script>
+
+</body>
+</html>
