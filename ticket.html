@@ -172,6 +172,7 @@
         .mobile-overlay.active .mobile-nav-links li { transform: none; opacity: 1; }
         .mobile-nav-links li:nth-child(1) { transition-delay: 0.08s; }
         .mobile-nav-links li:nth-child(2) { transition-delay: 0.13s; }
+        .mobile-nav-links li:nth-child(3) { transition-delay: 0.18s; }
         .mobile-nav-links a {
             color: rgba(255,255,255,0.85);
             font-size: 2rem; font-weight: 700;
@@ -338,8 +339,10 @@
         .field input[type="datetime-local"] {
             -webkit-min-logical-width: 0%;
             min-width: 0;
+            max-width: 100%;
+            text-align: left;
         }
-        .field input[type="datetime-local"]::-webkit-date-and-time-value { text-align: right; }
+        .field input[type="datetime-local"]::-webkit-date-and-time-value { text-align: left; margin: 0; }
         .field input:focus, .field select:focus, .field textarea:focus {
             outline: none; border-color: var(--ink-4); box-shadow: 0 0 0 4px rgba(26,26,28,0.06);
         }
@@ -361,12 +364,15 @@
 
         .section-divider { border: none; border-top: 1px solid var(--border-soft); margin: 28px 0; }
 
-        /* Segmented control (urgency) */
-        .segmented { display: flex; flex-wrap: wrap; gap: 6px; padding: 4px; background: var(--bg); border: 1.5px solid var(--border); border-radius: var(--radius-md); }
+        /* Segmented control (urgency) — grid keeps every pill on one row,
+           matching the single-line height of the Device type select instead
+           of wrapping onto a second row. */
+        .segmented { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; padding: 4px; background: var(--bg); border: 1.5px solid var(--border); border-radius: var(--radius-md); }
         .segmented-pill {
-            flex: 1 1 auto; text-align: center; white-space: nowrap;
-            font-size: 0.82rem; font-weight: 600; color: var(--ink-3);
-            padding: 8px 12px; border-radius: 7px; cursor: pointer;
+            display: block; text-align: center; white-space: nowrap;
+            overflow: hidden; text-overflow: ellipsis;
+            font-size: 0.78rem; font-weight: 600; color: var(--ink-3);
+            padding: 8px 6px; border-radius: 7px; cursor: pointer;
             transition: background 0.2s var(--ease-out), color 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
         }
         .segmented-pill:hover { color: var(--ink-2); }
@@ -536,6 +542,7 @@
             .field-row .field.field-narrow { flex: 1; }
             .footer { flex-direction: column; text-align: center; padding: 28px 24px; }
             .field input, .field select, .field textarea { font-size: 16px; }
+            .field input[type="datetime-local"] { padding-left: 8px; padding-right: 8px; }
         }
     </style>
 </head>
@@ -548,8 +555,9 @@
             <span class="navbar-brand-fallback">More4Less</span>
         </a>
         <ul class="nav-links-desktop">
-            <li><a href="/support">Support</a></li>
-            <li><a href="/contact">Contact</a></li>
+            <li><a href="/pricing">Pricing</a></li>
+            <li><a href="/faq">FAQ</a></li>
+            <li><a href="/dashboard">Dashboard</a></li>
         </ul>
         <button class="menu-trigger" id="menuTrigger" aria-label="Open menu">
             <div class="menu-icon">
@@ -561,8 +569,9 @@
 
 <div class="mobile-overlay" id="mobileOverlay">
     <ul class="mobile-nav-links">
-        <li><a href="/support">Support</a></li>
-        <li><a href="/contact">Contact</a></li>
+        <li><a href="/pricing">Pricing</a></li>
+        <li><a href="/faq">FAQ</a></li>
+        <li><a href="/dashboard">Dashboard</a></li>
     </ul>
 </div>
 
