@@ -412,6 +412,19 @@
         }
         .submit-error.show { display: block; }
 
+        /* Inline field error — used in place of the native validation bubble,
+           which WebKit doesn't reliably size/anchor around wheel-style
+           datetime-local pickers on iOS (long messages get clipped). */
+        .field-error {
+            display: none; margin-top: 8px; padding: 8px 12px;
+            font-size: 0.8rem; line-height: 1.45; color: var(--red-deep);
+            text-align: center;
+            background: var(--red-glow-sm); border: 1px solid rgba(215,60,89,0.18);
+            border-radius: var(--radius-sm);
+        }
+        .field-error.show { display: block; }
+        .field.has-error input { border-color: var(--red); }
+
         /* Success view — premium, cardless, floats directly on the page background */
         @keyframes revealUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes drawCheck { to { stroke-dashoffset: 0; } }
@@ -713,10 +726,11 @@
                     </div>
                 </div>
 
-                <div class="field">
+                <div class="field" id="lastWorkedField">
                     <label for="lastServiceWorkedAt">Last time service worked</label>
                     <input type="datetime-local" id="lastServiceWorkedAt" name="lastServiceWorkedAt" required>
                     <p class="hint">Defaults to right now — change it if service actually stopped working earlier.</p>
+                    <p class="field-error" id="lastWorkedError">This is for past events only — please choose a time that isn't in the future.</p>
                 </div>
 
                 <div class="field">
@@ -908,16 +922,20 @@
     });
 
     // If a value somehow lands in the future (typed input on some Android
-    // keyboards can bypass the max attribute), flag it with a custom
-    // validity message. reportValidity() then shows the browser's own
-    // native validation popup — the standard iOS/Android bubble — with
-    // this message, rather than any custom-built error UI.
+    // keyboards can bypass the max attribute), flag it with our own inline
+    // message rather than the native validation bubble — iOS doesn't
+    // reliably size or anchor that bubble around a datetime-local picker,
+    // so longer messages end up clipped and unreadable.
+    var lastWorkedField = document.getElementById('lastWorkedField');
+    var lastWorkedError = document.getElementById('lastWorkedError');
+    function lastWorkedInFuture() {
+        return lastWorkedInput.value && lastWorkedInput.value > nowForDatetimeLocal();
+    }
     function checkLastWorkedInRange() {
-        if (lastWorkedInput.value && lastWorkedInput.value > nowForDatetimeLocal()) {
-            lastWorkedInput.setCustomValidity("This is for past events only — please choose a date and time that isn't in the future.");
-        } else {
-            lastWorkedInput.setCustomValidity('');
-        }
+        var inFuture = lastWorkedInFuture();
+        lastWorkedField.classList.toggle('has-error', inFuture);
+        lastWorkedError.classList.toggle('show', inFuture);
+        return !inFuture;
     }
     lastWorkedInput.addEventListener('input', checkLastWorkedInRange);
     lastWorkedInput.addEventListener('change', checkLastWorkedInRange);
@@ -1018,6 +1036,12 @@
 
     form.addEventListener('submit', function (e) {
         e.preventDefault();
+
+        if (!checkLastWorkedInRange()) {
+            lastWorkedInput.focus();
+            lastWorkedInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return;
+        }
 
         if (!gateCheckbox.checked || !form.reportValidity()) {
             return;
