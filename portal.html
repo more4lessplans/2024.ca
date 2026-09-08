@@ -19,6 +19,7 @@
     /* ── Tokens — pulled directly from style.css ──────────────── */
     :root {
       --brand-red:   #D73C59;
+      --brand-red-glow: rgba(215,60,89,0.14);
       --bg-nav:      #2E2F33;
       --bg-page:     #FBFBFD;
       --text-dark:   #1d1d1f;
@@ -26,6 +27,14 @@
       --card-radius: 28px;
       --nav-h:       68px;
       --border:      #eaeaec;
+
+      --ease-out:    cubic-bezier(0.22,1,0.36,1);
+      --spring-soft: cubic-bezier(0.22,1.15,0.36,1);
+
+      --shadow-card:    0 1px 2px rgba(20,20,22,0.03), 0 14px 32px -14px rgba(20,20,22,0.08);
+      --shadow-card-hi: 0 2px 4px rgba(20,20,22,0.04), 0 30px 60px -18px rgba(20,20,22,0.14);
+      --shadow-pill:    0 2px 12px rgba(0,0,0,0.04);
+      --focus-ring:     0 0 0 4px var(--brand-red-glow);
     }
 
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -36,7 +45,22 @@
       background: var(--bg-page);
       color: var(--text-dark);
       -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
       min-height: 100vh;
+    }
+
+    :focus-visible { outline: 2px solid var(--brand-red); outline-offset: 2px; border-radius: 6px; }
+    .dash-card:focus-visible, .btn-portal-top:focus-visible, .t-btn:focus-visible {
+      outline: none; box-shadow: var(--focus-ring);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
     }
 
     /* ── NAVBAR ───────────────────────────────────────────────── */
@@ -127,7 +151,6 @@
     .mobile-nav-links li:nth-child(1) { transition-delay: 0.10s; }
     .mobile-nav-links li:nth-child(2) { transition-delay: 0.15s; }
     .mobile-nav-links li:nth-child(3) { transition-delay: 0.20s; }
-    .mobile-nav-links li:nth-child(4) { transition-delay: 0.25s; }
     .mobile-nav-links a { color: #fff; font-size: 2.2rem; font-weight: 700; text-decoration: none; letter-spacing: -0.03em; position: relative; display: inline-block; }
     .mobile-nav-links a::after { content: ''; position: absolute; width: 0; height: 3px; bottom: -4px; left: 0; background: var(--brand-red); transition: width 0.4s cubic-bezier(0.2,1,0.2,1); }
     .mobile-nav-links a:hover::after { width: 100%; }
@@ -163,6 +186,18 @@
     }
 
     .portal-header-inner { position: relative; z-index: 2; }
+
+    .portal-orb {
+      position: absolute; top: 50%; left: 50%; width: 620px; height: 620px;
+      transform: translate(-50%, -55%);
+      background: radial-gradient(circle, var(--brand-red-glow) 0%, rgba(215,60,89,0) 68%);
+      pointer-events: none; z-index: 1;
+      animation: orbDrift 15s ease-in-out infinite;
+    }
+    @keyframes orbDrift {
+      0%, 100% { transform: translate(-50%, -55%) scale(1); }
+      50%      { transform: translate(-50%, -51%) scale(1.08); }
+    }
 
     /* Eyebrow — same pattern as all other pages */
     .portal-eyebrow {
@@ -214,7 +249,7 @@
       font-size: 0.82rem;
       font-weight: 600;
       color: var(--text-dark);
-      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+      box-shadow: var(--shadow-pill);
     }
 
     .status-dot-wrap { position: relative; width: 8px; height: 8px; flex-shrink: 0; }
@@ -337,16 +372,17 @@
       flex-direction: column;
       position: relative;
       overflow: hidden;
+      box-shadow: var(--shadow-card);
       transition:
-        transform 0.6s cubic-bezier(0.165,0.84,0.44,1),
-        box-shadow 0.6s cubic-bezier(0.165,0.84,0.44,1),
+        transform 0.5s var(--spring-soft),
+        box-shadow 0.5s var(--ease-out),
         border-color 0.3s ease;
       -webkit-tap-highlight-color: transparent;
     }
 
     .dash-card:hover {
       transform: translateY(-8px);
-      box-shadow: 0 30px 60px rgba(0,0,0,0.07);
+      box-shadow: var(--shadow-card-hi);
       border-color: #d8d8dc;
       color: var(--text-dark);
       text-decoration: none;
@@ -360,10 +396,19 @@
       border-color: var(--bg-nav);
       color: #fff;
     }
+    .dash-card.primary::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.06) 50%, transparent 65%);
+      transform: translateX(-130%);
+      transition: transform 0.6s var(--ease-out);
+      pointer-events: none;
+    }
+    .dash-card.primary:hover::before { transform: translateX(130%); }
 
     .dash-card.primary:hover {
       color: #fff;
-      box-shadow: 0 30px 60px rgba(0,0,0,0.18);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 30px 60px -14px rgba(0,0,0,0.35);
     }
 
     /* ── ICON ─────────────────────────────────────────────────── */
@@ -545,8 +590,7 @@
   <div class="nav-container">
     <a class="navbar-brand" href="/"><img src="assets/img/logos/logo.png" alt="More4Less"></a>
     <ul class="nav-links-desktop">
-      <li><a href="/#pricing">Pricing</a></li>
-      <li><a href="/#faq">FAQ</a></li>
+      <li><a href="/support">Support</a></li>
       <li><a href="/contact">Contact</a></li>
       <li><a href="/" class="btn-portal-top">Home</a></li>
     </ul>
@@ -558,10 +602,9 @@
 
 <div class="mobile-overlay" id="mobileOverlay">
   <ul class="mobile-nav-links">
-    <li><a href="/#pricing">Pricing</a></li>
-    <li><a href="/#faq">FAQ</a></li>
+    <li><a href="/support">Support</a></li>
     <li><a href="/contact">Contact</a></li>
-    <li><a href="/"></a></li>
+    <li><a href="/">Home</a></li>
   </ul>
 </div>
 
@@ -570,6 +613,7 @@
 
   <!-- Header -->
   <header class="portal-header">
+    <div class="portal-orb" aria-hidden="true"></div>
     <div class="portal-header-inner">
 
       <div class="portal-eyebrow">Your Account</div>
@@ -605,68 +649,67 @@
     <div id="portalAll" class="portal-grid-all">
 
       <!-- Primary row label -->
-      <div class="section-label" style="margin-bottom:16px;">Account</div>
+      <div class="section-label" style="margin-bottom:16px;">Quick Actions</div>
       <div class="primary-grid" style="margin-bottom:36px;">
 
         <a href="javascript:void(0)" data-cb-type="portal" class="dash-card primary">
-          <div class="c-label">Account Self-Serve</div>
+          <div class="c-label">Billing & Account</div>
           <div class="card-body">
-            <div class="c-title">Account Login</div>
-            <p class="c-desc">Sign in to your account portal to update payment methods, view billing dates, and manage your service status.</p>
+            <div class="c-title">My Account</div>
+            <p class="c-desc">Manage payment methods, view billing dates, and check your service status.</p>
           </div>
           <div class="c-link">Sign In</div>
         </a>
 
-
-        <a href="/activate" class="dash-card">
-          <div class="c-label">Service</div>
+        <a href="/support" class="dash-card primary">
+          <div class="c-label">Support</div>
           <div class="card-body">
-            <div class="c-title">Activate Service</div>
-            <p class="c-desc">Reactivate your plan or start a new subscription and get online fast.</p>
+            <div class="c-title">Technical Support</div>
+            <p class="c-desc">Get help from our team with any connection or hardware issue.</p>
           </div>
-          <div class="c-link">Get Started</div>
+          <div class="c-link">Start a Ticket</div>
         </a>
 
       </div>
 
       <!-- Secondary row label -->
-      <div class="section-label" style="margin-bottom:16px;">Help & Resources</div>
+      <div class="section-label" style="margin-bottom:16px;">More Options</div>
       <div class="secondary-grid">
 
-        <a href="/support" class="dash-card">
-          <div class="c-label">Assistance</div>
+        <a href="/activate" class="dash-card">
+          <div class="c-label">Service</div>
           <div class="card-body">
-            <div class="c-title">Technical Support</div>
-            <p class="c-desc">Need a hand? Our team is available to help troubleshoot any issues.</p>
+            <div class="c-title">Activate Service</div>
+            <p class="c-desc">Start a new subscription or reactivate your plan to get back online.</p>
           </div>
-          <div class="c-link">Get Help</div>
+          <div class="c-link">Start Activation</div>
         </a>
 
         <a href="/tutorials" class="dash-card">
           <div class="c-label">Guides</div>
           <div class="card-body">
-            <div class="c-title">Device Configuration</div>
-            <p class="c-desc">Step-by-step tutorials to setting up your hardware and optimizing speed.</p>
+            <div class="c-title">Setup Guides</div>
+            <p class="c-desc">Step-by-step guides for setting up your hardware and optimizing speed.</p>
           </div>
           <div class="c-link">View Guides</div>
         </a>
 
         <a href="/returns#initiate" class="dash-card">
-          <div class="c-label">Hardware</div>
+          <div class="c-label">Equipment</div>
           <div class="card-body">
             <div class="c-title">Returns</div>
-            <p class="c-desc">Easy returns process for equipment upgrades or service cancellations.</p>
+            <p class="c-desc">Start a return for equipment upgrades or service cancellations.</p>
           </div>
-          <div class="c-link">Ship Back</div>
+          <div class="c-link">Start a Return</div>
         </a>
 
         <a href="/contact" class="dash-card">
-          <div class="c-label">Inquiries</div>
+          <div class="c-label">General Inquiries</div>
           <div class="card-body">
-            <div class="c-title">Contact</div>
+            <div class="c-title">Contact Us</div>
             <p class="c-desc">Have a specific question? Send us a message and we'll get right back to you.</p>
           </div>
-          <div class="c-link">Message Us</div>
+          <div class="c-link">Send a Message</div>
         </a>
 
       </div>
