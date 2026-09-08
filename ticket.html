@@ -901,6 +901,28 @@
     lastWorkedInput.max = nowLocal;
     lastWorkedInput.value = nowLocal;
 
+    // Refresh the cap whenever the field is focused, so a tab left open
+    // for a while (or across midnight) still can't be pushed into the future.
+    lastWorkedInput.addEventListener('focus', function () {
+        lastWorkedInput.max = nowForDatetimeLocal();
+    });
+
+    // If a value somehow lands in the future (typed input on some Android
+    // keyboards can bypass the max attribute), flag it with a custom
+    // validity message. reportValidity() then shows the browser's own
+    // native validation popup — the standard iOS/Android bubble — with
+    // this message, rather than any custom-built error UI.
+    function checkLastWorkedInRange() {
+        if (lastWorkedInput.value && lastWorkedInput.value > nowForDatetimeLocal()) {
+            lastWorkedInput.setCustomValidity("This is for past events only — please choose a date and time that isn't in the future.");
+        } else {
+            lastWorkedInput.setCustomValidity('');
+        }
+    }
+    lastWorkedInput.addEventListener('input', checkLastWorkedInRange);
+    lastWorkedInput.addEventListener('change', checkLastWorkedInRange);
+    checkLastWorkedInRange();
+
     // ── Confirmation gate controls the submit button ──
     var gateCheckbox = document.getElementById('stepsConfirmed');
     var submitBtn = document.getElementById('submitBtn');
