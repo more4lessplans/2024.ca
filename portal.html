@@ -13,13 +13,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Rubik:wght@700;800&display=swap" rel="stylesheet">
-  <script src="https://js.chargebee.com/v2/chargebee.js" data-cb-site="more4lessplans"></script>
+  <script src="https://js.chargebee.com/v2/chargebee.js" data-cb-site="more4lessplans" defer></script>
 
   <style>
     /* ── Tokens — pulled directly from style.css ──────────────── */
     :root {
       --brand-red:   #D73C59;
       --brand-red-glow: rgba(215,60,89,0.14);
+      --brand-green-glow: rgba(52,199,89,0.16);
       --bg-nav:      #2E2F33;
       --bg-page:     #FBFBFD;
       --text-dark:   #1d1d1f;
@@ -190,7 +191,7 @@
     .portal-orb {
       position: absolute; top: 50%; left: 50%; width: 620px; height: 620px;
       transform: translate(-50%, -55%);
-      background: radial-gradient(circle, var(--brand-red-glow) 0%, rgba(215,60,89,0) 68%);
+      background: radial-gradient(circle, var(--brand-green-glow) 0%, rgba(52,199,89,0) 68%);
       pointer-events: none; z-index: 1;
       animation: orbDrift 15s ease-in-out infinite;
     }
