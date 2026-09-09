@@ -165,8 +165,8 @@
         .btn-portal-top {
             color: #fff !important;
             font-weight: 600;
-            background: transparent;
-            border: 1.5px solid rgba(255,255,255,0.28);
+            background: var(--red);
+            border: 1.5px solid var(--red);
             border-radius: var(--radius-full);
             padding: 6px 16px;
             margin-left: 10px;
@@ -174,8 +174,8 @@
         }
 
         .btn-portal-top:hover {
-            background: rgba(255,255,255,0.10) !important;
-            border-color: rgba(255,255,255,0.50);
+            background: var(--red-deep) !important;
+            border-color: var(--red-deep);
             color: #fff !important;
         }
 
@@ -509,7 +509,8 @@
         /* One stroke language for every icon in the product: round caps and
            round joins everywhere, no exceptions — this is what makes a
            mixed icon set read as a single, deliberate system. */
-        .topic-icon svg, .topic-chevron svg, .back-link svg, .note-inline svg, .menu-icon-close svg {
+        .topic-icon svg, .topic-chevron svg, .back-link svg, .note-inline svg, .menu-icon-close svg,
+        .device-chip-icon svg, .device-context-badge svg {
             stroke-linecap: round;
             stroke-linejoin: round;
         }
@@ -551,43 +552,6 @@
         }
         .still-need-help p { margin: 0; font-size: 0.9rem; color: var(--ink-3); }
 
-        /* ─── Segmented control (device picker) ─────────────────── */
-        .segmented {
-            position: relative;
-            display: flex;
-            background: var(--bg);
-            border-radius: var(--radius-lg);
-            padding: 4px;
-            margin: 4px 0 28px;
-        }
-        .segmented-indicator {
-            position: absolute; top: 4px; bottom: 4px; left: 4px;
-            width: calc(50% - 4px);
-            background: #ffffff;
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-float);
-            transition: transform 0.45s var(--spring);
-        }
-        .segmented.pos-2 .segmented-indicator { transform: translateX(100%); }
-        .segmented-btn {
-            position: relative; z-index: 1;
-            flex: 1; padding: 11px 16px;
-            background: none; border: none;
-            font-family: 'Figtree', sans-serif;
-            font-weight: 700; font-size: 0.88rem;
-            color: var(--ink-3); cursor: pointer;
-            text-align: center;
-            transition: color 0.25s ease, transform 0.15s var(--ease-out);
-        }
-        .segmented-btn.active { color: var(--ink); }
-        .segmented-btn:active { transform: scale(0.97); }
-
-        .device-issue-panel { display: none; }
-        .device-issue-panel.active { display: block; animation: revealUp 0.35s var(--ease-out); }
-
-        /* Keyboard accessibility — a soft halo rather than a hard ring reads
-           as intentional rather than a browser default, while staying
-           clearly visible for keyboard users. */
         :focus-visible {
             outline: 2px solid var(--red);
             outline-offset: 2px;
@@ -603,6 +567,91 @@
         }
 
         .segmented-btn:focus-visible { outline-offset: -2px; }
+        .device-chip:focus-visible { outline-offset: 2px; }
+
+        /* ─── Global device switcher — persists across every screen ─── */
+        .device-bar {
+            background: var(--bg-card);
+            border-radius: var(--radius-xl);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+            padding: 22px 24px;
+            margin-bottom: 24px;
+            transition: box-shadow 0.3s ease;
+        }
+        .device-bar.pulse-attn { animation: deviceBarPulse 1.1s var(--ease-out); }
+        @keyframes deviceBarPulse {
+            0%, 100% { box-shadow: 0 10px 30px rgba(0,0,0,0.04); }
+            30%      { box-shadow: 0 0 0 4px var(--red-glow), 0 10px 30px rgba(0,0,0,0.04); }
+        }
+        .device-bar-title {
+            display: block; font-size: 0.72rem; font-weight: 700;
+            letter-spacing: 0.12em; text-transform: uppercase;
+            color: var(--ink-3); margin-bottom: 4px;
+        }
+        .device-bar-sub { display: block; font-size: 0.87rem; color: var(--ink-3); margin-bottom: 16px; line-height: 1.5; }
+
+        .device-chip-group { display: flex; gap: 12px; }
+        .device-chip {
+            flex: 1; display: flex; align-items: center; gap: 12px;
+            padding: 14px 16px;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-lg);
+            background: var(--bg);
+            cursor: pointer; text-align: left;
+            font-family: 'Figtree', sans-serif;
+            transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease, transform 0.15s var(--ease-out);
+        }
+        .device-chip:hover { border-color: var(--ink-4); }
+        .device-chip:active { transform: scale(0.98); }
+        .device-chip-icon {
+            flex-shrink: 0; width: 38px; height: 38px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            border: 1.5px solid var(--border); background: var(--bg-card); color: var(--ink-3);
+            transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+        }
+        .device-chip-icon svg { width: 18px; height: 18px; stroke: currentColor; stroke-width: 1.75; fill: none; overflow: visible; }
+        .device-chip-text { flex: 1; min-width: 0; }
+        .device-chip-title { display: block; font-size: 0.92rem; font-weight: 700; color: var(--ink); }
+        .device-chip-model { display: block; font-size: 0.78rem; color: var(--ink-3); margin-top: 1px; }
+        .device-chip-check {
+            flex-shrink: 0; width: 20px; height: 20px; border-radius: 50%;
+            border: 1.5px solid var(--border); background: #fff;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .device-chip-check svg { width: 11px; height: 11px; stroke: #fff; stroke-width: 2.6; fill: none; opacity: 0; transition: opacity 0.15s ease; }
+        .device-chip.selected { border-color: var(--red); background: var(--red-glow-sm); box-shadow: 0 0 0 1px var(--red-glow); }
+        .device-chip.selected .device-chip-icon { color: var(--red); border-color: transparent; background: #fff; }
+        .device-chip.selected .device-chip-check { background: var(--red); border-color: var(--red); }
+        .device-chip.selected .device-chip-check svg { opacity: 1; }
+
+        /* ─── Per-device content filtering ───────────────────────── */
+        /* Default (no device chosen yet): every [data-device-only] block
+           shows, so nothing regresses before a person picks a device. */
+        [data-device-filter="nighthawk"] [data-device-only="orbi"] { display: none !important; }
+        [data-device-filter="orbi"] [data-device-only="nighthawk"] { display: none !important; }
+
+        /* Inline badge at the top of any catered guide, telling you which
+           device's steps you're looking at (and letting you change it
+           without hunting back up to the device bar). */
+        .device-context-badge {
+            display: none; align-items: center; gap: 8px;
+            padding: 10px 14px; margin-bottom: 24px;
+            font-size: 0.83rem; color: var(--ink-2);
+            background: var(--bg); border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+        }
+        .device-context-badge svg { flex-shrink: 0; width: 14px; height: 14px; stroke: var(--ink-4); stroke-width: 1.8; fill: none; overflow: visible; }
+        .device-context-switch {
+            font-family: 'Figtree', sans-serif; font-size: 0.83rem; font-weight: 700;
+            color: var(--red); background: none; border: none; padding: 0; margin-left: auto;
+            cursor: pointer; text-decoration: underline; text-decoration-color: rgba(215,60,89,0.35);
+            flex-shrink: 0;
+        }
+        .device-context-switch:hover { text-decoration-color: var(--red); }
+        [data-device-filter="nighthawk"] .device-context-badge[data-badge-device="nighthawk"] { display: flex; }
+        [data-device-filter="orbi"] .device-context-badge[data-badge-device="orbi"] { display: flex; }
+        .device-context-badge[data-badge-device="none"] { display: flex; }
+        [data-device-filter] .device-context-badge[data-badge-device="none"] { display: none; }
 
         /* ═══════════════════════════════════════════════════════════
            FOOTER
@@ -634,6 +683,10 @@
 
             .still-need-help { flex-direction: column; align-items: stretch; text-align: center; }
 
+            .device-chip-group { flex-direction: column; }
+            .device-context-badge { flex-wrap: wrap; }
+            .device-context-switch { margin-left: 0; }
+
             .footer { flex-direction: column; text-align: center; padding: 28px 24px; }
             .footer-links { justify-content: center; }
         }
@@ -650,9 +703,9 @@
         </a>
 
         <ul class="nav-links-desktop">
-            <li><a href="/#pricing">Pricing</a></li>
-            <li><a href="/contact">Contact</a></li>
-            <li><a href="/portal" class="btn-portal-top">Customer Portal</a></li>
+            <li><a href="/">Home</a></li>
+            <li><a href="/faq">FAQ</a></li>
+            <li><a href="/portal" class="btn-portal-top">Dashboard</a></li>
         </ul>
 
         <button class="menu-trigger" id="menuTrigger" onclick="toggleMenu()" aria-label="Open menu" aria-expanded="false" aria-controls="mobileOverlay">
@@ -663,9 +716,9 @@
 
 <div class="mobile-overlay" id="mobileOverlay" aria-hidden="true">
     <ul class="mobile-nav-links">
-        <li><a href="/#pricing">Pricing</a></li>
-        <li><a href="/contact">Contact</a></li>
-        <li class="portal-link"><a href="/portal">Account Portal</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/faq">FAQ</a></li>
+        <li class="portal-link"><a href="/portal">Dashboard</a></li>
     </ul>
 </div>
 
@@ -683,6 +736,31 @@
 
     <!-- Main Content -->
     <div class="support-content" id="supportContent">
+
+        <!-- Global device switcher — persists across every screen below,
+             and every catered guide reads from this single choice. -->
+        <div class="device-bar" id="deviceBar">
+            <span class="device-bar-title">Your Device</span>
+            <span class="device-bar-sub" id="deviceBarSub">Select yours to continue — every guide below is tailored to it.</span>
+            <div class="device-chip-group" role="radiogroup" aria-label="Select your device type">
+                <button type="button" class="device-chip" id="deviceChipNighthawk" data-device-choice="nighthawk" onclick="setGlobalDevice('nighthawk')" role="radio" aria-checked="false">
+                    <span class="device-chip-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="7" y="3" width="10" height="18" rx="2.3"/><path d="M11 17.3h2"/></svg></span>
+                    <span class="device-chip-text">
+                        <span class="device-chip-title">On the Go</span>
+                        <span class="device-chip-model">Nighthawk M6 / M6 Pro hotspot</span>
+                    </span>
+                    <span class="device-chip-check"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg></span>
+                </button>
+                <button type="button" class="device-chip" id="deviceChipOrbi" data-device-choice="orbi" onclick="setGlobalDevice('orbi')" role="radio" aria-checked="false">
+                    <span class="device-chip-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 11.5L12 4.7l8 6.8"/><path d="M6.4 10v9.3h11.2V10"/></svg></span>
+                    <span class="device-chip-text">
+                        <span class="device-chip-title">At Home</span>
+                        <span class="device-chip-model">Orbi LBR20 fixed wireless router</span>
+                    </span>
+                    <span class="device-chip-check"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg></span>
+                </button>
+            </div>
+        </div>
 
         <!-- Topic picker -->
         <div class="view" id="topicListView">
@@ -719,6 +797,18 @@
                     </span>
                     <span class="topic-chevron"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M4.5 2.5l4 3.5-4 3.5"/></svg></span>
                 </button>
+                <button type="button" class="topic-row" onclick="goToView('weak-signal-rooms','forward')">
+                    <span class="topic-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path d="M4 11.5L12 5l8 6.5"/>
+                        <path d="M6.5 10.5V19h11v-8.5"/>
+                        <path d="M9.7 15.1a3.2 3.2 0 0 1 4.6 0" opacity="0.55"/>
+                    </svg></span>
+                    <span class="topic-text">
+                        <span class="topic-title">Weak signal in certain rooms</span>
+                        <span class="topic-subtitle">Extend coverage throughout your home</span>
+                    </span>
+                    <span class="topic-chevron"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M4.5 2.5l4 3.5-4 3.5"/></svg></span>
+                </button>
                 <button type="button" class="topic-row" onclick="goToView('router-not-turning-on','forward')">
                     <span class="topic-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                         <path d="M12 3.6v7.2"/>
@@ -744,6 +834,18 @@
                     </span>
                     <span class="topic-chevron"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M4.5 2.5l4 3.5-4 3.5"/></svg></span>
                 </button>
+                <button type="button" class="topic-row" onclick="goToView('first-time-setup','forward')">
+                    <span class="topic-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path d="M3.6 8.1L12 4l8.4 4.1"/>
+                        <path d="M3.6 8.1v8.2L12 20.4l8.4-4.1V8.1"/>
+                        <path d="M3.6 8.1L12 12.2l8.4-4.1M12 12.2v8.2"/>
+                    </svg></span>
+                    <span class="topic-text">
+                        <span class="topic-title">Setting up your device for the first time</span>
+                        <span class="topic-subtitle">Get connected fresh out of the box</span>
+                    </span>
+                    <span class="topic-chevron"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M4.5 2.5l4 3.5-4 3.5"/></svg></span>
+                </button>
                 <button type="button" class="topic-row" onclick="goToView('change-wifi-name','forward')">
                     <span class="topic-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                         <path d="M14.3 5.7l4 4L8 20l-4.3.7.7-4.3z"/>
@@ -752,6 +854,17 @@
                     <span class="topic-text">
                         <span class="topic-title">Change your Wi-Fi name or password</span>
                         <span class="topic-subtitle">Update your network settings</span>
+                    </span>
+                    <span class="topic-chevron"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M4.5 2.5l4 3.5-4 3.5"/></svg></span>
+                </button>
+                <button type="button" class="topic-row" onclick="goToView('router-login-issues','forward')">
+                    <span class="topic-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <rect x="6" y="10.8" width="12" height="8.2" rx="1.7"/>
+                        <path d="M8.6 10.8V8.2a3.4 3.4 0 0 1 6.8 0v2.6"/>
+                    </svg></span>
+                    <span class="topic-text">
+                        <span class="topic-title">Can't access your router's settings</span>
+                        <span class="topic-subtitle">Log in or recover admin access</span>
                     </span>
                     <span class="topic-chevron"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M4.5 2.5l4 3.5-4 3.5"/></svg></span>
                 </button>
@@ -777,6 +890,117 @@
                     </span>
                     <span class="topic-chevron"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M4.5 2.5l4 3.5-4 3.5"/></svg></span>
                 </button>
+                <button type="button" class="topic-row" onclick="goToView('data-usage','forward')">
+                    <span class="topic-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path d="M6 17.5v-5"/>
+                        <path d="M12 17.5v-9"/>
+                        <path d="M18 17.5v-3"/>
+                    </svg></span>
+                    <span class="topic-text">
+                        <span class="topic-title">Check your data usage</span>
+                        <span class="topic-subtitle">See how much data you've used this cycle</span>
+                    </span>
+                    <span class="topic-chevron"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M4.5 2.5l4 3.5-4 3.5"/></svg></span>
+                </button>
+                <button type="button" class="topic-row" onclick="goToView('led-icons','forward')">
+                    <span class="topic-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path d="M9.2 18.2h5.6"/>
+                        <path d="M10 20.6h4"/>
+                        <path d="M12 3.6a5.6 5.6 0 0 0-3.2 10.2c.6.45 1 1.15 1 1.9v.6h4.4v-.6c0-.75.4-1.45 1-1.9A5.6 5.6 0 0 0 12 3.6z"/>
+                    </svg></span>
+                    <span class="topic-text">
+                        <span class="topic-title">What do the lights/icons mean?</span>
+                        <span class="topic-subtitle">Decode your device's status indicators</span>
+                    </span>
+                    <span class="topic-chevron"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M4.5 2.5l4 3.5-4 3.5"/></svg></span>
+                </button>
+                <button type="button" class="topic-row" onclick="goToView('firmware-update','forward')">
+                    <span class="topic-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path d="M12 4v9.5"/>
+                        <path d="M8.4 10.1L12 13.7l3.6-3.6"/>
+                        <path d="M5 17.5h14"/>
+                    </svg></span>
+                    <span class="topic-text">
+                        <span class="topic-title">Update your device's firmware</span>
+                        <span class="topic-subtitle">Keep your device current and secure</span>
+                    </span>
+                    <span class="topic-chevron"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M4.5 2.5l4 3.5-4 3.5"/></svg></span>
+                </button>
+                <button type="button" class="topic-row" onclick="goToView('device-limit','forward')">
+                    <span class="topic-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <rect x="3.5" y="6" width="7" height="12" rx="1.4"/>
+                        <rect x="13.5" y="4" width="7" height="14" rx="1.4"/>
+                        <path d="M6 15.3h1" opacity="0.6"/>
+                    </svg></span>
+                    <span class="topic-text">
+                        <span class="topic-title">Too many devices, or one won't connect</span>
+                        <span class="topic-subtitle">Sort out connection limits and stuck devices</span>
+                    </span>
+                    <span class="topic-chevron"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M4.5 2.5l4 3.5-4 3.5"/></svg></span>
+                </button>
+                <button type="button" class="topic-row" onclick="goToView('external-antenna','forward')">
+                    <span class="topic-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path d="M12 21V10"/>
+                        <path d="M12 10a4 4 0 0 0 4-4"/>
+                        <path d="M12 10a4 4 0 0 1-4-4"/>
+                        <path d="M12 3v2.2"/>
+                    </svg></span>
+                    <span class="topic-text">
+                        <span class="topic-title">Using an external antenna</span>
+                        <span class="topic-subtitle">Boost signal in weak-coverage areas</span>
+                    </span>
+                    <span class="topic-chevron"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M4.5 2.5l4 3.5-4 3.5"/></svg></span>
+                </button>
+                <button type="button" class="topic-row" onclick="goToView('port-forwarding','forward')">
+                    <span class="topic-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <rect x="4.5" y="5" width="15" height="5.5" rx="1.3"/>
+                        <rect x="4.5" y="13.5" width="15" height="5.5" rx="1.3"/>
+                        <circle cx="7.5" cy="7.75" r="0.6" fill="currentColor" stroke="none"/>
+                        <circle cx="7.5" cy="16.25" r="0.6" fill="currentColor" stroke="none"/>
+                    </svg></span>
+                    <span class="topic-text">
+                        <span class="topic-title">Port forwarding, VPN, or a static IP</span>
+                        <span class="topic-subtitle">Advanced network setup for cameras, servers & more</span>
+                    </span>
+                    <span class="topic-chevron"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M4.5 2.5l4 3.5-4 3.5"/></svg></span>
+                </button>
+                <button type="button" class="topic-row" onclick="goToView('guest-network','forward')">
+                    <span class="topic-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <circle cx="9" cy="8.2" r="2.6"/>
+                        <path d="M4 18.5c0-2.9 2.2-4.6 5-4.6s5 1.7 5 4.6"/>
+                        <circle cx="17.3" cy="9" r="2" opacity="0.55"/>
+                        <path d="M15.5 14.3c1.9.3 3.2 1.7 3.2 4.2" opacity="0.55"/>
+                    </svg></span>
+                    <span class="topic-text">
+                        <span class="topic-title">Guest network & parental controls</span>
+                        <span class="topic-subtitle">Share access safely or manage device limits</span>
+                    </span>
+                    <span class="topic-chevron"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M4.5 2.5l4 3.5-4 3.5"/></svg></span>
+                </button>
+                <button type="button" class="topic-row" onclick="goToView('traveling','forward')">
+                    <span class="topic-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <rect x="4" y="8" width="16" height="11" rx="1.8"/>
+                        <path d="M9 8V6.2A1.6 1.6 0 0 1 10.6 4.6h2.8A1.6 1.6 0 0 1 15 6.2V8"/>
+                        <path d="M4 13h16" opacity="0.5"/>
+                    </svg></span>
+                    <span class="topic-text">
+                        <span class="topic-title">Using your device away from home</span>
+                        <span class="topic-subtitle">What travels well, and what doesn't</span>
+                    </span>
+                    <span class="topic-chevron"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M4.5 2.5l4 3.5-4 3.5"/></svg></span>
+                </button>
+                <button type="button" class="topic-row" onclick="goToView('battery-health','forward')">
+                    <span class="topic-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <rect x="3.5" y="8" width="15" height="8" rx="1.6"/>
+                        <path d="M18.5 10.5h1.4a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1h-1.4"/>
+                        <path d="M7 11v2M9.2 11v2" opacity="0.6"/>
+                    </svg></span>
+                    <span class="topic-text">
+                        <span class="topic-title">Battery care & charging tips</span>
+                        <span class="topic-subtitle">Get the most out of your Nighthawk's battery</span>
+                    </span>
+                    <span class="topic-chevron"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M4.5 2.5l4 3.5-4 3.5"/></svg></span>
+                </button>
                 <button type="button" class="topic-row" onclick="goToView('other','forward')">
                     <span class="topic-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                         <path d="M4.2 5.4h15.6a1.2 1.2 0 0 1 1.2 1.2v8.4a1.2 1.2 0 0 1-1.2 1.2h-9l-4.2 3.4v-3.4H4.2a1.2 1.2 0 0 1-1.2-1.2V6.6a1.2 1.2 0 0 1 1.2-1.2z"/>
@@ -795,6 +1019,19 @@
             <button type="button" class="back-link" onclick="goToView('topicListView','back')"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M7.5 2.5L3.5 6l4 3.5"/></svg>All topics</button>
             <h3>Fix Your 5G/LTE Internet Connection</h3>
 
+            <div class="device-context-badge" data-badge-device="none">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                Steps below cover both devices — <button type="button" class="device-context-switch" onclick="goToDeviceBar()">select yours</button> to see only what applies to you.
+            </div>
+            <div class="device-context-badge" data-badge-device="nighthawk">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                Showing steps for your <strong>Nighthawk</strong>. <button type="button" class="device-context-switch" onclick="goToDeviceBar()">Switch device</button>
+            </div>
+            <div class="device-context-badge" data-badge-device="orbi">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                Showing steps for your <strong>Orbi</strong>. <button type="button" class="device-context-switch" onclick="goToDeviceBar()">Switch device</button>
+            </div>
+
             <h4>Quick Settings Checklist</h4>
             <ul>
                 <li><strong>Is your APN set correctly?</strong> An incorrect or missing APN is the most common cause of a connection that won't work at all.</li>
@@ -803,12 +1040,13 @@
             </ul>
             <div class="note-inline">
                 <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
-                <span>Not sure where to find these settings? Follow the guide for your device —
-                <a href="tutorials#mobile-update-apn" target="_blank" rel="nofollow">Nighthawk APN</a>,
-                <a href="tutorials#mobile-band-locking" target="_blank" rel="nofollow">Nighthawk Band Locking</a>,
-                <a href="tutorials#mobile-manual-network" target="_blank" rel="nofollow">Nighthawk Manual Network</a>, or
-                <a href="tutorials#fixed-update-apn" target="_blank" rel="nofollow">Orbi APN</a> and
-                <a href="tutorials#fixed-manual-network" target="_blank" rel="nofollow">Orbi Manual Network</a>.</span>
+                <span data-device-only="nighthawk">Not sure where to find these settings? Follow the guide for your Nighthawk —
+                <a href="tutorials#mobile-update-apn" target="_blank" rel="nofollow">APN</a>,
+                <a href="tutorials#mobile-band-locking" target="_blank" rel="nofollow">Band Locking</a>, and
+                <a href="tutorials#mobile-manual-network" target="_blank" rel="nofollow">Manual Network</a> guides.</span>
+                <span data-device-only="orbi">Not sure where to find these settings? Follow the guide for your Orbi —
+                <a href="tutorials#fixed-update-apn" target="_blank" rel="nofollow">APN</a> and
+                <a href="tutorials#fixed-manual-network" target="_blank" rel="nofollow">Manual Network</a> guides.</span>
             </div>
 
             <h4>Check Your Cell Signal First</h4>
@@ -868,6 +1106,20 @@
         <div class="view hidden troubleshooting-card" id="internet-too-slow">
             <button type="button" class="back-link" onclick="goToView('topicListView','back')"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M7.5 2.5L3.5 6l4 3.5"/></svg>All topics</button>
             <h3>Internet Too Slow?</h3>
+
+            <div class="device-context-badge" data-badge-device="none">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                Steps below cover both devices — <button type="button" class="device-context-switch" onclick="goToDeviceBar()">select yours</button> to see only what applies to you.
+            </div>
+            <div class="device-context-badge" data-badge-device="nighthawk">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                Showing steps for your <strong>Nighthawk</strong>. <button type="button" class="device-context-switch" onclick="goToDeviceBar()">Switch device</button>
+            </div>
+            <div class="device-context-badge" data-badge-device="orbi">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                Showing steps for your <strong>Orbi</strong>. <button type="button" class="device-context-switch" onclick="goToDeviceBar()">Switch device</button>
+            </div>
+
             <ol>
                 <li><strong>Choose a Stronger Network</strong>
                     <ul>
@@ -876,8 +1128,8 @@
                         <li>Select the strongest band or set to "Auto" for best performance.</li>
                     </ul>
                     <div class="button-group" style="margin-top: 12px;">
-                        <a href="tutorials#mobile-band-locking" class="btn-secondary" target="_blank" rel="nofollow">Nighthawk: Band Locking Guide</a>
-                        <a href="tutorials#fixed-manual-network" class="btn-secondary" target="_blank" rel="nofollow">Orbi: Manual Network Guide</a>
+                        <a href="tutorials#mobile-band-locking" class="btn-secondary" target="_blank" rel="nofollow" data-device-only="nighthawk">Nighthawk: Band Locking Guide</a>
+                        <a href="tutorials#fixed-manual-network" class="btn-secondary" target="_blank" rel="nofollow" data-device-only="orbi">Orbi: Manual Network Guide</a>
                     </div>
                 </li>
                 <li><strong>Optimize Hub Placement</strong>
@@ -886,6 +1138,8 @@
                         <li>Avoid thick walls, metal objects, or appliances.</li>
                         <li>Elevate the hub (e.g., on a shelf) away from other electronics.</li>
                         <li>Test different locations with a speed test tool.</li>
+                        <li data-device-only="nighthawk">Since the Nighthawk is portable, try a few different central spots in the home rather than leaving it wherever it first landed.</li>
+                        <li data-device-only="orbi">Still slow in one specific room? That's usually a coverage gap rather than a speed issue — see <a href="javascript:void(0)" onclick="goToView('weak-signal-rooms','forward')">Weak signal in certain rooms</a>.</li>
                     </ul>
                     <a href="https://speedtest.net" class="btn-secondary" target="_blank" rel="nofollow">Run Speed Test</a>
                 </li>
@@ -910,12 +1164,82 @@
             </div>
         </div>
 
+        <!-- Weak Signal In Certain Rooms -->
+        <div class="view hidden troubleshooting-card" id="weak-signal-rooms">
+            <button type="button" class="back-link" onclick="goToView('topicListView','back')"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M7.5 2.5L3.5 6l4 3.5"/></svg>All topics</button>
+            <h3>Fixing Weak Signal in Specific Rooms</h3>
+            <p>A good signal in the living room but nothing in the basement or a back bedroom usually comes down to coverage rather than a fault with your plan. How you fix it depends on which device you have.</p>
+
+            <div class="device-context-badge" data-badge-device="none">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                Steps below cover both devices — <button type="button" class="device-context-switch" onclick="goToDeviceBar()">select yours</button> to see only what applies to you.
+            </div>
+            <div class="device-context-badge" data-badge-device="nighthawk">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                Showing steps for your <strong>Nighthawk</strong>. <button type="button" class="device-context-switch" onclick="goToDeviceBar()">Switch device</button>
+            </div>
+            <div class="device-context-badge" data-badge-device="orbi">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                Showing steps for your <strong>Orbi</strong>. <button type="button" class="device-context-switch" onclick="goToDeviceBar()">Switch device</button>
+            </div>
+
+            <div data-device-only="nighthawk">
+                <h4>Nighthawk: Work With a Single Portable Hub</h4>
+                <p>The Nighthawk is one hub, so the fix is usually about where it sits — or how you extend its signal — rather than the device itself.</p>
+                <ul>
+                    <li>Move it to the most central room in the home rather than tucking it in the room you use most — a few metres can matter more than you'd expect.</li>
+                    <li>Keep it up off the floor and away from large appliances, mirrors, and metal furniture, which all block signal.</li>
+                    <li>If one room is consistently weak, connect to the hub's Wi-Fi from just outside that room instead of deep inside it, or bring the hub with you if you're mobile.</li>
+                    <li>A 2x2 MIMO antenna aimed at your nearest cell tower can meaningfully widen the hub's effective range.</li>
+                    <li>A third-party Wi-Fi extender or access point can rebroadcast the Nighthawk's signal into weaker rooms. If you go this route, set the Nighthawk's Wi-Fi to stay on at all times in its settings — an extender depends on that signal always being available, and the default power-saving timeout will disconnect it.</li>
+                    <li>For a more permanent setup, connect the Nighthawk to a dedicated router over Ethernet and let that router handle Wi-Fi for the whole home. You can still unplug the Nighthawk and take it with you when you're on the go — it's built to be portable either way.</li>
+                </ul>
+            </div>
+
+            <div data-device-only="orbi">
+                <h4>Orbi: Extend Coverage With a Satellite or Third-Party Access Point</h4>
+                <p>Orbi's mesh system is built to add coverage room by room, which makes it the better option for larger homes or multiple floors. A third-party extender or access point works too, if you'd rather go that route.</p>
+                <ul>
+                    <li>An Orbi satellite unit relays the signal from your main router into rooms it doesn't reach well on its own.</li>
+                    <li>Place the satellite roughly halfway between the main router and the weak room, not inside the weak room itself.</li>
+                    <li>Pair it through the NETGEAR Orbi app's "Add Satellite" flow — it walks you through placement and confirms signal strength as you go.</li>
+                    <li>Avoid placing satellites in basements or behind large appliances, for the same reasons that affect the main unit.</li>
+                    <li>A third-party Wi-Fi extender or access point connected to the Orbi works just as well if you'd prefer not to add a satellite.</li>
+                </ul>
+                <a href="app-download" class="btn-secondary" target="_blank" rel="nofollow">Download the Orbi App</a>
+            </div>
+
+            <div class="note-inline">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                <span>More4Less doesn't sell or supply extenders, access points, or dedicated routers — any of the equipment above is sourced through a retailer of your choice.</span>
+            </div>
+
+            <div class="still-need-help">
+                <p>Still stuck after trying these steps? Open a ticket and we'll carry over what you've already tried, so you won't have to repeat yourself.</p>
+                <a href="/ticket.html" class="btn-primary" data-ticket-cta="weak-signal-rooms">Create a Support Ticket</a>
+            </div>
+        </div>
+
         <!-- Router Not Turning On -->
         <div class="view hidden troubleshooting-card" id="router-not-turning-on">
             <button type="button" class="back-link" onclick="goToView('topicListView','back')"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M7.5 2.5L3.5 6l4 3.5"/></svg>All topics</button>
             <h3>Troubleshoot a Router That Won't Power On</h3>
+
+            <div class="device-context-badge" data-badge-device="none">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                Steps below cover both devices — <button type="button" class="device-context-switch" onclick="goToDeviceBar()">select yours</button> to see only what applies to you.
+            </div>
+            <div class="device-context-badge" data-badge-device="nighthawk">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                Showing steps for your <strong>Nighthawk</strong>. <button type="button" class="device-context-switch" onclick="goToDeviceBar()">Switch device</button>
+            </div>
+            <div class="device-context-badge" data-badge-device="orbi">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                Showing steps for your <strong>Orbi</strong>. <button type="button" class="device-context-switch" onclick="goToDeviceBar()">Switch device</button>
+            </div>
+
             <ol>
-                <li><strong>For Mobile Devices with a Battery</strong>
+                <li data-device-only="nighthawk"><strong>For Mobile Devices with a Battery</strong>
                     <ul>
                         <li>Remove the battery from the device.</li>
                         <li>Connect it to a power source using a USB-C cable and 3.0A power adapter (without the battery).</li>
@@ -923,7 +1247,7 @@
                     </ul>
                     <a href="tutorials#mobile-battery-free" class="btn-secondary" target="_blank" rel="nofollow">Nighthawk Battery-Free Guide</a>
                 </li>
-                <li><strong>For Home Devices with a Power Adapter</strong>
+                <li data-device-only="orbi"><strong>For Home Devices with a Power Adapter</strong>
                     <ul>
                         <li>Ensure the power adapter is securely connected to the router and a working outlet.</li>
                         <li>Try a different outlet to rule out power issues.</li>
@@ -957,10 +1281,24 @@
         <div class="view hidden troubleshooting-card" id="change-wifi-name">
             <button type="button" class="back-link" onclick="goToView('topicListView','back')"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M7.5 2.5L3.5 6l4 3.5"/></svg>All topics</button>
             <h3>Change Your Wi-Fi Name or Password</h3>
+
+            <div class="device-context-badge" data-badge-device="none">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                Steps below cover both devices — <button type="button" class="device-context-switch" onclick="goToDeviceBar()">select yours</button> to see only what applies to you.
+            </div>
+            <div class="device-context-badge" data-badge-device="nighthawk">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                Showing steps for your <strong>Nighthawk</strong>. <button type="button" class="device-context-switch" onclick="goToDeviceBar()">Switch device</button>
+            </div>
+            <div class="device-context-badge" data-badge-device="orbi">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                Showing steps for your <strong>Orbi</strong>. <button type="button" class="device-context-switch" onclick="goToDeviceBar()">Switch device</button>
+            </div>
+
             <h4>Option 1: Use the NETGEAR App (Recommended)</h4>
             <ul>
-                <li>For Nighthawk M1/M6, use the NETGEAR Mobile app.</li>
-                <li>For Orbi, use the NETGEAR Orbi app.</li>
+                <li data-device-only="nighthawk">For Nighthawk M1/M6, use the NETGEAR Mobile app.</li>
+                <li data-device-only="orbi">For Orbi, use the NETGEAR Orbi app.</li>
                 <li>Download the app from the App Store or Google Play.</li>
                 <li>Open the app, connect to your device, and go to Wi-Fi Settings to update the name (SSID) or password.</li>
                 <li>Save changes, which apply immediately.</li>
@@ -980,8 +1318,8 @@
                 </li>
                 <li><strong>Log In</strong>
                     <ul>
-                        <li>Nighthawk: Username <em>admin</em>, Password <em>attadmin</em></li>
-                        <li>Orbi: Username <em>admin</em>, Password <em>more4less</em></li>
+                        <li data-device-only="nighthawk">Nighthawk: Username <em>admin</em>, Password <em>attadmin</em></li>
+                        <li data-device-only="orbi">Orbi: Username <em>admin</em>, Password <em>more4less</em></li>
                     </ul>
                 </li>
                 <li><strong>Update Settings</strong>
@@ -1000,6 +1338,68 @@
             <div class="still-need-help">
                 <p>Still stuck after trying these steps? Open a ticket and we'll carry over what you've already tried, so you won't have to repeat yourself.</p>
                 <a href="/ticket.html" class="btn-primary" data-ticket-cta="change-wifi-name">Create a Support Ticket</a>
+            </div>
+        </div>
+
+        <!-- Router Login Issues -->
+        <div class="view hidden troubleshooting-card" id="router-login-issues">
+            <button type="button" class="back-link" onclick="goToView('topicListView','back')"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M7.5 2.5L3.5 6l4 3.5"/></svg>All topics</button>
+            <h3>Can't Log Into Your Router's Settings Page?</h3>
+
+            <div class="device-context-badge" data-badge-device="none">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                Steps below cover both devices — <button type="button" class="device-context-switch" onclick="goToDeviceBar()">select yours</button> to see only what applies to you.
+            </div>
+            <div class="device-context-badge" data-badge-device="nighthawk">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                Showing steps for your <strong>Nighthawk</strong>. <button type="button" class="device-context-switch" onclick="goToDeviceBar()">Switch device</button>
+            </div>
+            <div class="device-context-badge" data-badge-device="orbi">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                Showing steps for your <strong>Orbi</strong>. <button type="button" class="device-context-switch" onclick="goToDeviceBar()">Switch device</button>
+            </div>
+
+            <h4>Default Login Details</h4>
+            <ul>
+                <li>Address: <em>192.168.1.1</em>, entered directly in a browser's address bar (not a search box).</li>
+                <li data-device-only="nighthawk">Nighthawk: Username <em>admin</em>, Password <em>attadmin</em></li>
+                <li data-device-only="orbi">Orbi: Username <em>admin</em>, Password <em>more4less</em></li>
+            </ul>
+
+            <h4>If the Page Won't Load</h4>
+            <ol>
+                <li><strong>Confirm You're on the Right Network</strong>
+                    <ul>
+                        <li>You need to be connected to your device's own Wi-Fi network (or plugged into it directly) — not your home network from another provider, and not mobile data.</li>
+                    </ul>
+                </li>
+                <li><strong>Type the Address Directly</strong>
+                    <ul>
+                        <li>Enter <em>192.168.1.1</em> in the browser's address bar rather than searching for it, and try adding <em>http://</em> in front if it still doesn't load.</li>
+                    </ul>
+                </li>
+                <li><strong>Try a Different Browser or Device</strong>
+                    <ul>
+                        <li>Some browser extensions and privacy settings can block local network pages — a different browser or an incognito/private window rules this out quickly.</li>
+                    </ul>
+                </li>
+                <li><strong>Restart the Device</strong>
+                    <ul>
+                        <li>Power the device off for 10 seconds, then back on, and try loading the page again once it's fully restarted.</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h4>If You Changed the Password and Forgot It</h4>
+            <ul>
+                <li data-device-only="nighthawk">Use the NETGEAR Mobile app's "Forgot Password" option if you're still logged in on a paired phone — it can reset admin access without a full factory reset.</li>
+                <li data-device-only="orbi">A factory reset restores the default login above, though it also clears your Wi-Fi name and password. See the <a href="tutorials#fixed-factory-reset" target="_blank" rel="nofollow">Orbi Factory Reset Guide</a> first.</li>
+                <li>If neither option works, open a ticket below and we can help verify your account and get you back in.</li>
+            </ul>
+
+            <div class="still-need-help">
+                <p>Still stuck after trying these steps? Open a ticket and we'll carry over what you've already tried, so you won't have to repeat yourself.</p>
+                <a href="/ticket.html" class="btn-primary" data-ticket-cta="router-login-issues">Create a Support Ticket</a>
             </div>
         </div>
 
@@ -1030,7 +1430,7 @@
             <button type="button" class="back-link" onclick="goToView('topicListView','back')"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M7.5 2.5L3.5 6l4 3.5"/></svg>All topics</button>
             <h3>Pause or Reactivate Your Service</h3>
             <p>Our service is 100% contract-free. While there is no option to pause your service, you're free to cancel at any time without penalty. When you're ready to return, you can reactivate the service at any time. We recommend reaching out at least one week in advance of your preferred restart date to ensure a smooth reactivation process. A new SIM card is required to resume service, which costs $10.</p>
-            <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px; max-width: 280px;">
+            <div class="button-group" style="margin-top: 20px;">
                 <a href="https://more4lessplans.chargebeeportal.com/portal/v2/login?forward=portal_main" class="btn-secondary" target="_blank" rel="nofollow" style="margin-top:0;">Cancel Service</a>
                 <a href="/reactivate-service" class="btn-primary" target="_blank" rel="nofollow">Re-Activate Service</a>
             </div>
@@ -1045,15 +1445,22 @@
         <div class="view hidden troubleshooting-card" id="device-specific-issues">
             <button type="button" class="back-link" onclick="goToView('topicListView','back')"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M7.5 2.5L3.5 6l4 3.5"/></svg>All topics</button>
             <h3>Device Won't Stay Connected (Hardware)</h3>
-            <p>Hardware troubleshooting looks a little different between our two device types. Select yours below for targeted steps.</p>
+            <p>Hardware troubleshooting looks a little different between our two device types.</p>
 
-            <div class="segmented" id="deviceSegmented" role="tablist" aria-label="Device type">
-                <div class="segmented-indicator" aria-hidden="true"></div>
-                <button type="button" class="segmented-btn active" role="tab" aria-selected="true" data-device="nighthawk" onclick="selectIssueDevice('nighthawk')">Nighthawk</button>
-                <button type="button" class="segmented-btn" role="tab" aria-selected="false" data-device="orbi" onclick="selectIssueDevice('orbi')">Orbi</button>
+            <div class="device-context-badge" data-badge-device="none">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                You haven't picked a device yet — <button type="button" class="device-context-switch" onclick="goToDeviceBar()">select it above</button> to see only the steps that apply to you.
+            </div>
+            <div class="device-context-badge" data-badge-device="nighthawk">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                Showing steps for your <strong>Nighthawk</strong>. <button type="button" class="device-context-switch" onclick="goToDeviceBar()">Switch device</button>
+            </div>
+            <div class="device-context-badge" data-badge-device="orbi">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                Showing steps for your <strong>Orbi</strong>. <button type="button" class="device-context-switch" onclick="goToDeviceBar()">Switch device</button>
             </div>
 
-            <div class="device-issue-panel active" data-device="nighthawk">
+            <div data-device-only="nighthawk">
                 <h4>Nighthawk Battery & Power Issues</h4>
                 <ol>
                     <li><strong>Bypass the Battery</strong>
@@ -1077,7 +1484,7 @@
                 <a href="tutorials#mobile-battery-free" class="btn-secondary" target="_blank" rel="nofollow">View Battery-Free Setup Guide</a>
             </div>
 
-            <div class="device-issue-panel" data-device="orbi">
+            <div data-device-only="orbi">
                 <h4>Orbi Connectivity Issues</h4>
                 <p>Most Orbi connection drops come down to network selection rather than a hardware fault. If you're losing connection or seeing a weak signal, switching from Automatic to Manual network selection lets you lock onto the strongest carrier in your area instead of waiting for the device to reselect one.</p>
                 <a href="tutorials#fixed-manual-network" class="btn-secondary" target="_blank" rel="nofollow">View Manual Network Selection Guide</a>
@@ -1086,6 +1493,472 @@
             <div class="still-need-help">
                 <p>Still stuck after trying these steps? Open a ticket and we'll carry over what you've already tried, so you won't have to repeat yourself.</p>
                 <a href="/ticket.html" class="btn-primary" data-ticket-cta="device-specific-issues">Create a Support Ticket</a>
+            </div>
+        </div>
+
+        <!-- First-Time Setup -->
+        <div class="view hidden troubleshooting-card" id="first-time-setup">
+            <button type="button" class="back-link" onclick="goToView('topicListView','back')"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M7.5 2.5L3.5 6l4 3.5"/></svg>All topics</button>
+            <h3>Setting Up Your Device for the First Time</h3>
+            <p>Your device ships plug-and-play ready — the SIM is already installed and activated, so in most cases you can go straight to powering it on. The full walkthrough below covers the complete setup, plus what to do if you're reactivating service with a new SIM.</p>
+            <a href="/getting_started" class="btn-secondary" target="_blank" rel="nofollow" style="margin-bottom: 24px;">Full Getting Started Guide</a>
+
+            <div class="device-context-badge" data-badge-device="none">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                Steps below cover both devices — <button type="button" class="device-context-switch" onclick="goToDeviceBar()">select yours</button> to see only what applies to you.
+            </div>
+            <div class="device-context-badge" data-badge-device="nighthawk">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                Showing steps for your <strong>Nighthawk</strong>. <button type="button" class="device-context-switch" onclick="goToDeviceBar()">Switch device</button>
+            </div>
+            <div class="device-context-badge" data-badge-device="orbi">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                Showing steps for your <strong>Orbi</strong>. <button type="button" class="device-context-switch" onclick="goToDeviceBar()">Switch device</button>
+            </div>
+
+            <ol>
+                <li><strong>Only If You're Reactivating With a New SIM</strong>
+                    <ul>
+                        <li>If your device already has an active SIM installed, skip to the next step.</li>
+                        <li data-device-only="nighthawk">Open the battery compartment on the back, slide the SIM tray, and seat the new card with the gold contacts facing down before closing it back up.</li>
+                        <li data-device-only="orbi">Open the SIM cover on the underside of the unit and insert the new card until it clicks into place.</li>
+                        <li>Handle the SIM by its edges only — smudges or scratches on the contacts are a common cause of "no SIM detected" errors.</li>
+                    </ul>
+                </li>
+                <li><strong>Power On and Wait</strong>
+                    <ul>
+                        <li>Give the device a full minute or two to find a network on first boot — this is normal and only happens once.</li>
+                        <li>Look for a solid (not blinking) signal light before moving on.</li>
+                    </ul>
+                </li>
+                <li><strong>Download the App and Connect</strong>
+                    <ul>
+                        <li data-device-only="nighthawk">Get the NETGEAR Mobile app, then connect to the hub's Wi-Fi network shown on its screen or label.</li>
+                        <li data-device-only="orbi">Get the NETGEAR Orbi app, then connect to the network name (SSID) printed on the bottom of the router.</li>
+                        <li>Follow the app's setup wizard — it confirms your SIM is active and pulls the latest firmware automatically.</li>
+                    </ul>
+                    <a href="app-download" class="btn-secondary" target="_blank" rel="nofollow">Download App</a>
+                </li>
+                <li><strong>Find the Best Spot</strong>
+                    <ul>
+                        <li>Place the device near a window, ideally on a higher floor and toward the nearest cell tower.</li>
+                        <li>Avoid basements, cabinets, and metal objects that block signal.</li>
+                        <li data-device-only="nighthawk">Since it's portable, it's worth testing a couple of different rooms before settling on one.</li>
+                        <li data-device-only="orbi">If your home is larger or has multiple floors, see <a href="javascript:void(0)" onclick="goToView('weak-signal-rooms','forward')">Weak signal in certain rooms</a> for adding a satellite.</li>
+                    </ul>
+                </li>
+                <li><strong>Run a Speed Test</strong>
+                    <ul>
+                        <li>Confirm everything's working with a quick speed test before you consider setup complete.</li>
+                    </ul>
+                    <a href="https://speedtest.net" class="btn-secondary" target="_blank" rel="nofollow">Run Speed Test</a>
+                </li>
+            </ol>
+
+            <div class="still-need-help">
+                <p>Still stuck after trying these steps? Open a ticket and we'll carry over what you've already tried, so you won't have to repeat yourself.</p>
+                <a href="/ticket.html" class="btn-primary" data-ticket-cta="first-time-setup">Create a Support Ticket</a>
+            </div>
+        </div>
+
+        <!-- Data Usage -->
+        <div class="view hidden troubleshooting-card" id="data-usage">
+            <button type="button" class="back-link" onclick="goToView('topicListView','back')"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M7.5 2.5L3.5 6l4 3.5"/></svg>All topics</button>
+            <h3>Check Your Data Usage</h3>
+            <p>More4Less doesn't track or meter your data usage on our end — monitoring happens entirely on the device itself. The steps below show you where to find it.</p>
+
+            <div class="device-context-badge" data-badge-device="none">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                Steps below cover both devices — <button type="button" class="device-context-switch" onclick="goToDeviceBar()">select yours</button> to see only what applies to you.
+            </div>
+            <div class="device-context-badge" data-badge-device="nighthawk">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                Showing steps for your <strong>Nighthawk</strong>. <button type="button" class="device-context-switch" onclick="goToDeviceBar()">Switch device</button>
+            </div>
+            <div class="device-context-badge" data-badge-device="orbi">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                Showing steps for your <strong>Orbi</strong>. <button type="button" class="device-context-switch" onclick="goToDeviceBar()">Switch device</button>
+            </div>
+
+            <h4>On Your Device</h4>
+            <ul>
+                <li data-device-only="nighthawk">Tap the home icon on the touchscreen, then <em>Data Usage</em>, to see totals for the current cycle. You can also set a data alert and a hard cutoff limit under Settings — the device stops sharing WiFi once the limit is hit, which is worth turning on if you want a hard guardrail.</li>
+                <li data-device-only="orbi">Open the Orbi app, or go to <em>Advanced &gt; Administration &gt; Traffic Meter</em> in the web interface at <em>192.168.1.1</em>, to see usage broken down by day, week, or month.</li>
+                <li>Either way, the NETGEAR app shows the same numbers on your phone and can send a push notification as you approach a limit you've set.</li>
+            </ul>
+
+            <h4>Why the Numbers Might Not Match What You Expect</h4>
+            <p>Device counters reset whenever the device restarts or is factory reset, and they won't necessarily align with your billing cycle's start date. Since usage tracking happens only on the device, its total is the only figure available — if you have a specific billing question, open a ticket and our team can help.</p>
+
+            <div class="still-need-help">
+                <p>Still stuck after trying these steps? Open a ticket and we'll carry over what you've already tried, so you won't have to repeat yourself.</p>
+                <a href="/ticket.html" class="btn-primary" data-ticket-cta="data-usage">Create a Support Ticket</a>
+            </div>
+        </div>
+
+        <!-- LED / Icon Guide -->
+        <div class="view hidden troubleshooting-card" id="led-icons">
+            <button type="button" class="back-link" onclick="goToView('topicListView','back')"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M7.5 2.5L3.5 6l4 3.5"/></svg>All topics</button>
+            <h3>What Do the Lights (or Icons) on My Device Mean?</h3>
+            <p>Nighthawk hotspots communicate status through an on-screen display rather than blinking lights, while the Orbi LBR20 uses a Power LED and a ring LED. Here's how to read each.</p>
+
+            <div class="device-context-badge" data-badge-device="none">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                Steps below cover both devices — <button type="button" class="device-context-switch" onclick="goToDeviceBar()">select yours</button> to see only what applies to you.
+            </div>
+            <div class="device-context-badge" data-badge-device="nighthawk">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                Showing steps for your <strong>Nighthawk</strong>. <button type="button" class="device-context-switch" onclick="goToDeviceBar()">Switch device</button>
+            </div>
+            <div class="device-context-badge" data-badge-device="orbi">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                Showing steps for your <strong>Orbi</strong>. <button type="button" class="device-context-switch" onclick="goToDeviceBar()">Switch device</button>
+            </div>
+
+            <div data-device-only="nighthawk">
+                <h4>Nighthawk: Reading the Touchscreen</h4>
+                <ul>
+                    <li><strong>Signal bars</strong> at the top of the screen show cellular strength, the same idea as the bars on a phone. Fewer than 2 bars usually points to a placement issue rather than a fault — see <a href="javascript:void(0)" onclick="goToView('internet-not-working','forward')">Internet isn't working</a>.</li>
+                    <li><strong>Network type icon</strong> (5G, 5G UC, LTE, etc.) shows which network you're connected to.</li>
+                    <li><strong>A warning triangle</strong> generally means limited connectivity — the device has found a network but can't reach the internet. Restarting the device and rechecking APN and network settings is the first thing to try.</li>
+                    <li><strong>Battery icon</strong> fills as the device charges, and shows a lightning bolt while plugged in.</li>
+                </ul>
+            </div>
+
+            <div data-device-only="orbi">
+                <h4>Orbi LBR20: Power LED & Ring LED</h4>
+                <ul>
+                    <li><strong>Power LED</strong> (on the back, above the power button): on means the router has power. If it's off, check the outlet and adapter as covered in <a href="javascript:void(0)" onclick="goToView('router-not-turning-on','forward')">Router won't turn on</a>.</li>
+                    <li><strong>Ring LED</strong> (on top): pulses slowly while the router is booting, resetting, or syncing with a satellite — normal for a minute or two, and it settles once a stable connection is found.</li>
+                    <li><strong>A fast, continuous flash</strong> on the ring LED — rather than a slow pulse — usually signals a fault: no SIM detected, or repeated failed connection attempts. Restarting the device and rechecking the SIM and APN settings resolves most cases.</li>
+                    <li>If the ring LED stays in a non-standard state well after the router has finished booting, that usually points to a connectivity issue rather than a hardware fault — a restart followed by rechecking your APN and SIM (see <a href="javascript:void(0)" onclick="goToView('internet-not-working','forward')">Internet isn't working</a>) resolves most cases.</li>
+                </ul>
+                <div class="note-inline">
+                    <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                    <span>For the full color-by-color reference, see the <a href="tutorials#fixed-led-guide" target="_blank" rel="nofollow">Orbi LBR20 LED guide</a>.</span>
+                </div>
+            </div>
+
+            <div class="still-need-help">
+                <p>Still stuck after trying these steps? Open a ticket and we'll carry over what you've already tried, so you won't have to repeat yourself.</p>
+                <a href="/ticket.html" class="btn-primary" data-ticket-cta="led-icons">Create a Support Ticket</a>
+            </div>
+        </div>
+
+        <!-- Firmware Update -->
+        <div class="view hidden troubleshooting-card" id="firmware-update">
+            <button type="button" class="back-link" onclick="goToView('topicListView','back')"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M7.5 2.5L3.5 6l4 3.5"/></svg>All topics</button>
+            <h3>Update Your Device's Firmware</h3>
+            <p>The firmware your device shipped with has been extensively tested by us — there's no bug-fixing advantage to updating it proactively. If you have a specific reason to update, check in with us first so we can confirm it won't affect your setup.</p>
+
+            <div class="device-context-badge" data-badge-device="none">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                Steps below cover both devices — <button type="button" class="device-context-switch" onclick="goToDeviceBar()">select yours</button> to see only what applies to you.
+            </div>
+            <div class="device-context-badge" data-badge-device="nighthawk">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                Showing steps for your <strong>Nighthawk</strong>. <button type="button" class="device-context-switch" onclick="goToDeviceBar()">Switch device</button>
+            </div>
+            <div class="device-context-badge" data-badge-device="orbi">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                Showing steps for your <strong>Orbi</strong>. <button type="button" class="device-context-switch" onclick="goToDeviceBar()">Switch device</button>
+            </div>
+
+            <div data-device-only="nighthawk">
+                <h4>Nighthawk</h4>
+                <ul>
+                    <li>The device checks for updates on its own when powered, connected, and has signal — you don't need to do anything.</li>
+                    <li>If you do have a reason to check manually, it's under <em>Settings &gt; About &gt; Check for Updates</em> on the touchscreen, or in the NETGEAR Mobile app.</li>
+                    <li>If you go ahead with an update, keep the device plugged in throughout and don't power it off partway through.</li>
+                </ul>
+            </div>
+
+            <div data-device-only="orbi">
+                <h4>Orbi LBR20</h4>
+                <ul>
+                    <li>The router checks for updates on its own — you don't need to do anything.</li>
+                    <li>If you do have a reason to check manually, it's under the Orbi app or the web admin at <em>192.168.1.1</em>, in <em>Advanced &gt; Administration &gt; Firmware Update</em>.</li>
+                    <li>If you go ahead with an update, don't unplug the router mid-update — a pulsing ring LED usually means one is in progress. It can take several minutes and will reboot on its own when finished.</li>
+                </ul>
+            </div>
+
+            <div class="note-inline">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                <span>A firmware update can occasionally reset custom Wi-Fi settings. If you do update, it's worth noting your current Wi-Fi name and password beforehand, or revisiting <a href="javascript:void(0)" onclick="goToView('change-wifi-name','forward')">Change your Wi-Fi name or password</a> afterward just in case.</span>
+            </div>
+
+            <div class="still-need-help">
+                <p>Still stuck after trying these steps? Open a ticket and we'll carry over what you've already tried, so you won't have to repeat yourself.</p>
+                <a href="/ticket.html" class="btn-primary" data-ticket-cta="firmware-update">Create a Support Ticket</a>
+            </div>
+        </div>
+
+        <!-- Device Limit / Won't Connect -->
+        <div class="view hidden troubleshooting-card" id="device-limit">
+            <button type="button" class="back-link" onclick="goToView('topicListView','back')"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M7.5 2.5L3.5 6l4 3.5"/></svg>All topics</button>
+            <h3>Too Many Devices, or One Won't Connect</h3>
+            <p>Both device types support a generous number of connections, but a few common issues can make a "connected" device behave like it isn't.</p>
+
+            <div class="device-context-badge" data-badge-device="none">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                Steps below cover both devices — <button type="button" class="device-context-switch" onclick="goToDeviceBar()">select yours</button> to see only what applies to you.
+            </div>
+            <div class="device-context-badge" data-badge-device="nighthawk">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                Showing steps for your <strong>Nighthawk</strong>. <button type="button" class="device-context-switch" onclick="goToDeviceBar()">Switch device</button>
+            </div>
+            <div class="device-context-badge" data-badge-device="orbi">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                Showing steps for your <strong>Orbi</strong>. <button type="button" class="device-context-switch" onclick="goToDeviceBar()">Switch device</button>
+            </div>
+
+            <h4>Check Your Device Limit</h4>
+            <ul>
+                <li data-device-only="nighthawk">Nighthawk M6 models support up to 32 devices connected at once. Near that limit, some devices may fail to join or drop intermittently.</li>
+                <li data-device-only="orbi">The Orbi LBR20 supports dozens of simultaneous connections — coverage, not device count, is the more common cause of a device failing to connect.</li>
+                <li>If you're nowhere near the limit, the usual culprits are a mistyped password, a device stuck trying the wrong band, or a client with an outdated Wi-Fi driver.</li>
+            </ul>
+
+            <h4>Fixes to Try</h4>
+            <ol>
+                <li><strong>Re-enter the password</strong>
+                    <ul><li>Type it fresh rather than relying on a saved copy, especially if you changed it recently.</li></ul>
+                </li>
+                <li><strong>Rule Out Signal</strong>
+                    <ul><li>Move the struggling device closer to the hub or router temporarily to see if that's the issue.</li></ul>
+                </li>
+                <li><strong>Restart the Client's Wi-Fi</strong>
+                    <ul><li>Toggle Wi-Fi off and on on the device that's having trouble, not just the hotspot/router.</li></ul>
+                </li>
+                <li><strong>Check the Band</strong>
+                    <ul>
+                        <li data-device-only="nighthawk">By default, the Nighthawk only broadcasts 5GHz. Older or simpler smart-home devices often need 2.4GHz — turn it on in WiFi Settings if a device won't connect at all.</li>
+                        <li data-device-only="orbi">The Orbi LBR20 broadcasts a combined 2.4/5GHz network and steers devices automatically, but you can split the bands in Advanced settings if a specific device insists on the wrong one.</li>
+                    </ul>
+                </li>
+                <li><strong>Forget & Reconnect</strong>
+                    <ul><li>Remove the saved network on the client device entirely, then reconnect from scratch.</li></ul>
+                </li>
+            </ol>
+
+            <div class="still-need-help">
+                <p>Still stuck after trying these steps? Open a ticket and we'll carry over what you've already tried, so you won't have to repeat yourself.</p>
+                <a href="/ticket.html" class="btn-primary" data-ticket-cta="device-limit">Create a Support Ticket</a>
+            </div>
+        </div>
+
+        <!-- External Antenna -->
+        <div class="view hidden troubleshooting-card" id="external-antenna">
+            <button type="button" class="back-link" onclick="goToView('topicListView','back')"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M7.5 2.5L3.5 6l4 3.5"/></svg>All topics</button>
+            <h3>Using an External Antenna for a Stronger Signal</h3>
+            <p>Both device families have physical ports for an external antenna — useful in rural areas, basements, or metal-frame buildings where the internal antenna alone isn't quite enough.</p>
+
+            <div class="device-context-badge" data-badge-device="none">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                Steps below cover both devices — <button type="button" class="device-context-switch" onclick="goToDeviceBar()">select yours</button> to see only what applies to you.
+            </div>
+            <div class="device-context-badge" data-badge-device="nighthawk">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                Showing steps for your <strong>Nighthawk</strong>. <button type="button" class="device-context-switch" onclick="goToDeviceBar()">Switch device</button>
+            </div>
+            <div class="device-context-badge" data-badge-device="orbi">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                Showing steps for your <strong>Orbi</strong>. <button type="button" class="device-context-switch" onclick="goToDeviceBar()">Switch device</button>
+            </div>
+
+            <div data-device-only="nighthawk">
+                <h4>Nighthawk: TS-9 Antenna Ports</h4>
+                <ul>
+                    <li>M6 and M6 Pro models have two TS-9 connectors, usually under a small cover, for a 2x2 MIMO external antenna (sold separately).</li>
+                    <li>Match the antenna to your carrier's bands where possible — a mismatched antenna won't help, and can occasionally make reception slightly worse.</li>
+                    <li>If you know the direction of the nearest cell tower, aim the antenna toward it; the touchscreen's signal bars help you fine-tune the angle.</li>
+                </ul>
+            </div>
+
+            <div data-device-only="orbi">
+                <h4>Orbi LBR20: External LTE Antenna Ports</h4>
+                <ul>
+                    <li>The LBR20 has two external antenna connectors on the back, in addition to its built-in high-gain internal antennas.</li>
+                    <li>Most worth using if you're consistently below 3 bars in the Orbi app after trying the placement tips in <a href="javascript:void(0)" onclick="goToView('internet-not-working','forward')">Internet isn't working</a>.</li>
+                    <li>Once connected, external antennas are used automatically — there's no setting to toggle on or off.</li>
+                </ul>
+            </div>
+
+            <div class="note-inline">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                <span>Not sure if you need one yet? Try the placement and network-mode steps in <a href="javascript:void(0)" onclick="goToView('internet-not-working','forward')">Internet isn't working</a> first — an antenna helps most once placement alone can't get you further.</span>
+            </div>
+
+            <div class="still-need-help">
+                <p>Still stuck after trying these steps? Open a ticket and we'll carry over what you've already tried, so you won't have to repeat yourself.</p>
+                <a href="/ticket.html" class="btn-primary" data-ticket-cta="external-antenna">Create a Support Ticket</a>
+            </div>
+        </div>
+
+        <!-- Port Forwarding / VPN / Static IP -->
+        <div class="view hidden troubleshooting-card" id="port-forwarding">
+            <button type="button" class="back-link" onclick="goToView('topicListView','back')"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M7.5 2.5L3.5 6l4 3.5"/></svg>All topics</button>
+            <h3>Port Forwarding, VPN Access, or a Static IP</h3>
+            <p>This mostly comes up if you're running something like a security camera system, a game server, or remote-access software that needs an open inbound port.</p>
+
+            <div class="device-context-badge" data-badge-device="none">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                Steps below cover both devices — <button type="button" class="device-context-switch" onclick="goToDeviceBar()">select yours</button> to see only what applies to you.
+            </div>
+            <div class="device-context-badge" data-badge-device="nighthawk">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                Showing steps for your <strong>Nighthawk</strong>. <button type="button" class="device-context-switch" onclick="goToDeviceBar()">Switch device</button>
+            </div>
+            <div class="device-context-badge" data-badge-device="orbi">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                Showing steps for your <strong>Orbi</strong>. <button type="button" class="device-context-switch" onclick="goToDeviceBar()">Switch device</button>
+            </div>
+
+            <div data-device-only="orbi">
+                <h4>Orbi LBR20</h4>
+                <ul>
+                    <li>Port forwarding lives in the web admin at <em>192.168.1.1</em>, under <em>Advanced &gt; Setup &gt; Port Forwarding / Port Triggering</em>.</li>
+                    <li>Set a reserved local IP for the target device first (<em>Advanced &gt; Setup &gt; LAN Setup &gt; Address Reservation</em>) so the forwarding rule doesn't break the next time the device reconnects.</li>
+                    <li>Whether an inbound forward actually works over the cellular connection depends on your carrier. Some carriers assign the router a private, carrier-side address (CGNAT), which blocks inbound connections no matter how the router itself is configured — this isn't something adjustable on our end, and it's the most common reason forwarding "doesn't work" despite correct setup.</li>
+                </ul>
+            </div>
+
+            <div data-device-only="nighthawk">
+                <h4>Nighthawk</h4>
+                <p>Mobile hotspots are almost always behind carrier-side CGNAT, so inbound port forwarding generally isn't possible on the Nighthawk regardless of its settings. If you need reliable inbound access, a VPN provider with a hosted/relay option, or a static-IP plan through us, are the usual workarounds — open a ticket and we can walk through what fits your use case.</p>
+            </div>
+
+            <h4>Using a Dedicated Router</h4>
+            <p>If you need fuller control over your network — beyond what port forwarding, VPN, or parental controls offer on the device itself — an external dedicated router paired in bridge mode is a solid option. Bridge mode has the Orbi or Nighthawk pass the cellular connection straight through, while your own router handles all the networking, routing, and advanced features.</p>
+
+            <h4>Using a VPN</h4>
+            <p>We generally recommend running a VPN at the device level — installed directly on each device that needs it — or through a dedicated router with its own VPN capabilities, rather than relying on the Orbi or Nighthawk for this. VPN support on both is limited, since their main focus is cellular connectivity rather than advanced networking. The Orbi LBR20 does include a basic router-level VPN client under <em>Advanced &gt; VPN Service</em>, but for anything beyond occasional use, a device-level VPN app or a dedicated VPN-capable router will serve you better.</p>
+
+            <div class="still-need-help">
+                <p>Still stuck after trying these steps? Open a ticket and we'll carry over what you've already tried, so you won't have to repeat yourself.</p>
+                <a href="/ticket.html" class="btn-primary" data-ticket-cta="port-forwarding">Create a Support Ticket</a>
+            </div>
+        </div>
+
+        <!-- Guest Network / Parental Controls -->
+        <div class="view hidden troubleshooting-card" id="guest-network">
+            <button type="button" class="back-link" onclick="goToView('topicListView','back')"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M7.5 2.5L3.5 6l4 3.5"/></svg>All topics</button>
+            <h3>Guest Network & Parental Controls</h3>
+            <p>Handy for getting visitors online without sharing your main password, or for putting limits on what and when specific devices can access.</p>
+
+            <div class="device-context-badge" data-badge-device="none">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                Steps below cover both devices — <button type="button" class="device-context-switch" onclick="goToDeviceBar()">select yours</button> to see only what applies to you.
+            </div>
+            <div class="device-context-badge" data-badge-device="nighthawk">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                Showing steps for your <strong>Nighthawk</strong>. <button type="button" class="device-context-switch" onclick="goToDeviceBar()">Switch device</button>
+            </div>
+            <div class="device-context-badge" data-badge-device="orbi">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                Showing steps for your <strong>Orbi</strong>. <button type="button" class="device-context-switch" onclick="goToDeviceBar()">Switch device</button>
+            </div>
+
+            <h4>Guest Wi-Fi</h4>
+            <ul>
+                <li data-device-only="nighthawk">Open the NETGEAR Mobile app or the touchscreen's WiFi Settings and turn on Guest WiFi — it creates a separate network with its own name and password, isolated from your main devices.</li>
+                <li data-device-only="orbi">In the Orbi app or web admin, go to <em>Wi-Fi Settings &gt; Guest Network</em> to turn it on and set a name and password. Guest devices can reach the internet but not other devices on your main network.</li>
+            </ul>
+
+            <h4>Parental Controls & Access Schedules</h4>
+            <ul>
+                <li data-device-only="orbi">Under <em>Advanced &gt; Security &gt; Access Control</em>, you can block specific devices outright, and depending on your firmware version, set time-based schedules per device or profile.</li>
+                <li data-device-only="nighthawk">The Nighthawk's touchscreen and app don't include full parental-control profiles, but <em>Advanced &gt; Security &gt; Access Control</em> in the web admin lets you block a specific device's MAC address entirely.</li>
+            </ul>
+
+            <div class="note-inline">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                <span>Subscription add-ons like NETGEAR Armor offer more granular content filtering and scheduling if the built-in tools aren't enough. Open a ticket if you'd like help weighing whether it's worth adding for your setup.</span>
+            </div>
+
+            <div class="still-need-help">
+                <p>Still stuck after trying these steps? Open a ticket and we'll carry over what you've already tried, so you won't have to repeat yourself.</p>
+                <a href="/ticket.html" class="btn-primary" data-ticket-cta="guest-network">Create a Support Ticket</a>
+            </div>
+        </div>
+
+        <!-- Traveling / Away From Home -->
+        <div class="view hidden troubleshooting-card" id="traveling">
+            <button type="button" class="back-link" onclick="goToView('topicListView','back')"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M7.5 2.5L3.5 6l4 3.5"/></svg>All topics</button>
+            <h3>Using Your Device Away From Home</h3>
+            <p>What travels well and what doesn't depends entirely on which device you have.</p>
+
+            <div class="device-context-badge" data-badge-device="none">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                You haven't picked a device yet — <button type="button" class="device-context-switch" onclick="goToDeviceBar()">select it above</button> to see what applies to you.
+            </div>
+            <div class="device-context-badge" data-badge-device="nighthawk">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                Showing steps for your <strong>Nighthawk</strong>. <button type="button" class="device-context-switch" onclick="goToDeviceBar()">Switch device</button>
+            </div>
+            <div class="device-context-badge" data-badge-device="orbi">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                Showing steps for your <strong>Orbi</strong>. <button type="button" class="device-context-switch" onclick="goToDeviceBar()">Switch device</button>
+            </div>
+
+            <div data-device-only="nighthawk">
+                <h4>Taking Your Nighthawk With You</h4>
+                <ul>
+                    <li>Fully charge before you leave — battery life runs up to roughly 9 hours of continuous use, less with heavy data use or weak signal (the device works harder to hold a connection).</li>
+                    <li>Coverage and speed vary by carrier and region. If you're headed somewhere with historically weak coverage for your current carrier, check whether Manual network mode shows another available carrier under Settings before you go.</li>
+                    <li>International travel: most plans are Canada/US-only and can incur charges — or simply not connect — abroad. Open a ticket before you leave to confirm what your specific plan covers.</li>
+                    <li>The device runs warm during heavy use in a hot car or direct sun; give it airflow to avoid a thermal shutdown mid-trip (see <a href="javascript:void(0)" onclick="goToView('battery-health','forward')">Battery care & charging tips</a>).</li>
+                </ul>
+            </div>
+
+            <div data-device-only="orbi">
+                <h4>The Orbi LBR20 Is a Home Router</h4>
+                <p>The Orbi is fully allowed to travel with you — it isn't locked to your home. It just needs a power outlet and cell coverage to work, since it doesn't run on battery. We call it a "fixed" device mainly because most customers set it up once and leave it in place, not because of any technical restriction.</p>
+                <p>If you're planning to use it somewhere other than your registered address on a regular basis, open a ticket first — we can confirm coverage at the new location and flag anything else worth knowing before you go.</p>
+            </div>
+
+            <div class="still-need-help">
+                <p>Have a question this didn't answer? Open a ticket and let us know what you're planning.</p>
+                <a href="/ticket.html" class="btn-primary" data-ticket-cta="traveling">Create a Support Ticket</a>
+            </div>
+        </div>
+
+        <!-- Battery Health -->
+        <div class="view hidden troubleshooting-card" id="battery-health">
+            <button type="button" class="back-link" onclick="goToView('topicListView','back')"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M7.5 2.5L3.5 6l4 3.5"/></svg>All topics</button>
+            <h3>Battery Care & Charging Tips</h3>
+            <div class="note-inline">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
+                <span>This guide applies to Nighthawk hotspots, which use a removable battery. The Orbi LBR20 runs on wall power only and has no internal battery — a third-party backup battery (a small UPS) is a great option if you want internet to stay up through a power outage.</span>
+            </div>
+
+            <h4>Getting the Most from Your Battery</h4>
+            <ul>
+                <li>Expect up to roughly 9 hours of continuous use on a full charge — less with heavy data use, weak signal, or the screen left on and bright.</li>
+                <li>It's normal for the device to run warm during fast charging or heavy use; avoid covering it or leaving it in direct sun while charging.</li>
+                <li>Storing it for weeks at a time? Aim for around 50% charge rather than fully charged or fully drained — lithium batteries age faster sitting at either extreme.</li>
+                <li>Shortening the screen's sleep timer in Settings makes a noticeable difference to battery life over a full day.</li>
+            </ul>
+
+            <h4>If the Battery Won't Charge, or Drains Fast</h4>
+            <ol>
+                <li><strong>Try a Different Cable & Adapter</strong>
+                    <ul><li>Use a USB-C cable and a 3.0A-or-higher wall adapter — many charging issues turn out to be the cable or adapter rather than the device.</li></ul>
+                </li>
+                <li><strong>Let It Cool Down</strong>
+                    <ul><li>Charging pauses automatically above about 45°C (113°F) internal temperature as a safety measure. Move it somewhere cooler and give it 15–20 minutes before trying again.</li></ul>
+                </li>
+                <li><strong>Check for a Firmware Update</strong>
+                    <ul><li>See <a href="javascript:void(0)" onclick="goToView('firmware-update','forward')">Update your device's firmware</a> — occasionally a charging quirk is fixed in a later release.</li></ul>
+                </li>
+                <li><strong>Consider the Battery's Age</strong>
+                    <ul><li>If it's more than a year or two old, or visibly swollen, it likely just needs replacing. Open a ticket and we can point you to a compatible replacement.</li></ul>
+                </li>
+            </ol>
+
+            <div class="still-need-help">
+                <p>Still stuck after trying these steps? Open a ticket and we'll carry over what you've already tried, so you won't have to repeat yourself.</p>
+                <a href="/ticket.html" class="btn-primary" data-ticket-cta="battery-health">Create a Support Ticket</a>
             </div>
         </div>
 
@@ -1206,6 +2079,66 @@
                     : 'Already tried bypassing the battery, charging while powered off, and reinserting the battery while plugged in.';
             }
         },
+        'weak-signal-rooms': {
+            category: 'Coverage / Signal',
+            subject: 'Weak Wi-Fi signal in certain rooms',
+            details: 'Already tried repositioning the hub/router and reviewed the weak-signal coverage guide for my device.'
+        },
+        'first-time-setup': {
+            category: 'Setup',
+            subject: 'Need help completing first-time setup',
+            details: 'Followed the first-time setup guide, including SIM installation, app pairing, placement, and a speed test.'
+        },
+        'router-login-issues': {
+            category: 'Account / Network Settings',
+            subject: 'Need help accessing router settings',
+            details: 'Confirmed default login details, tried loading 192.168.1.1 directly, and attempted a different browser.'
+        },
+        'data-usage': {
+            category: 'Account / Billing',
+            subject: 'Question about data usage',
+            details: 'Checked usage on-device and in the NETGEAR app; numbers may not match the portal.'
+        },
+        'led-icons': {
+            category: 'Hardware Issue',
+            subject: 'Question about a light or icon on my device',
+            details: 'Reviewed the on-device status indicators and still have a question.'
+        },
+        'firmware-update': {
+            category: 'Setup',
+            subject: 'Help updating device firmware',
+            details: 'Checked for updates on-device / in-app; update may be stuck or unavailable.'
+        },
+        'device-limit': {
+            category: 'Hardware Issue',
+            subject: "A device won't connect / connection limit question",
+            details: 'Already re-entered the password, checked band settings, and tried forgetting & reconnecting the device.'
+        },
+        'external-antenna': {
+            category: 'Coverage / Signal',
+            subject: 'Question about using an external antenna',
+            details: 'Reviewed placement and network-mode steps; considering or already using an external antenna.'
+        },
+        'port-forwarding': {
+            category: 'Advanced Networking',
+            subject: 'Help with port forwarding, VPN, or a static IP',
+            details: 'Reviewed port forwarding / VPN client settings; may be affected by carrier-side CGNAT.'
+        },
+        'guest-network': {
+            category: 'Account / Network Settings',
+            subject: 'Question about guest network or parental controls',
+            details: 'Reviewed guest network and access control options for my device.'
+        },
+        'traveling': {
+            category: 'General Inquiry',
+            subject: 'Question about using my device away from home',
+            details: 'Reviewed travel guidance for my device type.'
+        },
+        'battery-health': {
+            category: 'Hardware Issue',
+            subject: "Nighthawk battery isn't charging or holding a charge",
+            details: 'Already tried a different cable/adapter, let the device cool down, and checked for a firmware update.'
+        },
         'other': {
             category: 'General Inquiry',
             subject: '',
@@ -1214,8 +2147,7 @@
     };
 
     function getActiveDevice() {
-        var activeBtn = document.querySelector('#device-specific-issues .segmented-btn.active');
-        return (activeBtn && activeBtn.getAttribute('data-device')) || 'nighthawk';
+        return getGlobalDevice() || 'nighthawk';
     }
 
     function buildTicketUrl(topicId) {
@@ -1264,6 +2196,14 @@
         var current = document.querySelector('#supportContent .view:not(.hidden)');
         var target = document.getElementById(targetId);
         if (!target || current === target) return;
+
+        // Require a device choice before leaving the topic list — every
+        // guide is tailored to it, so picking it first avoids a page full
+        // of "select yours" prompts once someone's already mid-topic.
+        if (targetId !== 'topicListView' && current && current.id === 'topicListView' && !getGlobalDevice()) {
+            if (window.goToDeviceBar) window.goToDeviceBar();
+            return;
+        }
 
         var finishSwitch = function () {
             if (current) {
@@ -1322,23 +2262,51 @@
         }
     })();
 
-    // ── Device-specific issues segmented control ──
-    window.selectIssueDevice = function (type) {
-        var segmented = document.getElementById('deviceSegmented');
-        if (!segmented) return;
-        segmented.classList.toggle('pos-2', type === 'orbi');
+    // ── Global device selector — persists via localStorage, and drives
+    // every [data-device-only] block on the page via a data-device-filter
+    // attribute on #supportContent (see CSS). One choice, catered
+    // everywhere, rather than a separate picker per topic. ──
+    var DEVICE_KEY = 'm4l_device';
 
-        document.querySelectorAll('#device-specific-issues .segmented-btn').forEach(function (btn) {
-            var active = btn.getAttribute('data-device') === type;
-            btn.classList.toggle('active', active);
-            btn.setAttribute('aria-selected', active ? 'true' : 'false');
-        });
-        document.querySelectorAll('#device-specific-issues .device-issue-panel').forEach(function (panel) {
-            panel.classList.toggle('active', panel.getAttribute('data-device') === type);
+    function getGlobalDevice() {
+        try { return localStorage.getItem(DEVICE_KEY); } catch (e) { return null; }
+    }
+
+    function applyGlobalDevice(device) {
+        if (supportContent) {
+            if (device) supportContent.setAttribute('data-device-filter', device);
+            else supportContent.removeAttribute('data-device-filter');
+        }
+
+        document.querySelectorAll('.device-chip').forEach(function (chip) {
+            var match = chip.getAttribute('data-device-choice') === device;
+            chip.classList.toggle('selected', match);
+            chip.setAttribute('aria-checked', match ? 'true' : 'false');
         });
 
+        var sub = document.getElementById('deviceBarSub');
+        if (sub) {
+            sub.textContent = device
+                ? "Every guide below is tailored to your " + (device === 'orbi' ? 'Orbi' : 'Nighthawk') + " — tap the other option any time to switch."
+                : 'Select yours to continue — every guide below is tailored to it.';
+        }
+    }
+
+    window.setGlobalDevice = function (device) {
+        try { localStorage.setItem(DEVICE_KEY, device); } catch (e) { /* storage unavailable — selection just won't persist */ }
+        applyGlobalDevice(device);
         if (window.refreshTicketLinks) window.refreshTicketLinks();
     };
+
+    window.goToDeviceBar = function () {
+        var bar = document.getElementById('deviceBar');
+        if (!bar) return;
+        bar.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' });
+        bar.classList.add('pulse-attn');
+        setTimeout(function () { bar.classList.remove('pulse-attn'); }, 1200);
+    };
+
+    applyGlobalDevice(getGlobalDevice());
 })();
 </script>
 
