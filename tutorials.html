@@ -1268,7 +1268,7 @@
         </div>
         <a href="/portal" class="step-link" style="margin-top: 0; display: inline-flex; align-items: center; gap: 5px; color: var(--red); font-weight: 600; text-decoration: none; font-size: 0.84rem; border-bottom: 1px solid rgba(215,60,89,0.25); padding-bottom: 1px;">
           Go to My Account Portal
-          <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg>
+          <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round" style="width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2.5; flex-shrink: 0;"><line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg>
         </a>
       </div>
     </div>
@@ -1347,7 +1347,8 @@
     fixed:  'Orbi<br><em>Support.</em>'
   };
 
-  window.selectDevice = function (type) {
+  window.selectDevice = function (type, opts) {
+    opts = opts || {};
     document.getElementById('card-mobile').className =
       'device-card' + (type === 'mobile' ? ' selected' : ' unselected');
     document.getElementById('card-fixed').className =
@@ -1377,9 +1378,15 @@
       });
     });
 
-    setTimeout(function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 300);
+    // Only snap to the top when someone actively picks a device card from
+    // the hero screen. Deep links (routeToHash) manage their own scroll
+    // position, so they pass { scrollToTop: false } to avoid the two
+    // fighting each other.
+    if (opts.scrollToTop !== false) {
+      setTimeout(function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 300);
+    }
   };
 
   window.goBackToDeviceSelect = function () {
@@ -1470,27 +1477,80 @@
     });
   });
 
-  /* ── Direct-link routing (e.g. #fixed-wifi-name) ──── */
-  function routeToHash() {
-    var id = window.location.hash.replace('#', '');
+  /* ── Direct-link routing (e.g. #fixed-update-apn) ─── */
+  // Capture + strip the hash immediately, before the browser gets a chance
+  // to auto-jump to the (still hidden/mid-reveal) target on its own. That
+  // native jump, followed by our own scrollTo(top) and then scrollIntoView,
+  // was what produced the up/down glitch. We restore the hash in the
+  // address bar (via replaceState, which never triggers a scroll) once
+  // we've settled on the final position ourselves.
+  var pendingHash = window.location.hash;
+  var isFirstRoute = true;
+
+  if (pendingHash) {
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    history.replaceState(null, '', window.location.pathname + window.location.search);
+  }
+
+  function restorePendingHash() {
+    if (pendingHash) {
+      history.replaceState(null, '', pendingHash);
+      pendingHash = '';
+    }
+  }
+
+  function routeToHash(hash) {
+    var id = (typeof hash === 'string' ? hash : window.location.hash).replace('#', '');
     if (!id) return;
+
     var pane = document.getElementById(id);
-    if (!pane || !pane.classList.contains('tutorial-pane')) return;
+    if (!pane || !pane.classList.contains('tutorial-pane')) {
+      restorePendingHash();
+      return;
+    }
 
     var group = pane.getAttribute('data-group');
     var tab = pane.getAttribute('data-tab');
     var deviceType = group === 'fixed' ? 'fixed' : 'mobile';
 
-    selectDevice(deviceType);
+    selectDevice(deviceType, { scrollToTop: false });
     switchTab(group, tab);
 
-    setTimeout(function () {
-      pane.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 650);
+    // Land on the "Setup Tutorials" heading rather than the tutorial pane
+    // itself, so that title sits at the top of the screen.
+    var target = document.getElementById('tabs-' + group) || pane;
+
+    // Two rAFs let the guide-reveal + tab-switch classes finish being
+    // applied (and layout settle) before we measure and scroll, so it
+    // happens once, in the right place.
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        target.scrollIntoView({ behavior: isFirstRoute ? 'auto' : 'smooth', block: 'start' });
+        isFirstRoute = false;
+        restorePendingHash();
+      });
+    });
   }
 
-  window.addEventListener('DOMContentLoaded', routeToHash);
-  window.addEventListener('hashchange', routeToHash);
+  window.addEventListener('DOMContentLoaded', function () { routeToHash(pendingHash); });
+  window.addEventListener('hashchange', function () { routeToHash(); });
+
+  /* ── In-page jump-nav links (Quick Tips / Setup Tutorials / Get the
+     App / Manage Your Plan) ─────────────────────────────────────── */
+  // Handle these ourselves rather than letting the browser do its native
+  // anchor-jump: that native jump was racing with our own scroll logic
+  // above and could snap back to the top mid-scroll (same family of bug
+  // as the hash-routing glitch). One deliberate scroll, every time.
+  document.querySelectorAll('.jump-nav a[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var id = a.getAttribute('href').slice(1);
+      var target = document.getElementById(id);
+      if (!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      history.replaceState(null, '', '#' + id);
+    });
+  });
 
 })();
 </script>
