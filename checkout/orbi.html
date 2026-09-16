@@ -2906,6 +2906,25 @@
         return;
       }
       appliedCoupon = data.coupon_id;
+
+      // FIRSTMONTH5 is a special case: it should ONLY discount today's
+      // (first) invoice. Regular $80/month pricing always applies on
+      // renewal for this code — we deliberately ignore whatever
+      // duration_type/apply_on Chargebee reports for it, so a misconfigured
+      // coupon record can never leak a discounted renewal price into the UI.
+      // This branch returns early and never calls updateRenewalPrice(), so
+      // every other promo code below is completely unaffected.
+      if (code.toUpperCase() === 'FIRSTMONTH5') {
+        discountAmount = data.discount_type === 'percentage'
+          ? (BASE_PRICE * (data.discount_percent || 0)) / 100
+          : (data.discount_amount || 0) / 100;
+        resetRenewalPrice();
+        showDiscountRow('Promo: ' + code + ' (first month only)', '−' + fmtMoney(discountAmount));
+        refreshTotals();
+        setPromoFeedback('ok', data.description || 'First month discounted — regular pricing applies after.');
+        return;
+      }
+
       var durationType = data.duration_type || 'forever';
       window._couponPeriod = data.period || '';
       var applyOn     = data.apply_on || 'invoice_amount';

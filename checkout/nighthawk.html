@@ -2906,6 +2906,25 @@
         return;
       }
       appliedCoupon = data.coupon_id;
+
+      // FIRSTMONTH5 is a special case: it should ONLY discount today's
+      // (first) invoice. Regular $80/month pricing always applies on
+      // renewal for this code — we deliberately ignore whatever
+      // duration_type/apply_on Chargebee reports for it, so a misconfigured
+      // coupon record can never leak a discounted renewal price into the UI.
+      // This branch returns early and never calls updateRenewalPrice(), so
+      // every other promo code below is completely unaffected.
+      if (code.toUpperCase() === 'FIRSTMONTH5') {
+        discountAmount = data.discount_type === 'percentage'
+          ? (BASE_PRICE * (data.discount_percent || 0)) / 100
+          : (data.discount_amount || 0) / 100;
+        resetRenewalPrice();
+        showDiscountRow('Promo: ' + code + ' (first month only)', '−' + fmtMoney(discountAmount));
+        refreshTotals();
+        setPromoFeedback('ok', data.description || 'First month discounted — regular pricing applies after.');
+        return;
+      }
+
       var durationType = data.duration_type || 'forever';
       window._couponPeriod = data.period || '';
       var applyOn     = data.apply_on || 'invoice_amount';
@@ -3020,6 +3039,7 @@
 
   function showPayError(msg) {
     resetPayBtn();
+    // Show inline error beneath the button instead of a bare alert
     var errEl = document.getElementById('pay-error-msg');
     if (!errEl) {
       errEl = document.createElement('div');
@@ -3179,12 +3199,17 @@
             err.resetIdempotency = true;
             throw err;
           }
-          // Step D: Verify the body contains proof of a created subscription
+          // Step D: Verify the body contains proof of a created subscription.
+          // We require either a subscription_id or customer_id in the response —
+          // this is what was missing before, causing the confirmation to fire
+          // even when the order didn't actually land in Chargebee.
           var hasSubscription = body.subscription_id || body.subscriptionId ||
             (body.subscription && body.subscription.id) ||
             body.customer_id || body.customerId ||
             (body.customer && body.customer.id);
           if (!hasSubscription) {
+            // Response was 2xx but contained no Chargebee subscription proof —
+            // do NOT redirect to confirmation. Treat as a failure.
             var err = new Error('Order could not be confirmed. Please contact support if your card was charged.');
             err.safeMessage = true;
             throw err;
@@ -3194,6 +3219,7 @@
     })
     .then(function (body) {
       // ✅ Only reach here after verified success with a real subscription ID
+      // Clear session data so a back-button can't re-submit
       try { sessionStorage.removeItem('m4l_order'); } catch(e) {}
       markCheckoutCompleted();
 
@@ -3216,6 +3242,7 @@
           'transaction_id': txId,
           'event_callback': goToConfirmation
         });
+        // Fallback in case the tag is blocked or slow — never trap the user
         setTimeout(goToConfirmation, 1000);
       } else {
         goToConfirmation();
