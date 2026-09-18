@@ -29,6 +29,15 @@
             --card-radius:    28px;
             --nav-h:          68px;
             --border:         #eaeaec;
+
+            /* dark hero tokens — mirrors mobility-checkout.html's signup-hero */
+            --on-dark:        #f0f0f2;
+            --on-dark-2:      #b8b8c4;
+            --on-dark-3:      #78787e;
+            --green:          #16a05a;
+            --r-full:         999px;
+            --spring:         cubic-bezier(0.34,1.5,0.64,1);
+            --ease-out:       cubic-bezier(0.22,1,0.36,1);
         }
 
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -210,6 +219,7 @@
             text-align: center;
             position: relative;
             overflow: hidden;
+            background: var(--bg-nav);
             transition: height 0.7s cubic-bezier(0.4, 0, 0.2, 1),
                         max-height 0.7s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -221,14 +231,26 @@
             padding-bottom: 52px;
         }
 
+        /* dot grid */
         .activate-hero::before {
             content: '';
             position: absolute;
             inset: 0;
-            background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
+            background-image: radial-gradient(circle, rgba(255,255,255,0.065) 1px, transparent 1px);
             background-size: 28px 28px;
-            opacity: 0.8;
             mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, black 20%, transparent 100%);
+            -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, black 20%, transparent 100%);
+            pointer-events: none;
+        }
+
+        /* red / green glow */
+        .activate-hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle 300px at 30% 32%, rgba(22,160,90,0.09) 0%, transparent 70%),
+                radial-gradient(circle 360px at 68% 62%, rgba(215,60,89,0.11) 0%, transparent 70%);
             pointer-events: none;
         }
 
@@ -246,24 +268,33 @@
         .hero-eyebrow {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            color: var(--text-muted);
-            font-size: 0.78rem;
+            gap: 8px;
+            padding: 6px 14px 6px 10px;
+            border: 1px solid rgba(255,255,255,0.14);
+            border-radius: var(--r-full);
+            background: rgba(255,255,255,0.07);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: rgba(255,255,255,0.65);
+            font-size: 0.72rem;
             font-weight: 600;
-            letter-spacing: 0.18em;
+            letter-spacing: 0.09em;
             text-transform: uppercase;
-            margin-bottom: 20px;
+            margin-bottom: 22px;
             opacity: 0;
-            animation: fadeUp 0.6s ease 0.1s forwards;
+            animation: fadeUp 0.7s ease 0.1s forwards;
         }
 
-        .hero-eyebrow::before,
-        .hero-eyebrow::after {
-            content: '';
-            display: block;
-            width: 28px;
-            height: 1px;
-            background: var(--border);
+        .badge-dot {
+            width: 6px; height: 6px; border-radius: 50%;
+            background: var(--green);
+            box-shadow: 0 0 0 3px rgba(22,160,90,0.18);
+            animation: badgePulse 2.5s ease infinite;
+        }
+
+        @keyframes badgePulse {
+            0%, 100% { box-shadow: 0 0 0 3px rgba(22,160,90,0.18); }
+            50%       { box-shadow: 0 0 0 6px rgba(22,160,90,0.08); }
         }
 
         .hero-headline {
@@ -271,15 +302,20 @@
             font-weight: 800;
             letter-spacing: -0.04em;
             line-height: 1.05;
-            color: var(--text-dark);
+            color: var(--on-dark);
             margin-bottom: 14px;
             opacity: 0;
             animation: fadeUp 0.7s ease 0.2s forwards;
         }
 
+        .hero-headline em {
+            font-style: normal;
+            color: var(--brand-red);
+        }
+
         .hero-sub {
             font-size: 1.1rem;
-            color: var(--text-muted);
+            color: var(--on-dark-2);
             margin-bottom: 56px;
             font-weight: 400;
             opacity: 0;
@@ -317,8 +353,8 @@
         }
 
         .service-card {
-            background: #ffffff;
-            border: 2px solid var(--border);
+            background: rgba(255,255,255,0.05);
+            border: 1.5px solid rgba(255,255,255,0.11);
             border-radius: var(--card-radius);
             padding: 44px 32px 38px;
             cursor: pointer;
@@ -329,27 +365,29 @@
             position: relative;
             overflow: hidden;
             transition:
-                border-color 0.35s ease,
-                box-shadow 0.35s ease,
-                transform 0.35s cubic-bezier(0.34, 1.46, 0.64, 1),
-                opacity 0.35s ease;
+                border-color 0.28s ease,
+                background 0.28s ease,
+                box-shadow 0.28s ease,
+                transform 0.32s var(--spring),
+                opacity 0.32s ease;
         }
 
         .service-card::after {
             content: '';
             position: absolute;
             bottom: 0; left: 0; right: 0;
-            height: 3px;
+            height: 2px;
             background: var(--brand-red);
             border-radius: 0 0 var(--card-radius) var(--card-radius);
             transform: scaleX(0);
-            transition: transform 0.35s ease;
+            transition: transform 0.32s var(--ease-out);
         }
 
         .service-card:hover {
-            border-color: #d0d0d4;
+            border-color: rgba(255,255,255,0.22);
+            background: rgba(255,255,255,0.08);
             transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+            box-shadow: 0 18px 48px rgba(0,0,0,0.32);
         }
 
         .service-card:hover::after,
@@ -357,70 +395,65 @@
 
         .service-card.selected {
             border-color: var(--brand-red);
-            box-shadow: 0 0 0 5px var(--brand-red-glow), 0 20px 45px rgba(0,0,0,0.07);
+            background: var(--brand-red-glow);
+            box-shadow: 0 0 0 4px var(--brand-red-glow), 0 18px 48px rgba(0,0,0,0.32);
             transform: translateY(-5px);
         }
 
         .service-card.unselected {
-            opacity: 0.35;
+            opacity: 0.28;
             transform: none;
         }
 
         .card-badge {
             position: absolute;
-            top: 16px; right: 16px;
+            top: 12px; right: 12px;
             background: var(--brand-red);
             color: #fff;
-            font-size: 0.65rem;
+            font-size: 0.62rem;
             font-weight: 800;
             letter-spacing: 0.08em;
             text-transform: uppercase;
-            padding: 4px 10px;
-            border-radius: 50px;
+            padding: 3px 9px;
+            border-radius: var(--r-full);
             opacity: 0;
             transform: scale(0.75) translateY(-4px);
-            transition: opacity 0.3s ease, transform 0.3s ease;
+            transition: opacity 0.28s ease, transform 0.28s var(--spring);
         }
 
         .service-card.selected .card-badge { opacity: 1; transform: scale(1) translateY(0); }
 
         .card-icon-wrap {
-            width: 68px;
-            height: 68px;
-            border-radius: 20px;
-            background: var(--bg-page);
+            height: 76px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 22px;
-            transition: background 0.35s ease, transform 0.4s cubic-bezier(0.34, 1.46, 0.64, 1);
+            margin-bottom: 20px;
         }
 
-        .service-card:hover .card-icon-wrap,
-        .service-card.selected .card-icon-wrap {
-            background: rgba(215, 60, 89, 0.06);
-            transform: scale(1.07) translateY(-3px);
+        .card-icon-wrap img {
+            max-height: 100%;
+            max-width: 78px;
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.35));
+            transition: transform 0.38s var(--spring);
         }
 
-        .card-icon-wrap svg {
-            width: 32px;
-            height: 32px;
-            transition: stroke 0.3s ease;
-        }
-
-        .service-card.selected .card-icon-wrap svg { stroke: var(--brand-red); }
+        .service-card:hover .card-icon-wrap img,
+        .service-card.selected .card-icon-wrap img { transform: scale(1.06) translateY(-3px); }
 
         .card-title {
             font-size: 1.15rem;
             font-weight: 800;
             letter-spacing: -0.02em;
             margin-bottom: 8px;
-            color: var(--text-dark);
+            color: var(--on-dark);
         }
 
         .card-desc {
             font-size: 0.83rem;
-            color: var(--text-muted);
+            color: var(--on-dark-3);
             line-height: 1.6;
         }
 
@@ -718,9 +751,9 @@
 <section class="activate-hero" id="hero">
     <div class="hero-inner">
 
-        <div class="hero-eyebrow">Activations</div>
+        <div class="hero-eyebrow"><span class="badge-dot"></span> Activations</div>
 
-        <h1 class="hero-headline" id="heroHeadline">What are we<br>activating today?</h1>
+        <h1 class="hero-headline" id="heroHeadline">What are we<br><em>activating</em> today?</h1>
         <p class="hero-sub" id="heroSub">Select your service type below to get started.</p>
 
         <div class="service-grid">
@@ -729,12 +762,7 @@
             <div class="service-card" id="card-wireless" onclick="selectService('wireless')">
                 <div class="card-badge">Selected</div>
                 <div class="card-icon-wrap">
-                    <svg viewBox="0 0 32 32" fill="none" stroke="#1d1d1f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M4 12 Q16 2 28 12"/>
-                        <path d="M7.5 16 Q16 8.5 24.5 16"/>
-                        <path d="M11 20 Q16 15.5 21 20"/>
-                        <circle cx="16" cy="24" r="1.5" fill="#1d1d1f" stroke="none"/>
-                    </svg>
+                    <img src="assets/img/router.png" alt="Wireless Internet">
                 </div>
                 <div class="card-title">Wireless Internet</div>
                 <div class="card-desc">Requires a device purchased from us &amp; an unactivated SIM card</div>
@@ -744,14 +772,10 @@
             <div class="service-card" id="card-talk" onclick="selectService('talk')">
                 <div class="card-badge">Selected</div>
                 <div class="card-icon-wrap">
-                    <svg viewBox="0 0 32 32" fill="none" stroke="#1d1d1f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="9" y="3" width="14" height="26" rx="3"/>
-                        <line x1="13" y1="7" x2="19" y2="7"/>
-                        <circle cx="16" cy="24" r="1.2" fill="#1d1d1f" stroke="none"/>
-                    </svg>
+                    <img src="assets/img/sim.png" alt="Talk, Text & Data">
                 </div>
                 <div class="card-title">Talk, Text & Data</div>
-                <div class="card-desc">Unlimited everything — prepaid, no contracts.</div>
+                <div class="card-desc">Unlimited everything — prepaid, no contracts. Requires a compatible phone.</div>
             </div>
 
         </div>
@@ -936,7 +960,7 @@ document.addEventListener('DOMContentLoaded', function () {
         talk: {
             kicker:   'Talk, Text & Data — $99/mo + tax',
             title:    'Talk, Text & Data',
-            subtitle: 'A prepaid month-to-month subscription at $99/mo + tax. Requires a new unactivated SIM card. Need one? <a href="https://more4lessplans.ca/reactivate-service">Order here.',
+            subtitle: 'A prepaid month-to-month subscription at $99/mo + tax. Requires a new unactivated SIM card and a compatible mobile phone. Need a SIM? <a href="https://more4lessplans.ca/reactivate-service">Order here</a>. Not sure your phone will work? <a href="https://more4lessplans.ca/compatibility">Check compatibility</a>.',
             cta:      'Activate Talk, Text & Data',
             ctaSub:   '$99 + tax due today. Renews monthly. Cancel anytime.',
             href:     '/checkout/mobility'
