@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up | More4Less</title>
+    <title>Activate Unlimited Everything | More4Less</title>
 
     <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon-32x32.png">
@@ -20,16 +20,48 @@
     <style>
         /* ─── SITE TOKENS ────────────────────────────────────────── */
         :root {
-            --brand-red:      #D73C59;
-            --brand-red-glow: rgba(215, 60, 89, 0.10);
-            --brand-red-dark: #b82e48;
-            --bg-nav:         #2E2F33;
-            --bg-page:        #FBFBFD;
-            --text-dark:      #1d1d1f;
-            --text-muted:     #6e6e73;
-            --card-radius:    28px;
-            --nav-h:          68px;
-            --border:         #eaeaec;
+            --red:           #D73C59;
+            --red-deep:      #b82e48;
+            --red-glow:      rgba(215,60,89,0.12);
+
+            --green:         #16a05a;
+            --amber:         #f5a623;
+
+            --bg:            #f8f8f9;
+            --bg-card:       #ffffff;
+            --dark:          #2E2F33;
+
+            --ink:           #1a1a1c;
+            --ink-2:         #3d3d40;
+            --ink-3:         #87878c;
+            --ink-4:         #b8b8bc;
+
+            --on-dark:       #f0f0f2;
+            --on-dark-2:     #b8b8c4;
+            --on-dark-3:     #78787e;
+
+            --border:        #e8e8ec;
+            --border-dark:   rgba(255,255,255,0.10);
+
+            --nav-h:         60px;
+            --rXL:           18px;
+            --rLG:           14px;
+            --rMD:           10px;
+            --rSM:           8px;
+            --rFull:         999px;
+
+            --spring:        cubic-bezier(0.34,1.5,0.64,1);
+            --ease-out:      cubic-bezier(0.22,1,0.36,1);
+
+            /* mirrored from ticket.html for card/field consistency */
+            --border-soft:   #f0f0f4;
+            --red-glow-sm:   rgba(215,60,89,0.07);
+            --shadow-xs:      0 1px 2px rgba(20,20,22,0.04);
+            --shadow-card:    0 1px 2px rgba(20,20,22,0.035), 0 14px 32px -12px rgba(20,20,22,0.10);
+            --shadow-card-lg: 0 2px 4px rgba(20,20,22,0.04), 0 24px 48px -16px rgba(20,20,22,0.14);
+            --shadow-field:   0 1px 2px rgba(20,20,22,0.03);
+            --shadow-btn:     0 1px 1px rgba(20,20,22,0.10), 0 8px 20px -6px rgba(20,20,22,0.22);
+            --shadow-btn-hi:  0 1px 1px rgba(20,20,22,0.12), 0 12px 26px -8px rgba(20,20,22,0.28);
         }
 
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -37,87 +69,109 @@
 
         body {
             font-family: 'Figtree', sans-serif;
-            background: var(--bg-page);
-            color: var(--text-dark);
+            background: var(--bg);
+            color: var(--ink);
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
         }
 
         /* ─── NAVBAR ─────────────────────────────────────────────── */
         .navbar-custom {
-            background-color: var(--bg-nav);
-            padding: 1.2rem 0;
             position: fixed;
+            top: 0; left: 0; right: 0;
+            height: var(--nav-h);
             width: 100%;
-            top: 0;
-            z-index: 4000;
+            z-index: 9000;
+            background: var(--dark);
+            border-bottom: 1px solid var(--border-dark);
+            display: flex;
+            align-items: center;
         }
 
         .nav-container {
+            width: 100%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 1140px;
-            margin: 0 auto;
-            padding: 0 25px;
+            padding: 0 40px;
         }
 
-        .navbar-brand img { height: 22px; }
+        .navbar-brand img { height: 20px; display: block; }
 
         .nav-links-desktop {
             display: flex;
             align-items: center;
+            gap: 0;
             list-style: none;
+            margin-left: auto;
         }
 
         .nav-links-desktop li a {
-            color: #ffffff;
+            color: var(--on-dark-2);
             font-weight: 500;
-            font-size: 0.85rem;
-            margin: 0 18px;
+            font-size: 0.82rem;
+            letter-spacing: 0.01em;
+            padding: 0 18px;
+            white-space: nowrap;
             text-decoration: none;
-            opacity: 0.7;
-            transition: opacity 0.2s;
+            opacity: 1;
+            transition: color 0.2s ease;
             position: relative;
+            display: inline-block;
         }
 
-        .nav-links-desktop li a:hover { opacity: 1; }
+        .nav-links-desktop li a:hover { color: #f0f0f2; }
 
         .nav-links-desktop li a::after {
             content: '';
             position: absolute;
+            bottom: -3px;
+            left: 18px;
+            right: 18px;
             width: 0;
-            height: 2px;
-            bottom: -4px;
-            left: 0;
-            background-color: var(--brand-red);
-            transition: width 0.4s cubic-bezier(0.2, 1, 0.2, 1);
+            height: 1.5px;
+            background-color: var(--red);
+            border-radius: 2px;
+            transition: width 0.3s var(--ease-out);
         }
 
-        .nav-links-desktop li a:hover::after { width: 100%; }
+        .nav-links-desktop li a:hover::after { width: calc(100% - 36px); }
 
         .btn-portal-top::after { display: none !important; }
 
         .btn-portal-top {
-            background: var(--brand-red);
-            color: white !important;
-            padding: 8px 20px;
-            border-radius: 50px;
+            color: #fff !important;
             font-weight: 600;
+            background: transparent !important;
+            border: 1.5px solid rgba(255,255,255,0.28);
+            border-radius: var(--rFull);
+            padding: 6px 16px;
+            margin-left: 10px;
             opacity: 1 !important;
-            transition: all 0.3s ease !important;
+            transition: background 0.2s ease, border-color 0.2s ease !important;
         }
 
         .btn-portal-top:hover {
-            background: #ffffff !important;
-            color: var(--text-dark) !important;
-            transform: translateY(-2px);
+            background: rgba(255,255,255,0.10) !important;
+            border-color: rgba(255,255,255,0.50);
+            color: #fff !important;
+            transform: none;
+        }
+
+        /* ─── TOP PROGRESS BAR — mirrors ticket.html's nav-progress ─── */
+        .nav-progress {
+            position: fixed; top: var(--nav-h); left: 0; width: 100%; height: 2.5px;
+            background: var(--border); z-index: 8999; overflow: hidden;
+        }
+        .nav-progress-fill {
+            height: 100%; width: 0%; background: var(--red);
+            transition: width 0.5s var(--ease-out);
         }
 
         .menu-trigger {
             display: none;
             cursor: pointer;
-            padding: 10px;
+            padding: 8px;
             z-index: 5001;
             position: relative;
             background: none;
@@ -125,11 +179,12 @@
             outline: none;
             -webkit-appearance: none;
             appearance: none;
+            margin-left: auto;
         }
 
         .menu-icon {
-            width: 26px;
-            height: 18px;
+            width: 22px;
+            height: 16px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -138,27 +193,27 @@
         .menu-icon span {
             display: block;
             width: 100%;
-            height: 2px;
-            background: #fff;
-            border-radius: 10px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 1.5px;
+            background: rgba(255,255,255,0.8);
+            border-radius: 4px;
+            transition: all 0.3s ease;
         }
 
-        .menu-active .menu-icon span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
-        .menu-active .menu-icon span:nth-child(2) { opacity: 0; transform: translateX(10px); }
-        .menu-active .menu-icon span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+        .menu-active .menu-icon span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .menu-active .menu-icon span:nth-child(2) { opacity: 0; }
+        .menu-active .menu-icon span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
         .mobile-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(29, 29, 31, 0.98);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
+            background: rgba(22, 22, 24, 0.97);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            z-index: 4500;
+            z-index: 8500;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.4s ease, visibility 0.4s ease;
@@ -169,61 +224,84 @@
         .mobile-nav-links { list-style: none; padding: 0; text-align: center; }
 
         .mobile-nav-links li {
-            margin: 25px 0;
-            transform: translateY(20px);
+            margin: 18px 0;
+            transform: translateY(16px);
             opacity: 0;
             transition: 0.4s ease;
         }
 
-        .mobile-overlay.active .mobile-nav-links li { transform: translateY(0); opacity: 1; }
+        .mobile-overlay.active .mobile-nav-links li { transform: none; opacity: 1; }
 
-        .mobile-nav-links li:nth-child(1) { transition-delay: 0.10s; }
-        .mobile-nav-links li:nth-child(2) { transition-delay: 0.15s; }
-        .mobile-nav-links li:nth-child(3) { transition-delay: 0.20s; }
+        .mobile-nav-links li:nth-child(1) { transition-delay: 0.08s; }
+        .mobile-nav-links li:nth-child(2) { transition-delay: 0.13s; }
+        .mobile-nav-links li:nth-child(3) { transition-delay: 0.18s; }
 
         .mobile-nav-links a {
-            color: #fff;
-            font-size: 2.2rem;
+            color: rgba(255,255,255,0.85);
+            font-size: 2rem;
             font-weight: 700;
             text-decoration: none;
             letter-spacing: -0.03em;
             position: relative;
             display: inline-block;
+            transition: color 0.25s ease;
         }
 
         .mobile-nav-links a::after {
             content: '';
             position: absolute;
             width: 0;
-            height: 3px;
-            bottom: -4px;
+            height: 2.5px;
+            bottom: -3px;
             left: 0;
-            background-color: var(--brand-red);
-            transition: width 0.4s cubic-bezier(0.2, 1, 0.2, 1);
+            background-color: var(--red);
+            border-radius: 2px;
+            transition: width 0.3s var(--ease-out);
         }
 
+        .mobile-nav-links a:hover { color: #fff; }
         .mobile-nav-links a:hover::after { width: 100%; }
+        .mobile-nav-links .portal-link a { color: var(--red); }
 
-        /* ─── PAGE HERO ──────────────────────────────────────────── */
+        /* ─── PAGE HERO (full-screen activation picker) ─────────────── */
         .signup-hero {
-            padding-top: var(--nav-h);
+            position: fixed;
+            inset: 0;
+            background: var(--dark);
+            overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-direction: column;
-            text-align: center;
-            position: relative;
-            min-height: 38vh;
+            transition: opacity 0.5s var(--ease-out), visibility 0.5s var(--ease-out);
+            z-index: 100;
         }
 
+        .signup-hero.compact {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        /* dot grid */
         .signup-hero::before {
             content: '';
             position: absolute;
             inset: 0;
-            background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
+            background-image: radial-gradient(circle, rgba(255,255,255,0.065) 1px, transparent 1px);
             background-size: 28px 28px;
-            opacity: 0.8;
-            mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, black 20%, transparent 100%);
+            mask-image: radial-gradient(ellipse 90% 80% at 50% 40%, black 25%, transparent 100%);
+            -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 40%, black 25%, transparent 100%);
+            pointer-events: none;
+        }
+
+        /* red glow */
+        .signup-hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle 300px at 30% 32%, rgba(22,160,90,0.09) 0%, transparent 70%),
+                radial-gradient(circle 360px at 68% 62%, rgba(215,60,89,0.11) 0%, transparent 70%);
             pointer-events: none;
         }
 
@@ -234,50 +312,80 @@
             flex-direction: column;
             align-items: center;
             width: 100%;
-            max-width: 820px;
-            padding: 60px 24px 56px;
+            max-width: 640px;
+            padding: 24px;
+            text-align: center;
         }
+
+        .signup-hero.compact .hero-inner { padding-bottom: 56px; }
 
         .hero-eyebrow {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            color: var(--text-muted);
-            font-size: 0.78rem;
+            gap: 8px;
+            padding: 6px 14px 6px 10px;
+            border: 1px solid rgba(255,255,255,0.14);
+            border-radius: var(--rFull);
+            background: rgba(255,255,255,0.07);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: rgba(255,255,255,0.65);
+            font-size: 0.69rem;
             font-weight: 600;
-            letter-spacing: 0.18em;
+            letter-spacing: 0.09em;
             text-transform: uppercase;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
             opacity: 0;
-            animation: fadeUp 0.6s ease 0.1s forwards;
+            animation: fadeUp 0.7s var(--ease-out) 0.1s forwards;
         }
 
-        .hero-eyebrow::before,
-        .hero-eyebrow::after {
-            content: '';
-            display: block;
-            width: 28px;
-            height: 1px;
-            background: var(--border);
+        .badge-dot {
+            width: 6px; height: 6px; border-radius: 50%;
+            background: var(--green);
+            box-shadow: 0 0 0 3px rgba(22,160,90,0.18);
+            animation: badgePulse 2.5s ease infinite;
+        }
+
+        @keyframes badgePulse {
+            0%, 100% { box-shadow: 0 0 0 3px rgba(22,160,90,0.18); }
+            50%       { box-shadow: 0 0 0 6px rgba(22,160,90,0.08); }
         }
 
         .hero-headline {
-            font-size: clamp(2.2rem, 5vw, 3.4rem);
-            font-weight: 800;
+            font-size: clamp(2.3rem, 5.2vw, 3.6rem);
+            font-weight: 900;
             letter-spacing: -0.04em;
             line-height: 1.05;
-            color: var(--text-dark);
-            margin-bottom: 14px;
+            color: var(--on-dark);
+            margin-bottom: 16px;
             opacity: 0;
-            animation: fadeUp 0.7s ease 0.2s forwards;
+            animation: fadeUp 0.75s var(--ease-out) 0.2s forwards;
+        }
+
+        .hero-headline em {
+            font-style: normal;
+            color: var(--red);
         }
 
         .hero-sub {
             font-size: 1.05rem;
-            color: var(--text-muted);
+            color: var(--on-dark-2);
+            line-height: 1.7;
+            max-width: 420px;
             font-weight: 400;
             opacity: 0;
-            animation: fadeUp 0.7s ease 0.3s forwards;
+            margin: 0 auto 40px;
+            animation: fadeUp 0.75s var(--ease-out) 0.3s forwards;
+            transition: opacity 0.35s ease, max-height 0.45s var(--ease-out), margin 0.45s var(--ease-out);
+            max-height: 120px;
+            overflow: hidden;
+        }
+
+        .hero-sub.hidden {
+            opacity: 0;
+            max-height: 0;
+            margin-bottom: 0;
+            pointer-events: none;
         }
 
         @keyframes fadeUp {
@@ -285,69 +393,9 @@
             to   { opacity: 1; transform: translateY(0); }
         }
 
-        /* ─── STEP INDICATOR ─────────────────────────────────────── */
-        .steps-bar {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0;
-            margin-bottom: 52px;
-            opacity: 0;
-            animation: fadeUp 0.7s ease 0.4s forwards;
-        }
-
-        .step-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.78rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            letter-spacing: 0.02em;
-        }
-
-        .step-item.active { color: var(--brand-red); }
-        .step-item.done   { color: var(--text-dark); }
-
-        .step-dot {
-            width: 26px;
-            height: 26px;
-            border-radius: 50%;
-            border: 2px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.7rem;
-            font-weight: 700;
-            background: #fff;
-            flex-shrink: 0;
-            transition: all 0.3s ease;
-        }
-
-        .step-item.active .step-dot {
-            border-color: var(--brand-red);
-            color: var(--brand-red);
-        }
-
-        .step-item.done .step-dot {
-            background: var(--text-dark);
-            border-color: var(--text-dark);
-            color: #fff;
-        }
-
-        .step-connector {
-            width: 44px;
-            height: 1px;
-            background: var(--border);
-            margin: 0 4px;
-            flex-shrink: 0;
-        }
-
-        .step-connector.done { background: var(--text-dark); }
-
         /* ─── FORM SECTION ───────────────────────────────────────── */
         .form-section {
-            background: #f0f0f2;
+            background: var(--bg);
             border-top: 1px solid var(--border);
         }
 
@@ -357,19 +405,24 @@
             padding: 72px 24px 100px;
         }
 
-        /* ─── SIM TYPE TOGGLE ────────────────────────────────────── */
+        /* ─── SIM TYPE TOGGLE (device-card style picker) ────────────── */
         .sim-toggle {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 14px;
-            margin-bottom: 40px;
+            width: 100%;
+            max-width: 460px;
+            margin: 0 auto 28px;
+            opacity: 0;
+            transform: translateY(14px);
+            animation: fadeUp 0.75s var(--ease-out) 0.42s forwards;
         }
 
         .sim-card {
-            background: #fff;
-            border: 2px solid var(--border);
-            border-radius: 20px;
-            padding: 28px 24px 24px;
+            background: rgba(255,255,255,0.05);
+            border: 1.5px solid rgba(255,255,255,0.11);
+            border-radius: var(--rXL);
+            padding: 30px 18px 24px;
             cursor: pointer;
             display: flex;
             flex-direction: column;
@@ -378,97 +431,164 @@
             position: relative;
             overflow: hidden;
             transition:
-                border-color 0.3s ease,
-                box-shadow 0.3s ease,
-                transform 0.3s cubic-bezier(0.34, 1.46, 0.64, 1);
+                border-color 0.28s ease,
+                background 0.28s ease,
+                box-shadow 0.28s ease,
+                transform 0.32s var(--spring),
+                opacity 0.32s ease;
         }
 
         .sim-card::after {
             content: '';
             position: absolute;
             bottom: 0; left: 0; right: 0;
-            height: 3px;
-            background: var(--brand-red);
-            border-radius: 0 0 20px 20px;
+            height: 2px;
+            background: var(--red);
+            border-radius: 0 0 var(--rXL) var(--rXL);
             transform: scaleX(0);
-            transition: transform 0.3s ease;
+            transition: transform 0.32s var(--ease-out);
         }
 
         .sim-card:hover {
-            border-color: #d0d0d4;
-            transform: translateY(-4px);
-            box-shadow: 0 16px 36px rgba(0,0,0,0.06);
+            border-color: rgba(255,255,255,0.22);
+            background: rgba(255,255,255,0.08);
+            transform: translateY(-3px);
+            box-shadow: 0 18px 48px rgba(0,0,0,0.32);
         }
 
         .sim-card:hover::after { transform: scaleX(1); }
 
         .sim-card.selected {
-            border-color: var(--brand-red);
-            box-shadow: 0 0 0 5px var(--brand-red-glow), 0 16px 36px rgba(0,0,0,0.07);
-            transform: translateY(-4px);
+            border-color: var(--red);
+            background: var(--red-glow);
+            box-shadow: 0 0 0 4px var(--red-glow), 0 18px 48px rgba(0,0,0,0.32);
+            transform: translateY(-3px);
         }
 
         .sim-card.selected::after { transform: scaleX(1); }
+        .sim-card.unselected { opacity: 0.28; transform: none; }
 
         .sim-check {
             position: absolute;
-            top: 14px; right: 14px;
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            background: var(--brand-red);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            top: 12px; right: 12px;
+            background: var(--red);
+            color: #fff;
+            font-size: 0.59rem;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 3px 9px;
+            border-radius: var(--rFull);
             opacity: 0;
-            transform: scale(0.6);
-            transition: opacity 0.25s ease, transform 0.3s cubic-bezier(0.34, 1.46, 0.64, 1);
+            transform: scale(0.75) translateY(-4px);
+            transition: opacity 0.28s ease, transform 0.28s var(--spring);
         }
 
-        .sim-card.selected .sim-check { opacity: 1; transform: scale(1); }
-
-        .sim-check svg { width: 11px; height: 11px; stroke: #fff; stroke-width: 2.5; }
+        .sim-card.selected .sim-check { opacity: 1; transform: scale(1) translateY(0); }
 
         .sim-icon-wrap {
-            width: 56px;
-            height: 56px;
-            border-radius: 16px;
-            background: var(--bg-page);
+            height: 76px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 14px;
-            transition: background 0.3s ease, transform 0.3s cubic-bezier(0.34, 1.46, 0.64, 1);
+            margin-bottom: 16px;
         }
 
-        .sim-card:hover .sim-icon-wrap,
-        .sim-card.selected .sim-icon-wrap {
-            background: rgba(215, 60, 89, 0.06);
-            transform: scale(1.06) translateY(-2px);
+        .sim-icon-wrap img {
+            max-height: 100%;
+            max-width: 70px;
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.35));
+            transition: transform 0.38s var(--spring);
         }
 
-        .sim-card.selected .sim-icon-wrap svg { stroke: var(--brand-red); }
-
-        .sim-icon-wrap svg {
-            width: 26px;
-            height: 26px;
-            stroke: var(--text-dark);
-            transition: stroke 0.3s ease;
-        }
+        .sim-card:hover .sim-icon-wrap img,
+        .sim-card.selected .sim-icon-wrap img { transform: scale(1.06) translateY(-3px); }
 
         .sim-title {
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 800;
             letter-spacing: -0.02em;
             margin-bottom: 4px;
-            color: var(--text-dark);
+            color: var(--on-dark);
         }
 
         .sim-desc {
-            font-size: 0.78rem;
-            color: var(--text-muted);
-            line-height: 1.55;
+            font-size: 0.76rem;
+            color: var(--on-dark-3);
+            line-height: 1.5;
         }
+
+        /* ─── ALREADY HAVE A SIM? (lives on the dark hero now) ──────── */
+        .already-sim {
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--on-dark-3);
+            opacity: 0;
+            animation: fadeUp 0.75s var(--ease-out) 0.52s forwards;
+        }
+
+        .already-sim a {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--on-dark-2);
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255,255,255,0.25);
+            padding-bottom: 1px;
+            margin-left: 4px;
+            transition: border-color 0.2s ease, color 0.2s ease;
+        }
+
+        .already-sim a:hover { border-color: rgba(255,255,255,0.6); color: #fff; }
+
+        .already-sim a svg {
+            width: 11px; height: 11px;
+            stroke: currentColor; stroke-width: 2; fill: none;
+            transition: transform 0.28s var(--spring);
+        }
+
+        .already-sim a:hover svg { transform: translateX(3px); }
+
+        /* ─── CHECKOUT WRAP (revealed once a SIM type is chosen) ────── */
+        .checkout-wrap {
+            display: none;
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+            margin-top: var(--nav-h);
+        }
+        .checkout-wrap.visible  { display: block; }
+        .checkout-wrap.animated { opacity: 1; transform: translateY(0); }
+
+        .checkout-header-row {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 12px;
+        }
+        .checkout-header-row .section-label { margin-bottom: 20px; }
+
+        .back-btn {
+            display: inline-flex; align-items: center; gap: 5px;
+            background: none; border: none; cursor: pointer;
+            font-family: 'Figtree', sans-serif;
+            font-size: 0.74rem; font-weight: 600;
+            color: var(--ink-3);
+            padding: 5px 10px 5px 6px;
+            border-radius: var(--rFull);
+            transition: color 0.2s ease, background 0.2s ease;
+            flex-shrink: 0;
+        }
+        .back-btn:hover { color: var(--ink); background: var(--bg); }
+        .back-btn svg {
+            width: 12px; height: 12px; stroke: currentColor;
+            stroke-width: 2.2; fill: none;
+            transition: transform 0.28s var(--spring);
+        }
+        .back-btn:hover svg { transform: translateX(-3px); }
 
         /* ─── FORM FIELDS ────────────────────────────────────────── */
         .fields-panel {
@@ -486,76 +606,117 @@
             font-weight: 700;
             letter-spacing: 0.14em;
             text-transform: uppercase;
-            color: var(--text-muted);
+            color: var(--ink-3);
             margin-bottom: 20px;
         }
 
+        /* Sub-headings inside the checkout card read like ticket.html's
+           form h3s ("Your details", "The issue") rather than an eyebrow. */
+        .checkout-card .section-label {
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            text-transform: none;
+            color: var(--ink);
+            margin: 26px 0 14px;
+        }
+        .checkout-card .section-label:first-child { margin-top: 0; }
+
+        .section-note {
+            font-size: 0.82rem;
+            color: var(--ink-3);
+            line-height: 1.5;
+            margin: -14px 0 24px;
+        }
+
+        /* ─── CHECKOUT CARD — mirrors ticket.html's .ticket-card ────── */
+        .checkout-card {
+            background: var(--bg-card);
+            border-radius: var(--rXL);
+            border: 1px solid var(--border-soft);
+            padding: 38px 38px 34px;
+            box-shadow: var(--shadow-card);
+            transition: box-shadow 0.35s var(--ease-out);
+        }
+        .checkout-card:focus-within { box-shadow: var(--shadow-card-lg); }
+
         .field-group {
-            margin-bottom: 18px;
+            margin-bottom: 22px;
         }
 
         .field-group label {
             display: block;
-            font-size: 0.82rem;
-            font-weight: 600;
-            color: var(--text-dark);
+            font-size: 0.83rem;
+            font-weight: 700;
+            color: var(--ink);
             margin-bottom: 7px;
         }
 
         .field-group label span.hint {
-            font-weight: 400;
-            color: var(--text-muted);
+            font-weight: 500;
+            color: var(--ink-3);
         }
 
         .field-group input,
         .field-group select {
             width: 100%;
-            padding: 13px 16px;
+            padding: 12px 14px;
             border: 1.5px solid var(--border);
-            border-radius: 12px;
+            border-radius: var(--rMD);
             font-family: 'Figtree', sans-serif;
-            font-size: 0.93rem;
-            color: var(--text-dark);
-            background: #fff;
-            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            font-size: 0.94rem;
+            color: var(--ink);
+            background: var(--bg);
+            box-shadow: var(--shadow-field);
+            transition: border-color 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out), background 0.2s ease;
             -webkit-appearance: none;
             appearance: none;
             outline: none;
         }
 
+        .field-group input:hover,
+        .field-group select:hover { border-color: var(--ink-4); }
+
+        .field-group select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 4.5l3.5 3.5 3.5-3.5' fill='none' stroke='%2387878c' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat; background-position: right 14px center; background-size: 10px 10px; padding-right: 36px;
+        }
+
         .field-group input:focus,
         .field-group select:focus {
-            border-color: var(--brand-red);
-            box-shadow: 0 0 0 4px var(--brand-red-glow);
+            border-color: var(--ink-4);
+            box-shadow: 0 0 0 4px rgba(26,26,28,0.06);
         }
 
-        .field-group input::placeholder { color: #b0b0b6; }
+        .field-group input::placeholder { color: var(--ink-4); }
 
         .field-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+            display: flex;
             gap: 14px;
         }
+        .field-row .field-group { flex: 1; }
 
         .field-divider {
             height: 1px;
-            background: var(--border);
-            margin: 30px 0;
+            background: var(--border-soft);
+            margin: 28px 0;
         }
 
-        /* ─── ERROR STATES ───────────────────────────────────────── */
+        /* ─── ERROR STATES — boxed inline message, matching ticket.html ── */
         .field-group input.error,
         .field-group select.error {
-            border-color: #D73C59;
-            box-shadow: 0 0 0 4px var(--brand-red-glow);
+            border-color: var(--red);
         }
 
         .field-error {
-            font-size: 0.75rem;
-            color: var(--brand-red);
-            font-weight: 500;
-            margin-top: 5px;
             display: none;
+            margin-top: 8px; padding: 8px 12px;
+            font-size: 0.8rem; font-weight: 500; line-height: 1.45;
+            text-align: center;
+            color: var(--red-deep);
+            background: var(--red-glow-sm);
+            border: 1px solid rgba(215,60,89,0.18);
+            border-radius: var(--rSM);
         }
 
         .field-group.has-error .field-error { display: block; }
@@ -571,48 +732,67 @@
             justify-content: center;
             gap: 10px;
             width: 100%;
-            padding: 16px 32px;
-            background: var(--brand-red);
+            padding: 15px 28px;
+            background: var(--ink);
             color: #fff;
             border: none;
-            border-radius: 50px;
+            border-radius: var(--rFull);
             font-family: 'Figtree', sans-serif;
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 700;
             letter-spacing: -0.01em;
             cursor: pointer;
-            transition: background 0.3s ease, transform 0.25s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-btn);
+            transition: background 0.2s ease, transform 0.2s var(--spring), box-shadow 0.25s var(--ease-out);
         }
+
+        .btn-submit::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.10) 50%, transparent 65%);
+            transform: translateX(-130%);
+            transition: transform 0.55s var(--ease-out);
+        }
+
+        .btn-submit:hover::before { transform: translateX(130%); }
 
         .btn-submit:hover {
-            background: var(--brand-red-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 12px 30px rgba(215, 60, 89, 0.28);
+            background: #1a1a1c;
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-btn-hi);
         }
 
-        .btn-submit:active { transform: translateY(0); }
+        .btn-submit:active { transform: scale(0.98); }
 
         .btn-submit:disabled {
-            background: #c4c4c8;
+            background: var(--ink-4);
             transform: none;
             box-shadow: none;
             cursor: not-allowed;
         }
+
+        .btn-submit:disabled::before { display: none; }
 
         .btn-submit svg {
             width: 18px;
             height: 18px;
             stroke: #fff;
             flex-shrink: 0;
-            transition: transform 0.25s ease;
+            position: relative;
+            transition: transform 0.28s var(--spring);
         }
 
         .btn-submit:hover svg { transform: translateX(3px); }
 
+        .btn-label { position: relative; }
+
         .submit-note {
             text-align: center;
             font-size: 0.78rem;
-            color: var(--text-muted);
+            color: var(--ink-3);
             margin-top: 14px;
             line-height: 1.5;
         }
@@ -620,7 +800,7 @@
         .submit-note svg {
             width: 12px;
             height: 12px;
-            stroke: var(--text-muted);
+            stroke: var(--ink-3);
             vertical-align: -1px;
             margin-right: 4px;
         }
@@ -635,6 +815,7 @@
             animation: spin 0.7s linear infinite;
             display: none;
             flex-shrink: 0;
+            position: relative;
         }
 
         @keyframes spin { to { transform: rotate(360deg); } }
@@ -656,24 +837,31 @@
             height: 0;
             border-left: 5px solid transparent;
             border-right: 5px solid transparent;
-            border-top: 6px solid var(--text-muted);
+            border-top: 6px solid var(--ink-3);
             pointer-events: none;
         }
 
         /* ─── RESPONSIVE ─────────────────────────────────────────── */
         @media (max-width: 640px) {
+            .nav-container { padding: 0 20px; }
             .nav-links-desktop { display: none; }
             .menu-trigger { display: block; }
 
             .sim-toggle { grid-template-columns: 1fr 1fr; gap: 10px; }
-            .sim-card { padding: 22px 14px 18px; }
+            .sim-card { padding: 22px 14px 18px; border-radius: var(--rLG); }
             .sim-title { font-size: 0.9rem; }
             .sim-desc  { font-size: 0.73rem; }
 
-            .field-row { grid-template-columns: 1fr; }
+            .checkout-card { padding: 26px 20px; }
+            .field-row { flex-direction: column; gap: 0; }
+            .field-group input, .field-group select { font-size: 16px; }
+        }
 
-            .steps-bar { gap: 0; }
-            .step-connector { width: 28px; }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
         }
     </style>
 </head>
@@ -688,7 +876,7 @@
         <ul class="nav-links-desktop">
             <li><a href="/mobility">Pricing</a></li>
             <li><a href="/contact">Contact</a></li>
-            <li><a href="/portal" class="btn-portal-top">Customer Portal</a></li>
+            <li><a href="/portal">Dashboard</a></li>
         </ul>
         <button class="menu-trigger" id="menuTrigger" onclick="toggleMenu()" aria-label="Open menu">
             <div class="menu-icon">
@@ -703,114 +891,102 @@
     <ul class="mobile-nav-links">
         <li><a href="/mobility">Pricing</a></li>
         <li><a href="/contact">Contact</a></li>
-        <li><a href="/portal">Customer Portal</a></li>
+          <li><a href="/">Wireless</a></li>
+        <li class="portal-link"><a href="/portal">Dashboard</a></li>
     </ul>
 </div>
 
-<!-- ─── HERO ───────────────────────────────────────────────────── -->
-<section class="signup-hero">
+<div class="nav-progress" aria-hidden="true"><div class="nav-progress-fill" id="navProgressFill"></div></div>
+
+<!-- ─── HERO / SIM SELECTOR ────────────────────────────────────── -->
+<section class="signup-hero" id="hero">
     <div class="hero-inner">
-        <div class="hero-eyebrow">Talk, Text &amp; Data — Activation</div>
-        <h1 class="hero-headline">Set up your plan</h1>
-        <p class="hero-sub">Just a couple of details before we get you connected.</p>
-    </div>
-</section>
+        <div class="hero-eyebrow"><span class="badge-dot"></span> Unlimited Everything — Activation</div>
+        <h1 class="hero-headline" id="heroHeadline">Choose Your <em>Connection</em></h1>
+        <p class="hero-sub" id="heroSub">Choose how you'd like to get connected.</p>
 
-<!-- ─── FORM ────────────────────────────────────────────────────── -->
-<div class="form-section">
-    <div class="form-inner">
-
-        <!-- Step indicator -->
-        <div class="steps-bar">
-            <div class="step-item active" id="step1-indicator">
-                <div class="step-dot">1</div>
-                <span>SIM &amp; details</span>
-            </div>
-            <div class="step-connector" id="connector-1-2"></div>
-            <div class="step-item" id="step2-indicator">
-                <div class="step-dot">2</div>
-                <span>Payment</span>
-            </div>
-            <div class="step-connector"></div>
-            <div class="step-item" id="step3-indicator">
-                <div class="step-dot">3</div>
-                <span>Confirmed</span>
-            </div>
-        </div>
-
-        <!-- SIM type selection -->
-        <div class="section-label">How would you like to receive your SIM?</div>
         <div class="sim-toggle">
             <!-- eSIM -->
             <div class="sim-card" id="card-esim" onclick="selectSim('esim')">
-                <div class="sim-check">
-                    <svg viewBox="0 0 12 12" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M2 6l3 3 5-5"/>
-                    </svg>
-                </div>
+                <div class="sim-check">Selected</div>
                 <div class="sim-icon-wrap">
-                    <svg viewBox="0 0 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6">
-                        <rect x="6" y="3" width="14" height="20" rx="2.5"/>
-                        <path d="M10 8h6M10 12h4M10 16h2"/>
-                        <circle cx="17" cy="16" r="2.5"/>
-                    </svg>
+                    <img src="assets/img/esim.png" alt="eSIM">
                 </div>
                 <div class="sim-title">eSIM</div>
-                <div class="sim-desc">Instant digital activation — no shipping needed</div>
+                <div class="sim-desc">Fast digital activation — works with compatible devices</div>
             </div>
 
             <!-- Physical SIM -->
             <div class="sim-card" id="card-physical" onclick="selectSim('physical')">
-                <div class="sim-check">
-                    <svg viewBox="0 0 12 12" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M2 6l3 3 5-5"/>
-                    </svg>
-                </div>
+                <div class="sim-check">Selected</div>
                 <div class="sim-icon-wrap">
-                    <svg viewBox="0 0 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6">
-                        <rect x="5" y="4" width="16" height="18" rx="2"/>
-                        <path d="M5 10h16M9 4v6"/>
-                        <rect x="9" y="14" width="8" height="5" rx="1"/>
-                    </svg>
+                    <img src="assets/img/physical.png" alt="Physical SIM">
                 </div>
                 <div class="sim-title">Physical SIM</div>
-                <div class="sim-desc">We'll mail your SIM card — no address needed now</div>
+                <div class="sim-desc">We'll mail your SIM card — 2-4 day shipping.</div>
             </div>
         </div>
+
+        <p class="already-sim">
+            Already have a SIM card?
+            <a href="https://more4lessplans.ca/activate">
+                Activate it here
+                <svg viewBox="0 0 16 16" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg>
+            </a>
+        </p>
+    </div>
+</section>
+
+<!-- ─── CHECKOUT (revealed once a SIM type is chosen) ─────────────── -->
+<div class="checkout-wrap" id="checkoutWrap">
+<div class="form-section">
+    <div class="form-inner">
+
+        <div class="checkout-header-row">
+            <div class="section-label">Setting up your <span id="simTypeLabel">SIM</span></div>
+            <button type="button" class="back-btn" onclick="goBackToSimSelect()">
+                <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><line x1="13" y1="8" x2="3" y2="8"/><polyline points="7,4 3,8 7,12"/></svg>
+                Change SIM type
+            </button>
+        </div>
+
+        <div class="checkout-card">
 
         <!-- eSIM fields -->
         <div class="fields-panel" id="panel-esim">
             <div class="section-label">Device information</div>
             <div class="field-group" id="fg-imei2">
                 <label for="imei2">IMEI2 <span class="hint">— find in Settings → General → About</span></label>
-                <input type="text" id="imei2" name="imei2" placeholder="e.g. 354321098765432" maxlength="20" inputmode="numeric">
+                <input type="text" id="imei2" name="imei2" placeholder="e.g. 354321098765432" maxlength="20" inputmode="numeric" required>
                 <div class="field-error">Please enter a valid IMEI2 (15 digits).</div>
             </div>
             <div class="field-group" id="fg-eid">
                 <label for="eid">EID# <span class="hint">— 32-digit number below the IMEI</span></label>
-                <input type="text" id="eid" name="eid" placeholder="e.g. 89049032004008882600126000000000" maxlength="36" inputmode="numeric">
+                <input type="text" id="eid" name="eid" placeholder="e.g. 89049032004008882600126000000000" maxlength="36" inputmode="numeric" required>
                 <div class="field-error">Please enter a valid EID (32 digits).</div>
             </div>
             <div class="field-divider"></div>
             <div class="section-label">Your contact details</div>
-            <div class="field-group" id="fg-first">
-                <label for="first-esim">First name</label>
-                <input type="text" id="first-esim" name="first_name" placeholder="Jane" autocomplete="given-name">
-                <div class="field-error">Please enter your first name.</div>
-            </div>
-            <div class="field-group" id="fg-last-esim">
-                <label for="last-esim">Last name</label>
-                <input type="text" id="last-esim" name="last_name" placeholder="Smith" autocomplete="family-name">
-                <div class="field-error">Please enter your last name.</div>
+            <div class="field-row">
+                <div class="field-group" id="fg-first">
+                    <label for="first-esim">First name</label>
+                    <input type="text" id="first-esim" name="first_name" placeholder="Jane" autocomplete="given-name" required>
+                    <div class="field-error">Please enter your first name.</div>
+                </div>
+                <div class="field-group" id="fg-last-esim">
+                    <label for="last-esim">Last name</label>
+                    <input type="text" id="last-esim" name="last_name" placeholder="Smith" autocomplete="family-name" required>
+                    <div class="field-error">Please enter your last name.</div>
+                </div>
             </div>
             <div class="field-group" id="fg-email-esim">
                 <label for="email-esim">Email address</label>
-                <input type="email" id="email-esim" name="email" placeholder="jane@example.com" autocomplete="email">
+                <input type="email" id="email-esim" name="email" placeholder="jane@example.com" autocomplete="email" required>
                 <div class="field-error">Please enter a valid email address.</div>
             </div>
             <div class="field-group" id="fg-phone-esim">
                 <label for="phone-esim">Phone number <span class="hint">— Canadian number preferred</span></label>
-                <input type="tel" id="phone-esim" name="phone" placeholder="e.g. 416-555-0123" autocomplete="tel">
+                <input type="tel" id="phone-esim" name="phone" placeholder="e.g. 416-555-0123" autocomplete="tel" required>
                 <div class="field-error">Please enter a valid phone number.</div>
             </div>
         </div>
@@ -818,24 +994,26 @@
         <!-- Physical SIM fields -->
         <div class="fields-panel" id="panel-physical">
             <div class="section-label">Your contact details</div>
-            <div class="field-group" id="fg-first-phys">
-                <label for="first-phys">First name</label>
-                <input type="text" id="first-phys" name="first_name" placeholder="Jane" autocomplete="given-name">
-                <div class="field-error">Please enter your first name.</div>
-            </div>
-            <div class="field-group" id="fg-last-phys">
-                <label for="last-phys">Last name</label>
-                <input type="text" id="last-phys" name="last_name" placeholder="Smith" autocomplete="family-name">
-                <div class="field-error">Please enter your last name.</div>
+            <div class="field-row">
+                <div class="field-group" id="fg-first-phys">
+                    <label for="first-phys">First name</label>
+                    <input type="text" id="first-phys" name="first_name" placeholder="Jane" autocomplete="given-name" required>
+                    <div class="field-error">Please enter your first name.</div>
+                </div>
+                <div class="field-group" id="fg-last-phys">
+                    <label for="last-phys">Last name</label>
+                    <input type="text" id="last-phys" name="last_name" placeholder="Smith" autocomplete="family-name" required>
+                    <div class="field-error">Please enter your last name.</div>
+                </div>
             </div>
             <div class="field-group" id="fg-email-phys">
                 <label for="email-phys">Email address</label>
-                <input type="email" id="email-phys" name="email" placeholder="jane@example.com" autocomplete="email">
+                <input type="email" id="email-phys" name="email" placeholder="jane@example.com" autocomplete="email" required>
                 <div class="field-error">Please enter a valid email address.</div>
             </div>
             <div class="field-group" id="fg-phone-phys">
                 <label for="phone-phys">Phone number <span class="hint">— Canadian number preferred</span></label>
-                <input type="tel" id="phone-phys" name="phone" placeholder="e.g. 416-555-0123" autocomplete="tel">
+                <input type="tel" id="phone-phys" name="phone" placeholder="e.g. 416-555-0123" autocomplete="tel" required>
                 <div class="field-error">Please enter a valid phone number.</div>
             </div>
         </div>
@@ -858,7 +1036,10 @@
             </p>
         </div>
 
+        </div>
+
     </div>
+</div>
 </div>
 
 <script>
@@ -875,11 +1056,22 @@ var selectedSim = null;
 var cbInstance = Chargebee.init({ site: CHARGEBEE_SITE });
 
 // ─── SIM SELECTION ───────────────────────────────────────────────
+var simTypeLabels = { esim: 'eSIM', physical: 'Physical SIM' };
+
 function selectSim(type) {
     selectedSim = type;
 
-    document.getElementById('card-esim').className     = 'sim-card' + (type === 'esim'     ? ' selected' : '');
-    document.getElementById('card-physical').className = 'sim-card' + (type === 'physical' ? ' selected' : '');
+    document.getElementById('card-esim').className     = 'sim-card' + (type === 'esim'     ? ' selected' : ' unselected');
+    document.getElementById('card-physical').className = 'sim-card' + (type === 'physical' ? ' selected' : ' unselected');
+
+    // Collapse the full-screen hero picker
+    var hero    = document.getElementById('hero');
+    var heroSub = document.getElementById('heroSub');
+    hero.classList.add('compact');
+    heroSub.classList.add('hidden');
+
+    var label = document.getElementById('simTypeLabel');
+    if (label) label.textContent = simTypeLabels[type];
 
     // Hide both panels first
     ['esim', 'physical'].forEach(function(t) {
@@ -898,13 +1090,53 @@ function selectSim(type) {
 
     document.getElementById('submitWrap').style.display = 'block';
 
-    // Smooth scroll to fields on mobile
-    if (window.innerWidth < 768) {
-        setTimeout(function() {
-            chosen.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 200);
-    }
+    // Reveal the checkout section below the (now-hidden) hero
+    var checkoutWrap = document.getElementById('checkoutWrap');
+    checkoutWrap.classList.add('visible');
+    requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+            checkoutWrap.classList.add('animated');
+        });
+    });
+
+    setTimeout(function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 300);
+
+    updateProgress();
 }
+
+function goBackToSimSelect() {
+    var hero         = document.getElementById('hero');
+    var heroSub      = document.getElementById('heroSub');
+    var checkoutWrap = document.getElementById('checkoutWrap');
+
+    checkoutWrap.classList.remove('animated', 'visible');
+    hero.classList.remove('compact');
+    heroSub.classList.remove('hidden');
+
+    document.getElementById('card-esim').className     = 'sim-card';
+    document.getElementById('card-physical').className = 'sim-card';
+
+    navProgressFill.style.width = '0%';
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ─── TOP PROGRESS BAR — driven by completion of the active panel's
+// required fields, mirroring ticket.html's form-completion bar ─────
+var navProgressFill = document.getElementById('navProgressFill');
+function updateProgress() {
+    var activePanel = document.querySelector('.fields-panel.visible');
+    if (!activePanel) { navProgressFill.style.width = '0%'; return; }
+    var required = Array.prototype.slice.call(activePanel.querySelectorAll('[required]'));
+    if (!required.length) { navProgressFill.style.width = '0%'; return; }
+    var filled = required.filter(function (el) {
+        return el.value && el.value.trim().length > 0;
+    }).length;
+    navProgressFill.style.width = Math.round((filled / required.length) * 100) + '%';
+}
+document.getElementById('checkoutWrap').addEventListener('input', updateProgress);
 
 // ─── VALIDATION ──────────────────────────────────────────────────
 function clearErrors() {
@@ -993,11 +1225,6 @@ function handleSubmit() {
     // Save to sessionStorage so confirmation page can use it
     sessionStorage.setItem('m4l_signup', JSON.stringify(data));
 
-    // Update step indicator
-    document.getElementById('step1-indicator').className = 'step-item done';
-    document.getElementById('connector-1-2').className   = 'step-connector done';
-    document.getElementById('step2-indicator').className = 'step-item active';
-
     // Call your Cloudflare Worker to create the Chargebee hosted page
     fetch(WORKER_URL, {
         method:  'POST',
@@ -1023,10 +1250,7 @@ function handleSubmit() {
                 window.location.href = CONFIRMATION_URL;
             },
             close: function() {
-                // User closed Chargebee without completing — reset step
-                document.getElementById('step1-indicator').className = 'step-item active';
-                document.getElementById('connector-1-2').className   = 'step-connector';
-                document.getElementById('step2-indicator').className = 'step-item';
+                // User closed Chargebee without completing — nothing to reset
             },
             error: function(err) {
                 console.error('Chargebee error:', err);
