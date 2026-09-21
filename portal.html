@@ -789,11 +789,11 @@
       <div class="view-controls">
         <div class="tesla-toggle">
           <div class="glider" id="glider"></div>
-          <button id="listBtn" class="t-btn active" aria-label="List View">
-            <svg viewBox="0 0 24 24"><line x1="4" y1="7" x2="20" y2="7"></line><line x1="4" y1="12" x2="20" y2="12"></line><line x1="4" y1="17" x2="20" y2="17"></line></svg>
-          </button>
-          <button id="gridBtn" class="t-btn" aria-label="Grid View">
+          <button id="gridBtn" class="t-btn active" aria-label="Grid View">
             <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+          </button>
+          <button id="listBtn" class="t-btn" aria-label="List View">
+            <svg viewBox="0 0 24 24"><line x1="4" y1="7" x2="20" y2="7"></line><line x1="4" y1="12" x2="20" y2="12"></line><line x1="4" y1="17" x2="20" y2="17"></line></svg>
           </button>
         </div>
       </div>
@@ -803,7 +803,7 @@
 
   <!-- Dashboard -->
   <div class="portal-body">
-    <div id="portalAll" class="portal-grid-all list-view">
+    <div id="portalAll" class="portal-grid-all">
 
       <!-- Primary row label -->
       <div class="section-label">Quick Actions</div>
@@ -932,7 +932,7 @@
       glider.style.transform = `translateX(${btn.offsetLeft - 3}px)`;
     }
 
-    moveGlider(listBtn);
+    moveGlider(gridBtn);
 
     function applyGridView() {
       portalAll.classList.remove('list-view');
