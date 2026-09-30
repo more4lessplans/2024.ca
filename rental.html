@@ -313,15 +313,19 @@
       background-repeat: no-repeat;
       z-index: 0;
     }
-    /* Overlay: very light dark tint — image shows clearly, slightly moodier */
+    /* Overlay: even dark tint + a soft vignette behind the text column,
+       so copy stays readable wherever the photo is bright */
     .hero-bg::before {
       content: '';
       position: absolute; inset: 0;
       background:
+        radial-gradient(ellipse 60% 70% at 50% 45%,
+          rgba(14,14,18,0.35) 0%,
+          rgba(14,14,18,0) 100%),
         linear-gradient(180deg,
-          rgba(18,18,22,0.30) 0%,
-          rgba(18,18,22,0.1) 45%,
-          rgba(18,18,22,0.40) 100%);
+          rgba(18,18,22,0.55) 0%,
+          rgba(18,18,22,0.50) 50%,
+          rgba(18,18,22,0.68) 100%);
     }
 
     .hero-bg {
@@ -1219,6 +1223,34 @@
       .value-item:first-child { border-top: none; }
       .vi-number { font-size: 1.9rem; margin-bottom: 8px; }
     }
+
+    /* ═══════════════════════════════════════════════════════════
+       HERO READABILITY — higher contrast text over the photo
+    ═══════════════════════════════════════════════════════════ */
+    .hero-badge {
+      color: rgba(255,255,255,0.92);
+      background: rgba(0,0,0,0.28);
+      border-color: rgba(255,255,255,0.22);
+    }
+    .hero-title {
+      color: #fff;
+      text-shadow: 0 2px 28px rgba(0,0,0,0.40), 0 1px 3px rgba(0,0,0,0.30);
+    }
+    .hero-sub {
+      color: rgba(255,255,255,0.92);
+      font-weight: 500;
+      max-width: 580px;
+      text-shadow: 0 1px 14px rgba(0,0,0,0.50), 0 1px 2px rgba(0,0,0,0.35);
+    }
+    .coverage-module { background: rgba(14,14,18,0.45); border-color: rgba(255,255,255,0.22); }
+    .coverage-module input::placeholder { color: rgba(240,240,244,0.62); }
+    .status-warning { color: rgba(255,255,255,0.88); text-shadow: 0 1px 10px rgba(0,0,0,0.5); }
+    .htrust-item {
+      color: rgba(255,255,255,0.90);
+      text-shadow: 0 1px 10px rgba(0,0,0,0.5);
+    }
+    .htrust-item svg { stroke: rgba(255,255,255,0.75); }
+    .htrust-div { background: rgba(255,255,255,0.22); }
   </style>
 </head>
 <body>
