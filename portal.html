@@ -207,6 +207,9 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      /* One reveal for the whole page (hero + cards together). The animated
+         element is always on screen at load, so it never waits on a scroll. */
+      animation: fadeUp 0.8s cubic-bezier(0.2,1,0.2,1) 0.05s backwards;
     }
 
     /* ── PORTAL HEADER ────────────────────────────────────────── */
@@ -217,8 +220,6 @@
       text-align: center;
       position: relative;
       overflow: hidden;
-      opacity: 0;
-      animation: fadeUp 0.8s cubic-bezier(0.2,1,0.2,1) 0.05s forwards;
     }
 
     /* Dot grid — same as your privacy/product pages */
@@ -393,8 +394,6 @@
       grid-template-columns: 1fr 1fr;
       gap: var(--space-4);
       margin-bottom: var(--space-8);
-      opacity: 0;
-      animation: fadeUp 0.8s cubic-bezier(0.2,1,0.2,1) 0.15s forwards;
     }
 
     /* ── SECONDARY GRID ───────────────────────────────────────── */
@@ -402,8 +401,6 @@
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: var(--space-4);
-      opacity: 0;
-      animation: fadeUp 0.8s cubic-bezier(0.2,1,0.2,1) 0.25s forwards;
     }
 
     /* ── BASE CARD — inherits style.css plan-card feel ────────── */
