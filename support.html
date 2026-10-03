@@ -20,14 +20,11 @@
         :root {
             --red:            #D73C59;
             --red-deep:       #b82e48;
-            --red-glow:       rgba(215,60,89,0.12);
             --red-glow-sm:    rgba(215,60,89,0.07);
-            --green:          #16a05a;
-            --green-bg:       rgba(22,160,90,0.08);
-            --green-border:   rgba(22,160,90,0.18);
-            --amber:          #d97a06;
-            --amber-bg:       rgba(217,122,6,0.08);
-            --amber-border:   rgba(217,122,6,0.20);
+
+            --tint:           rgba(26,26,28,0.045);
+            --tint-border:    rgba(26,26,28,0.09);
+            --ink-glow:       rgba(26,26,28,0.08);
 
             --bg:             #f8f8f9;
             --bg-card:        #ffffff;
@@ -67,7 +64,8 @@
             --shadow-btn-hi:  0 1px 1px rgba(20,20,22,0.12), 0 12px 26px -8px rgba(20,20,22,0.28);
             --shadow-float:   0 4px 10px -2px rgba(20,20,22,0.10), 0 1px 2px rgba(20,20,22,0.06);
 
-            --focus-ring:     0 0 0 4px var(--red-glow);
+            --focus-ring:     0 0 0 4px var(--ink-glow);
+            --progress-h:     2.5px;
         }
 
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -238,50 +236,46 @@
         .mobile-nav-links .portal-link a { color: var(--red); }
         .mobile-nav-links .portal-link a::after { background: var(--red); }
 
+        /* ─── TOP PROGRESS BAR ───────────────────────────────────── */
+        .nav-progress {
+            position: fixed; top: var(--nav-h); left: 0; width: 100%; height: var(--progress-h);
+            background: var(--border); z-index: 3999; overflow: hidden;
+        }
+        .nav-progress-fill {
+            height: 100%; width: 0%; background: var(--red);
+            transition: width 0.5s var(--ease-out);
+        }
+
         /* ─── PAGE CONTENT ───────────────────────────────────────── */
         .support-wrap { padding-top: var(--nav-h); min-height: 100vh; }
 
         /* Hero */
         .support-hero {
-            padding: 72px 24px 56px;
+            position: relative;
+            padding: 72px 24px 48px;
             text-align: center;
             background: linear-gradient(to bottom, #ffffff 0%, var(--bg) 100%);
             border-bottom: 1px solid var(--border);
-            position: relative;
             overflow: hidden;
         }
 
-        .support-hero::before {
-            content: '';
-            position: absolute; inset: 0;
-            background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
-            background-size: 28px 28px;
-            mask-image: radial-gradient(ellipse 70% 80% at 50% 20%, black 30%, transparent 100%);
-            -webkit-mask-image: radial-gradient(ellipse 70% 80% at 50% 20%, black 30%, transparent 100%);
-            pointer-events: none;
+        .hero-orb {
+            position: absolute; top: 50%; left: 50%; width: 640px; height: 640px;
+            transform: translate(-50%, -58%);
+            background: radial-gradient(circle, var(--red-glow-sm) 0%, rgba(215,60,89,0) 68%);
+            pointer-events: none; z-index: 0;
+            animation: orbDrift 14s ease-in-out infinite;
         }
 
-        /* A near-invisible grain keeps the flat gradient from banding and
-           gives the hero the faint tactile quality of a physical surface —
-           the kind of detail you feel more than see. */
-        .support-hero::after {
-            content: '';
-            position: absolute; inset: 0;
-            opacity: 0.5;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
-            mix-blend-mode: overlay;
-            pointer-events: none;
+        @keyframes orbDrift {
+            0%, 100% { transform: translate(-50%, -58%) scale(1); }
+            50%      { transform: translate(-50%, -54%) scale(1.08); }
         }
 
-        .hero-content {
-            position: relative; z-index: 2;
-            max-width: 640px; margin: 0 auto;
-            opacity: 0;
-            animation: revealUp 0.75s var(--ease-out) 0.1s forwards;
-        }
+        .hero-content { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; }
 
-        @keyframes revealUp {
-            from { opacity: 0; transform: translateY(18px); }
+        @keyframes contentReveal {
+            from { opacity: 0; transform: translateY(10px); }
             to   { opacity: 1; transform: translateY(0); }
         }
 
@@ -291,39 +285,43 @@
             border: 1px solid var(--border);
             border-radius: var(--radius-full);
             background: var(--bg-card);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            box-shadow: var(--shadow-xs);
             font-size: 0.69rem; font-weight: 600;
             letter-spacing: 0.09em; text-transform: uppercase;
             color: var(--ink-3);
-            margin-bottom: 22px;
+            margin-bottom: 20px;
         }
 
         .eyebrow-dot {
             width: 6px; height: 6px; border-radius: 50%;
-            background: var(--green);
-            box-shadow: 0 0 0 3px var(--green-bg);
+            background: var(--red);
+            box-shadow: 0 0 0 3px rgba(215,60,89,0.12);
             animation: pulse 2.5s ease infinite;
         }
 
         @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 0 3px var(--green-bg); }
-            50%       { box-shadow: 0 0 0 6px rgba(22,160,90,0.06); }
+            0%, 100% { box-shadow: 0 0 0 3px rgba(215,60,89,0.12); }
+            50%       { box-shadow: 0 0 0 6px rgba(215,60,89,0.05); }
         }
 
         .support-hero h1 {
-            font-size: clamp(2.3rem, 5vw, 3rem);
+            font-size: clamp(2rem, 4.5vw, 2.7rem);
             font-weight: 800;
             letter-spacing: -0.045em;
-            line-height: 1.08;
+            line-height: 1.1;
             margin-bottom: 12px;
             color: var(--ink);
         }
 
         .support-subtitle {
-            font-size: 1.05rem;
+            font-size: 1.02rem;
             color: var(--ink-3);
-            font-weight: 400;
             line-height: 1.6;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .hero-orb { animation: none; }
+            .support-content { opacity: 1; animation: none; }
         }
 
         /* Main content */
@@ -332,16 +330,16 @@
             margin: 0 auto;
             padding: 64px 24px 110px;
             opacity: 0;
-            animation: revealUp 0.8s var(--ease-out) 0.22s forwards;
+            animation: contentReveal 0.7s var(--ease-out) 0.05s forwards;
         }
 
         .view-head { margin-bottom: 28px; }
         .view-head h2 {
-            font-size: 1.6rem; font-weight: 800;
+            font-size: 1.4rem; font-weight: 800;
             letter-spacing: -0.03em; line-height: 1.2;
             color: var(--ink); margin-bottom: 6px;
         }
-        .view-sub { font-size: 0.95rem; color: var(--ink-3); line-height: 1.6; }
+        .view-sub { font-size: 0.94rem; color: var(--ink-3); line-height: 1.65; }
 
         /* View / screen transitions — a single deliberate motion per navigation */
         .view.hidden { display: none; }
@@ -353,7 +351,8 @@
         .topic-list {
             background: var(--bg-card);
             border-radius: var(--radius-xl);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+            border: 1px solid var(--border-soft);
+            box-shadow: var(--shadow-card);
             overflow: hidden;
         }
 
@@ -375,12 +374,12 @@
            needs a tint + the icon lifting — no extra border or shadow on
            the row itself. */
         .topic-row:hover { background: var(--bg); }
-        .topic-row:hover .topic-chevron { transform: translateX(3px); color: var(--red); }
+        .topic-row:hover .topic-chevron { transform: translateX(3px); color: var(--ink); }
         .topic-row:hover .topic-icon {
-            color: var(--red);
+            color: var(--ink);
             border-color: transparent;
-            background: var(--red-glow-sm);
-            box-shadow: 0 0 0 1px var(--red-glow), 0 4px 10px -4px rgba(215,60,89,0.28);
+            background: var(--tint);
+            box-shadow: 0 0 0 1px var(--ink-glow), 0 4px 10px -4px rgba(26,26,28,0.14);
         }
         .topic-row:active .topic-icon { transform: scale(0.94); }
 
@@ -405,11 +404,11 @@
 
         .topic-text { flex: 1; min-width: 0; }
         .topic-title {
-            font-size: 0.96rem; font-weight: 700; color: var(--ink);
-            letter-spacing: -0.01em; margin-bottom: 2px;
+            font-size: 0.94rem; font-weight: 700; color: var(--ink);
+            margin-bottom: 2px;
             transition: color 0.2s ease;
         }
-        .topic-subtitle { font-size: 0.8rem; color: var(--ink-3); line-height: 1.4; }
+        .topic-subtitle { font-size: 0.78rem; color: var(--ink-3); line-height: 1.5; }
 
         .topic-chevron { flex-shrink: 0; color: var(--ink-4); transition: transform 0.35s var(--spring-soft), color 0.2s ease; }
         .topic-chevron svg { width: 9px; height: 9px; stroke: currentColor; stroke-width: 2.2; fill: none; overflow: visible; }
@@ -418,7 +417,7 @@
         .back-link {
             display: inline-flex; align-items: center; gap: 6px;
             font-family: 'Figtree', sans-serif;
-            font-size: 0.82rem; font-weight: 600;
+            font-size: 0.83rem; font-weight: 700;
             color: var(--ink-3);
             background: none; border: none; cursor: pointer;
             padding: 0; margin-bottom: 22px;
@@ -432,22 +431,22 @@
             background: var(--bg-card);
             border-radius: var(--radius-xl);
             padding: 36px 36px 32px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+            border: 1px solid var(--border-soft);
+            box-shadow: var(--shadow-card);
         }
 
         .troubleshooting-card h3 {
-            font-size: 1.5rem; font-weight: 800;
+            font-size: 1.4rem; font-weight: 800;
             letter-spacing: -0.03em; line-height: 1.2;
-            margin-bottom: 22px; color: var(--ink);
+            margin-bottom: 14px; color: var(--ink);
         }
 
         .troubleshooting-card h4 {
             font-size: 1rem; font-weight: 700;
-            letter-spacing: -0.01em;
-            margin: 30px 0 14px; color: var(--ink);
+            margin: 26px 0 14px; color: var(--ink);
         }
 
-        .troubleshooting-card p { font-size: 0.96rem; line-height: 1.75; color: var(--ink-2); margin-bottom: 14px; }
+        .troubleshooting-card p { font-size: 0.94rem; line-height: 1.65; color: var(--ink-2); margin-bottom: 14px; }
 
         .troubleshooting-card ol, .troubleshooting-card ul { margin: 14px 0 20px 0; padding-left: 0; list-style: none; }
         .troubleshooting-card ol { counter-reset: step-counter; position: relative; }
@@ -474,11 +473,11 @@
             width: 1px; background: var(--border);
         }
 
-        .troubleshooting-card ol > li > strong { display: block; font-size: 0.98rem; font-weight: 700; color: var(--ink); margin-bottom: 6px; margin-top: 3px; }
+        .troubleshooting-card ol > li > strong { display: block; font-size: 1rem; font-weight: 700; color: var(--ink); margin-bottom: 6px; margin-top: 3px; }
 
         .troubleshooting-card ul li {
             position: relative; padding-left: 22px; margin-bottom: 9px;
-            font-size: 0.92rem; line-height: 1.65; color: var(--ink-3);
+            font-size: 0.9rem; line-height: 1.6; color: var(--ink-2);
         }
 
         .troubleshooting-card ul li::before {
@@ -488,14 +487,14 @@
         }
 
         .troubleshooting-card strong { font-weight: 700; color: var(--ink); }
-        .troubleshooting-card em { font-style: normal; color: var(--red); font-weight: 600; }
+        .troubleshooting-card em { font-style: normal; color: var(--ink); font-weight: 600; }
 
         .troubleshooting-card a:not(.btn-primary):not(.btn-secondary) {
-            color: var(--red); text-decoration: none;
-            border-bottom: 1px solid rgba(215,60,89,0.3);
+            color: var(--ink); text-decoration: none;
+            border-bottom: 1px solid rgba(26,26,28,0.25);
             transition: border-color 0.2s ease;
         }
-        .troubleshooting-card a:not(.btn-primary):not(.btn-secondary):hover { border-color: var(--red); }
+        .troubleshooting-card a:not(.btn-primary):not(.btn-secondary):hover { border-color: var(--ink); }
 
         /* Inline note — editorial, not a boxed callout */
         .note-inline {
@@ -503,7 +502,7 @@
             padding: 16px 0; margin: 4px 0 22px;
             border-top: 1px solid var(--border-soft);
             border-bottom: 1px solid var(--border-soft);
-            font-size: 0.86rem; line-height: 1.7; color: var(--ink-3);
+            font-size: 0.86rem; line-height: 1.65; color: var(--ink-3);
         }
         .note-inline svg { flex-shrink: 0; width: 15px; height: 15px; margin-top: 2px; stroke: var(--ink-4); stroke-width: 1.6; fill: none; overflow: visible; }
 
@@ -515,15 +514,15 @@
             stroke-linecap: round;
             stroke-linejoin: round;
         }
-        .note-inline a { color: var(--red); text-decoration: none; border-bottom: 1px solid rgba(215,60,89,0.3); }
-        .note-inline a:hover { border-color: var(--red); }
+        .note-inline a { color: var(--ink); text-decoration: none; border-bottom: 1px solid rgba(26,26,28,0.25); }
+        .note-inline a:hover { border-color: var(--ink); }
 
         /* ─── Buttons ────────────────────────────────────────────── */
         .btn-primary, .btn-secondary {
             display: inline-flex; align-items: center; justify-content: center; gap: 8px;
             font-family: 'Figtree', sans-serif;
-            font-weight: 700; font-size: 0.87rem; letter-spacing: -0.005em;
-            padding: 14px 28px;
+            font-weight: 700; font-size: 0.9rem; letter-spacing: -0.005em;
+            padding: 15px 28px;
             border-radius: var(--radius-full);
             text-decoration: none !important;
             cursor: pointer;
@@ -533,7 +532,14 @@
            the small overshoot is what makes a tap feel acknowledged. */
         .btn-primary:active, .btn-secondary:active { transform: scale(0.965) translateY(1px); transition-duration: 0.08s; }
 
-        .btn-primary { background: var(--ink); color: #ffffff !important; border: none; box-shadow: var(--shadow-btn); }
+        .btn-primary { background: var(--ink); color: #ffffff !important; border: none; box-shadow: var(--shadow-btn); position: relative; overflow: hidden; }
+        .btn-primary::before {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.10) 50%, transparent 65%);
+            transform: translateX(-130%); transition: transform 0.55s var(--ease-out);
+            pointer-events: none;
+        }
+        .btn-primary:hover::before { transform: translateX(130%); }
         .btn-primary:hover { background: #1a1a1c; box-shadow: var(--shadow-btn-hi); transform: translateY(-1px); }
         .btn-primary:active { box-shadow: var(--shadow-xs); }
 
@@ -554,7 +560,7 @@
         .still-need-help p { margin: 0; font-size: 0.9rem; color: var(--ink-3); }
 
         :focus-visible {
-            outline: 2px solid var(--red);
+            outline: 2px solid var(--ink);
             outline-offset: 2px;
             border-radius: var(--radius-sm);
         }
@@ -570,60 +576,109 @@
         .segmented-btn:focus-visible { outline-offset: -2px; }
         .device-chip:focus-visible { outline-offset: 2px; }
 
-        /* ─── Global device switcher — persists across every screen ─── */
+        /* ─── Global device switcher — persists across every screen ───
+           Styled as the ticket page's "Before you submit" recap card:
+           light grey surface, 1.15rem/800 heading, 0.9rem lede. */
         .device-bar {
-            background: var(--bg-card);
+            background: var(--tint);
+            border: 1px solid var(--tint-border);
             border-radius: var(--radius-xl);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
-            padding: 22px 24px;
+            box-shadow: var(--shadow-card);
+            padding: 26px 28px;
             margin-bottom: 24px;
             transition: box-shadow 0.3s ease;
         }
         .device-bar.pulse-attn { animation: deviceBarPulse 1.1s var(--ease-out); }
         @keyframes deviceBarPulse {
-            0%, 100% { box-shadow: 0 10px 30px rgba(0,0,0,0.04); }
-            30%      { box-shadow: 0 0 0 4px var(--red-glow), 0 10px 30px rgba(0,0,0,0.04); }
+            0%, 100% { box-shadow: var(--shadow-card); }
+            30%      { box-shadow: 0 0 0 4px var(--ink-glow), var(--shadow-card); }
         }
         .device-bar-title {
-            display: block; font-size: 0.72rem; font-weight: 700;
-            letter-spacing: 0.12em; text-transform: uppercase;
-            color: var(--ink-3); margin-bottom: 4px;
+            display: block; font-size: 1.15rem; font-weight: 800;
+            letter-spacing: -0.03em; color: var(--ink); margin-bottom: 6px;
         }
-        .device-bar-sub { display: block; font-size: 0.87rem; color: var(--ink-3); margin-bottom: 16px; line-height: 1.5; }
+        .device-bar-sub { display: block; font-size: 0.9rem; color: var(--ink-2); line-height: 1.65; margin-bottom: 16px; }
 
-        .device-chip-group { display: flex; gap: 12px; }
+        .device-chip-group { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         .device-chip {
-            flex: 1; display: flex; align-items: center; gap: 12px;
-            padding: 14px 16px;
+            position: relative; overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
+            padding: 30px 16px 26px;
             border: 1.5px solid var(--border);
             border-radius: var(--radius-lg);
-            background: var(--bg);
-            cursor: pointer; text-align: left;
-            font-family: 'Figtree', sans-serif;
-            transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease, transform 0.15s var(--ease-out);
+            background: var(--bg-card);
+            box-shadow: var(--shadow-xs);
+            cursor: pointer;
+            transition: border-color 0.28s var(--ease-out), background 0.28s var(--ease-out),
+                        box-shadow 0.28s var(--ease-out), transform 0.32s var(--spring-soft), opacity 0.32s ease;
         }
-        .device-chip:hover { border-color: var(--ink-4); }
+        /* Quiet accent line along the bottom edge, as on the tutorials selector */
+        .device-chip::after {
+            content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 2px;
+            background: var(--ink);
+            transform: scaleX(0); transition: transform 0.32s var(--ease-out);
+        }
+        .device-chip:hover { border-color: var(--ink-4); transform: translateY(-3px); box-shadow: var(--shadow-card); }
+        .device-chip:hover::after { transform: scaleX(1); }
         .device-chip:active { transform: scale(0.98); }
+
+        .device-chip-media { display: flex; align-items: center; justify-content: center; height: 104px; }
+        .device-chip-img {
+            max-height: 100%; width: auto; max-width: 100%; object-fit: contain;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.14));
+            transition: transform 0.38s var(--spring-soft);
+        }
+        .device-chip:hover .device-chip-img,
+        .device-chip.selected .device-chip-img { transform: scale(1.06) translateY(-3px); }
+
+        /* Icon only appears if the product photo fails to load */
         .device-chip-icon {
-            flex-shrink: 0; width: 38px; height: 38px; border-radius: 50%;
+            display: none; width: 56px; height: 56px; border-radius: 50%;
+            align-items: center; justify-content: center;
+            border: 1.5px solid var(--border); background: var(--bg); color: var(--ink-3);
+        }
+        .device-chip-icon svg { width: 24px; height: 24px; stroke: currentColor; stroke-width: 1.75; fill: none; overflow: visible; stroke-linecap: round; stroke-linejoin: round; }
+
+        /* Selected: a crisp graphite edge, nothing more */
+        .device-chip.selected { border-color: var(--ink); box-shadow: var(--shadow-card); }
+        .device-chip.selected::after { transform: scaleX(0); }
+        /* Once a device is chosen, the other one steps back */
+        .device-chip-group:has(.device-chip.selected) .device-chip:not(.selected) { opacity: 0.5; }
+        .device-chip-group:has(.device-chip.selected) .device-chip:not(.selected):hover { opacity: 1; }
+
+        /* ─── Device prompt (modal) ──────────────────────────────── */
+        .device-modal {
+            position: fixed; inset: 0; z-index: 4800;
             display: flex; align-items: center; justify-content: center;
-            border: 1.5px solid var(--border); background: var(--bg-card); color: var(--ink-3);
+            padding: 24px;
+            background: rgba(22,22,24,0.42);
+            -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .device-modal.active { opacity: 1; visibility: visible; }
+        .device-modal-card {
+            position: relative; width: 100%; max-width: 460px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-soft);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-card-hi);
+            padding: 30px 28px 28px;
+            transform: translateY(14px) scale(0.985);
+            transition: transform 0.4s var(--ease-out);
+        }
+        .device-modal.active .device-modal-card { transform: none; }
+        .device-modal .device-bar-sub { margin-bottom: 20px; padding-right: 24px; }
+        .device-modal .device-chip { background: var(--bg); }
+        .device-modal-close {
+            position: absolute; top: 14px; right: 14px;
+            width: 32px; height: 32px; border-radius: var(--radius-full);
+            border: 1.5px solid var(--border); background: transparent; color: var(--ink-3);
+            display: flex; align-items: center; justify-content: center; cursor: pointer;
             transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
         }
-        .device-chip-icon svg { width: 18px; height: 18px; stroke: currentColor; stroke-width: 1.75; fill: none; overflow: visible; }
-        .device-chip-text { flex: 1; min-width: 0; }
-        .device-chip-title { display: block; font-size: 0.92rem; font-weight: 700; color: var(--ink); }
-        .device-chip-model { display: block; font-size: 0.78rem; color: var(--ink-3); margin-top: 1px; }
-        .device-chip-check {
-            flex-shrink: 0; width: 20px; height: 20px; border-radius: 50%;
-            border: 1.5px solid var(--border); background: #fff;
-            display: flex; align-items: center; justify-content: center;
-        }
-        .device-chip-check svg { width: 11px; height: 11px; stroke: #fff; stroke-width: 2.6; fill: none; opacity: 0; transition: opacity 0.15s ease; }
-        .device-chip.selected { border-color: var(--red); background: var(--red-glow-sm); box-shadow: 0 0 0 1px var(--red-glow); }
-        .device-chip.selected .device-chip-icon { color: var(--red); border-color: transparent; background: #fff; }
-        .device-chip.selected .device-chip-check { background: var(--red); border-color: var(--red); }
-        .device-chip.selected .device-chip-check svg { opacity: 1; }
+        .device-modal-close:hover { color: var(--ink); border-color: var(--ink-4); background: var(--bg); }
+        .device-modal-close svg { width: 11px; height: 11px; stroke: currentColor; stroke-width: 2.2; fill: none; stroke-linecap: round; }
 
         /* ─── Per-device content filtering ───────────────────────── */
         /* Default (no device chosen yet): every [data-device-only] block
@@ -644,11 +699,11 @@
         .device-context-badge svg { flex-shrink: 0; width: 14px; height: 14px; stroke: var(--ink-4); stroke-width: 1.8; fill: none; overflow: visible; }
         .device-context-switch {
             font-family: 'Figtree', sans-serif; font-size: 0.83rem; font-weight: 700;
-            color: var(--red); background: none; border: none; padding: 0; margin-left: auto;
-            cursor: pointer; text-decoration: underline; text-decoration-color: rgba(215,60,89,0.35);
+            color: var(--ink); background: none; border: none; padding: 0; margin-left: auto;
+            cursor: pointer; text-decoration: underline; text-decoration-color: rgba(26,26,28,0.30);
             flex-shrink: 0;
         }
-        .device-context-switch:hover { text-decoration-color: var(--red); }
+        .device-context-switch:hover { text-decoration-color: var(--ink); }
         [data-device-filter="nighthawk"] .device-context-badge[data-badge-device="nighthawk"] { display: flex; }
         [data-device-filter="orbi"] .device-context-badge[data-badge-device="orbi"] { display: flex; }
         .device-context-badge[data-badge-device="none"] { display: flex; }
@@ -673,7 +728,6 @@
             .nav-links-desktop { display: none; }
             .menu-trigger { display: block; }
 
-            .support-hero { padding: 48px 20px 44px; }
             .support-content { padding: 44px 20px 90px; }
 
             .troubleshooting-card { padding: 26px 22px; }
@@ -684,12 +738,19 @@
 
             .still-need-help { flex-direction: column; align-items: stretch; text-align: center; }
 
-            .device-chip-group { flex-direction: column; }
+            .device-bar { padding: 22px 20px; }
+            .device-modal-card { padding: 26px 20px 22px; }
+            .device-chip { padding: 26px 12px 22px; }
+            .device-chip-media { height: 88px; }
             .device-context-badge { flex-wrap: wrap; }
             .device-context-switch { margin-left: 0; }
 
             .footer { flex-direction: column; text-align: center; padding: 28px 24px; }
             .footer-links { justify-content: center; }
+        }
+
+        @media (max-width: 640px) {
+            .support-hero { padding: 40px 20px 32px; }
         }
     </style>
 </head>
@@ -723,11 +784,39 @@
     </ul>
 </div>
 
+<!-- Device prompt — appears when a topic is opened before a device is chosen -->
+<div class="device-modal" id="deviceModal" role="dialog" aria-modal="true" aria-labelledby="deviceModalTitle" aria-hidden="true">
+    <div class="device-modal-card">
+        <button type="button" class="device-modal-close" onclick="closeDeviceModal()" aria-label="Close">
+            <svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2 2l8 8M10 2l-8 8"/></svg>
+        </button>
+        <h2 class="device-bar-title" id="deviceModalTitle">Choose your device</h2>
+        <span class="device-bar-sub">Every guide is tailored to it — pick yours to continue.</span>
+        <div class="device-chip-group" role="radiogroup" aria-label="Select your device type">
+            <button type="button" class="device-chip" data-device-choice="nighthawk" onclick="chooseDeviceFromModal('nighthawk')" role="radio" aria-checked="false" aria-label="On the Go — Nighthawk M1 portable hotspot">
+                <span class="device-chip-media">
+                    <img src="assets/img/products/mr1100.png" alt="" class="device-chip-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <span class="device-chip-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="7" y="3" width="10" height="18" rx="2.3"/><path d="M11 17.3h2"/></svg></span>
+                </span>
+            </button>
+            <button type="button" class="device-chip" data-device-choice="orbi" onclick="chooseDeviceFromModal('orbi')" role="radio" aria-checked="false" aria-label="At Home — Orbi LBR20 home-style router">
+                <span class="device-chip-media">
+                    <img src="assets/img/products/LBR20.png" alt="" class="device-chip-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <span class="device-chip-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 11.5L12 4.7l8 6.8"/><path d="M6.4 10v9.3h11.2V10"/></svg></span>
+                </span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="nav-progress" aria-hidden="true"><div class="nav-progress-fill" id="navProgressFill"></div></div>
+
 <!-- ── PAGE CONTENT ───────────────────────────────────────────── -->
 <div class="support-wrap">
 
     <!-- Hero -->
     <section class="support-hero">
+        <div class="hero-orb" aria-hidden="true"></div>
         <div class="hero-content">
             <div class="support-eyebrow"><span class="eyebrow-dot"></span>Help Centre</div>
             <h1>Technical Support</h1>
@@ -741,24 +830,20 @@
         <!-- Global device switcher — persists across every screen below,
              and every catered guide reads from this single choice. -->
         <div class="device-bar" id="deviceBar">
-            <span class="device-bar-title">Your Device</span>
+            <h2 class="device-bar-title">Your device</h2>
             <span class="device-bar-sub" id="deviceBarSub">Select yours to continue — every guide below is tailored to it.</span>
             <div class="device-chip-group" role="radiogroup" aria-label="Select your device type">
-                <button type="button" class="device-chip" id="deviceChipNighthawk" data-device-choice="nighthawk" onclick="setGlobalDevice('nighthawk')" role="radio" aria-checked="false">
-                    <span class="device-chip-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="7" y="3" width="10" height="18" rx="2.3"/><path d="M11 17.3h2"/></svg></span>
-                    <span class="device-chip-text">
-                        <span class="device-chip-title">On the Go</span>
-                        <span class="device-chip-model">Nighthawk M6 / M6 Pro hotspot</span>
+                <button type="button" class="device-chip" id="deviceChipNighthawk" data-device-choice="nighthawk" onclick="setGlobalDevice('nighthawk')" role="radio" aria-checked="false" aria-label="On the Go — Nighthawk M1 portable hotspot">
+                    <span class="device-chip-media">
+                        <img src="assets/img/products/mr1100.png" alt="" class="device-chip-img" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <span class="device-chip-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="7" y="3" width="10" height="18" rx="2.3"/><path d="M11 17.3h2"/></svg></span>
                     </span>
-                    <span class="device-chip-check"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg></span>
                 </button>
-                <button type="button" class="device-chip" id="deviceChipOrbi" data-device-choice="orbi" onclick="setGlobalDevice('orbi')" role="radio" aria-checked="false">
-                    <span class="device-chip-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 11.5L12 4.7l8 6.8"/><path d="M6.4 10v9.3h11.2V10"/></svg></span>
-                    <span class="device-chip-text">
-                        <span class="device-chip-title">At Home</span>
-                        <span class="device-chip-model">Orbi LBR20 fixed wireless router</span>
+                <button type="button" class="device-chip" id="deviceChipOrbi" data-device-choice="orbi" onclick="setGlobalDevice('orbi')" role="radio" aria-checked="false" aria-label="At Home — Orbi LBR20 home-style router">
+                    <span class="device-chip-media">
+                        <img src="assets/img/products/LBR20.png" alt="" class="device-chip-img" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <span class="device-chip-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 11.5L12 4.7l8 6.8"/><path d="M6.4 10v9.3h11.2V10"/></svg></span>
                     </span>
-                    <span class="device-chip-check"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg></span>
                 </button>
             </div>
         </div>
@@ -1035,9 +1120,9 @@
 
             <h4>Quick Settings Checklist</h4>
             <ul>
-                <li><strong>Is your APN set correctly?</strong> An incorrect or missing APN is the most common cause of a connection that won't work at all.</li>
-                <li><strong>Is Band Lock set to "All" or "Auto"?</strong> If it's locked to a specific band that's no longer available in your area, your connection can disconnect entirely.</li>
-                <li><strong>Is Network mode set to Auto or Manual?</strong> On Manual, if your selected carrier becomes unavailable, the connection can drop. On Auto, the device picks a network for you — but it doesn't always choose the strongest one. If you already know which carrier gives you the best signal at your address, Manual is usually the better choice.</li>
+                <li><strong>Is your APN still set to the one our support team provided?</strong> Your APN is set up specifically for your plan, and an incorrect or missing one is the most common cause of a connection that won't work at all. Please don't change it unless our support team asks you to — if you think it may have been changed, reach out and we'll help get it back on track.</li>
+                <li><strong>Is Band Locking set to "All" or "Auto"?</strong> Band locking is an advanced setting. If you've locked to a specific band and it becomes unavailable in your area, you may lose your internet connection entirely.</li>
+                <li><strong>Is Network Selection set to Auto or Manual?</strong> By default, your device automatically chooses the network it thinks is best — though that isn't always the strongest one. If you know which network gives you the best signal at your address, you can override this by manually selecting your preferred network. Just keep in mind that on Manual, the connection can drop if that network becomes unavailable.</li>
             </ul>
             <div class="note-inline">
                 <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
@@ -1062,10 +1147,10 @@
                 </li>
                 <li><strong>Improve Signal Strength & Placement</strong>
                     <ul>
-                        <li>Place the hub near a window, ideally on a higher floor and as close as possible to the nearest known cell tower.</li>
+                        <li>Place your device near a window, ideally on a higher floor and as close as possible to the nearest known cell tower.</li>
                         <li>Avoid basements, cabinets, or metal objects that can block signal.</li>
                         <li>Try a few different spots — small changes in placement can meaningfully change signal strength, so trial and error is worth it.</li>
-                        <li>Check the hub's LEDs or app for signal strength. Aim for at least 3/5 bars.</li>
+                        <li>Check your device's display, lights, or app for signal strength. Aim for at least 3/5 bars.</li>
                     </ul>
                 </li>
                 <li><strong>Know About Network Issues</strong>
@@ -1076,8 +1161,8 @@
                 </li>
                 <li><strong>Recheck the Settings Checklist Above</strong>
                     <ul>
-                        <li>Confirm the APN, Band Lock, and Network mode settings against the checklist at the top of this guide.</li>
-                        <li>Try switching to another major Canadian network provider for a stronger signal.</li>
+                        <li>Review your APN, Band Locking, and Network Selection settings against the checklist at the top of this guide.</li>
+                        <li>Try manually selecting another major Canadian network for a stronger signal.</li>
                     </ul>
                 </li>
                 <li><strong>Inspect the SIM Card</strong>
@@ -1091,7 +1176,7 @@
                     <ul>
                         <li>Measure your internet speed using a speed test tool.</li>
                         <li>Test at different times (morning, afternoon, evening).</li>
-                        <li>Try moving the hub to different spots in your home.</li>
+                        <li>Try moving your device to different spots in your home.</li>
                     </ul>
                     <a href="https://speedtest.net" class="btn-secondary" target="_blank" rel="nofollow">Run Speed Test</a>
                 </li>
@@ -1124,20 +1209,20 @@
             <ol>
                 <li><strong>Choose a Stronger Network</strong>
                     <ul>
-                        <li>Log into your router's settings via its app or web interface.</li>
-                        <li>Find "Network Selection" or "Band Selection."</li>
-                        <li>Select the strongest band or set to "Auto" for best performance.</li>
+                        <li>Open your device's app, or the web portal at <em>192.168.1.1</em> while connected to its Wi-Fi.</li>
+                        <li>Go to <em>Settings &gt; Advanced &gt; Mobile</em> and find "Network Selection" or "LTE Bands."</li>
+                        <li>Choose the network or band with the best speeds in your area, or leave it on "Auto." Use band locking with care — if a locked band becomes unavailable, you may lose your connection.</li>
                     </ul>
                     <div class="button-group" style="margin-top: 12px;">
                         <a href="tutorials#mobile-band-locking" class="btn-secondary" target="_blank" rel="nofollow" data-device-only="nighthawk">Nighthawk: Band Locking Guide</a>
                         <a href="tutorials#fixed-manual-network" class="btn-secondary" target="_blank" rel="nofollow" data-device-only="orbi">Orbi: Manual Network Guide</a>
                     </div>
                 </li>
-                <li><strong>Optimize Hub Placement</strong>
+                <li><strong>Optimize Device Placement</strong>
                     <ul>
-                        <li>Place the hub near a window or outside wall, toward the nearest cell tower.</li>
+                        <li>Place your device near a window or outside wall, toward the nearest cell tower.</li>
                         <li>Avoid thick walls, metal objects, or appliances.</li>
-                        <li>Elevate the hub (e.g., on a shelf) away from other electronics.</li>
+                        <li>Elevate your device (e.g., on a shelf) away from other electronics.</li>
                         <li>Test different locations with a speed test tool.</li>
                         <li data-device-only="nighthawk">Since the Nighthawk is portable, try a few different central spots in the home rather than leaving it wherever it first landed.</li>
                         <li data-device-only="orbi">Still slow in one specific room? That's usually a coverage gap rather than a speed issue — see <a href="javascript:void(0)" onclick="goToView('weak-signal-rooms','forward')">Weak signal in certain rooms</a>.</li>
@@ -1185,13 +1270,13 @@
             </div>
 
             <div data-device-only="nighthawk">
-                <h4>Nighthawk: Work With a Single Portable Hub</h4>
-                <p>The Nighthawk is one hub, so the fix is usually about where it sits — or how you extend its signal — rather than the device itself.</p>
+                <h4>Nighthawk: Work With a Single Portable Device</h4>
+                <p>The Nighthawk is a single, portable unit, so the fix is usually about where it sits — or how you extend its signal — rather than the hardware itself.</p>
                 <ul>
                     <li>Move it to the most central room in the home rather than tucking it in the room you use most — a few metres can matter more than you'd expect.</li>
                     <li>Keep it up off the floor and away from large appliances, mirrors, and metal furniture, which all block signal.</li>
-                    <li>If one room is consistently weak, connect to the hub's Wi-Fi from just outside that room instead of deep inside it, or bring the hub with you if you're mobile.</li>
-                    <li>A 2x2 MIMO antenna aimed at your nearest cell tower can meaningfully widen the hub's effective range.</li>
+                    <li>If one room is consistently weak, connect to the Nighthawk's Wi-Fi from just outside that room instead of deep inside it, or bring the Nighthawk with you if you're mobile.</li>
+                    <li>A 2x2 MIMO antenna aimed at your nearest cell tower can meaningfully widen the Nighthawk's effective range.</li>
                     <li>A third-party Wi-Fi extender or access point can rebroadcast the Nighthawk's signal into weaker rooms. If you go this route, set the Nighthawk's Wi-Fi to stay on at all times in its settings — an extender depends on that signal always being available, and the default power-saving timeout will disconnect it.</li>
                     <li>For a more permanent setup, connect the Nighthawk to a dedicated router over Ethernet and let that router handle Wi-Fi for the whole home. You can still unplug the Nighthawk and take it with you when you're on the go — it's built to be portable either way.</li>
                 </ul>
@@ -1240,7 +1325,7 @@
             </div>
 
             <ol>
-                <li data-device-only="nighthawk"><strong>For Mobile Devices with a Battery</strong>
+                <li data-device-only="nighthawk"><strong>Nighthawk (Battery-Powered)</strong>
                     <ul>
                         <li>Remove the battery from the device.</li>
                         <li>Connect it to a power source using a USB-C cable and 3.0A power adapter (without the battery).</li>
@@ -1248,7 +1333,7 @@
                     </ul>
                     <a href="tutorials#mobile-battery-free" class="btn-secondary" target="_blank" rel="nofollow">Nighthawk Battery-Free Guide</a>
                 </li>
-                <li data-device-only="orbi"><strong>For Home Devices with a Power Adapter</strong>
+                <li data-device-only="orbi"><strong>Orbi (Power Adapter)</strong>
                     <ul>
                         <li>Ensure the power adapter is securely connected to the router and a working outlet.</li>
                         <li>Try a different outlet to rule out power issues.</li>
@@ -1256,10 +1341,10 @@
                         <li>Check for any indicator lights on the device.</li>
                     </ul>
                 </li>
-                <li><strong>Reset the Device (Caution)</strong>
+                <li><strong>Factory Reset (Please Read First)</strong>
                     <ul>
-                        <li>Do not reset mobile devices unless instructed, as it may disconnect service.</li>
-                        <li>For home devices, find the reset pinhole and press it with a paperclip while powered on.</li>
+                        <li>Please don't factory reset your Nighthawk or Orbi unless our support team asks you to. It erases the custom network settings your plan relies on and will need to be reprogrammed to restore service.</li>
+                        <li>If our support team has asked you to reset your Orbi, use the recessed reset button on the back of the router and follow the guide below.</li>
                     </ul>
                     <a href="tutorials#fixed-factory-reset" class="btn-secondary" target="_blank" rel="nofollow">Orbi Factory Reset Guide</a>
                 </li>
@@ -1305,16 +1390,16 @@
                 <li>Save changes, which apply immediately.</li>
             </ul>
             <a href="app-download" class="btn-secondary" target="_blank" rel="nofollow">Download App</a>
-            <h4>Option 2: Use a Web Browser</h4>
+            <h4>Option 2: Use the Web Portal (No App Needed)</h4>
             <ol>
                 <li><strong>Connect to Your Device</strong>
                     <ul>
-                        <li>Connect to your device's Wi-Fi network.</li>
+                        <li>Connect to your device's Wi-Fi network. An internet connection isn't needed.</li>
                     </ul>
                 </li>
-                <li><strong>Access Settings Page</strong>
+                <li><strong>Open the Web Portal</strong>
                     <ul>
-                        <li>Open a browser and type <em>192.168.1.1</em> in the address bar.</li>
+                        <li>Open any web browser and type <em>192.168.1.1</em> in the address bar.</li>
                     </ul>
                 </li>
                 <li><strong>Log In</strong>
@@ -1360,7 +1445,7 @@
                 Showing steps for your <strong>Orbi</strong>. <button type="button" class="device-context-switch" onclick="goToDeviceBar()">Switch device</button>
             </div>
 
-            <h4>Default Login Details</h4>
+            <h4>Router Login</h4>
             <ul>
                 <li>Address: <em>192.168.1.1</em>, entered directly in a browser's address bar (not a search box).</li>
                 <li data-device-only="nighthawk">Nighthawk: Username <em>admin</em>, Password <em>attadmin</em></li>
@@ -1394,7 +1479,7 @@
             <h4>If You Changed the Password and Forgot It</h4>
             <ul>
                 <li data-device-only="nighthawk">Use the NETGEAR Mobile app's "Forgot Password" option if you're still logged in on a paired phone — it can reset admin access without a full factory reset.</li>
-                <li data-device-only="orbi">A factory reset restores the default login above, though it also clears your Wi-Fi name and password. See the <a href="tutorials#fixed-factory-reset" target="_blank" rel="nofollow">Orbi Factory Reset Guide</a> first.</li>
+                <li data-device-only="orbi">A factory reset restores the default login above, but it also erases your custom network settings — including your APN, Wi-Fi name, and password. Please only try this if our support team asks you to, and follow the <a href="tutorials#fixed-factory-reset" target="_blank" rel="nofollow">Orbi Factory Reset Guide</a> closely.</li>
                 <li>If neither option works, open a ticket below and we can help verify your account and get you back in.</li>
             </ul>
 
@@ -1487,8 +1572,8 @@
 
             <div data-device-only="orbi">
                 <h4>Orbi Connectivity Issues</h4>
-                <p>Most Orbi connection drops come down to network selection rather than a hardware fault. If you're losing connection or seeing a weak signal, switching from Automatic to Manual network selection lets you lock onto the strongest carrier in your area instead of waiting for the device to reselect one.</p>
-                <a href="tutorials#fixed-manual-network" class="btn-secondary" target="_blank" rel="nofollow">View Manual Network Selection Guide</a>
+                <p>Most Orbi connection drops come down to network selection rather than a hardware fault. By default, your Orbi automatically connects to the network it thinks is best. If you're losing connection or seeing a weak signal, you can override this by switching from Auto to Manual and selecting your preferred network.</p>
+                <a href="tutorials#fixed-manual-network" class="btn-secondary" target="_blank" rel="nofollow">View Manual Network Guide</a>
             </div>
 
             <div class="still-need-help">
@@ -1534,7 +1619,7 @@
                 </li>
                 <li><strong>Download the App and Connect</strong>
                     <ul>
-                        <li data-device-only="nighthawk">Get the NETGEAR Mobile app, then connect to the hub's Wi-Fi network shown on its screen or label.</li>
+                        <li data-device-only="nighthawk">Get the NETGEAR Mobile app, then connect to the Nighthawk's Wi-Fi network shown on its screen or label.</li>
                         <li data-device-only="orbi">Get the NETGEAR Orbi app, then connect to the network name (SSID) printed on the bottom of the router.</li>
                         <li>Follow the app's setup wizard — it confirms your SIM is active and pulls the latest firmware automatically.</li>
                     </ul>
@@ -1583,7 +1668,7 @@
 
             <h4>On Your Device</h4>
             <ul>
-                <li data-device-only="nighthawk">Tap the home icon on the touchscreen, then <em>Data Usage</em>, to see totals for the current cycle. You can also set a data alert and a hard cutoff limit under Settings — the device stops sharing WiFi once the limit is hit, which is worth turning on if you want a hard guardrail.</li>
+                <li data-device-only="nighthawk">Tap the home icon on the touchscreen, then <em>Data Usage</em>, to see totals for the current cycle. You can also set a data alert and a hard cutoff limit under Settings — the device stops sharing Wi-Fi once the limit is hit, which is worth turning on if you want a hard guardrail.</li>
                 <li data-device-only="orbi">Open the Orbi app, or go to <em>Advanced &gt; Administration &gt; Traffic Meter</em> in the web interface at <em>192.168.1.1</em>, to see usage broken down by day, week, or month.</li>
                 <li>Either way, the NETGEAR app shows the same numbers on your phone and can send a push notification as you approach a limit you've set.</li>
             </ul>
@@ -1621,7 +1706,7 @@
                 <ul>
                     <li><strong>Signal bars</strong> at the top of the screen show cellular strength, the same idea as the bars on a phone. Fewer than 2 bars usually points to a placement issue rather than a fault — see <a href="javascript:void(0)" onclick="goToView('internet-not-working','forward')">Internet isn't working</a>.</li>
                     <li><strong>Network type icon</strong> (5G, 5G UC, LTE, etc.) shows which network you're connected to.</li>
-                    <li><strong>A warning triangle</strong> generally means limited connectivity — the device has found a network but can't reach the internet. Restarting the device and rechecking APN and network settings is the first thing to try.</li>
+                    <li><strong>A warning triangle</strong> generally means limited connectivity — the device has found a network but can't reach the internet. Restarting the device and checking your network settings is the first thing to try. If that doesn't help, our support team can confirm your APN — please don't change it yourself unless they ask you to.</li>
                     <li><strong>Battery icon</strong> fills as the device charges, and shows a lightning bolt while plugged in.</li>
                 </ul>
             </div>
@@ -1631,8 +1716,8 @@
                 <ul>
                     <li><strong>Power LED</strong> (on the back, above the power button): on means the router has power. If it's off, check the outlet and adapter as covered in <a href="javascript:void(0)" onclick="goToView('router-not-turning-on','forward')">Router won't turn on</a>.</li>
                     <li><strong>Ring LED</strong> (on top): pulses slowly while the router is booting, resetting, or syncing with a satellite — normal for a minute or two, and it settles once a stable connection is found.</li>
-                    <li><strong>A fast, continuous flash</strong> on the ring LED — rather than a slow pulse — usually signals a fault: no SIM detected, or repeated failed connection attempts. Restarting the device and rechecking the SIM and APN settings resolves most cases.</li>
-                    <li>If the ring LED stays in a non-standard state well after the router has finished booting, that usually points to a connectivity issue rather than a hardware fault — a restart followed by rechecking your APN and SIM (see <a href="javascript:void(0)" onclick="goToView('internet-not-working','forward')">Internet isn't working</a>) resolves most cases.</li>
+                    <li><strong>A fast, continuous flash</strong> on the ring LED — rather than a slow pulse — usually signals a fault: no SIM detected, or repeated failed connection attempts. Restarting the device and checking the SIM usually resolves it — if not, our support team can confirm your APN.</li>
+                    <li>If the ring LED stays in a non-standard state well after the router has finished booting, that usually points to a connectivity issue rather than a hardware fault — a restart followed by checking your SIM and network settings (see <a href="javascript:void(0)" onclick="goToView('internet-not-working','forward')">Internet isn't working</a>) resolves most cases.</li>
                 </ul>
                 <div class="note-inline">
                     <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
@@ -1726,10 +1811,10 @@
                     <ul><li>Type it fresh rather than relying on a saved copy, especially if you changed it recently.</li></ul>
                 </li>
                 <li><strong>Rule Out Signal</strong>
-                    <ul><li>Move the struggling device closer to the hub or router temporarily to see if that's the issue.</li></ul>
+                    <ul><li>Move the struggling device closer to your Nighthawk or Orbi temporarily to see if that's the issue.</li></ul>
                 </li>
                 <li><strong>Restart the Client's Wi-Fi</strong>
-                    <ul><li>Toggle Wi-Fi off and on on the device that's having trouble, not just the hotspot/router.</li></ul>
+                    <ul><li>Toggle Wi-Fi off and on on the device that's having trouble, not just on your Nighthawk or Orbi.</li></ul>
                 </li>
                 <li><strong>Check the Band</strong>
                     <ul>
@@ -1787,7 +1872,7 @@
 
             <div class="note-inline">
                 <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5M10 6.8v.1"/></svg>
-                <span>Not sure if you need one yet? Try the placement and network-mode steps in <a href="javascript:void(0)" onclick="goToView('internet-not-working','forward')">Internet isn't working</a> first — an antenna helps most once placement alone can't get you further.</span>
+                <span>Not sure if you need one yet? Try the placement and network selection steps in <a href="javascript:void(0)" onclick="goToView('internet-not-working','forward')">Internet isn't working</a> first — an antenna helps most once placement alone can't get you further.</span>
             </div>
 
             <div class="still-need-help">
@@ -1906,7 +1991,7 @@
                 <h4>Taking Your Nighthawk With You</h4>
                 <ul>
                     <li>Fully charge before you leave — battery life runs up to roughly 9 hours of continuous use, less with heavy data use or weak signal (the device works harder to hold a connection).</li>
-                    <li>Coverage and speed vary by carrier and region. If you're headed somewhere with historically weak coverage for your current carrier, check whether Manual network mode shows another available carrier under Settings before you go.</li>
+                    <li>Coverage and speed vary by carrier and region. If you're headed somewhere with historically weak coverage for your current carrier, check under Settings whether switching Network Selection to Manual shows another available network before you go.</li>
                     <li>International travel: most plans are Canada/US-only and can incur charges — or simply not connect — abroad. Open a ticket before you leave to confirm what your specific plan covers.</li>
                     <li>The device runs warm during heavy use in a hot car or direct sun; give it airflow to avoid a thermal shutdown mid-trip (see <a href="javascript:void(0)" onclick="goToView('battery-health','forward')">Battery care & charging tips</a>).</li>
                 </ul>
@@ -2024,6 +2109,7 @@
         if (e.key === 'Escape' && menuTrigger && menuTrigger.classList.contains('menu-active')) {
             setMenu(false);
         }
+        if (e.key === 'Escape' && window.closeDeviceModal) window.closeDeviceModal();
     });
 
     // ── Footer year ──
@@ -2042,12 +2128,12 @@
         'internet-not-working': {
             category: 'Internet Down',
             subject: "Internet isn't working",
-            details: 'Already checked APN, Band Lock, and Network mode settings; verified cell signal strength and hub placement; reseated the SIM card and ran a speed test.'
+            details: 'Already checked APN, Band Locking, and Network Selection settings; verified cell signal strength and device placement; reseated the SIM card and ran a speed test.'
         },
         'internet-too-slow': {
             category: 'Slow Speeds',
             subject: 'Internet is slow',
-            details: 'Already tried switching to a stronger network band, optimizing hub placement, and running a speed test.'
+            details: 'Already tried switching to a stronger network band, optimizing device placement, and running a speed test.'
         },
         'router-not-turning-on': {
             category: 'Hardware / Power',
@@ -2076,14 +2162,14 @@
             },
             details: function (device) {
                 return device === 'orbi'
-                    ? 'Already tried switching from Automatic to Manual network selection.'
+                    ? 'Already tried switching from Auto to Manual network selection.'
                     : 'Already tried bypassing the battery, charging while powered off, and reinserting the battery while plugged in.';
             }
         },
         'weak-signal-rooms': {
             category: 'Coverage / Signal',
             subject: 'Weak Wi-Fi signal in certain rooms',
-            details: 'Already tried repositioning the hub/router and reviewed the weak-signal coverage guide for my device.'
+            details: 'Already tried repositioning my device and reviewed the weak-signal coverage guide for my device.'
         },
         'first-time-setup': {
             category: 'Setup',
@@ -2118,7 +2204,7 @@
         'external-antenna': {
             category: 'Coverage / Signal',
             subject: 'Question about using an external antenna',
-            details: 'Reviewed placement and network-mode steps; considering or already using an external antenna.'
+            details: 'Reviewed placement and network selection steps; considering or already using an external antenna.'
         },
         'port-forwarding': {
             category: 'Advanced Networking',
@@ -2202,7 +2288,7 @@
         // guide is tailored to it, so picking it first avoids a page full
         // of "select yours" prompts once someone's already mid-topic.
         if (targetId !== 'topicListView' && current && current.id === 'topicListView' && !getGlobalDevice()) {
-            if (window.goToDeviceBar) window.goToDeviceBar();
+            openDeviceModal(targetId, direction);
             return;
         }
 
@@ -2212,6 +2298,7 @@
                 current.style.animation = '';
             }
             target.classList.remove('hidden');
+            updateProgress();
             target.style.animation = prefersReducedMotion
                 ? 'none'
                 : (direction === 'back' ? 'viewInBack' : 'viewInForward') + ' 0.4s var(--ease-out) forwards';
@@ -2263,14 +2350,15 @@
         }
     })();
 
-    // ── Global device selector — persists via localStorage, and drives
+    // ── Global device selector — starts empty on every load, and drives
     // every [data-device-only] block on the page via a data-device-filter
     // attribute on #supportContent (see CSS). One choice, catered
     // everywhere, rather than a separate picker per topic. ──
-    var DEVICE_KEY = 'm4l_device';
+    // Held in memory only, so every visit starts with nothing selected.
+    var currentDevice = null;
 
     function getGlobalDevice() {
-        try { return localStorage.getItem(DEVICE_KEY); } catch (e) { return null; }
+        return currentDevice;
     }
 
     function applyGlobalDevice(device) {
@@ -2278,6 +2366,8 @@
             if (device) supportContent.setAttribute('data-device-filter', device);
             else supportContent.removeAttribute('data-device-filter');
         }
+
+        updateProgress();
 
         document.querySelectorAll('.device-chip').forEach(function (chip) {
             var match = chip.getAttribute('data-device-choice') === device;
@@ -2294,10 +2384,56 @@
     }
 
     window.setGlobalDevice = function (device) {
-        try { localStorage.setItem(DEVICE_KEY, device); } catch (e) { /* storage unavailable — selection just won't persist */ }
+        currentDevice = device;
         applyGlobalDevice(device);
         if (window.refreshTicketLinks) window.refreshTicketLinks();
     };
+
+    // ── Device prompt — shown when a topic is opened before a device is
+    // chosen. Picking one carries straight on to the topic that was tapped. ──
+    var deviceModal = document.getElementById('deviceModal');
+    var pendingView = null;
+    var modalReturnFocus = null;
+
+    window.openDeviceModal = function (targetId, direction) {
+        if (!deviceModal) return;
+        pendingView = { id: targetId, dir: direction };
+        modalReturnFocus = document.activeElement;
+        deviceModal.classList.add('active');
+        deviceModal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        var first = deviceModal.querySelector('.device-chip');
+        if (first) setTimeout(function () { first.focus({ preventScroll: true }); }, 60);
+    };
+
+    window.closeDeviceModal = function () {
+        if (!deviceModal || !deviceModal.classList.contains('active')) return;
+        deviceModal.classList.remove('active');
+        deviceModal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        pendingView = null;
+        if (modalReturnFocus && modalReturnFocus.focus) modalReturnFocus.focus({ preventScroll: true });
+    };
+
+    window.chooseDeviceFromModal = function (device) {
+        window.setGlobalDevice(device);
+        var next = pendingView;
+        pendingView = null;
+        modalReturnFocus = null;
+        // A beat on the selected state so the choice registers before moving on
+        setTimeout(function () {
+            deviceModal.classList.remove('active');
+            deviceModal.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+            if (next) window.goToView(next.id, next.dir);
+        }, 260);
+    };
+
+    if (deviceModal) {
+        deviceModal.addEventListener('click', function (e) {
+            if (e.target === deviceModal) window.closeDeviceModal();
+        });
+    }
 
     window.goToDeviceBar = function () {
         var bar = document.getElementById('deviceBar');
@@ -2307,7 +2443,25 @@
         setTimeout(function () { bar.classList.remove('pulse-attn'); }, 1200);
     };
 
+    // ── Top progress bar — journey through the page: device chosen (⅓),
+    // topic opened (⅔), then the guide itself fills the rest as you read. ──
+    var navProgressFill = document.getElementById('navProgressFill');
+    function updateProgress() {
+        if (!navProgressFill) return;
+        var pct = getGlobalDevice() ? 33 : 0;
+        var current = document.querySelector('#supportContent .view:not(.hidden)');
+        if (current && current.id !== 'topicListView') {
+            var max = document.documentElement.scrollHeight - window.innerHeight;
+            var read = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 1;
+            pct = 66 + Math.round(34 * read);
+        }
+        navProgressFill.style.width = pct + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    window.addEventListener('resize', updateProgress);
+
     applyGlobalDevice(getGlobalDevice());
+    updateProgress();
 })();
 </script>
 
