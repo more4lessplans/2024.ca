@@ -731,6 +731,10 @@
       letter-spacing: 0.08em; text-transform: uppercase;
     }
     .card-badge.popular { background: var(--red-glow); color: var(--red); border: 1px solid rgba(215,60,89,0.22); }
+    .card-badge.ship { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
+    @media (max-width: 480px) {
+      .card-badge { padding: 3px 8px; font-size: 0.58rem; letter-spacing: 0.06em; }
+    }
     .card-category {
       font-size: 0.62rem; font-weight: 600;
       letter-spacing: 0.13em; text-transform: uppercase;
@@ -1106,25 +1110,41 @@
     .pricing-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
 
     .plan-card {
-      padding: 40px 36px 36px;
+      padding: 36px 36px 32px;
       border-radius: 22px;
       box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 16px 40px rgba(0,0,0,0.05);
     }
     .plan-card.featured { box-shadow: 0 24px 64px rgba(20,20,24,0.30); }
     .card-badge { top: 22px; right: 22px; }
     .card-title { font-size: 1.7rem; margin-bottom: 6px; font-weight: 800; letter-spacing: -0.045em; }
-    .card-subtitle { font-size: 0.8rem; margin-bottom: 32px; }
-    .card-device-row { margin-bottom: 28px; min-height: 110px; }
+    .card-subtitle { font-size: 0.8rem; margin-bottom: 26px; }
+    .card-device-row { margin-bottom: 22px; min-height: 104px; }
     .price-label { font-size: 0.67rem; }
     .price-currency { font-size: 1.4rem; }
     .price-number { font-size: 3.8rem; font-weight: 800; letter-spacing: -0.065em; }
     .price-qualifier { font-size: 0.72rem; }
     .card-device-img { width: 105px; height: 105px; }
-    .card-divider { margin: 0 0 24px; }
+    .card-divider { margin: 0 0 20px; }
     .included-label { margin-bottom: 12px; }
-    .feature-list { margin-bottom: 28px; }
-    .feature-item { padding: 10px 0; font-size: 0.83rem; }
+    .feature-list { margin-bottom: 24px; }
+    .feature-item { padding: 9px 0; font-size: 0.83rem; }
     .btn-cta { padding: 17px 28px; font-size: 0.9rem; letter-spacing: 0; }
+
+
+    /* Symmetry: on two-column desktop, both cards share row tracks so the
+       price, divider, feature headings and CTA line up exactly across cards */
+    @media (min-width: 961px) {
+      @supports (grid-template-rows: subgrid) {
+        .pricing-grid { row-gap: 0; }
+        .plan-card {
+          display: grid;
+          grid-template-rows: subgrid;
+          grid-row: span 11;
+          align-content: start;
+        }
+        .plan-card .feature-list { flex: none; }
+      }
+    }
 
     .hero-badge { font-size: 0.66rem; letter-spacing: 0.16em; }
     .hero-title { font-weight: 800; letter-spacing: -0.05em; line-height: 1.02; }
@@ -1132,7 +1152,7 @@
 
     .value-strip { padding: 72px 24px; }
     .value-item { padding: 40px 36px; }
-    .vi-number { font-weight: 800; letter-spacing: -0.05em; margin-bottom: 10px; }
+    .vi-number { font-weight: 800; letter-spacing: -0.05em; margin-bottom: 10px; font-size: 1.9rem; white-space: nowrap; }
     .vi-label { line-height: 1.65; }
     .vi-label strong { display: block; margin-bottom: 6px; letter-spacing: 0.005em; }
 
@@ -1174,6 +1194,38 @@
     }
     .htrust-item svg { stroke: rgba(255,255,255,0.75); }
     .htrust-div { background: rgba(255,255,255,0.22); }
+
+
+    /* Hero price pill — refined glass with a hairline gradient edge */
+    .hero-price-pill {
+      display: inline-flex; align-items: center; gap: 0;
+      padding: 8px 20px 8px 18px;
+      margin: -20px 0 40px;
+      border: 1px solid transparent;
+      border-radius: var(--radius-full);
+      background:
+        linear-gradient(rgba(16,16,20,0.46), rgba(16,16,20,0.46)) padding-box,
+        linear-gradient(135deg, rgba(255,255,255,0.46), rgba(255,255,255,0.08) 45%, rgba(255,255,255,0.30)) border-box;
+      backdrop-filter: blur(16px) saturate(1.4); -webkit-backdrop-filter: blur(16px) saturate(1.4);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.14);
+      opacity: 0; transform: translateY(12px);
+      animation: revealUp 0.7s var(--ease-out) 0.46s forwards;
+    }
+    .hero-price-pill .hpp-price { display: inline-flex; align-items: baseline; gap: 1px; }
+    .hero-price-pill strong {
+      font-size: 1.12rem; font-weight: 700; letter-spacing: -0.03em; color: #fff;
+    }
+    .hero-price-pill em {
+      font-style: normal; font-size: 0.78rem; font-weight: 500; color: rgba(255,255,255,0.62);
+    }
+    .hero-price-pill .hpp-sep {
+      width: 1px; height: 14px; margin: 0 14px;
+      background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.36), transparent);
+    }
+    .hero-price-pill .hpp-label {
+      font-size: 0.74rem; font-weight: 500; letter-spacing: 0.06em;
+      text-transform: uppercase; color: rgba(255,255,255,0.86);
+    }
 
     .pricing-intro { max-width: 560px; margin: -8px 0 40px; }
     .pricing-intro-title {
@@ -1224,11 +1276,12 @@
       Now Offering Global Roaming
     </div>
     <h1 class="hero-title">
-      Truly Unlimited<br><em>Wireless.</em>
+      Wireless Internet.<br><em>Truly Unlimited.</em>
     </h1>
     <p class="hero-sub">
-   Reliable high-speed internet — wherever life takes you. No contracts. No commitments.
+    Fast, dependable wireless internet for your home, cottage, RV, or job site. Anywhere in Canada. No contracts. No caps.
     </p>
+    <div class="hero-price-pill"><span class="hpp-price"><strong>$110</strong><em>/mo</em></span><span class="hpp-sep"></span><span class="hpp-label">Unlimited internet</span></div>
 
   <!-- Coverage Checker -->
   <div class="coverage-wrap">
@@ -1271,13 +1324,13 @@
 
  <div class="hero-trust">
   
-  <!-- Risk Free -->
+  <!-- 30-Day Guarantee -->
   <div class="htrust-item">
     <svg viewBox="0 0 14 14" stroke-linecap="round" stroke-linejoin="round">
       <path d="M7 13s5.5-2.8 5.5-7V3L7 1 1.5 3v3C1.5 10.2 7 13 7 13z"/>
       <path d="M4.5 7.5 L6 9 L9.5 5.5"/>
     </svg>
-    Risk Free
+    30-Day Guarantee
   </div>
 
   <div class="htrust-div"></div>
@@ -1320,8 +1373,8 @@
       <div class="vi-label"><strong>Total Freedom.</strong><br>Month-to-month service. Keep it only as long as it works for you.</div>
     </div>
     <div class="value-item">
-      <div class="vi-number"><span>No</span> Risk</div>
-      <div class="vi-label"><strong>Own It Outright.</strong><br>Buy the device once and keep it forever. Simple, transparent pricing every month.</div>
+      <div class="vi-number"><span>30-Day</span> Guarantee</div>
+      <div class="vi-label"><strong>Backed by Our Promise.</strong><br>Every device comes with our 30-day guarantee. Buy once, keep it, and enjoy simple, transparent pricing every month.</div>
     </div>
   </div>
 </div>
@@ -1331,7 +1384,7 @@
   <div class="section-eyebrow">Choose Your Device</div>
 
   <div class="pricing-intro">
-    <h2 class="pricing-intro-title">Choose the one that fits how you use it.</h2>
+    <h2 class="pricing-intro-title">Choose the One That Fits How You Use It.</h2>
     <p class="pricing-intro-sub">You&rsquo;ll get the best performance from the device built for your use. Both are fully portable and not tied to a single address &mdash; they work anywhere service is available.</p>
   </div>
 
@@ -1339,9 +1392,9 @@
 
     <!-- Card 1: Mobile Essential -->
     <div class="plan-card" id="card-mobile">
-      <div class="card-badge popular">Most Popular</div>
-      <div class="card-category">Mostly on the go?</div>
-      <div class="card-title">Nighthawk M1</div>
+      <div class="card-badge ship">Free Expedited Shipping</div>
+      <div class="card-category">Mostly on the Go?</div>
+      <div class="card-title">Nighthawk</div>
       <div class="card-subtitle">Battery-powered and compact. Made for travel, camping, RVs, job sites, cottages, and remote work.</div>
 
       <div class="card-device-row">
@@ -1353,29 +1406,32 @@
           </div>
           <div class="price-qualifier">+ applicable tax</div>
         </div>
-        <img src="assets/img/products/mr1100.png" alt="Netgear Nighthawk M1" class="card-device-img">
+        <img src="assets/img/products/mr1100.png" alt="NETGEAR Nighthawk" class="card-device-img">
       </div>
 
       <div class="card-divider"></div>
-      <div class="included-label">You Own The Device + 1st Month Included</div>
+      <div class="included-label">You Own the Device + 1st Month Included</div>
 
       <ul class="feature-list">
         <li class="feature-item">
           <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-          <span>Battery-Powered &mdash; Charge It or Plug It In</span>
+          <span>Up to 24-Hour Battery &mdash; or Plug It In</span>
         </li>
         <li class="feature-item">
           <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-          <span>Compact and Portable</span>
+          <span>Pocket-Sized at Just 240 g (8.5 oz)</span>
         </li>
         <li class="feature-item">
           <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-          <span>Connect Up To 20 Devices</span>
+          <span>Connects Up to 20 Devices on Dual-Band Wi-Fi</span>
         </li>
-        
         <li class="feature-item">
           <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-          <span>External Antenna Ports</span>
+          <span>Built-In Display for Signal, Data, and Devices</span>
+        </li>
+        <li class="feature-item">
+          <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+          <span>Gigabit Ethernet + 2 External Antenna Ports</span>
         </li>
       </ul>
 
@@ -1384,21 +1440,24 @@
       <ul class="feature-list">
         <li class="feature-item">
           <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-          <span>Unlimited Data &mdash; No Caps, No Throttling</span>
+          <span>Truly Unlimited Internet &mdash; No Caps, No Throttling</span>
         </li>
         <li class="feature-item">
           <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-          <span>Nationwide Coverage</span>
+          <span>Canada-Wide Coverage &mdash; Not Tied to One Address</span>
         </li>
-        
         <li class="feature-item">
           <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-          <span>Start and Stop Service as Life Changes</span>
+          <span>Month-to-Month &mdash; Cancel Anytime, Reactivate Later</span>
+        </li>
+        <li class="feature-item">
+          <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+          <span>Setup in Minutes &mdash; No Installation Needed</span>
         </li>
       </ul>
 
       <a href="/checkout/essential" class="btn-cta dark">
-        Order Now
+        Order Nighthawk &middot; $199
         <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round">
           <line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/>
         </svg>
@@ -1414,18 +1473,14 @@
           </svg>
           Renews at <strong>$110/mo</strong>&nbsp;after the first month
         </div>
-        <div class="card-footer-divider"></div>
-        <div class="btn-lock">
-          <svg viewBox="0 0 14 14" stroke-linecap="round"><rect x="2" y="6" width="10" height="7" rx="1.5"/><path d="M4.5 6V4.5a2.5 2.5 0 015 0V6"/></svg>
-          Secure Checkout&nbsp;·&nbsp;SSL Encrypted
-        </div>
       </div>
     </div>
 
     <!-- Card 2: Home & Office (Featured) -->
     <div class="plan-card featured" id="card-home">
-      <div class="card-category">Mostly at home?</div>
-      <div class="card-title">Orbi LBR20</div>
+      <div class="card-badge ship">Free Expedited Shipping</div>
+      <div class="card-category">Mostly at Home?</div>
+      <div class="card-title">Orbi</div>
       <div class="card-subtitle">A faster modem, larger cellular antennas for better reliability, and a larger Wi-Fi range for a home.</div>
 
       <div class="card-device-row">
@@ -1437,33 +1492,32 @@
           </div>
           <div class="price-qualifier">+ applicable tax</div>
         </div>
-        <img src="assets/img/products/LBR20.png" alt="Netgear Orbi LBR20" class="card-device-img">
+        <img src="assets/img/products/LBR20.png" alt="NETGEAR Orbi" class="card-device-img">
       </div>
 
       <div class="card-divider"></div>
-      <div class="included-label">You Own The Device + 1st Month Included</div>
+      <div class="included-label">You Own the Device + 1st Month Included</div>
 
       <ul class="feature-list">
         <li class="feature-item">
           <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-          <span>Plug-In Power &mdash; Needs Constant Power</span>
-        </li>
-        
-        <li class="feature-item">
-          <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-          <span>Larger Cellular Antennas</span>
+          <span>Plug-In Power &mdash; Built to Stay On</span>
         </li>
         <li class="feature-item">
           <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-          <span>Larger Wi-Fi Range for a Home</span>
+          <span>Tri-Band Wi-Fi Covering Up to 2,000 sq ft</span>
         </li>
         <li class="feature-item">
           <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-          <span>Connect Up To 64 Devices</span>
+          <span>Connects Up to 64 Devices for the Whole Household</span>
         </li>
         <li class="feature-item">
           <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-          <span>External Antenna Ports</span>
+          <span>Larger Cellular Antennas + 2 External Antenna Ports</span>
+        </li>
+        <li class="feature-item">
+          <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+          <span>2 Gigabit Ethernet Ports for Wired Devices</span>
         </li>
       </ul>
 
@@ -1472,21 +1526,24 @@
       <ul class="feature-list">
         <li class="feature-item">
           <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-          <span>Unlimited Data &mdash; No Caps, No Throttling</span>
+          <span>Truly Unlimited Internet &mdash; No Caps, No Throttling</span>
         </li>
         <li class="feature-item">
           <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-          <span>Nationwide Coverage</span>
+          <span>Canada-Wide Coverage &mdash; Not Tied to One Address</span>
         </li>
-       
         <li class="feature-item">
           <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-          <span>Start and Stop Service as Life Changes</span>
+          <span>Month-to-Month &mdash; Cancel Anytime, Reactivate Later</span>
+        </li>
+        <li class="feature-item">
+          <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+          <span>Setup in Minutes &mdash; No Installation Needed</span>
         </li>
       </ul>
 
       <a href="/checkout/home" class="btn-cta accent">
-        Order Now
+        Order Orbi &middot; $249
         <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round">
           <line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/>
         </svg>
@@ -1501,11 +1558,6 @@
             <polyline points="6.5,14.5 4.5,11.8 7.5,11.2"/>
           </svg>
           Renews at <strong>$110/mo</strong>&nbsp;after the first month
-        </div>
-        <div class="card-footer-divider"></div>
-        <div class="btn-lock">
-          <svg viewBox="0 0 14 14" stroke-linecap="round"><rect x="2" y="6" width="10" height="7" rx="1.5"/><path d="M4.5 6V4.5a2.5 2.5 0 015 0V6"/></svg>
-          Secure Checkout&nbsp;·&nbsp;SSL Encrypted
         </div>
       </div>
     </div>
@@ -1526,7 +1578,7 @@
       <!-- Spacer column — keeps title left, contact right -->
       <div></div>
       <div class="faq-header-right">
-        <p>Everything you need to know before getting started. Still have questions?</p>
+        <p>Everything you need to know before you order. Still have questions?</p>
         <a href="/contact" class="faq-contact-link">
           Contact Us
           <svg viewBox="0 0 14 14" stroke-linecap="round" stroke-linejoin="round">
@@ -1543,11 +1595,11 @@
       <div class="faq-col">
         <div class="accordion-item">
           <button class="accordion-header">
-            <span>Do I Need To Schedule An Installation?</span>
+            <span>Do I Need to Schedule an Installation?</span>
             <div class="accordion-toggle"></div>
           </button>
           <div class="accordion-body">
-            <p><strong>No installation required.</strong> Your device is plug-and-play — just power it on and connect.</p>
+            <p><strong>No Installation Required.</strong> Your device is plug-and-play &mdash; power it on, connect, and you&rsquo;re online.</p>
           </div>
         </div>
 
@@ -1557,7 +1609,7 @@
             <div class="accordion-toggle"></div>
           </button>
           <div class="accordion-body">
-            <p><strong>No contracts.</strong> Service is month-to-month, with full control to cancel anytime.</p>
+            <p><strong>No Contracts.</strong> Service is month-to-month, and you can cancel anytime.</p>
           </div>
         </div>
 
@@ -1567,17 +1619,27 @@
             <div class="accordion-toggle"></div>
           </button>
           <div class="accordion-body">
-            <p><strong>Simple monthly renewal.</strong> Your first payment includes hardware and service. After that, service renews at $110 + tax per month.</p>
+            <p><strong>Simple Monthly Renewal.</strong> Your first payment covers the device and your first month of service. After that, service renews at $110/mo + tax.</p>
           </div>
         </div>
 
         <div class="accordion-item">
           <button class="accordion-header">
-            <span>Which device should I choose?</span>
+            <span>Do I Own the Device?</span>
             <div class="accordion-toggle"></div>
           </button>
           <div class="accordion-body">
-            <p><strong>Choose by how you&rsquo;ll use it.</strong> Mostly on the go? Pick the Nighthawk M1. Mostly at home? Pick the Orbi LBR20. Either works anywhere service is available &mdash; the one that fits your use will perform best.</p>
+            <p><strong>Yes.</strong> You buy it once and it&rsquo;s yours to keep &mdash; no rental fees, ever.</p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-header">
+            <span>Which Device Should I Choose?</span>
+            <div class="accordion-toggle"></div>
+          </button>
+          <div class="accordion-body">
+            <p><strong>Choose by How You&rsquo;ll Use It.</strong> Mostly on the go? Pick the Nighthawk. Mostly at home? Pick the Orbi. Either works anywhere service is available, but the one built for your use will perform best.</p>
           </div>
         </div>
       </div>
@@ -1590,17 +1652,17 @@
             <div class="accordion-toggle"></div>
           </button>
           <div class="accordion-body">
-            <p><strong>Speeds vary by location.</strong> Most users see 50–150 Mbps, with higher performance in strong 5G areas. We can provide a coverage estimate on request.</p>
+            <p><strong>Speeds Vary by Location.</strong> Most users see 50&ndash;150 Mbps, with higher performance in strong 5G areas. We&rsquo;re happy to provide a coverage estimate on request.</p>
           </div>
         </div>
 
         <div class="accordion-item">
           <button class="accordion-header">
-            <span>Does Service Only Work In Canada?</span>
+            <span>Does Service Only Work in Canada?</span>
             <div class="accordion-toggle"></div>
           </button>
           <div class="accordion-body">
-            <p><strong>Service is designed to travel with you.</strong> Taking your service abroad? Ask us about our Global Roaming package for seamless connectivity in destinations around the world.</p>
+            <p><strong>Your Service Is Built to Travel With You.</strong> Heading abroad? Ask us about our Global Roaming package for connectivity in destinations around the world.</p>
           </div>
         </div>
 
@@ -1610,27 +1672,27 @@
             <div class="accordion-toggle"></div>
           </button>
           <div class="accordion-body">
-            <p><strong>No.</strong> This is LTE/5G cellular internet, offering lower latency and more stable performance than satellite.</p>
+            <p><strong>No.</strong> This is LTE/5G cellular internet, which offers lower latency and more stable performance than satellite.</p>
           </div>
         </div>
 
         <div class="accordion-item">
           <button class="accordion-header">
-            <span>Can I use my device at a different address?</span>
+            <span>Can I Use My Device at a Different Address?</span>
             <div class="accordion-toggle"></div>
           </button>
           <div class="accordion-body">
-            <p><strong>Yes.</strong> Your service isn&rsquo;t tied to a single address, and both devices are fully portable. The Nighthawk runs on battery. The Orbi needs constant power, so you&rsquo;ll need an outlet wherever you set it up.</p>
+            <p><strong>Yes.</strong> Your service isn&rsquo;t tied to a single address, and both devices are fully portable. The Nighthawk runs on battery; the Orbi needs constant power, so you&rsquo;ll need an outlet wherever you set it up.</p>
           </div>
         </div>
 
         <div class="accordion-item">
           <button class="accordion-header">
-            <span>Can I cancel and come back later?</span>
+            <span>Can I Cancel and Come Back Later?</span>
             <div class="accordion-toggle"></div>
           </button>
           <div class="accordion-body">
-            <p><strong>Yes.</strong> There&rsquo;s no contract, so you can cancel anytime and reactivate when you&rsquo;re ready. Reactivating requires a new SIM card ($10).</p>
+            <p><strong>Yes.</strong> With no contract, you can cancel anytime and reactivate when you&rsquo;re ready. Reactivation requires a new SIM card ($10).</p>
           </div>
         </div>
       </div>
