@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accessories | More4Less</title>
+
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon-32x32.png">
+  <link rel="shortcut icon" href="assets/img/favicons/favicon.ico">
+  <meta name="theme-color" content="#2E2F33">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Rubik:wght@700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── Tokens — pulled directly from style.css ──────────────── */
+    :root {
+      --brand-red:   #D73C59;
+      --brand-red-glow: rgba(215,60,89,0.14);
+      --brand-green-glow: rgba(52,199,89,0.16);
+      --bg-nav:      #2E2F33;
+      --bg-page:     #FBFBFD;
+      --text-dark:   #1d1d1f;
+      --text-muted:  #6e6e73;
+      --card-radius: 28px;
+      --nav-h:       68px;
+      --border:      #eaeaec;
+      --border-soft: #f1f1f3;
+      --hairline-on-dark: rgba(255,255,255,0.08);
+
+      /* 4px spacing scale — used throughout for consistent, premium rhythm */
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 20px;
+      --space-6: 24px;
+      --space-8: 32px;
+      --space-10: 40px;
+      --space-12: 48px;
+      --space-16: 64px;
+      --space-20: 80px;
+
+      --ease-out:    cubic-bezier(0.22,1,0.36,1);
+      --spring-soft: cubic-bezier(0.22,1.15,0.36,1);
+
+      --shadow-nav:     0 1px 0 rgba(0,0,0,0.04), 0 12px 30px -14px rgba(0,0,0,0.28);
+      --shadow-card:    0 1px 2px rgba(20,20,22,0.03), 0 14px 32px -14px rgba(20,20,22,0.08);
+      --shadow-card-hi: 0 2px 6px rgba(20,20,22,0.05), 0 34px 64px -20px rgba(20,20,22,0.16);
+      --shadow-pill:    0 2px 12px rgba(0,0,0,0.04);
+      --focus-ring:     0 0 0 4px var(--brand-red-glow);
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Figtree', sans-serif;
+      background: var(--bg-page);
+      color: var(--text-dark);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      min-height: 100vh;
+    }
+
+    :focus-visible { outline: 2px solid var(--brand-red); outline-offset: 2px; border-radius: 6px; }
+    .dash-card:focus-visible, .btn-portal-top:focus-visible, .t-btn:focus-visible {
+      outline: none; box-shadow: var(--focus-ring);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* ── NAVBAR ───────────────────────────────────────────────── */
+    .navbar-custom {
+      background: var(--bg-nav);
+      padding: 1.2rem 0;
+      position: fixed;
+      width: 100%; top: 0;
+      z-index: 4000;
+      border-bottom: 1px solid transparent;
+      box-shadow: none;
+      transition: box-shadow 0.4s var(--ease-out), border-color 0.4s var(--ease-out);
+    }
+
+    .navbar-custom.is-scrolled {
+      border-bottom-color: rgba(255,255,255,0.06);
+      box-shadow: var(--shadow-nav);
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 25px;
+    }
+
+    /* Logo — always the leading (left) element */
+    .navbar-brand { display: inline-flex; align-items: center; }
+    .navbar-brand img { height: 22px; display: block; }
+
+    /* Right-hand cluster — desktop links + hamburger live here, so the
+       trigger naturally sits on the right edge on every breakpoint. */
+    .nav-right { display: flex; align-items: center; gap: 4px; }
+
+    .nav-links-desktop { display: flex; align-items: center; list-style: none; }
+
+    .nav-links-desktop li a {
+      color: #fff;
+      font-weight: 500;
+      font-size: 0.85rem;
+      margin: 0 18px;
+      text-decoration: none;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+      position: relative;
+    }
+
+    .nav-links-desktop li a:hover { opacity: 1; }
+
+    .nav-links-desktop li a::after {
+      content: '';
+      position: absolute;
+      width: 0; height: 2px;
+      bottom: -4px; left: 0;
+      background: var(--brand-red);
+      transition: width 0.4s cubic-bezier(0.2, 1, 0.2, 1);
+    }
+
+    .nav-links-desktop li a:hover::after { width: 100%; }
+    .btn-portal-top::after { display: none !important; }
+
+    .btn-portal-top {
+      background: var(--brand-red) !important;
+      color: #fff !important;
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-weight: 600;
+      opacity: 1 !important;
+      transition: all 0.3s ease !important;
+    }
+
+    .btn-portal-top:hover {
+      background: #fff !important;
+      color: var(--text-dark) !important;
+      transform: translateY(-2px);
+    }
+
+    .menu-trigger {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      padding: 10px;
+      margin: -10px -6px -10px 6px;
+      border: none;
+      background: transparent;
+      z-index: 5001;
+      position: relative;
+      border-radius: 10px;
+      transition: background 0.25s ease;
+    }
+    .menu-trigger:hover { background: rgba(255,255,255,0.08); }
+    .menu-icon { width: 22px; height: 16px; display: flex; flex-direction: column; justify-content: space-between; }
+    .menu-icon span { display: block; width: 100%; height: 2px; background: #fff; border-radius: 10px; transition: all 0.35s var(--spring-soft); }
+    .menu-active .menu-icon span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .menu-active .menu-icon span:nth-child(2) { opacity: 0; transform: translateX(10px); }
+    .menu-active .menu-icon span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    .mobile-overlay {
+      position: fixed; inset: 0;
+      background: rgba(29,29,31,0.98);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      z-index: 3900;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+
+    .mobile-overlay.active { opacity: 1; visibility: visible; }
+    .mobile-nav-links { list-style: none; padding: 0; text-align: center; }
+    .mobile-nav-links li { margin: 25px 0; transform: translateY(20px); opacity: 0; transition: 0.4s ease; }
+    .mobile-overlay.active .mobile-nav-links li { transform: translateY(0); opacity: 1; }
+    .mobile-nav-links li:nth-child(1) { transition-delay: 0.10s; }
+    .mobile-nav-links li:nth-child(2) { transition-delay: 0.15s; }
+    .mobile-nav-links li:nth-child(3) { transition-delay: 0.20s; }
+    .mobile-nav-links a { color: #fff; font-size: 2.2rem; font-weight: 700; text-decoration: none; letter-spacing: -0.03em; position: relative; display: inline-block; }
+    .mobile-nav-links a::after { content: ''; position: absolute; width: 0; height: 3px; bottom: -4px; left: 0; background: var(--brand-red); transition: width 0.4s cubic-bezier(0.2,1,0.2,1); }
+    .mobile-nav-links a:hover::after { width: 100%; }
+
+    /* ── PAGE ─────────────────────────────────────────────────── */
+    .page {
+      padding-top: var(--nav-h);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      /* One reveal for the whole page (hero + cards together). The animated
+         element is always on screen at load, so it never waits on a scroll. */
+      animation: fadeUp 0.8s cubic-bezier(0.2,1,0.2,1) 0.05s backwards;
+    }
+
+    /* ── PORTAL HEADER ────────────────────────────────────────── */
+    .portal-header {
+      padding: var(--space-12) 25px var(--space-10);
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Dot grid — same as your privacy/product pages */
+    .portal-header::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
+      background-size: 28px 28px;
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .portal-header-inner { position: relative; z-index: 2; }
+
+    .portal-orb {
+      position: absolute; top: 50%; left: 50%; width: 620px; height: 620px;
+      transform: translate(-50%, -55%);
+      background: radial-gradient(circle, var(--brand-green-glow) 0%, rgba(52,199,89,0) 68%);
+      pointer-events: none; z-index: 1;
+      animation: orbDrift 15s ease-in-out infinite;
+    }
+    @keyframes orbDrift {
+      0%, 100% { transform: translate(-50%, -55%) scale(1); }
+      50%      { transform: translate(-50%, -51%) scale(1.08); }
+    }
+
+    /* Eyebrow — same pattern as all other pages */
+    .portal-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+    }
+
+    .portal-eyebrow::before,
+    .portal-eyebrow::after {
+      content: '';
+      width: 28px; height: 1px;
+      background: var(--border);
+    }
+
+    .portal-header h1 {
+      font-family: 'Rubik', sans-serif;
+      font-size: clamp(2.4rem, 5vw, 3.5rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+      color: var(--text-dark);
+      margin-bottom: 12px;
+    }
+
+    .portal-header p {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      max-width: 440px;
+      margin: 0 auto 32px;
+    }
+
+    /* ── DASHBOARD BODY ───────────────────────────────────────── */
+    .portal-body {
+      flex: 1;
+      max-width: 1140px;
+      margin: 0 auto;
+      width: 100%;
+      padding: var(--space-10) 25px var(--space-16);
+    }
+
+    /* ── SECTION LABEL — matches style.css rhythm ─────────────── */
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: var(--space-3);
+      padding-left: 2px;
+    }
+
+    /* ── PRIMARY GRID ─────────────────────────────────────────── */
+    .primary-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-4);
+      margin-bottom: var(--space-8);
+    }
+
+    /* ── SECONDARY GRID ───────────────────────────────────────── */
+    .secondary-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-4);
+    }
+
+    /* ── BASE CARD — inherits style.css plan-card feel ────────── */
+    .dash-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      padding: var(--space-8) 32px;
+      text-decoration: none;
+      color: var(--text-dark);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      transition:
+        transform 0.45s var(--spring-soft),
+        box-shadow 0.45s var(--ease-out),
+        border-color 0.3s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .dash-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-card-hi);
+      border-color: #d8d8dc;
+      color: var(--text-dark);
+      text-decoration: none;
+    }
+
+    .dash-card:active { transform: scale(0.98); }
+
+    /* Dark featured card */
+    .dash-card.primary {
+      background: var(--bg-nav);
+      border-color: var(--bg-nav);
+      color: #fff;
+    }
+    .dash-card.primary::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.06) 50%, transparent 65%);
+      transform: translateX(-130%);
+      transition: transform 0.6s var(--ease-out);
+      pointer-events: none;
+    }
+    .dash-card.primary:hover::before { transform: translateX(130%); }
+
+    .dash-card.primary:hover {
+      color: #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 30px 60px -14px rgba(0,0,0,0.35);
+    }
+
+    /* ── ICON ─────────────────────────────────────────────────── */
+    .c-icon {
+      display: none; /* Icons Hidden */
+    }
+
+    /* ── CARD TEXT ────────────────────────────────────────────── */
+    .c-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--brand-red);
+      margin-bottom: 6px;
+    }
+
+    .dash-card.primary .c-label { color: rgba(215,60,89,0.8); }
+
+    .c-title {
+      font-family: 'Rubik', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      margin-bottom: 8px;
+      line-height: 1.15;
+    }
+
+    .c-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    .dash-card.primary .c-desc { color: rgba(255,255,255,0.45); }
+
+    /* ── CARD LINK ────────────────────────────────────────────────
+       A real stroke-icon arrow (matching the toggle icons) instead
+       of an animated text glyph — glyphs subpixel-snap differently
+       to their box on transform, which is what read as "glitchy". */
+    .c-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: var(--space-6);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      transition: color 0.25s ease, gap 0.3s var(--ease-out);
+    }
+
+    .c-arrow {
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+      transform: translateX(0);
+      transition: transform 0.3s var(--ease-out);
+      will-change: transform;
+    }
+
+    .dash-card:hover .c-link { color: var(--text-dark); gap: 11px; }
+    .dash-card:hover .c-arrow { transform: translateX(3px); }
+
+    .dash-card.primary .c-link { color: rgba(255,255,255,0.45); }
+    .dash-card.primary:hover .c-link { color: #fff; }
+
+    /* ── PRODUCT CARDS (accessories) ──────────────────────────── */
+    .product-card { padding: var(--space-5); }
+
+    .p-media {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      border-radius: 20px;
+      background: #F4F4F6;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: var(--space-6);
+      overflow: hidden;
+      transition: background 0.4s var(--ease-out);
+    }
+    .p-media img { width: 100%; height: 100%; object-fit: contain; display: block; }
+    .p-media svg {
+      width: 38%; height: auto;
+      stroke: #B4B4BA; stroke-width: 1.4; fill: none;
+      stroke-linecap: round; stroke-linejoin: round;
+      transition: transform 0.6s var(--spring-soft);
+    }
+    .p-ph {
+      position: absolute; left: 0; right: 0; bottom: 14px;
+      text-align: center;
+      font-size: 0.62rem; font-weight: 600;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: #B4B4BA;
+    }
+    .dash-card:hover .p-media svg { transform: scale(1.08) translateY(-3px); }
+
+    .dash-card.primary .p-media { background: rgba(255,255,255,0.06); }
+    .dash-card.primary .p-media svg { stroke: rgba(255,255,255,0.38); }
+    .dash-card.primary .p-ph { color: rgba(255,255,255,0.3); }
+
+    .product-card .c-label,
+    .product-card .card-body,
+    .product-card .p-foot { padding-left: var(--space-3); padding-right: var(--space-3); }
+
+    .p-foot {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: var(--space-6);
+      padding-bottom: var(--space-2);
+    }
+    .p-price {
+      font-family: 'Rubik', sans-serif;
+      font-size: 1.25rem; font-weight: 700; letter-spacing: -0.02em;
+    }
+    .p-foot .c-link { margin-top: 0; }
+
+    /* ── FOOTER — matches style.css site-footer ───────────────── */
+    .site-footer {
+      padding: 60px 0 50px;
+      background: var(--bg-page);
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 25px;
+    }
+
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .footer-links { display: flex; gap: 28px; }
+
+    .footer-link {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #86868b;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-link:hover { color: var(--text-dark); }
+
+    .footer-copyright {
+      font-size: 0.85rem;
+      color: #86868b;
+    }
+
+    /* ── ANIMATION ────────────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ───────────────────────────────────────────── */
+    @media (max-width: 991px) {
+      .nav-links-desktop { display: none; }
+      .menu-trigger { display: flex; }
+    }
+
+    @media (max-width: 700px) {
+      .primary-grid, .secondary-grid { grid-template-columns: 1fr; }
+      .portal-body { padding: 44px 20px 80px; }
+      .portal-header { padding: 56px 20px 48px; }
+      .dash-card { padding: 32px 26px; }
+      .product-card { padding: var(--space-4); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAVBAR ──────────────────────────────────────────────────── -->
+<nav class="navbar-custom" id="siteNav">
+  <div class="nav-container">
+    <a class="navbar-brand" href="/"><img src="assets/img/logos/logo.png" alt="More4Less"></a>
+    <div class="nav-right">
+      <ul class="nav-links-desktop">
+        <li><a href="/support">Support</a></li>
+        <li><a href="/contact">Contact</a></li>
+        <li><a href="/" class="btn-portal-top">Home</a></li>
+      </ul>
+      <button class="menu-trigger" id="menuTrigger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileOverlay">
+        <div class="menu-icon"><span></span><span></span><span></span></div>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-overlay" id="mobileOverlay">
+  <ul class="mobile-nav-links">
+    <li><a href="/support">Support</a></li>
+    <li><a href="/contact">Contact</a></li>
+    <li><a href="/">Home</a></li>
+  </ul>
+</div>
+
+<!-- ── PAGE ────────────────────────────────────────────────────── -->
+<div class="page">
+
+  <!-- Header -->
+  <header class="portal-header">
+    <div class="portal-orb" aria-hidden="true"></div>
+    <div class="portal-header-inner">
+
+      <h1>Accessories</h1>
+
+    </div>
+  </header>
+
+  <!-- Products -->
+  <div class="portal-body">
+    <div id="portalAll" class="portal-grid-all">
+
+      <div class="section-label">Boost Your Signal</div>
+      <div class="primary-grid">
+
+        <a href="#" class="dash-card product-card primary">
+          <div class="p-media">
+            <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="22" y="8" width="20" height="34" rx="4"/><line x1="32" y1="42" x2="32" y2="53"/><path d="M22 55h20"/><path d="M48 18c3 4 3 10 0 14"/><path d="M52 13c5 8 5 18 0 26"/><path d="M16 18c-3 4-3 10 0 14"/><path d="M12 13c-5 8-5 18 0 26"/></svg>
+            <span class="p-ph">Image Placeholder</span>
+          </div>
+          <div class="c-label">Signal</div>
+          <div class="card-body">
+            <div class="c-title">Indoor Antenna</div>
+            <p class="c-desc">A short placeholder description for the indoor antenna. Swap in real copy and specs when ready.</p>
+          </div>
+          <div class="p-foot">
+            <div class="p-price">$00.00</div>
+            <div class="c-link"><span class="c-link-text">View Details</span><svg class="c-arrow" viewBox="0 0 24 24"><line x1="4" y1="12" x2="18" y2="12"></line><polyline points="12 6 18 12 12 18"></polyline></svg></div>
+          </div>
+        </a>
+
+        <a href="#" class="dash-card product-card primary">
+          <div class="p-media">
+            <svg viewBox="0 0 64 64" aria-hidden="true"><line x1="32" y1="6" x2="32" y2="58"/><line x1="20" y1="14" x2="44" y2="14"/><line x1="12" y1="25" x2="52" y2="25"/><line x1="17" y1="36" x2="47" y2="36"/><line x1="23" y1="47" x2="41" y2="47"/><path d="M24 58h16"/></svg>
+            <span class="p-ph">Image Placeholder</span>
+          </div>
+          <div class="c-label">Signal</div>
+          <div class="card-body">
+            <div class="c-title">Outdoor Antenna</div>
+            <p class="c-desc">A short placeholder description for the outdoor antenna. Swap in real copy and specs when ready.</p>
+          </div>
+          <div class="p-foot">
+            <div class="p-price">$00.00</div>
+            <div class="c-link"><span class="c-link-text">View Details</span><svg class="c-arrow" viewBox="0 0 24 24"><line x1="4" y1="12" x2="18" y2="12"></line><polyline points="12 6 18 12 12 18"></polyline></svg></div>
+          </div>
+        </a>
+
+      </div>
+
+      <div class="section-label">Everyday Essentials</div>
+      <div class="secondary-grid">
+
+        <a href="#" class="dash-card product-card">
+          <div class="p-media">
+            <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="9" y="20" width="46" height="33" rx="6"/><path d="M24 20v-5a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v5"/><line x1="9" y1="35" x2="55" y2="35"/><rect x="29" y="32" width="6" height="6" rx="1.5"/></svg>
+            <span class="p-ph">Image Placeholder</span>
+          </div>
+          <div class="c-label">Travel</div>
+          <div class="card-body">
+            <div class="c-title">Travel Case</div>
+            <p class="c-desc">A short placeholder description for the travel case. Swap in real copy and details when ready.</p>
+          </div>
+          <div class="p-foot">
+            <div class="p-price">$00.00</div>
+            <div class="c-link"><span class="c-link-text">View Details</span><svg class="c-arrow" viewBox="0 0 24 24"><line x1="4" y1="12" x2="18" y2="12"></line><polyline points="12 6 18 12 12 18"></polyline></svg></div>
+          </div>
+        </a>
+
+        <a href="#" class="dash-card product-card">
+          <div class="p-media">
+            <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="7" y="21" width="45" height="24" rx="5"/><path d="M52 29h4.5v8H52"/><path d="M31 25l-6 9h8l-6 9"/></svg>
+            <span class="p-ph">Image Placeholder</span>
+          </div>
+          <div class="c-label">Power</div>
+          <div class="card-body">
+            <div class="c-title">Battery Backup</div>
+            <p class="c-desc">A short placeholder description for the battery backup. Swap in real copy and specs when ready.</p>
+          </div>
+          <div class="p-foot">
+            <div class="p-price">$00.00</div>
+            <div class="c-link"><span class="c-link-text">View Details</span><svg class="c-arrow" viewBox="0 0 24 24"><line x1="4" y1="12" x2="18" y2="12"></line><polyline points="12 6 18 12 12 18"></polyline></svg></div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-content">
+        <div class="footer-links">
+          <a href="/mobility" class="footer-link">Mobility</a>
+          <a href="/privacy" class="footer-link">Privacy</a>
+          <a href="/terms" class="footer-link">Terms</a>
+        </div>
+        <div class="footer-copyright">&copy; <span id="year"></span> Copyright. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const y = document.getElementById('year');
+    if (y) y.textContent = new Date().getFullYear();
+
+    // Mobile menu
+    const trigger = document.getElementById('menuTrigger');
+    const overlay = document.getElementById('mobileOverlay');
+
+    function toggleMenu() {
+      const isOpen = trigger.classList.contains('menu-active');
+      trigger.classList.toggle('menu-active');
+      overlay.classList.toggle('active');
+      trigger.setAttribute('aria-expanded', String(!isOpen));
+      document.body.style.overflow = isOpen ? '' : 'hidden';
+    }
+
+    trigger.addEventListener('click', e => { e.stopPropagation(); toggleMenu(); });
+    overlay.addEventListener('click', e => { if (!e.target.closest('a')) toggleMenu(); });
+
+    // Nav elevation on scroll — quiet, functional depth cue (Apple/Tesla pattern)
+    const siteNav = document.getElementById('siteNav');
+    function updateNavElevation() {
+      siteNav.classList.toggle('is-scrolled', window.scrollY > 6);
+    }
+    updateNavElevation();
+    window.addEventListener('scroll', updateNavElevation, { passive: true });
+  });
+</script>
+</body>
+</html>
