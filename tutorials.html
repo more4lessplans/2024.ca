@@ -10,7 +10,7 @@
 
   <!-- ── PRIMARY META ──────────────────────────────────────────── -->
   <title>Device Support | More4Less Wireless Internet</title>
-  <meta name="description" content="Step-by-step setup and troubleshooting guides for your More4Less device. Find tutorials for your Nighthawk hotspot or Orbi home router.">
+  <meta name="description" content="Step-by-step setup and troubleshooting guides for your More4Less device. Find tutorials for your Portable Hotspot (Nighthawk) or Home-Style Router (Orbi).">
   <meta name="robots" content="noindex, nofollow">
   <meta name="author" content="More4Less Wireless Internet">
   <link rel="canonical" href="https://more4lessplans.ca/tutorial">
@@ -449,6 +449,29 @@
     }
     .warning-text { font-size: 0.85rem; color: var(--amber-text); line-height: 1.75; }
 
+    /* Compact warning variant */
+    .step-warning.compact { padding: 12px 16px; margin-bottom: 18px; align-items: center; }
+    .step-warning.compact .warning-icon { line-height: 1; }
+    .step-warning.compact .warning-title { margin-bottom: 2px; }
+    .step-warning.compact .warning-text { font-size: 0.82rem; line-height: 1.6; }
+
+    /* Neutral info note */
+    .info-note {
+      display: flex; gap: 12px; align-items: flex-start;
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: var(--rLG); padding: 13px 16px; margin-bottom: 16px;
+    }
+    .info-note-icon {
+      width: 30px; height: 30px; flex-shrink: 0; border-radius: var(--rSM);
+      background: var(--red-glow); display: flex; align-items: center; justify-content: center;
+    }
+    .info-note-icon svg { width: 15px; height: 15px; stroke: var(--red); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .info-note-text { font-size: 0.86rem; color: var(--ink-2); line-height: 1.6; margin: 0; }
+    .info-note-text strong { color: var(--ink); font-weight: 700; }
+    .info-note-text a { color: var(--red); font-weight: 600; text-decoration: none; }
+    .info-note-text a:hover { text-decoration: underline; }
+    .info-note-text code { font-size: 0.85em; padding: 1px 6px; }
+
     /* ── IMAGE CAROUSEL ──────────────────────────────────────────── */
     .image-carousel {
       display: flex; align-items: center; justify-content: center;
@@ -859,18 +882,18 @@
       <div class="device-card" id="card-mobile" onclick="selectDevice('mobile')">
         <div class="sel-badge">Selected</div>
         <div class="card-img-wrap">
-          <img src="assets/img/products/mr1100.png" alt="Nighthawk Series" onerror="this.style.opacity='0'">
+          <img src="assets/img/products/mr1100.png" alt="Portable Hotspot (Nighthawk)" onerror="this.style.opacity='0'">
         </div>
-        <div class="dc-title">Nighthawk</div>
+        <div class="dc-title">Portable Hotspot</div>
         <div class="dc-desc">On-The-Go Devices</div>
       </div>
 
       <div class="device-card" id="card-fixed" onclick="selectDevice('fixed')">
         <div class="sel-badge">Selected</div>
         <div class="card-img-wrap">
-          <img src="assets/img/products/LBR20.png" alt="Orbi Home Hub" onerror="this.style.opacity='0'">
+          <img src="assets/img/products/LBR20.png" alt="Home-Style Router (Orbi)" onerror="this.style.opacity='0'">
         </div>
-        <div class="dc-title">Orbi</div>
+        <div class="dc-title">Home-Style Router</div>
         <div class="dc-desc">Fixed Home Devices</div>
       </div>
     </div>
@@ -889,17 +912,17 @@
           Change Device
         </button>
       </div>
-      <h2 class="section-title" id="guideTitle">Nighthawk Tutorials</h2>
+      <h2 class="section-title" id="guideTitle">Portable Hotspot Tutorials</h2>
 
       <!-- ══ NIGHTHAWK ══════════════════════════════════════════ -->
       <div class="mobile-only" id="nighthawk-guide">
 
-        <div class="step-warning">
+        <div class="step-warning compact">
           <div class="warning-icon">⚠</div>
           <div>
-            <div class="warning-title">Critical Warning</div>
+            <div class="warning-title">Important</div>
             <p class="warning-text">
-              Please do not factory reset your Nighthawk. Doing so will erase the custom network settings that make your unlimited plan work, and will require manual reprogramming to restore your service.
+              Please don’t factory reset your Portable Hotspot. It erases the custom network settings your plan relies on and will need to be reprogrammed to restore service.
             </p>
           </div>
         </div>
@@ -911,8 +934,13 @@
           <a href="#dashboard">Manage Your Plan</a>
         </div>
 
+        <div class="info-note">
+          <div class="info-note-icon"><svg viewBox="0 0 24 24"><path d="M2 8.5a15 15 0 0 1 20 0"/><path d="M5.5 12a10 10 0 0 1 13 0"/><path d="M9 15.5a5 5 0 0 1 6 0"/><circle cx="12" cy="19" r="1"/></svg></div>
+          <p class="info-note-text"><strong>Manage your Nighthawk your way.</strong> We recommend the NETGEAR Mobile app — <a href="#app-mobile">download it below</a>. Prefer not to use an app? Open any web browser and go to <code>192.168.1.1</code>. Just make sure you’re connected to your Nighthawk’s Wi-Fi first — an internet connection isn’t needed.</p>
+        </div>
+
         <div class="cred-strip" style="margin-top: 0; margin-bottom: 32px;">
-          <span class="cred-label">Router Login</span>
+          <span class="cred-label">Hotspot Login</span>
           <span class="cred-pill"><span class="cred-key">Username</span> <span class="cred-val">admin</span> <button class="copy-btn" onclick="copyText('admin', this)" aria-label="Copy username"><svg viewBox="0 0 16 16"><rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5"/></svg></button></span>
           <span class="cred-pill"><span class="cred-key">Password</span> <span class="cred-val">attadmin</span> <button class="copy-btn" onclick="copyText('attadmin', this)" aria-label="Copy password"><svg viewBox="0 0 16 16"><rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5"/></svg></button></span>
         </div>
@@ -925,7 +953,7 @@
           <div class="tip-card">
             <div class="tip-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg></div>
             <div class="tip-title">Best Placement</div>
-            <div class="tip-text">Keep your Nighthawk near a window or on an upper floor for the strongest signal. Avoid metal cabinets, thick concrete walls, and large appliances.</div>
+            <div class="tip-text">Keep your Portable Hotspot near a window or on an upper floor for the strongest signal. Avoid metal cabinets, thick concrete walls, and large appliances.</div>
           </div>
           <div class="tip-card">
             <div class="tip-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M10 6h4"/></svg></div>
@@ -940,7 +968,7 @@
           <div class="tip-card">
             <div class="tip-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8.5a15 15 0 0 1 20 0"/><path d="M5.5 12a10 10 0 0 1 13 0"/><path d="M9 15.5a5 5 0 0 1 6 0"/><circle cx="12" cy="19" r="1"/></svg></div>
             <div class="tip-title">Signal Fluctuating?</div>
-            <div class="tip-text">If speeds seem inconsistent, try the <strong>Manual Network</strong> or <strong>Band Locking</strong> tutorials below to lock onto the strongest local carrier and band.</div>
+            <div class="tip-text">If speeds seem inconsistent, try the <strong>Manual Network</strong> or <strong>Band Locking</strong> tutorials below to lock onto the strongest local carrier and band. Band Locking is an advanced setting, so use it with care.</div>
           </div>
         </div>
 
@@ -971,18 +999,26 @@
         </div>
 
         <div class="tutorial-pane active" id="mobile-update-apn" data-group="mobile" data-tab="update-apn">
-          <p class="step-intro">Follow these steps to update the APN on your Nighthawk for reliable connectivity.</p>
+          <div class="step-warning">
+            <div class="warning-icon">⚠</div>
+            <div>
+              <div class="warning-title">Please Read First</div>
+              <p class="warning-text">
+                Your APN is already set up for your plan, so it should not be adjusted unless our support team instructs you to. Entering the wrong APN can interrupt your service. Not sure whether this applies to you? Just reach out — we’re happy to help.
+              </p>
+            </div>
+          </div>
+          <p class="step-intro">Only follow these steps if our support team has asked you to update your APN. They will provide the exact APN to enter.</p>
           <ol class="steps-list">
-            <li><strong>Download the NETGEAR Mobile App:</strong> If you haven't already, download and install the NETGEAR Mobile app.</li>
-            <li><strong>Connect to Your Router:</strong> Ensure your phone is connected to the Nighthawk's Wi-Fi network.</li>
-            <li><strong>Router Admin Login:</strong> Log in with the credentials below.</li>
-            <li><strong>Access Mobile Settings:</strong> Navigate to <strong>Settings</strong> &gt; <strong>Advanced</strong> &gt; <strong>Mobile</strong> &gt; <strong>APN</strong>.</li>
-            <li><strong>Add a New APN:</strong> Tap <strong>Add</strong> to create a new profile.</li>
-            <li><strong>Enter APN Details:</strong> Type the required APN provided in your activation email and leave other fields blank.</li>
-            <li><strong>Save &amp; Restart:</strong> Tap <strong>Save</strong> and reboot your Nighthawk router.</li>
+            <li><strong>Download the NETGEAR Mobile App:</strong> If you haven't already, download and install the NETGEAR Mobile app from the App Store or Google Play.</li>
+            <li><strong>Connect to Your Nighthawk’s Wi-Fi:</strong> On your phone, open your Wi-Fi settings and join your Nighthawk’s network. An internet connection isn’t needed for this step.</li>
+            <li><strong>Log In as Admin:</strong> Open the app and sign in with the Hotspot Login details shown below.</li>
+            <li><strong>Open the APN Settings:</strong> Go to <strong>Settings</strong> &gt; <strong>Advanced</strong> &gt; <strong>Mobile</strong> &gt; <strong>APN</strong>.</li>
+            <li><strong>Add the New APN:</strong> Tap <strong>Add</strong> to create a new profile, then enter the APN provided by our support team. Leave all other fields blank.</li>
+            <li><strong>Save &amp; Restart:</strong> Tap <strong>Save</strong>, then reboot your Nighthawk. Allow a minute or two for it to reconnect to the network.</li>
           </ol>
           <div class="cred-strip">
-            <span class="cred-label">Router Login</span>
+            <span class="cred-label">Hotspot Login</span>
             <span class="cred-pill"><span class="cred-key">Username</span> <span class="cred-val">admin</span> <button class="copy-btn" onclick="copyText('admin', this)" aria-label="Copy username"><svg viewBox="0 0 16 16"><rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5"/></svg></button></span>
             <span class="cred-pill"><span class="cred-key">Password</span> <span class="cred-val">attadmin</span> <button class="copy-btn" onclick="copyText('attadmin', this)" aria-label="Copy password"><svg viewBox="0 0 16 16"><rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5"/></svg></button></span>
           </div>
@@ -990,17 +1026,17 @@
         </div>
 
         <div class="tutorial-pane" id="mobile-manual-network" data-group="mobile" data-tab="manual-network">
-          <p class="step-intro">Manually select a network if you are experiencing signal fluctuations.</p>
+          <p class="step-intro">By default, your Portable Hotspot automatically connects to the network it thinks is best. If you would like to override this — for example, if you notice signal fluctuations — you can manually select your preferred network using the steps below.</p>
           <ol class="steps-list">
             <li><strong>Connect to Wi-Fi:</strong> Ensure your device is connected to the Nighthawk.</li>
-            <li><strong>Router Admin Login:</strong> Use the credentials below to sign in.</li>
+            <li><strong>Hotspot Admin Login:</strong> Use the credentials below to sign in.</li>
             <li><strong>Access Mobile Settings:</strong> Go to <strong>Settings</strong> &gt; <strong>Advanced</strong> &gt; <strong>Mobile</strong>.</li>
-            <li><strong>Network Selection:</strong> Switch from <strong>Auto</strong> to <strong>Manual</strong>.</li>
-            <li><strong>Choose Carrier:</strong> Select your preferred local carrier from the list.</li>
+            <li><strong>Network Selection:</strong> Switch from <strong>Auto</strong> (the default) to <strong>Manual</strong>.</li>
+            <li><strong>Choose Your Preferred Network:</strong> Select the network you would like to use from the list.</li>
             <li><strong>Apply Settings:</strong> Save changes and restart the device.</li>
           </ol>
           <div class="cred-strip">
-            <span class="cred-label">Router Login</span>
+            <span class="cred-label">Hotspot Login</span>
             <span class="cred-pill"><span class="cred-key">Username</span> <span class="cred-val">admin</span> <button class="copy-btn" onclick="copyText('admin', this)" aria-label="Copy username"><svg viewBox="0 0 16 16"><rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5"/></svg></button></span>
             <span class="cred-pill"><span class="cred-key">Password</span> <span class="cred-val">attadmin</span> <button class="copy-btn" onclick="copyText('attadmin', this)" aria-label="Copy password"><svg viewBox="0 0 16 16"><rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5"/></svg></button></span>
           </div>
@@ -1008,17 +1044,26 @@
         </div>
 
         <div class="tutorial-pane" id="mobile-band-locking" data-group="mobile" data-tab="band-locking">
+          <div class="step-warning">
+            <div class="warning-icon">⚠</div>
+            <div>
+              <div class="warning-title">Use With Caution</div>
+              <p class="warning-text">
+                Band locking is an advanced setting, so please use it with care. If the band you lock to becomes unavailable — for example, due to network maintenance, a change in signal, or moving your device — you may lose your internet connection until the lock is removed. If this happens, return to <strong>LTE Bands</strong> and re-select all bands, or contact our support team and we’ll help you get back online.
+              </p>
+            </div>
+          </div>
           <p class="step-intro">Lock specific LTE bands to prevent switching and improve stability.</p>
           <ol class="steps-list">
-            <li><strong>Connect to Router:</strong> Connect to the router's Wi-Fi network.</li>
-            <li><strong>Router Admin Login:</strong> Use the credentials below.</li>
+            <li><strong>Connect to Hotspot:</strong> Connect to the hotspot's Wi-Fi network.</li>
+            <li><strong>Hotspot Admin Login:</strong> Use the credentials below.</li>
             <li><strong>Access Mobile Settings:</strong> Navigate to <strong>Settings</strong> &gt; <strong>Advanced</strong> &gt; <strong>Mobile</strong>.</li>
             <li><strong>Select LTE Bands:</strong> Tap <strong>LTE Bands</strong>.</li>
-            <li><strong>Choose Preferred Band:</strong> Select the band that provides the best speeds in your area.</li>
+            <li><strong>Choose Preferred Band:</strong> Select the band that provides the best speeds in your area. Not sure which one to choose? Our support team can help.</li>
             <li><strong>Apply:</strong> Save the settings and reboot.</li>
           </ol>
           <div class="cred-strip">
-            <span class="cred-label">Router Login</span>
+            <span class="cred-label">Hotspot Login</span>
             <span class="cred-pill"><span class="cred-key">Username</span> <span class="cred-val">admin</span> <button class="copy-btn" onclick="copyText('admin', this)" aria-label="Copy username"><svg viewBox="0 0 16 16"><rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5"/></svg></button></span>
             <span class="cred-pill"><span class="cred-key">Password</span> <span class="cred-val">attadmin</span> <button class="copy-btn" onclick="copyText('attadmin', this)" aria-label="Copy password"><svg viewBox="0 0 16 16"><rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5"/></svg></button></span>
           </div>
@@ -1038,13 +1083,13 @@
         <div class="tutorial-pane" id="mobile-wifi-range" data-group="mobile" data-tab="wifi-range">
           <p class="step-intro">Adjust Wi-Fi transmit power based on your current environment.</p>
           <ol class="steps-list">
-            <li><strong>Router Admin Login:</strong> Access the dashboard with the credentials below.</li>
+            <li><strong>Hotspot Admin Login:</strong> Access the dashboard with the credentials below.</li>
             <li><strong>Navigate to Wi-Fi Options:</strong> Go to <strong>Settings</strong> &gt; <strong>Wi-Fi</strong> &gt; <strong>Options</strong>.</li>
             <li><strong>Wi-Fi Range:</strong> Choose <strong>Short</strong> for maximum battery savings (best for travel) or <strong>Long</strong> for maximum coverage (best for hotel rooms or small cabins).</li>
             <li><strong>Save:</strong> Apply settings to update your transmit power.</li>
           </ol>
           <div class="cred-strip">
-            <span class="cred-label">Router Login</span>
+            <span class="cred-label">Hotspot Login</span>
             <span class="cred-pill"><span class="cred-key">Username</span> <span class="cred-val">admin</span> <button class="copy-btn" onclick="copyText('admin', this)" aria-label="Copy username"><svg viewBox="0 0 16 16"><rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5"/></svg></button></span>
             <span class="cred-pill"><span class="cred-key">Password</span> <span class="cred-val">attadmin</span> <button class="copy-btn" onclick="copyText('attadmin', this)" aria-label="Copy password"><svg viewBox="0 0 16 16"><rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5"/></svg></button></span>
           </div>
@@ -1081,11 +1126,26 @@
       <!-- ══ ORBI ══════════════════════════════════════════════ -->
       <div class="fixed-only" id="orbi-guide">
 
+        <div class="step-warning compact">
+          <div class="warning-icon">⚠</div>
+          <div>
+            <div class="warning-title">Important</div>
+            <p class="warning-text">
+              Please don’t factory reset your Home-Style Router. It erases the custom network settings your plan relies on and will need to be reprogrammed to restore service.
+            </p>
+          </div>
+        </div>
+
         <div class="jump-nav">
           <a href="#tips-fixed">Quick Tips</a>
           <a href="#tabs-fixed">Setup Tutorials</a>
           <a href="#app-fixed">Get the App</a>
           <a href="#dashboard">Manage Your Plan</a>
+        </div>
+
+        <div class="info-note">
+          <div class="info-note-icon"><svg viewBox="0 0 24 24"><path d="M2 8.5a15 15 0 0 1 20 0"/><path d="M5.5 12a10 10 0 0 1 13 0"/><path d="M9 15.5a5 5 0 0 1 6 0"/><circle cx="12" cy="19" r="1"/></svg></div>
+          <p class="info-note-text"><strong>Manage your Orbi your way.</strong> We recommend the Orbi app — <a href="#app-fixed">download it below</a>. Prefer not to use an app? Open any web browser and go to <code>192.168.1.1</code>. Just make sure you’re connected to your Orbi’s Wi-Fi first — an internet connection isn’t needed.</p>
         </div>
 
         <div class="cred-strip" style="margin-top: 0; margin-bottom: 32px;">
@@ -1102,7 +1162,7 @@
           <div class="tip-card">
             <div class="tip-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg></div>
             <div class="tip-title">Best Placement</div>
-            <div class="tip-text">Place the Orbi near a window or on an upper floor. Avoid basements, metal enclosures, and locations near large appliances that can weaken the cellular signal.</div>
+            <div class="tip-text">Place your Home-Style Router near a window or on an upper floor. Avoid basements, metal enclosures, and locations near large appliances that can weaken the cellular signal.</div>
           </div>
           <div class="tip-card">
             <div class="tip-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V9l8-6 8 6v12"/><path d="M9 21v-6h6v6"/></svg></div>
@@ -1141,14 +1201,23 @@
         </div>
 
         <div class="tutorial-pane active" id="fixed-update-apn" data-group="fixed" data-tab="update-apn">
-          <p class="step-intro">Update the APN on your Orbi router for optimal connectivity.</p>
+          <div class="step-warning">
+            <div class="warning-icon">⚠</div>
+            <div>
+              <div class="warning-title">Please Read First</div>
+              <p class="warning-text">
+                Your APN is already set up for your plan, so it should not be adjusted unless our support team instructs you to. Entering the wrong APN can interrupt your service. Not sure whether this applies to you? Just reach out — we’re happy to help.
+              </p>
+            </div>
+          </div>
+          <p class="step-intro">Only follow these steps if our support team has asked you to update your APN. They will provide the exact APN to enter.</p>
           <ol class="steps-list">
             <li><strong>Open the Orbi App:</strong> Launch the NETGEAR Orbi app on your smartphone.</li>
-            <li><strong>Connect to Wi-Fi:</strong> Ensure your device is connected to your Orbi's network.</li>
-            <li><strong>Router Admin Login:</strong> When prompted, use the credentials below.</li>
-            <li><strong>Go to Router Settings:</strong> Tap the menu icon and navigate to <strong>Settings</strong> &gt; <strong>Advanced</strong> &gt; <strong>Mobile</strong> &gt; <strong>APN</strong>.</li>
-            <li><strong>Add a New APN:</strong> Tap <strong>Add</strong> and enter the APN provided in your activation email.</li>
-            <li><strong>Save &amp; Restart:</strong> Tap <strong>Save</strong> or <strong>Apply</strong> and reboot your router.</li>
+            <li><strong>Connect to Your Orbi’s Wi-Fi:</strong> Make sure your phone is connected to your Orbi’s Wi-Fi network. An internet connection isn’t needed for this step.</li>
+            <li><strong>Log In as Admin:</strong> When prompted, sign in with the Router Login details shown below.</li>
+            <li><strong>Open the APN Settings:</strong> Tap the menu icon, then go to <strong>Settings</strong> &gt; <strong>Advanced</strong> &gt; <strong>Mobile</strong> &gt; <strong>APN</strong>.</li>
+            <li><strong>Add the New APN:</strong> Tap <strong>Add</strong>, then enter the APN provided by our support team.</li>
+            <li><strong>Save &amp; Restart:</strong> Tap <strong>Save</strong> or <strong>Apply</strong>, then reboot your router. Allow a minute or two for it to reconnect to the network.</li>
           </ol>
           <div class="cred-strip">
             <span class="cred-label">Router Login</span>
@@ -1159,13 +1228,13 @@
         </div>
 
         <div class="tutorial-pane" id="fixed-manual-network" data-group="fixed" data-tab="manual-network">
-          <p class="step-intro">Follow these steps to manually select a carrier if your signal is unstable.</p>
+          <p class="step-intro">By default, your Home-Style Router automatically connects to the network it thinks is best. If you would like to override this — for example, if your signal is unstable — you can manually select your preferred network using the steps below.</p>
           <ol class="steps-list">
             <li><strong>Open the Orbi App:</strong> Ensure you are logged in and connected to the router.</li>
             <li><strong>Router Admin Login:</strong> Use the credentials below.</li>
             <li><strong>Access Mobile Settings:</strong> Navigate to <strong>Settings</strong> &gt; <strong>Advanced</strong> &gt; <strong>Mobile</strong>.</li>
-            <li><strong>Network Selection:</strong> Tap <strong>Network Selection</strong> and switch from <strong>Auto</strong> to <strong>Manual</strong>.</li>
-            <li><strong>Choose Carrier:</strong> Select your preferred carrier (e.g., Rogers, Bell, or Telus) from the list.</li>
+            <li><strong>Network Selection:</strong> Tap <strong>Network Selection</strong> and switch from <strong>Auto</strong> (the default) to <strong>Manual</strong>.</li>
+            <li><strong>Choose Your Preferred Network:</strong> Select the network you would like to use (e.g., Rogers, Bell, or Telus) from the list.</li>
             <li><strong>Apply &amp; Restart:</strong> Save your settings and reboot the Orbi.</li>
           </ol>
           <div class="cred-strip">
@@ -1341,10 +1410,10 @@
   };
 
   /* ── Device selection ────────────────────────────── */
-  var guideTitles = { mobile: 'Nighthawk Tutorials', fixed: 'Orbi Tutorials' };
+  var guideTitles = { mobile: 'Portable Hotspot Tutorials', fixed: 'Home-Style Router Tutorials' };
   var heroTitles  = {
-    mobile: 'Nighthawk<br><em>Support.</em>',
-    fixed:  'Orbi<br><em>Support.</em>'
+    mobile: 'Portable Hotspot<br><em>Support.</em>',
+    fixed:  'Home-Style Router<br><em>Support.</em>'
   };
 
   window.selectDevice = function (type, opts) {
