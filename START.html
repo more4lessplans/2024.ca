@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+  <!-- ── CHARACTER & COMPATIBILITY ────────────────────────────── -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!-- ── VIEWPORT ──────────────────────────────────────────────── -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+
+  <!-- ── PRIMARY META ──────────────────────────────────────────── -->
+  <title>Getting Started | More4Less Wireless Internet</title>
+  <meta name="description" content="Set up your More4Less device in minutes. Follow this step-by-step guide to power on your device, connect to Wi-Fi, and start using your unlimited LTE &amp; 5G internet plan.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="author" content="More4Less Wireless Internet">
+  <link rel="canonical" href="https://more4lessplans.ca/getting-started">
+
+  <!-- ── OPEN GRAPH (Facebook, LinkedIn, iMessage, etc.) ───────── -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="More4Less Wireless Internet">
+  <meta property="og:url" content="https://more4lessplans.ca/getting-started">
+  <meta property="og:title" content="Getting Started | More4Less Wireless Internet">
+  <meta property="og:description" content="Set up your More4Less device in minutes. Step-by-step guide for your unlimited LTE &amp; 5G internet plan — no technician required.">
+  <meta property="og:image" content="https://more4lessplans.ca/assets/img/og-main.webp">
+  <meta property="og:image:alt" content="More4Less Wireless Internet — Quick Start Guide">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="en_CA">
+
+  <!-- ── TWITTER / X CARD ──────────────────────────────────────── -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Getting Started | More4Less Wireless Internet">
+  <meta name="twitter:description" content="Set up your More4Less device in minutes. Step-by-step guide for your unlimited LTE &amp; 5G internet plan — no technician required.">
+  <meta name="twitter:image" content="https://more4lessplans.ca/assets/img/og-main.webp">
+  <meta name="twitter:image:alt" content="More4Less Wireless Internet — Quick Start Guide">
+
+  <!-- ── THEME & APP ────────────────────────────────────────────── -->
+  <meta name="theme-color" content="#2E2F33">
+  <meta name="color-scheme" content="dark">
+  <meta name="application-name" content="More4Less">
+  <meta name="apple-mobile-web-app-title" content="More4Less">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+
+  <!-- ── FAVICONS ───────────────────────────────────────────────── -->
+  <link rel="icon" type="image/x-icon" href="assets/img/favicons/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicons/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon.png">
+  <link rel="manifest" href="assets/img/favicons/site.webmanifest">
+
+  <!-- ── FONTS ─────────────────────────────────────────────────── -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── TOKENS ─────────────────────────────────────────────────── */
+    :root {
+      --red:           #D73C59;
+      --red-deep:      #b82e48;
+      --red-glow:      rgba(215,60,89,0.12);
+
+      --green:         #16a05a;
+      --amber:         #f5a623;
+      --amber-bg:      #fff8f0;
+      --amber-border:  rgba(245,166,35,0.35);
+      --amber-text:    #7a4a00;
+      --amber-label:   #b36a00;
+
+      --bg:            #f8f8f9;
+      --bg-card:       #ffffff;
+      --dark:          #2E2F33;
+      --dark-card:     #38393e;
+      --dark-line:     rgba(255,255,255,0.08);
+
+      --ink:           #1a1a1c;
+      --ink-2:         #3d3d40;
+      --ink-3:         #87878c;
+      --ink-4:         #b8b8bc;
+      --on-dark:       #f0f0f2;
+      --on-dark-2:     #b8b8c4;
+      --on-dark-3:     #78787e;
+
+      --border:        #e8e8ec;
+      --border-dark:   rgba(255,255,255,0.10);
+
+      --nav-h:         60px;
+      --rXL:           18px;
+      --rLG:           14px;
+      --rMD:           10px;
+      --rSM:           8px;
+      --rFull:         999px;
+
+      --spring:        cubic-bezier(0.34,1.5,0.64,1);
+      --ease-out:      cubic-bezier(0.22,1,0.36,1);
+    }
+
+    /* ── RESET ──────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 15px; scroll-behavior: smooth; }
+    body {
+      font-family: 'Figtree', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ────────────────────────────────────────────────────── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--nav-h); z-index: 9000;
+      background: var(--dark);
+      border-bottom: 1px solid var(--border-dark);
+      display: flex; align-items: center;
+    }
+    .nav-inner {
+      width: 100%; display: flex; align-items: center;
+      padding: 0 40px;
+    }
+    .nav-logo img { height: 20px; display: block; }
+    .nav-links {
+      display: flex; align-items: center;
+      gap: 0; list-style: none; margin-left: auto;
+    }
+    .nav-links li a {
+      font-size: 0.82rem; font-weight: 500;
+      color: var(--on-dark-2); text-decoration: none;
+      letter-spacing: 0.01em; padding: 0 18px;
+      white-space: nowrap; position: relative;
+      display: inline-block; transition: color 0.2s ease;
+    }
+    .nav-links li a::after {
+      content: ''; position: absolute;
+      bottom: -3px; left: 18px; right: 18px;
+      width: 0; height: 1.5px;
+      background: var(--red); border-radius: 2px;
+      transition: width 0.3s var(--ease-out);
+    }
+    .nav-links li a:hover { color: var(--on-dark); }
+    .nav-links li a:hover::after { width: calc(100% - 36px); }
+    .nav-links .nav-portal a {
+      color: #fff; font-weight: 600;
+      border: 1.5px solid rgba(255,255,255,0.28);
+      border-radius: var(--rFull);
+      padding: 6px 16px; margin-left: 10px;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .nav-links .nav-portal a::after { display: none; }
+    .nav-links .nav-portal a:hover {
+      background: rgba(255,255,255,0.10);
+      border-color: rgba(255,255,255,0.50);
+    }
+
+    /* Hamburger */
+    .menu-trigger {
+      display: none; cursor: pointer;
+      padding: 8px; background: none;
+      border: none; outline: none; margin-left: auto;
+    }
+    .menu-icon {
+      width: 22px; height: 16px;
+      display: flex; flex-direction: column;
+      justify-content: space-between;
+    }
+    .menu-icon span {
+      display: block; width: 100%; height: 1.5px;
+      background: rgba(255,255,255,0.8); border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+    .menu-trigger.menu-active .menu-icon span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .menu-trigger.menu-active .menu-icon span:nth-child(2) { opacity: 0; }
+    .menu-trigger.menu-active .menu-icon span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile overlay */
+    .mobile-overlay {
+      position: fixed; inset: 0;
+      background: rgba(22,22,24,0.97);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      z-index: 8500;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+    .mobile-overlay.active { opacity: 1; visibility: visible; }
+    .mobile-nav-links { list-style: none; text-align: center; }
+    .mobile-nav-links li { margin: 18px 0; transform: translateY(16px); opacity: 0; transition: 0.4s ease; }
+    .mobile-overlay.active .mobile-nav-links li { transform: none; opacity: 1; }
+    .mobile-nav-links li:nth-child(1) { transition-delay: 0.08s; }
+    .mobile-nav-links li:nth-child(2) { transition-delay: 0.13s; }
+    .mobile-nav-links li:nth-child(3) { transition-delay: 0.18s; }
+    .mobile-nav-links a {
+      color: rgba(255,255,255,0.85);
+      font-size: 2rem; font-weight: 700;
+      text-decoration: none; letter-spacing: -0.03em;
+      position: relative; display: inline-block;
+      transition: color 0.25s ease;
+    }
+    .mobile-nav-links a::after {
+      content: ''; position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 2.5px;
+      background: var(--red); border-radius: 2px;
+      transition: width 0.3s var(--ease-out);
+    }
+    .mobile-nav-links a:hover { color: #fff; }
+    .mobile-nav-links a:hover::after { width: 100%; }
+    .mobile-nav-links .portal-link a { color: var(--red); }
+
+    /* ── HERO ────────────────────────────────────────────────────── */
+    .setup-hero {
+      position: fixed;
+      inset: 0;
+      background: var(--dark);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.5s var(--ease-out), visibility 0.5s var(--ease-out);
+      z-index: 100;
+    }
+    .setup-hero.compact {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    /* dot grid */
+    .setup-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.065) 1px, transparent 1px);
+      background-size: 28px 28px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+      pointer-events: none;
+    }
+    /* red glow */
+    .setup-hero::after {
+      content: ''; position: absolute;
+      width: 700px; height: 700px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(215,60,89,0.07) 0%, transparent 70%);
+      top: 50%; left: 50%; transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative; z-index: 2;
+      max-width: 860px; width: 100%;
+      padding: 24px;
+      display: flex; flex-direction: column; align-items: center;
+      text-align: center;
+    }
+    .setup-hero.compact .hero-inner { padding-bottom: 56px; }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 6px 14px 6px 10px;
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: var(--rFull);
+      background: rgba(255,255,255,0.07);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      font-size: 0.69rem; font-weight: 600;
+      letter-spacing: 0.09em; text-transform: uppercase;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 28px;
+      opacity: 0; transform: translateY(12px);
+      animation: revealUp 0.7s var(--ease-out) 0.1s forwards;
+    }
+    .badge-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 3px rgba(22,160,90,0.18);
+      animation: pulse 2.5s ease infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 3px rgba(22,160,90,0.18); }
+      50%       { box-shadow: 0 0 0 6px rgba(22,160,90,0.08); }
+    }
+
+    .hero-headline {
+      font-size: clamp(2.6rem, 5.5vw, 4rem);
+      font-weight: 900; letter-spacing: -0.04em; line-height: 1.05;
+      color: var(--on-dark); margin-bottom: 16px;
+      opacity: 0; transform: translateY(16px);
+      animation: revealUp 0.75s var(--ease-out) 0.22s forwards;
+    }
+    .hero-headline em { font-style: normal; color: var(--red); }
+
+    .hero-sub {
+      font-size: 1.05rem; color: var(--on-dark-2);
+      line-height: 1.7; max-width: 440px;
+      margin: 0 auto 48px; font-weight: 400;
+      opacity: 0; transform: translateY(14px);
+      animation: revealUp 0.75s var(--ease-out) 0.34s forwards;
+      transition: opacity 0.35s ease, max-height 0.45s var(--ease-out), margin 0.45s var(--ease-out);
+      max-height: 120px; overflow: hidden;
+    }
+    .hero-sub.hidden {
+      opacity: 0; max-height: 0;
+      margin-bottom: 0; pointer-events: none;
+    }
+
+    @keyframes revealUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── DEVICE CARDS ────────────────────────────────────────────── */
+    .device-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 14px; width: 100%; max-width: 580px;
+      opacity: 0; transform: translateY(14px);
+      animation: revealUp 0.75s var(--ease-out) 0.44s forwards;
+    }
+
+    .device-card {
+      background: rgba(255,255,255,0.05);
+      border: 1.5px solid rgba(255,255,255,0.11);
+      border-radius: var(--rXL);
+      padding: 32px 20px 26px;
+      cursor: pointer;
+      display: flex; flex-direction: column; align-items: center;
+      text-align: center; position: relative; overflow: hidden;
+      transition:
+        border-color 0.28s ease,
+        background 0.28s ease,
+        box-shadow 0.28s ease,
+        transform 0.32s var(--spring),
+        opacity 0.32s ease;
+    }
+    .device-card::after {
+      content: ''; position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px; background: var(--red);
+      border-radius: 0 0 var(--rXL) var(--rXL);
+      transform: scaleX(0);
+      transition: transform 0.32s var(--ease-out);
+    }
+    .device-card:hover {
+      border-color: rgba(255,255,255,0.22);
+      background: rgba(255,255,255,0.08);
+      transform: translateY(-3px);
+      box-shadow: 0 18px 48px rgba(0,0,0,0.32);
+    }
+    .device-card:hover::after { transform: scaleX(1); }
+    .device-card.selected {
+      border-color: var(--red);
+      background: rgba(215,60,89,0.08);
+      box-shadow: 0 0 0 4px rgba(215,60,89,0.14), 0 18px 48px rgba(0,0,0,0.32);
+      transform: translateY(-3px);
+    }
+    .device-card.selected::after { transform: scaleX(1); }
+    .device-card.unselected { opacity: 0.28; transform: none; }
+
+    .sel-badge {
+      position: absolute; top: 12px; right: 12px;
+      background: var(--red); color: #fff;
+      font-size: 0.59rem; font-weight: 800;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 3px 9px; border-radius: var(--rFull);
+      opacity: 0; transform: scale(0.75) translateY(-4px);
+      transition: opacity 0.28s ease, transform 0.28s var(--spring);
+    }
+    .device-card.selected .sel-badge { opacity: 1; transform: scale(1) translateY(0); }
+
+    .card-img-wrap {
+      height: 110px; display: flex;
+      align-items: center; justify-content: center;
+      margin-bottom: 16px;
+    }
+    .card-img-wrap img {
+      max-height: 100%; width: auto;
+      filter: drop-shadow(0 10px 20px rgba(0,0,0,0.26));
+      transition: transform 0.38s var(--spring);
+    }
+    .device-card:hover .card-img-wrap img,
+    .device-card.selected .card-img-wrap img { transform: scale(1.06) translateY(-3px); }
+
+    .dc-title {
+      font-size: 0.95rem; font-weight: 800;
+      letter-spacing: -0.02em; color: var(--on-dark); margin-bottom: 4px;
+    }
+    .dc-desc { font-size: 0.76rem; color: var(--on-dark-3); line-height: 1.5; }
+
+    /* ── GUIDE ───────────────────────────────────────────────────── */
+    .guide-wrap {
+      display: none;
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+      margin-top: var(--nav-h);
+    }
+    .guide-wrap.visible  { display: block; }
+    .guide-wrap.animated { opacity: 1; transform: translateY(0); }
+
+    /* ── SECTION ─────────────────────────────────────────────────── */
+    .guide-section {
+      background: var(--bg-card);
+      border-top: 1px solid var(--border);
+      padding: 0 24px;
+    }
+    .guide-section:first-of-type { border-top: none; }
+    .guide-section.dark {
+      background: var(--dark);
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .guide-inner { max-width: 680px; margin: 0 auto; padding: 64px 0 72px; }
+
+    /* Section label */
+    .section-eyebrow {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.64rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--ink-3); margin-bottom: 10px;
+    }
+    .guide-section.dark .section-eyebrow { color: var(--on-dark-3); }
+    .eyebrow-dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--red); flex-shrink: 0;
+    }
+
+    /* Eyebrow row (label + back button together) */
+    .eyebrow-row {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; margin-bottom: 10px;
+    }
+    .eyebrow-row .section-eyebrow { margin-bottom: 0; }
+
+    /* Back to device selection */
+    .back-btn {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: none; border: none; cursor: pointer;
+      font-family: 'Figtree', sans-serif;
+      font-size: 0.74rem; font-weight: 600;
+      color: var(--ink-3);
+      padding: 5px 10px 5px 6px;
+      border-radius: var(--rFull);
+      transition: color 0.2s ease, background 0.2s ease;
+      flex-shrink: 0;
+    }
+    .back-btn:hover { color: var(--ink); background: var(--bg); }
+    .guide-section.dark .back-btn { color: var(--on-dark-3); }
+    .guide-section.dark .back-btn:hover { color: var(--on-dark); background: rgba(255,255,255,0.06); }
+    .back-btn svg {
+      width: 12px; height: 12px; stroke: currentColor;
+      stroke-width: 2.2; fill: none;
+      transition: transform 0.28s var(--spring);
+    }
+    .back-btn:hover svg { transform: translateX(-3px); }
+
+    .section-title {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 900; letter-spacing: -0.04em; line-height: 1.1;
+      color: var(--ink); margin-bottom: 40px;
+    }
+    .guide-section.dark .section-title { color: var(--on-dark); }
+
+    /* ── CONTENT BLOCKS ──────────────────────────────────────────── */
+    .step-row {
+      padding: 26px 0;
+      border-top: 1px solid var(--border);
+    }
+    .guide-section.dark .step-row { border-top-color: var(--border-dark); }
+    .step-row:last-of-type { border-bottom: 1px solid var(--border); }
+    .guide-section.dark .step-row:last-of-type { border-bottom-color: var(--border-dark); }
+
+    .step-body { min-width: 0; }
+
+    .step-name {
+      font-size: 1.05rem; font-weight: 800;
+      letter-spacing: -0.02em; color: var(--ink);
+      margin-bottom: 8px; line-height: 1.3;
+    }
+    .guide-section.dark .step-name { color: var(--on-dark); }
+
+    .step-text {
+      font-size: 0.875rem; color: var(--ink-3); line-height: 1.8;
+    }
+    .guide-section.dark .step-text { color: var(--on-dark-2); }
+    .step-text + .step-text { margin-top: 10px; }
+    .step-text strong { color: var(--ink-2); font-weight: 600; }
+    .guide-section.dark .step-text strong { color: var(--on-dark); }
+
+    /* Warning */
+    .step-warning {
+      display: flex; gap: 12px; align-items: flex-start;
+      background: var(--amber-bg);
+      border: 1px solid var(--amber-border);
+      border-left: 3px solid var(--amber);
+      border-radius: var(--rLG);
+      padding: 16px 18px; margin-top: 14px;
+    }
+    .warning-icon { font-size: 0.95rem; line-height: 1.65; flex-shrink: 0; }
+    .warning-title {
+      font-size: 0.62rem; font-weight: 800;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--amber-label); margin-bottom: 4px;
+    }
+    .warning-text { font-size: 0.82rem; color: var(--amber-text); line-height: 1.75; }
+
+    /* Step list */
+    .step-list { margin-top: 12px; padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 4px; }
+    .step-list li {
+      font-size: 0.875rem; color: var(--ink-3);
+      line-height: 1.7; padding-left: 14px; position: relative;
+    }
+    .step-list li::before {
+      content: ''; position: absolute; left: 0; top: 9px;
+      width: 4px; height: 4px; border-radius: 50%; background: var(--red);
+    }
+    .guide-section.dark .step-list li { color: var(--on-dark-2); }
+
+    /* Inline link */
+    .step-link {
+      display: inline-flex; align-items: center; gap: 5px;
+      color: var(--red); font-weight: 600; text-decoration: none;
+      font-size: 0.84rem; margin-top: 14px;
+      border-bottom: 1px solid rgba(215,60,89,0.25); padding-bottom: 1px;
+      transition: border-color 0.2s, opacity 0.2s;
+    }
+    .step-link:hover { border-color: var(--red); opacity: 0.82; }
+    .step-link svg {
+      width: 11px; height: 11px; stroke: currentColor;
+      stroke-width: 2; fill: none;
+      transition: transform 0.28s var(--spring);
+    }
+    .step-link:hover svg { transform: translateX(3px); }
+
+    /* ── APP BLOCK ───────────────────────────────────────────────── */
+    .app-block {
+      margin-top: 18px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--rLG);
+      overflow: hidden;
+    }
+    .guide-section.dark .app-block {
+      background: var(--dark-card);
+      border-color: var(--border-dark);
+    }
+
+    .app-block-inner {
+      padding: 24px 24px 20px;
+      display: flex; gap: 22px; align-items: center;
+    }
+
+    .app-img-wrap {
+      flex-shrink: 0; height: 70px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .app-img-wrap img {
+      max-height: 70px; width: auto;
+      filter: drop-shadow(0 6px 14px rgba(0,0,0,0.10));
+    }
+
+    .app-block-content { flex: 1; min-width: 0; }
+    .app-block-name {
+      font-size: 0.86rem; font-weight: 800;
+      letter-spacing: -0.01em; color: var(--ink); margin-bottom: 3px;
+    }
+    .guide-section.dark .app-block-name { color: var(--on-dark); }
+    .app-block-desc {
+      font-size: 0.77rem; color: var(--ink-3); line-height: 1.6; margin-bottom: 14px;
+    }
+    .guide-section.dark .app-block-desc { color: var(--on-dark-2); }
+
+    .app-dl-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .btn-dl {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 14px; border-radius: var(--rMD);
+      background: var(--ink); color: #fff;
+      font-size: 0.74rem; font-weight: 700;
+      text-decoration: none; letter-spacing: 0.01em;
+      transition: background 0.2s, transform 0.28s var(--spring), box-shadow 0.22s;
+    }
+    .btn-dl:hover {
+      background: #111;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.16);
+    }
+    .btn-dl svg { width: 13px; height: 13px; fill: currentColor; flex-shrink: 0; }
+
+    /* Credentials strip */
+    .cred-strip {
+      border-top: 1px solid var(--border);
+      padding: 16px 24px;
+      display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+      background: var(--bg-card);
+    }
+    .guide-section.dark .cred-strip {
+      border-top-color: var(--border-dark);
+      background: rgba(0,0,0,0.15);
+    }
+    .cred-label {
+      font-size: 0.62rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--ink-3); flex-shrink: 0;
+    }
+    .guide-section.dark .cred-label { color: var(--on-dark-3); }
+    .cred-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 10px;
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: var(--rSM);
+      font-size: 0.77rem; color: var(--ink-2);
+    }
+    .guide-section.dark .cred-pill {
+      background: rgba(255,255,255,0.06);
+      border-color: var(--border-dark); color: var(--on-dark-2);
+    }
+    .cred-key { font-weight: 500; color: var(--ink-3); font-size: 0.71rem; }
+    .guide-section.dark .cred-key { color: var(--on-dark-3); }
+    .cred-val {
+      font-family: 'Courier New', monospace;
+      font-weight: 700; color: var(--red); font-size: 0.84rem;
+    }
+    .copy-btn {
+      background: none; border: none; cursor: pointer;
+      padding: 2px 4px; color: var(--ink-4);
+      display: inline-flex; align-items: center;
+      transition: color 0.18s;
+    }
+    .copy-btn:hover { color: var(--ink); }
+    .copy-btn svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 1.8; }
+
+    /* ── PORTAL CARD ─────────────────────────────────────────────── */
+    .portal-card {
+      margin-top: 18px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--rLG);
+      padding: 24px;
+    }
+    .portal-card-title {
+      font-size: 0.86rem; font-weight: 800;
+      letter-spacing: -0.01em; color: var(--ink);
+      margin-bottom: 14px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .portal-card-title svg {
+      width: 15px; height: 15px;
+      stroke: var(--red); fill: none; stroke-width: 2; flex-shrink: 0;
+    }
+    .portal-feature-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 8px 20px; margin-bottom: 20px;
+    }
+    .portal-feature {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.81rem; color: var(--ink-3); line-height: 1.4;
+    }
+    .feat-dot {
+      width: 4px; height: 4px; border-radius: 50%;
+      background: var(--red); flex-shrink: 0;
+    }
+
+    /* ── FINAL CTA ───────────────────────────────────────────────── */
+    .step-final {
+      background: var(--dark);
+      border-radius: var(--rXL);
+      padding: 40px 36px;
+      margin-top: 20px;
+      position: relative; overflow: hidden;
+    }
+    .step-final::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 24px 24px; opacity: 0.6; pointer-events: none;
+    }
+    .step-final::after {
+      content: ''; position: absolute;
+      width: 360px; height: 360px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(215,60,89,0.10) 0%, transparent 70%);
+      right: -80px; bottom: -80px; pointer-events: none;
+    }
+    .sf-inner { position: relative; z-index: 1; }
+    .final-check {
+      width: 34px; height: 34px; border-radius: 50%;
+      background: rgba(215,60,89,0.16); color: var(--red);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 16px;
+    }
+    .final-check svg { width: 16px; height: 16px; stroke: currentColor; stroke-width: 2.6; fill: none; }
+    .step-final .step-name { color: var(--on-dark); font-size: 1.3rem; }
+    .step-final .step-text { color: var(--on-dark-2); }
+
+    .btn-cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 20px; background: var(--red); color: #fff;
+      font-weight: 700; font-size: 0.87rem;
+      padding: 12px 26px; border-radius: var(--rFull);
+      text-decoration: none; letter-spacing: 0.01em;
+      transition: background 0.22s, transform 0.28s var(--spring), box-shadow 0.28s;
+      box-shadow: 0 8px 22px rgba(215,60,89,0.28);
+    }
+    .btn-cta:hover {
+      background: var(--red-deep);
+      transform: translateY(-1px);
+      box-shadow: 0 12px 30px rgba(215,60,89,0.35);
+    }
+    .btn-cta svg {
+      width: 13px; height: 13px; stroke: currentColor;
+      fill: none; stroke-width: 2.5;
+      transition: transform 0.28s var(--spring);
+    }
+    .btn-cta:hover svg { transform: translateX(2px); }
+
+    /* ── VISIBILITY HELPERS ──────────────────────────────────────── */
+    .mobile-only, .fixed-only { display: none !important; }
+    .mobile-only.show, .fixed-only.show { display: grid !important; }
+    .mobile-only.show-block, .fixed-only.show-block { display: block !important; }
+
+    /* ── FOOTER ──────────────────────────────────────────────────── */
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 40px;
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    }
+    .footer-links { display: flex; align-items: center; gap: 24px; }
+    .footer-links a { font-size: 0.74rem; color: var(--ink-3); text-decoration: none; font-weight: 500; transition: color 0.18s; }
+    .footer-links a:hover { color: var(--ink); }
+    .footer-copy { font-size: 0.71rem; color: var(--ink-4); }
+
+    /* ── RESPONSIVE ──────────────────────────────────────────────── */
+    @media (max-width: 960px) {
+      .nav-links  { display: none; }
+      .menu-trigger { display: block; }
+      .nav-inner  { padding: 0 20px; }
+      .footer     { flex-direction: column; text-align: center; padding: 28px 20px; }
+      .footer-links { justify-content: center; }
+    }
+
+    @media (max-width: 640px) {
+      .hero-inner  { padding: 56px 20px 60px; }
+      .device-grid { gap: 10px; }
+      .device-card { padding: 24px 14px 18px; border-radius: var(--rLG); }
+      .card-img-wrap { height: 86px; }
+      .dc-desc     { display: none; }
+      .guide-inner { padding: 48px 0 56px; }
+      .app-block-inner { flex-direction: column; gap: 14px; }
+      .portal-feature-grid { grid-template-columns: 1fr; }
+      .step-final  { padding: 28px 22px; }
+      .cred-strip  { padding: 14px 20px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ NAV ══════════════════════════════════════════════════════ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="/"><img src="assets/img/logos/logo.png" alt="More4Less"></a>
+    <ul class="nav-links" id="navLinks">
+     
+      <li><a href="/contact">Contact</a></li>
+      <li class="nav-portal"><a href="/portal">Dashboard</a></li>
+    </ul>
+    <button class="menu-trigger" id="menuTrigger" aria-label="Open menu">
+      <div class="menu-icon"><span></span><span></span><span></span></div>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-overlay" id="mobileOverlay">
+  <ul class="mobile-nav-links">
+   
+    <li><a href="/contact">Contact</a></li>
+    <li class="portal-link"><a href="/portal">Dashboard</a></li>
+  </ul>
+</div>
+
+<!-- ══ HERO ═════════════════════════════════════════════════════ -->
+<section class="setup-hero" id="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      Quick Start Guide
+    </div>
+
+    <h1 class="hero-headline" id="heroHeadline">
+      Setup<br><em>Made Simple.</em>
+    </h1>
+
+    <p class="hero-sub" id="heroSub">
+      Select your device to get started.
+    </p>
+
+    <div class="device-grid">
+      <div class="device-card" id="card-mobile" onclick="selectDevice('mobile')">
+        <div class="sel-badge">Selected</div>
+        <div class="card-img-wrap">
+          <img src="assets/img/products/mr1100.png" alt="Portable Hotspot (Nighthawk)" onerror="this.style.opacity='0'">
+        </div>
+        <div class="dc-title">Portable Hotspot</div>
+        <div class="dc-desc">Pocket Wi-Fi On-The-Go</div>
+      </div>
+
+      <div class="device-card" id="card-fixed" onclick="selectDevice('fixed')">
+        <div class="sel-badge">Selected</div>
+        <div class="card-img-wrap">
+          <img src="assets/img/products/LBR20.png" alt="Home-Style Router (Orbi)" onerror="this.style.opacity='0'">
+        </div>
+        <div class="dc-title">Home-Style Router</div>
+        <div class="dc-desc">Whole-Home Wi-Fi</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ GUIDE ═════════════════════════════════════════════════════ -->
+<div class="guide-wrap" id="guideWrap">
+
+  <!-- ── SECTION 1: Power It On ───────────────────────────────── -->
+  <div class="guide-section" id="sec-hardware">
+    <div class="guide-inner">
+      <div class="eyebrow-row" style="justify-content: flex-end;">
+        <button type="button" class="back-btn" onclick="goBackToDeviceSelect()">
+          <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><line x1="13" y1="8" x2="3" y2="8"/><polyline points="7,4 3,8 7,12"/></svg>
+          Change Device
+        </button>
+      </div>
+      <h2 class="section-title" id="hwTitle">Power It On</h2>
+
+      <!-- MOBILE STEPS -->
+
+      <div class="step-row mobile-only">
+        <div class="step-body">
+          <div class="step-warning">
+            <div class="warning-icon">⚠</div>
+            <div>
+              <div class="warning-title">Important</div>
+              <p class="warning-text">
+                Your Portable Hotspot has been configured specifically for your plan. A factory reset — whether by pinhole or from the settings menu — will erase that configuration and interrupt your service.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-row mobile-only" id="m-step-01">
+        <div class="step-body">
+          <div class="step-name">Power On</div>
+          <p class="step-text">
+            Press and hold the power button for about 3 seconds. It can take up to a minute to connect.
+          </p>
+        </div>
+      </div>
+
+      <div class="step-row mobile-only">
+        <div class="step-body">
+          <div class="step-name">The Battery</div>
+          <p class="step-text">
+            It's already installed. To remove it, slide the back cover up and off, then charge fully before first use.
+          </p>
+          <p class="step-text"><strong>Running it plugged in 24/7?</strong> We recommend taking the battery out.</p>
+        </div>
+      </div>
+
+      <div class="step-row mobile-only">
+        <div class="step-body">
+          <div class="step-name">Find a Good Spot</div>
+          <p class="step-text">
+            Keep it near a window or on a higher floor. Metal cabinets, concrete walls, and large appliances can weaken the signal.
+          </p>
+        </div>
+      </div>
+
+      <!-- FIXED STEPS -->
+      <div class="step-row fixed-only">
+        <div class="step-body">
+          <div class="step-warning">
+            <div class="warning-icon">⚠</div>
+            <div>
+              <div class="warning-title">Important</div>
+              <p class="warning-text">
+                Your Home-Style Router has been configured specifically for your plan. A factory reset — whether from the Home-Style Router itself or from the settings menu — will erase that configuration and interrupt your service.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-row fixed-only">
+        <div class="step-body">
+          <div class="step-name">Connect Power</div>
+          <p class="step-text">
+            Plug in the included power adapter and make sure the switch on the back is on. The LED ring lights up as it starts.
+          </p>
+        </div>
+      </div>
+
+      <div class="step-row fixed-only">
+        <div class="step-body">
+          <div class="step-name">Find a Good Spot</div>
+          <p class="step-text">
+            Keep it near a window or on a higher floor — away from basements, metal enclosures, and large appliances.
+          </p>
+        </div>
+      </div>
+
+      <div class="step-row fixed-only">
+        <div class="step-body">
+          <div class="step-name">Connect Your Devices</div>
+          <p class="step-text">
+            Your Wi-Fi name and password are printed on the bottom of the Orbi. Connect up to 64 devices.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── SECTION 2: Your App ──────────────────────────────────── -->
+  <div class="guide-section" style="background: var(--bg); border-top: 1px solid var(--border);" id="sec-app">
+    <div class="guide-inner">
+      <h2 class="section-title">Your App</h2>
+
+      <!-- MOBILE -->
+      <div class="step-row mobile-only">
+        <div class="step-body">
+          <div class="step-name">Download the Nighthawk App</div>
+          <p class="step-text">
+            Manage everything from your phone — check data usage and signal strength, see what's connected, and update your Wi-Fi name and password.
+          </p>
+
+          <div class="app-block">
+            <div class="app-block-inner">
+              <div class="app-img-wrap">
+                <img src="assets/img/products/mr1100.png" alt="Nighthawk M1">
+              </div>
+              <div class="app-block-content">
+                <div class="app-block-name">NETGEAR Nighthawk App</div>
+                <div class="app-block-desc">Usage, signal, and connected devices — all in one place.</div>
+                <div class="app-dl-row">
+                  <a href="https://itunes.apple.com/us/app/aircard-watcher-for-mobile/id457698895?mt=8" target="_blank" rel="noopener" class="btn-dl">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                    App Store
+                  </a>
+                  <a href="https://play.google.com/store/apps/details?id=com.sierrawireless.mhswatcher" target="_blank" rel="noopener" class="btn-dl" style="background: #1a6b3c;">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 20.5v-17c0-.83.94-1.3 1.6-.8l14 8.5c.6.36.6 1.24 0 1.6L4.6 21.3c-.66.5-1.6.03-1.6-.8z"/></svg>
+                    Google Play
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="cred-strip">
+              <span class="cred-label">Default Admin Login</span>
+              <div class="cred-pill">
+                <span class="cred-key">Username</span>
+                <span class="cred-val">admin</span>
+                <button class="copy-btn" onclick="copyText('admin', this)" title="Copy">
+                  <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5"/></svg>
+                </button>
+              </div>
+              <div class="cred-pill">
+                <span class="cred-key">Password</span>
+                <span class="cred-val">attadmin</span>
+                <button class="copy-btn" onclick="copyText('attadmin', this)" title="Copy">
+                  <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FIXED -->
+      <div class="step-row fixed-only">
+        <div class="step-body">
+          <div class="step-name">Download the Orbi App</div>
+          <p class="step-text">
+            Manage your whole network from your phone — run speed tests, see what's connected, and fine-tune your Wi-Fi.
+          </p>
+
+          <div class="app-block">
+            <div class="app-block-inner">
+              <div class="app-img-wrap">
+                <img src="assets/img/products/LBR20.png" alt="Orbi LBR20">
+              </div>
+              <div class="app-block-content">
+                <div class="app-block-name">NETGEAR Orbi App</div>
+                <div class="app-block-desc">Speed tests, connected devices, and Wi-Fi settings — all in one place.</div>
+                <div class="app-dl-row">
+                  <a href="https://apps.apple.com/ca/app/netgear-orbi/id1182184397" target="_blank" rel="noopener" class="btn-dl">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                    App Store
+                  </a>
+                  <a href="https://play.google.com/store/apps/details?id=com.dragonflow.android.orbi&hl=en_CA" target="_blank" rel="noopener" class="btn-dl" style="background: #1a6b3c;">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 20.5v-17c0-.83.94-1.3 1.6-.8l14 8.5c.6.36.6 1.24 0 1.6L4.6 21.3c-.66.5-1.6.03-1.6-.8z"/></svg>
+                    Google Play
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="cred-strip">
+              <span class="cred-label">Default Admin Login</span>
+              <div class="cred-pill">
+                <span class="cred-key">Username</span>
+                <span class="cred-val">admin</span>
+                <button class="copy-btn" onclick="copyText('admin', this)" title="Copy">
+                  <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5"/></svg>
+                </button>
+              </div>
+              <div class="cred-pill">
+                <span class="cred-key">Password</span>
+                <span class="cred-val">more4less</span>
+                <button class="copy-btn" onclick="copyText('more4less', this)" title="Copy">
+                  <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-row">
+        <div class="step-body">
+          <div class="step-name">Tips &amp; Tricks</div>
+          <p class="step-text">Want even better performance? Our tutorials cover placement, Wi-Fi optimization, and troubleshooting.</p>
+          <a href="/tutorials" class="step-link">
+            Browse Tutorials
+            <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── SECTION 3: Your Plan ─────────────────────────────────── -->
+  <div class="guide-section dark" id="sec-portal">
+    <div class="guide-inner">
+      <h2 class="section-title">Your Plan</h2>
+
+      <div class="step-row">
+        <div class="step-body">
+          <div class="step-name">Everything in One Place</div>
+          <p class="step-text">Your dashboard is where you manage your plan, anytime.</p>
+
+          <div class="portal-card" style="background: var(--dark-card); border-color: var(--border-dark); margin-top: 18px;">
+            <div class="portal-card-title" style="color: var(--on-dark);">
+              <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.5"/><path d="M8 5v3.5l2 2"/></svg>
+              From your dashboard, you can:
+            </div>
+            <div class="portal-feature-grid">
+              <div class="portal-feature" style="color: var(--on-dark-2);"><span class="feat-dot"></span> View &amp; download monthly invoices</div>
+              <div class="portal-feature" style="color: var(--on-dark-2);"><span class="feat-dot"></span> Check upcoming payment dates</div>
+              <div class="portal-feature" style="color: var(--on-dark-2);"><span class="feat-dot"></span> Update credit card or payment method</div>
+              <div class="portal-feature" style="color: var(--on-dark-2);"><span class="feat-dot"></span> Cancel or pause your subscription</div>
+              <div class="portal-feature" style="color: var(--on-dark-2);"><span class="feat-dot"></span> Access guides &amp; tech support</div>
+              <div class="portal-feature" style="color: var(--on-dark-2);"><span class="feat-dot"></span> Submit a return or replacement request</div>
+            </div>
+            <a href="/portal" class="step-link" style="margin-top: 0;">
+              Go to My Account
+              <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Final CTA -->
+      <div class="step-final">
+        <div class="sf-inner">
+          <div class="final-check">
+            <svg viewBox="0 0 16 16"><polyline points="2.5,8.5 6.5,12.5 13.5,3.5"/></svg>
+          </div>
+          <div class="step-name">You're All Set</div>
+          <p class="step-text">Your device is already connected and ready to use. Manage your plan, check billing, or get support anytime from your dashboard.</p>
+          <a href="/portal" class="btn-cta">
+            Go to Dashboard
+            <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- /guide-wrap -->
+
+
+
+<script>
+(function () {
+  'use strict';
+
+  /* Year */
+  var y = document.getElementById('year');
+  if (y) y.textContent = new Date().getFullYear();
+
+  /* ── Mobile menu ─────────────────────────────────── */
+  var trigger = document.getElementById('menuTrigger');
+  var overlay = document.getElementById('mobileOverlay');
+
+  function toggleMenu() {
+    var open = trigger.classList.toggle('menu-active');
+    overlay.classList.toggle('active', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  trigger.addEventListener('click', function (e) { e.stopPropagation(); toggleMenu(); });
+  overlay.addEventListener('click', function (e) {
+    if (!e.target.closest('a') && overlay.classList.contains('active')) toggleMenu();
+  });
+  overlay.querySelectorAll('a').forEach(function (a) {
+    a.addEventListener('click', function () { if (overlay.classList.contains('active')) toggleMenu(); });
+  });
+
+  /* ── Copy to clipboard ───────────────────────────── */
+  window.copyText = function (text, btn) {
+    navigator.clipboard.writeText(text).then(function () {
+      var svg = btn.querySelector('svg');
+      svg.innerHTML = '<polyline points="1.5,5 4,7.5 8.5,2" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" stroke="currentColor" fill="none"/>';
+      btn.style.color = 'var(--green)';
+      setTimeout(function () {
+        svg.innerHTML = '<rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5"/>';
+        btn.style.color = '';
+      }, 1800);
+    });
+  };
+
+  /* ── Device selection ────────────────────────────── */
+  window.selectDevice = function (type) {
+    /* Device cards */
+    document.getElementById('card-mobile').className =
+      'device-card' + (type === 'mobile' ? ' selected' : ' unselected');
+    document.getElementById('card-fixed').className =
+      'device-card' + (type === 'fixed' ? ' selected' : ' unselected');
+
+    /* Fade hero out */
+    var hero         = document.getElementById('hero');
+    var heroSub      = document.getElementById('heroSub');
+    var heroHeadline = document.getElementById('heroHeadline');
+    hero.classList.add('compact');
+    heroSub.classList.add('hidden');
+    heroHeadline.innerHTML = type === 'mobile'
+      ? 'Portable Hotspot <em>Setup</em>'
+      : 'Home-Style Router <em>Setup</em>';
+
+    /* Section title */
+    document.getElementById('hwTitle').textContent = 'Power It On';
+
+    /* Show/hide device-specific steps */
+    document.querySelectorAll('.mobile-only, .fixed-only').forEach(function (el) {
+      el.classList.remove('show', 'show-block');
+    });
+    document.querySelectorAll('.' + type + '-only').forEach(function (el) {
+      el.classList.add('show');
+    });
+
+    /* Reveal guide */
+    var guideWrap = document.getElementById('guideWrap');
+    guideWrap.classList.add('visible');
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        guideWrap.classList.add('animated');
+      });
+    });
+
+    /* Scroll to top of guide after hero fades */
+    setTimeout(function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 300);
+  };
+
+  /* ── Back to device selection ────────────────────── */
+  window.goBackToDeviceSelect = function () {
+    var hero         = document.getElementById('hero');
+    var heroSub      = document.getElementById('heroSub');
+    var heroHeadline = document.getElementById('heroHeadline');
+    var guideWrap    = document.getElementById('guideWrap');
+
+    /* Hide guide */
+    guideWrap.classList.remove('animated');
+    guideWrap.classList.remove('visible');
+
+    /* Restore hero */
+    hero.classList.remove('compact');
+    heroSub.classList.remove('hidden');
+    heroHeadline.innerHTML = 'Setup<br><em>Made Simple.</em>';
+
+    /* Clear device selection state */
+    document.getElementById('card-mobile').className = 'device-card';
+    document.getElementById('card-fixed').className = 'device-card';
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+})();
+</script>
+</body>
+</html>
