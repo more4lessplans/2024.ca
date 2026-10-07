@@ -1455,6 +1455,40 @@
       .shared-includes { margin: 0 0 28px; }
       .pricing-grid.is-selector .plan-card { padding-top: 24px; }
     }
+  
+    /* ═══════════════════════════════════════════════════════════
+       ALL SCREEN SIZES — shared service strip replaces the per-card
+       service list (it was identical on every card), and cards are
+       tightened when stacked.
+    ═══════════════════════════════════════════════════════════ */
+    .included-label-service,
+    .included-label-service + .feature-list { display: none; }
+
+    .shared-includes { display: block; margin: 0 0 28px; }
+    .shared-includes .section-eyebrow { margin-bottom: 18px; }
+    .si-grid { list-style: none; display: grid; grid-template-columns: 1fr; gap: 12px 28px; }
+    .si-item { display: flex; align-items: flex-start; gap: 10px; font-size: 0.83rem; color: var(--ink-2); line-height: 1.5; }
+    .si-item .feat-check { margin-top: 2px; }
+    @media (min-width: 641px)  { .si-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (min-width: 1101px) { .si-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; } }
+
+    @media (max-width: 1100px) {
+      .plan-card { padding: 22px 20px 20px; }
+      .plan-card .card-subtitle { margin-bottom: 14px; font-size: 0.76rem; }
+      .plan-card .card-device-row { min-height: 76px; margin-bottom: 12px; }
+      .plan-card .card-device-img { width: 78px; height: 78px; }
+      .plan-card .price-number { font-size: 3rem; }
+      .plan-card .card-divider { margin-bottom: 12px; }
+      .plan-card .included-label { margin-bottom: 6px; }
+      .plan-card .feature-list { margin-bottom: 16px; }
+      .plan-card .feature-item { padding: 5px 0; font-size: 0.79rem; }
+      .plan-card .btn-cta { padding: 14px 24px; }
+      .card-badges { margin-bottom: 10px; }
+    }
+    @media (max-width: 640px) {
+      .pricing { width: 95%; }
+      .plan-card { padding: 20px 16px 18px; }
+    }
   </style>
 </head>
 <body>
@@ -2603,7 +2637,7 @@
   var cards = Array.prototype.slice.call(grid.querySelectorAll('.plan-card'));
   var tabs  = Array.prototype.slice.call(document.querySelectorAll('.sel-tab'));
   var mq    = window.matchMedia('(min-width: 1101px)');
-  var cur   = 1; /* start on the middle device (Orbi), keeping the original left-to-right order */
+  var cur   = 0; /* start with the Nighthawk M1 highlighted */
 
   function render() {
     cards.forEach(function (c, i) {
