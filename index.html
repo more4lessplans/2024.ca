@@ -244,23 +244,41 @@
       position: relative;
       overflow: hidden;
     }
+
+    /* Hero background image — graceful: shows gradient if image is missing */
     .hero-bg {
       position: absolute; inset: 0;
-      background-color: #16161a;
-      background-image: url('assets/img/gallery/M6.webp');
+      background-image: url('/assets/img/gallery/m1.webp');
       background-size: cover;
       background-position: center 40%;
       background-repeat: no-repeat;
       z-index: 0;
     }
+    /* Overlay: even dark tint + a soft vignette behind the text column,
+       so copy stays readable wherever the photo is bright */
     .hero-bg::before {
       content: '';
       position: absolute; inset: 0;
-      background: linear-gradient(180deg,
-        rgba(18,18,22,0.30) 0%,
-        rgba(18,18,22,0.1) 45%,
-        rgba(18,18,22,0.40) 100%);
+      background:
+        radial-gradient(ellipse 60% 70% at 50% 45%,
+          rgba(14,14,18,0.35) 0%,
+          rgba(14,14,18,0) 100%),
+        linear-gradient(180deg,
+          rgba(18,18,22,0.55) 0%,
+          rgba(18,18,22,0.50) 50%,
+          rgba(18,18,22,0.68) 100%);
     }
+
+    .hero-bg {
+  position: absolute; inset: 0;
+  background-color: #16161a; /* Moves the fallback color here */
+  background-image: url('assets/img/gallery/m1.webp');
+  background-size: cover;
+  background-position: center 40%;
+  background-repeat: no-repeat;
+  z-index: 0;
+}
+ 
     .hero-inner {
       max-width: 760px;
       margin: 0 auto;
@@ -268,24 +286,30 @@
       position: relative;
       z-index: 1;
     }
+
     .hero-badge {
       display: inline-flex;
-      align-items: center; gap: 7px;
+      align-items: center;
+      gap: 7px;
       padding: 6px 14px 6px 10px;
       border: 1px solid rgba(255,255,255,0.14);
       border-radius: var(--radius-full);
       background: rgba(255,255,255,0.07);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
-      font-size: 0.69rem; font-weight: 600;
-      letter-spacing: 0.09em; text-transform: uppercase;
+      font-size: 0.69rem;
+      font-weight: 600;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
       color: rgba(255,255,255,0.65);
       margin-bottom: 32px;
-      opacity: 0; transform: translateY(12px);
+      opacity: 0;
+      transform: translateY(12px);
       animation: revealUp 0.7s var(--ease-out) 0.1s forwards;
     }
     .hero-badge-dot {
-      width: 6px; height: 6px; border-radius: 50%;
+      width: 6px; height: 6px;
+      border-radius: 50%;
       background: var(--green);
       box-shadow: 0 0 0 3px rgba(22,160,90,0.18);
       animation: pulse 2.5s ease infinite;
@@ -294,123 +318,173 @@
       0%, 100% { box-shadow: 0 0 0 3px rgba(22,160,90,0.18); }
       50%       { box-shadow: 0 0 0 6px rgba(22,160,90,0.08); }
     }
+
     .hero-title {
       font-size: clamp(2.6rem, 6vw, 4.2rem);
-      font-weight: 900; letter-spacing: -0.04em; line-height: 1.05;
-      color: #f0f0f4; margin-bottom: 22px;
-      opacity: 0; transform: translateY(16px);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+      color: #f0f0f4;
+      margin-bottom: 22px;
+      opacity: 0;
+      transform: translateY(16px);
       animation: revealUp 0.75s var(--ease-out) 0.22s forwards;
     }
     .hero-title em { font-style: normal; color: var(--red); }
+
     .hero-sub {
-      font-size: 1.08rem; font-weight: 400;
-      color: rgba(240,240,244,0.62); line-height: 1.7;
-      max-width: 540px; margin: 0 auto 48px;
-      opacity: 0; transform: translateY(14px);
+      font-size: 1.08rem;
+      font-weight: 400;
+      color: rgba(240,240,244,0.62);
+      line-height: 1.7;
+      max-width: 540px;
+      margin: 0 auto 48px;
+      opacity: 0;
+      transform: translateY(14px);
       animation: revealUp 0.75s var(--ease-out) 0.34s forwards;
     }
 
     /* ─── Coverage Checker ─── */
     .coverage-wrap {
-      max-width: 560px; margin: 0 auto 40px;
-      position: relative; z-index: 1;
-      opacity: 0; transform: translateY(14px);
+      max-width: 560px;
+      margin: 0 auto 40px;
+      opacity: 0;
+      transform: translateY(14px);
       animation: revealUp 0.75s var(--ease-out) 0.44s forwards;
     }
+
     .coverage-module {
-      background: rgba(22,22,26,0.82);
+      background: rgba(255,255,255,0.10);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.16);
       border-radius: var(--radius-xl);
       padding: 6px;
-      display: flex; align-items: center;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.45), 0 2px 8px rgba(0,0,0,0.20);
+      display: flex;
+      align-items: center;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.25), 0 2px 8px rgba(0,0,0,0.15);
       margin-bottom: 10px;
+      transform: translateZ(0);
+      will-change: box-shadow, border-color;
       transition: box-shadow 0.3s ease, border-color 0.3s ease;
     }
     .coverage-module:focus-within {
-      border-color: rgba(255,255,255,0.28);
-      box-shadow: 0 8px 48px rgba(0,0,0,0.55), 0 0 0 3px rgba(255,255,255,0.05);
+      border-color: rgba(255,255,255,0.30);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.35), 0 0 0 3px rgba(255,255,255,0.06);
     }
     .coverage-module input {
-      flex: 1; min-width: 0;
-      border: none; background: transparent;
+      flex: 1;
+      min-width: 0;
+      border: none;
+      background: transparent;
       padding: 13px 16px;
       font-family: 'Figtree', sans-serif;
-      font-size: 0.92rem; color: #f0f0f4; outline: none;
+      font-size: 0.92rem;
+      color: #f0f0f4;
+      outline: none;
     }
     .coverage-module input::placeholder { color: rgba(240,240,244,0.38); }
+
     .btn-coverage {
-      padding: 12px 22px; height: 44px; min-width: 140px;
-      background: var(--ink); color: #fff;
-      border: none; border-radius: var(--radius-lg);
+      padding: 12px 22px;
+      height: 44px;
+      min-width: 140px;
+      background: var(--ink);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-lg);
       font-family: 'Figtree', sans-serif;
-      font-size: 0.82rem; font-weight: 700;
-      letter-spacing: 0.01em; cursor: pointer;
-      white-space: nowrap; flex-shrink: 0;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      cursor: pointer;
+      white-space: nowrap;
+      align-self: center;
       transition: background 0.25s ease, transform 0.3s var(--spring), box-shadow 0.3s ease;
+      flex-shrink: 0;
     }
     .btn-coverage:hover {
-      background: #1a1a1c; transform: translateY(-1px);
-      box-shadow: 0 6px 20px rgba(0,0,0,0.20);
+      background: #1a1a1c;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
     }
     .btn-coverage:active { transform: none; }
     .btn-coverage:disabled { background: var(--ink-4); cursor: not-allowed; transform: none; }
 
-    #email-module { display: none; margin-top: 10px; }
+    /* Email sub-module */
+    #email-module {
+      display: none;
+      margin-top: 10px;
+    }
     #email-module .coverage-module { margin-bottom: 0; }
+    #email-module .coverage-module input { font-size: 0.9rem; }
 
-    .coverage-status {
-      min-height: 28px; margin-top: 10px;
-      font-size: 0.8rem; font-weight: 500; text-align: center;
-    }
-    .status-available { color: var(--green); }
-    .status-unavailable { color: var(--red); }
-    .status-warning { color: rgba(240,240,244,0.60); }
-
-    /* Google Places dropdown */
+    /* Google Places autocomplete dropdown — restyled to match site design
+       language. Google appends this to <body>, so it can't be scoped under
+       a parent selector; !important overrides Google's injected inline
+       styles where needed. The Google logo/attribution is left untouched
+       per their branding requirements — only layout, color, and type change. */
     .pac-container {
-      background: rgba(30,31,35,0.97);
-      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
-      border: 1px solid rgba(255,255,255,0.13);
+      font-family: 'Figtree', sans-serif !important;
+      background: #fff;
+      border: 1px solid var(--border);
       border-radius: var(--radius-lg);
-      box-shadow: 0 16px 48px rgba(0,0,0,0.45), 0 4px 12px rgba(0,0,0,0.25);
-      margin-top: 6px; padding: 6px;
-      font-family: 'Figtree', sans-serif; overflow: hidden;
+      box-shadow: 0 20px 48px rgba(0,0,0,0.16), 0 4px 12px rgba(0,0,0,0.08);
+      margin-top: 10px;
+      padding: 6px 6px 2px;
+      overflow: hidden;
     }
-    .pac-container::after { display: none !important; }
     .pac-item {
-      display: flex; align-items: center;
-      padding: 10px 12px; border-top: none;
-      border-radius: var(--radius-sm); cursor: pointer;
-      color: rgba(240,240,244,0.75); font-size: 0.84rem;
-      font-family: 'Figtree', sans-serif; line-height: 1.4;
-      transition: background 0.15s ease, color 0.15s ease;
+      font-family: 'Figtree', sans-serif;
+      font-size: 0.86rem;
+      color: var(--ink-2);
+      padding: 11px 10px;
+      border-top: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      line-height: 1.4;
     }
+    .pac-item:first-child { border-top: none; }
     .pac-item:hover, .pac-item-selected {
-      background: rgba(255,255,255,0.08); color: #f0f0f4;
+      background: var(--green-bg) !important;
     }
-    .pac-icon { width: 16px; height: 16px; margin-right: 10px; flex-shrink: 0; background-image: none !important; position: relative; }
-    .pac-icon::before {
-      content: ''; position: absolute; inset: 0;
-      background: var(--red);
-      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23fff' d='M8 1a4.5 4.5 0 0 1 4.5 4.5C12.5 9 8 15 8 15S3.5 9 3.5 5.5A4.5 4.5 0 0 1 8 1zm0 2.5a2 2 0 1 0 0 4 2 2 0 0 0 0-4z'/%3E%3C/svg%3E");
-      -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23fff' d='M8 1a4.5 4.5 0 0 1 4.5 4.5C12.5 9 8 15 8 15S3.5 9 3.5 5.5A4.5 4.5 0 0 1 8 1zm0 2.5a2 2 0 1 0 0 4 2 2 0 0 0 0-4z'/%3E%3C/svg%3E");
-      mask-repeat: no-repeat; mask-size: contain;
-      -webkit-mask-repeat: no-repeat; -webkit-mask-size: contain;
+    .pac-icon {
+      margin-top: 3px;
+      filter: grayscale(1) opacity(0.55);
     }
-    .pac-icon-search { display: none; }
-    .pac-item-query { font-size: 0.84rem; font-weight: 600; color: #f0f0f4; font-family: 'Figtree', sans-serif; }
-    .pac-matched { color: var(--red); font-weight: 700; }
-    .pac-item > span:not(.pac-icon):not(.pac-item-query) { font-size: 0.76rem; color: rgba(240,240,244,0.42); margin-left: 4px; }
+    .pac-item-query {
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .pac-matched { font-weight: 800; color: var(--ink); }
+
+    /* Status */
+    .coverage-status {
+      min-height: 28px;
+      margin-top: 10px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      text-align: center;
+    }
+    .status-available {
+      color: var(--green);
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+    }
+    .status-available::before { content: '✓'; font-weight: 700; }
+    .status-unavailable { color: var(--red); }
+    .status-warning { color: rgba(240,240,244,0.55); }
 
     /* Trust pills */
     .hero-trust {
-      display: flex; align-items: center; justify-content: center;
-      gap: 0; flex-wrap: wrap; row-gap: 12px;
-      position: relative; z-index: 1;
-      opacity: 0; transform: translateY(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      flex-wrap: wrap;
+      row-gap: 12px;
+      opacity: 0;
+      transform: translateY(10px);
       animation: revealUp 0.7s var(--ease-out) 0.56s forwards;
     }
     .htrust-item {
@@ -421,7 +495,8 @@
     }
     .htrust-item svg {
       width: 13px; height: 13px;
-      stroke: rgba(240,240,244,0.45); stroke-width: 2; fill: none; flex-shrink: 0;
+      stroke: rgba(240,240,244,0.45); stroke-width: 2;
+      fill: none; flex-shrink: 0;
     }
     .htrust-div { width: 1px; height: 14px; background: rgba(255,255,255,0.12); flex-shrink: 0; }
 
@@ -656,6 +731,10 @@
       letter-spacing: 0.08em; text-transform: uppercase;
     }
     .card-badge.popular { background: var(--red-glow); color: var(--red); border: 1px solid rgba(215,60,89,0.22); }
+    .card-badge.ship { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
+    @media (max-width: 480px) {
+      .card-badge { padding: 3px 8px; font-size: 0.58rem; letter-spacing: 0.06em; }
+    }
     .card-category {
       font-size: 0.62rem; font-weight: 600;
       letter-spacing: 0.13em; text-transform: uppercase;
@@ -1018,6 +1097,364 @@
         transition-duration: 0.01ms !important;
       }
     }
+
+    /* ═══════════════════════════════════════════════════════════
+       TWO-DEVICE LAYOUT — rental.html proportions & polish
+    ═══════════════════════════════════════════════════════════ */
+    ::selection { background: rgba(215,60,89,0.18); }
+    body { text-rendering: optimizeLegibility; }
+    :focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
+
+    .value-strip-inner, .faq-inner { max-width: 1120px; }
+    .pricing { max-width: 1120px; }
+    .pricing-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+
+    .plan-card {
+      padding: 34px 30px 30px;
+      border-radius: 22px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 16px 40px rgba(0,0,0,0.05);
+    }
+    .plan-card.featured { box-shadow: 0 24px 64px rgba(20,20,24,0.30); }
+    .card-badge { top: 22px; right: 22px; }
+    .card-title { font-size: 1.7rem; margin-bottom: 6px; font-weight: 800; letter-spacing: -0.045em; }
+    .card-subtitle { font-size: 0.8rem; margin-bottom: 26px; }
+    .card-device-row { margin-bottom: 22px; min-height: 104px; }
+    .price-label { font-size: 0.67rem; }
+    .price-currency { font-size: 1.4rem; }
+    .price-number { font-size: 3.8rem; font-weight: 800; letter-spacing: -0.065em; }
+    .price-qualifier { font-size: 0.72rem; }
+    .card-device-img { width: 105px; height: 105px; }
+    .card-divider { margin: 0 0 20px; }
+    .included-label { margin-bottom: 12px; }
+    .feature-list { margin-bottom: 24px; }
+    .feature-item { padding: 9px 0; font-size: 0.83rem; }
+    .btn-cta { padding: 17px 28px; font-size: 0.9rem; letter-spacing: 0; }
+
+
+    /* Symmetry: on three-column desktop, all cards share row tracks so the
+       price, divider, feature headings and CTA line up exactly across cards */
+    @media (min-width: 1101px) {
+      @supports (grid-template-rows: subgrid) {
+        .pricing-grid { row-gap: 0; }
+        .plan-card {
+          display: grid;
+          grid-template-rows: subgrid;
+          grid-row: span 11;
+          align-content: start;
+        }
+        .plan-card .feature-list { flex: none; }
+      }
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       PRO TIER — Nighthawk M6
+       Gradient hairline edge + red glow: reads as the top shelf
+       while staying inside the existing red / graphite palette.
+    ═══════════════════════════════════════════════════════════ */
+    .plan-card.pro {
+      border: 1.5px solid transparent;
+      background:
+        linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
+        linear-gradient(150deg, var(--red) 0%, rgba(215,60,89,0.20) 36%, rgba(46,47,51,0.38) 68%, var(--red-deep) 100%) border-box;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 20px 52px rgba(215,60,89,0.10);
+    }
+    .plan-card.pro:hover { border-color: transparent; box-shadow: 0 28px 64px rgba(215,60,89,0.17); }
+    .plan-card.pro::before {
+      content: '';
+      position: absolute; top: -70px; right: -70px;
+      width: 240px; height: 240px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(215,60,89,0.10) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .plan-card.pro .card-category { color: var(--red); }
+    .plan-card.pro .card-device-img {
+      filter: drop-shadow(0 10px 22px rgba(215,60,89,0.22)) drop-shadow(0 6px 14px rgba(0,0,0,0.10));
+    }
+    .plan-card.pro:hover .card-device-img {
+      filter: drop-shadow(0 20px 38px rgba(215,60,89,0.32)) drop-shadow(0 8px 18px rgba(0,0,0,0.14));
+    }
+    .card-badge.pro {
+      background: linear-gradient(135deg, var(--ink) 0%, #3a3b41 100%);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+    .card-badge.pro::before {
+      content: ''; display: inline-block;
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--red); margin-right: 6px; vertical-align: 1px;
+      box-shadow: 0 0 0 2px rgba(215,60,89,0.25);
+    }
+    .btn-cta.pro {
+      background: linear-gradient(135deg, #2E2F33 0%, #1a1a1c 100%);
+      color: #fff;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
+    }
+    .btn-cta.pro:hover { box-shadow: inset 0 0 0 1px rgba(215,60,89,0.55), 0 12px 32px rgba(215,60,89,0.28); }
+
+    .hero-badge { font-size: 0.66rem; letter-spacing: 0.16em; }
+    .hero-title { font-weight: 800; letter-spacing: -0.05em; line-height: 1.02; }
+    .hero-sub { font-size: 1.1rem; line-height: 1.75; color: rgba(240,240,244,0.72); }
+
+    .value-strip { padding: 72px 24px; }
+    .value-item { padding: 40px 36px; }
+    .vi-number { font-weight: 800; letter-spacing: -0.05em; margin-bottom: 10px; font-size: 1.9rem; white-space: nowrap; }
+    .vi-label { line-height: 1.65; }
+    .vi-label strong { display: block; margin-bottom: 6px; letter-spacing: 0.005em; }
+
+    /* Three cards need the width — below this they stack into one column */
+    @media (max-width: 1100px) {
+      .pricing-grid { grid-template-columns: minmax(0, 460px); justify-content: center; }
+    }
+    @media (max-width: 960px) {
+      .pricing-grid { grid-template-columns: minmax(0, 460px); justify-content: center; }
+      .value-strip { padding: 4px 24px; margin-bottom: 56px; }
+      .value-item { padding: 26px 4px; }
+      .value-item:first-child { border-top: none; }
+      .vi-number { font-size: 1.9rem; margin-bottom: 8px; }
+    }
+    @media (max-width: 480px) {
+      .hero-badge { font-size: 0.62rem; letter-spacing: 0.1em; text-align: center; }
+    }
+    @media (max-width: 640px) {
+      .plan-card { padding: 28px 22px 26px; }
+      /* coverage checker now sits inside .hero-inner, which already pads the sides */
+      .coverage-wrap { padding: 0; }
+    }
+
+    /* Hero readability — higher contrast text over the photo */
+    .hero-badge {
+      color: rgba(255,255,255,0.92);
+      background: rgba(0,0,0,0.28);
+      border-color: rgba(255,255,255,0.22);
+    }
+    .hero-title {
+      color: #fff;
+      text-shadow: 0 2px 28px rgba(0,0,0,0.40), 0 1px 3px rgba(0,0,0,0.30);
+    }
+    .hero-sub {
+      color: rgba(255,255,255,0.92);
+      font-weight: 500;
+      max-width: 580px;
+      text-shadow: 0 1px 14px rgba(0,0,0,0.50), 0 1px 2px rgba(0,0,0,0.35);
+    }
+    .coverage-module { background: rgba(14,14,18,0.45); border-color: rgba(255,255,255,0.22); }
+    .coverage-module input::placeholder { color: rgba(240,240,244,0.62); }
+    .status-warning { color: rgba(255,255,255,0.88); text-shadow: 0 1px 10px rgba(0,0,0,0.5); }
+    .htrust-item {
+      color: rgba(255,255,255,0.90);
+      text-shadow: 0 1px 10px rgba(0,0,0,0.5);
+    }
+    .htrust-item svg { stroke: rgba(255,255,255,0.75); }
+    .htrust-div { background: rgba(255,255,255,0.22); }
+
+
+    /* Hero price pill — refined glass with a hairline gradient edge */
+    .hero-price-pill {
+      display: inline-flex; align-items: center; gap: 0;
+      padding: 8px 20px 8px 18px;
+      margin: -20px 0 40px;
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: var(--radius-full);
+      background: rgba(14,14,18,0.45);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.25), 0 2px 8px rgba(0,0,0,0.15);
+      opacity: 0; transform: translateY(12px);
+      animation: revealUp 0.7s var(--ease-out) 0.46s forwards;
+    }
+    .hero-price-pill .hpp-price { display: inline-flex; align-items: baseline; gap: 1px; }
+    .hero-price-pill strong {
+      font-size: 1.12rem; font-weight: 700; letter-spacing: -0.03em; color: #fff;
+    }
+    .hero-price-pill em {
+      font-style: normal; font-size: 0.78rem; font-weight: 500; color: rgba(255,255,255,0.62);
+    }
+    .hero-price-pill .hpp-sep {
+      width: 1px; height: 14px; margin: 0 14px;
+      background: rgba(255,255,255,0.22);
+    }
+    .hero-price-pill .hpp-label {
+      font-size: 0.74rem; font-weight: 500; letter-spacing: 0.06em;
+      text-transform: uppercase; color: rgba(255,255,255,0.86);
+    }
+
+    .pricing-intro { max-width: 560px; margin: -8px 0 40px; }
+    .pricing-intro-title {
+      font-size: 1.65rem; font-weight: 800; letter-spacing: -0.045em;
+      line-height: 1.15; color: var(--ink); margin-bottom: 10px;
+    }
+    .pricing-intro-sub { font-size: 0.9rem; color: var(--ink-3); line-height: 1.7; }
+    @media (max-width: 640px) { .pricing-intro-title { font-size: 1.4rem; } .pricing-intro { margin-bottom: 32px; } }
+
+    .feature-list + .included-label-service { margin-top: -4px; }
+    .included-label-service { color: var(--ink-3); }
+    .plan-card.featured .included-label-service { color: var(--ink-on-dark-2); }
+
+    /* ═══════════════════════════════════════════════════════════
+       PRICING WIDTH LOGIC
+       Desktop: the pricing section takes ~80% of the viewport (capped on
+       ultra-wide). A floor keeps three cards from getting cramped on
+       smaller laptops. Stacked (tablet / phone): one fluid column that
+       still reads ~80%, never narrower than 340px or wider than the
+       viewport minus a 16px gutter each side.
+    ═══════════════════════════════════════════════════════════ */
+    .pricing {
+      width: max(80%, min(100% - 48px, 1060px));
+      max-width: 1560px;
+      margin: 0 auto;
+      padding: 0 0 100px;
+    }
+    .pricing-grid { gap: clamp(16px, 1.6vw, 28px); }
+    @media (min-width: 1101px) {
+      .plan-card { padding: 36px clamp(26px, 2.4vw, 40px) 32px; }
+    }
+    @media (max-width: 1100px) {
+      .pricing {
+        width: min(max(80%, 340px), calc(100% - 32px), 640px);
+        padding-bottom: 80px;
+      }
+      .pricing-grid {
+        grid-template-columns: minmax(0, 1fr);
+        max-width: none;
+        margin: 0;
+        justify-content: stretch;
+      }
+    }
+  
+    /* ═══════════════════════════════════════════════════════════
+       PRODUCT SELECTOR (desktop)
+       All three cards share one grid cell and are positioned by slot
+       (-1 / 0 / 1). Selected = centre, larger; others flank, softened.
+       Below 1101px the original stacked layout is untouched.
+    ═══════════════════════════════════════════════════════════ */
+    .selector-controls { display: none; }
+
+    @media (min-width: 1101px) {
+      .pricing-grid.is-selector {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: auto;
+        row-gap: 0;
+        padding: 28px 0 12px;
+      }
+      .pricing-grid.is-selector .plan-card {
+        display: flex;
+        grid-template-rows: none;
+        grid-row: 1;
+        grid-column: 1;
+        width: 34%;
+        justify-self: center;
+        z-index: 1;
+        opacity: 0;
+        transform: translateX(calc(var(--pos, 0) * 104%)) scale(0.88);
+        transform-origin: center center;
+        cursor: pointer;
+        transition: transform 0.8s var(--ease-out), opacity 0.55s var(--ease-out),
+                    box-shadow 0.6s var(--ease-out), border-color 0.3s ease;
+      }
+      .pricing-grid.is-selector .plan-card.anim-in {
+        opacity: 0.5;
+        transition-delay: 0s;
+      }
+      .pricing-grid.is-selector .plan-card.anim-in:hover { opacity: 0.82; }
+      .pricing-grid.is-selector .plan-card .feature-list { flex: 1; }
+
+      .pricing-grid.is-selector .plan-card.is-selected {
+        z-index: 3;
+        opacity: 1;
+        cursor: default;
+        transform: translateX(0) scale(1.04);
+      }
+      .pricing-grid.is-selector .plan-card.anim-in.is-selected { opacity: 1; }
+      .pricing-grid.is-selector .plan-card.is-selected:not(.featured):not(.pro) {
+        box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 32px 72px rgba(0,0,0,0.12);
+      }
+      .pricing-grid.is-selector .plan-card.featured.is-selected { box-shadow: 0 36px 88px rgba(20,20,24,0.42); }
+      .pricing-grid.is-selector .plan-card.pro.is-selected { box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 32px 72px rgba(215,60,89,0.20); }
+      .pricing-grid.is-selector .plan-card:not(.is-selected) .btn-cta { pointer-events: none; }
+
+      .selector-controls {
+        display: flex; align-items: center; justify-content: center;
+        gap: 28px; margin-top: 36px;
+      }
+      .sel-arrow {
+        width: 46px; height: 46px; border-radius: 50%;
+        background: var(--bg-card); border: 1px solid var(--border);
+        display: flex; align-items: center; justify-content: center;
+        color: var(--ink); cursor: pointer;
+        transition: border-color 0.25s ease, transform 0.4s var(--spring), box-shadow 0.3s ease;
+      }
+      .sel-arrow svg { width: 15px; height: 15px; stroke: currentColor; stroke-width: 2; fill: none; }
+      .sel-arrow:hover { border-color: var(--ink); box-shadow: 0 8px 22px rgba(0,0,0,0.08); }
+      .sel-arrow.prev:hover { transform: translateX(-2px); }
+      .sel-arrow.next:hover { transform: translateX(2px); }
+      .sel-arrow:active { transform: scale(0.95); }
+
+      .sel-tabs { display: flex; align-items: center; gap: 4px; }
+      .sel-tab {
+        position: relative; background: none; border: none; cursor: pointer;
+        padding: 8px 16px;
+        font-family: 'Figtree', sans-serif; font-size: 0.82rem; font-weight: 600;
+        letter-spacing: -0.005em; color: var(--ink-4);
+        transition: color 0.25s ease;
+      }
+      .sel-tab::after {
+        content: ''; position: absolute; left: 16px; right: 16px; bottom: 2px;
+        height: 1.5px; border-radius: 2px; background: var(--red);
+        transform: scaleX(0); transition: transform 0.4s var(--ease-out);
+      }
+      .sel-tab:hover { color: var(--ink-2); }
+      .sel-tab.is-active { color: var(--ink); }
+      .sel-tab.is-active::after { transform: scaleX(1); }
+    }
+  
+    /* ═══════════════════════════════════════════════════════════
+       COMPACT SELECTOR CARDS (desktop)
+       The service list is identical on every device, so on desktop it
+       is shown once in a shared strip below the selector instead of
+       three times. Device-specific content stays on each card.
+    ═══════════════════════════════════════════════════════════ */
+    .shared-includes { display: none; }
+
+    @media (min-width: 1101px) {
+      .pricing-grid.is-selector .plan-card .included-label-service,
+      .pricing-grid.is-selector .plan-card .included-label-service + .feature-list { display: none; }
+
+      .pricing-grid.is-selector .plan-card { padding-top: 30px; padding-bottom: 26px; }
+      .pricing-grid.is-selector .card-subtitle { margin-bottom: 18px; }
+      .pricing-grid.is-selector .card-device-row { min-height: 84px; margin-bottom: 16px; }
+      .pricing-grid.is-selector .card-device-img { width: 88px; height: 88px; }
+      .pricing-grid.is-selector .price-number { font-size: 3.2rem; }
+      .pricing-grid.is-selector .card-divider { margin-bottom: 14px; }
+      .pricing-grid.is-selector .included-label { margin-bottom: 8px; }
+      .pricing-grid.is-selector .feature-list { margin-bottom: 18px; }
+      .pricing-grid.is-selector .feature-item { padding: 6px 0; font-size: 0.8rem; }
+      .pricing-grid.is-selector .btn-cta { padding: 15px 28px; }
+
+      .shared-includes {
+        display: block;
+        margin-top: 56px;
+      }
+      .shared-includes .section-eyebrow { margin-bottom: 22px; }
+      .si-grid {
+        list-style: none;
+        display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 28px;
+      }
+      .si-item {
+        display: flex; align-items: flex-start; gap: 10px;
+        font-size: 0.83rem; color: var(--ink-2); line-height: 1.5;
+      }
+      .si-item .feat-check { margin-top: 2px; }
+    }
+  
+    /* Badges sit in a row at the top of each card so Pro Series and
+       Free Expedited Shipping can show together */
+    .card-badges { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; position: relative; z-index: 1; }
+    .card-badges .card-badge { position: static; }
+    @media (min-width: 1101px) {
+      .shared-includes { margin: 0 0 28px; }
+      .pricing-grid.is-selector .plan-card { padding-top: 24px; }
+    }
   </style>
 </head>
 <body>
@@ -1053,15 +1490,15 @@
   <div class="hero-inner">
     <div class="hero-badge">
       <span class="hero-badge-dot"></span>
-      Now Offering Global Roaming
+      Canada-Wide &middot; USA &amp; Mexico Included
     </div>
     <h1 class="hero-title">
-      Truly Unlimited <em>Wireless.</em>
+      Wireless Internet.<br><em>Truly Unlimited.</em>
     </h1>
     <p class="hero-sub">
-   Reliable high-speed internet — wherever life takes you. No contracts. No commitments.
+    Fast, dependable wireless internet for your home, cottage, RV, or job site. Anywhere in Canada. No contracts. No caps.
     </p>
-  </div>
+    <div class="hero-price-pill"><span class="hpp-price"><strong>$110</strong><em>/mo</em></span><span class="hpp-sep"></span><span class="hpp-label">Unlimited internet</span></div>
 
   <!-- Coverage Checker -->
   <div class="coverage-wrap">
@@ -1104,13 +1541,13 @@
 
  <div class="hero-trust">
   
-  <!-- Risk Free -->
+  <!-- 30-Day Guarantee -->
   <div class="htrust-item">
     <svg viewBox="0 0 14 14" stroke-linecap="round" stroke-linejoin="round">
       <path d="M7 13s5.5-2.8 5.5-7V3L7 1 1.5 3v3C1.5 10.2 7 13 7 13z"/>
       <path d="M4.5 7.5 L6 9 L9.5 5.5"/>
     </svg>
-    Risk Free
+    30-Day Guarantee
   </div>
 
   <div class="htrust-div"></div>
@@ -1137,6 +1574,8 @@
 </div>
 
 </div>
+
+  </div>
 </section>
 
 <!-- VALUE STRIP -->
@@ -1151,8 +1590,8 @@
       <div class="vi-label"><strong>Total Freedom.</strong><br>Month-to-month service. Keep it only as long as it works for you.</div>
     </div>
     <div class="value-item">
-      <div class="vi-number"><span>No</span> Risk</div>
-      <div class="vi-label"><strong>Own It Outright.</strong><br>Buy the device once and keep it forever. Simple, transparent pricing every month.</div>
+      <div class="vi-number"><span>30-Day</span> Guarantee</div>
+      <div class="vi-label"><strong>Backed by Our Promise.</strong><br>Every device comes with our 30-day guarantee. Buy once, keep it, and enjoy simple, transparent pricing every month.</div>
     </div>
   </div>
 </div>
@@ -1161,14 +1600,29 @@
 <section class="pricing" id="pricing">
   <div class="section-eyebrow">Choose Your Device</div>
 
+  <div class="pricing-intro">
+    <h2 class="pricing-intro-title">Choose the One That Fits How You Use It.</h2>
+    <p class="pricing-intro-sub">You&rsquo;ll get the best performance from the device built for your use. Every device is fully portable and not tied to a single address &mdash; they work anywhere service is available.</p>
+  </div>
+
+  <div class="shared-includes">
+    <div class="section-eyebrow">Unlimited Internet. Complete Freedom. &mdash; Included With Every Device</div>
+    <ul class="si-grid">
+      <li class="si-item"><div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div><span>Truly Unlimited Internet &mdash; No Caps, No Throttling</span></li>
+      <li class="si-item"><div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div><span>Canada-Wide Coverage &mdash; Not Tied to One Address</span></li>
+      <li class="si-item"><div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div><span>Month-to-Month &mdash; Cancel Anytime, Reactivate Later</span></li>
+      <li class="si-item"><div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div><span>Setup in Minutes &mdash; No Installation Needed</span></li>
+    </ul>
+  </div>
+
   <div class="pricing-grid">
 
     <!-- Card 1: Mobile Essential -->
     <div class="plan-card" id="card-mobile">
-      <div class="card-badge popular">Most Popular</div>
-      <div class="card-category">Mobile Essential</div>
+      <div class="card-badges"><div class="card-badge ship">Free Expedited Shipping</div></div>
+      <div class="card-category">Mostly on the Go?</div>
       <div class="card-title">Nighthawk M1</div>
-      <div class="card-subtitle">Portable internet that goes where you do.</div>
+      <div class="card-subtitle">Battery-powered and compact. Made for travel, camping, RVs, job sites, cottages, and remote work.</div>
 
       <div class="card-device-row">
         <div class="card-price-block">
@@ -1179,33 +1633,58 @@
           </div>
           <div class="price-qualifier">+ applicable tax</div>
         </div>
-        <img src="assets/img/products/mr1100.png" alt="Netgear Nighthawk M1" class="card-device-img">
+        <img src="assets/img/products/mr1100.png" alt="NETGEAR Nighthawk M1" class="card-device-img">
       </div>
 
       <div class="card-divider"></div>
-      <div class="included-label">You Own The Device + 1st Month Included</div>
+      <div class="included-label">You Own the Device + 1st Month Included</div>
 
       <ul class="feature-list">
         <li class="feature-item">
           <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-          <span>Long-Lasting Battery Life</span>
+          <span>Up to 24-Hour Battery &mdash; or Plug It In</span>
         </li>
         <li class="feature-item">
           <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-          <span>Compact &amp; Portable Design</span>
+          <span>Pocket-Sized at Just 240 g (8.5 oz)</span>
         </li>
         <li class="feature-item">
           <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-          <span>Unlimited High-Speed Data</span>
+          <span>Connects Up to 20 Devices on Dual-Band Wi-Fi</span>
         </li>
         <li class="feature-item">
           <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-          <span>Connect Up To 20 Devices</span>
+          <span>Built-In Display for Signal, Data, and Devices</span>
+        </li>
+        <li class="feature-item">
+          <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+          <span>1 Gigabit Ethernet Port + 2 External Antenna Ports</span>
+        </li>
+      </ul>
+
+      <div class="included-label included-label-service">Unlimited Internet. Complete Freedom.</div>
+
+      <ul class="feature-list">
+        <li class="feature-item">
+          <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+          <span>Truly Unlimited Internet &mdash; No Caps, No Throttling</span>
+        </li>
+        <li class="feature-item">
+          <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+          <span>Canada-Wide Coverage &mdash; Not Tied to One Address</span>
+        </li>
+        <li class="feature-item">
+          <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+          <span>Month-to-Month &mdash; Cancel Anytime, Reactivate Later</span>
+        </li>
+        <li class="feature-item">
+          <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+          <span>Setup in Minutes &mdash; No Installation Needed</span>
         </li>
       </ul>
 
       <a href="/checkout/essential" class="btn-cta dark">
-        Order Now
+        Order Nighthawk M1 &middot; $199
         <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round">
           <line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/>
         </svg>
@@ -1221,19 +1700,15 @@
           </svg>
           Renews at <strong>$110/mo</strong>&nbsp;after the first month
         </div>
-        <div class="card-footer-divider"></div>
-        <div class="btn-lock">
-          <svg viewBox="0 0 14 14" stroke-linecap="round"><rect x="2" y="6" width="10" height="7" rx="1.5"/><path d="M4.5 6V4.5a2.5 2.5 0 015 0V6"/></svg>
-          Secure Checkout&nbsp;·&nbsp;SSL Encrypted
-        </div>
       </div>
     </div>
 
     <!-- Card 2: Home & Office (Featured) -->
     <div class="plan-card featured" id="card-home">
-      <div class="card-category">Home &amp; Office</div>
-      <div class="card-title">The Orbi</div>
-      <div class="card-subtitle">Whole-home coverage without the cable company.</div>
+      <div class="card-badges"><div class="card-badge ship">Free Expedited Shipping</div></div>
+      <div class="card-category">Mostly at Home?</div>
+      <div class="card-title">Orbi</div>
+      <div class="card-subtitle">A faster modem, larger cellular antennas for better reliability, and a larger Wi-Fi range for a home.</div>
 
       <div class="card-device-row">
         <div class="card-price-block">
@@ -1244,33 +1719,58 @@
           </div>
           <div class="price-qualifier">+ applicable tax</div>
         </div>
-        <img src="assets/img/products/LBR20.png" alt="Netgear Orbi LBR20" class="card-device-img">
+        <img src="assets/img/products/LBR20.png" alt="NETGEAR Orbi" class="card-device-img">
       </div>
 
       <div class="card-divider"></div>
-      <div class="included-label">You Own The Device + 1st Month Included</div>
+      <div class="included-label">You Own the Device + 1st Month Included</div>
 
       <ul class="feature-list">
         <li class="feature-item">
           <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-          <span>Whole-Home WiFi Coverage</span>
+          <span>Plug-In Power &mdash; Built to Stay On</span>
         </li>
         <li class="feature-item">
           <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-          <span>Strong, Stable Connection</span>
+          <span>Tri-Band Wi-Fi Covering Up to 2,000 sq ft</span>
         </li>
         <li class="feature-item">
           <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-          <span>Unlimited High-Speed Wi-Fi</span>
+          <span>Connects Up to 64 Devices for the Whole Household</span>
         </li>
         <li class="feature-item">
           <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-          <span>Connect Up To 64 Devices</span>
+          <span>Larger Cellular Antennas + 2 External Antenna Ports</span>
+        </li>
+        <li class="feature-item">
+          <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+          <span>2 Gigabit Ethernet Ports for Wired Devices</span>
+        </li>
+      </ul>
+
+      <div class="included-label included-label-service">Unlimited Internet. Complete Freedom.</div>
+
+      <ul class="feature-list">
+        <li class="feature-item">
+          <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+          <span>Truly Unlimited Internet &mdash; No Caps, No Throttling</span>
+        </li>
+        <li class="feature-item">
+          <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+          <span>Canada-Wide Coverage &mdash; Not Tied to One Address</span>
+        </li>
+        <li class="feature-item">
+          <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+          <span>Month-to-Month &mdash; Cancel Anytime, Reactivate Later</span>
+        </li>
+        <li class="feature-item">
+          <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+          <span>Setup in Minutes &mdash; No Installation Needed</span>
         </li>
       </ul>
 
       <a href="/checkout/home" class="btn-cta accent">
-        Order Now
+        Order Orbi &middot; $249
         <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round">
           <line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/>
         </svg>
@@ -1286,19 +1786,15 @@
           </svg>
           Renews at <strong>$110/mo</strong>&nbsp;after the first month
         </div>
-        <div class="card-footer-divider"></div>
-        <div class="btn-lock">
-          <svg viewBox="0 0 14 14" stroke-linecap="round"><rect x="2" y="6" width="10" height="7" rx="1.5"/><path d="M4.5 6V4.5a2.5 2.5 0 015 0V6"/></svg>
-          Secure Checkout&nbsp;·&nbsp;SSL Encrypted
-        </div>
       </div>
     </div>
 
-    <!-- Card 3: Pro Performance -->
-    <div class="plan-card" id="card-pro">
-      <div class="card-category">Pro Performance</div>
+    <!-- Card 3: Pro on the Go -->
+    <div class="plan-card pro" id="card-pro">
+      <div class="card-badges"><div class="card-badge pro">Pro Series</div><div class="card-badge ship">Free Expedited Shipping</div></div>
+      <div class="card-category">Pro on the Go?</div>
       <div class="card-title">Nighthawk M6</div>
-      <div class="card-subtitle">WiFi 6 speed for power users and remote teams.</div>
+      <div class="card-subtitle">Wi-Fi 6 speed and all-day battery for power users and remote teams &mdash; pro-level performance, wherever the work takes you.</div>
 
       <div class="card-device-row">
         <div class="card-price-block">
@@ -1309,33 +1805,62 @@
           </div>
           <div class="price-qualifier">+ applicable tax</div>
         </div>
-        <img src="assets/img/products/mr6110.png" alt="Netgear Nighthawk M6" class="card-device-img">
+        <img src="assets/img/products/mr6110.png" alt="NETGEAR Nighthawk M6" class="card-device-img">
       </div>
 
       <div class="card-divider"></div>
-      <div class="included-label">You Own The Device + 1st Month Included</div>
+      <div class="included-label">You Own the Device + 1st Month Included</div>
 
       <ul class="feature-list">
         <li class="feature-item">
           <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-          <span>All-Day Battery Life</span>
+          <span>All-Day Battery Life for Long Days on the Move</span>
         </li>
         <li class="feature-item">
           <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-          <span>WiFi 6 Performance</span>
+          <span>Wi-Fi 6 for Faster, Smoother Connections</span>
         </li>
         <li class="feature-item">
           <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-          <span>Unlimited High-Speed Data</span>
+          <span>Connects Up to 32 Devices at Once</span>
         </li>
         <li class="feature-item">
           <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-          <span>Connect Up To 32 Devices</span>
+          <span>1 Gigabit Ethernet Port for a Wired Device</span>
+        </li>
+        <li class="feature-item">
+          <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+          <span>Made for Power Users and Remote Teams</span>
+        </li>
+        <li class="feature-item">
+          <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+          <span>Our Most Capable Portable Device</span>
         </li>
       </ul>
 
-      <a href="/checkout/performance" class="btn-cta dark">
-        Order Now
+      <div class="included-label included-label-service">Unlimited Internet. Complete Freedom.</div>
+
+      <ul class="feature-list">
+        <li class="feature-item">
+          <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+          <span>Truly Unlimited Internet &mdash; No Caps, No Throttling</span>
+        </li>
+        <li class="feature-item">
+          <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+          <span>Canada-Wide Coverage &mdash; Not Tied to One Address</span>
+        </li>
+        <li class="feature-item">
+          <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+          <span>Month-to-Month &mdash; Cancel Anytime, Reactivate Later</span>
+        </li>
+        <li class="feature-item">
+          <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+          <span>Setup in Minutes &mdash; No Installation Needed</span>
+        </li>
+      </ul>
+
+      <a href="/checkout/performance" class="btn-cta pro">
+        Order Nighthawk M6 &middot; $349
         <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round">
           <line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/>
         </svg>
@@ -1351,14 +1876,23 @@
           </svg>
           Renews at <strong>$110/mo</strong>&nbsp;after the first month
         </div>
-        <div class="card-footer-divider"></div>
-        <div class="btn-lock">
-          <svg viewBox="0 0 14 14" stroke-linecap="round"><rect x="2" y="6" width="10" height="7" rx="1.5"/><path d="M4.5 6V4.5a2.5 2.5 0 015 0V6"/></svg>
-          Secure Checkout&nbsp;·&nbsp;SSL Encrypted
-        </div>
       </div>
     </div>
 
+  </div>
+
+  <div class="selector-controls" role="group" aria-label="Choose a device">
+    <button type="button" class="sel-arrow prev" id="selPrev" aria-label="Previous device">
+      <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><line x1="14" y1="8" x2="3" y2="8"/><polyline points="7,4 3,8 7,12"/></svg>
+    </button>
+    <div class="sel-tabs">
+      <button type="button" class="sel-tab" data-i="0">Nighthawk M1</button>
+      <button type="button" class="sel-tab" data-i="1">Orbi</button>
+      <button type="button" class="sel-tab" data-i="2">Nighthawk M6</button>
+    </div>
+    <button type="button" class="sel-arrow next" id="selNext" aria-label="Next device">
+      <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg>
+    </button>
   </div>
 </section>
 
@@ -1375,7 +1909,7 @@
       <!-- Spacer column — keeps title left, contact right -->
       <div></div>
       <div class="faq-header-right">
-        <p>Everything you need to know before getting started. Still have questions?</p>
+        <p>Everything you need to know before you order. Still have questions?</p>
         <a href="/contact" class="faq-contact-link">
           Contact Us
           <svg viewBox="0 0 14 14" stroke-linecap="round" stroke-linejoin="round">
@@ -1392,11 +1926,11 @@
       <div class="faq-col">
         <div class="accordion-item">
           <button class="accordion-header">
-            <span>Do I Need To Schedule An Installation?</span>
+            <span>Do I Need to Schedule an Installation?</span>
             <div class="accordion-toggle"></div>
           </button>
           <div class="accordion-body">
-            <p><strong>No installation required.</strong> Your device is plug-and-play — just power it on and connect.</p>
+            <p><strong>No Installation Required.</strong> Your device is plug-and-play &mdash; power it on, connect, and you&rsquo;re online.</p>
           </div>
         </div>
 
@@ -1406,7 +1940,7 @@
             <div class="accordion-toggle"></div>
           </button>
           <div class="accordion-body">
-            <p><strong>No contracts.</strong> Service is month-to-month, with full control to cancel anytime.</p>
+            <p><strong>No Contracts.</strong> Service is month-to-month, and you can cancel anytime.</p>
           </div>
         </div>
 
@@ -1416,7 +1950,27 @@
             <div class="accordion-toggle"></div>
           </button>
           <div class="accordion-body">
-            <p><strong>Simple monthly renewal.</strong> Your first payment includes hardware and service. After that, service renews at $110 + tax per month.</p>
+            <p><strong>Simple Monthly Renewal.</strong> Your first payment covers the device and your first month of service. After that, service renews at $110/mo + tax.</p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-header">
+            <span>Do I Own the Device?</span>
+            <div class="accordion-toggle"></div>
+          </button>
+          <div class="accordion-body">
+            <p><strong>Yes.</strong> You buy it once and it&rsquo;s yours to keep &mdash; no rental fees, ever.</p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-header">
+            <span>Which Device Should I Choose?</span>
+            <div class="accordion-toggle"></div>
+          </button>
+          <div class="accordion-body">
+            <p><strong>Choose by How You&rsquo;ll Use It.</strong> Mostly on the go? Pick the Nighthawk M1. Need pro-level speed and capacity on the go? Pick the Nighthawk M6. Mostly at home? Pick the Orbi. All three work anywhere service is available, but the one built for your use will perform best.</p>
           </div>
         </div>
       </div>
@@ -1429,17 +1983,17 @@
             <div class="accordion-toggle"></div>
           </button>
           <div class="accordion-body">
-            <p><strong>Speeds vary by location.</strong> Most users see 50–150 Mbps, with higher performance in strong 5G areas. We can provide a coverage estimate on request.</p>
+            <p><strong>Speeds Vary by Location.</strong> Most users see 50&ndash;150 Mbps, with higher performance in strong 5G areas. We&rsquo;re happy to provide a coverage estimate on request.</p>
           </div>
         </div>
 
         <div class="accordion-item">
           <button class="accordion-header">
-            <span>Does Service Only Work In Canada?</span>
+            <span>Does Service Only Work in Canada?</span>
             <div class="accordion-toggle"></div>
           </button>
           <div class="accordion-body">
-            <p><strong>Service is designed to travel with you.</strong> Taking your service abroad? Ask us about our Global Roaming package for seamless connectivity in destinations around the world.</p>
+            <p><strong>Canada, the USA, and Mexico Are Included.</strong> Your service works across Canada and in the USA and Mexico. Heading further afield? Ask us about our Global Roaming package for destinations around the world.</p>
           </div>
         </div>
 
@@ -1449,7 +2003,27 @@
             <div class="accordion-toggle"></div>
           </button>
           <div class="accordion-body">
-            <p><strong>No.</strong> This is LTE/5G cellular internet, offering lower latency and more stable performance than satellite.</p>
+            <p><strong>No.</strong> This is LTE/5G cellular internet, which offers lower latency and more stable performance than satellite.</p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-header">
+            <span>Can I Use My Device at a Different Address?</span>
+            <div class="accordion-toggle"></div>
+          </button>
+          <div class="accordion-body">
+            <p><strong>Yes.</strong> Your service isn&rsquo;t tied to a single address, and all three devices are fully portable. The Nighthawk M1 and M6 run on battery; the Orbi needs constant power, so you&rsquo;ll need an outlet wherever you set it up.</p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-header">
+            <span>Can I Cancel and Come Back Later?</span>
+            <div class="accordion-toggle"></div>
+          </button>
+          <div class="accordion-body">
+            <p><strong>Yes.</strong> With no contract, you can cancel anytime and reactivate when you&rsquo;re ready. Reactivation requires a new SIM card ($10).</p>
           </div>
         </div>
       </div>
@@ -2018,6 +2592,60 @@
     });
   });
 
+})();
+</script>
+<script>
+/* Product selector — desktop carousel behaviour (stacked layout below 1101px is unchanged) */
+(function () {
+  'use strict';
+  var grid = document.querySelector('.pricing-grid');
+  if (!grid) return;
+  var cards = Array.prototype.slice.call(grid.querySelectorAll('.plan-card'));
+  var tabs  = Array.prototype.slice.call(document.querySelectorAll('.sel-tab'));
+  var mq    = window.matchMedia('(min-width: 1101px)');
+  var cur   = 1; /* start on the middle device (Orbi), keeping the original left-to-right order */
+
+  function render() {
+    cards.forEach(function (c, i) {
+      var d = (i - cur + 3) % 3;
+      var pos = d === 2 ? -1 : d;
+      c.style.setProperty('--pos', pos);
+      c.classList.toggle('is-selected', pos === 0);
+      var cta = c.querySelector('.btn-cta');
+      if (cta) cta.tabIndex = (pos === 0 || !mq.matches) ? 0 : -1;
+    });
+    tabs.forEach(function (t, i) {
+      t.classList.toggle('is-active', i === cur);
+      t.setAttribute('aria-pressed', i === cur ? 'true' : 'false');
+    });
+  }
+  function go(n) { cur = (n + 3) % 3; render(); }
+
+  document.getElementById('selPrev').addEventListener('click', function () { go(cur - 1); });
+  document.getElementById('selNext').addEventListener('click', function () { go(cur + 1); });
+  tabs.forEach(function (t) {
+    t.addEventListener('click', function () { go(parseInt(t.getAttribute('data-i'), 10)); });
+  });
+
+  /* Clicking a side card brings it to the centre instead of following its link */
+  grid.addEventListener('click', function (e) {
+    if (!mq.matches) return;
+    var c = e.target.closest('.plan-card');
+    if (c && !c.classList.contains('is-selected')) {
+      e.preventDefault();
+      go(cards.indexOf(c));
+    }
+  }, true);
+
+  document.getElementById('pricing').addEventListener('keydown', function (e) {
+    if (!mq.matches) return;
+    if (e.key === 'ArrowLeft')  { go(cur - 1); }
+    if (e.key === 'ArrowRight') { go(cur + 1); }
+  });
+
+  if (mq.addEventListener) mq.addEventListener('change', render); else mq.addListener(render);
+  grid.classList.add('is-selector');
+  render();
 })();
 </script>
 </body>
