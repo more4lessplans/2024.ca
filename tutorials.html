@@ -1456,6 +1456,13 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }, 300);
     }
+
+    // Give each device its own shareable URL (#mobile / #fixed).
+    // Tab deep links (e.g. #fixed-update-apn) pass { updateHash: false }
+    // so their more specific hash isn't overwritten.
+    if (opts.updateHash !== false) {
+      history.replaceState(null, '', '#' + type);
+    }
   };
 
   window.goBackToDeviceSelect = function () {
@@ -1473,6 +1480,9 @@
 
     document.getElementById('card-mobile').className = 'device-card';
     document.getElementById('card-fixed').className = 'device-card';
+
+    // Clear the device hash so the URL matches the selection screen again
+    history.replaceState(null, '', window.location.pathname + window.location.search);
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -1572,6 +1582,15 @@
     var id = (typeof hash === 'string' ? hash : window.location.hash).replace('#', '');
     if (!id) return;
 
+    // Device-level links: #mobile (Portable Hotspot) and #fixed (Home-Style Router)
+    if (id === 'mobile' || id === 'fixed') {
+      selectDevice(id, { scrollToTop: false, updateHash: false });
+      window.scrollTo({ top: 0, behavior: 'auto' });
+      isFirstRoute = false;
+      restorePendingHash();
+      return;
+    }
+
     var pane = document.getElementById(id);
     if (!pane || !pane.classList.contains('tutorial-pane')) {
       restorePendingHash();
@@ -1582,7 +1601,7 @@
     var tab = pane.getAttribute('data-tab');
     var deviceType = group === 'fixed' ? 'fixed' : 'mobile';
 
-    selectDevice(deviceType, { scrollToTop: false });
+    selectDevice(deviceType, { scrollToTop: false, updateHash: false });
     switchTab(group, tab);
 
     // Land on the "Setup Tutorials" heading rather than the tutorial pane

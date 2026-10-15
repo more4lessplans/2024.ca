@@ -1030,7 +1030,7 @@
         <div class="step-body">
           <div class="step-name">Tips &amp; Tricks</div>
           <p class="step-text">Want even better performance? Our tutorials cover placement, Wi-Fi optimization, and troubleshooting.</p>
-          <a href="/tutorials" class="step-link">
+          <a href="/tutorials" class="step-link" id="tutorialsLink">
             Browse Tutorials
             <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg>
           </a>
@@ -1152,6 +1152,9 @@
     /* Section title */
     document.getElementById('hwTitle').textContent = 'Power It On';
 
+    /* Point "Browse Tutorials" at this device's guide (#mobile / #fixed) */
+    document.getElementById('tutorialsLink').setAttribute('href', '/tutorials#' + type);
+
     /* Show/hide device-specific steps */
     document.querySelectorAll('.mobile-only, .fixed-only').forEach(function (el) {
       el.classList.remove('show', 'show-block');
@@ -1194,6 +1197,9 @@
     /* Clear device selection state */
     document.getElementById('card-mobile').className = 'device-card';
     document.getElementById('card-fixed').className = 'device-card';
+
+    /* Reset tutorials link to the generic page */
+    document.getElementById('tutorialsLink').setAttribute('href', '/tutorials');
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
