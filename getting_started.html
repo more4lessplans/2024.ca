@@ -619,6 +619,22 @@
       font-family: 'Courier New', monospace;
       font-weight: 700; color: var(--red); font-size: 0.84rem;
     }
+    .cred-note {
+      flex-basis: 100%; margin-top: 4px;
+      display: flex; align-items: center; flex-wrap: wrap; gap: 8px;
+      padding: 10px 12px;
+      background: rgba(215,60,89,0.06);
+      border: 1px solid rgba(215,60,89,0.18);
+      border-radius: var(--rSM);
+    }
+    .cred-note-icon {
+      width: 14px; height: 14px; flex-shrink: 0;
+      stroke: var(--red); fill: none; stroke-width: 1.8;
+    }
+    .cred-note-text { font-size: 0.76rem; color: var(--ink-2); line-height: 1.5; }
+    .cred-note .cred-pill { background: var(--bg-card); }
+    .guide-section.dark .cred-note { background: rgba(215,60,89,0.10); border-color: rgba(215,60,89,0.28); }
+    .guide-section.dark .cred-note-text { color: var(--on-dark-2); }
     .copy-btn {
       background: none; border: none; cursor: pointer;
       padding: 2px 4px; color: var(--ink-4);
@@ -1014,12 +1030,12 @@
                   <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5"/></svg>
                 </button>
               </div>
-              <div class="cred-pill">
-                <span class="cred-key">Password</span>
-                <span class="cred-val">more4less</span>
-                <button class="copy-btn" onclick="copyText('more4less', this)" title="Copy">
-                  <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5"/></svg>
-                </button>
+              <div class="cred-note">
+                <svg class="cred-note-icon" viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.5"/><line x1="8" y1="7.4" x2="8" y2="11.2"/><line x1="8" y1="4.9" x2="8" y2="5"/></svg>
+                <span class="cred-note-text">Depending on your firmware, the default password is either</span>
+                <span class="cred-pill"><span class="cred-val">more4less</span> <button class="copy-btn" onclick="copyText('more4less', this)" title="Copy" aria-label="Copy password"><svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5"/></svg></button></span>
+                <span class="cred-note-text">or</span>
+                <span class="cred-pill"><span class="cred-val">More4LessPlans</span> <button class="copy-btn" onclick="copyText('More4LessPlans', this)" title="Copy" aria-label="Copy password"><svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5"/></svg></button></span>
               </div>
             </div>
           </div>
