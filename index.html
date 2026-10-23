@@ -1448,7 +1448,7 @@
     }
   
     /* Badges sit in a row at the top of each card so Pro Series and
-       Free Expedited Shipping can show together */
+       Free Shipping can show together */
     .card-badges { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; position: relative; z-index: 1; }
     .card-badges .card-badge { position: static; }
     @media (min-width: 1101px) {
@@ -1524,7 +1524,7 @@
   <div class="hero-inner">
     <div class="hero-badge">
       <span class="hero-badge-dot"></span>
-      Canada-Wide &middot; USA &amp; Mexico Included
+      Canada-Wide Coverage
     </div>
     <h1 class="hero-title">
       Wireless Internet.<br><em>Truly Unlimited.</em>
@@ -1575,13 +1575,13 @@
 
  <div class="hero-trust">
   
-  <!-- 30-Day Guarantee -->
+  <!-- 30-Day Risk-Free  -->
   <div class="htrust-item">
     <svg viewBox="0 0 14 14" stroke-linecap="round" stroke-linejoin="round">
       <path d="M7 13s5.5-2.8 5.5-7V3L7 1 1.5 3v3C1.5 10.2 7 13 7 13z"/>
       <path d="M4.5 7.5 L6 9 L9.5 5.5"/>
     </svg>
-    30-Day Guarantee
+    30-Day Risk-Free
   </div>
 
   <div class="htrust-div"></div>
@@ -1624,8 +1624,8 @@
       <div class="vi-label"><strong>Total Freedom.</strong><br>Month-to-month service. Keep it only as long as it works for you.</div>
     </div>
     <div class="value-item">
-      <div class="vi-number"><span>30-Day</span> Guarantee</div>
-      <div class="vi-label"><strong>Backed by Our Promise.</strong><br>Every device comes with our 30-day guarantee. Buy once, keep it, and enjoy simple, transparent pricing every month.</div>
+      <div class="vi-number"><span>30-Day</span> Risk-Free</div>
+      <div class="vi-label"><strong>Try It Risk-Free.</strong><br>Try it for 30 days. Not for you? Send it back for a refund. Buy once, keep it, and enjoy simple, transparent pricing every month. <a href="/terms" target="_blank" style="color:inherit;text-decoration:underline;">Terms apply</a></div>
     </div>
   </div>
 </div>
@@ -1653,7 +1653,7 @@
 
     <!-- Card 1: Mobile Essential -->
     <div class="plan-card" id="card-mobile">
-      <div class="card-badges"><div class="card-badge ship">Free Expedited Shipping</div></div>
+      <div class="card-badges"><div class="card-badge ship">Free Shipping</div></div>
       <div class="card-category">Mostly on the Go?</div>
       <div class="card-title">Nighthawk M1</div>
       <div class="card-subtitle">Battery-powered and compact. Made for travel, camping, RVs, job sites, cottages, and remote work.</div>
@@ -1739,7 +1739,7 @@
 
     <!-- Card 2: Home & Office (Featured) -->
     <div class="plan-card featured" id="card-home">
-      <div class="card-badges"><div class="card-badge ship">Free Expedited Shipping</div></div>
+      <div class="card-badges"><div class="card-badge ship">Free Shipping</div></div>
       <div class="card-category">Mostly at Home?</div>
       <div class="card-title">Orbi</div>
       <div class="card-subtitle">A faster modem, larger cellular antennas for better reliability, and a larger Wi-Fi range for a home.</div>
@@ -1825,7 +1825,7 @@
 
     <!-- Card 3: Pro on the Go -->
     <div class="plan-card pro" id="card-pro">
-      <div class="card-badges"><div class="card-badge pro">Pro Series</div><div class="card-badge ship">Free Expedited Shipping</div></div>
+      <div class="card-badges"><div class="card-badge pro">Pro Series</div><div class="card-badge ship">Free Shipping</div></div>
       <div class="card-category">Pro on the Go?</div>
       <div class="card-title">Nighthawk M6</div>
       <div class="card-subtitle">Wi-Fi 6 speed and all-day battery for power users and remote teams &mdash; pro-level performance, wherever the work takes you.</div>
@@ -2027,7 +2027,7 @@
             <div class="accordion-toggle"></div>
           </button>
           <div class="accordion-body">
-            <p><strong>Canada, the USA, and Mexico Are Included.</strong> Your service works across Canada and in the USA and Mexico. Heading further afield? Ask us about our Global Roaming package for destinations around the world.</p>
+            <p><strong>Service Works Across Canada.</strong> USA and Mexico roaming is available as an add-on. Contact support to add it to your account. Pricing varies.</p>
           </div>
         </div>
 
@@ -2266,6 +2266,7 @@
   var crpLeadWarn   = document.getElementById('crpLeadWarn');
   var addressSelected = false;
   var hasStreetNumber = false;
+  var selectedProvCode = '';      /* two-letter province code (e.g. QC) of the picked address */
   var selectedAddressText = '';   /* address text as it was when picked from the dropdown */
   var autocompleteReady = false;  /* true once Places autocomplete is attached */
   var mapsAuthFailed = false;     /* true if Google rejects the API key (referrer/API restriction) */
@@ -2370,14 +2371,14 @@
       var place = autocomplete.getPlace();
       if (!place || !place.geometry) return;
 
-      var street = '', city = '', prov = '', post = '';
+      var street = '', city = '', prov = '', provCode = '', post = '';
       hasStreetNumber = false;
       (place.address_components || []).forEach(function (c) {
         var t = c.types;
         if (t.includes('street_number')) { street = c.long_name + ' '; hasStreetNumber = true; }
         if (t.includes('route'))         street += c.long_name;
         if (t.includes('locality'))      city = c.long_name;
-        if (t.includes('administrative_area_level_1')) prov = c.long_name;
+        if (t.includes('administrative_area_level_1')) { prov = c.long_name; provCode = c.short_name; }
         if (t.includes('postal_code'))   post = c.long_name;
       });
 
@@ -2391,6 +2392,7 @@
       addressSelected = true;
       usedManual = false;
       selectedAddressText = addressInput.value;
+      selectedProvCode = provCode;
       document.getElementById('jf_street').value = street;
       document.getElementById('jf_city').value   = city;
       document.getElementById('jf_state').value  = prov;
@@ -2409,6 +2411,7 @@
       hasStreetNumber = false;
       usedManual = false;
       selectedAddressText = '';
+      selectedProvCode = '';
       ['jf_street', 'jf_city', 'jf_state', 'jf_postal'].forEach(function (id) {
         document.getElementById(id).value = '';
       });
@@ -2478,6 +2481,22 @@
       console.error('Webhook submit failed:', err);
       if (crpLeadWarn && resultPanel.classList.contains('visible')) crpLeadWarn.style.display = 'block';
     });
+
+    /* Remember a verified (dropdown-selected) address for 24h so checkout can prefill it.
+       Province is stored as its code (QC) because the checkout dropdown uses codes.
+       Manual / unverified addresses are never saved. */
+    if (!unverified && addressSelected && selectedProvCode) {
+      try {
+        localStorage.setItem('m4l_checked_address', JSON.stringify({
+          street:       document.getElementById('jf_street').value,
+          city:         document.getElementById('jf_city').value,
+          provinceCode: selectedProvCode,
+          postal:       document.getElementById('jf_postal').value,
+          full:         addressInput.value,
+          exp:          Date.now() + 24 * 60 * 60 * 1000
+        }));
+      } catch (err) { /* storage blocked — checkout just won't prefill */ }
+    }
 
     showResultPanel(addressInput.value);
     submitBtn.textContent = '✓ Available';
