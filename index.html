@@ -1486,7 +1486,7 @@
       .card-badges { margin-bottom: 10px; }
     }
     @media (max-width: 640px) {
-      .pricing { width: 95%; }
+      .pricing { width: 85%; }
       .plan-card { padding: 20px 16px 18px; }
     }
   </style>
@@ -1625,7 +1625,7 @@
     </div>
     <div class="value-item">
       <div class="vi-number"><span>30-Day</span> Risk-Free</div>
-      <div class="vi-label"><strong>Try It Risk-Free.</strong><br>Try it for 30 days. Not for you? Send it back for a refund. Buy once, keep it, and enjoy simple, transparent pricing every month. <a href="/terms" target="_blank" style="color:inherit;text-decoration:underline;">Terms apply</a></div>
+      <div class="vi-label"><strong>Try It Risk-Free.</strong><br>Try it for 30 days. Not for you? Send it back for a refund<a href="/terms" target="_blank" aria-label="Terms apply" style="color:inherit;text-decoration:none;opacity:0.6;">*</a></div>
     </div>
   </div>
 </div>
@@ -2312,6 +2312,24 @@
     });
   }
 
+  /* Remember the most recent verified (dropdown-selected) address for 24h so checkout
+     can prefill it. Runs as soon as an address is picked — no email submit needed —
+     and each new pick overwrites the previous one. Province is stored as its code (QC)
+     because the checkout dropdown uses codes. Manual / unverified addresses are never saved. */
+  function saveCheckedAddress() {
+    if (!addressSelected || !selectedProvCode) return;
+    try {
+      localStorage.setItem('m4l_checked_address', JSON.stringify({
+        street:       document.getElementById('jf_street').value,
+        city:         document.getElementById('jf_city').value,
+        provinceCode: selectedProvCode,
+        postal:       document.getElementById('jf_postal').value,
+        full:         addressInput.value,
+        exp:          Date.now() + 24 * 60 * 60 * 1000
+      }));
+    } catch (err) { /* storage blocked — checkout just won't prefill */ }
+  }
+
   function showStatus(msg, cls) {
     statusBox.className = 'coverage-status';
     statusBox.innerHTML = '<span class="' + cls + '">' + msg + '</span>';
@@ -2397,6 +2415,9 @@
       document.getElementById('jf_city').value   = city;
       document.getElementById('jf_state').value  = prov;
       document.getElementById('jf_postal').value = post;
+
+      /* Save immediately so checkout can prefill even if the visitor never submits their email */
+      saveCheckedAddress();
 
       emailModule.style.display = 'block';
       showStatus('Address found — enter your email to confirm coverage.', 'status-warning');
@@ -2485,18 +2506,7 @@
     /* Remember a verified (dropdown-selected) address for 24h so checkout can prefill it.
        Province is stored as its code (QC) because the checkout dropdown uses codes.
        Manual / unverified addresses are never saved. */
-    if (!unverified && addressSelected && selectedProvCode) {
-      try {
-        localStorage.setItem('m4l_checked_address', JSON.stringify({
-          street:       document.getElementById('jf_street').value,
-          city:         document.getElementById('jf_city').value,
-          provinceCode: selectedProvCode,
-          postal:       document.getElementById('jf_postal').value,
-          full:         addressInput.value,
-          exp:          Date.now() + 24 * 60 * 60 * 1000
-        }));
-      } catch (err) { /* storage blocked — checkout just won't prefill */ }
-    }
+    if (!unverified) saveCheckedAddress();
 
     showResultPanel(addressInput.value);
     submitBtn.textContent = '✓ Available';
