@@ -748,6 +748,33 @@
     .ship-option-sub { font-size: 0.74rem; color: var(--ink-3); margin-top: 2px; line-height: 1.4; }
     .ship-option-price { font-size: 0.82rem; font-weight: 700; color: var(--green); white-space: nowrap; }
 
+    /* Selectable shipping choices (Standard / Express) */
+    .ship-choice {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      background: var(--bg-input);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      margin-bottom: 10px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+    .ship-choice:last-child { margin-bottom: 0; }
+    .ship-choice:hover { border-color: #d0d0d6; }
+    .ship-choice.selected {
+      border-color: var(--ink);
+      box-shadow: 0 0 0 3px rgba(10,10,11,0.06);
+    }
+    .ship-choice input[type="radio"] {
+      width: 17px; height: 17px;
+      accent-color: var(--ink);
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+    .ship-choice .ship-option-price.paid { color: var(--ink); }
+
     /* ═══════════════════════════════════════════════════════════════
        TERMS
     ═══════════════════════════════════════════════════════════════ */
@@ -842,29 +869,85 @@
     /* ═══════════════════════════════════════════════════════════════
        WHAT HAPPENS NEXT (on screen 1)
     ═══════════════════════════════════════════════════════════════ */
-    .next-steps { margin-top: 12px; }
+    /* Timeline: nodes joined by a line that runs red → green,
+       reading as "you are here → delivered". */
+    .next-steps { margin-top: 4px; position: relative; --amber: #f5a623; }
+    /* Connector drawn per step, from one icon to the next — so the line
+       stops at the final node instead of trailing past it. */
+    .next-step-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 17px; top: 36px; bottom: 0;
+      width: 1.5px;
+      border-radius: 2px;
+      opacity: 0.6;
+    }
+    .next-step-item.now::after { background: linear-gradient(180deg, var(--amber), var(--border)); }
+    .next-step-item.mid::after { background: linear-gradient(180deg, var(--border), var(--green)); }
 
     .next-step-item {
+      position: relative;
       display: flex;
       align-items: flex-start;
-      gap: 14px;
-      padding: 14px 0;
-      border-bottom: 1px solid var(--border-soft);
+      gap: 16px;
+      padding: 0 0 22px;
     }
-    .next-step-item:first-child { padding-top: 0; }
-    .next-step-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .next-step-item:last-child { padding-bottom: 0; }
 
     .next-step-icon {
-      width: 32px; height: 32px;
-      border-radius: var(--radius-sm);
-      background: var(--bg);
-      border: 1px solid var(--border);
+      position: relative;
+      z-index: 1;
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--bg-card);
+      border: 1.5px solid var(--border);
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;
+      transition: transform 0.4s var(--spring);
     }
-    .next-step-icon svg { width: 13px; height: 13px; stroke: var(--ink-3); stroke-width: 1.8; fill: none; }
-    .next-step-title { font-size: 0.82rem; font-weight: 600; color: var(--ink); margin-bottom: 3px; }
-    .next-step-desc { font-size: 0.74rem; color: var(--ink-3); line-height: 1.55; }
+    .next-step-item:hover .next-step-icon { transform: scale(1.08); }
+    .next-step-icon svg { width: 14px; height: 14px; stroke: var(--ink-3); stroke-width: 1.9; fill: none; }
+
+    /* Step 1 — in progress (pending amber, softly pulsing) */
+    .next-step-item.now .next-step-icon {
+      border-color: rgba(245,166,35,0.45);
+      background: linear-gradient(rgba(245,166,35,0.09), rgba(245,166,35,0.09)), var(--bg-card);
+      animation: nextPulse 2.5s ease infinite;
+    }
+    .next-step-item.now .next-step-icon svg { stroke: #d98a0b; }
+    @keyframes nextPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(245,166,35,0.20); }
+      50%      { box-shadow: 0 0 0 7px rgba(245,166,35,0.05); }
+    }
+    /* Step 2 — neutral confirmation; Step 3 — green, the payoff */
+    .next-step-item.mid .next-step-icon { border-color: var(--border); }
+    .next-step-item.done .next-step-icon {
+      border-color: var(--green-border);
+      background: linear-gradient(var(--green-bg), var(--green-bg)), var(--bg-card);
+    }
+    .next-step-item.done .next-step-icon svg { stroke: var(--green); }
+
+    .next-step-body { flex: 1; min-width: 0; padding-top: 1px; }
+    .next-step-head {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 10px; margin-bottom: 3px;
+    }
+    .next-step-title { font-size: 0.86rem; font-weight: 700; color: var(--ink); letter-spacing: -0.015em; }
+    .next-step-tag {
+      font-size: 0.58rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--ink-4);
+      white-space: nowrap;
+    }
+    .next-step-item.now  .next-step-tag { color: #d98a0b; }
+    .next-step-item.done .next-step-tag { color: var(--green); }
+    .next-step-desc { font-size: 0.76rem; color: var(--ink-3); line-height: 1.6; }
+
+    /* Staggered reveal as the card enters */
+    .next-step-item { opacity: 0; animation: revealUp 0.6s var(--ease-out) both; }
+    .next-step-item:nth-child(1) { animation-delay: 0.30s; }
+    .next-step-item:nth-child(2) { animation-delay: 0.40s; }
+    .next-step-item:nth-child(3) { animation-delay: 0.50s; }
 
     /* ═══════════════════════════════════════════════════════════════
        RIGHT PANEL — DARK ORDER SUMMARY
@@ -1284,8 +1367,10 @@
         padding: 7px 0;
         font-size: 0.8rem;
         color: var(--ink-on-dark-2);
-        border-bottom: 1px solid rgba(255,255,255,0.05);
       }
+      /* Dividers sit between rows (top border) so the total row's own
+         top border is never doubled up with the row above it. */
+      .msb-exp-row + .msb-exp-row { border-top: 1px solid rgba(255,255,255,0.05); }
       .msb-exp-row:last-child { border-bottom: none; }
       .msb-exp-row:nth-last-child(2) { border-bottom: none; }
       .msb-exp-row strong { font-weight: 600; color: var(--ink-on-dark); }
@@ -1342,6 +1427,94 @@
 
     @media (max-width: 640px) {
       .field-row { grid-template-columns: 1fr; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       MINIMAL PROGRESS BAR — three hairline segments, no labels.
+       Reuses the existing step markup/classes (active / done) so the
+       step machine is untouched; labels stay in the DOM for screen
+       readers but are visually hidden.
+    ═══════════════════════════════════════════════════════════════ */
+    /* One continuous hairline along the bottom edge of the nav.
+       The three step segments sit edge to edge (no track, no gaps),
+       so the red fill simply grows across as the steps advance. */
+    .nav-inner { position: static; }
+    .nav .nav-steps {
+      position: absolute;
+      left: 0; right: 0; bottom: -1px;
+      transform: none;
+      width: 100%;
+      gap: 0;
+      pointer-events: none;
+    }
+    .nav-sep { display: none; }
+
+    .nav-step {
+      position: relative;
+      flex: 1;
+      height: 1.5px;
+      gap: 0;
+      border-radius: 0;
+      background: transparent;
+    }
+    .nav-step > span,
+    .nav-step > .nav-step-num {
+      position: absolute;
+      width: 1px; height: 1px;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .nav-step::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 0;
+      background: var(--red);
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 0.7s var(--ease-out);
+    }
+    .nav-step.done::after,
+    .nav-step.active::after { transform: scaleX(1); }
+
+    /* Mobile: same single line, tucked directly under the nav */
+    @media (max-width: 900px) {
+      .page-steps-bar {
+        padding: 0;
+        height: 1.5px;
+        background: transparent;
+        border-bottom: none;
+      }
+      .page-steps-bar .nav-steps {
+        position: static;
+        width: 100%;
+        gap: 0;
+      }
+      .page-steps-bar .nav-step { flex: 1; width: auto; }
+    }
+
+    /* Desktop: use the same strip as mobile — a single hairline sitting
+       directly under the nav (not inside it), full width, red fill only. */
+    @media (min-width: 901px) {
+      .nav .nav-steps { display: none !important; }
+      .page-steps-bar {
+        display: block;
+        position: fixed;
+        top: var(--nav-h);
+        left: 0; right: 0;
+        height: 1.5px;
+        padding: 0;
+        background: transparent;
+        border-bottom: none;
+        z-index: 8900;
+        pointer-events: none;
+      }
+      .page-steps-bar .nav-steps {
+        position: static;
+        width: 100%;
+        gap: 0;
+      }
+      .page-steps-bar .nav-step { flex: 1; width: auto; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1466,32 +1639,41 @@
           </div>
 
           <div class="form-card anim-step" style="margin-top:12px;">
-            <div class="form-card-title">What Happens Next</div>
+            <div class="form-card-title">What to Expect</div>
             <div class="next-steps">
-              <div class="next-step-item">
+              <div class="next-step-item now">
                 <div class="next-step-icon">
                   <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h10a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M2 7h12"/></svg>
                 </div>
-                <div>
-                  <div class="next-step-title">1. Complete Checkout</div>
-                  <div class="next-step-desc">Enter your details and securely complete your payment.</div>
+                <div class="next-step-body">
+                  <div class="next-step-head">
+                    <div class="next-step-title">Placing Your Order</div>
+                    <span class="next-step-tag">In Progress</span>
+                  </div>
+                  <div class="next-step-desc">Just a few quick details and you&#8217;re on your way &mdash; we&#8217;ll take care of the rest.</div>
                 </div>
               </div>
-              <div class="next-step-item">
+              <div class="next-step-item mid">
                 <div class="next-step-icon">
-                  <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.5 3.5 7-7"/></svg>
+                  <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3.5" width="12" height="9" rx="1.5"/><path d="M2.5 5l5.5 4 5.5-4"/></svg>
                 </div>
-                <div>
-                  <div class="next-step-title">2. Order Confirmation</div>
-                  <div class="next-step-desc">You&#8217;ll receive an email with your shipping details and estimated delivery date.</div>
+                <div class="next-step-body">
+                  <div class="next-step-head">
+                    <div class="next-step-title">Order Confirmation</div>
+                    <span class="next-step-tag">Arrives Soon</span>
+                  </div>
+                  <div class="next-step-desc">A confirmation email lands in your inbox shortly, with your shipping details and estimated delivery date.</div>
                 </div>
               </div>
-              <div class="next-step-item">
+              <div class="next-step-item done">
                 <div class="next-step-icon">
                   <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l2-6h6l2 6"/><path d="M1 10h14"/><path d="M6 10v3m4-3v3"/></svg>
                 </div>
-                <div>
-                  <div class="next-step-title">3. Receive Your Device</div>
+                <div class="next-step-body">
+                  <div class="next-step-head">
+                    <div class="next-step-title">Receive Your Device</div>
+                    <span class="next-step-tag">Plug &amp; Go</span>
+                  </div>
                   <div class="next-step-desc">Your device arrives ready to go. Simply plug it in and connect. A pre-installed SIM card is already activated for internet access, and a Quick Start Guide is included.</div>
                 </div>
               </div>
@@ -1527,6 +1709,7 @@
           <!-- Billing Address -->
           <div class="form-card anim-step">
             <div class="form-card-title">Billing Address</div>
+            <div id="saved-addr-note" style="display:none; margin:-4px 0 12px; font-size:12.5px; color:var(--ink-3);">Using the address you checked. Edit if needed.</div>
 
             <div class="field" id="fg-bill-street">
               <label for="f-bill-street">Street Address</label>
@@ -1647,7 +1830,7 @@
             </button>
             <div class="btn-lock-note" style="margin-top:10px;">
               <svg viewBox="0 0 14 14" stroke-linecap="round"><rect x="2" y="6" width="10" height="7" rx="1.5"/><path d="M4.5 6V4.5a2.5 2.5 0 015 0V6"/></svg>
-              SSL encrypted — your information is never stored by us
+              Secure checkout &middot; Your details are encrypted
             </div>
           </div>
 
@@ -1742,8 +1925,12 @@
                 <strong style="color:var(--green)">Included</strong>
               </div>
               <div class="mini-row">
-                <span>Activation & Shipping</span>
+                <span>Activation</span>
                 <strong style="color:var(--green)">$0.00</strong>
+              </div>
+              <div class="mini-row">
+                <span id="mini-ship-label">Standard Shipping</span>
+                <strong id="mini-ship-val" style="color:var(--green)">$0.00</strong>
               </div>
               <div class="pay-summary-discount" id="promo-discount-row" style="display:none;">
                 <span id="promo-discount-label">Promo</span>
@@ -1777,13 +1964,21 @@
           <!-- Shipping Method -->
           <div class="form-card anim-step">
             <div class="form-card-title">Shipping Method</div>
-            <label class="ship-option">
-              <input type="checkbox" checked onclick="return false;" aria-label="Free expedited shipping, 2 to 6 business days">
+            <label class="ship-choice selected" id="ship-choice-standard">
+              <input type="radio" name="ship-method" value="standard" checked>
               <div class="ship-option-body">
-                <div class="ship-option-title">Free Expedited Shipping</div>
-                <div class="ship-option-sub">Arrives in 2&ndash;6 business days</div>
+                <div class="ship-option-title">Standard Shipping</div>
+                <div class="ship-option-sub">Arrives in 4&ndash;10 business days</div>
               </div>
-              <span class="ship-option-price">$0.00</span>
+              <span class="ship-option-price">Free</span>
+            </label>
+            <label class="ship-choice" id="ship-choice-express">
+              <input type="radio" name="ship-method" value="express">
+              <div class="ship-option-body">
+                <div class="ship-option-title">Express Shipping</div>
+                <div class="ship-option-sub">Arrives in 1&ndash;4 business days</div>
+              </div>
+              <span class="ship-option-price paid">$30.00</span>
             </label>
           </div>
 
@@ -1792,7 +1987,7 @@
             <div class="terms-row">
               <input type="checkbox" id="accept-terms">
               <label for="accept-terms">
-                I agree to the <a href="/terms" target="_blank">Terms of Service</a> and
+                I agree to the <a href="/terms" target="_blank">Terms of Service</a>, including the 30-day return policy and return shipping costs, and the
                 <a href="/privacy" target="_blank">Privacy Policy</a>. My subscription renews monthly at <span id="renewal-price-terms">$110/month</span> plus applicable tax, and I can cancel anytime.
               </label>
             </div>
@@ -1852,8 +2047,8 @@
             <span class="sr-val free">$0</span>
           </div>
           <div class="summary-row">
-            <span class="sr-label">Shipping</span>
-            <span class="sr-val free">$0</span>
+            <span class="sr-label" id="right-ship-label">Shipping</span>
+            <span class="sr-val free" id="right-ship-val">$0</span>
           </div>
           <div class="summary-row" id="right-tax-row" style="display:none;">
             <span class="sr-label" id="right-tax-label">Tax</span>
@@ -1909,7 +2104,7 @@
         </div>
         <div class="summary-feature">
           <div class="sf-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-          30-Day Money-Back Guarantee
+          30-Day Risk-Free Trial
         </div>
 
       </div><!-- /summary-inner -->
@@ -1927,7 +2122,7 @@
         <div class="trust-div"></div>
         <div class="trust-badge">
           <svg viewBox="0 0 14 14" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7l3.5 3.5L12 3"/></svg>
-          30-Day Guarantee
+          30-Day Risk-Free Trial
         </div>
       </div>
 
@@ -1961,7 +2156,7 @@
         </div>
         <div>
           <div class="msb-name">Nighthawk M6</div>
-          <div class="msb-sub">1st month included · Free shipping</div>
+          <div class="msb-sub" id="msb-sub-text">1st month included · Free shipping</div>
         </div>
       </div>
       <div class="msb-price">
@@ -1987,8 +2182,12 @@
           <strong class="free">Included</strong>
         </div>
         <div class="msb-exp-row">
-          <span>Activation & Shipping</span>
+          <span>Activation</span>
           <strong class="free">$0</strong>
+        </div>
+        <div class="msb-exp-row">
+          <span id="msb-ship-label">Standard Shipping</span>
+          <strong class="free" id="msb-ship-val">$0</strong>
         </div>
         <div class="msb-exp-row msb-exp-discount" id="msb-exp-discount-row" style="display:none;">
           <span id="msb-exp-discount-label">Promo</span>
@@ -2016,7 +2215,7 @@
         <div class="msb-exp-feat"><span class="msb-feat-check">✓</span> Truly Unlimited Data — No Caps</div>
         <div class="msb-exp-feat"><span class="msb-feat-check">✓</span> Up To 32 Devices Connected</div>
         <div class="msb-exp-feat"><span class="msb-feat-check">✓</span> 5G Speeds Up To 2.5 Gbps</div>
-        <div class="msb-exp-feat"><span class="msb-feat-check">✓</span> 30-Day Money-Back Guarantee</div>
+        <div class="msb-exp-feat"><span class="msb-feat-check">✓</span> 30-Day Risk-Free Trial</div>
       </div>
     </div>
 
@@ -2031,7 +2230,12 @@
   'use strict';
 
   var CB_SITE         = 'more4lessplans';
-  var CB_PLAN_ID      = 'wireless-internet-m6';
+  var CB_PLAN_ID_STANDARD = 'wireless-internet-m6';
+  var CB_PLAN_ID_EXPRESS  = 'wireless-internet-m6-express'; // clone of the Nighthawk M6 plan; Chargebee adds the $30 automatically
+  var CB_PLAN_ID      = CB_PLAN_ID_STANDARD;                // swapped when the customer picks Express shipping
+  var EXPRESS_SHIPPING_PRICE = 30;
+  var shippingCost    = 0;
+  var shippingMethod  = 'standard';
   var DEVICE_ADDON_ID = 'nighthawk-m6';
   var WORKER_URL      = '/api/checkout-embedded';
   var ABANDON_URL     = 'https://hook.us2.make.com/e2lhvyo9rdprsygiss7guhcaat1f9q41'; // Make.com "Custom Webhook" URL
@@ -2235,6 +2439,50 @@
     document.getElementById('shipping-fields').classList.toggle('hidden', checked);
   };
 
+  /* ── SHIPPING METHOD (Standard free / Express $30) ────────────────
+     Express swaps the Chargebee plan to the cloned "-express" plan, which
+     carries the $30 charge itself. The worker's ALLOWED_PLAN_IDS must
+     include that plan id, and no separate shipping addon is sent. */
+  function setShipping(method) {
+    var express = method === 'express';
+    shippingMethod = express ? 'express' : 'standard';
+    CB_PLAN_ID     = express ? CB_PLAN_ID_EXPRESS : CB_PLAN_ID_STANDARD;
+    shippingCost   = express ? EXPRESS_SHIPPING_PRICE : 0;
+
+    // The plan changed, so this is a different purchase — never replay an
+    // idempotency key from an earlier attempt with the other plan.
+    resetIdempotencyKey();
+
+    document.getElementById('ship-choice-standard').classList.toggle('selected', !express);
+    document.getElementById('ship-choice-express').classList.toggle('selected', express);
+
+    var label = express ? 'Express Shipping' : 'Standard Shipping';
+    var valLong  = express ? '$30.00' : '$0.00';
+    var valShort = express ? '$30'    : '$0';
+    var color    = express ? 'var(--ink)' : 'var(--green)';
+
+    var miniLbl = document.getElementById('mini-ship-label'); if (miniLbl) miniLbl.textContent = label;
+    var miniVal = document.getElementById('mini-ship-val');
+    if (miniVal) { miniVal.textContent = valLong; miniVal.style.color = color; }
+
+    var rLbl = document.getElementById('right-ship-label'); if (rLbl) rLbl.textContent = label;
+    var rVal = document.getElementById('right-ship-val');
+    if (rVal) { rVal.textContent = valShort; rVal.classList.toggle('free', !express); }
+
+    var mLbl = document.getElementById('msb-ship-label'); if (mLbl) mLbl.textContent = label;
+    var mVal = document.getElementById('msb-ship-val');
+    if (mVal) { mVal.textContent = valShort; mVal.classList.toggle('free', !express); }
+
+    var mSub = document.getElementById('msb-sub-text');
+    if (mSub) mSub.textContent = express ? '1st month included · Express shipping' : '1st month included · Free shipping';
+
+    refreshTotals();
+  }
+
+  document.querySelectorAll('input[name="ship-method"]').forEach(function (r) {
+    r.addEventListener('change', function () { if (this.checked) setShipping(this.value); });
+  });
+
   /* ── CHARGEBEE CARD COMPONENT ─────────────────────────────────── */
   var componentsReady = false;
   cbInstance.load('components')
@@ -2325,7 +2573,6 @@
 
   window.setStep = setStep;
 
-  /* ── VALIDATION HELPERS ───────────────────────────────────────── */
   function clearErrors() {
     document.querySelectorAll('.field.has-err').forEach(function (el) { el.classList.remove('has-err'); });
     document.querySelectorAll('input.err, select.err').forEach(function (el) { el.classList.remove('err'); });
@@ -2365,15 +2612,17 @@
     ph.addEventListener('input', function () {
       var pos = this.selectionStart;
       var prev = this.value;
-      this.value = formatPhone(this.value);
-      var diff = this.value.length - prev.length;
+      var formatted = formatPhone(this.value);
+      this.value = formatted;
+      // Adjust caret: if we added chars before caret, nudge it
+      var diff = formatted.length - prev.length;
       try { this.setSelectionRange(pos + diff, pos + diff); } catch(e){}
       this.classList.remove('err');
       var p = this.closest('.field'); if (p) p.classList.remove('has-err');
     });
   })();
 
-  /* Live postal formatting */
+  /* Live postal formatting for billing & shipping */
   ['f-bill-postal','f-ship-postal'].forEach(function (id) {
     var el = document.getElementById(id); if (!el) return;
     el.addEventListener('input', function () {
@@ -2403,7 +2652,7 @@
     });
   });
 
-  /* ── STEP 1: Contact ──────────────────────────────────────────── */
+
   function collectContact() {
     clearErrors();
     var first = document.getElementById('f-first').value.trim();
@@ -2416,6 +2665,7 @@
     if (!isPhone(phone)) { flagErr('f-phone', 'fg-phone'); ok = false; }
     if (!isEmail(email)) { flagErr('f-email', 'fg-email'); ok = false; }
     if (!ok) { var f = document.querySelector('.field.has-err input'); if (f) f.focus(); return null; }
+    // Store phone as digits-only for the worker
     var phoneDigits = phone.replace(/\D/g,'');
     return { plan_id: CB_PLAN_ID, sim_type: 'physical', first_name: first, last_name: last, phone: phoneDigits, email: email };
   }
@@ -2478,6 +2728,7 @@
       billing_postal:   v('f-bill-postal'),
 
       plan_id:     CB_PLAN_ID,
+      shipping_method: shippingMethod,
       price:       typeof BASE_PRICE !== 'undefined' ? BASE_PRICE : null,
       coupon_id:   typeof appliedCoupon !== 'undefined' ? appliedCoupon : null,
 
@@ -2487,7 +2738,7 @@
   }
 
   function sendAbandonSnapshot() {
-    if (abandonSent || checkoutCompleted) return;
+    if (abandonSent || checkoutCompleted || suppressAbandon) return;
     var snapshot = collectAbandonSnapshot();
     if (!snapshot) return;
     abandonSent = true; // one email per session, even if hide fires more than once
@@ -2508,11 +2759,20 @@
     checkoutCompleted = true; // suppress the abandonment ping on the redirect's pagehide
   }
 
-  // Fires when the visitor leaves — tab close, refresh, back button, app switch.
-  document.addEventListener('visibilitychange', function () {
-    if (document.visibilityState === 'hidden') sendAbandonSnapshot();
-  });
+  // Fires only when the visitor actually leaves the page — tab close, refresh,
+  // back button, navigating away. Deliberately NOT tied to visibilitychange, so
+  // switching apps or tabs (e.g. to check an email or a code) doesn't send.
   window.addEventListener('pagehide', sendAbandonSnapshot);
+
+  // Terms / Privacy (and any other new-tab link) must never count as leaving.
+  // Briefly suppress the ping after such a click as a belt-and-braces guard.
+  var suppressAbandon = false;
+  document.addEventListener('click', function (ev) {
+    var a = ev.target && ev.target.closest ? ev.target.closest('a[target="_blank"]') : null;
+    if (!a) return;
+    suppressAbandon = true;
+    setTimeout(function () { suppressAbandon = false; }, 2000);
+  }, true);
 
   /* ── GOOGLE PLACES AUTOCOMPLETE ───────────────────────────────── */
   var billPlaceSelected = false;
@@ -2528,10 +2788,9 @@
     input.addEventListener('input', function () {
       if (isBilling) billPlaceSelected = false;
       else           shipPlaceSelected = false;
-      document.getElementById(cityId).value = '';
-      var provSel = document.getElementById(provinceId);
-      if (provSel) provSel.value = '';
-      document.getElementById(postalId).value = '';
+      document.getElementById(cityId).value     = '';
+      document.getElementById(provinceId).value = '';
+      document.getElementById(postalId).value   = '';
     });
     ac.addListener('place_changed', function () {
       var place = ac.getPlace();
@@ -2547,13 +2806,16 @@
       });
       input.value = (streetNumber + ' ' + route).trim();
       document.getElementById(cityId).value = city;
+      // Province is now a <select> — set by value (2-letter code)
       var provSel = document.getElementById(provinceId);
-      if (provSel) { provSel.value = province; provSel.classList.remove('err'); var pfg = provSel.closest('.field'); if (pfg) pfg.classList.remove('has-err'); }
-      var posEl = document.getElementById(postalId);
-      if (posEl) { posEl.value = formatPostal(postal); posEl.classList.remove('err'); var pofg = posEl.closest('.field'); if (pofg) pofg.classList.remove('has-err'); }
+      if (provSel) provSel.value = province;
+      // Postal: format as A1A 1A1
+      document.getElementById(postalId).value = formatPostal(postal);
       input.classList.remove('err');
       var fg = document.getElementById(inputId.replace('f-', 'fg-'));
       if (fg) fg.classList.remove('has-err');
+      if (provSel) { provSel.classList.remove('err'); var pfg = provSel.closest('.field'); if (pfg) pfg.classList.remove('has-err'); }
+      var posEl = document.getElementById(postalId); if (posEl) { posEl.classList.remove('err'); var pgfg = posEl.closest('.field'); if (pgfg) pgfg.classList.remove('has-err'); }
       if (isBilling) billPlaceSelected = true;
       else           shipPlaceSelected = true;
     });
@@ -2580,10 +2842,10 @@
     var billCity     = document.getElementById('f-bill-city').value.trim();
     var billProvince = document.getElementById('f-bill-province').value.trim();
     var billPostal   = document.getElementById('f-bill-postal').value.trim();
-    if (!billStreet)           { flagErr('f-bill-street',   'fg-bill-street');   ok = false; }
-    if (!billCity)             { flagErr('f-bill-city',     'fg-bill-city');     ok = false; }
-    if (!billProvince)         { flagErr('f-bill-province', 'fg-bill-province'); ok = false; }
-    if (!isPostal(billPostal)) { flagErr('f-bill-postal',   'fg-bill-postal');   ok = false; }
+    if (!billStreet)              { flagErr('f-bill-street',   'fg-bill-street');   ok = false; }
+    if (!billCity)                { flagErr('f-bill-city',     'fg-bill-city');     ok = false; }
+    if (!billProvince)            { flagErr('f-bill-province', 'fg-bill-province'); ok = false; }
+    if (!isPostal(billPostal))    { flagErr('f-bill-postal',   'fg-bill-postal');   ok = false; }
 
     var sameAsBilling = document.getElementById('same-as-billing').checked;
     var shipStreet = billStreet, shipCity = billCity, shipProvince = billProvince, shipPostal = billPostal;
@@ -2601,13 +2863,17 @@
 
     if (!ok) { var f = document.querySelector('.field.has-err input, .field.has-err select'); if (f) f.focus(); return null; }
 
+    // Normalise postal codes: uppercase with space
+    var normBillPostal = formatPostal(billPostal);
+    var normShipPostal = formatPostal(shipPostal);
+
     return {
       billing: {
         line1:      billStreet,
         line2:      document.getElementById('f-bill-apt').value.trim(),
         city:       billCity,
         state_code: billProvince,
-        zip:        formatPostal(billPostal),
+        zip:        normBillPostal,
         country:    'CA'
       },
       shipping: {
@@ -2615,7 +2881,7 @@
         line2:      sameAsBilling ? document.getElementById('f-bill-apt').value.trim() : document.getElementById('f-ship-apt').value.trim(),
         city:       shipCity,
         state_code: shipProvince,
-        zip:        formatPostal(shipPostal),
+        zip:        normShipPostal,
         country:    'CA'
       }
     };
@@ -2685,7 +2951,7 @@
   function updateDueToday() {
     // Total = device/plan subtotal (after any promo discount) + tax.
     // Tax is $0 / hidden until we know the billing province.
-    var subtotal = Math.max(0, BASE_PRICE - discountAmount);
+    var subtotal = Math.max(0, BASE_PRICE - discountAmount) + shippingCost;
     var final    = subtotal + currentTaxAmount;
     var dollars  = Math.floor(final);
     var cents    = Math.round((final - dollars) * 100);
@@ -2752,7 +3018,7 @@
   // total on the page. Call this any time the province OR the discount
   // changes — both affect the tax amount.
   function refreshTotals() {
-    var subtotal = Math.max(0, BASE_PRICE - discountAmount);
+    var subtotal = Math.max(0, BASE_PRICE - discountAmount) + shippingCost;
     var info = currentTaxProvince ? CA_TAX_RATES[currentTaxProvince] : null;
     if (info) {
       currentTaxAmount = subtotal * info.rate;
@@ -3140,6 +3406,7 @@
       // ✅ Only reach here after verified success with a real subscription ID
       // Clear session data so a back-button can't re-submit
       try { sessionStorage.removeItem('m4l_order'); } catch(e) {}
+      try { localStorage.removeItem('m4l_checked_address'); } catch(e) {}
       markCheckoutCompleted();
       window.location.href = CONFIRM;
     })
@@ -3162,6 +3429,42 @@
   document.getElementById('accept-terms').addEventListener('change', function () {
     if (this.checked) document.getElementById('terms-err').classList.remove('show');
   });
+
+  /* ── PREFILL FROM THE ADDRESS CHECKED ON THE MAIN PAGE ────────────
+     index.html saves a verified (dropdown-selected) address to
+     localStorage for 24 hours. Fill the billing fields with it so the
+     customer doesn't retype it, and show tax right away. Runs last so
+     everything it touches is initialised. The abandoned-cart link takes
+     priority: if the billing fields were already filled from URL params
+     we leave them alone. Cleared after a successful payment. */
+  (function prefillFromCheckedAddress() {
+    var saved = null;
+    try { saved = JSON.parse(localStorage.getItem('m4l_checked_address') || 'null'); } catch (err) { return; }
+    if (!saved || !saved.exp || saved.exp < Date.now()) {
+      try { localStorage.removeItem('m4l_checked_address'); } catch (err) {}
+      return;
+    }
+
+    function el(id) { return document.getElementById(id); }
+    var ids = ['f-bill-street', 'f-bill-city', 'f-bill-province', 'f-bill-postal'];
+    for (var i = 0; i < ids.length; i++) {
+      if (el(ids[i]) && el(ids[i]).value.trim()) return; // URL params already filled billing
+    }
+    if (!saved.street || !saved.city || !saved.provinceCode || !saved.postal) return;
+
+    el('f-bill-street').value   = saved.street;
+    el('f-bill-city').value     = saved.city;
+    el('f-bill-province').value = saved.provinceCode;
+    el('f-bill-postal').value   = saved.postal;
+    if (el('f-bill-province').value !== saved.provinceCode) return; // code not in dropdown
+
+    var note = el('saved-addr-note');
+    if (note) note.style.display = 'block';
+
+    // Same-as-billing is the default, so this also sets the shipping province for tax.
+    updateTax(currentShippingProvince());
+  })();
+
 })();
 </script>
 </body>
