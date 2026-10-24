@@ -1926,6 +1926,18 @@
     hideResultPanel();
   });
 
+  /* Remember the most recent picked address for 24h so checkout can prefill it.
+     Province is stored as its code (e.g. QC) because the checkout dropdown uses codes. */
+  function saveCheckedAddress(street, city, provCode, postal, full) {
+    if (!street || !provCode) return;
+    try {
+      localStorage.setItem('m4l_checked_address', JSON.stringify({
+        street: street.trim(), city: city, provinceCode: provCode,
+        postal: postal, full: full, exp: Date.now() + 24 * 60 * 60 * 1000
+      }));
+    } catch (err) { /* storage blocked — checkout just won't prefill */ }
+  }
+
   /* Google Places autocomplete */
   function initAutocomplete() {
     if (typeof google === 'undefined' || !google.maps || !google.maps.places) return;
@@ -1939,14 +1951,14 @@
       var place = autocomplete.getPlace();
       if (!place || !place.geometry) return;
 
-      var street = '', city = '', prov = '', post = '';
+      var street = '', city = '', prov = '', post = '', provCode = '';
       hasStreetNumber = false;
       (place.address_components || []).forEach(function (c) {
         var t = c.types;
         if (t.includes('street_number')) { street = c.long_name + ' '; hasStreetNumber = true; }
         if (t.includes('route'))         street += c.long_name;
         if (t.includes('locality'))      city = c.long_name;
-        if (t.includes('administrative_area_level_1')) prov = c.long_name;
+        if (t.includes('administrative_area_level_1')) { prov = c.long_name; provCode = c.short_name; }
         if (t.includes('postal_code'))   post = c.long_name;
       });
 
@@ -1962,6 +1974,9 @@
       document.getElementById('jf_city').value   = city;
       document.getElementById('jf_state').value  = prov;
       document.getElementById('jf_postal').value = post;
+
+      /* Pass-through: remember the last picked address for checkout, even if the email is never submitted */
+      saveCheckedAddress(street, city, provCode, post, addressInput.value);
 
       emailModule.style.display = 'block';
       showStatus('Address found — enter your email to confirm coverage.', 'status-warning');
