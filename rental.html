@@ -1962,6 +1962,9 @@
         if (t.includes('postal_code'))   post = c.long_name;
       });
 
+      /* Pass-through: keep whatever Google autofill gave us, even without a house number */
+      saveCheckedAddress(street, city, provCode, post, addressInput.value);
+
       if (!hasStreetNumber) {
         addressSelected = false;
         showStatus('Please enter a full street address including a house or unit number.', 'status-warning');
