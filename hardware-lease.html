@@ -58,8 +58,8 @@
     "offers": [
       {
         "@type": "Offer",
-        "name": "Orbi LBR20 — Home Router, Best for Home",
-        "description": "Home-style wireless router (NETGEAR Orbi LBR20). Faster cellular modem, larger cellular antennas, wider Wi-Fi range, and up to 64 devices. External antenna ports. Unlimited data on major Canadian cellular networks.",
+        "name": "Orbi — Home Router, Best for Home",
+        "description": "Home-style wireless router (NETGEAR Orbi). Plugs into wall power and needs constant power, but is still portable. Faster cellular modem, larger cellular antennas, wider Wi-Fi range, and up to 64 devices. External antenna ports. Unlimited data on major Canadian cellular networks.",
         "price": "80.00",
         "priceCurrency": "CAD",
         "priceSpecification": { "@type": "UnitPriceSpecification", "price": "80.00", "priceCurrency": "CAD", "unitText": "month" }
@@ -67,7 +67,7 @@
       {
         "@type": "Offer",
         "name": "Nighthawk M1 — Portable Hotspot, Best for On the Move",
-        "description": "Battery-powered portable hotspot (NETGEAR Nighthawk M1). Compact, connects up to 20 devices, external antenna ports for weaker reception. Unlimited data on major Canadian cellular networks.",
+        "description": "Battery-powered, pocket-size portable hotspot (NETGEAR Nighthawk M1). Full day of battery on a single charge. Connects up to 20 devices, external antenna ports for weaker reception. Unlimited data on major Canadian cellular networks.",
         "price": "80.00",
         "priceCurrency": "CAD",
         "priceSpecification": { "@type": "UnitPriceSpecification", "price": "80.00", "priceCurrency": "CAD", "unitText": "month" }
@@ -192,12 +192,36 @@
 
     /* ═══════════════ HERO ═══════════════ */
     .hero {
-      padding:calc(var(--nav-h) + 48px) 0 var(--section-y); text-align:center; position:relative; overflow:hidden;
-      background:
-        radial-gradient(ellipse 70% 50% at 50% 0%, rgba(0,0,0,0.03) 0%, rgba(0,0,0,0) 70%),
-        linear-gradient(180deg,#ffffff 0%, var(--bg) 100%);
+      padding:calc(var(--nav-h) + 64px) 0 clamp(64px,10vw,96px); text-align:center; position:relative; overflow:hidden;
+      margin-bottom:clamp(48px,8vw,80px);
+      background:#16161a;
     }
-    .hero-inner { max-width:780px; margin:0 auto; padding:0 20px; }
+    /* Photo background (same image + treatment as the rental page) */
+    .hero-bg {
+      position:absolute; inset:0; z-index:0; background-color:#16161a;
+      background-image:url('assets/img/gallery/m1.webp');
+      background-size:cover; background-position:center 40%; background-repeat:no-repeat;
+    }
+    .hero-bg::before {
+      content:''; position:absolute; inset:0;
+      background:
+        radial-gradient(ellipse 60% 70% at 50% 45%, rgba(14,14,18,0.35) 0%, rgba(14,14,18,0) 100%),
+        linear-gradient(180deg, rgba(18,18,22,0.55) 0%, rgba(18,18,22,0.50) 50%, rgba(18,18,22,0.68) 100%);
+    }
+    .hero-inner { max-width:780px; margin:0 auto; padding:0 20px; position:relative; z-index:1; }
+
+    .hero-badge {
+      display:inline-flex; align-items:center; gap:7px; padding:6px 14px 6px 10px; margin-bottom:28px;
+      border:1px solid rgba(255,255,255,0.22); border-radius:var(--radius-full);
+      background:rgba(0,0,0,0.28); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+      font-size:0.66rem; font-weight:600; letter-spacing:0.16em; text-transform:uppercase; color:rgba(255,255,255,0.92);
+      opacity:0; transform:translateY(12px); animation:revealUp .7s var(--ease-out) .1s forwards;
+    }
+    .hero-badge-dot {
+      width:6px; height:6px; border-radius:50%; background:var(--green);
+      box-shadow:0 0 0 3px rgba(22,160,90,0.18); animation:badgePulse 2.5s ease infinite;
+    }
+    @keyframes badgePulse { 0%,100%{box-shadow:0 0 0 3px rgba(22,160,90,0.18)} 50%{box-shadow:0 0 0 6px rgba(22,160,90,0.08)} }
 
     .hero-title {
       font-size:clamp(2.7rem,9.5vw,5rem); font-weight:800; letter-spacing:-0.05em; line-height:1.02;
@@ -594,6 +618,61 @@
     @media (prefers-reduced-motion:reduce) {
       *, *::before, *::after { animation-duration:.01ms !important; transition-duration:.01ms !important; }
     }
+
+    /* ═══════════════ PREMIUM POLISH ═══════════════ */
+    /* Hero text + coverage checker, tuned for the photo background */
+    .hero-title { color:#fff; font-weight:800; text-shadow:0 2px 28px rgba(0,0,0,0.40), 0 1px 3px rgba(0,0,0,0.30); }
+    .hero-sub { color:rgba(255,255,255,0.92); text-shadow:0 1px 14px rgba(0,0,0,0.50), 0 1px 2px rgba(0,0,0,0.35); }
+    .coverage-label { color:rgba(255,255,255,0.78); text-shadow:0 1px 10px rgba(0,0,0,0.5); }
+    .coverage-module {
+      background:rgba(14,14,18,0.45); border-color:rgba(255,255,255,0.22);
+      backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+      box-shadow:0 8px 32px rgba(0,0,0,0.25), 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .coverage-module:focus-within { border-color:rgba(255,255,255,0.40); box-shadow:0 8px 40px rgba(0,0,0,0.35), 0 0 0 3px rgba(255,255,255,0.06); }
+    .coverage-module input { color:#f0f0f4; }
+    .coverage-module input::placeholder { color:rgba(240,240,244,0.62); }
+    .btn-coverage { background:#1d1d1f; box-shadow:inset 0 0 0 1px rgba(255,255,255,0.12); }
+    .btn-coverage:hover { background:#000; box-shadow:inset 0 0 0 1px rgba(255,255,255,0.18), 0 6px 20px rgba(0,0,0,0.3); }
+    .status-warning { color:rgba(255,255,255,0.88); text-shadow:0 1px 10px rgba(0,0,0,0.5); }
+    .status-unavailable { color:#ff8aa0; text-shadow:0 1px 10px rgba(0,0,0,0.5); }
+    .status-available { color:#5fd69b; }
+    .htrust-item { color:rgba(255,255,255,0.90); text-shadow:0 1px 10px rgba(0,0,0,0.5); }
+    .htrust-item svg { stroke:rgba(255,255,255,0.80); }
+
+    /* Subtle refinements across the page */
+    ::selection { background:rgba(215,60,89,0.18); }
+    :focus-visible { outline-color:var(--red); }
+    .nav-links .nav-portal a { color:var(--red); }
+    .mobile-nav-links .portal-link a { color:var(--red); }
+    .plan-card { border-radius:22px; box-shadow:0 1px 2px rgba(0,0,0,0.04), 0 16px 40px rgba(0,0,0,0.05); }
+    .plan-card.featured { box-shadow:0 24px 64px rgba(20,20,24,0.30); }
+    .plan-card.featured::before {
+      content:''; position:absolute; top:-60px; right:-60px; width:200px; height:200px; border-radius:50%;
+      background:radial-gradient(circle, rgba(215,60,89,0.12) 0%, transparent 70%); pointer-events:none;
+    }
+    .plan-card:hover { transform:translateY(-5px); box-shadow:0 28px 64px rgba(0,0,0,0.09); }
+    .plan-card.featured:hover { box-shadow:0 28px 64px rgba(0,0,0,0.35); }
+    .btn-cta { padding:17px 28px; }
+    .how-list { border-radius:22px; }
+    .accordion-body p { line-height:1.8; }
+    .final { background:radial-gradient(ellipse 60% 80% at 50% 0%, rgba(215,60,89,0.10) 0%, rgba(215,60,89,0) 70%), var(--bg-dark); }
+
+    .how-card { background:var(--bg-card); border:1px solid var(--border); border-radius:22px; overflow:hidden; box-shadow:0 1px 2px rgba(0,0,0,0.04), 0 16px 40px rgba(0,0,0,0.04); }
+    .how-list { border:none; border-radius:0; box-shadow:none; background:transparent; }
+    .how-foot { display:flex; flex-direction:column; align-items:center; gap:10px 24px; padding:18px 22px; border-top:1px solid var(--border-soft); background:var(--bg-alt); text-align:center; }
+    .how-foot p { font-size:0.84rem; color:var(--ink-3); }
+    .how-link { display:inline-flex; align-items:center; gap:8px; font-size:0.92rem; font-weight:700; color:var(--ink); text-decoration:none; border-bottom:1.5px solid var(--border); padding-bottom:2px; white-space:nowrap; transition:border-color .2s; }
+    .how-link:hover { border-color:var(--red); }
+    .how-link svg { width:13px; height:13px; stroke:currentColor; stroke-width:2.2; fill:none; transition:transform .3s var(--spring); }
+    .how-link:hover svg { transform:translateX(3px); }
+    @media (min-width:700px) { .how-foot { flex-direction:row; justify-content:space-between; padding:18px 30px; text-align:left; } }
+    .price-tax { font-size:1.15rem; font-weight:700; letter-spacing:-0.02em; color:var(--ink-3); margin-left:8px; align-self:flex-end; padding-bottom:8px; }
+    .plan-card.featured .price-tax { color:var(--ink-on-dark-2); }
+    .renewal-note { text-align:center; font-size:0.84rem; color:var(--ink-3); margin-top:14px; }
+    .renewal-note strong { color:var(--ink); font-weight:700; }
+    .plan-card.featured .renewal-note { color:var(--ink-on-dark-2); }
+    .plan-card.featured .renewal-note strong { color:var(--ink-on-dark); }
   </style>
 </head>
 <body>
@@ -629,14 +708,20 @@
 
 <!-- ═══════════════ HERO + COVERAGE CHECKER ═══════════════ -->
 <section class="hero" id="coverage">
+  <div class="hero-bg" role="presentation" aria-hidden="true"></div>
   <div class="hero-inner">
+
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      Wireless Internet · Canada
+    </div>
 
     <h1 class="hero-title">
       Fast Internet,<br>Without the <em>Wires.</em>
     </h1>
 
     <p class="hero-sub">
-      Wireless internet over major Canadian cellular networks, for home or on the move. No limits, no wires, no installation.
+      Fast, dependable wireless internet for your home, cottage, RV, or job site. Anywhere in Canada. No commitment. No hidden fees.
     </p>
 
     <!-- Coverage Checker (lead capture) -->
@@ -675,15 +760,15 @@
     <div class="hero-trust">
       <div class="htrust-item">
         <svg viewBox="0 0 14 14" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5,7.5 5.5,10.5 11.5,3.5"/></svg>
-        No contract
+        No Contract
       </div>
       <div class="htrust-item">
         <svg viewBox="0 0 14 14" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5,7.5 5.5,10.5 11.5,3.5"/></svg>
-        Free shipping &amp; activation
+        Free Shipping &amp; Activation
       </div>
       <div class="htrust-item">
         <svg viewBox="0 0 14 14" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5,7.5 5.5,10.5 11.5,3.5"/></svg>
-        30-day guarantee
+        30-Day Guarantee
       </div>
     </div>
 
@@ -698,7 +783,8 @@
       <h2 class="section-title">From Order to Online in Four Steps.</h2>
     </div>
 
-    <ol class="how-list">
+    <div class="how-card">
+      <ol class="how-list">
       <li class="how-item">
         <div class="how-num">1</div>
         <div>
@@ -710,31 +796,29 @@
         <div class="how-num">2</div>
         <div>
           <h3>Choose Your Device</h3>
-          <p>Orbi LBR20 for home or Nighthawk M1 on the move. Same $80/month plan.</p>
+          <p>Orbi for home, Nighthawk M1 on the move. Same $80/month plan.</p>
         </div>
       </li>
       <li class="how-item">
         <div class="how-num">3</div>
         <div>
           <h3>Place Your Order</h3>
-          <p>Secure checkout. $80 + tax today, then $80/month, month to month.</p>
+          <p>Secure checkout. $80 + tax today, then $80/month. Cancel anytime.</p>
         </div>
       </li>
       <li class="how-item">
         <div class="how-num">4</div>
         <div>
           <h3>Plug In &amp; Connect</h3>
-          <p>Ships free in 1–2 business days with an activated SIM. No technician or installation: plug in and join the Wi-Fi.</p>
+          <p>Ships free in 1–2 days, pre-activated. Plug in and join the Wi-Fi.</p>
         </div>
       </li>
     </ol>
 
-    <div class="order-cta">
-      <div>
-        <h3>Ready to get online?</h3>
+    <div class="how-foot">
         <p>$80/month · Month to month · Cancel anytime from your portal</p>
+        <a href="#pricing" class="how-link">Order internet today <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg></a>
       </div>
-      <a href="#pricing" class="btn-order">Order Internet Today <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg></a>
     </div>
   </div>
 </section>
@@ -744,20 +828,20 @@
   <div class="wrap">
     <div class="section-head center">
       <div class="eyebrow">Step 2: Choose Your Device</div>
-      <h2 class="section-title">One Plan. Two Devices.</h2>
+      <h2 class="section-title">Unlimited Internet: Two Device Options</h2>
       <p class="section-lead">Unlimited data with no caps or throttling, for $80/month on either one. Pick the one that fits how you'll use it.</p>
     </div>
 
     <div class="pricing-grid">
 
-      <!-- CARD 1: Orbi LBR20 (home) -->
+      <!-- CARD 1: Orbi (home) -->
       <div class="plan-card featured" id="card-home">
         <div class="card-meta">
           <div class="card-category">Best For: Primary Use at Home</div>
           <div class="card-badge">Best for Home</div>
         </div>
-        <div class="card-title">Orbi LBR20</div>
-        <div class="card-subtitle">A home-style router with a wide Wi-Fi range. Still portable, and not tied to one address.</div>
+        <div class="card-title">Orbi</div>
+        <div class="card-subtitle">A home-style router with a wide Wi-Fi range. It plugs into wall power and needs constant power, but it's still portable and not tied to one address.</div>
 
         <div class="card-device-row">
           <div class="card-price-block">
@@ -765,10 +849,11 @@
             <div class="price-main">
               <span class="price-currency">$</span>
               <span class="price-number">80</span>
+              <span class="price-tax">+ tax</span>
             </div>
-            <div class="price-qualifier">+ tax, then $80/month</div>
+            <div class="price-qualifier">Free shipping &amp; activation</div>
           </div>
-          <img src="assets/img/products/LBR20.png" alt="Netgear LBR20" class="card-device-img">
+          <img src="assets/img/products/LBR20.png" alt="Netgear Orbi" class="card-device-img">
         </div>
 
         <div class="card-divider"></div>
@@ -777,7 +862,11 @@
         <ul class="feature-list">
           <li class="feature-item">
             <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-            <span>NETGEAR Orbi LBR20 Home-Style Router <span class="feat-free">Free Rental</span></span>
+            <span>NETGEAR Orbi Home-Style Router <span class="feat-free">Free Rental</span></span>
+          </li>
+          <li class="feature-item">
+            <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+            <span>Plugs Into Wall Power (Constant Power Required), Still Portable</span>
           </li>
           <li class="feature-item">
             <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
@@ -802,11 +891,7 @@
           <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg>
         </a>
 
-
-        <div class="btn-lock">
-          <svg viewBox="0 0 14 14" stroke-linecap="round"><rect x="2" y="6" width="10" height="7" rx="1.5"/><path d="M4.5 6V4.5a2.5 2.5 0 015 0V6"/></svg>
-          Secure Checkout · SSL Encrypted
-        </div>
+        <div class="renewal-note">Renews at <strong>$80/mo</strong> · Cancel anytime</div>
       </div>
 
       <!-- CARD 2: Nighthawk M1 (on the move) -->
@@ -815,7 +900,7 @@
           <div class="card-category">Best For: On the Move</div>
         </div>
         <div class="card-title">Nighthawk M1</div>
-        <div class="card-subtitle">A battery-powered pocket-size hotspot that goes where you go.</div>
+        <div class="card-subtitle">A battery-powered, pocket-size hotspot with a full day of battery on a single charge. It goes where you go.</div>
 
         <div class="card-device-row">
           <div class="card-price-block">
@@ -823,8 +908,9 @@
             <div class="price-main">
               <span class="price-currency">$</span>
               <span class="price-number">80</span>
+              <span class="price-tax">+ tax</span>
             </div>
-            <div class="price-qualifier">+ tax, then $80/month</div>
+            <div class="price-qualifier">Free shipping &amp; activation</div>
           </div>
           <img src="assets/img/products/mr1100.png" alt="Netgear Nighthawk M1" class="card-device-img">
         </div>
@@ -847,7 +933,11 @@
           </li>
           <li class="feature-item">
             <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-            <span>Battery-Powered, Compact, and Portable</span>
+            <span>Battery-Powered and Pocket-Size</span>
+          </li>
+          <li class="feature-item">
+            <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
+            <span>Full Day of Battery on a Single Charge</span>
           </li>
           <li class="feature-item">
             <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
@@ -860,11 +950,7 @@
           <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg>
         </a>
 
-
-        <div class="btn-lock">
-          <svg viewBox="0 0 14 14" stroke-linecap="round"><rect x="2" y="6" width="10" height="7" rx="1.5"/><path d="M4.5 6V4.5a2.5 2.5 0 015 0V6"/></svg>
-          Secure Checkout · SSL Encrypted
-        </div>
+        <div class="renewal-note">Renews at <strong>$80/mo</strong> · Cancel anytime</div>
       </div>
 
     </div>
@@ -903,7 +989,7 @@
             <div class="accordion-toggle"></div>
           </button>
           <div class="accordion-body">
-            <p><strong>Mostly at home? Choose the Orbi LBR20.</strong> It has a faster modem, larger cellular antennas for better reliability, and a larger Wi-Fi range for a home. It connects up to 64 devices.<br><br><strong>Mostly on the move? Choose the Nighthawk M1.</strong> It's battery-powered and compact, and made for travel, camping, RVs, job sites, cottages, and remote work. It connects up to 20 devices.<br><br>Both use the same wireless service and have external antenna ports.</p>
+            <p><strong>Mostly at home? Choose the Orbi.</strong> It has a faster modem, larger cellular antennas for better reliability, and a larger Wi-Fi range for a home. It connects up to 64 devices. It plugs into wall power and needs constant power, but it's still portable.<br><br><strong>Mostly on the move? Choose the Nighthawk M1.</strong> It's battery-powered and pocket-size, with a full day of battery on a single charge. It's made for travel, camping, RVs, job sites, cottages, and remote work. It connects up to 20 devices.<br><br>Both use the same wireless service and have external antenna ports.</p>
           </div>
         </div>
 
@@ -933,7 +1019,7 @@
             <div class="accordion-toggle"></div>
           </button>
           <div class="accordion-body">
-            <p>Yes. The service isn't tied to one address. Take your device to any location where More4Less service is available. That includes the Orbi LBR20. Before you go, use the coverage checker at the top of this page to confirm service at the new location.</p>
+            <p>Yes. The service isn't tied to one address. Take your device to any location where More4Less service is available. That includes the Orbi. It needs constant power, so just plug it in at the new location. Before you go, use the coverage checker at the top of this page to confirm service at the new location.</p>
           </div>
         </div>
 
@@ -955,7 +1041,7 @@
 <!-- ═══════════════ FINAL CTA ═══════════════ -->
 <section class="final">
   <div class="wrap">
-    <h2>Ready to Go <em>Wire-Free?</em></h2>
+    <h2>Ready to Go <em>Wireless?</em></h2>
     <p>Check your address in seconds, choose your device, and have it delivered ready to use.</p>
     <a href="#coverage" class="btn-solid">
       Check Coverage
