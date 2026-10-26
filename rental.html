@@ -392,9 +392,9 @@
     .card-badge {
       flex-shrink:0; padding:4px 11px; border-radius:var(--radius-full);
       font-size:0.64rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase;
-      background:var(--red-glow); color:var(--red); border:1px solid rgba(215,60,89,0.25);
+      background:var(--green-bg); color:var(--green); border:1px solid var(--green-border);
     }
-    .plan-card.featured .card-badge { background:rgba(215,60,89,0.16); color:#ff8aa0; border-color:rgba(255,138,160,0.30); }
+    .plan-card.featured .card-badge { background:var(--green-bg); color:var(--green); border-color:var(--green-border); }
     .card-meta { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px 12px; min-height:26px; margin-bottom:12px; }
     .card-category { font-size:0.68rem; font-weight:700; letter-spacing:0.13em; text-transform:uppercase; color:var(--ink-3); margin:0; }
     .plan-card.featured .card-meta { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px 12px; min-height:26px; margin-bottom:12px; }
@@ -670,20 +670,22 @@
     }
     .how-num::before {
       content:''; position:absolute; inset:-14px; border-radius:50%; z-index:-1; pointer-events:none;
-      background:radial-gradient(circle, rgba(215,60,89,0.13) 0%, rgba(215,60,89,0.05) 42%, rgba(215,60,89,0) 70%);
-      transition:transform .6s var(--spring);
+      background:radial-gradient(circle, rgba(215,60,89,0.12) 0%, rgba(215,60,89,0.045) 45%, rgba(215,60,89,0) 70%);
+      opacity:0; transform:scale(0.9); transition:opacity .5s ease;
     }
-    .how-item:hover .how-num::before { transform:scale(1.35); }
+    .how-item:hover .how-num::before { opacity:1; animation:stepOrb 2.4s ease-in-out infinite; }
+    @keyframes stepOrb { 0%,100% { transform:scale(0.95); opacity:.65; } 50% { transform:scale(1.2); opacity:1; } }
 
     /* Compact step badges: number sits on the same line as the title */
     .how-item, .how-item + .how-item { display:grid; grid-template-columns:auto 1fr; column-gap:12px; row-gap:8px; align-items:center; }
     .how-item > div:not(.how-num) { display:contents; }
     .how-num { width:28px; height:28px; font-size:0.8rem; }
-    .how-num::before { inset:-8px; }
+    .how-num::before { inset:-9px; }
     .how-item h3 { margin-bottom:0; }
     .how-item p { grid-column:1 / -1; }
     @media (min-width:1020px) {
-      .how-item { display:grid; gap:8px 12px; align-content:start; }
+      .how-item { display:grid; gap:8px 10px; align-content:start; padding:32px 22px 34px; }
+      .how-item h3 { white-space:nowrap; text-wrap:nowrap; font-size:1.02rem; }
     }
 
     .how-card { background:var(--bg-card); border:1px solid var(--border); border-radius:22px; overflow:hidden; box-shadow:0 1px 2px rgba(0,0,0,0.04), 0 16px 40px rgba(0,0,0,0.04); }
@@ -701,6 +703,47 @@
     .renewal-note strong { color:var(--ink); font-weight:700; }
     .plan-card.featured .renewal-note { color:var(--ink-on-dark-2); }
     .plan-card.featured .renewal-note strong { color:var(--ink-on-dark); }
+
+    /* Shared details strip above the pricing cards */
+    .shared-strip { margin:-8px 0 clamp(28px,5vw,40px); }
+    .shared-label {
+      display:flex; align-items:center; gap:16px; margin-bottom:14px;
+      font-size:0.66rem; font-weight:700; letter-spacing:0.13em; text-transform:uppercase; color:var(--ink-3); text-align:left;
+    }
+    .shared-label::after { content:''; flex:1 1 auto; height:1px; background:var(--border-soft); min-width:16px; }
+    .shared-list { list-style:none; display:grid; grid-template-columns:1fr; gap:8px 24px; }
+    .shared-item { display:flex; align-items:flex-start; gap:10px; font-size:0.86rem; line-height:1.45; color:var(--ink-2); text-align:left; }
+    .shared-check {
+      width:18px; height:18px; border-radius:50%; background:var(--green-bg); border:1px solid var(--green-border);
+      display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px;
+    }
+    .shared-check svg { width:8px; height:8px; stroke:var(--green); stroke-width:3; fill:none; }
+    @media (min-width:700px) { .shared-list { grid-template-columns:1fr 1fr; } }
+    @media (min-width:960px) { .shared-list { grid-template-columns:repeat(4,1fr); } }
+
+    /* Equal-height pricing cards: rows stretch, feature list absorbs spare space so CTAs line up */
+    .pricing-grid { align-items:stretch; grid-auto-rows:1fr; }
+    .plan-card { height:100%; }
+    .plan-card .feature-list { flex:1 1 auto; }
+
+    /* Compact pricing cards on phones to cut scrolling */
+    @media (max-width:640px) {
+      .pricing-grid { gap:16px; }
+      .plan-card { padding:22px 18px 18px; }
+      .card-meta { min-height:0; margin-bottom:8px; }
+      .card-category { display:none; }
+      .card-title { font-size:1.5rem; margin-bottom:4px; }
+      .card-subtitle { font-size:0.85rem; line-height:1.45; margin-bottom:14px; }
+      .card-device-row { min-height:0; margin-bottom:14px; }
+      .card-device-img { width:84px; height:84px; }
+      .price-number { font-size:3rem; }
+      .price-tax { font-size:1rem; padding-bottom:5px; }
+      .card-divider { margin-bottom:12px; }
+      .included-label { margin-bottom:4px; }
+      .feature-list { margin-bottom:18px; }
+      .feature-item { padding:8px 0; font-size:0.85rem; line-height:1.4; gap:10px; }
+      .btn-cta { padding:14px 24px; }
+    }
   </style>
 </head>
 <body>
@@ -808,7 +851,7 @@
   <div class="wrap">
     <div class="section-head center">
       <div class="eyebrow">How It Works</div>
-      <h2 class="section-title">From Order to Online in Four Steps.</h2>
+      <h2 class="section-title">Unlimited Internet, Made Easy</h2>
     </div>
 
     <div class="how-card">
@@ -824,14 +867,14 @@
         <div class="how-num">2</div>
         <div>
           <h3>Choose Your Device</h3>
-          <p>Pick by main use: Orbi for home, Nighthawk M1 on the go. Same $80/month plan.</p>
+          <p>Pick by main use: Orbi for home, Nighthawk M1 on the go. Same price.</p>
         </div>
       </li>
       <li class="how-item">
         <div class="how-num">3</div>
         <div>
           <h3>Place Your Order</h3>
-          <p>Secure checkout. $80 + tax today, then $80/month. Cancel anytime.</p>
+          <p>Secure checkout. Subscribe for $80 + tax per month. Cancel anytime.</p>
         </div>
       </li>
       <li class="how-item">
@@ -855,9 +898,19 @@
 <section class="pricing" id="pricing">
   <div class="wrap">
     <div class="section-head center">
-      <div class="eyebrow">Step 2: Choose Your Device</div>
-      <h2 class="section-title">Two Device Options.</h2>
-      <p class="section-lead">Both devices include unlimited data for $80/month, with no data caps or throttling. Choose the one that best suits how you’ll use your internet, whether at home or on the go.</p>
+      <div class="eyebrow">Choose Your Device</div>
+      <h2 class="section-title">Choose the One That Fits How You Use It.</h2>
+      <p class="section-lead">You’ll get the best performance from the device built for your use. Every device is fully portable and not tied to a single address &mdash; they work anywhere service is available.</p>
+    </div>
+
+    <div class="shared-strip">
+      <div class="shared-label"><span>Unlimited Internet. Complete Freedom. &mdash; Included With Both Devices</span></div>
+      <ul class="shared-list">
+        <li class="shared-item"><span class="shared-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></span><span>Truly Unlimited Internet &mdash; No Caps, No Throttling</span></li>
+        <li class="shared-item"><span class="shared-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></span><span>Canada-Wide Coverage &mdash; Not Tied to One Address</span></li>
+        <li class="shared-item"><span class="shared-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></span><span>Month-to-Month &mdash; Cancel Anytime</span></li>
+        <li class="shared-item"><span class="shared-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></span><span>Setup in Minutes &mdash; No Installation Needed</span></li>
+      </ul>
     </div>
 
     <div class="pricing-grid">
@@ -866,10 +919,10 @@
       <div class="plan-card featured" id="card-home">
         <div class="card-meta">
           <div class="card-category">Best For: Primary Use at Home</div>
-          <div class="card-badge">Best for Home</div>
+          
         </div>
         <div class="card-title">Orbi</div>
-        <div class="card-subtitle">A home-style router with a wide Wi-Fi range. It plugs into wall power and needs constant power, but it's still portable and not tied to one address.</div>
+        <div class="card-subtitle">A home-style router with a wide Wi-Fi range. It plugs into wall power and needs constant power.</div>
 
         <div class="card-device-row">
           <div class="card-price-block">
@@ -879,13 +932,12 @@
               <span class="price-number">80</span>
               <span class="price-tax">+ tax</span>
             </div>
-            <div class="price-qualifier">Free shipping &amp; activation</div>
           </div>
           <img src="/assets/img/products/LBR20.png" alt="Netgear Orbi" class="card-device-img">
         </div>
 
         <div class="card-divider"></div>
-        <div class="included-label">Everything Included</div>
+        <div class="included-label">What&rsquo;s Included</div>
 
         <ul class="feature-list">
           <li class="feature-item">
@@ -894,23 +946,23 @@
           </li>
           <li class="feature-item">
             <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-            <span>Plugs Into Wall Power (Constant Power Required), Still Portable</span>
+            <span>Free Shipping &amp; Handling</span>
           </li>
           <li class="feature-item">
             <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-            <span>Faster Modem and Larger Cellular Antennas</span>
+            <span>Activation &amp; Pre-Installed SIM Card</span>
           </li>
           <li class="feature-item">
             <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-            <span>Connect Up To 64 Devices</span>
+            <span>Tri-Band Wi-Fi Covering Up to 2,000 sq ft</span>
           </li>
           <li class="feature-item">
             <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-            <span>Larger Wi-Fi Range for Your Home</span>
+            <span>Connects Up to 64 Devices for the Whole Household</span>
           </li>
           <li class="feature-item">
             <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-            <span>External Antenna Ports for Weaker Reception</span>
+            <span>2 Gigabit Ethernet Ports + 2 External Antenna Ports</span>
           </li>
         </ul>
 
@@ -919,14 +971,14 @@
           <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg>
         </a>
 
-        <div class="renewal-note">Renews at <strong>$80/mo</strong> · Cancel anytime</div>
+        <div class="renewal-note">Renews at <strong>$80/mo</strong></div>
       </div>
 
       <!-- CARD 2: Nighthawk M1 (on the move) -->
       <div class="plan-card" id="card-mobile">
         <div class="card-meta">
           <div class="card-category">Best For: Primary Use on the Go</div>
-          <div class="card-badge">Best on the Go</div>
+         
         </div>
         <div class="card-title">Nighthawk M1</div>
         <div class="card-subtitle">A battery-powered, pocket-size hotspot with a full day of battery on a single charge. It goes where you go.</div>
@@ -939,13 +991,12 @@
               <span class="price-number">80</span>
               <span class="price-tax">+ tax</span>
             </div>
-            <div class="price-qualifier">Free shipping &amp; activation</div>
           </div>
           <img src="/assets/img/products/mr1100.png" alt="Netgear Nighthawk M1" class="card-device-img">
         </div>
 
         <div class="card-divider"></div>
-        <div class="included-label">Everything Included</div>
+        <div class="included-label">What&rsquo;s Included</div>
 
         <ul class="feature-list">
           <li class="feature-item">
@@ -954,23 +1005,23 @@
           </li>
           <li class="feature-item">
             <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-            <span>Up to 1 Gbps Wireless (Varies by Coverage)</span>
+            <span>Free Shipping &amp; Handling</span>
           </li>
           <li class="feature-item">
             <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-            <span>Connect Up To 20 Devices</span>
+            <span>Activation &amp; Pre-Installed SIM Card</span>
           </li>
           <li class="feature-item">
             <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-            <span>Battery-Powered and Pocket-Size</span>
+            <span>Up to 24-Hour Battery &mdash; or Plug It In</span>
           </li>
           <li class="feature-item">
             <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-            <span>Full Day of Battery on a Single Charge</span>
+            <span>Connects Up to 20 Devices on Dual-Band Wi-Fi</span>
           </li>
           <li class="feature-item">
             <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-            <span>External Antenna Ports for Weaker Reception</span>
+            <span>1 Gigabit Ethernet Port + 2 External Antenna Ports</span>
           </li>
         </ul>
 
@@ -979,7 +1030,7 @@
           <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg>
         </a>
 
-        <div class="renewal-note">Renews at <strong>$80/mo</strong> · Cancel anytime</div>
+        <div class="renewal-note">Renews at <strong>$80/mo</strong></div>
       </div>
 
     </div>
