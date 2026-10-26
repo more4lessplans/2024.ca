@@ -116,7 +116,7 @@
     }
     ::selection { background:rgba(0,0,0,0.12); }
     :focus-visible { outline:2px solid var(--ink); outline-offset:3px; }
-    .nav :focus-visible, .mobile-overlay :focus-visible, .promises :focus-visible, .final :focus-visible, .plan-card.featured :focus-visible { outline-color:#fff; }
+    .nav :focus-visible, .mobile-overlay :focus-visible, .order-cta :focus-visible, .final :focus-visible, .plan-card.featured :focus-visible { outline-color:#fff; }
     h1, h2, h3 { text-wrap:balance; } p { text-wrap:pretty; }
     section[id] { scroll-margin-top:calc(var(--nav-h) + 8px); }
 
@@ -126,7 +126,7 @@
       color:var(--red); margin-bottom:16px;
     }
     .section-title {
-      font-size:clamp(1.9rem,5.2vw,2.9rem); font-weight:700; letter-spacing:-0.04em;
+      font-size:clamp(1.9rem,5.2vw,2.9rem); font-weight:800; letter-spacing:-0.04em;
       line-height:1.08; color:var(--ink); margin-bottom:14px;
     }
     .section-lead {
@@ -199,20 +199,8 @@
     }
     .hero-inner { max-width:780px; margin:0 auto; padding:0 20px; }
 
-    .hero-badge {
-      display:inline-flex; align-items:center; gap:8px; padding:7px 15px 7px 11px;
-      border:1px solid var(--border); border-radius:var(--radius-full); background:#fff;
-      font-size:0.7rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-3); margin-bottom:28px;
-      opacity:0; transform:translateY(12px); animation:revealUp .7s var(--ease-out) .1s forwards;
-    }
-    .hero-badge-dot {
-      width:6px; height:6px; border-radius:50%; background:var(--green);
-      box-shadow:0 0 0 3px rgba(22,160,90,0.18); animation:pulse 2.5s ease infinite;
-    }
-    @keyframes pulse { 0%,100%{box-shadow:0 0 0 3px rgba(22,160,90,0.18)} 50%{box-shadow:0 0 0 6px rgba(22,160,90,0.08)} }
-
     .hero-title {
-      font-size:clamp(2.7rem,9.5vw,5rem); font-weight:700; letter-spacing:-0.05em; line-height:1.02;
+      font-size:clamp(2.7rem,9.5vw,5rem); font-weight:800; letter-spacing:-0.05em; line-height:1.02;
       color:var(--ink); margin-bottom:24px;
       opacity:0; transform:translateY(16px); animation:revealUp .75s var(--ease-out) .2s forwards;
     }
@@ -223,21 +211,12 @@
       max-width:600px; margin:0 auto 24px; font-weight:500;
       opacity:0; transform:translateY(14px); animation:revealUp .75s var(--ease-out) .32s forwards;
     }
-    .hero-ready {
-      display:flex; align-items:flex-start; gap:12px; text-align:left; max-width:600px; margin:0 auto 40px; padding:16px 20px;
-      background:var(--green-bg); border:1px solid var(--green-border); border-radius:var(--radius-lg);
-      font-size:0.92rem; color:var(--ink-2); line-height:1.5;
-      opacity:0; transform:translateY(14px); animation:revealUp .75s var(--ease-out) .4s forwards;
-    }
-    .hero-ready svg { width:18px; height:18px; flex-shrink:0; margin-top:2px; stroke:var(--green); stroke-width:2.4; fill:none; }
-    .hero-ready strong { color:var(--ink); font-weight:700; }
-
     /* Coverage checker */
     .coverage-wrap {
       max-width:600px; margin:0 auto 40px;
       opacity:0; transform:translateY(14px); animation:revealUp .75s var(--ease-out) .48s forwards;
     }
-    .coverage-label { font-size:0.8rem; font-weight:600; color:var(--ink-3); letter-spacing:0.02em; margin-bottom:12px; }
+    .coverage-label { font-size:0.8rem; font-weight:700; color:var(--ink-3); letter-spacing:0.02em; margin-bottom:12px; }
     .coverage-module {
       background:#fff; border:1.5px solid var(--border); border-radius:var(--radius-xl);
       padding:6px; display:flex; align-items:center; margin-bottom:10px;
@@ -285,66 +264,76 @@
     .pac-item:hover, .pac-item-selected { background:var(--green-bg) !important; }
     .pac-icon { margin-top:3px; filter:grayscale(1) opacity(0.55); }
     .pac-item-query { font-size:0.9rem; font-weight:600; color:var(--ink); }
-    .pac-matched { font-weight:700; color:var(--ink); }
+    .pac-matched { font-weight:800; color:var(--ink); }
 
     /* Trust row */
     .hero-trust {
-      display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:12px 8px;
+      display:flex; align-items:center; justify-content:center; flex-wrap:nowrap; gap:0;
       opacity:0; transform:translateY(10px); animation:revealUp .7s var(--ease-out) .58s forwards;
     }
     .htrust-item {
-      display:flex; align-items:center; gap:7px; font-size:0.8rem; font-weight:600;
-      color:var(--ink-2); padding:0 14px; white-space:nowrap;
+      display:flex; align-items:center; gap:7px; font-size:clamp(0.6rem,2.7vw,0.8rem); font-weight:600; color:var(--ink-2); padding:0 clamp(4px,1.6vw,14px); white-space:nowrap;
     }
     .htrust-item svg { width:14px; height:14px; stroke:var(--green); stroke-width:2.2; fill:none; flex-shrink:0; }
-
-    /* ═══════════════ PROMISES ═══════════════ */
-    .promises { background:var(--bg-dark); padding:clamp(48px,8vw,72px) 0; }
-    .promises-grid { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--border-dark); border-radius:var(--radius-lg); overflow:hidden; }
-    .value-item { background:var(--bg-dark); padding:32px 22px; opacity:0; transform:translateY(16px); }
-    .value-item.anim-in { animation:revealUp .7s var(--ease-out) forwards; }
-    .value-item:nth-child(2).anim-in { animation-delay:.08s; }
-    .value-item:nth-child(3).anim-in { animation-delay:.16s; }
-    .value-item:nth-child(4).anim-in { animation-delay:.24s; }
-    .vi-number { font-size:clamp(1.35rem,5vw,2.2rem); font-weight:700; letter-spacing:-0.045em; color:var(--ink-on-dark); line-height:1.05; margin-bottom:10px; }
-    .vi-number span { color:var(--red); }
-    .vi-label { font-size:0.88rem; color:var(--ink-on-dark-2); line-height:1.55; }
-
-    /* ═══════════════ READY TO USE ═══════════════ */
-    .ready { padding:var(--section-y) 0 calc(var(--section-y) * 0.5); }
-    .ready-card {
-      background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-xl); padding:40px 24px;
-      box-shadow:0 1px 2px rgba(0,0,0,0.04), 0 16px 40px rgba(0,0,0,0.04);
-    }
-    .ready-steps { display:grid; gap:24px; margin-top:40px; }
-    .ready-step { display:flex; gap:16px; align-items:flex-start; }
-    .ready-num {
-      width:40px; height:40px; border-radius:50%; background:var(--ink); color:#fff;
-      font-weight:700; font-size:1rem; display:flex; align-items:center; justify-content:center; flex-shrink:0;
-    }
-    .ready-step h3 { font-size:1.1rem; font-weight:700; letter-spacing:-0.02em; margin-bottom:3px; }
-    .ready-step p { font-size:0.94rem; color:var(--ink-3); line-height:1.55; }
-    .ready-foot {
-      margin-top:40px; padding-top:28px; border-top:1px solid var(--border-soft);
-      font-size:0.95rem; color:var(--ink-2); font-weight:600;
+    @media (max-width:520px) {
+      .hero-trust { margin:0 -12px; }
+      .htrust-item { font-size:clamp(0.56rem,2.9vw,0.7rem); padding:0 4px; gap:3px; letter-spacing:-0.01em; }
+      .htrust-item svg { width:10px; height:10px; stroke-width:2.8; }
     }
 
     /* ═══════════════ HOW IT WORKS ═══════════════ */
-    .how { padding:calc(var(--section-y) * 0.5) 0 var(--section-y); }
-    .how-list { list-style:none; display:grid; gap:16px; counter-reset:step; }
-    .how-item {
-      background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-lg);
-      padding:24px; display:flex; gap:16px; align-items:flex-start;
-      opacity:0; transform:translateY(18px); transition:opacity .7s var(--ease-out), transform .7s var(--ease-out);
+    .how { padding:0 0 clamp(40px,6vw,64px); }
+    .how .section-head { margin-bottom:clamp(28px,4vw,40px); }
+    .how-list {
+      list-style:none; display:grid; grid-template-columns:1fr;
+      background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-xl); overflow:hidden;
+      box-shadow:0 1px 2px rgba(0,0,0,0.04), 0 16px 40px rgba(0,0,0,0.04);
     }
+    .how-item {
+      display:flex; gap:16px; align-items:flex-start; padding:22px 22px;
+      border-top:1px solid var(--border-soft);
+      opacity:0; transform:translateY(14px); transition:opacity .7s var(--ease-out), transform .7s var(--ease-out);
+    }
+    .how-item:first-child { border-top:none; }
     .how-item.anim-in { opacity:1; transform:none; }
     .how-num {
       width:34px; height:34px; border-radius:50%; background:var(--red-glow); color:var(--red);
-      font-weight:700; font-size:0.95rem; display:flex; align-items:center; justify-content:center; flex-shrink:0;
+      font-weight:800; font-size:0.95rem; display:flex; align-items:center; justify-content:center; flex-shrink:0;
     }
-    .how-item h3 { font-size:1.05rem; font-weight:700; letter-spacing:-0.02em; margin-bottom:3px; }
+    .how-item h3 { font-size:1.05rem; font-weight:700; letter-spacing:-0.02em; margin-bottom:4px; line-height:1.25; }
     .how-item p { font-size:0.92rem; color:var(--ink-3); line-height:1.55; }
-    .cta-row { margin-top:48px; text-align:center; }
+    @media (min-width:700px) {
+      .how-list { grid-template-columns:1fr 1fr; }
+      .how-item { padding:28px 30px; }
+      .how-item:nth-child(2) { border-top:none; }
+      .how-item:nth-child(even) { border-left:1px solid var(--border-soft); }
+    }
+    @media (min-width:1020px) {
+      .how-list { grid-template-columns:repeat(4,1fr); }
+      .how-item { flex-direction:column; gap:16px; padding:32px 28px 34px; border-top:none; }
+      .how-item + .how-item { border-left:1px solid var(--border-soft); }
+      .how-item h3 { font-size:1.12rem; }
+    }
+
+    /* Order CTA band */
+    .order-cta {
+      margin-top:20px; background:var(--bg-dark); border-radius:var(--radius-xl);
+      padding:28px 24px; display:flex; flex-direction:column; gap:20px; align-items:stretch; text-align:center;
+    }
+    .order-cta h3 { font-size:clamp(1.35rem,4vw,1.75rem); font-weight:800; letter-spacing:-0.04em; line-height:1.15; color:var(--ink-on-dark); margin-bottom:6px; }
+    .order-cta p { font-size:0.92rem; color:var(--ink-on-dark-2); line-height:1.5; }
+    .btn-order {
+      display:inline-flex; align-items:center; justify-content:center; gap:10px; padding:18px 34px; background:var(--red); color:#fff;
+      border-radius:var(--radius-full); font-family:'Figtree',sans-serif; font-size:1.05rem; font-weight:800; letter-spacing:-0.01em;
+      text-decoration:none; white-space:nowrap; box-shadow:0 8px 24px rgba(215,60,89,0.35);
+      transition:transform .4s var(--spring), box-shadow .4s ease, background .25s ease;
+    }
+    .btn-order svg { width:16px; height:16px; stroke:currentColor; stroke-width:2.4; fill:none; transition:transform .3s var(--spring); }
+    .btn-order:hover { background:var(--red-deep); transform:translateY(-2px); box-shadow:0 12px 30px rgba(215,60,89,0.45); }
+    .btn-order:hover svg { transform:translateX(4px); }
+    @media (min-width:700px) {
+      .order-cta { flex-direction:row; align-items:center; justify-content:space-between; text-align:left; padding:32px 40px; gap:32px; }
+    }
 
     .btn-solid {
       display:inline-flex; align-items:center; justify-content:center; gap:9px; padding:16px 32px; background:var(--btn); color:#fff; border:none; border-radius:var(--radius-full);
@@ -356,15 +345,8 @@
     .btn-solid:hover svg { transform:translateX(4px); }
     .cta-fine { font-size:0.8rem; color:var(--ink-3); margin-top:14px; }
 
-    /* ═══════════════ WHO IT'S FOR ═══════════════ */
-    .for-you { background:var(--bg-alt); padding:var(--section-y) 0; }
-    .for-grid { display:grid; gap:16px; }
-    .for-card { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-lg); padding:28px 24px; }
-    .for-card h3 { font-size:1.12rem; font-weight:700; letter-spacing:-0.02em; margin-bottom:6px; }
-    .for-card p { font-size:0.93rem; color:var(--ink-3); line-height:1.6; }
-
     /* ═══════════════ PRICING ═══════════════ */
-    .pricing { padding:var(--section-y) 0 calc(var(--section-y) * 0.5); }
+    .pricing { padding:0 0 calc(var(--section-y) * 0.5); }
     .pricing-grid { display:grid; gap:24px; }
 
     .plan-card {
@@ -390,7 +372,7 @@
     .card-category { font-size:0.68rem; font-weight:700; letter-spacing:0.13em; text-transform:uppercase; color:var(--ink-3); margin:0; }
     .plan-card.featured .card-meta { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px 12px; min-height:26px; margin-bottom:12px; }
     .card-category { color:var(--ink-on-dark-3); }
-    .card-title { font-size:1.8rem; font-weight:700; letter-spacing:-0.045em; line-height:1.1; margin-bottom:6px; }
+    .card-title { font-size:1.8rem; font-weight:800; letter-spacing:-0.045em; line-height:1.1; margin-bottom:6px; }
     .card-subtitle { font-size:0.9rem; color:var(--ink-3); margin-bottom:26px; line-height:1.5; }
     .plan-card.featured .card-subtitle { color:var(--ink-on-dark-2); }
 
@@ -399,7 +381,7 @@
     .plan-card.featured .price-label { color:var(--ink-on-dark-3); }
     .price-main { display:flex; align-items:baseline; gap:2px; line-height:1; margin-bottom:4px; }
     .price-currency { font-size:1.4rem; font-weight:700; letter-spacing:-0.02em; align-self:flex-start; margin-top:6px; }
-    .price-number { font-size:3.9rem; font-weight:700; letter-spacing:-0.065em; line-height:1; }
+    .price-number { font-size:3.9rem; font-weight:800; letter-spacing:-0.065em; line-height:1; }
     .price-qualifier { font-size:0.78rem; color:var(--ink-3); margin-top:2px; }
     .plan-card.featured .price-qualifier { color:var(--ink-on-dark-3); }
     .card-device-img {
@@ -449,27 +431,11 @@
     .btn-lock { display:flex; align-items:center; justify-content:center; gap:5px; font-size:0.72rem; color:var(--ink-4); margin-top:10px; }
     .plan-card.featured .btn-lock { color:var(--ink-on-dark-3); }
     .btn-lock svg { width:10px; height:10px; stroke:currentColor; stroke-width:1.8; fill:none; }
-    .renewal-note {
-      display:flex; align-items:center; justify-content:center; gap:6px; margin-top:16px;
-      font-size:0.76rem; color:var(--ink-3); line-height:1.4; text-align:center;
-    }
-    .plan-card.featured .renewal-note { color:var(--ink-on-dark-3); }
-    .renewal-note svg { width:11px; height:11px; stroke:currentColor; stroke-width:1.8; fill:none; flex-shrink:0; }
-    .renewal-note strong { color:var(--ink-2); font-weight:600; }
-    .plan-card.featured .renewal-note strong { color:var(--ink-on-dark-2); }
-
-    /* ═══════════════ WHAT TO EXPECT ═══════════════ */
-    .expect { padding:calc(var(--section-y) * 0.5) 0 var(--section-y); }
-    .expect-card { background:var(--bg-alt); border-radius:var(--radius-xl); padding:40px 24px; }
-    .expect-card h2 { font-size:clamp(1.5rem,4.4vw,2rem); font-weight:700; letter-spacing:-0.04em; margin-bottom:32px; }
-    .expect-grid { display:grid; gap:28px; }
-    .expect-item h3 { font-size:0.98rem; font-weight:700; margin-bottom:4px; letter-spacing:-0.01em; }
-    .expect-item p { font-size:0.92rem; color:var(--ink-3); line-height:1.6; }
 
     /* ═══════════════ FAQ ═══════════════ */
     .faq-section { background:var(--bg-card); border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:var(--section-y) 0; }
     .faq-layout { display:grid; gap:40px; align-items:start; }
-    .faq-sidebar-title { font-size:clamp(1.9rem,5vw,2.4rem); font-weight:700; letter-spacing:-0.045em; line-height:1.1; margin-bottom:12px; }
+    .faq-sidebar-title { font-size:clamp(1.9rem,5vw,2.4rem); font-weight:800; letter-spacing:-0.045em; line-height:1.1; margin-bottom:12px; }
     .faq-sidebar-sub { font-size:0.95rem; color:var(--ink-3); line-height:1.6; margin-bottom:20px; }
     .faq-contact-link {
       display:inline-flex; align-items:center; gap:6px; font-size:0.9rem; font-weight:600; color:var(--ink);
@@ -506,10 +472,10 @@
     .final { background:var(--bg-dark); padding:var(--section-y) 0; text-align:center; }
     .final .btn-solid { background:var(--btn-dark); box-shadow:inset 0 0 0 1px rgba(255,255,255,0.14); }
     .final .btn-solid:hover { background:var(--btn-dark-hover); box-shadow:inset 0 0 0 1px rgba(255,255,255,0.2), 0 8px 20px rgba(0,0,0,0.3); }
-    .final h2 { font-size:clamp(2rem,6vw,3.2rem); font-weight:700; letter-spacing:-0.045em; line-height:1.06; color:var(--ink-on-dark); margin-bottom:16px; }
+    .final h2 { font-size:clamp(2rem,6vw,3.2rem); font-weight:800; letter-spacing:-0.045em; line-height:1.06; color:var(--ink-on-dark); margin-bottom:16px; }
     .final h2 em { font-style:normal; color:var(--red); }
     .final p { font-size:1.05rem; color:var(--ink-on-dark-2); max-width:520px; margin:0 auto 36px; line-height:1.6; }
-    .final .cta-fine { color:var(--ink-on-dark-3); }
+    .final .cta-fine { color:var(--ink-on-dark-3); margin-top:28px; }
 
     /* ═══════════════ FOOTER ═══════════════ */
     .footer { border-top:1px solid var(--border); padding:32px max(var(--gutter), calc((100% - 1040px) / 2 + var(--gutter))); display:flex; flex-direction:column; align-items:center; gap:16px; text-align:center; background:var(--bg); }
@@ -550,13 +516,13 @@
     .crp-icon-ring svg { width:28px; height:28px; stroke:var(--green); stroke-width:2.5; fill:none; stroke-dasharray:60; stroke-dashoffset:60; animation:drawCheck .55s var(--ease-out) .25s forwards; }
     @keyframes drawCheck { to{stroke-dashoffset:0} }
     .crp-eyebrow { font-size:0.64rem; font-weight:700; letter-spacing:0.13em; text-transform:uppercase; color:var(--green); margin-bottom:12px; }
-    .crp-headline { font-size:1.85rem; font-weight:700; letter-spacing:-0.045em; color:var(--ink); line-height:1.1; margin-bottom:10px; }
+    .crp-headline { font-size:1.85rem; font-weight:800; letter-spacing:-0.045em; color:var(--ink); line-height:1.1; margin-bottom:10px; }
     .crp-address-line { font-size:0.86rem; color:var(--ink-3); margin-bottom:30px; line-height:1.5; }
     .crp-address-line strong { color:var(--ink-2); font-weight:600; }
     .crp-chips { display:flex; justify-content:center; margin-bottom:30px; }
     .crp-chip { display:flex; flex-direction:column; align-items:center; flex:1; min-width:0; padding:0 14px; position:relative; }
     .crp-chip + .crp-chip::before { content:''; position:absolute; left:0; top:4px; bottom:4px; width:1px; background:var(--border); }
-    .crp-chip-val { font-size:1.05rem; font-weight:700; letter-spacing:-0.03em; color:var(--ink); line-height:1; white-space:nowrap; }
+    .crp-chip-val { font-size:1.05rem; font-weight:800; letter-spacing:-0.03em; color:var(--ink); line-height:1; white-space:nowrap; }
     .crp-chip-lbl { font-size:0.62rem; font-weight:600; color:var(--ink-3); letter-spacing:0.08em; text-transform:uppercase; margin-top:6px; white-space:nowrap; }
     .crp-cta {
       display:flex; align-items:center; justify-content:center; gap:9px; width:100%; padding:16px 28px; background:var(--btn); color:#fff; border:none; border-radius:var(--radius-full);
@@ -602,7 +568,7 @@
     @media (max-width:640px) {
       .coverage-module { flex-direction:column; align-items:stretch; gap:6px; padding:10px; border-radius:20px; }
       .btn-coverage { width:100%; padding:14px; border-radius:var(--radius-md); }
-      .htrust-item { padding:0 8px; font-size:0.76rem; }
+      .htrust-item { gap:4px; }
       .crp-card { padding:48px 24px 32px; }
       .crp-chips { flex-direction:column; }
       .crp-chip { flex-direction:row; align-items:baseline; justify-content:space-between; width:100%; padding:14px 2px; border-top:1px solid var(--border); }
@@ -611,17 +577,9 @@
       .crp-chip-lbl { margin-top:0; }
       .btn-solid { width:100%; }
     }
+    
     @media (min-width:700px) {
       :root { --gutter:32px; }
-      .promises-grid { grid-template-columns:repeat(4,1fr); }
-      .value-item { padding:36px 28px; }
-      .ready-card { padding:52px 52px; }
-      .ready-steps { grid-template-columns:repeat(3,1fr); gap:28px; }
-      .ready-step { flex-direction:column; gap:14px; }
-      .how-list { grid-template-columns:1fr 1fr; }
-      .for-grid { grid-template-columns:1fr 1fr; }
-      .expect-card { padding:48px 48px; }
-      .expect-grid { grid-template-columns:1fr 1fr; gap:28px 40px; }
       .footer { flex-direction:row; justify-content:space-between; padding-block:32px; }
     }
     @media (min-width:960px) {
@@ -673,23 +631,13 @@
 <section class="hero" id="coverage">
   <div class="hero-inner">
 
-    <div class="hero-badge">
-      <span class="hero-badge-dot"></span>
-      Wireless Internet for Canadian Homes
-    </div>
-
     <h1 class="hero-title">
       Fast Internet,<br>Without the <em>Wires.</em>
     </h1>
 
     <p class="hero-sub">
-      Fast wireless internet for home or on the move. Unlimited data, no contract, and nothing to install.
+      Wireless internet over major Canadian cellular networks, for home or on the move. No limits, no wires, no installation.
     </p>
-
-    <div class="hero-ready">
-      <svg viewBox="0 0 20 20" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,10.5 8.5,15 16,5.5"/></svg>
-      <span><strong>Ships to your door ready to use,</strong> with an activated SIM already installed. Plug it in or turn it on, connect to Wi-Fi, and you're online.</span>
-    </div>
 
     <!-- Coverage Checker (lead capture) -->
     <div class="coverage-wrap">
@@ -742,74 +690,12 @@
   </div>
 </section>
 
-<!-- ═══════════════ PROMISES ═══════════════ -->
-<section class="promises" aria-label="What you get">
-  <div class="wrap">
-    <div class="promises-grid">
-      <div class="value-item">
-        <div class="vi-number"><span>Unlimited</span> Data</div>
-        <div class="vi-label">No data caps, no slowdowns after a limit, no peak-hour throttling.</div>
-      </div>
-      <div class="value-item">
-        <div class="vi-number"><span>No</span> Contract</div>
-        <div class="vi-label">Month to month. Cancel anytime from your customer portal.</div>
-      </div>
-      <div class="value-item">
-        <div class="vi-number"><span>No</span> Wires</div>
-        <div class="vi-label">Internet over major Canadian cellular networks, not cable or fibre.</div>
-      </div>
-      <div class="value-item">
-        <div class="vi-number"><span>No</span> Installation</div>
-        <div class="vi-label">Nothing is installed at your address. No technician visit.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════ READY TO USE ═══════════════ -->
-<section class="ready" id="ready">
-  <div class="wrap">
-    <div class="ready-card">
-      <div class="eyebrow">Ready Out of the Box</div>
-      <h2 class="section-title">Plug It In. Get Online.</h2>
-      <p class="section-lead">Your device arrives with an activated SIM already installed. There's no technician to book and nothing complicated to set up.</p>
-
-      <div class="ready-steps">
-        <div class="ready-step">
-          <div class="ready-num">1</div>
-          <div>
-            <h3>Plug It In or Turn It On</h3>
-            <p>Plug in the Orbi, or switch on the Nighthawk.</p>
-          </div>
-        </div>
-        <div class="ready-step">
-          <div class="ready-num">2</div>
-          <div>
-            <h3>Connect to Wi-Fi</h3>
-            <p>Join its Wi-Fi network from your phone, laptop, or TV.</p>
-          </div>
-        </div>
-        <div class="ready-step">
-          <div class="ready-num">3</div>
-          <div>
-            <h3>You're Online</h3>
-            <p>That's it. Activation is included at no cost.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="ready-foot">Free device rental. Free activation. Free shipping.</div>
-    </div>
-  </div>
-</section>
-
 <!-- ═══════════════ HOW ORDERING WORKS ═══════════════ -->
 <section class="how" id="how">
   <div class="wrap">
     <div class="section-head center">
       <div class="eyebrow">How It Works</div>
-      <h2 class="section-title">From Order to Online in Five Simple Steps.</h2>
-      <p class="section-lead">Here's exactly what happens, from checking your address to connecting at home.</p>
+      <h2 class="section-title">From Order to Online in Four Steps.</h2>
     </div>
 
     <ol class="how-list">
@@ -817,75 +703,38 @@
         <div class="how-num">1</div>
         <div>
           <h3>Check Coverage</h3>
-          <p>Enter your address above to confirm More4Less service is available where you'll use it.</p>
+          <p>Enter your address above to confirm service where you'll use it.</p>
         </div>
       </li>
       <li class="how-item">
         <div class="how-num">2</div>
         <div>
           <h3>Choose Your Device</h3>
-          <p>Orbi LBR20 for home, or Nighthawk M1 for on the move. Both use the same $80/month unlimited plan.</p>
+          <p>Orbi LBR20 for home or Nighthawk M1 on the move. Same $80/month plan.</p>
         </div>
       </li>
       <li class="how-item">
         <div class="how-num">3</div>
         <div>
           <h3>Place Your Order</h3>
-          <p>Secure checkout. $80 plus applicable tax is due today. After that, service is $80/month, month to month.</p>
+          <p>Secure checkout. $80 + tax today, then $80/month, month to month.</p>
         </div>
       </li>
       <li class="how-item">
         <div class="how-num">4</div>
         <div>
-          <h3>Receive Your Device</h3>
-          <p>Shipping is free. Your device ships within 1–2 business days with tracked delivery, and we email your tracking details.</p>
-        </div>
-      </li>
-      <li class="how-item">
-        <div class="how-num">5</div>
-        <div>
-          <h3>Connect to Wi-Fi</h3>
-          <p>Plug it in or turn it on, join its Wi-Fi network, and get online. Your SIM is already installed and activated.</p>
+          <h3>Plug In &amp; Connect</h3>
+          <p>Ships free in 1–2 business days with an activated SIM. No technician or installation: plug in and join the Wi-Fi.</p>
         </div>
       </li>
     </ol>
 
-    <div class="cta-row">
-      <a href="#coverage" class="btn-solid">
-        Check Coverage
-        <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg>
-      </a>
-      <p class="cta-fine">Free to check. No commitment.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════ WHO IT'S FOR ═══════════════ -->
-<section class="for-you" id="for-you">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow">Made for Real Life</div>
-      <h2 class="section-title">Great Internet, Wherever Home Is.</h2>
-      <p class="section-lead">If running a cable to your door isn't practical, or the wired options aren't reliable, wireless is a simple alternative.</p>
-    </div>
-
-    <div class="for-grid">
-      <div class="for-card">
-        <h3>Rural Homes</h3>
-        <p>No need to wait for a cable or fibre line. Your internet comes over the cellular network, and external antenna ports are there if reception is weaker.</p>
+    <div class="order-cta">
+      <div>
+        <h3>Ready to get online?</h3>
+        <p>$80/month · Month to month · Cancel anytime from your portal</p>
       </div>
-      <div class="for-card">
-        <h3>Homes Without Reliable Wired Internet</h3>
-        <p>Skip the unreliable connection. Get unlimited data with no installation appointment.</p>
-      </div>
-      <div class="for-card">
-        <h3>Cottages and Seasonal Places</h3>
-        <p>Month to month with no contract, so you keep it as long as you need it. Take your device with you where service is available.</p>
-      </div>
-      <div class="for-card">
-        <h3>Everyday Home Internet</h3>
-        <p>Streaming, work, school, and video calls on one Wi-Fi network. The Orbi connects up to 64 devices.</p>
-      </div>
+      <a href="#pricing" class="btn-order">Order Internet Today <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg></a>
     </div>
   </div>
 </section>
@@ -896,7 +745,7 @@
     <div class="section-head center">
       <div class="eyebrow">Step 2: Choose Your Device</div>
       <h2 class="section-title">One Plan. Two Devices.</h2>
-      <p class="section-lead">Unlimited data for $80/month on either one. Pick the one that fits how you'll use it.</p>
+      <p class="section-lead">Unlimited data with no caps or throttling, for $80/month on either one. Pick the one that fits how you'll use it.</p>
     </div>
 
     <div class="pricing-grid">
@@ -917,7 +766,7 @@
               <span class="price-currency">$</span>
               <span class="price-number">80</span>
             </div>
-            <div class="price-qualifier">+ applicable tax</div>
+            <div class="price-qualifier">+ tax, then $80/month</div>
           </div>
           <img src="assets/img/products/LBR20.png" alt="Netgear LBR20" class="card-device-img">
         </div>
@@ -929,14 +778,6 @@
           <li class="feature-item">
             <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
             <span>NETGEAR Orbi LBR20 Home-Style Router <span class="feat-free">Free Rental</span></span>
-          </li>
-          <li class="feature-item">
-            <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-            <span>Unlimited Data</span>
-          </li>
-          <li class="feature-item">
-            <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-            <span>Activated SIM Already Installed</span>
           </li>
           <li class="feature-item">
             <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
@@ -954,10 +795,6 @@
             <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
             <span>External Antenna Ports for Weaker Reception</span>
           </li>
-          <li class="feature-item">
-            <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-            <span>Activation &amp; Shipping <span class="feat-free">$0</span></span>
-          </li>
         </ul>
 
         <a href="/checkout/orbi" class="btn-cta accent">
@@ -965,13 +802,6 @@
           <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg>
         </a>
 
-        <div class="renewal-note">
-          <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M2.5 8a5.5 5.5 0 0 1 9.5-3.8"/><path d="M13.5 8a5.5 5.5 0 0 1-9.5 3.8"/>
-            <polyline points="9.5,1.5 11.5,4.2 8.5,4.8"/><polyline points="6.5,14.5 4.5,11.8 7.5,11.2"/>
-          </svg>
-          <span><strong>$80/mo</strong> · No contract · Cancel anytime from your portal</span>
-        </div>
 
         <div class="btn-lock">
           <svg viewBox="0 0 14 14" stroke-linecap="round"><rect x="2" y="6" width="10" height="7" rx="1.5"/><path d="M4.5 6V4.5a2.5 2.5 0 015 0V6"/></svg>
@@ -994,7 +824,7 @@
               <span class="price-currency">$</span>
               <span class="price-number">80</span>
             </div>
-            <div class="price-qualifier">+ applicable tax</div>
+            <div class="price-qualifier">+ tax, then $80/month</div>
           </div>
           <img src="assets/img/products/mr1100.png" alt="Netgear Nighthawk M1" class="card-device-img">
         </div>
@@ -1006,14 +836,6 @@
           <li class="feature-item">
             <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
             <span>NETGEAR Nighthawk M1 Portable Hotspot <span class="feat-free">Free Rental</span></span>
-          </li>
-          <li class="feature-item">
-            <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-            <span>Unlimited Data</span>
-          </li>
-          <li class="feature-item">
-            <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-            <span>Activated SIM Already Installed</span>
           </li>
           <li class="feature-item">
             <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
@@ -1031,10 +853,6 @@
             <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
             <span>External Antenna Ports for Weaker Reception</span>
           </li>
-          <li class="feature-item">
-            <div class="feat-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>
-            <span>Activation &amp; Shipping <span class="feat-free">$0</span></span>
-          </li>
         </ul>
 
         <a href="/checkout/nighthawk" class="btn-cta dark">
@@ -1042,13 +860,6 @@
           <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg>
         </a>
 
-        <div class="renewal-note">
-          <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M2.5 8a5.5 5.5 0 0 1 9.5-3.8"/><path d="M13.5 8a5.5 5.5 0 0 1-9.5 3.8"/>
-            <polyline points="9.5,1.5 11.5,4.2 8.5,4.8"/><polyline points="6.5,14.5 4.5,11.8 7.5,11.2"/>
-          </svg>
-          <span><strong>$80/mo</strong> · No contract · Cancel anytime from your portal</span>
-        </div>
 
         <div class="btn-lock">
           <svg viewBox="0 0 14 14" stroke-linecap="round"><rect x="2" y="6" width="10" height="7" rx="1.5"/><path d="M4.5 6V4.5a2.5 2.5 0 015 0V6"/></svg>
@@ -1056,33 +867,6 @@
         </div>
       </div>
 
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════ WHAT TO EXPECT ═══════════════ -->
-<section class="expect" id="expect">
-  <div class="wrap">
-    <div class="expect-card">
-      <h2>No Surprises. Here's What to Expect.</h2>
-      <div class="expect-grid">
-        <div class="expect-item">
-          <h3>Pricing</h3>
-          <p>$80 plus applicable tax is due today. Service is $80/month after that. Unlimited data and device rental are included, with no activation fees, no shipping fees, and no hidden costs.</p>
-        </div>
-        <div class="expect-item">
-          <h3>Shipping</h3>
-          <p>Free. Your device ships within 1–2 business days with tracked delivery, and we email your tracking details.</p>
-        </div>
-        <div class="expect-item">
-          <h3>Setup</h3>
-          <p>Your device arrives ready to use with an activated SIM installed. Turn it on or plug it in, then connect to Wi-Fi. Nothing is installed at your address.</p>
-        </div>
-        <div class="expect-item">
-          <h3>Cancelling</h3>
-          <p>No contract. Cancel anytime from your customer portal, with no fees or penalties. Cancel within 30 days for a full refund of your monthly service fee. Return the device within 30 days of cancelling, in its original condition, to avoid a $250 replacement charge.</p>
-        </div>
-      </div>
     </div>
   </div>
 </section>
@@ -1105,26 +889,6 @@
       <div class="faq-list">
         <div class="accordion-item">
           <button class="accordion-header">
-            <span>What Is More4Less Wireless Internet?</span>
-            <div class="accordion-toggle"></div>
-          </button>
-          <div class="accordion-body">
-            <p>Internet delivered over major Canadian cellular networks, not a wired cable or fibre connection. Nothing is installed at your address. Your device connects to the cellular network and creates a Wi-Fi network for your phones, laptops, TVs, and other devices.</p>
-          </div>
-        </div>
-
-        <div class="accordion-item">
-          <button class="accordion-header">
-            <span>Do I Need a Technician or Any Installation?</span>
-            <div class="accordion-toggle"></div>
-          </button>
-          <div class="accordion-body">
-            <p>No. Your device ships ready to use with an activated SIM already installed. Turn on the Nighthawk or plug in the Orbi, then connect your phone, laptop, or TV to its Wi-Fi network. Activation is included at no cost, and nothing is installed at your address.</p>
-          </div>
-        </div>
-
-        <div class="accordion-item">
-          <button class="accordion-header">
             <span>Will It Work at My Address?</span>
             <div class="accordion-toggle"></div>
           </button>
@@ -1140,16 +904,6 @@
           </button>
           <div class="accordion-body">
             <p><strong>Mostly at home? Choose the Orbi LBR20.</strong> It has a faster modem, larger cellular antennas for better reliability, and a larger Wi-Fi range for a home. It connects up to 64 devices.<br><br><strong>Mostly on the move? Choose the Nighthawk M1.</strong> It's battery-powered and compact, and made for travel, camping, RVs, job sites, cottages, and remote work. It connects up to 20 devices.<br><br>Both use the same wireless service and have external antenna ports.</p>
-          </div>
-        </div>
-
-        <div class="accordion-item">
-          <button class="accordion-header">
-            <span>Is the Data Truly Unlimited?</span>
-            <div class="accordion-toggle"></div>
-          </button>
-          <div class="accordion-body">
-            <p>Yes. There are no data caps, no slowdowns after a limit, and no peak-hour throttling.</p>
           </div>
         </div>
 
@@ -1185,41 +939,11 @@
 
         <div class="accordion-item">
           <button class="accordion-header">
-            <span>Both Devices Are Portable. Why Choose the Orbi?</span>
+            <span>Is There a Contract? What if I Cancel?</span>
             <div class="accordion-toggle"></div>
           </button>
           <div class="accordion-body">
-            <p>The Orbi's hardware is better suited to a home. It has a faster modem, larger cellular antennas for better reliability, and a larger Wi-Fi range for connecting devices throughout the house. It connects up to 64 devices, compared with 20 on the Nighthawk.<br><br>"Home-style" describes how the Orbi is designed to be used. It isn't fixed to a location. You can move it to another location where service is available.</p>
-          </div>
-        </div>
-
-        <div class="accordion-item">
-          <button class="accordion-header">
-            <span>How Does Shipping Work?</span>
-            <div class="accordion-toggle"></div>
-          </button>
-          <div class="accordion-body">
-            <p>Shipping is free. Your device ships within 1–2 business days with tracked delivery. We email tracking details once it ships.</p>
-          </div>
-        </div>
-
-        <div class="accordion-item">
-          <button class="accordion-header">
-            <span>Is There a Contract?</span>
-            <div class="accordion-toggle"></div>
-          </button>
-          <div class="accordion-body">
-            <p>No. Service is month to month at $80/month. Unlimited data and device rental are included, with no activation fees, no shipping fees, and no hidden costs. Cancel anytime from your customer portal.</p>
-          </div>
-        </div>
-
-        <div class="accordion-item">
-          <button class="accordion-header">
-            <span>What Happens if I Cancel?</span>
-            <div class="accordion-toggle"></div>
-          </button>
-          <div class="accordion-body">
-            <p>Cancel anytime from your customer portal with no fees or penalties. Cancel within the first 30 days for a full refund of your monthly service fee. After you cancel, return the device within 30 days in its original condition to avoid a $250 replacement charge.</p>
+            <p>No contract. Cancel anytime from your customer portal with no fees or penalties. Cancel within the first 30 days for a full refund of your monthly service fee. After you cancel, return the device within 30 days in its original condition to avoid a $250 replacement charge.</p>
           </div>
         </div>
       </div>
@@ -1237,7 +961,6 @@
       Check Coverage
       <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg>
     </a>
-    <p class="cta-fine" style="margin-bottom:0;">$80/month · No contract · 30-day guarantee</p>
   </div>
 </section>
 
@@ -1355,7 +1078,7 @@
     });
   }, { threshold: 0.12 });
 
-  document.querySelectorAll('.plan-card, .value-item, .how-item').forEach(function (el) { io.observe(el); });
+  document.querySelectorAll('.plan-card, .how-item').forEach(function (el) { io.observe(el); });
 
   /* ── Accordion ── */
   document.querySelectorAll('.accordion-header').forEach(function (btn) {
