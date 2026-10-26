@@ -673,6 +673,17 @@
     }
     .how-item:hover .how-num::before { transform:scale(1.35); }
 
+    /* Compact step badges: number sits on the same line as the title */
+    .how-item, .how-item + .how-item { display:grid; grid-template-columns:auto 1fr; column-gap:12px; row-gap:8px; align-items:center; }
+    .how-item > div:not(.how-num) { display:contents; }
+    .how-num { width:28px; height:28px; font-size:0.8rem; }
+    .how-num::before { inset:-8px; }
+    .how-item h3 { margin-bottom:0; }
+    .how-item p { grid-column:1 / -1; }
+    @media (min-width:1020px) {
+      .how-item { display:grid; gap:8px 12px; align-content:start; }
+    }
+
     .how-card { background:var(--bg-card); border:1px solid var(--border); border-radius:22px; overflow:hidden; box-shadow:0 1px 2px rgba(0,0,0,0.04), 0 16px 40px rgba(0,0,0,0.04); }
     .how-list { border:none; border-radius:0; box-shadow:none; background:transparent; }
     .how-foot { display:flex; flex-direction:column; align-items:center; gap:10px 24px; padding:18px 22px; border-top:1px solid var(--border-soft); background:var(--bg-alt); text-align:center; }
@@ -741,7 +752,7 @@
 
     <!-- Coverage Checker (lead capture) -->
     <div class="coverage-wrap">
-      <div class="coverage-label">Step 1: See if Service Is Available at Your Address</div>
+      <div class="coverage-label">Enter the address where you plan to use your device to check coverage.</div>
       <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
       <form action="https://submit.jotform.com/submit/223076752019051/" method="post" target="hidden_iframe" id="jotformCoverage">
         <input type="hidden" name="formID" value="223076752019051">
@@ -843,8 +854,8 @@
   <div class="wrap">
     <div class="section-head center">
       <div class="eyebrow">Step 2: Choose Your Device</div>
-      <h2 class="section-title">Two Great Devices. One Unlimited Plan.</h2>
-      <p class="section-lead">Both are great options built for different uses, with unlimited data and no caps or throttling for $80/month. Choose the device that fits your primary use: at home or on the go.</p>
+      <h2 class="section-title">Two Device Options.</h2>
+      <p class="section-lead">Both devices include unlimited data for $80/month, with no data caps or throttling. Choose the one that best suits how you’ll use your internet, whether at home or on the go.</p>
     </div>
 
     <div class="pricing-grid">
