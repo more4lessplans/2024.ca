@@ -721,7 +721,7 @@
       overflow: hidden;
       transition: opacity 0.3s ease, height 0.3s ease;
     }
-    .promo-feedback.ok  { color: var(--green); opacity: 1; height: auto; }
+    .promo-feedback.ok  { color: #0f7a43; opacity: 1; height: auto; }
     .promo-feedback.bad { color: var(--red);   opacity: 1; height: auto; }
     .promo-feedback svg { width: 12px; height: 12px; stroke: currentColor; stroke-width: 2.5; fill: none; flex-shrink: 0; }
 
@@ -826,46 +826,89 @@
       background: var(--bg);
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
-      padding: 15px 17px;
+      padding: 16px 18px 14px;
     }
     .mini-summary-label {
-      font-size: 0.62rem;
+      font-size: 0.7rem;
       font-weight: 600;
-      letter-spacing: 0.11em;
-      text-transform: uppercase;
-      color: var(--ink-4);
-      margin-bottom: 10px;
+      letter-spacing: 0.04em;
+      color: var(--ink-3);
+      margin-bottom: 12px;
     }
-    .mini-row {
+    .mini-row, .pay-summary-discount, .pay-summary-tax {
       display: flex;
       justify-content: space-between;
-      align-items: baseline;
-      font-size: 0.8rem;
-      color: var(--ink-3);
-      padding: 3px 0;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 7px 0;
+      font-size: 0.84rem;
+      line-height: 1.35;
+      color: var(--ink-2);
     }
+    .mini-row > strong, .pay-summary-tax > strong, .pay-summary-discount > strong { font-weight: 600; color: var(--ink); white-space: nowrap; font-variant-numeric: tabular-nums; }
+    .mini-row .mr-label { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+    .mini-row .mr-label small { font-size: 0.72rem; font-weight: 400; color: var(--ink-3); }
+    .mini-row .free { color: var(--green); }
+    .pay-summary-tax { color: var(--ink-3); }
+    .pay-summary-tax > strong { color: var(--ink-2); font-weight: 500; }
+
+    /* Promo line — quiet, premium: neutral label, savings in green, code as a small ticket */
+    .pay-summary-discount { align-items: center; }
+    .pay-summary-discount .pd-label { display: flex; flex-direction: column; align-items: flex-start; gap: 3px; min-width: 0; color: var(--ink-2); }
+    .pd-top { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 8px; }
+    .pd-code { display: inline-flex; align-items: center; gap: 5px; padding: 2px 8px 2px 6px; border-radius: var(--radius-full); background: var(--green-bg); border: 1px solid var(--green-border); color: #0f7a43; font-family: 'DM Mono', monospace; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.04em; }
+    .pd-code svg { width: 11px; height: 11px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+    .pd-off { font-size: 0.72rem; color: var(--ink-3); }
+    .pay-summary-discount > strong { color: #0f7a43; }
+
     .mini-row.total {
+      align-items: flex-end;
       margin-top: 8px;
-      padding-top: 10px;
-      border-top: 1.5px solid var(--border);
-      font-size: 0.9rem;
+      padding: 14px 0 4px;
+      border-top: 1px solid var(--border);
       color: var(--ink);
-      font-weight: 600;
     }
-    .mini-row.discount { color: var(--red); }
-    .pay-summary-discount { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--red); padding: 3px 0; }
-    .pay-summary-tax { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--ink-2); padding: 3px 0; }
+    .mini-row.total .mr-label { font-size: 0.95rem; font-weight: 700; letter-spacing: -0.01em; }
+    .mini-row.total .mr-label small { font-weight: 400; }
+    .due-wrap { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+    .due-fig { font-size: 1.55rem; font-weight: 700; letter-spacing: -0.03em; line-height: 1; color: var(--ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .due-fig .due-cur { font-size: 0.62em; font-weight: 600; vertical-align: 0.5em; margin-right: 1px; }
+    .due-fig .due-cents { font-size: 0.55em; font-weight: 600; vertical-align: 0.62em; margin-left: 1px; }
+    .due-wrap .price-tax-note { margin: 0; }
+
+    .mini-savings { display: none; align-items: center; gap: 6px; margin-top: 8px; padding: 7px 10px; border-radius: var(--radius-md); background: var(--green-bg); border: 1px solid var(--green-border); font-size: 0.76rem; font-weight: 500; color: #0f7a43; }
+    .mini-savings.show { display: flex; }
+    .mini-savings svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+
+    /* Renewal — its own labelled block so the price can never collide with the copy */
     .mini-renewal {
       display: flex;
-      align-items: center;
-      gap: 5px;
-      margin-top: 9px;
-      font-size: 0.71rem;
-      color: var(--ink-3);
-      padding-top: 9px;
-      border-top: 1px solid var(--border-soft);
+      align-items: flex-start;
+      gap: 10px;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px dashed var(--border);
     }
-    .mini-renewal svg { width: 10px; height: 10px; stroke: currentColor; stroke-width: 1.8; fill: none; flex-shrink: 0; }
+    .mini-renewal > svg { width: 14px; height: 14px; margin-top: 2px; stroke: var(--ink-3); stroke-width: 1.7; fill: none; flex-shrink: 0; }
+    .renew-body { flex: 1; min-width: 0; }
+    .renew-line { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 2px 12px; }
+    .renew-label { font-size: 0.84rem; font-weight: 500; color: var(--ink-2); }
+    .renew-price { display: inline-flex; align-items: baseline; flex-wrap: wrap; justify-content: flex-end; gap: 0 6px; font-variant-numeric: tabular-nums; margin-left: auto; }
+    .renew-price .renewal-orig { margin: 0; font-size: 0.78rem; font-weight: 500; opacity: 1; color: var(--ink-4); text-decoration-thickness: 1px; }
+    .renew-price .renewal-discounted { font-size: 0.95rem; font-weight: 700; color: var(--ink); }
+    .renew-price .renewal-unit { font-size: 0.78rem; font-weight: 500; color: var(--ink-3); }
+    .renew-price .renewal-qualifier { flex-basis: 100%; text-align: right; margin: 2px 0 0; font-size: 0.72rem; color: var(--ink-3); }
+    .renew-price .renewal-base { font-size: 0.95rem; font-weight: 700; color: var(--ink); }
+    .renew-note { margin-top: 3px; font-size: 0.74rem; line-height: 1.45; color: var(--ink-3); }
+
+    /* Promo input + confirmation */
+    .promo-row input.applied { border-color: var(--green-border); background: rgba(22,160,90,0.035); }
+    .promo-feedback.ok { display: inline-flex; padding: 4px 10px 4px 8px; border-radius: var(--radius-full); background: var(--green-bg); border: 1px solid var(--green-border); }
+
+    @media (max-width: 480px) {
+      .mini-summary { padding: 15px 15px 13px; }
+      .due-fig { font-size: 1.7rem; }
+    }
 
     /* ═══════════════════════════════════════════════════════════════
        WHAT HAPPENS NEXT (on screen 1)
@@ -1142,9 +1185,11 @@
     /* ═══════════════════════════════════════════════════════════════
        RENEWAL PRICE STYLES (promo applied)
     ═══════════════════════════════════════════════════════════════ */
-    .renewal-orig { text-decoration: line-through; opacity: 0.45; margin-right: 4px; }
-    .renewal-discounted { color: var(--green); }
-    .renewal-qualifier { font-size: 0.65em; color: var(--ink-on-dark-3); margin-left: 4px; }
+    .renewal-orig { text-decoration: line-through; opacity: 0.45; margin-right: 4px; white-space: nowrap; }
+    .renewal-discounted { color: var(--green); white-space: nowrap; }
+    .renewal-unit { white-space: nowrap; }
+    .renewal-qualifier { font-size: 0.75em; color: var(--ink-on-dark-3); margin-left: 4px; white-space: nowrap; }
+    .nw { white-space: nowrap; }
 
     /* ═══════════════════════════════════════════════════════════════
        UNIFIED PRODUCT CARD — screen 0
@@ -1558,10 +1603,13 @@
     .hero-eyebrow::before, .hero-eyebrow::after { content: ''; width: 32px; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.32)); }
     .hero-eyebrow::after { transform: scaleX(-1); }
 
-    .hero-status { display: inline-flex; align-items: center; gap: 11px; padding: 7px 20px 7px 7px; margin-bottom: 30px; border: 1px solid rgba(22,160,90,0.30); border-radius: var(--radius-full); background: linear-gradient(180deg, rgba(22,160,90,0.14), rgba(22,160,90,0.06)); box-shadow: 0 8px 28px -10px rgba(22,160,90,0.35), inset 0 1px 0 rgba(255,255,255,0.06); font-size: 0.92rem; font-weight: 600; letter-spacing: -0.01em; color: var(--ink-on-dark); opacity: 0; animation: revealUp .7s var(--ease-out) .22s forwards; }
-    .status-check { width: 26px; height: 26px; border-radius: 50%; background: var(--green); display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 0 0 4px rgba(22,160,90,0.18); transform: scale(0); animation: checkPop .5s var(--spring) .6s forwards; }
-    .status-check svg { width: 14px; height: 14px; fill: none; stroke: #fff; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 14; stroke-dashoffset: 14; animation: checkDraw .45s var(--ease-out) .85s forwards; }
+    .hero-status { display: inline-flex; align-items: center; gap: 9px; padding: 5px 14px 5px 6px; margin-bottom: 28px; border: 1px solid rgba(255,255,255,0.11); border-radius: var(--radius-full); background: rgba(255,255,255,0.04); font-size: 0.74rem; font-weight: 500; letter-spacing: 0; color: var(--ink-on-dark-2); opacity: 0; animation: revealUp .7s var(--ease-out) .22s forwards; }
+    .status-check { position: relative; width: 18px; height: 18px; border-radius: 50%; background: #1fae63; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transform: scale(0); animation: checkPop .5s var(--spring) .6s forwards; }
+    .status-check::before { content: ''; position: absolute; inset: 0; border-radius: 50%; background: rgba(46,204,113,0.6); opacity: 0; animation: livePulse 2.6s cubic-bezier(0.22,1,0.36,1) 1.6s infinite; }
+    .status-check svg { position: relative; width: 10px; height: 10px; fill: none; stroke: #fff; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 14; stroke-dashoffset: 14; animation: checkDraw .45s var(--ease-out) .85s forwards; }
     @keyframes checkPop  { to { transform: scale(1); } }
+    @keyframes livePulse { 0% { transform: scale(1); opacity: .65; } 70%, 100% { transform: scale(2.1); opacity: 0; } }
+    @media (prefers-reduced-motion: reduce) { .hero-status, .status-check::before { animation: none !important; opacity: 1; } .status-check { animation: none !important; transform: none; } .status-check svg { animation: none !important; stroke-dashoffset: 0; } }
     @keyframes checkDraw { to { stroke-dashoffset: 0; } }
 
     .hero-headline { font-size: clamp(2.6rem, 6.4vw, 4.6rem); font-weight: 800; letter-spacing: -0.045em; line-height: 1.04; color: var(--ink-on-dark); margin-bottom: 22px; text-wrap: balance; opacity: 0; animation: revealUp .8s var(--ease-out) .38s forwards; }
@@ -1652,7 +1700,7 @@
   <div class="hero-inner">
     <div class="hero-eyebrow">Account Setup</div>
 
-    <div class="hero-status" role="status"><span class="status-check" aria-hidden="true"><svg viewBox="0 0 16 16"><polyline points="3.5,8.5 6.8,11.5 12.5,4.8"/></svg></span>Internet Installed</div>
+    <div class="hero-status" role="status"><span class="status-check" aria-hidden="true"><svg viewBox="0 0 16 16"><polyline points="3.5,8.5 6.8,11.5 12.5,4.8"/></svg></span>Internet Active</div>
 
     <h1 class="hero-headline">Set Up Your Account</h1>
 
@@ -1791,18 +1839,22 @@
             <div class="promo-feedback" id="promo-feedback"><svg id="promo-icon" viewBox="0 0 12 12"><polyline points="1,6 4,9 11,2"/></svg><span id="promo-msg"></span></div>
 
             <div class="mini-summary">
-              <div class="mini-summary-label">Order Summary</div>
-              <div class="mini-row"><span>Unlimited Wireless Internet — first month</span><strong>$110.00</strong></div>
-              <div class="mini-row"><span>Installation</span><strong style="color:var(--green)">Included</strong></div>
-              <div class="pay-summary-discount" id="promo-discount-row" style="display:none;"><span id="promo-discount-label">Promo</span><strong id="promo-discount-val"></strong></div>
+              <div class="mini-summary-label">Order summary</div>
+              <div class="mini-row"><div class="mr-label"><span>Unlimited Wireless Internet</span><small>First month, billed today</small></div><strong id="mini-plan-price">$110.00</strong></div>
+              <div class="mini-row"><div class="mr-label"><span>Installation</span></div><strong class="free">Included</strong></div>
+              <div class="pay-summary-discount" id="promo-discount-row" style="display:none;"><span class="pd-label" id="promo-discount-label">Promo</span><strong id="promo-discount-val"></strong></div>
               <div class="pay-summary-tax" id="tax-row" style="display:none;"><span id="tax-row-label">Tax</span><strong id="tax-row-val"></strong></div>
               <div class="mini-row total">
-                <span>Due Today</span>
-                <span style="display:flex;align-items:baseline;gap:4px;"><span id="due-today-fig"><sup style="font-size:0.6em;vertical-align:super;font-weight:700">$</sup>110<sup style="font-size:0.45em;vertical-align:super;font-weight:600">.00</sup></span><span class="price-tax-note" id="due-today-tax-note">+ tax</span></span>
+                <div class="mr-label"><span>Due today</span></div>
+                <div class="due-wrap"><span class="due-fig" id="due-today-fig"><span class="due-cur">$</span>110<span class="due-cents">.00</span></span><span class="price-tax-note" id="due-today-tax-note">+ tax</span></div>
               </div>
+              <div class="mini-savings" id="mini-savings"><svg viewBox="0 0 16 16"><polyline points="2.5,8.5 6.5,12.5 13.5,4"/></svg><span id="mini-savings-text"></span></div>
               <div class="mini-renewal">
                 <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8a5.5 5.5 0 0 1 9.5-3.8"/><path d="M13.5 8a5.5 5.5 0 0 1-9.5 3.8"/><polyline points="9.5,1.5 11.5,4.2 8.5,4.8"/><polyline points="6.5,14.5 4.5,11.8 7.5,11.2"/></svg>
-                Then <span id="renewal-price-pay" style="margin:0 3px;font-weight:600;color:var(--ink-2)">$110 / month</span><span class="price-tax-note">&nbsp;+ tax</span> — no contract, cancel anytime.
+                <div class="renew-body">
+                  <div class="renew-line"><span class="renew-label">Then, every month</span><span class="renew-price" id="renewal-price-pay"><span class="renewal-base">$110</span><span class="renewal-unit">/mo</span></span></div>
+                  <div class="renew-note">Plus tax. No contract, cancel anytime.</div>
+                </div>
               </div>
             </div>
           </div>
@@ -1814,7 +1866,7 @@
             </div>
             <div class="terms-err" id="terms-err">You must accept the terms to continue.</div>
             <button class="btn-primary" id="payBtn" onclick="handlePay()" style="margin-top:14px;">
-              <span class="btn-lbl" id="payBtn-lbl">Pay $110 <span class="btn-tax">+ tax</span> and activate</span>
+              <span class="btn-lbl" id="payBtn-lbl">Pay $110 <span class="btn-tax">+ tax</span> and subscribe</span>
               <div class="btn-spin"></div>
               <svg class="btn-arr" viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg>
             </button>
@@ -2148,16 +2200,21 @@
       $('tax-row-val').textContent   = $('right-tax-val').textContent   = fmt(currentTaxAmount);
     }
     $('summary-total-tax-note').textContent = info ? 'Includes ' + info.label : '+ applicable tax';
-    $('due-today-tax-note').textContent     = info ? 'tax incl.' : '+ tax';
+    $('due-today-tax-note').textContent     = info ? 'Includes ' + info.label : '+ tax';
 
     var total = sub + currentTaxAmount;
     var dollars = Math.floor(total), cents = Math.round((total - dollars) * 100);
     if (cents === 100) { dollars += 1; cents = 0; }
     var cs = cents < 10 ? '0' + cents : '' + cents;
-    $('due-today-fig').innerHTML = '<sup style="font-size:0.6em;vertical-align:super;font-weight:700">$</sup>' + dollars + '<sup style="font-size:0.45em;vertical-align:super;font-weight:600">.' + cs + '</sup>';
+    $('due-today-fig').innerHTML = '<span class="due-cur">$</span>' + dollars + '<span class="due-cents">.' + cs + '</span>';
+    var sv = $('mini-savings');
+    if (sv) {
+      if (discountAmount > 0) { $('mini-savings-text').textContent = 'You\u2019re saving ' + fmt(discountAmount) + ' today'; sv.classList.add('show'); }
+      else { sv.classList.remove('show'); }
+    }
     var plain = cents === 0 ? dollars : dollars + '.' + cs;
     $('summary-total-fig').innerHTML = '<sup>$</sup>' + plain;
-    $('payBtn-lbl').innerHTML = 'Pay $' + plain + (info ? '' : ' <span class="btn-tax">+ tax</span>') + ' and activate';
+    $('payBtn-lbl').innerHTML = 'Pay $' + plain + (info ? '' : ' <span class="btn-tax">+ tax</span>') + ' and subscribe';
   }
   function updateTax(code) {
     currentTaxProvince = (code && CA_TAX_RATES[code]) ? code : null;
@@ -2172,26 +2229,30 @@
       ? '<polyline points="1,6 4,9 11,2"/>'
       : '<line x1="1" y1="1" x2="11" y2="11"/><line x1="11" y1="1" x2="1" y2="11"/>';
   }
+  function esc(t) { return String(t).replace(/[&<>"']/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
   function showDiscount(label, val) {
-    $('promo-discount-label').textContent = label; $('promo-discount-val').textContent = val;
+    $('promo-discount-label').innerHTML = label; $('promo-discount-val').textContent = val;
     $('promo-discount-row').style.display = 'flex';
   }
   function setRenewal(off, period) {
     var base = '$' + PLAN_PRICE + ' / month';
     if (off <= 0) {
-      $('renewal-price-pay').innerHTML = $('renewal-price-summary').innerHTML = base;
-      $('renewal-price-terms').innerHTML = '$' + PLAN_PRICE + '/month';
+      $('renewal-price-pay').innerHTML = '<span class="renewal-base">$' + PLAN_PRICE + '</span><span class="renewal-unit">/mo</span>';
+      $('renewal-price-summary').innerHTML = '<span class="nw">' + base + '</span>';
+      $('renewal-price-terms').innerHTML = '<span class="nw">$' + PLAN_PRICE + '/month</span>';
       return;
     }
     var d = fmt(Math.max(0, PLAN_PRICE - off));
-    var q = period ? '<span class="renewal-qualifier">(first ' + period + ' months)</span>' : '';
-    var html = '<strong class="renewal-orig">' + base + '</strong><strong class="renewal-discounted">' + d + ' / month</strong>' + q;
-    $('renewal-price-pay').innerHTML = $('renewal-price-summary').innerHTML = html;
-    $('renewal-price-terms').innerHTML = '<s style="opacity:0.45;margin-right:3px;">$' + PLAN_PRICE + '/month</s><strong style="color:var(--green)">' + d + '/month</strong>';
+    var qPay = period ? '<span class="renewal-qualifier">for the first ' + period + ' months</span>' : '';
+    var qSum = period ? '<span class="renewal-qualifier">(first ' + period + ' months)</span>' : '';
+    $('renewal-price-pay').innerHTML = '<s class="renewal-orig">$' + PLAN_PRICE + '</s><strong class="renewal-discounted">' + d + '</strong><span class="renewal-unit">/mo</span>' + qPay;
+    $('renewal-price-summary').innerHTML = '<strong class="renewal-orig">$' + PLAN_PRICE + '</strong><strong class="renewal-discounted">' + d + ' / month</strong>' + qSum;
+    $('renewal-price-terms').innerHTML = '<span class="nw"><s style="opacity:0.5;">$' + PLAN_PRICE + '/month</s> <strong style="color:#0f7a43">' + d + '/month</strong></span>';
   }
   function clearPromo() {
     appliedCoupon = null; appliedCode = ''; discountAmount = 0;
     $('promo-discount-row').style.display = 'none';
+    $('f-promo').classList.remove('applied');
     setRenewal(0); refreshTotals();
   }
 
@@ -2238,8 +2299,9 @@
       off = Math.min(off, PLAN_PRICE);
       discountAmount = off;
       var dur = data.duration_type || 'forever';
-      if (off > 0) showDiscount('Promo: ' + code + (data.discount_type === 'percentage' ? ' (' + data.discount_percent + '% off)' : ''), '\u2212$' + off.toFixed(2));
+      if (off > 0) showDiscount('<span class="pd-top"><span>Promo applied</span><span class="pd-code"><svg viewBox="0 0 12 12"><path d="M1.5 6.2V2.3a.8.8 0 0 1 .8-.8h3.9l4.3 4.3a.8.8 0 0 1 0 1.1L7 10.5a.8.8 0 0 1-1.1 0L1.5 6.2Z"/><circle cx="4" cy="4" r=".6" fill="currentColor" stroke="none"/></svg>' + esc(code) + '</span></span>' + (data.discount_type === 'percentage' ? '<span class="pd-off">' + esc(String(data.discount_percent)) + '% off</span>' : ''), '\u2212$' + off.toFixed(2));
       else $('promo-discount-row').style.display = 'none';
+      $('f-promo').classList.add('applied');
       setRenewal(dur === 'one_time' ? 0 : off, dur === 'limited_period' ? (data.period || '') : '');
       refreshTotals();
       setPromoFeedback('ok', data.description || 'Promo code applied!');
