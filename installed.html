@@ -1926,7 +1926,7 @@
   /* ── CONFIG ─────────────────────────────────────────────────── */
   var CB_SITE      = 'more4lessplans';
   var CB_PLAN_ID   = 'home-internet';                // Chargebee plan ID — must match ACTIVATION_PLAN_IDS in the worker
-  var WORKER_URL   = '/api/activate/checkout';       // activation worker route (card checkout)
+  var WORKER_URL   = '/api/checkout-embedded';        // same checkout worker as essential.html
   var COUPON_URL   = '/api/validate-coupon';         // same coupon worker as essential.html (checkout-embedded page)
   var CONFIRM      = '/activation-confirmed';        // TODO: your confirmation page
   var PLAN_PRICE   = 110;                            // charged today (first month) and on renewal
@@ -2393,7 +2393,9 @@
         body: JSON.stringify({
           token: tok.token, plan_id: CB_PLAN_ID, flow: 'activation',
           first_name: order.first_name, last_name: order.last_name, phone: order.phone, email: order.email,
-          billing_address: order.billing, service_address: order.service,
+          billing_address: order.billing,
+          shipping_address: order.service,   // same field essential.html sends; here it is the service address
+          service_address: order.service,
           coupon_id: appliedCoupon || undefined, idempotency_key: getIdemKey()
         })
       }, 20000);
