@@ -1,0 +1,2505 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Set Up Your Account | More4Less</title>
+  <meta name="description" content="Your More4Less internet is active. Create your account to manage payments, your subscription and get dedicated support. Monthly, no contract.">
+  <meta name="robots" content="noindex">
+  <link rel="canonical" href="https://more4lessplans.ca/setup">
+
+  <!-- Open Graph / social previews -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="More4Less">
+  <meta property="og:locale" content="en_CA">
+  <meta property="og:url" content="https://more4lessplans.ca/setup">
+  <meta property="og:title" content="Set Up Your Account | More4Less">
+  <meta property="og:description" content="Your internet is active. Create your account to manage payments, your subscription and get dedicated support. Monthly, no contract.">
+  <meta property="og:image" content="https://more4lessplans.ca/assets/img/og/setup.png">
+  <meta property="og:image:secure_url" content="https://more4lessplans.ca/assets/img/og/setup.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="More4Less: Set up your account. Internet active. Monthly, no contract.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Set Up Your Account | More4Less">
+  <meta name="twitter:description" content="Your internet is active. Create your account to manage payments, your subscription and get dedicated support.">
+  <meta name="twitter:image" content="https://more4lessplans.ca/assets/img/og/setup.png">
+  <meta name="twitter:image:alt" content="More4Less: Set up your account. Internet active. Monthly, no contract.">
+
+  <!-- Icons & app -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png">
+  <link rel="shortcut icon" href="/assets/img/favicons/favicon.ico">
+  <link rel="manifest" href="/assets/img/favicons/site.webmanifest">
+  <meta name="theme-color" content="#2E2F33">
+  <meta name="application-name" content="More4Less">
+  <meta name="apple-mobile-web-app-title" content="More4Less">
+  <meta name="format-detection" content="telephone=no">
+
+  <link rel="preconnect" href="https://js.chargebee.com">
+  <link rel="preconnect" href="https://maps.googleapis.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://js.chargebee.com/v2/chargebee.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNt4XeQ5roadq0L-IpadA6s9e4CPm9FwI&libraries=places"></script>
+
+  <style>
+    /* ═══════════════════════════════════════════════════════════════
+       DESIGN TOKENS
+    ═══════════════════════════════════════════════════════════════ */
+    :root {
+      /* Brand */
+      --red:          #D73C59;
+      --red-deep:     #b82e48;
+      --red-glow:     rgba(215,60,89,0.12);
+      --red-glow-sm:  rgba(215,60,89,0.07);
+      --green:        #16a05a;
+      --green-bg:     rgba(22,160,90,0.08);
+      --green-border: rgba(22,160,90,0.18);
+
+      /* Surfaces — right panel stays dark always */
+      --bg:           #f8f8f9;
+      --bg-card:      #ffffff;
+      --bg-input:     #ffffff;
+      --bg-right:     #2E2F33;
+      --bg-right-card:#38393e;
+      --bg-right-line:rgba(255,255,255,0.08);
+
+      /* Text */
+      --ink:          #1a1a1c;
+      --ink-2:        #3d3d40;
+      --ink-3:        #87878c;
+      --ink-4:        #b8b8bc;
+      --ink-on-dark:  #f0f0f2;
+      --ink-on-dark-2:#b8b8c4;
+      --ink-on-dark-3:#78787e;
+
+      /* Borders */
+      --border:       #e8e8ec;
+      --border-soft:  #f0f0f4;
+      --border-dark:  rgba(255,255,255,0.10);
+
+      /* Layout */
+      --nav-h:        60px;
+      --right-w:      420px;
+      --radius-xl:    18px;
+      --radius-lg:    14px;
+      --radius-md:    10px;
+      --radius-sm:    8px;
+      --radius-full:  999px;
+
+      /* Easing */
+      --spring:       cubic-bezier(0.34,1.5,0.64,1);
+      --ease-out:     cubic-bezier(0.22,1,0.36,1);
+      --ease-in-out:  cubic-bezier(0.65,0,0.35,1);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       RESET & BASE
+    ═══════════════════════════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html {
+      font-size: 15px;
+      scroll-behavior: smooth;
+      height: 100%;
+    }
+    body {
+      font-family: 'Figtree', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+      min-height: 100%;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       NAV — matches index navbar-custom
+    ═══════════════════════════════════════════════════════════════ */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      z-index: 9000;
+      background: var(--bg-right);
+      border-bottom: 1px solid var(--border-dark);
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-inner {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      padding: 0 40px;
+      position: relative; /* for absolute-centered steps */
+    }
+
+    /* hide the old split strips */
+    .nav-left { display: contents; }
+    .nav-right-strip { display: none !important; }
+
+    .nav-logo img { height: 20px; display: block; }
+
+    /* Steps: absolutely centered regardless of logo/hamburger widths */
+    .nav-steps {
+      display: none; /* hidden by default on mobile; visible class added on load */
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      align-items: center;
+      gap: 0;
+      pointer-events: none;
+    }
+    .nav-steps.visible { display: flex; }
+
+    .nav-step {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--ink-on-dark-3);
+      transition: color 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .nav-step.active { color: var(--ink-on-dark); }
+    .nav-step.done   { color: var(--ink-on-dark-2); }
+
+    .nav-step-num {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,0.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.68rem; font-weight: 600;
+      color: var(--ink-on-dark-3);
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .nav-step.active .nav-step-num {
+      border-color: var(--red);
+      color: var(--red);
+      background: var(--red-glow-sm);
+    }
+
+    .nav-step.done .nav-step-num {
+      border-color: rgba(255,255,255,0.6);
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+    }
+
+    .nav-step-check { display: none; width: 8px; height: 5px; border-left: 1.5px solid #fff; border-bottom: 1.5px solid #fff; transform: rotate(-45deg) translate(1px,-1px); }
+    .nav-step.done .nav-step-num-inner { display: none; }
+    .nav-step.done .nav-step-check { display: block; }
+
+    .nav-sep {
+      width: 24px; height: 1px;
+      background: rgba(255,255,255,0.15);
+      margin: 0 6px;
+      flex-shrink: 0;
+    }
+    .nav-sep.done { background: rgba(255,255,255,0.4); transition: background 0.4s ease; }
+
+    /* In-page step bar for mobile (shown below nav instead of in it) */
+    .page-steps-bar {
+      display: none; /* shown only on mobile, only during checkout */
+      background: var(--bg-right);
+      border-bottom: 1px solid var(--border-dark);
+      padding: 10px 20px;
+      position: sticky;
+      top: var(--nav-h);
+      z-index: 8900;
+    }
+    .page-steps-bar .nav-steps {
+      display: flex;
+      position: static;
+      transform: none;
+      justify-content: center;
+      pointer-events: all;
+    }
+
+    /* Hamburger */
+    .menu-trigger {
+      display: none;
+      cursor: pointer;
+      padding: 8px;
+      background: none; border: none;
+      outline: none;
+      -webkit-appearance: none;
+      margin-left: auto;
+    }
+    .menu-icon { width: 22px; height: 16px; display: flex; flex-direction: column; justify-content: space-between; }
+    .menu-icon span { display: block; width: 100%; height: 1.5px; background: rgba(255,255,255,0.8); border-radius: 4px; transition: all 0.3s ease; }
+    .menu-trigger.menu-active .menu-icon span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .menu-trigger.menu-active .menu-icon span:nth-child(2) { opacity: 0; }
+    .menu-trigger.menu-active .menu-icon span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile overlay */
+    .mobile-overlay {
+      position: fixed; inset: 0;
+      background: rgba(22,22,24,0.97);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      z-index: 8500;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+    .mobile-overlay.active { opacity: 1; visibility: visible; }
+    .mobile-nav-links { list-style: none; text-align: center; padding: 0; margin: 0; }
+    .mobile-nav-links li { margin: 18px 0; transform: translateY(16px); opacity: 0; transition: 0.4s ease; }
+    .mobile-overlay.active .mobile-nav-links li { transform: none; opacity: 1; }
+    .mobile-nav-links li:nth-child(1) { transition-delay: 0.08s; }
+    .mobile-nav-links li:nth-child(2) { transition-delay: 0.13s; }
+    .mobile-nav-links li:nth-child(3) { transition-delay: 0.18s; }
+    .mobile-nav-links a {
+      color: rgba(255,255,255,0.85);
+      font-size: 2rem;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: -0.03em;
+      position: relative;
+      display: inline-block;
+      transition: color 0.25s ease;
+    }
+    /* Red underline — same as index */
+    .mobile-nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 2.5px;
+      background: var(--red);
+      border-radius: 2px;
+      transition: width 0.3s cubic-bezier(0.22,1,0.36,1);
+    }
+    .mobile-nav-links a:hover,
+    .mobile-nav-links a:focus { color: #fff; }
+    .mobile-nav-links a:hover::after,
+    .mobile-nav-links a:focus::after,
+    .mobile-nav-links a.active::after { width: 100%; }
+    .mobile-nav-links .portal-link a { color: var(--red); }
+    .mobile-nav-links .portal-link a::after { background: var(--red); }
+
+    /* ═══════════════════════════════════════════════════════════════
+       SPLIT LAYOUT — FULL VIEWPORT
+    ═══════════════════════════════════════════════════════════════ */
+
+    /* Push content below fixed nav */
+    #screen-checkout {
+      margin-top: var(--nav-h);
+      height: calc(100vh - var(--nav-h));
+    }
+
+    .checkout-root {
+      display: flex;
+      height: 100%;
+    }
+
+    /* LEFT — white form side, scrolls independently */
+    .checkout-left {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 48px 48px 72px;
+      overflow-y: auto;
+      height: 100%;
+    }
+
+    .checkout-left-inner {
+      width: 100%;
+      max-width: 480px;
+    }
+
+    /* RIGHT — permanently dark summary panel, sticky full height */
+    .checkout-right {
+      width: var(--right-w);
+      flex-shrink: 0;
+      background: var(--bg-right);
+      height: 100%;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      border-left: 1px solid var(--border-dark);
+    }
+
+    /* Custom scrollbar on right */
+    .checkout-right::-webkit-scrollbar { width: 4px; }
+    .checkout-right::-webkit-scrollbar-track { background: transparent; }
+    .checkout-right::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       SCREEN 0 — full-height split hero (desktop)
+    ═══════════════════════════════════════════════════════════════ */
+
+/* Subtle radial glow behind product image */
+
+    @keyframes floatProduct {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-10px); }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       STEP PANELS (left side)
+    ═══════════════════════════════════════════════════════════════ */
+    .step-panel { display: none; }
+    .step-panel.active { display: block; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       SECTION HEADING
+    ═══════════════════════════════════════════════════════════════ */
+    .section-eyebrow {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-eyebrow::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       SCREEN 0 — ORDER PREVIEW (LEFT SIDE)
+    ═══════════════════════════════════════════════════════════════ */
+
+    /* Feature pills */
+
+    /* Proceed CTA */
+
+    /* ═══════════════════════════════════════════════════════════════
+       BUTTONS
+    ═══════════════════════════════════════════════════════════════ */
+    .btn-primary {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 15px 28px;
+      background: var(--ink);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-full);
+      font-family: 'Figtree', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition:
+        background 0.25s ease,
+        transform 0.4s var(--spring),
+        box-shadow 0.4s ease;
+      will-change: transform;
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.07) 50%, transparent 65%);
+      transform: translateX(-120%);
+      transition: transform 0.6s var(--ease-out);
+    }
+    .btn-primary:hover::before { transform: translateX(120%); }
+    .btn-primary:hover {
+      background: #1a1a1c;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.18);
+    }
+    .btn-primary:active { transform: translateY(0); transition-duration: 0.1s; }
+    .btn-primary:disabled { background: #c8c8cc; transform: none; box-shadow: none; cursor: not-allowed; }
+    .btn-primary:disabled::before { display: none; }
+
+    .btn-primary.red {
+      background: var(--red);
+    }
+    .btn-primary.red:hover { background: var(--red-deep); box-shadow: 0 12px 32px rgba(215,60,89,0.25); }
+
+    .btn-arr { width: 14px; height: 14px; stroke: currentColor; stroke-width: 2; fill: none; transition: transform 0.3s var(--spring); flex-shrink: 0; }
+    .btn-primary:hover .btn-arr { transform: translateX(4px); }
+
+    .btn-lbl { display: block; }
+    .btn-spin {
+      display: none;
+      width: 16px; height: 16px;
+      border: 1.5px solid rgba(255,255,255,0.25);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.65s linear infinite;
+      flex-shrink: 0;
+    }
+    .btn-primary.loading .btn-lbl,
+    .btn-primary.loading .btn-arr { display: none; }
+    .btn-primary.loading .btn-spin { display: block; }
+
+    .price-tax-note {
+      font-size: 0.65rem;
+      font-weight: 400;
+      color: var(--ink-4);
+      letter-spacing: 0.01em;
+    }
+    .btn-tax {
+      font-size: 0.68rem;
+      font-weight: 400;
+      opacity: 0.55;
+      letter-spacing: 0.01em;
+    }
+    .btn-lock-note {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 0.69rem;
+      color: var(--ink-4);
+      letter-spacing: 0.01em;
+    }
+    .btn-lock-note svg { width: 10px; height: 10px; stroke: var(--ink-4); stroke-width: 1.8; fill: none; }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--ink-3);
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      font-family: 'Figtree', sans-serif;
+      margin-bottom: 28px;
+      transition: color 0.2s ease;
+    }
+    .back-btn:hover { color: var(--ink); }
+    .back-btn svg { width: 13px; height: 13px; stroke: currentColor; stroke-width: 2; fill: none; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       FORM CARDS
+    ═══════════════════════════════════════════════════════════════ */
+    .form-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 26px;
+      margin-bottom: 12px;
+      transition: box-shadow 0.3s ease;
+    }
+    .form-card:last-child { margin-bottom: 0; }
+    .form-card:hover { box-shadow: 0 4px 24px rgba(0,0,0,0.05); }
+
+    .form-card-title {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .form-card-title::after { content: ''; flex: 1; height: 1px; background: var(--border-soft); }
+
+    /* ═══════════════════════════════════════════════════════════════
+       FIELDS
+    ═══════════════════════════════════════════════════════════════ */
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+    .field { margin-bottom: 10px; }
+    .field:last-of-type { margin-bottom: 0; }
+
+    .field label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--ink-2);
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+
+    .field input, .field select {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      font-family: 'Figtree', sans-serif;
+      font-size: 0.88rem;
+      color: var(--ink);
+      background: var(--bg-input);
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .field input::placeholder { color: var(--ink-4); }
+    .field input:hover:not(:focus) { border-color: #d0d0d6; }
+
+    .field input:focus, .field select:focus {
+      border-color: var(--ink);
+      box-shadow: 0 0 0 3px rgba(10,10,11,0.06);
+    }
+
+    .field input.err {
+      border-color: var(--red);
+      box-shadow: 0 0 0 3px var(--red-glow);
+    }
+
+    .field input[readonly] {
+      background: var(--bg);
+      color: var(--ink-3);
+      cursor: default;
+    }
+    /* Editable address sub-fields (autofilled but user-editable) */
+    #f-bill-city, #f-bill-province, #f-bill-postal,
+    #f-ship-city, #f-ship-province, #f-ship-postal {
+      background: var(--bg-input);
+      color: var(--ink);
+      cursor: text;
+    }
+
+    .field select {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--bg-input);
+      font-family: 'Figtree', sans-serif;
+      font-size: 0.88rem;
+      color: var(--ink);
+      outline: none;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpolyline points='1,1 6,7 11,1' fill='none' stroke='%2387878c' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+      cursor: pointer;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .field select:focus {
+      border-color: var(--ink);
+      box-shadow: 0 0 0 3px rgba(10,10,11,0.06);
+    }
+    .field select.err {
+      border-color: var(--red);
+      box-shadow: 0 0 0 3px var(--red-glow);
+    }
+    .field select option { color: var(--ink); }
+
+    .field-err {
+      font-size: 0.7rem;
+      color: var(--red);
+      font-weight: 500;
+      margin-top: 4px;
+      display: none;
+    }
+    .field.has-err .field-err { display: block; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       CHARGEBEE CARD FIELDS
+    ═══════════════════════════════════════════════════════════════ */
+    .cb-field-wrap {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--bg-input);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      min-height: 42px;
+    }
+    .cb-field-wrap.focus {
+      border-color: var(--ink);
+      box-shadow: 0 0 0 3px rgba(10,10,11,0.06);
+    }
+    .cb-field-wrap.err {
+      border-color: var(--red);
+      box-shadow: 0 0 0 3px var(--red-glow);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       CARD BRAND ROW
+    ═══════════════════════════════════════════════════════════════ */
+    .card-brand-row {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 18px;
+    }
+    .card-brand-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3px 7px;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      color: var(--ink-4);
+      background: var(--bg);
+      height: 22px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .card-brand-badge:hover {
+      border-color: var(--ink-3);
+      color: var(--ink-2);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       SHIPPING TOGGLE
+    ═══════════════════════════════════════════════════════════════ */
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 16px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .toggle-row input[type="checkbox"] {
+      width: 17px; height: 17px;
+      accent-color: var(--ink);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .toggle-row span {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--ink-2);
+    }
+
+    .shipping-fields {
+      overflow: hidden;
+      transition: max-height 0.45s var(--ease-out), opacity 0.3s ease;
+      max-height: 800px;
+      opacity: 1;
+    }
+    .shipping-fields.hidden { max-height: 0; opacity: 0; pointer-events: none; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       PROMO CODE
+    ═══════════════════════════════════════════════════════════════ */
+    .promo-row {
+      display: flex;
+      gap: 8px;
+    }
+    .promo-row input {
+      flex: 1;
+      padding: 10px 13px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.82rem;
+      color: var(--ink);
+      background: var(--bg-input);
+      outline: none;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .promo-row input::placeholder { font-family: 'DM Sans', sans-serif; letter-spacing: 0; text-transform: none; color: var(--ink-4); }
+    .promo-row input:focus { border-color: var(--ink); box-shadow: 0 0 0 3px rgba(10,10,11,0.06); }
+    .promo-row input.err { border-color: var(--red); }
+
+    .promo-apply {
+      padding: 10px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      font-family: 'Figtree', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--ink);
+      background: var(--bg-card);
+      cursor: pointer;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+    .promo-apply:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
+    .promo-spin { display: none; width: 13px; height: 13px; border: 1.5px solid rgba(0,0,0,0.15); border-top-color: var(--ink); border-radius: 50%; animation: spin 0.65s linear infinite; }
+    .promo-apply.loading .promo-apply-lbl { display: none; }
+    .promo-apply.loading .promo-spin { display: block; }
+
+    .promo-feedback {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.73rem;
+      font-weight: 500;
+      margin-top: 8px;
+      opacity: 0;
+      height: 0;
+      overflow: hidden;
+      transition: opacity 0.3s ease, height 0.3s ease;
+    }
+    .promo-feedback.ok  { color: #0f7a43; opacity: 1; height: auto; }
+    .promo-feedback.bad { color: var(--red);   opacity: 1; height: auto; }
+    .promo-feedback svg { width: 12px; height: 12px; stroke: currentColor; stroke-width: 2.5; fill: none; flex-shrink: 0; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       SHIPPING METHOD (display only)
+    ═══════════════════════════════════════════════════════════════ */
+    .ship-option {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      background: var(--green-bg);
+      border: 1px solid var(--green-border);
+      border-radius: var(--radius-md);
+      cursor: default;
+    }
+    .ship-option input[type="checkbox"] {
+      width: 17px; height: 17px;
+      accent-color: var(--green);
+      flex-shrink: 0;
+      cursor: default;
+    }
+    .ship-option-body { flex: 1; min-width: 0; }
+    .ship-option-title { font-size: 0.86rem; font-weight: 600; color: var(--ink); line-height: 1.3; }
+    .ship-option-sub { font-size: 0.74rem; color: var(--ink-3); margin-top: 2px; line-height: 1.4; }
+    .ship-option-price { font-size: 0.82rem; font-weight: 700; color: var(--green); white-space: nowrap; }
+
+    /* Selectable shipping choices (Standard / Express) */
+    .ship-choice {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      background: var(--bg-input);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      margin-bottom: 10px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+    .ship-choice:last-child { margin-bottom: 0; }
+    .ship-choice:hover { border-color: #d0d0d6; }
+    .ship-choice.selected {
+      border-color: var(--ink);
+      box-shadow: 0 0 0 3px rgba(10,10,11,0.06);
+    }
+    .ship-choice input[type="radio"] {
+      width: 17px; height: 17px;
+      accent-color: var(--ink);
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+    .ship-choice .ship-option-price.paid { color: var(--ink); }
+
+    /* ═══════════════════════════════════════════════════════════════
+       TERMS
+    ═══════════════════════════════════════════════════════════════ */
+    .terms-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin: 16px 0 0;
+      padding: 13px 15px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+    }
+    .terms-row input[type="checkbox"] {
+      width: 16px; height: 16px;
+      accent-color: var(--ink);
+      cursor: pointer;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .terms-row label {
+      font-size: 0.75rem;
+      line-height: 1.55;
+      color: var(--ink-3);
+      cursor: pointer;
+      font-weight: 400;
+    }
+    .terms-row label a {
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .terms-row label a:hover { text-decoration: underline; }
+    .terms-err {
+      font-size: 0.7rem;
+      color: var(--red);
+      font-weight: 500;
+      margin-top: 5px;
+      display: none;
+    }
+    .terms-err.show { display: block; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       PAYMENT SUMMARY (in-form mini summary)
+    ═══════════════════════════════════════════════════════════════ */
+    .mini-summary {
+      margin-top: 18px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 16px 18px 14px;
+    }
+    .mini-summary-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--ink-3);
+      margin-bottom: 12px;
+    }
+    .mini-row, .pay-summary-discount, .pay-summary-tax {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 7px 0;
+      font-size: 0.84rem;
+      line-height: 1.35;
+      color: var(--ink-2);
+    }
+    .mini-row > strong, .pay-summary-tax > strong, .pay-summary-discount > strong { font-weight: 600; color: var(--ink); white-space: nowrap; font-variant-numeric: tabular-nums; }
+    .mini-row .mr-label { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+    .mini-row .mr-label small { font-size: 0.72rem; font-weight: 400; color: var(--ink-3); }
+    .mini-row .free { color: var(--green); }
+    .pay-summary-tax { color: var(--ink-3); }
+    .pay-summary-tax > strong { color: var(--ink-2); font-weight: 500; }
+
+    /* Promo line — quiet, premium: neutral label, savings in green, code as a small ticket */
+    .pay-summary-discount { align-items: center; }
+    .pay-summary-discount .pd-label { display: flex; flex-direction: column; align-items: flex-start; gap: 3px; min-width: 0; color: var(--ink-2); }
+    .pd-top { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 8px; }
+    .pd-code { display: inline-flex; align-items: center; gap: 5px; padding: 2px 8px 2px 6px; border-radius: var(--radius-full); background: var(--green-bg); border: 1px solid var(--green-border); color: #0f7a43; font-family: 'DM Mono', monospace; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.04em; }
+    .pd-code svg { width: 11px; height: 11px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+    .pd-off { font-size: 0.72rem; color: var(--ink-3); }
+    .pay-summary-discount > strong { color: #0f7a43; }
+
+    .mini-row.total {
+      align-items: flex-end;
+      margin-top: 8px;
+      padding: 14px 0 4px;
+      border-top: 1px solid var(--border);
+      color: var(--ink);
+    }
+    .mini-row.total .mr-label { font-size: 0.95rem; font-weight: 700; letter-spacing: -0.01em; }
+    .mini-row.total .mr-label small { font-weight: 400; }
+    .due-wrap { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+    .due-fig { font-size: 1.55rem; font-weight: 700; letter-spacing: -0.03em; line-height: 1; color: var(--ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .due-fig .due-cur { font-size: 0.62em; font-weight: 600; vertical-align: 0.5em; margin-right: 1px; }
+    .due-fig .due-cents { font-size: 0.55em; font-weight: 600; vertical-align: 0.62em; margin-left: 1px; }
+    .due-wrap .price-tax-note { margin: 0; }
+
+    .mini-savings { display: none; align-items: center; gap: 6px; margin-top: 8px; padding: 7px 10px; border-radius: var(--radius-md); background: var(--green-bg); border: 1px solid var(--green-border); font-size: 0.76rem; font-weight: 500; color: #0f7a43; }
+    .mini-savings.show { display: flex; }
+    .mini-savings svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+
+    /* Renewal — its own labelled block so the price can never collide with the copy */
+    .mini-renewal {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px dashed var(--border);
+    }
+    .mini-renewal > svg { width: 14px; height: 14px; margin-top: 2px; stroke: var(--ink-3); stroke-width: 1.7; fill: none; flex-shrink: 0; }
+    .renew-body { flex: 1; min-width: 0; }
+    .renew-line { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 2px 12px; }
+    .renew-label { font-size: 0.84rem; font-weight: 500; color: var(--ink-2); }
+    .renew-price { display: inline-flex; align-items: baseline; flex-wrap: wrap; justify-content: flex-end; gap: 0 6px; font-variant-numeric: tabular-nums; margin-left: auto; }
+    .renew-price .renewal-orig { margin: 0; font-size: 0.78rem; font-weight: 500; opacity: 1; color: var(--ink-4); text-decoration-thickness: 1px; }
+    .renew-price .renewal-discounted { font-size: 0.95rem; font-weight: 700; color: var(--ink); }
+    .renew-price .renewal-unit { font-size: 0.78rem; font-weight: 500; color: var(--ink-3); }
+    .renew-price .renewal-qualifier { flex-basis: 100%; text-align: right; margin: 2px 0 0; font-size: 0.72rem; color: var(--ink-3); }
+    .renew-price .renewal-base { font-size: 0.95rem; font-weight: 700; color: var(--ink); }
+    .renew-note { margin-top: 3px; font-size: 0.74rem; line-height: 1.45; color: var(--ink-3); }
+
+    /* Promo input + confirmation */
+    .promo-row input.applied { border-color: var(--green-border); background: rgba(22,160,90,0.035); }
+    .promo-feedback.ok { display: inline-flex; padding: 4px 10px 4px 8px; border-radius: var(--radius-full); background: var(--green-bg); border: 1px solid var(--green-border); }
+
+    @media (max-width: 480px) {
+      .mini-summary { padding: 15px 15px 13px; }
+      .due-fig { font-size: 1.7rem; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       WHAT HAPPENS NEXT (on screen 1)
+    ═══════════════════════════════════════════════════════════════ */
+    /* Timeline: nodes joined by a line that runs red → green,
+       reading as "you are here → delivered". */
+    .next-steps { margin-top: 4px; position: relative; --amber: #f5a623; }
+    /* Connector drawn per step, from one icon to the next — so the line
+       stops at the final node instead of trailing past it. */
+    .next-step-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 17px; top: 36px; bottom: 0;
+      width: 1.5px;
+      border-radius: 2px;
+      opacity: 0.6;
+    }
+    .next-step-item.now::after { background: linear-gradient(180deg, var(--amber), var(--border)); }
+    .next-step-item.mid::after { background: linear-gradient(180deg, var(--border), var(--green)); }
+
+    .next-step-item {
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 0 0 22px;
+    }
+    .next-step-item:last-child { padding-bottom: 0; }
+
+    .next-step-icon {
+      position: relative;
+      z-index: 1;
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--bg-card);
+      border: 1.5px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: transform 0.4s var(--spring);
+    }
+    .next-step-item:hover .next-step-icon { transform: scale(1.08); }
+    .next-step-icon svg { width: 14px; height: 14px; stroke: var(--ink-3); stroke-width: 1.9; fill: none; }
+
+    /* Step 1 — in progress (pending amber, softly pulsing) */
+    .next-step-item.now .next-step-icon {
+      border-color: rgba(245,166,35,0.45);
+      background: linear-gradient(rgba(245,166,35,0.09), rgba(245,166,35,0.09)), var(--bg-card);
+      animation: nextPulse 2.5s ease infinite;
+    }
+    .next-step-item.now .next-step-icon svg { stroke: #d98a0b; }
+    @keyframes nextPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(245,166,35,0.20); }
+      50%      { box-shadow: 0 0 0 7px rgba(245,166,35,0.05); }
+    }
+    /* Step 2 — neutral confirmation; Step 3 — green, the payoff */
+    .next-step-item.mid .next-step-icon { border-color: var(--border); }
+    .next-step-item.done .next-step-icon {
+      border-color: var(--green-border);
+      background: linear-gradient(var(--green-bg), var(--green-bg)), var(--bg-card);
+    }
+    .next-step-item.done .next-step-icon svg { stroke: var(--green); }
+
+    .next-step-body { flex: 1; min-width: 0; padding-top: 1px; }
+    .next-step-head {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 10px; margin-bottom: 3px;
+    }
+    .next-step-title { font-size: 0.86rem; font-weight: 700; color: var(--ink); letter-spacing: -0.015em; }
+    .next-step-tag {
+      font-size: 0.58rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--ink-4);
+      white-space: nowrap;
+    }
+    .next-step-item.now  .next-step-tag { color: #d98a0b; }
+    .next-step-item.done .next-step-tag { color: var(--green); }
+    .next-step-desc { font-size: 0.76rem; color: var(--ink-3); line-height: 1.6; }
+
+    /* Staggered reveal as the card enters */
+    .next-step-item { opacity: 0; animation: revealUp 0.6s var(--ease-out) both; }
+    .next-step-item:nth-child(1) { animation-delay: 0.30s; }
+    .next-step-item:nth-child(2) { animation-delay: 0.40s; }
+    .next-step-item:nth-child(3) { animation-delay: 0.50s; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       RIGHT PANEL — DARK ORDER SUMMARY
+    ═══════════════════════════════════════════════════════════════ */
+    .summary-inner {
+      padding: 32px 28px;
+      flex: 1;
+    }
+
+    /* Product hero in summary */
+    .summary-product {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 28px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border-dark);
+    }
+
+    .summary-product-img-wrap {
+      width: 68px; height: 68px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+      transition: transform 1.2s cubic-bezier(0.34,1.1,0.64,1);
+    }
+    .summary-product-img-wrap:hover { transform: scale(1.06) translateY(-2px); }
+
+    .summary-product-img {
+      width: 52px; height: 52px;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
+    }
+
+    .summary-product-eyebrow {
+      font-size: 0.58rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-on-dark-3);
+      margin-bottom: 4px;
+    }
+    .summary-product-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--ink-on-dark);
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+    }
+    .summary-product-sub {
+      font-size: 0.72rem;
+      color: var(--ink-on-dark-2);
+      margin-top: 3px;
+    }
+
+    /* Breakdown rows */
+    .summary-rows { margin-bottom: 20px; }
+
+    .summary-section-label {
+      font-size: 0.58rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-on-dark-3);
+      margin-bottom: 10px;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--bg-right-line);
+      font-size: 0.82rem;
+    }
+    .summary-row:first-of-type { padding-top: 0; }
+    .summary-row:last-of-type { border-bottom: none; }
+
+    .sr-label { color: var(--ink-on-dark-2); font-weight: 400; line-height: 1.45; }
+    .sr-label strong { color: var(--ink-on-dark); font-weight: 600; display: block; }
+    .sr-label small { font-size: 0.69rem; }
+
+    .sr-val { color: var(--ink-on-dark); font-weight: 600; white-space: nowrap; }
+    .sr-val.free { color: var(--green); font-weight: 600; }
+    .sr-val.tag {
+      background: rgba(215,60,89,0.12);
+      color: var(--red);
+      border: 1px solid rgba(215,60,89,0.2);
+      border-radius: var(--radius-full);
+      padding: 1px 8px;
+      font-size: 0.68rem;
+      font-weight: 600;
+    }
+
+    /* Total */
+    .summary-total-block {
+      padding: 18px 0;
+      border-top: 1px solid var(--border-dark);
+      border-bottom: 1px solid var(--border-dark);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .summary-total-label { font-size: 0.82rem; font-weight: 700; color: var(--ink-on-dark); }
+    .summary-total-note  { font-size: 0.67rem; color: var(--ink-on-dark-3); margin-top: 2px; }
+    .summary-total-fig {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.05em;
+      color: var(--ink-on-dark);
+      line-height: 1;
+      text-align: right;
+    }
+    .summary-total-fig sup { font-size: 0.85rem; font-weight: 700; vertical-align: super; letter-spacing: 0; }
+    .summary-total-tax { font-size: 0.66rem; color: var(--ink-on-dark-3); text-align: right; margin-top: 2px; }
+
+    /* Renewal notice */
+    .summary-renewal {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      padding: 14px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border-dark);
+      border-radius: var(--radius-md);
+      margin-bottom: 20px;
+    }
+    .summary-renewal svg { width: 12px; height: 12px; stroke: var(--ink-on-dark-3); stroke-width: 1.8; fill: none; flex-shrink: 0; margin-top: 1px; }
+    .summary-renewal p { font-size: 0.73rem; color: var(--ink-on-dark-2); line-height: 1.6; }
+    .summary-renewal p strong { color: var(--ink-on-dark); font-weight: 600; }
+
+    /* Features */
+    .summary-features-label {
+      font-size: 0.58rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-on-dark-3);
+      margin-bottom: 10px;
+    }
+
+    .summary-feature {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 0;
+      font-size: 0.77rem;
+      color: var(--ink-on-dark-2);
+      border-bottom: 1px solid var(--bg-right-line);
+      font-weight: 400;
+    }
+    .summary-feature:last-child { border-bottom: none; }
+
+    .sf-check {
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: rgba(22,160,90,0.1);
+      border: 1px solid rgba(22,160,90,0.2);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .sf-check svg { width: 7px; height: 7px; stroke: var(--green); stroke-width: 3; fill: none; }
+
+    /* Trust badges at bottom of right panel */
+    .summary-trust {
+      padding: 20px 28px;
+      border-top: 1px solid var(--border-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      flex-wrap: nowrap;
+    }
+    .trust-badge {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.67rem;
+      color: var(--ink-on-dark-3);
+      font-weight: 500;
+      padding: 0 14px;
+      white-space: nowrap;
+    }
+    .trust-badge svg { width: 10px; height: 10px; stroke: var(--ink-on-dark-3); stroke-width: 1.7; fill: none; flex-shrink: 0; }
+    .trust-div { width: 1px; height: 12px; background: var(--border-dark); flex-shrink: 0; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       RENEWAL PRICE STYLES (promo applied)
+    ═══════════════════════════════════════════════════════════════ */
+    .renewal-orig { text-decoration: line-through; opacity: 0.45; margin-right: 4px; white-space: nowrap; }
+    .renewal-discounted { color: var(--green); white-space: nowrap; }
+    .renewal-unit { white-space: nowrap; }
+    .renewal-qualifier { font-size: 0.75em; color: var(--ink-on-dark-3); margin-left: 4px; white-space: nowrap; }
+    .nw { white-space: nowrap; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       UNIFIED PRODUCT CARD — screen 0
+    ═══════════════════════════════════════════════════════════════ */
+
+    /* ── Header: image + identity side by side ── */
+
+    /* ── Divider ── */
+
+    /* ── Features ── */
+
+    /* ── Pricing footer ── */
+
+    @media (max-width: 600px) {
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       KEYFRAMES
+    ═══════════════════════════════════════════════════════════════ */
+    @keyframes revealUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes revealRight {
+      from { opacity: 0; transform: translateX(20px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Staggered entrance for form panels */
+    .anim-step { opacity: 0; animation: revealUp 0.55s var(--ease-out) both; }
+    .anim-step:nth-child(1) { animation-delay: 0.05s; }
+    .anim-step:nth-child(2) { animation-delay: 0.12s; }
+    .anim-step:nth-child(3) { animation-delay: 0.19s; }
+    .anim-step:nth-child(4) { animation-delay: 0.26s; }
+
+    .summary-anim {
+      opacity: 0;
+      animation: revealRight 0.7s var(--ease-out) 0.15s forwards;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════════════════════════════ */
+
+    /* Hide mobile drawer on desktop — always, regardless of inline style */
+    .mobile-summary-bar { display: none; }
+
+    @media (min-width: 901px) {
+      .mobile-summary-bar { display: none !important; }
+    }
+
+    @media (max-width: 900px) {
+      :root { --right-w: 100%; }
+
+      #screen-checkout {
+        height: auto;
+        min-height: calc(100vh - var(--nav-h));
+      }
+
+      .checkout-root {
+        flex-direction: column;
+        height: auto;
+      }
+
+      .checkout-left {
+        padding: 28px 20px 130px;
+        height: auto;
+        overflow-y: visible;
+        align-items: stretch;
+      }
+      .checkout-left-inner { max-width: 100%; }
+
+      /* Hide full right panel on mobile */
+      .checkout-right { display: none !important; }
+
+      /* Show in-page steps bar below nav on mobile */
+      .page-steps-bar { display: block; }
+
+      /* Nav adjustments */
+      .nav-inner { padding: 0 20px; }
+      .nav .nav-steps { display: none !important; }
+      .menu-trigger { display: block; }
+      .form-card { padding: 20px 18px; border-radius: var(--radius-lg); }
+    }
+
+
+      .mobile-summary-bar {
+        display: block;
+        position: fixed;
+        bottom: 0; left: 0; right: 0;
+        z-index: 8000;
+      }
+
+      .msb-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.5);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.35s ease;
+        z-index: -1;
+      }
+      .mobile-summary-bar.expanded .msb-backdrop {
+        opacity: 1;
+        pointer-events: all;
+      }
+
+      .msb-drawer {
+        background: var(--bg-right);
+        border-top: 1px solid var(--border-dark);
+        border-radius: 18px 18px 0 0;
+        overflow: hidden;
+      }
+
+      .msb-handle-wrap {
+        display: flex;
+        justify-content: center;
+        padding: 10px 0 2px;
+        cursor: pointer;
+      }
+      .msb-handle {
+        width: 36px; height: 4px;
+        border-radius: 2px;
+        background: rgba(255,255,255,0.2);
+        transition: background 0.25s ease;
+      }
+      .msb-handle-wrap:hover .msb-handle { background: rgba(255,255,255,0.45); }
+
+      .msb-collapsed {
+        display: flex;
+        align-items: center;
+        padding: 8px 18px 14px;
+        gap: 10px;
+        cursor: pointer;
+      }
+
+      .msb-product {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex: 1;
+        min-width: 0;
+      }
+      .msb-img {
+        width: 40px; height: 40px;
+        background: rgba(255,255,255,0.07);
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 10px;
+        display: flex; align-items: center; justify-content: center;
+        flex-shrink: 0;
+      }
+      .msb-img img { width: 30px; height: 30px; object-fit: contain; }
+      .msb-name {
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: var(--ink-on-dark);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .msb-sub {
+        font-size: 0.66rem;
+        color: var(--ink-on-dark-2);
+        margin-top: 1px;
+      }
+      .msb-price {
+        text-align: right;
+        flex-shrink: 0;
+      }
+      .msb-amount {
+        font-size: 1.1rem;
+        font-weight: 800;
+        color: var(--ink-on-dark);
+        letter-spacing: -0.03em;
+        line-height: 1;
+      }
+      .msb-amount sup { font-size: 0.6em; vertical-align: super; font-weight: 700; }
+      .msb-tax-inline {
+        font-size: 0.6rem;
+        font-weight: 500;
+        color: var(--ink-on-dark-3);
+        letter-spacing: 0.01em;
+        vertical-align: baseline;
+        margin-left: 1px;
+      }
+      .msb-tax {
+        font-size: 0.58rem;
+        color: var(--ink-on-dark-3);
+        margin-top: 2px;
+      }
+      .msb-chevron {
+        background: none; border: none;
+        color: var(--ink-on-dark-3);
+        cursor: pointer;
+        padding: 4px;
+        display: flex; align-items: center;
+        flex-shrink: 0;
+        transition: color 0.2s, transform 0.35s cubic-bezier(0.22,1,0.36,1);
+      }
+      .msb-chevron svg { width: 18px; height: 18px; }
+      .mobile-summary-bar.expanded .msb-chevron { transform: rotate(180deg); color: var(--ink-on-dark); }
+
+      /* Expanded panel */
+      .msb-expanded {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s cubic-bezier(0.22,1,0.36,1);
+      }
+      .mobile-summary-bar.expanded .msb-expanded { max-height: 560px; }
+
+      .msb-exp-rows {
+        padding: 0 18px 12px;
+      }
+      .msb-exp-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        padding: 7px 0;
+        font-size: 0.8rem;
+        color: var(--ink-on-dark-2);
+      }
+      /* Dividers sit between rows (top border) so the total row's own
+         top border is never doubled up with the row above it. */
+      .msb-exp-row + .msb-exp-row { border-top: 1px solid rgba(255,255,255,0.05); }
+      .msb-exp-row:last-child { border-bottom: none; }
+      .msb-exp-row:nth-last-child(2) { border-bottom: none; }
+      .msb-exp-row strong { font-weight: 600; color: var(--ink-on-dark); }
+      .msb-exp-row strong.free { color: var(--green); }
+      .msb-exp-row strong.discount { color: var(--red); }
+      .msb-exp-total {
+        margin-top: 4px;
+        padding-top: 10px !important;
+        border-top: 1px solid rgba(255,255,255,0.12) !important;
+        font-weight: 600;
+        color: var(--ink-on-dark) !important;
+        font-size: 0.88rem !important;
+      }
+      .msb-exp-total strong { font-size: 1rem; letter-spacing: -0.02em; }
+
+      .msb-exp-renewal {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 12px 18px;
+        font-size: 0.72rem;
+        color: var(--ink-on-dark-2);
+        line-height: 1.55;
+        border-bottom: 1px solid var(--border-dark);
+      }
+      .msb-exp-renewal svg { width: 12px; height: 12px; flex-shrink: 0; margin-top: 2px; }
+      .msb-exp-renewal strong { color: var(--ink-on-dark); font-weight: 600; }
+
+      .msb-exp-features {
+        padding: 12px 18px 18px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6px 12px;
+      }
+      .msb-exp-feat {
+        font-size: 0.72rem;
+        color: var(--ink-on-dark-2);
+        display: flex;
+        align-items: flex-start;
+        gap: 5px;
+        line-height: 1.4;
+      }
+      .msb-feat-check {
+        color: var(--green);
+        font-weight: 700;
+        flex-shrink: 0;
+        font-size: 0.8rem;
+      }
+
+      .nav-inner { padding: 0 20px; }
+      .nav .nav-steps { display: none !important; }
+      .menu-trigger { display: block; }
+      .form-card { padding: 20px 18px; border-radius: var(--radius-lg); }
+
+    @media (max-width: 640px) {
+      .field-row { grid-template-columns: 1fr; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       MINIMAL PROGRESS BAR — three hairline segments, no labels.
+       Reuses the existing step markup/classes (active / done) so the
+       step machine is untouched; labels stay in the DOM for screen
+       readers but are visually hidden.
+    ═══════════════════════════════════════════════════════════════ */
+    /* One continuous hairline along the bottom edge of the nav.
+       The three step segments sit edge to edge (no track, no gaps),
+       so the red fill simply grows across as the steps advance. */
+    .nav-inner { position: static; }
+    .nav .nav-steps {
+      position: absolute;
+      left: 0; right: 0; bottom: -1px;
+      transform: none;
+      width: 100%;
+      gap: 0;
+      pointer-events: none;
+    }
+    .nav-sep { display: none; }
+
+    .nav-step {
+      position: relative;
+      flex: 1;
+      height: 1.5px;
+      gap: 0;
+      border-radius: 0;
+      background: transparent;
+    }
+    .nav-step > span,
+    .nav-step > .nav-step-num {
+      position: absolute;
+      width: 1px; height: 1px;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .nav-step::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 0;
+      background: var(--red);
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 0.7s var(--ease-out);
+    }
+    .nav-step.done::after,
+    .nav-step.active::after { transform: scaleX(1); }
+
+    /* Mobile: same single line, tucked directly under the nav */
+    @media (max-width: 900px) {
+      .page-steps-bar {
+        padding: 0;
+        height: 1.5px;
+        background: transparent;
+        border-bottom: none;
+      }
+      .page-steps-bar .nav-steps {
+        position: static;
+        width: 100%;
+        gap: 0;
+      }
+      .page-steps-bar .nav-step { flex: 1; width: auto; }
+    }
+
+    /* Desktop: use the same strip as mobile — a single hairline sitting
+       directly under the nav (not inside it), full width, red fill only. */
+    @media (min-width: 901px) {
+      .nav .nav-steps { display: none !important; }
+      .page-steps-bar {
+        display: block;
+        position: fixed;
+        top: var(--nav-h);
+        left: 0; right: 0;
+        height: 1.5px;
+        padding: 0;
+        background: transparent;
+        border-bottom: none;
+        z-index: 8900;
+        pointer-events: none;
+      }
+      .page-steps-bar .nav-steps {
+        position: static;
+        width: 100%;
+        gap: 0;
+      }
+      .page-steps-bar .nav-step { flex: 1; width: auto; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  
+
+    /* ═══ ACTIVATION PAGE — IMMERSIVE LAYER ═══ */
+    .nav-links { display: flex; align-items: center; gap: 4px; margin-left: auto; }
+    .nav-links a { color: var(--ink-on-dark-2); font-size: 0.82rem; font-weight: 500; text-decoration: none; padding: 0 16px; transition: color .2s; }
+    .nav-links a:hover { color: #fff; }
+    .nav-links a.pill { color: #fff; font-weight: 600; border: 1.5px solid rgba(255,255,255,0.28); border-radius: var(--radius-full); padding: 6px 16px; margin-left: 8px; transition: background .2s, border-color .2s; }
+    .nav-links a.pill:hover { background: rgba(255,255,255,0.10); border-color: rgba(255,255,255,0.5); }
+    body.in-checkout .nav-links { display: none; }
+    body:not(.in-checkout) .page-steps-bar { display: none !important; }
+
+    /* ── FULL-SCREEN STAGE ── */
+    .setup-hero { position: fixed; inset: 0; z-index: 100; background: var(--bg-right); overflow-x: hidden; overflow-y: auto; display: flex; transition: opacity .55s var(--ease-out), visibility .55s var(--ease-out), transform .55s var(--ease-out); }
+    .setup-hero.compact { opacity: 0; visibility: hidden; pointer-events: none; transform: scale(1.02); }
+    .setup-hero::before { content: ''; position: fixed; inset: 0; pointer-events: none;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px); background-size: 28px 28px;
+      -webkit-mask-image: radial-gradient(ellipse 75% 75% at 50% 52%, #000 25%, transparent 100%); mask-image: radial-gradient(ellipse 75% 75% at 50% 52%, #000 25%, transparent 100%); }
+    .setup-hero::after { content: ''; position: fixed; width: 760px; height: 760px; border-radius: 50%; top: 52%; left: 50%; transform: translate(-50%,-50%); pointer-events: none;
+      background: radial-gradient(circle, rgba(215,60,89,0.10) 0%, transparent 68%); }
+
+    /* Signal rings: the one memorable element */
+    .rings { position: fixed; top: 52%; left: 50%; width: 0; height: 0; pointer-events: none; }
+    .rings i { position: absolute; border-radius: 50%; border: 1px solid rgba(255,255,255,0.07); transform: translate(-50%,-50%); opacity: 0; animation: ringIn 1.4s var(--ease-out) forwards, ringBreathe 7s ease-in-out infinite; }
+    .rings i:nth-child(1) { width: 520px;  height: 520px;  animation-delay: .5s, 1.9s; }
+    .rings i:nth-child(2) { width: 820px;  height: 820px;  animation-delay: .7s, 2.4s; }
+    .rings i:nth-child(3) { width: 1120px; height: 1120px; animation-delay: .9s, 2.9s; }
+    @keyframes ringIn { to { opacity: 1; } }
+    @keyframes ringBreathe { 0%,100% { scale: 1; } 50% { scale: 1.035; } }
+
+    .hero-inner { position: relative; z-index: 2; margin: auto; width: 100%; max-width: 760px; padding: calc(var(--nav-h) + 24px) 24px 120px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 14px; margin-bottom: 22px; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.55); opacity: 0; animation: revealUp .7s var(--ease-out) .1s forwards; }
+    .hero-eyebrow::before, .hero-eyebrow::after { content: ''; width: 32px; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.32)); }
+    .hero-eyebrow::after { transform: scaleX(-1); }
+
+    .hero-status { display: inline-flex; align-items: center; gap: 9px; padding: 5px 14px 5px 6px; margin-bottom: 28px; border: 1px solid rgba(255,255,255,0.11); border-radius: var(--radius-full); background: rgba(255,255,255,0.04); font-size: 0.74rem; font-weight: 500; letter-spacing: 0; color: var(--ink-on-dark-2); opacity: 0; animation: revealUp .7s var(--ease-out) .22s forwards; }
+    .status-check { position: relative; width: 18px; height: 18px; border-radius: 50%; background: #1fae63; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transform: scale(0); animation: checkPop .5s var(--spring) .6s forwards; }
+    .status-check::before { content: ''; position: absolute; inset: 0; border-radius: 50%; background: rgba(46,204,113,0.6); opacity: 0; animation: livePulse 2.6s cubic-bezier(0.22,1,0.36,1) 1.6s infinite; }
+    .status-check svg { position: relative; width: 10px; height: 10px; fill: none; stroke: #fff; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 14; stroke-dashoffset: 14; animation: checkDraw .45s var(--ease-out) .85s forwards; }
+    @keyframes checkPop  { to { transform: scale(1); } }
+    @keyframes livePulse { 0% { transform: scale(1); opacity: .65; } 70%, 100% { transform: scale(2.1); opacity: 0; } }
+    @media (prefers-reduced-motion: reduce) { .hero-status, .status-check::before { animation: none !important; opacity: 1; } .status-check { animation: none !important; transform: none; } .status-check svg { animation: none !important; stroke-dashoffset: 0; } }
+    @keyframes checkDraw { to { stroke-dashoffset: 0; } }
+
+    .hero-headline { font-size: clamp(2.6rem, 6.4vw, 4.6rem); font-weight: 800; letter-spacing: -0.045em; line-height: 1.04; color: var(--ink-on-dark); margin-bottom: 22px; text-wrap: balance; opacity: 0; animation: revealUp .8s var(--ease-out) .38s forwards; }
+    .hero-sub { font-size: 1.08rem; line-height: 1.7; color: var(--ink-on-dark-2); max-width: 520px; margin: 0 auto 40px; text-wrap: pretty; opacity: 0; animation: revealUp .8s var(--ease-out) .52s forwards; }
+    .hero-cta { width: 100%; max-width: 340px; opacity: 0; animation: revealUp .8s var(--ease-out) .66s forwards; }
+    .hero-cta .btn-primary { box-shadow: 0 14px 40px rgba(215,60,89,0.28); }
+    .hero-cta .btn-lock-note { color: var(--ink-on-dark-3); justify-content: center; }
+    .hero-alt { display: inline-block; margin-top: 26px; font-size: 0.8rem; font-weight: 500; color: var(--ink-on-dark-3); text-decoration: none; transition: color .2s; opacity: 0; animation: revealUp .8s var(--ease-out) .78s forwards; }
+    .hero-alt:hover { color: var(--red); }
+
+    .hero-chips { position: fixed; left: 0; right: 0; bottom: 34px; z-index: 2; display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; padding: 0 20px; opacity: 0; animation: revealUp .8s var(--ease-out) .9s forwards; transition: opacity .4s; }
+    .setup-hero.compact .hero-chips { opacity: 0; animation: none; }
+    .hero-chips span { display: inline-flex; align-items: center; gap: 8px; padding: 8px 15px; border: 1px solid rgba(255,255,255,0.11); border-radius: var(--radius-full); background: rgba(255,255,255,0.04); font-size: 0.76rem; font-weight: 500; color: var(--ink-on-dark-2); }
+    .hero-chips svg { width: 12px; height: 12px; fill: none; stroke: var(--green); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ── CHECKOUT: same atmosphere ── */
+    #screen-checkout.enter { animation: stageIn .7s var(--ease-out) both; }
+    @keyframes stageIn { from { opacity: 0; transform: translateY(18px) scale(.99); } to { opacity: 1; transform: none; } }
+    .checkout-right { position: relative; }
+    .checkout-right::before { content: ''; position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 26px 26px; -webkit-mask-image: linear-gradient(180deg, #000, transparent 70%); mask-image: linear-gradient(180deg, #000, transparent 70%); }
+    .checkout-right::after { content: ''; position: absolute; width: 420px; height: 420px; border-radius: 50%; top: -160px; right: -140px; pointer-events: none; background: radial-gradient(circle, rgba(215,60,89,0.12), transparent 68%); }
+    .checkout-right > * { position: relative; z-index: 1; }
+    .form-card { box-shadow: 0 1px 2px rgba(20,20,24,0.04), 0 10px 30px -12px rgba(20,20,24,0.10); }
+    .signal { width: 56px; height: 56px; border-radius: 14px; border: 1px solid var(--border-dark); background: rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: center; color: var(--red); flex-shrink: 0; }
+    .signal svg { width: 30px; height: 30px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .hero-inner { padding: calc(var(--nav-h) + 16px) 22px 150px; }
+      .hero-sub { font-size: 1rem; margin-bottom: 32px; }
+      .hero-chips { bottom: 22px; gap: 8px; }
+      .hero-chips span { font-size: 0.72rem; padding: 7px 12px; }
+      .rings i:nth-child(3) { display: none; }
+      .checkout-left { padding-bottom: 48px; }
+    }
+    @media (max-height: 640px) { .hero-chips { position: static; margin-top: 28px; padding-bottom: 28px; } .hero-inner { padding-bottom: 24px; } }
+
+
+    /* ═══════════════════════════════════════════════════════════════
+       GOOGLE PLACES DROPDOWN — themed to match the form
+       (the "body" prefix out-ranks Google's own injected stylesheet;
+        the "Powered by Google" logo is kept, as the terms require)
+    ═══════════════════════════════════════════════════════════════ */
+    body .pac-container {
+      margin-top: 6px;
+      padding: 6px 6px 0;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      box-shadow: 0 14px 34px rgba(26,26,28,0.10), 0 2px 6px rgba(26,26,28,0.04);
+      font-family: 'Figtree', sans-serif;
+      overflow: hidden;
+    }
+    body .pac-item {
+      padding: 10px 12px;
+      border: 0;
+      border-radius: var(--radius-sm);
+      font-family: 'Figtree', sans-serif;
+      font-size: 0.78rem;
+      line-height: 1.35;
+      color: var(--ink-3);
+      transition: background 0.15s ease;
+    }
+    body .pac-item:hover,
+    body .pac-item-selected,
+    body .pac-item-selected:hover { background: var(--bg); }
+    body .pac-icon { display: none; }
+    body .pac-item-query {
+      padding-right: 6px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--ink);
+    }
+    body .pac-matched { font-weight: 700; }
+    body .pac-container::after {
+      height: 14px;
+      margin: 4px -6px 0;
+      padding: 8px 0;
+      border-top: 1px solid var(--border-soft);
+      background-position: right 14px center;
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="/"><img src="/assets/img/logos/logo.png" alt="More4Less"></a>
+
+    <div class="nav-links">
+      <a href="/contact">Support</a>
+      <a class="pill" href="/portal">Customer Portal</a>
+    </div>
+
+    <div class="nav-steps" id="navSteps">
+      <div class="nav-step active" id="st-1"><div class="nav-step-num"><span class="nav-step-num-inner">1</span><span class="nav-step-check"></span></div><span>Your Details</span></div>
+      <div class="nav-sep" id="cn-1"></div>
+      <div class="nav-step" id="st-2"><div class="nav-step-num"><span class="nav-step-num-inner">2</span><span class="nav-step-check"></span></div><span>Service Address</span></div>
+      <div class="nav-sep" id="cn-2"></div>
+      <div class="nav-step" id="st-3"><div class="nav-step-num"><span class="nav-step-num-inner">3</span><span class="nav-step-check"></span></div><span>Payment</span></div>
+    </div>
+
+    <button class="menu-trigger" id="menuTrigger" aria-label="Open menu">
+      <div class="menu-icon"><span></span><span></span><span></span></div>
+    </button>
+  </div>
+</nav>
+
+<div class="page-steps-bar" id="pageStepsBar">
+  <div class="nav-steps" style="display:flex;">
+    <div class="nav-step active" id="pst-1"><div class="nav-step-num"><span class="nav-step-num-inner">1</span><span class="nav-step-check"></span></div><span>Details</span></div>
+    <div class="nav-sep" id="pcn-1"></div>
+    <div class="nav-step" id="pst-2"><div class="nav-step-num"><span class="nav-step-num-inner">2</span><span class="nav-step-check"></span></div><span>Address</span></div>
+    <div class="nav-sep" id="pcn-2"></div>
+    <div class="nav-step" id="pst-3"><div class="nav-step-num"><span class="nav-step-num-inner">3</span><span class="nav-step-check"></span></div><span>Payment</span></div>
+  </div>
+</div>
+
+<div class="mobile-overlay" id="mobileOverlay">
+  <ul class="mobile-nav-links">
+    <li><a href="/contact">Support</a></li>
+    <li><a href="/#pricing">Pricing</a></li>
+    <li class="portal-link"><a href="/portal">Customer Portal</a></li>
+  </ul>
+</div>
+
+<!-- ═══ LANDING — full-screen stage ═══ -->
+<section class="setup-hero" id="hero">
+  <div class="rings" aria-hidden="true"><i></i><i></i><i></i></div>
+
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Account Setup</div>
+
+    <div class="hero-status" role="status"><span class="status-check" aria-hidden="true"><svg viewBox="0 0 16 16"><polyline points="3.5,8.5 6.8,11.5 12.5,4.8"/></svg></span>Internet Active</div>
+
+    <h1 class="hero-headline">Set Up Your Account</h1>
+
+    <p class="hero-sub">Ensure uninterrupted service with online payments, subscription management, and dedicated support.</p>
+
+    <div class="hero-cta">
+      <button class="btn-primary red" onclick="startActivation()">
+        <span class="btn-lbl">Set Up My Account</span>
+        <div class="btn-spin"></div>
+        <svg class="btn-arr" viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg>
+      </button>
+      <div class="btn-lock-note" style="margin-top:12px;">
+        <svg viewBox="0 0 14 14" stroke-linecap="round"><rect x="2" y="6" width="10" height="7" rx="1.5"/><path d="M4.5 6V4.5a2.5 2.5 0 015 0V6"/></svg>
+        Secure Portal
+      </div>
+    </div>
+
+    <a class="hero-alt" href="/portal">Already have an account? Open the Customer Portal</a>
+  </div>
+
+  <div class="hero-chips">
+    <span><svg viewBox="0 0 14 14"><polyline points="2,7.5 5.5,11 12,3.5"/></svg>Takes About 3 Minutes</span>
+    <span><svg viewBox="0 0 14 14"><polyline points="2,7.5 5.5,11 12,3.5"/></svg>Monthly, No Contract</span>
+    <span><svg viewBox="0 0 14 14"><polyline points="2,7.5 5.5,11 12,3.5"/></svg>Cancel Anytime</span>
+  </div>
+</section>
+
+<!-- ═══ ACTIVATION CHECKOUT ═══ -->
+<div id="screen-checkout" style="display:none;">
+  <div class="checkout-root">
+
+    <div class="checkout-left" id="formLeft">
+      <div class="checkout-left-inner" id="formPanel">
+
+        <!-- STEP 1 -->
+        <div class="step-panel active" id="panel-step-1">
+          <button class="back-btn" onclick="showLanding()">
+            <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><line x1="13" y1="8" x2="3" y2="8"/><polyline points="7,4 3,8 7,12"/></svg>
+            Back
+          </button>
+          <div class="section-eyebrow anim-step">Create Your Account</div>
+
+          <div class="form-card anim-step">
+            <div class="form-card-title">Your Details</div>
+            <div class="field-row">
+              <div class="field" id="fg-first"><label for="f-first">First Name</label><input type="text" id="f-first" placeholder="Jane" autocomplete="given-name" spellcheck="false"><div class="field-err">Required.</div></div>
+              <div class="field" id="fg-last"><label for="f-last">Last Name</label><input type="text" id="f-last" placeholder="Smith" autocomplete="family-name" spellcheck="false"><div class="field-err">Required.</div></div>
+            </div>
+            <div class="field" id="fg-email"><label for="f-email">Email Address</label><input type="email" id="f-email" placeholder="jane@example.com" autocomplete="email" spellcheck="false"><div class="field-err">Please enter a valid email.</div></div>
+            <div class="field" id="fg-phone"><label for="f-phone">Phone Number</label><input type="tel" id="f-phone" placeholder="(416) 555-0123" autocomplete="tel"><div class="field-err">Please enter a valid 10-digit Canadian phone number.</div></div>
+          </div>
+
+          <div class="form-card anim-step" style="margin-top:12px;">
+            <div class="form-card-title">Complete Your Setup</div>
+            <div class="next-steps">
+              <div class="next-step-item now"><div class="next-step-icon"><svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="5.5" r="2.5"/><path d="M3 13.5c.6-2.4 2.5-3.5 5-3.5s4.4 1.1 5 3.5"/></svg></div><div class="next-step-body"><div class="next-step-head"><div class="next-step-title">Create Your Account</div></div><div class="next-step-desc">Your account gives you access to technical support whenever you need help with your service.</div></div></div>
+              <div class="next-step-item mid"><div class="next-step-icon"><svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h10a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M2 7h12"/></svg></div><div class="next-step-body"><div class="next-step-head"><div class="next-step-title">Make Your Payment</div></div><div class="next-step-desc">Confirm your contact details and payment information for your monthly subscription. This is required to complete your service setup.</div></div></div>
+              <div class="next-step-item done"><div class="next-step-icon"><svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="5" height="5" rx="1"/><rect x="9" y="2" width="5" height="5" rx="1"/><rect x="2" y="9" width="5" height="5" rx="1"/><rect x="9" y="9" width="5" height="5" rx="1"/></svg></div><div class="next-step-body"><div class="next-step-head"><div class="next-step-title">Manage Everything</div></div><div class="next-step-desc">Use your dashboard 24/7 to view invoice history and upcoming due dates, open a support ticket, or cancel anytime.</div></div></div>
+            </div>
+          </div>
+
+          <div style="margin-top:16px;" class="anim-step">
+            <button class="btn-primary" onclick="handleStep1()"><span class="btn-lbl">Continue</span><div class="btn-spin"></div><svg class="btn-arr" viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg></button>
+            <div class="btn-lock-note" style="margin-top:10px;"><svg viewBox="0 0 14 14" stroke-linecap="round"><rect x="2" y="6" width="10" height="7" rx="1.5"/><path d="M4.5 6V4.5a2.5 2.5 0 015 0V6"/></svg>Secure Checkout</div>
+          </div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="step-panel" id="panel-step-2">
+          <button class="back-btn" onclick="setStep(1)"><svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><line x1="13" y1="8" x2="3" y2="8"/><polyline points="7,4 3,8 7,12"/></svg>Back to Your Details</button>
+          <div class="section-eyebrow">Service &amp; Billing Address</div>
+
+          <div class="form-card anim-step">
+            <div class="form-card-title">Service Address</div>
+            <div class="field" id="fg-svc-street"><label for="f-svc-street">Street Address</label><input type="text" id="f-svc-street" placeholder="Start typing your address…" autocomplete="off" spellcheck="false"><div class="field-err">Please select a valid Canadian address.</div></div>
+            <div class="field"><label for="f-svc-apt">Apt / Suite / Unit <span style="font-weight:400;color:var(--ink-4)">(optional)</span></label><input type="text" id="f-svc-apt" placeholder="Apt 4B" spellcheck="false"></div>
+            <div class="field-row">
+              <div class="field" id="fg-svc-city"><label for="f-svc-city">City</label><input type="text" id="f-svc-city" placeholder="Toronto"><div class="field-err">Required.</div></div>
+              <div class="field" id="fg-svc-province"><label for="f-svc-province">Province</label><select id="f-svc-province"><option value="">Select…</option><option value="AB">AB — Alberta</option><option value="BC">BC — British Columbia</option><option value="MB">MB — Manitoba</option><option value="NB">NB — New Brunswick</option><option value="NL">NL — Newfoundland &amp; Labrador</option><option value="NS">NS — Nova Scotia</option><option value="NT">NT — Northwest Territories</option><option value="NU">NU — Nunavut</option><option value="ON">ON — Ontario</option><option value="PE">PE — Prince Edward Island</option><option value="QC">QC — Quebec</option><option value="SK">SK — Saskatchewan</option><option value="YT">YT — Yukon</option></select><div class="field-err">Required.</div></div>
+            </div>
+            <div class="field-row">
+              <div class="field" id="fg-svc-postal"><label for="f-svc-postal">Postal Code</label><input type="text" id="f-svc-postal" placeholder="M5V 2T6" maxlength="7"><div class="field-err">Enter a valid Canadian postal code (e.g. M5V 2T6).</div></div>
+              <div class="field"><label>Country</label><input type="text" value="Canada" readonly></div>
+            </div>
+          </div>
+
+          <div class="form-card anim-step">
+            <div class="form-card-title">Billing Address</div>
+            <label class="toggle-row" for="bill-same"><input type="checkbox" id="bill-same" checked onchange="toggleBilling()"><span>Same as service address</span></label>
+            <div class="shipping-fields hidden" id="billing-fields">
+              <div class="field" id="fg-bill-street"><label for="f-bill-street">Street Address</label><input type="text" id="f-bill-street" placeholder="Start typing your address…" autocomplete="off" spellcheck="false"><div class="field-err">Please select a valid Canadian address.</div></div>
+              <div class="field"><label for="f-bill-apt">Apt / Suite / Unit <span style="font-weight:400;color:var(--ink-4)">(optional)</span></label><input type="text" id="f-bill-apt" placeholder="Apt 4B" spellcheck="false"></div>
+              <div class="field-row">
+                <div class="field" id="fg-bill-city"><label for="f-bill-city">City</label><input type="text" id="f-bill-city" placeholder="Toronto"><div class="field-err">Required.</div></div>
+                <div class="field" id="fg-bill-province"><label for="f-bill-province">Province</label><select id="f-bill-province"><option value="">Select…</option><option value="AB">AB — Alberta</option><option value="BC">BC — British Columbia</option><option value="MB">MB — Manitoba</option><option value="NB">NB — New Brunswick</option><option value="NL">NL — Newfoundland &amp; Labrador</option><option value="NS">NS — Nova Scotia</option><option value="NT">NT — Northwest Territories</option><option value="NU">NU — Nunavut</option><option value="ON">ON — Ontario</option><option value="PE">PE — Prince Edward Island</option><option value="QC">QC — Quebec</option><option value="SK">SK — Saskatchewan</option><option value="YT">YT — Yukon</option></select><div class="field-err">Required.</div></div>
+              </div>
+              <div class="field-row">
+                <div class="field" id="fg-bill-postal"><label for="f-bill-postal">Postal Code</label><input type="text" id="f-bill-postal" placeholder="M5V 2T6" maxlength="7"><div class="field-err">Enter a valid Canadian postal code (e.g. M5V 2T6).</div></div>
+                <div class="field"><label>Country</label><input type="text" value="Canada" readonly></div>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:16px;" class="anim-step">
+            <button class="btn-primary" onclick="handleStep2()"><span class="btn-lbl">Continue</span><div class="btn-spin"></div><svg class="btn-arr" viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg></button>
+            <div class="btn-lock-note" style="margin-top:10px;"><svg viewBox="0 0 14 14" stroke-linecap="round"><rect x="2" y="6" width="10" height="7" rx="1.5"/><path d="M4.5 6V4.5a2.5 2.5 0 015 0V6"/></svg>Secure Checkout</div>
+          </div>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="step-panel" id="panel-step-3">
+          <button class="back-btn" onclick="setStep(2)"><svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><line x1="13" y1="8" x2="3" y2="8"/><polyline points="7,4 3,8 7,12"/></svg>Back to Address</button>
+          <div class="section-eyebrow">Payment</div>
+
+          <div class="form-card anim-step">
+            <div class="form-card-title">Card Details</div>
+            <div class="card-brand-row">
+              <span class="card-brand-badge" aria-label="Visa"><svg viewBox="0 0 40 14" width="34" height="12"><text x="20" y="11" text-anchor="middle" font-family="Arial" font-size="12" font-weight="900" fill="currentColor" letter-spacing="-0.5">VISA</text></svg></span>
+              <span class="card-brand-badge" aria-label="Mastercard"><svg viewBox="0 0 28 18" width="26" height="16"><circle cx="10" cy="9" r="7" fill="currentColor" opacity="0.55"/><circle cx="18" cy="9" r="7" fill="currentColor" opacity="0.55"/><ellipse cx="14" cy="9" rx="3" ry="7" fill="currentColor" opacity="0.7"/></svg></span>
+              <span class="card-brand-badge" aria-label="American Express"><svg viewBox="0 0 42 14" width="36" height="12"><text x="21" y="11" text-anchor="middle" font-family="Arial" font-size="9.5" font-weight="700" fill="currentColor" letter-spacing="0.4">AMEX</text></svg></span>
+            </div>
+            <div class="field"><label>Card Number</label><div class="cb-field-wrap" id="cb-card-number"></div><div class="field-err" id="err-card-number">Please enter a valid card number.</div></div>
+            <div class="field-row">
+              <div class="field"><label>Expiry</label><div class="cb-field-wrap" id="cb-card-expiry"></div><div class="field-err" id="err-card-expiry">Invalid expiry.</div></div>
+              <div class="field"><label>CVV</label><div class="cb-field-wrap" id="cb-card-cvv"></div><div class="field-err" id="err-card-cvv">Invalid CVV.</div></div>
+            </div>
+            <div class="field" id="fg-card-name"><label for="f-card-name">Name on Card</label><input type="text" id="f-card-name" placeholder="Jane Smith" autocomplete="cc-name" spellcheck="false"><div class="field-err">Required.</div></div>
+          </div>
+
+          <div class="form-card anim-step">
+            <div class="form-card-title">Promo Code</div>
+            <div class="promo-row">
+              <input type="text" id="f-promo" placeholder="Enter code" autocomplete="off" spellcheck="false">
+              <button class="promo-apply" id="promoBtn" onclick="applyPromo()"><span class="promo-apply-lbl">Apply</span><div class="promo-spin"></div></button>
+            </div>
+            <div class="promo-feedback" id="promo-feedback"><svg id="promo-icon" viewBox="0 0 12 12"><polyline points="1,6 4,9 11,2"/></svg><span id="promo-msg"></span></div>
+
+            <div class="mini-summary">
+              <div class="mini-summary-label">Order summary</div>
+              <div class="mini-row"><div class="mr-label"><span>Unlimited Wireless Internet</span><small>First month, billed today</small></div><strong id="mini-plan-price">$110.00</strong></div>
+              <div class="mini-row"><div class="mr-label"><span>Installation</span></div><strong class="free">Included</strong></div>
+              <div class="pay-summary-discount" id="promo-discount-row" style="display:none;"><span class="pd-label" id="promo-discount-label">Promo</span><strong id="promo-discount-val"></strong></div>
+              <div class="pay-summary-tax" id="tax-row" style="display:none;"><span id="tax-row-label">Tax</span><strong id="tax-row-val"></strong></div>
+              <div class="mini-row total">
+                <div class="mr-label"><span>Due today</span></div>
+                <div class="due-wrap"><span class="due-fig" id="due-today-fig"><span class="due-cur">$</span>110<span class="due-cents">.00</span></span><span class="price-tax-note" id="due-today-tax-note">+ tax</span></div>
+              </div>
+              <div class="mini-savings" id="mini-savings"><svg viewBox="0 0 16 16"><polyline points="2.5,8.5 6.5,12.5 13.5,4"/></svg><span id="mini-savings-text"></span></div>
+              <div class="mini-renewal">
+                <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8a5.5 5.5 0 0 1 9.5-3.8"/><path d="M13.5 8a5.5 5.5 0 0 1-9.5 3.8"/><polyline points="9.5,1.5 11.5,4.2 8.5,4.8"/><polyline points="6.5,14.5 4.5,11.8 7.5,11.2"/></svg>
+                <div class="renew-body">
+                  <div class="renew-line"><span class="renew-label">Then, every month</span><span class="renew-price" id="renewal-price-pay"><span class="renewal-base">$110</span><span class="renewal-unit">/mo</span></span></div>
+                  <div class="renew-note">Plus tax. No contract, cancel anytime.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="anim-step">
+            <div class="terms-row">
+              <input type="checkbox" id="accept-terms">
+              <label for="accept-terms">I agree to the <a href="/terms" target="_blank">Terms of Service</a> and <a href="/privacy" target="_blank">Privacy Policy</a>. My subscription renews monthly at <span id="renewal-price-terms">$110/month</span> plus applicable tax, and I can cancel anytime.</label>
+            </div>
+            <div class="terms-err" id="terms-err">You must accept the terms to continue.</div>
+            <button class="btn-primary" id="payBtn" onclick="handlePay()" style="margin-top:14px;">
+              <span class="btn-lbl" id="payBtn-lbl">Pay $110 <span class="btn-tax">+ tax</span> and subscribe</span>
+              <div class="btn-spin"></div>
+              <svg class="btn-arr" viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg>
+            </button>
+            <div class="btn-lock-note" style="margin-top:10px;"><svg viewBox="0 0 14 14" stroke-linecap="round"><rect x="2" y="6" width="10" height="7" rx="1.5"/><path d="M4.5 6V4.5a2.5 2.5 0 015 0V6"/></svg>Secure Checkout</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- RIGHT: summary -->
+    <div class="checkout-right">
+      <div class="summary-inner summary-anim">
+        <div class="summary-product">
+          <div class="signal"><svg viewBox="0 0 48 48"><path d="M10 20a20 20 0 0 1 28 0"/><path d="M15 26a13 13 0 0 1 18 0"/><path d="M20 32a6 6 0 0 1 8 0"/><circle cx="24" cy="38.5" r="1.6" fill="currentColor"/></svg></div>
+          <div><div class="summary-product-eyebrow">Your Subscription</div><div class="summary-product-name">Unlimited Wireless Internet</div><div class="summary-product-sub">Monthly, no contract</div></div>
+        </div>
+
+        <div class="summary-rows">
+          <div class="summary-section-label">Included</div>
+          <div class="summary-row"><div class="sr-label"><strong>Monthly service — first month</strong><small>Billed today, then every month</small></div><span class="sr-val">$110</span></div>
+          <div class="summary-row"><span class="sr-label">Installation</span><span class="sr-val free">Included</span></div>
+          <div class="summary-row" id="right-tax-row" style="display:none;"><span class="sr-label" id="right-tax-label">Tax</span><span class="sr-val" id="right-tax-val"></span></div>
+          <div class="summary-row"><span class="sr-label">Contract</span><span class="sr-val tag">None Required</span></div>
+        </div>
+
+        <div class="summary-total-block">
+          <div><div class="summary-total-label">Due Today</div><div class="summary-total-note">First month of service</div></div>
+          <div><div class="summary-total-fig" id="summary-total-fig"><sup>$</sup>110</div><div class="summary-total-tax" id="summary-total-tax-note">+ applicable tax</div></div>
+        </div>
+
+        <div class="summary-renewal">
+          <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8a5.5 5.5 0 0 1 9.5-3.8"/><path d="M13.5 8a5.5 5.5 0 0 1-9.5 3.8"/><polyline points="9.5,1.5 11.5,4.2 8.5,4.8"/><polyline points="6.5,14.5 4.5,11.8 7.5,11.2"/></svg>
+          <p>Renews monthly at <strong><span id="renewal-price-summary">$110 / month</span></strong><span class="price-tax-note">&nbsp;+ tax</span>. No contract — cancel anytime from your account portal.</p>
+        </div>
+
+        <div class="summary-features-label">Your Service</div>
+        <div class="summary-feature"><div class="sf-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>Truly Unlimited Data — No Caps Or Slowdowns</div>
+        <div class="summary-feature"><div class="sf-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>Already Installed At Your Address</div>
+        <div class="summary-feature"><div class="sf-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2"/></svg></div>Pay, Manage And Get Support Online</div>
+      </div>
+
+      <div class="summary-trust">
+        <div class="trust-badge"><svg viewBox="0 0 14 14" stroke-linecap="round"><rect x="2" y="6" width="10" height="7" rx="1.5"/><path d="M4.5 6V4.5a2.5 2.5 0 015 0V6"/></svg>Secure Checkout</div>
+        <div class="trust-div"></div>
+        <div class="trust-badge"><svg viewBox="0 0 14 14" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="5.5"/><path d="M7 4.5v3l1.5 1"/></svg>Cancel Anytime</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ── CONFIG ─────────────────────────────────────────────────── */
+  var CB_SITE      = 'more4lessplans';
+  var CB_PLAN_ID   = 'WIRELESS-UNLTD';              // Chargebee plan ID — must match ACTIVATION_PLAN_IDS in the worker
+  var WORKER_URL   = '/api/checkout-embedded';        // same checkout route as essential.html
+  var COUPON_URL   = '/api/validate-coupon';         // same coupon route as essential.html
+  var CONFIRM      = '/activation-confirmed';        // TODO: your confirmation page
+  var PLAN_PRICE   = 110;                            // charged today (first month) and on renewal
+  var SESSION_KEY  = 'm4l_activation';
+
+  var CA_TAX_RATES = {
+    AB: { rate: 0.05,    label: '5% GST' },
+    BC: { rate: 0.12,    label: '5% GST + 7% PST' },
+    MB: { rate: 0.12,    label: '5% GST + 7% RST' },
+    NB: { rate: 0.15,    label: '15% HST' },
+    NL: { rate: 0.15,    label: '15% HST' },
+    NS: { rate: 0.14,    label: '14% HST' },
+    NT: { rate: 0.05,    label: '5% GST' },
+    NU: { rate: 0.05,    label: '5% GST' },
+    ON: { rate: 0.13,    label: '13% HST' },
+    PE: { rate: 0.15,    label: '15% HST' },
+    QC: { rate: 0.14975, label: '5% GST + 9.975% QST' },
+    SK: { rate: 0.11,    label: '5% GST + 6% PST' },
+    YT: { rate: 0.05,    label: '5% GST' }
+  };
+  var currentTaxProvince = null;
+  var currentTaxAmount   = 0;
+  var discountAmount     = 0;
+  var appliedCoupon      = null;
+  var appliedCode        = '';
+
+  function $(id) { return document.getElementById(id); }
+
+  var cbInstance = null;
+  try {
+    cbInstance = Chargebee.init({ site: CB_SITE, publishableKey: 'live_9xoL0GUAJyfaZddNn5cdFhI4hrLAGhyIh' });
+  } catch (e) { console.error('Chargebee init failed:', e); }
+
+  /* ── PREFILL FROM LINK (name, email, phone, coupon) ──────────────
+     Lets you send customers a link with their details already filled.
+     Params are removed from the URL right after being read. */
+  (function prefill() {
+    var p = new URLSearchParams(window.location.search);
+    if (!Array.from(p.keys()).length) return;
+    function set(id, v) { if (v && $(id)) $(id).value = v; }
+    set('f-first', p.get('first_name')); set('f-last', p.get('last_name'));
+    set('f-email', p.get('email'));      set('f-phone', p.get('phone'));
+    var c = p.get('coupon_id');
+    if (c && c !== 'null' && c !== 'undefined') {
+      set('f-promo', c);
+      setTimeout(function () { if (window.applyPromo) window.applyPromo(); }, 300);
+    }
+    history.replaceState(null, '', window.location.pathname);
+  })();
+
+  /* ── MOBILE MENU ───────────────────────────────────────────── */
+  var trigger = $('menuTrigger'), overlay = $('mobileOverlay');
+  trigger.addEventListener('click', function (e) {
+    e.stopPropagation();
+    var open = trigger.classList.toggle('menu-active');
+    overlay.classList.toggle('active', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  overlay.addEventListener('click', function () {
+    trigger.classList.remove('menu-active'); overlay.classList.remove('active'); document.body.style.overflow = '';
+  });
+
+  /* ── LANDING ⇄ CHECKOUT ────────────────────────────────────── */
+  window.startActivation = function () {
+    var co = $('screen-checkout');
+    $('hero').classList.add('compact');
+    co.style.display = 'block';
+    co.classList.remove('enter'); void co.offsetWidth; co.classList.add('enter');
+    $('navSteps').classList.add('visible');
+    document.body.classList.add('in-checkout');
+    setStep(1);
+  };
+  window.showLanding = function () {
+    $('hero').classList.remove('compact');
+    $('screen-checkout').style.display = 'none';
+    $('navSteps').classList.remove('visible');
+    document.body.classList.remove('in-checkout');
+    window.scrollTo({ top: 0 });
+  };
+
+  /* ── CHARGEBEE CARD FIELDS ─────────────────────────────────── */
+  var cardComponent = null, cardMounted = false;
+  function mountCard() {
+    if (cardMounted || !cbInstance) return;
+    cardMounted = true;
+    var style = { base: { color: '#1a1a1c', fontFamily: 'Figtree, sans-serif', fontSize: '14px', fontSmoothing: 'antialiased', '::placeholder': { color: '#b8b8bc' } }, invalid: { color: '#D73C59' } };
+    var fonts = [{ fontFamily: 'Figtree', fontUrl: 'https://fonts.googleapis.com/css2?family=Figtree:wght@400;500&display=swap' }];
+    cbInstance.load('components').then(function () {
+      cardComponent = cbInstance.createComponent('card', { fonts: fonts });
+      cardComponent.createField('number', { style: style, placeholder: '1234 5678 9012 3456' }).at('#cb-card-number');
+      cardComponent.createField('expiry', { style: style, placeholder: 'MM / YY' }).at('#cb-card-expiry');
+      cardComponent.createField('cvv',    { style: style, placeholder: '•••' }).at('#cb-card-cvv');
+      cardComponent.mount();
+      [['number','cb-card-number','err-card-number'],['expiry','cb-card-expiry','err-card-expiry'],['cvv','cb-card-cvv','err-card-cvv']].forEach(function (t) {
+        var f = cardComponent.getField(t[0]); if (!f) return;
+        f.on('focus', function () { $(t[1]).classList.add('focus'); });
+        f.on('blur',  function () { $(t[1]).classList.remove('focus'); });
+        f.on('change', function (e) {
+          $(t[1]).classList.toggle('err', !!e.error);
+          $(t[2]).style.display = e.error ? 'block' : 'none';
+        });
+      });
+    }).catch(function (e) { cardMounted = false; console.error('CB load failed:', e); });
+  }
+
+  /* ── STEP MACHINE ──────────────────────────────────────────── */
+  function setStep(n) {
+    [['st-1','pst-1',1],['st-2','pst-2',2],['st-3','pst-3',3]].forEach(function (p) {
+      var cls = 'nav-step' + (p[2] < n ? ' done' : p[2] === n ? ' active' : '');
+      $(p[0]).className = cls; $(p[1]).className = cls;
+    });
+    [['cn-1','pcn-1',1],['cn-2','pcn-2',2]].forEach(function (p) {
+      var cls = 'nav-sep' + (p[2] < n ? ' done' : '');
+      $(p[0]).className = cls; $(p[1]).className = cls;
+    });
+    [1, 2, 3].forEach(function (i) { $('panel-step-' + i).classList.toggle('active', i === n); });
+    if (n === 3) requestAnimationFrame(function () { requestAnimationFrame(mountCard); });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  window.setStep = setStep;
+
+  /* ── VALIDATION HELPERS ────────────────────────────────────── */
+  function clearErrors() {
+    document.querySelectorAll('.field.has-err').forEach(function (el) { el.classList.remove('has-err'); });
+    document.querySelectorAll('input.err, select.err').forEach(function (el) { el.classList.remove('err'); });
+  }
+  function flagErr(inputId, groupId) {
+    if ($(inputId)) $(inputId).classList.add('err');
+    if (groupId && $(groupId)) $(groupId).classList.add('has-err');
+  }
+  function formatPhone(raw) {
+    var d = raw.replace(/\D/g, '').slice(0, 10);
+    if (d.length <= 3) return d.length ? '(' + d : '';
+    if (d.length <= 6) return '(' + d.slice(0,3) + ') ' + d.slice(3);
+    return '(' + d.slice(0,3) + ') ' + d.slice(3,6) + '-' + d.slice(6);
+  }
+  function isPhone(v) { return v.replace(/\D/g, '').length === 10; }
+  function formatPostal(raw) {
+    var c = raw.replace(/\s/g, '').toUpperCase().slice(0, 6);
+    return c.length <= 3 ? c : c.slice(0,3) + ' ' + c.slice(3);
+  }
+  function isPostal(v) { return /^[A-Za-z]\d[A-Za-z] \d[A-Za-z]\d$/.test(v); }
+  function isEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+  function clearOnInput(el) {
+    el.classList.remove('err');
+    var p = el.closest('.field'); if (p) p.classList.remove('has-err');
+  }
+
+  $('f-phone').addEventListener('input', function () {
+    var pos = this.selectionStart, prev = this.value;
+    this.value = formatPhone(this.value);
+    var diff = this.value.length - prev.length;
+    try { this.setSelectionRange(pos + diff, pos + diff); } catch (e) {}
+    clearOnInput(this);
+  });
+  ['f-svc-postal', 'f-bill-postal'].forEach(function (id) {
+    $(id).addEventListener('input', function () {
+      var pos = this.selectionStart, prev = this.value;
+      this.value = formatPostal(this.value);
+      var diff = this.value.length - prev.length;
+      try { this.setSelectionRange(pos + diff, pos + diff); } catch (e) {}
+      clearOnInput(this);
+    });
+  });
+  ['f-first', 'f-last', 'f-email', 'f-svc-province', 'f-bill-province', 'f-card-name'].forEach(function (id) {
+    var ev = id.indexOf('province') > -1 ? 'change' : 'input';
+    $(id).addEventListener(ev, function () { clearOnInput(this); });
+  });
+
+  /* ── STEP 1: DETAILS ───────────────────────────────────────── */
+  window.handleStep1 = function () {
+    clearErrors();
+    var first = $('f-first').value.trim(), last = $('f-last').value.trim();
+    var phone = $('f-phone').value.trim(), email = $('f-email').value.trim(), ok = true;
+    if (!first)          { flagErr('f-first', 'fg-first'); ok = false; }
+    if (!last)           { flagErr('f-last',  'fg-last');  ok = false; }
+    if (!isEmail(email)) { flagErr('f-email', 'fg-email'); ok = false; }
+    if (!isPhone(phone)) { flagErr('f-phone', 'fg-phone'); ok = false; }
+    if (!ok) { var f = document.querySelector('.field.has-err input'); if (f) f.focus(); return; }
+    sessionStorage.setItem(SESSION_KEY, JSON.stringify({ first_name: first, last_name: last, email: email, phone: phone.replace(/\D/g, '') }));
+    setStep(2);
+  };
+
+  /* ── GOOGLE PLACES AUTOCOMPLETE ────────────────────────────── */
+  function initPlaces(prefix) {
+    var input = $('f-' + prefix + '-street');
+    var ac = new google.maps.places.Autocomplete(input, { componentRestrictions: { country: 'ca' }, fields: ['address_components'], types: ['address'] });
+    input.addEventListener('input', function () {
+      $('f-' + prefix + '-city').value = ''; $('f-' + prefix + '-province').value = ''; $('f-' + prefix + '-postal').value = '';
+      if (prefix === 'svc') updateTax('');
+    });
+    ac.addListener('place_changed', function () {
+      var pl = ac.getPlace(); if (!pl.address_components) return;
+      var num = '', route = '', city = '', prov = '', postal = '';
+      pl.address_components.forEach(function (c) {
+        var t = c.types[0];
+        if (t === 'street_number') num = c.long_name;
+        if (t === 'route') route = c.short_name;
+        if (t === 'locality') city = c.long_name;
+        if (t === 'administrative_area_level_1') prov = c.short_name;
+        if (t === 'postal_code') postal = c.long_name;
+      });
+      input.value = (num + ' ' + route).trim();
+      $('f-' + prefix + '-city').value = city;
+      $('f-' + prefix + '-province').value = prov;
+      $('f-' + prefix + '-postal').value = formatPostal(postal);
+      ['street', 'city', 'province', 'postal'].forEach(function (k) {
+        var el = $('f-' + prefix + '-' + k); if (el) clearOnInput(el);
+      });
+      if (prefix === 'svc') updateTax(prov);
+    });
+  }
+  function initAllPlaces() { initPlaces('svc'); initPlaces('bill'); }
+  if (window.google && google.maps && google.maps.places) initAllPlaces();
+  else window.addEventListener('load', function () { if (window.google && google.maps && google.maps.places) initAllPlaces(); });
+
+  window.toggleBilling = function () {
+    $('billing-fields').classList.toggle('hidden', $('bill-same').checked);
+  };
+
+  /* ── STEP 2: ADDRESS ───────────────────────────────────────── */
+  function readAddr(prefix, ok) {
+    var a = {
+      line1: $('f-' + prefix + '-street').value.trim(),
+      line2: $('f-' + prefix + '-apt').value.trim(),
+      city: $('f-' + prefix + '-city').value.trim(),
+      state_code: $('f-' + prefix + '-province').value.trim(),
+      zip: $('f-' + prefix + '-postal').value.trim(),
+      country: 'CA'
+    };
+    if (!a.line1)         { flagErr('f-' + prefix + '-street',   'fg-' + prefix + '-street');   ok.v = false; }
+    if (!a.city)          { flagErr('f-' + prefix + '-city',     'fg-' + prefix + '-city');     ok.v = false; }
+    if (!a.state_code)    { flagErr('f-' + prefix + '-province', 'fg-' + prefix + '-province'); ok.v = false; }
+    if (!isPostal(a.zip)) { flagErr('f-' + prefix + '-postal',   'fg-' + prefix + '-postal');   ok.v = false; }
+    a.zip = formatPostal(a.zip);
+    return a;
+  }
+
+  window.handleStep2 = function () {
+    clearErrors();
+    var ok = { v: true };
+    var service = readAddr('svc', ok);
+    var billing = $('bill-same').checked ? Object.assign({}, service) : readAddr('bill', ok);
+    if (!ok.v) { var f = document.querySelector('.field.has-err input, .field.has-err select'); if (f) f.focus(); return; }
+    var order = {};
+    try { order = JSON.parse(sessionStorage.getItem(SESSION_KEY) || '{}'); } catch (e) {}
+    order.service = service; order.billing = billing;
+    sessionStorage.setItem(SESSION_KEY, JSON.stringify(order));
+    // Tax is sourced to where the service is used.
+    updateTax(service.state_code);
+    setStep(3);
+  };
+
+  $('f-svc-province').addEventListener('change', function () { updateTax(this.value); });
+
+  /* ── TOTALS & TAX ──────────────────────────────────────────── */
+  function fmt(n) {
+    var s = n.toFixed(2);
+    return s.slice(-3) === '.00' ? '$' + s.slice(0, -3) : '$' + s;
+  }
+
+  function refreshTotals() {
+    var sub  = Math.max(0, PLAN_PRICE - discountAmount);
+    var info = currentTaxProvince ? CA_TAX_RATES[currentTaxProvince] : null;
+    currentTaxAmount = info ? Math.round(sub * info.rate * 100) / 100 : 0;
+
+    $('tax-row').style.display       = info ? 'flex' : 'none';
+    $('right-tax-row').style.display = info ? 'flex' : 'none';
+    if (info) {
+      $('tax-row-label').textContent = $('right-tax-label').textContent = info.label;
+      $('tax-row-val').textContent   = $('right-tax-val').textContent   = fmt(currentTaxAmount);
+    }
+    $('summary-total-tax-note').textContent = info ? 'Includes ' + info.label : '+ applicable tax';
+    $('due-today-tax-note').textContent     = info ? 'Includes ' + info.label : '+ tax';
+
+    var total = sub + currentTaxAmount;
+    var dollars = Math.floor(total), cents = Math.round((total - dollars) * 100);
+    if (cents === 100) { dollars += 1; cents = 0; }
+    var cs = cents < 10 ? '0' + cents : '' + cents;
+    $('due-today-fig').innerHTML = '<span class="due-cur">$</span>' + dollars + '<span class="due-cents">.' + cs + '</span>';
+    var sv = $('mini-savings');
+    if (sv) {
+      if (discountAmount > 0) { $('mini-savings-text').textContent = 'You\u2019re saving ' + fmt(discountAmount) + ' today'; sv.classList.add('show'); }
+      else { sv.classList.remove('show'); }
+    }
+    var plain = cents === 0 ? dollars : dollars + '.' + cs;
+    $('summary-total-fig').innerHTML = '<sup>$</sup>' + plain;
+    $('payBtn-lbl').innerHTML = 'Pay $' + plain + (info ? '' : ' <span class="btn-tax">+ tax</span>') + ' and subscribe';
+  }
+  function updateTax(code) {
+    currentTaxProvince = (code && CA_TAX_RATES[code]) ? code : null;
+    refreshTotals();
+  }
+
+  /* ── PROMO ─────────────────────────────────────────────────── */
+  function setPromoFeedback(type, msg) {
+    $('promo-feedback').className = 'promo-feedback ' + type;
+    $('promo-msg').textContent = msg;
+    $('promo-icon').innerHTML = type === 'ok'
+      ? '<polyline points="1,6 4,9 11,2"/>'
+      : '<line x1="1" y1="1" x2="11" y2="11"/><line x1="11" y1="1" x2="1" y2="11"/>';
+  }
+  function esc(t) { return String(t).replace(/[&<>"']/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  function showDiscount(label, val) {
+    $('promo-discount-label').innerHTML = label; $('promo-discount-val').textContent = val;
+    $('promo-discount-row').style.display = 'flex';
+  }
+  function setRenewal(off, period) {
+    var base = '$' + PLAN_PRICE + ' / month';
+    if (off <= 0) {
+      $('renewal-price-pay').innerHTML = '<span class="renewal-base">$' + PLAN_PRICE + '</span><span class="renewal-unit">/mo</span>';
+      $('renewal-price-summary').innerHTML = '<span class="nw">' + base + '</span>';
+      $('renewal-price-terms').innerHTML = '<span class="nw">$' + PLAN_PRICE + '/month</span>';
+      return;
+    }
+    var d = fmt(Math.max(0, PLAN_PRICE - off));
+    var qPay = period ? '<span class="renewal-qualifier">for the first ' + period + ' months</span>' : '';
+    var qSum = period ? '<span class="renewal-qualifier">(first ' + period + ' months)</span>' : '';
+    $('renewal-price-pay').innerHTML = '<s class="renewal-orig">$' + PLAN_PRICE + '</s><strong class="renewal-discounted">' + d + '</strong><span class="renewal-unit">/mo</span>' + qPay;
+    $('renewal-price-summary').innerHTML = '<strong class="renewal-orig">$' + PLAN_PRICE + '</strong><strong class="renewal-discounted">' + d + ' / month</strong>' + qSum;
+    $('renewal-price-terms').innerHTML = '<span class="nw"><s style="opacity:0.5;">$' + PLAN_PRICE + '/month</s> <strong style="color:#0f7a43">' + d + '/month</strong></span>';
+  }
+  function clearPromo() {
+    appliedCoupon = null; appliedCode = ''; discountAmount = 0;
+    $('promo-discount-row').style.display = 'none';
+    $('f-promo').classList.remove('applied');
+    setRenewal(0); refreshTotals();
+  }
+
+  window.applyPromo = function () {
+    var code = $('f-promo').value.trim();
+    if (!code) { $('f-promo').classList.add('err'); return; }
+    $('f-promo').classList.remove('err');
+    var btn = $('promoBtn'); btn.classList.add('loading'); btn.disabled = true;
+
+    fetch(COUPON_URL, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ coupon_id: code, plan_id: CB_PLAN_ID })
+    })
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      btn.classList.remove('loading'); btn.disabled = false;
+      if (data.error || !data.valid) { clearPromo(); setPromoFeedback('bad', data.error || 'Invalid promo code.'); return; }
+
+      /* Same interpretation of apply_on / item constraints as essential.html.
+         Activation has no device, so a coupon that only targets the device
+         add-on can't discount anything here. */
+      var applyOn = data.apply_on || 'invoice_amount';
+      var addonIds = [], planIds = [];
+      var constraints = data.item_constraints || data.addon_constraints || [];
+      if (Array.isArray(constraints)) {
+        constraints.forEach(function (c) {
+          if (c.item_type === 'addon' || c.type === 'addon') (c.item_price_ids || c.ids || []).forEach(function (id) { addonIds.push(id); });
+          if (c.item_type === 'plan'  || c.type === 'plan')  (c.item_price_ids || c.ids || []).forEach(function (id) { planIds.push(id); });
+        });
+      }
+      (data.applicable_addons || []).forEach(function (id) { addonIds.push(id); });
+      var targetsPlan = applyOn === 'invoice_amount' || planIds.length > 0 || addonIds.length === 0;
+      if (!targetsPlan) {
+        clearPromo();
+        setPromoFeedback('bad', 'This code doesn\u2019t apply to account activation.');
+        return;
+      }
+
+      appliedCoupon = data.coupon_id || code;
+      appliedCode   = code;
+      var off = 0;
+      if (data.discount_type === 'fixed_amount') off = data.discount_amount / 100;
+      else if (data.discount_type === 'percentage') off = PLAN_PRICE * data.discount_percent / 100;
+      off = Math.min(off, PLAN_PRICE);
+      discountAmount = off;
+      var dur = data.duration_type || 'forever';
+      if (off > 0) showDiscount('<span class="pd-top"><span>Promo applied</span><span class="pd-code"><svg viewBox="0 0 12 12"><path d="M1.5 6.2V2.3a.8.8 0 0 1 .8-.8h3.9l4.3 4.3a.8.8 0 0 1 0 1.1L7 10.5a.8.8 0 0 1-1.1 0L1.5 6.2Z"/><circle cx="4" cy="4" r=".6" fill="currentColor" stroke="none"/></svg>' + esc(code) + '</span></span>' + (data.discount_type === 'percentage' ? '<span class="pd-off">' + esc(String(data.discount_percent)) + '% off</span>' : ''), '\u2212$' + off.toFixed(2));
+      else $('promo-discount-row').style.display = 'none';
+      $('f-promo').classList.add('applied');
+      setRenewal(dur === 'one_time' ? 0 : off, dur === 'limited_period' ? (data.period || '') : '');
+      refreshTotals();
+      setPromoFeedback('ok', data.description || 'Promo code applied!');
+    })
+    .catch(function () {
+      btn.classList.remove('loading'); btn.disabled = false;
+      setPromoFeedback('bad', 'Could not validate code — please try again.');
+    });
+  };
+  $('f-promo').addEventListener('input', function () {
+    this.classList.remove('err');
+    if (appliedCoupon && this.value.trim().toLowerCase() !== appliedCode.toLowerCase()) {
+      clearPromo();
+      $('promo-feedback').className = 'promo-feedback';
+    }
+  });
+  $('f-promo').addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); window.applyPromo(); } });
+
+  /* ── PAYMENT ───────────────────────────────────────────────── */
+  var paymentInFlight = false;
+  var idemKey = null;
+
+  // One key per attempt, reused on retries so a timeout can never double-charge.
+  function getIdemKey() {
+    if (idemKey) return idemKey;
+    idemKey = (window.crypto && crypto.randomUUID) ? crypto.randomUUID()
+      : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+          var r = (Math.random() * 16) | 0; return (c === 'x' ? r : (r & 0x3) | 0x8).toString(16);
+        });
+    return idemKey;
+  }
+  function resetPayBtn() {
+    paymentInFlight = false;
+    $('payBtn').classList.remove('loading'); $('payBtn').disabled = false;
+  }
+  function showPayError(msg) {
+    resetPayBtn();
+    var el = $('pay-error-msg');
+    if (!el) {
+      el = document.createElement('div'); el.id = 'pay-error-msg';
+      el.style.cssText = 'margin-top:10px;font-size:0.78rem;font-weight:600;color:var(--red);text-align:center;line-height:1.5;';
+      $('payBtn').parentNode.insertBefore(el, $('payBtn').nextSibling);
+    }
+    el.textContent = msg; el.style.display = 'block';
+  }
+  function clearPayError() { var el = $('pay-error-msg'); if (el) el.style.display = 'none'; }
+  function safeErr(msg) { var e = new Error(msg); e.safeMessage = true; return e; }
+
+  function fetchWithTimeout(url, opts, ms) {
+    var ctrl = typeof AbortController !== 'undefined' ? new AbortController() : null;
+    opts = opts || {}; if (ctrl) opts.signal = ctrl.signal;
+    var t = ctrl ? setTimeout(function () { ctrl.abort(); }, ms) : null;
+    return fetch(url, opts)
+      .then(function (r) { if (t) clearTimeout(t); return r; })
+      .catch(function (err) {
+        if (t) clearTimeout(t);
+        throw safeErr(err && err.name === 'AbortError'
+          ? 'This is taking longer than expected. Please check your email before trying again — if you were charged, we don\'t want to charge you twice. Contact support if you\'re unsure.'
+          : 'Network error — please check your connection and try again.');
+      });
+  }
+
+  window.handlePay = function () {
+    if (paymentInFlight) return;
+    if (!cardComponent) { showPayError('Card fields are still loading — please wait a moment and try again.'); return; }
+    if (!$('f-card-name').value.trim()) { flagErr('f-card-name', 'fg-card-name'); return; }
+    if (!$('accept-terms').checked) { $('terms-err').classList.add('show'); $('accept-terms').focus(); return; }
+    $('terms-err').classList.remove('show'); clearPayError();
+
+    paymentInFlight = true;
+    $('payBtn').classList.add('loading'); $('payBtn').disabled = true;
+    var order;
+
+    Promise.resolve()
+    .then(function () {
+      try { order = JSON.parse(sessionStorage.getItem(SESSION_KEY) || '{}'); }
+      catch (e) { throw safeErr('Your session data was corrupted. Please go back to step 1 and re-enter your details.'); }
+      if (!order.first_name || !order.last_name || !order.email || !order.service || !order.billing) {
+        throw safeErr('Your session has expired. Please go back to step 1 and re-enter your details.');
+      }
+      return cardComponent.tokenize({ firstName: order.first_name, lastName: order.last_name }).catch(function (e) {
+        throw safeErr((e && e.message) ? e.message : 'We couldn\'t process your card details. Please check them and try again.');
+      });
+    })
+    .then(function (tok) {
+      if (!tok || !tok.token) throw safeErr('Card tokenization failed — no token returned. Please check your card details.');
+      return fetchWithTimeout(WORKER_URL, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          token: tok.token, plan_id: CB_PLAN_ID, flow: 'activation',
+          first_name: order.first_name, last_name: order.last_name, phone: order.phone, email: order.email,
+          billing_address: order.billing,
+          shipping_address: order.service,   // same field essential.html sends; here it is the service address
+          service_address: order.service,
+          coupon_id: appliedCoupon || undefined, idempotency_key: getIdemKey()
+        })
+      }, 20000);
+    })
+    .then(function (res) {
+      return res.json().catch(function () {
+        throw safeErr('Something went wrong on our end. If you were charged, please contact support — otherwise, try again.');
+      }).then(function (body) {
+        if (!res.ok) {
+          idemKey = null; // definitive rejection — next attempt gets a fresh key
+          var raw = body.error || body.message || ('Server error ' + res.status + '. Please try again.');
+          throw safeErr(/idempotency/i.test(raw) ? 'Too many checkout attempts in this session. Please refresh the page and try again.' : raw);
+        }
+        if (!(body.subscription && body.subscription.id)) {
+          throw safeErr('Activation could not be confirmed. Please contact support if your card was charged.');
+        }
+        return body;
+      });
+    })
+    .then(function () {
+      try { sessionStorage.removeItem(SESSION_KEY); } catch (e) {}
+      window.location.href = CONFIRM;
+    })
+    .catch(function (err) {
+      console.error('[M4L Activation] Payment error:', err);
+      showPayError((err && err.safeMessage && err.message) ? err.message : 'Payment failed — please check your card details and try again.');
+    });
+  };
+
+  $('f-card-name').addEventListener('input', clearPayError);
+  $('accept-terms').addEventListener('change', function () { if (this.checked) $('terms-err').classList.remove('show'); });
+})();
+
+</script>
+</body>
+</html>
