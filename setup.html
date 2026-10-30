@@ -711,7 +711,7 @@
       text-transform: uppercase;
       transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
-    .promo-row input::placeholder { font-family: 'DM Sans', sans-serif; letter-spacing: 0; text-transform: none; color: var(--ink-4); }
+    .promo-row input::placeholder { font-family: 'Figtree', sans-serif; letter-spacing: 0; text-transform: none; color: var(--ink-4); }
     .promo-row input:focus { border-color: var(--ink); box-shadow: 0 0 0 3px rgba(10,10,11,0.06); }
     .promo-row input.err { border-color: var(--red); }
 
@@ -1717,6 +1717,32 @@
       padding: 8px 0;
       border-top: 1px solid var(--border-soft);
       background-position: right 14px center;
+    }
+  
+    /* ═══ START PAGE: NO SCROLLING ═══
+       Locks the landing screen in place (both axes). The lock lifts as soon as
+       checkout begins (body.in-checkout), so the form steps still scroll. */
+    html:has(body:not(.in-checkout)),
+    body:not(.in-checkout) {
+      overflow: hidden;
+      height: 100%;
+      overscroll-behavior: none;
+    }
+    .setup-hero {
+      height: 100vh;
+      height: 100dvh;
+      overflow: hidden;
+      overscroll-behavior: none;
+      touch-action: none;
+    }
+    /* Short screens: drop the chips and tighten spacing so the button never gets clipped */
+    @media (max-height: 640px) {
+      .hero-chips { display: none; }
+      .hero-inner { padding-top: calc(var(--nav-h) + 8px); padding-bottom: 16px; }
+      .hero-headline { font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 14px; }
+      .hero-sub { margin-bottom: 22px; }
+      .hero-eyebrow { margin-bottom: 14px; }
+      .hero-status { margin-bottom: 18px; }
     }
   </style>
 </head>
