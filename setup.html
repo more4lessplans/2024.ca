@@ -1659,9 +1659,41 @@
     .checkout-right::before { content: ''; position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 26px 26px; -webkit-mask-image: linear-gradient(180deg, #000, transparent 70%); mask-image: linear-gradient(180deg, #000, transparent 70%); }
     .checkout-right::after { content: ''; position: absolute; width: 420px; height: 420px; border-radius: 50%; top: -160px; right: -140px; pointer-events: none; background: radial-gradient(circle, rgba(215,60,89,0.12), transparent 68%); }
     .checkout-right > * { position: relative; z-index: 1; }
+
+    /* ── Desktop checkout: locked to the viewport (no page scroll, no gaps) ── */
+    @media (min-width: 901px) {
+      html:has(body.in-checkout), body.in-checkout { overflow: hidden; height: 100%; overscroll-behavior: none; }
+      #screen-checkout {
+        position: fixed;
+        top: var(--nav-h);
+        left: 0; right: 0; bottom: 0;
+        margin: 0;
+        height: auto;
+        overflow: hidden;
+        background: linear-gradient(to right, var(--bg) calc(100% - var(--right-w)), var(--bg-right) calc(100% - var(--right-w)));
+      }
+      .checkout-root { display: flex; height: 100%; }
+      .checkout-left {
+        height: 100%;
+        overflow-y: auto;        /* only the form side scrolls */
+        overflow-x: hidden;
+      }
+      .checkout-right {
+        height: 100%;
+        overflow: hidden;        /* sidebar never scrolls, no scrollbars */
+        background-color: var(--bg-right);
+        background-image: radial-gradient(circle at 100% 0%, rgba(215,60,89,0.12), transparent 60%);
+      }
+      .checkout-right::after { display: none; }
+    }
     .form-card { box-shadow: 0 1px 2px rgba(20,20,24,0.04), 0 10px 30px -12px rgba(20,20,24,0.10); }
-    .signal { width: 56px; height: 56px; border-radius: 14px; border: 1px solid var(--border-dark); background: rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: center; color: var(--red); flex-shrink: 0; }
-    .signal svg { width: 30px; height: 30px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+    .signal { position: relative; width: 56px; height: 56px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.10); background: linear-gradient(160deg, rgba(255,255,255,0.09), rgba(255,255,255,0.02) 60%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.12), 0 8px 24px -10px rgba(215,60,89,0.45); display: flex; align-items: center; justify-content: center; color: var(--red); flex-shrink: 0; }
+    .signal svg { width: 34px; height: 34px; fill: none; stroke-linecap: round; stroke-linejoin: round; overflow: visible; }
+    .signal .tw-mast path { stroke: rgba(255,255,255,0.88); stroke-width: 1.4; }
+    .signal .tw-mast .tw-base { stroke: rgba(255,255,255,0.35); }
+    .signal .tw-waves path { stroke: currentColor; stroke-width: 1.5; }
+    .signal .tw-waves .tw-outer { opacity: 0.45; }
+    .signal .tw-beacon { fill: currentColor; stroke: none; }
 
     @media (max-width: 900px) {
       .nav-links { display: none; }
@@ -1744,6 +1776,11 @@
       .hero-eyebrow { margin-bottom: 14px; }
       .hero-status { margin-bottom: 18px; }
     }
+  
+    /* Progress bar: on the payment step the last segment stops short (about 90% overall),
+       since the purchase isn't complete until the card is charged. */
+    #st-3.active::after,
+    #pst-3.active::after { transform: scaleX(0.7); }
   </style>
 </head>
 <body>
@@ -1978,7 +2015,11 @@
     <div class="checkout-right">
       <div class="summary-inner summary-anim">
         <div class="summary-product">
-          <div class="signal"><svg viewBox="0 0 48 48"><path d="M10 20a20 20 0 0 1 28 0"/><path d="M15 26a13 13 0 0 1 18 0"/><path d="M20 32a6 6 0 0 1 8 0"/><circle cx="24" cy="38.5" r="1.6" fill="currentColor"/></svg></div>
+          <div class="signal"><svg viewBox="0 0 48 48" aria-hidden="true">
+            <g class="tw-mast"><path d="M24 16 16.5 41M24 16 31.5 41"/><path d="M20.6 27h6.8M18.4 35h11.2"/><path d="M20.6 27 29.6 35M27.4 27 18.4 35"/><path class="tw-base" d="M13 41h22"/></g>
+            <g class="tw-waves"><path d="M18.9 6.9A8 8 0 0 0 18.9 19.1M29.1 6.9A8 8 0 0 1 29.1 19.1"/><path class="tw-outer" d="M15.6 3A13 13 0 0 0 15.6 23M32.4 3A13 13 0 0 1 32.4 23"/></g>
+            <circle class="tw-beacon" cx="24" cy="13" r="2.1"/>
+          </svg></div>
           <div><div class="summary-product-eyebrow">Your Subscription</div><div class="summary-product-name">Unlimited Wireless Internet</div><div class="summary-product-sub">Monthly, no contract</div></div>
         </div>
 
