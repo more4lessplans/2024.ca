@@ -1503,6 +1503,17 @@
       .page-steps-bar .nav-step { flex: 1; width: auto; }
     }
 
+    /* Desktop: stop the whole page from scrolling.
+       #screen-checkout has margin-top: var(--nav-h), which collapses through
+       <body> and pushes the page down by the nav height. Combined with its
+       100vh-based height, the document ends up ~60px taller than the window,
+       so scrolling slides the dark sidebar up and exposes a white bar below it.
+       flow-root stops that margin from collapsing, so the page is exactly one
+       viewport tall. The left column still scrolls on its own. */
+    @media (min-width: 901px) {
+      body { display: flow-root; }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         animation-duration: 0.01ms !important;
